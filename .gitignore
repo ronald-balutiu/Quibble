@@ -1,0 +1,33 @@
+/plan/
+
+# Dependencies and build output
+node_modules/
+/dist/
+*.tsbuildinfo
+
+# Local tooling and test output
+.wrangler/
+.vite/
+coverage/
+playwright-report/
+test-results/
+*.log
+
+# Secrets (keep the empty examples)
+.env*
+!.env.example
+.dev.vars*
+!.dev.vars.example
+
+# OS and editor files
+.DS_Store
+.idea/
+*.local
+
+# Local Python reference environment and model downloads
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+*.onnx
+*.safetensors

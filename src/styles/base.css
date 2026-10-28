@@ -1,0 +1,85 @@
+:root {
+  color-scheme: dark;
+  font-family: var(--font-sans);
+  font-size: var(--type-body);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-body);
+  color: var(--text);
+  background: var(--ground);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 0;
+  min-height: 100svh;
+  padding: var(--frame-pad);
+}
+
+.app-frame {
+  max-width: var(--frame-max);
+  margin-inline: auto;
+  border: var(--border-width) solid var(--line);
+  padding: var(--content-pad);
+}
+
+h1 {
+  margin-block: var(--space-0) var(--space-4);
+  font-size: var(--type-panel-large);
+  font-weight: var(--weight-light);
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-panel);
+}
+
+p {
+  margin-block: var(--space-0) var(--space-4);
+  color: var(--muted);
+}
+
+strong,
+b {
+  font-weight: var(--weight-bold);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button,
+input,
+select,
+textarea,
+.control-link {
+  min-width: var(--target-min);
+  min-height: var(--target-min);
+}
+
+/* Opt in action links; ordinary links in running text retain their text size. */
+.control-link {
+  display: inline-flex;
+  align-items: center;
+}
+
+:focus-visible {
+  outline: var(--focus-width) solid var(--text);
+  outline-offset: var(--focus-offset);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

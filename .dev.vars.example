@@ -1,0 +1,3 @@
+# Future local Worker secrets. Copy to .dev.vars when session work begins.
+TURNSTILE_SECRET=
+SESSION_KEY=

@@ -1,0 +1,136 @@
+:root {
+  /* neutrals (warm) */
+  --ground: #0C0B0A;      /* page background */
+  --grid: #161412;        /* graph-paper lines; active row / tile background */
+  --surface-2: #12100E;   /* solved tile background */
+  --line: #2B2724;        /* frame, dividers */
+  --line-soft: #22201D;   /* list separators inside a panel, chart guides */
+  --line-strong: #3D3833; /* inputs, secondary button borders, axes */
+  --text: #F3EEE6;        /* main text, primary button fill */
+  --muted: #9C958C;       /* labels, secondary text (min 4.5:1) */
+  --dim: #625C55;         /* wireframes, empty strike dots, large text only */
+
+  /* game accents: lines and marks only, never fills */
+  --game-oddly:  oklch(0.85 0.11 80);   /* #F4C677 honey  */
+  --game-escape: oklch(0.84 0.10 240);  /* #8CD4FF sky    */
+  --game-agent:  oklch(0.84 0.10 340);  /* #F7B1DF orchid */
+  --fail:        oklch(0.80 0.08 30);   /* #EDAB9F soft coral: fail and strikes only */
+  --accent: var(--text);                /* neutral outside games */
+
+  /* type */
+  --font-sans: "Geist", system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, monospace;
+
+  --weight-light: 300;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-bold: 700;
+
+  /* §5.2 type roles; desktop overrides are below. */
+  --type-home: 56px;
+  --type-score: 88px;
+  --type-score-suffix: 32px;
+  --type-answer: 56px;
+  --type-condition: 28px;
+  --type-category: 28px;
+  --type-panel: 22px;
+  --type-panel-large: 32px;
+  --type-verdict: 20px;
+  --type-input: 18px;
+  --type-body: 13px;
+  --type-body-large: 15px;
+  --type-button: 15px;
+  --type-home-cta: 15px;
+  --type-label: 9px;
+  --type-label-large: 11px;
+
+  --leading-home: 0.92;
+  --leading-score: 0.9;
+  --leading-heading: 1.1;
+  --leading-condition: 1.1;
+  --leading-body: 1.6;
+  --tracking-home: -0.05em;
+  --tracking-score: -0.07em;
+  --tracking-answer: -0.055em;
+  --tracking-condition: -0.03em;
+  --tracking-panel: -0.03em;
+  --tracking-label: 0.08em;
+  --tracking-label-tight: 0.06em;
+  --tracking-label-wide: 0.12em;
+
+  /* Shared spacing scale. Add approved values here, never in components. */
+  --space-0: 0px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 28px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-14: 56px;
+
+  /* layout */
+  --frame-pad: 14px;  --grid-size: 26px;  --content-pad: 18px;
+  --frame-max: 1240px;
+  --header-height: 44px;
+  --main-pad-top: var(--space-12);
+  --main-pad-top-roomy: var(--space-14);
+  --panel-pad: var(--space-7);
+  --panel-min: 380px;
+  --panel-max: 460px;
+  --drawer-width: 520px;
+  --sheet-width: 560px;
+  --target-min: 44px;
+  --button-height: 48px;
+  --home-button-height: 52px;
+  --strike-size: 7px;
+  --judge-marker-size: 10px;
+
+  /* Lines, focus, and shape. */
+  --border-width: 1px;
+  --accent-line-width: 2px;
+  --focus-width: 2px;
+  --focus-offset: 2px;
+  --radius-square: 0px;
+  --radius-pill: 999px;
+  --radius-circle: 50%;
+  --t-scene: 250ms; --t-state: 150ms; --t-sheet: 200ms;
+}
+@media (min-width: 1024px) {
+  :root {
+    --frame-pad: 20px;
+    --grid-size: 40px;
+    --content-pad: 48px;
+    --header-height: 48px;
+    --strike-size: 8px;
+    --judge-marker-size: 12px;
+    --type-home: clamp(56px, 8vw, 112px);
+    --type-score: 168px;
+    --type-score-suffix: 56px;
+    --type-answer: 96px;
+    --type-condition: 48px;
+    --type-category: 56px;
+    --type-panel: 36px;
+    --type-panel-large: 48px;
+    --type-verdict: 26px;
+    --type-input: 22px;
+    --type-body: 15px;
+    --type-body-large: 17px;
+    --type-home-cta: 16px;
+    --type-label: 10px;
+    --type-label-large: 12px;
+    --leading-score: 0.85;
+    --leading-condition: 1.05;
+    --leading-body: 1.5;
+    --tracking-condition: -0.045em;
+  }
+}
+[data-game="oddly-specific"]   { --accent: var(--game-oddly); }
+[data-game="category-escape"]  { --accent: var(--game-escape); }
+[data-game="double-agent"]     { --accent: var(--game-agent); }
+@supports not (color: oklch(0 0 0)) {
+  :root { --game-oddly: #F4C677; --game-escape: #8CD4FF; --game-agent: #F7B1DF; --fail: #EDAB9F; }
+}

@@ -1,0 +1,19 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
+    "lib": ["ES2023"],
+    "types": ["node"]
+  },
+  "include": [
+    "*.config.ts",
+    "scripts/**/*.ts",
+    "factory/**/*.ts",
+    "eval/**/*.ts",
+    "tests/e2e/**/*.ts",
+    "tests/fixtures/node/**/*.ts",
+    "tests/unit/shared/**/*.ts",
+    "tests/unit/tooling/**/*.ts",
+    "shared"
+  ]
+}

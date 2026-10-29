@@ -3,7 +3,8 @@
 import { readFileSync } from 'node:fs'
 import { clueClaim, clueQuestion } from '@shared/clues'
 import type { AnswerKeyCase } from '@shared/schemas/answer-key'
-import { judgeWithClef } from '../worker/judge'
+import { gemmaRequest, judgeWithClef } from '../worker/judge'
+import { readGemma } from '../worker/read-answers'
 import { AllowanceExhausted, freeModels, restRunner } from '../factory/workers-ai'
 import { deviceModel } from '@/judges/device/verdict'
 import { loadDeviceJudge, nodeRuntime } from './verdict/node-runtime'
@@ -49,22 +50,6 @@ function clefJudge(name: 'clef-flash' | 'clef'): Judge {
   }
 }
 
-const yesTokens = new Set(['yes', 'YES', 'Yes'])
-const noTokens = new Set(['no', 'NO', 'No'])
-
-// P(yes) from the first token's top logprobs; both Gemma backends seen in Phase 0
-// return choices[0].logprobs.content[0].top_logprobs.
-export function gemmaPYes(result: unknown): number {
-  const top = (result as { choices?: { logprobs?: { content?: { top_logprobs?: { token: string, logprob: number }[] }[] } }[] })
-    .choices?.[0]?.logprobs?.content?.[0]?.top_logprobs
-  if (!Array.isArray(top)) throw new Error('Gemma returned no logprobs.')
-  const mass = (tokens: Set<string>) => top.filter(({ token }) => tokens.has(token.trim())).reduce((sum, { logprob }) => sum + Math.exp(logprob), 0)
-  const yes = mass(yesTokens)
-  const no = mass(noTokens)
-  if (yes + no === 0) throw new Error('Gemma answered neither yes nor no.')
-  return yes / (yes + no)
-}
-
 function gemmaJudge(): Judge {
   let neurons = 0
   const ai = restRunner((spent) => { neurons += spent })
@@ -76,15 +61,9 @@ function gemmaJudge(): Judge {
       const scores: Record<string, number> = {}
       for (const condition of c.conditions) {
         try {
-          const result = await ai.run(models['gemma-4'], {
-            messages: [{ role: 'user', content: `The player answered: "${c.answer}".\n\n${wording(condition).question}\n\nAnswer with only YES or NO.` }],
-            chat_template_kwargs: { enable_thinking: false },
-            temperature: 0,
-            max_completion_tokens: 1,
-            logprobs: true,
-            top_logprobs: 5,
-          })
-          scores[condition.id] = gemmaPYes(result)
+          const p = readGemma(await ai.run(models['gemma-4'], gemmaRequest(c.answer, wording(condition).question)))
+          if (p === undefined) throw new Error(`Gemma gave no readable answer for ${c.id}.`)
+          scores[condition.id] = p
         } catch (error) {
           if (error instanceof Error && error.message.startsWith('3036:')) throw new AllowanceExhausted(error.message)
           throw error

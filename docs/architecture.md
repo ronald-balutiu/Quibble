@@ -40,7 +40,9 @@ shared/
   games/<game>.ts      Each game's rules and input limits
   schemas/             Zod schemas, types, and normalization
 worker/
-  index.ts             Worker entry and API routes
+  index.ts             Worker entry and route table
+  session.ts, judge-route.ts, reveal.ts   API routes
+  judge.ts             Cloud model calls; read-answers.ts reads their replies
   library/             Server-only source data, bundled into the Worker
 public/
   puzzles/             Generated, player-facing puzzle files
@@ -106,7 +108,18 @@ domain; `workers.dev` and preview URLs are turned off so the app has a single
 public origin. The `JUDGE_LIMIT` rate-limiting binding is declared there for the
 judge route.
 
-`/api/health` returns `{"status":"ok"}` and is used by the browser tests.
+The Worker's routes, with request and reply schemas in `shared/schemas/judge.ts`:
+
+| Route | File | Purpose |
+| --- | --- | --- |
+| `GET /api/health` | `worker/index.ts` | Returns `{"status":"ok"}`; used by the browser tests. |
+| `POST /api/session` | `worker/session.ts` | Verifies a Turnstile token and sets an HMAC-signed, HttpOnly session cookie. |
+| `POST /api/judge` | `worker/judge-route.ts` | Checks the session, input and known answers, applies the per-session rate limit, then asks the player's cloud model (Clef-flash or Gemma 4, via `worker/judge.ts`). |
+| `GET /api/reveal/:game/:n/:roundId` | `worker/reveal.ts` | The round's example and up to two more known answers. |
+
+Model replies are read by `worker/read-answers.ts`, which rejects anything that
+isn't the exact recorded shape. The bundled library, `worker/library/library.json`,
+is validated by `worker/library.ts` on first use.
 
 ## Styling
 

@@ -1,4 +1,4 @@
-import { readAnswers, type ClefModel } from './read-answers'
+import { readAnswers, readGemma, type ClefModel } from './read-answers'
 
 // Asks Clef or Clef-flash one yes/no question per condition (plan 3.5). The answer
 // is only ever data inside state, never part of a question.
@@ -61,6 +61,45 @@ export async function judgeWithClef(
       if (code === DAILY_ALLOWANCE) return { ok: false, error: 'resting' }
       // Retry once on a timeout or an uncoded (upstream) failure only; usage, auth
       // and validation errors carry a code and are not retried.
+      if (!isTimeout(error) && code !== undefined) return { ok: false, error: 'unavailable' }
+    }
+  }
+  return { ok: false, error: 'unavailable' }
+}
+
+// Gemma 4 (D-62): one chat request per condition, sent in parallel, reading P(yes)
+// from the first token's logprobs. The prompt matches the answer-key eval exactly.
+export const GEMMA_MODEL = '@cf/google/gemma-4-26b-a4b-it'
+
+export function gemmaRequest(answer: string, question: string) {
+  return {
+    messages: [{ role: 'user', content: `The player answered: "${answer}".\n\n${question}\n\nAnswer with only YES or NO.` }],
+    chat_template_kwargs: { enable_thinking: false },
+    temperature: 0,
+    max_completion_tokens: 1,
+    logprobs: true,
+    top_logprobs: 5,
+  }
+}
+
+export async function judgeWithGemma(
+  ai: AiRunner,
+  answer: string,
+  questions: readonly JudgeQuestion[],
+  { timeoutMs = 4000, retryDelayMs = 300, sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms)) }: Omit<JudgeOptions, 'model'> = {},
+): Promise<CloudVerdict> {
+  for (let attempt = 0; attempt < 2; attempt++) {
+    if (attempt > 0) await sleep(retryDelayMs)
+    const started = Date.now()
+    try {
+      const signal = AbortSignal.timeout(timeoutMs)
+      const replies = await Promise.all(questions.map(({ question }) => ai.run(GEMMA_MODEL, gemmaRequest(answer, question), { signal })))
+      const scores = replies.map(readGemma)
+      if (!scores.every((p): p is number => p !== undefined)) return { ok: false, error: 'unavailable' }
+      return { ok: true, scores: Object.fromEntries(questions.map(({ id }, i) => [id, scores[i] ?? 0])), modelMs: Date.now() - started }
+    } catch (error) {
+      const code = errorCode(error)
+      if (code === DAILY_ALLOWANCE) return { ok: false, error: 'resting' }
       if (!isTimeout(error) && code !== undefined) return { ok: false, error: 'unavailable' }
     }
   }

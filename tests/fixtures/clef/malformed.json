@@ -1,0 +1,409 @@
+{
+  "note": "Hand-made invalid variants of clef-flash-success.json; readAnswers() must reject every one.",
+  "cases": [
+    {
+      "name": "missing question id",
+      "model": "clef-flash",
+      "questionIds": [
+        "pocket",
+        "secure",
+        "nonelec"
+      ],
+      "response": {
+        "model": "clef-flash",
+        "answers": {
+          "pocket": {
+            "type": "noul",
+            "noul": 0.8376
+          },
+          "nonelec": {
+            "type": "noul",
+            "noul": 0.9738
+          }
+        },
+        "usage": {
+          "input_tokens": 342,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "name": "extra question id",
+      "model": "clef-flash",
+      "questionIds": [
+        "pocket",
+        "secure",
+        "nonelec"
+      ],
+      "response": {
+        "model": "clef-flash",
+        "answers": {
+          "pocket": {
+            "type": "noul",
+            "noul": 0.8376
+          },
+          "secure": {
+            "type": "noul",
+            "noul": 0.0676
+          },
+          "nonelec": {
+            "type": "noul",
+            "noul": 0.9738
+          },
+          "extra": {
+            "type": "noul",
+            "noul": 0.5
+          }
+        },
+        "usage": {
+          "input_tokens": 342,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "name": "score above 1",
+      "model": "clef-flash",
+      "questionIds": [
+        "pocket",
+        "secure",
+        "nonelec"
+      ],
+      "response": {
+        "model": "clef-flash",
+        "answers": {
+          "pocket": {
+            "type": "noul",
+            "noul": 1.2
+          },
+          "secure": {
+            "type": "noul",
+            "noul": 0.0676
+          },
+          "nonelec": {
+            "type": "noul",
+            "noul": 0.9738
+          }
+        },
+        "usage": {
+          "input_tokens": 342,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "name": "negative score",
+      "model": "clef-flash",
+      "questionIds": [
+        "pocket",
+        "secure",
+        "nonelec"
+      ],
+      "response": {
+        "model": "clef-flash",
+        "answers": {
+          "pocket": {
+            "type": "noul",
+            "noul": -0.1
+          },
+          "secure": {
+            "type": "noul",
+            "noul": 0.0676
+          },
+          "nonelec": {
+            "type": "noul",
+            "noul": 0.9738
+          }
+        },
+        "usage": {
+          "input_tokens": 342,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "name": "score as string",
+      "model": "clef-flash",
+      "questionIds": [
+        "pocket",
+        "secure",
+        "nonelec"
+      ],
+      "response": {
+        "model": "clef-flash",
+        "answers": {
+          "pocket": {
+            "type": "noul",
+            "noul": "0.84"
+          },
+          "secure": {
+            "type": "noul",
+            "noul": 0.0676
+          },
+          "nonelec": {
+            "type": "noul",
+            "noul": 0.9738
+          }
+        },
+        "usage": {
+          "input_tokens": 342,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "name": "score missing",
+      "model": "clef-flash",
+      "questionIds": [
+        "pocket",
+        "secure",
+        "nonelec"
+      ],
+      "response": {
+        "model": "clef-flash",
+        "answers": {
+          "pocket": {
+            "type": "noul"
+          },
+          "secure": {
+            "type": "noul",
+            "noul": 0.0676
+          },
+          "nonelec": {
+            "type": "noul",
+            "noul": 0.9738
+          }
+        },
+        "usage": {
+          "input_tokens": 342,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "name": "choice answer instead of noul",
+      "model": "clef-flash",
+      "questionIds": [
+        "pocket",
+        "secure",
+        "nonelec"
+      ],
+      "response": {
+        "model": "clef-flash",
+        "answers": {
+          "pocket": {
+            "type": "choice",
+            "choice": "yes",
+            "probabilities": {
+              "yes": 0.8,
+              "no": 0.2
+            },
+            "confidence": 0.6
+          },
+          "secure": {
+            "type": "noul",
+            "noul": 0.0676
+          },
+          "nonelec": {
+            "type": "noul",
+            "noul": 0.9738
+          }
+        },
+        "usage": {
+          "input_tokens": 342,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "name": "extra field in answer",
+      "model": "clef-flash",
+      "questionIds": [
+        "pocket",
+        "secure",
+        "nonelec"
+      ],
+      "response": {
+        "model": "clef-flash",
+        "answers": {
+          "pocket": {
+            "type": "noul",
+            "noul": 0.8376,
+            "confidence": 0.9
+          },
+          "secure": {
+            "type": "noul",
+            "noul": 0.0676
+          },
+          "nonelec": {
+            "type": "noul",
+            "noul": 0.9738
+          }
+        },
+        "usage": {
+          "input_tokens": 342,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "name": "answers missing",
+      "model": "clef-flash",
+      "questionIds": [
+        "pocket",
+        "secure",
+        "nonelec"
+      ],
+      "response": {
+        "model": "clef-flash",
+        "usage": {
+          "input_tokens": 342,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "name": "answers is an array",
+      "model": "clef-flash",
+      "questionIds": [
+        "pocket",
+        "secure",
+        "nonelec"
+      ],
+      "response": {
+        "model": "clef-flash",
+        "answers": [
+          0.84,
+          0.07,
+          0.97
+        ],
+        "usage": {
+          "input_tokens": 342,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "name": "different model",
+      "model": "clef",
+      "questionIds": [
+        "pocket",
+        "secure",
+        "nonelec"
+      ],
+      "response": {
+        "model": "clef-flash",
+        "answers": {
+          "pocket": {
+            "type": "noul",
+            "noul": 0.8376
+          },
+          "secure": {
+            "type": "noul",
+            "noul": 0.0676
+          },
+          "nonelec": {
+            "type": "noul",
+            "noul": 0.9738
+          }
+        },
+        "usage": {
+          "input_tokens": 342,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "name": "unknown model name",
+      "model": "clef-flash",
+      "questionIds": [
+        "pocket",
+        "secure",
+        "nonelec"
+      ],
+      "response": {
+        "model": "gpt",
+        "answers": {
+          "pocket": {
+            "type": "noul",
+            "noul": 0.8376
+          },
+          "secure": {
+            "type": "noul",
+            "noul": 0.0676
+          },
+          "nonelec": {
+            "type": "noul",
+            "noul": 0.9738
+          }
+        },
+        "usage": {
+          "input_tokens": 342,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "name": "null response",
+      "model": "clef-flash",
+      "questionIds": [
+        "pocket",
+        "secure",
+        "nonelec"
+      ],
+      "response": null
+    },
+    {
+      "name": "REST envelope instead of result",
+      "model": "clef-flash",
+      "questionIds": [
+        "pocket",
+        "secure",
+        "nonelec"
+      ],
+      "response": {
+        "result": {
+          "model": "clef-flash",
+          "answers": {
+            "pocket": {
+              "type": "noul",
+              "noul": 0.8376
+            },
+            "secure": {
+              "type": "noul",
+              "noul": 0.0676
+            },
+            "nonelec": {
+              "type": "noul",
+              "noul": 0.9738
+            }
+          },
+          "usage": {
+            "input_tokens": 342,
+            "output_tokens": 0
+          }
+        },
+        "success": true,
+        "errors": [],
+        "messages": []
+      }
+    },
+    {
+      "name": "error body",
+      "model": "clef-flash",
+      "questionIds": [
+        "pocket",
+        "secure",
+        "nonelec"
+      ],
+      "response": {
+        "errors": [
+          {
+            "code": 5000,
+            "message": "Internal error"
+          }
+        ]
+      }
+    }
+  ]
+}

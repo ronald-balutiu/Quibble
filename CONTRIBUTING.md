@@ -156,6 +156,12 @@ Never commit secrets.
 Both local files are ignored by Git. Never put secrets in `VITE_*` variables:
 Vite exposes them to the browser.
 
+Wrangler also reads `.env`, both for its own `CLOUDFLARE_*` settings and as Worker
+secrets during `npm run dev`. The template therefore uses `WORKERS_AI_*` names, so
+the scripts' token never replaces your Wrangler login, and sets
+`CLOUDFLARE_LOAD_DEV_VARS_FROM_DOT_ENV=false`, so the dev server never loads the
+file. Keep both when editing `.env`.
+
 `npm run deploy` builds, checks assets, and publishes through Wrangler with your
 authenticated Cloudflare account. Coding agents must get confirmation before
 deploying; see [agent safety](AGENTS.md#safety).

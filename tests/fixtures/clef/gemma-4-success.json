@@ -1,0 +1,384 @@
+{
+  "recordedAt": "2026-10-29T05:42:35.960Z",
+  "model": "@cf/google/gemma-4-26b-a4b-it",
+  "calls": [
+    {
+      "id": "pocket",
+      "request": {
+        "messages": [
+          {
+            "role": "user",
+            "content": "The player answered: \"pocket knife\".\n\nDoes the thing ordinarily fit inside a clothing pocket? Judge its everyday meaning; do not imagine unusual situations.\n\nAnswer with only YES or NO."
+          }
+        ],
+        "chat_template_kwargs": {
+          "enable_thinking": false
+        },
+        "temperature": 0,
+        "max_completion_tokens": 1,
+        "logprobs": true,
+        "top_logprobs": 5
+      },
+      "response": {
+        "status": 200,
+        "latencyMs": 271,
+        "headers": {
+          "cf-ai-neurons": "0.49",
+          "cf-ai-req-id": "39f07980-9e28-41ac-9912-79f222c8b68c",
+          "content-type": "application/json"
+        },
+        "body": {
+          "result": {
+            "id": "chatcmpl-39f07980-9e28-41ac-9912-79f222c8b68c",
+            "object": "chat.completion",
+            "created": 1793252555,
+            "model": "@cf/google/gemma-4-26b-a4b-it",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "YES",
+                  "refusal": null,
+                  "annotations": null,
+                  "audio": null,
+                  "function_call": null,
+                  "reasoning": null
+                },
+                "logprobs": {
+                  "content": [
+                    {
+                      "token": "YES",
+                      "logprob": -1.1920928244535389e-7,
+                      "bytes": [
+                        89,
+                        69,
+                        83
+                      ],
+                      "top_logprobs": [
+                        {
+                          "token": "YES",
+                          "logprob": -1.1920928244535389e-7,
+                          "bytes": [
+                            89,
+                            69,
+                            83
+                          ]
+                        },
+                        {
+                          "token": "NO",
+                          "logprob": -19,
+                          "bytes": [
+                            78,
+                            79
+                          ]
+                        },
+                        {
+                          "token": "_",
+                          "logprob": -19.25,
+                          "bytes": [
+                            95
+                          ]
+                        },
+                        {
+                          "token": " YES",
+                          "logprob": -19.375,
+                          "bytes": [
+                            32,
+                            89,
+                            69,
+                            83
+                          ]
+                        },
+                        {
+                          "token": "<channel|>",
+                          "logprob": -20.125,
+                          "bytes": [
+                            60,
+                            99,
+                            104,
+                            97,
+                            110,
+                            110,
+                            101,
+                            108,
+                            124,
+                            62
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "finish_reason": "length",
+                "stop_reason": null,
+                "token_ids": null,
+                "routed_experts": null
+              }
+            ],
+            "service_tier": null,
+            "usage": {
+              "prompt_tokens": 51,
+              "completion_tokens": 1,
+              "total_tokens": 52,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "neurons": 0.49090906977653503
+            },
+            "prompt_logprobs": null,
+            "prompt_token_ids": null,
+            "prompt_text": null,
+            "kv_transfer_params": null,
+            "ec_transfer_params": null,
+            "metrics": null
+          },
+          "success": true,
+          "errors": [],
+          "messages": []
+        }
+      }
+    },
+    {
+      "id": "secure",
+      "request": {
+        "messages": [
+          {
+            "role": "user",
+            "content": "The player answered: \"pocket knife\".\n\nDoes the thing's ordinary use include fastening or securing something?\n\nAnswer with only YES or NO."
+          }
+        ],
+        "chat_template_kwargs": {
+          "enable_thinking": false
+        },
+        "temperature": 0,
+        "max_completion_tokens": 1,
+        "logprobs": true,
+        "top_logprobs": 5
+      },
+      "response": {
+        "status": 200,
+        "latencyMs": 125,
+        "headers": {
+          "cf-ai-neurons": "0.42",
+          "cf-ai-req-id": "a52db60e-9709-4e72-bafe-0b1b9660990c",
+          "content-type": "application/json"
+        },
+        "body": {
+          "result": {
+            "id": "chatcmpl-a52db60e-9709-4e72-bafe-0b1b9660990c",
+            "object": "chat.completion",
+            "created": 1793252555,
+            "model": "@cf/google/gemma-4-26b-a4b-it",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "NO",
+                  "refusal": null,
+                  "annotations": null,
+                  "audio": null,
+                  "function_call": null,
+                  "reasoning": null
+                },
+                "logprobs": {
+                  "content": [
+                    {
+                      "token": "NO",
+                      "logprob": -0.0001102625101339072,
+                      "bytes": [
+                        78,
+                        79
+                      ],
+                      "top_logprobs": [
+                        {
+                          "token": "NO",
+                          "logprob": -0.0001102625101339072,
+                          "bytes": [
+                            78,
+                            79
+                          ]
+                        },
+                        {
+                          "token": "YES",
+                          "logprob": -9.125110626220703,
+                          "bytes": [
+                            89,
+                            69,
+                            83
+                          ]
+                        },
+                        {
+                          "token": "No",
+                          "logprob": -14.062610626220703,
+                          "bytes": [
+                            78,
+                            111
+                          ]
+                        },
+                        {
+                          "token": " NO",
+                          "logprob": -16.046985626220703,
+                          "bytes": [
+                            32,
+                            78,
+                            79
+                          ]
+                        },
+                        {
+                          "token": "no",
+                          "logprob": -16.109485626220703,
+                          "bytes": [
+                            110,
+                            111
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "finish_reason": "length",
+                "stop_reason": null,
+                "token_ids": null,
+                "routed_experts": null
+              }
+            ],
+            "service_tier": null,
+            "usage": {
+              "prompt_tokens": 43,
+              "completion_tokens": 1,
+              "total_tokens": 44,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "neurons": 0.41818180680274963
+            },
+            "prompt_logprobs": null,
+            "prompt_token_ids": null,
+            "prompt_text": null,
+            "kv_transfer_params": null,
+            "ec_transfer_params": null,
+            "metrics": null
+          },
+          "success": true,
+          "errors": [],
+          "messages": []
+        }
+      }
+    },
+    {
+      "id": "nonelec",
+      "request": {
+        "messages": [
+          {
+            "role": "user",
+            "content": "The player answered: \"pocket knife\".\n\nIs the thing free of electronic components?\n\nAnswer with only YES or NO."
+          }
+        ],
+        "chat_template_kwargs": {
+          "enable_thinking": false
+        },
+        "temperature": 0,
+        "max_completion_tokens": 1,
+        "logprobs": true,
+        "top_logprobs": 5
+      },
+      "response": {
+        "status": 200,
+        "latencyMs": 317,
+        "headers": {
+          "cf-ai-neurons": "0.37",
+          "cf-ai-req-id": "5a3e1531-7b6e-4ea0-b41a-83a8b1e5968b",
+          "content-type": "application/json"
+        },
+        "body": {
+          "result": {
+            "id": "bd641c2305e24d9c91ff8ef967820c4b",
+            "object": "chat.completion",
+            "created": 1793252555,
+            "model": "@cf/google/gemma-4-26b-a4b-it-external",
+            "choices": [
+              {
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "YES"
+                },
+                "finish_reason": "length",
+                "logprobs": {
+                  "content": [
+                    {
+                      "token": "YES",
+                      "bytes": [
+                        89,
+                        69,
+                        83
+                      ],
+                      "logprob": 0,
+                      "top_logprobs": [
+                        {
+                          "token": "YES",
+                          "bytes": [
+                            89,
+                            69,
+                            83
+                          ],
+                          "logprob": 0
+                        },
+                        {
+                          "token": "NO",
+                          "bytes": [
+                            78,
+                            79
+                          ],
+                          "logprob": -17.53450584411621
+                        },
+                        {
+                          "token": " YES",
+                          "bytes": [
+                            32,
+                            89,
+                            69,
+                            83
+                          ],
+                          "logprob": -19.50371742248535
+                        },
+                        {
+                          "token": "_",
+                          "bytes": [
+                            95
+                          ],
+                          "logprob": -19.73023223876953
+                        },
+                        {
+                          "token": "#",
+                          "bytes": [
+                            35
+                          ],
+                          "logprob": -20.734779357910156
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ],
+            "usage": {
+              "prompt_tokens": 38,
+              "completion_tokens": 1,
+              "total_tokens": 39,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              },
+              "neurons": 0.37272727489471436
+            }
+          },
+          "success": true,
+          "errors": [],
+          "messages": []
+        }
+      }
+    }
+  ]
+}

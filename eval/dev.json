@@ -1825,7 +1825,7 @@
     "game": "category-escape",
     "group": "ce-05",
     "answer": "gold necklace",
-    "kind": "one-fail",
+    "kind": "multi-fail",
     "level": 4,
     "conditions": [
       {
@@ -1842,7 +1842,7 @@
       },
       {
         "id": "nonmetal",
-        "expected": "yes"
+        "expected": "no"
       }
     ],
     "reviewed": false

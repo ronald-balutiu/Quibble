@@ -1,11 +1,16 @@
-// Judge decision settings. Phase 1 tunes these on the answer-key development set.
+// Judge decision settings. Phase 1 tunes each judge's pass threshold on the
+// answer-key development set: the judges' raw scores are not on the same scale,
+// so the on-device judge gets its own (D-59).
 export const judgeConfig = {
-  passThreshold: 0.5,
+  cloud: { passThreshold: 0.5 },
+  device: { passThreshold: 0.5 },
   closeCall: { min: 0.35, max: 0.65 },
 } as const
 
-export function passes(p: number): boolean {
-  return p >= judgeConfig.passThreshold
+export type JudgeKind = 'cloud' | 'device'
+
+export function passes(p: number, threshold: number = judgeConfig.cloud.passThreshold): boolean {
+  return p >= threshold
 }
 
 export function isCloseCall(p: number): boolean {

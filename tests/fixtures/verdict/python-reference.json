@@ -1,0 +1,110 @@
+{
+  "model": {
+    "repo": "onnx-community/Qwen3.5-0.8B-Text-ONNX",
+    "revision": "25cdf33f386b487a25f3d743e86442517bdb77ff",
+    "file": "onnx/model_q4.onnx"
+  },
+  "runtime": "onnxruntime 1.31.1 (CPU)",
+  "results": [
+    {
+      "id": "pocket-knife",
+      "tokens": 39,
+      "p": 0.886527
+    },
+    {
+      "id": "pocket-refrigerator",
+      "tokens": 39,
+      "p": 0.760531
+    },
+    {
+      "id": "pocket-umbrella",
+      "tokens": 38,
+      "p": 0.877426
+    },
+    {
+      "id": "pocket-coin",
+      "tokens": 37,
+      "p": 0.68477
+    },
+    {
+      "id": "metal-spoon",
+      "tokens": 37,
+      "p": 0.78612
+    },
+    {
+      "id": "metal-pillow",
+      "tokens": 37,
+      "p": 0.503192
+    },
+    {
+      "id": "metal-bicycle",
+      "tokens": 37,
+      "p": 0.859658
+    },
+    {
+      "id": "kitchen-whisk",
+      "tokens": 38,
+      "p": 0.943057
+    },
+    {
+      "id": "kitchen-lawnmower",
+      "tokens": 40,
+      "p": 0.624069
+    },
+    {
+      "id": "electricity-toaster",
+      "tokens": 36,
+      "p": 0.779838
+    },
+    {
+      "id": "electricity-broom",
+      "tokens": 36,
+      "p": 0.602011
+    },
+    {
+      "id": "electricity-clock",
+      "tokens": 35,
+      "p": 0.684541
+    },
+    {
+      "id": "edible-banana",
+      "tokens": 35,
+      "p": 0.972087
+    },
+    {
+      "id": "edible-stapler",
+      "tokens": 37,
+      "p": 0.366825
+    },
+    {
+      "id": "clue-charge-court",
+      "tokens": 40,
+      "p": 0.771096
+    },
+    {
+      "id": "clue-charge-battery",
+      "tokens": 41,
+      "p": 0.593195
+    },
+    {
+      "id": "clue-bank-river",
+      "tokens": 44,
+      "p": 0.789715
+    },
+    {
+      "id": "clue-bank-fruit",
+      "tokens": 40,
+      "p": 0.172311
+    },
+    {
+      "id": "clue-bat-animal",
+      "tokens": 45,
+      "p": 0.712955
+    },
+    {
+      "id": "clue-pitch-tar",
+      "tokens": 43,
+      "p": 0.831713
+    }
+  ]
+}

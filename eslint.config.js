@@ -30,6 +30,7 @@ export default defineConfig(
     'coverage/**',
     'playwright-report/**',
     'test-results/**',
+    '**/.venv/**',
   ]),
   {
     files: ['**/*.{js,mjs,cjs}'],

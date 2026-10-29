@@ -98,8 +98,8 @@
   --radius-pill: 999px;
   --radius-circle: 50%;
   --t-scene: 250ms; --t-state: 150ms; --t-sheet: 200ms;
-  /* Ring mark motion (5.3): the orbiting arcs and the centre pulse. */
-  --t-orbit: 8s; --t-orbit-slow: 10s; --t-pulse: 2.4s;
+  /* Ring mark motion (5.3): three orbit speeds, shuffled across the arcs, and the centre pulse. */
+  --t-orbit-a: 7s; --t-orbit-b: 10s; --t-orbit-c: 13s; --t-pulse: 2.4s;
   --mark-max: 300px;
   --tile-open-inset: -6px; /* the open puzzle's dashed outline sits inside its tile */
 }

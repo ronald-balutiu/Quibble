@@ -25,12 +25,10 @@ const probability = z.number().min(0).max(1)
 
 export const judgeSuccessSchema = z.strictObject({
   attempt: z.int().min(0),
-  source: z.enum(['known', 'model']),
-  // p is absent for known answers.
-  conditions: z.record(id, z.strictObject({ pass: z.boolean(), p: probability.optional() })),
-  // The model that judged; absent for known answers.
-  model: z.enum(cloudModels).optional(),
-  modelMs: z.number().min(0).optional(),
+  conditions: z.record(id, z.strictObject({ pass: z.boolean(), p: probability })),
+  // The model that judged (D-66): every guess goes to the model (D-72).
+  model: z.enum(cloudModels),
+  modelMs: z.number().min(0),
 })
 export type JudgeSuccess = z.infer<typeof judgeSuccessSchema>
 

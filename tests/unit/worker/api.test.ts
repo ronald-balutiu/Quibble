@@ -96,7 +96,7 @@ describe('POST /api/judge', () => {
     const { status, body } = await judge(guess, e)
 
     expect(status).toBe(200)
-    expect(body).toMatchObject({ attempt: 3, source: 'model', model: 'clef-flash', conditions: { pocket: { pass: true }, secure: { pass: false }, nonelec: { pass: true } } })
+    expect(body).toMatchObject({ attempt: 3, model: 'clef-flash', conditions: { pocket: { pass: true }, secure: { pass: false }, nonelec: { pass: true } } })
     const [model, inputs] = e.run.mock.calls[0] ?? []
     expect(model).toBe('@cf/cloudflare/clef-flash')
     expect(inputs).toMatchObject({ state: { playerAnswer: 'pocket knife' } })
@@ -109,18 +109,18 @@ describe('POST /api/judge', () => {
     const { status, body } = await judge({ ...guess, model: 'gemma-4' }, e)
 
     expect(status).toBe(200)
-    expect(body).toMatchObject({ source: 'model', model: 'gemma-4', conditions: { pocket: { pass: true }, secure: { pass: false }, nonelec: { pass: true } } })
+    expect(body).toMatchObject({ model: 'gemma-4', conditions: { pocket: { pass: true }, secure: { pass: false }, nonelec: { pass: true } } })
     expect(e.run).toHaveBeenCalledTimes(3)
   })
 
-  test('passes a known answer without a model call or the usage limit', async () => {
-    const e = env(undefined, true)
+  test('judges every answer with the model, even one in the reveal list (D-72)', async () => {
+    const e = env()
     const { status, body } = await judge({ ...guess, answer: 'The Paper Clip' }, e)
 
     expect(status).toBe(200)
-    expect(body).toEqual({ attempt: 3, source: 'known', conditions: { pocket: { pass: true }, secure: { pass: true }, nonelec: { pass: true } } })
-    expect(e.run).not.toHaveBeenCalled()
-    expect(e.limit).not.toHaveBeenCalled()
+    expect(body).toMatchObject({ attempt: 3, model: 'clef-flash' })
+    expect(e.run).toHaveBeenCalledTimes(1)
+    expect(e.limit).toHaveBeenCalledTimes(1)
   })
 
   test('applies the alias map before judging', async () => {

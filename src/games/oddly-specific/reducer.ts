@@ -12,7 +12,6 @@ export interface Guess {
   pass: boolean
   failed: string[] // condition IDs that failed
   closeCall: boolean
-  known?: boolean // passed as a known answer, with no model call
 }
 
 export type RoundStatus = 'playing' | 'solved' | 'lost' | 'skipped'

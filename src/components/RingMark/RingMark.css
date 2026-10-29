@@ -31,15 +31,13 @@
   stroke-dasharray: 48 643;
   transform-box: fill-box;
   transform-origin: center;
-  animation: ring-mark-orbit var(--t-orbit) linear infinite;
+  /* Both set inline per arc: a random start angle and one of the shuffled speeds. */
+  rotate: calc(var(--orbit-start) * 1turn);
+  animation: ring-mark-orbit var(--orbit-duration) linear infinite;
 }
 
 .ring-mark__orbit--reverse {
   animation-direction: reverse;
-}
-
-.ring-mark__orbit--slow {
-  animation-duration: var(--t-orbit-slow);
 }
 
 .ring-mark__point {

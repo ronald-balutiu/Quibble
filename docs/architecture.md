@@ -114,7 +114,7 @@ The Worker's routes, with request and reply schemas in `shared/schemas/judge.ts`
 | --- | --- | --- |
 | `GET /api/health` | `worker/index.ts` | Returns `{"status":"ok"}`; used by the browser tests. |
 | `POST /api/session` | `worker/session.ts` | Verifies a Turnstile token and sets an HMAC-signed, HttpOnly session cookie. |
-| `POST /api/judge` | `worker/judge-route.ts` | Checks the session, input and known answers, applies the per-session rate limit, then asks the player's cloud model (Clef-flash or Gemma 4, via `worker/judge.ts`). |
+| `POST /api/judge` | `worker/judge-route.ts` | Checks the session and input, applies the per-session rate limit, then asks the player's cloud model (Clef-flash or Gemma 4, via `worker/judge.ts`). |
 | `GET /api/reveal/:game/:n/:roundId` | `worker/reveal.ts` | The round's example and up to two more known answers. |
 
 Model replies are read by `worker/read-answers.ts`, which rejects anything that

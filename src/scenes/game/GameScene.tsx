@@ -75,7 +75,13 @@ function Game({ puzzle }: { puzzle: Puzzle }) {
 
   const roundIndex = run.current
   useEffect(() => { saveRun(game, n, run, score) }, [game, n, run, score])
-  useEffect(() => { input.current?.focus() }, [roundIndex])
+  // The field is disabled while judging; give it focus back so the next guess can be typed (5.5 G3).
+  // After a rejection the old answer is selected, so typing the next guess replaces it.
+  useEffect(() => {
+    if (ui.kind === 'judging') return
+    input.current?.focus()
+    if (ui.kind === 'rejected') input.current?.select()
+  }, [roundIndex, ui.kind])
 
   function nextRound() {
     setScores({})

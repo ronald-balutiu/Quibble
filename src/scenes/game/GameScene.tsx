@@ -286,7 +286,7 @@ function RoundEnd({ run, puzzle, onNext }: { run: RunState, puzzle: Puzzle, onNe
         <>
           <p className="telemetry round-end__label">{round.overruled ? en['verdict.overruled'] : format('verdict.label.accepted', { points: round.points })}</p>
           <h1 className="round-end__answer">{winning?.answer}</h1>
-          <p>{winning?.known ? en['verdict.known'] : format('verdict.accepted', { n: round.strikes + 1 })}</p>
+          <p>{format('verdict.accepted', { n: round.strikes + 1 })}</p>
         </>
       ) : (
         <>

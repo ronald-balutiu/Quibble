@@ -18,7 +18,7 @@ async function mockApi(page: Page, judge?: (body: { attempt: number }) => { stat
     await new Promise((resolve) => setTimeout(resolve, 300))
     await route.fulfill({
       json: {
-        attempt: body.attempt, source: 'model', model: 'clef-flash', modelMs: 40,
+        attempt: body.attempt, model: 'clef-flash', modelMs: 40,
         conditions: Object.fromEntries(ids.map((id, i) => [id, good || i > 1 ? { pass: true, p: 0.9 } : { pass: false, p: 0.1 }])),
       },
     })
@@ -108,7 +108,7 @@ test.describe('a guess the cloud judge could not decide (G7, S2)', () => {
     await expect(page.getByRole('textbox')).toBeFocused()
     await context.setOffline(true)
     await guess(page, 'anything')
-    await expect(page.getByText("You're offline. Reconnect and retry. Known answers still count.")).toBeVisible()
+    await expect(page.getByText("You're offline. Reconnect and retry.")).toBeVisible()
   })
 
   test('shows resting with the reset time when the daily allowance is used up', async ({ page }) => {

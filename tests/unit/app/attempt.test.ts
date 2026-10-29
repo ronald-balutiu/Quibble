@@ -3,7 +3,7 @@ import { judgeOnCloud, type RenewSession } from '@/judges/attempt'
 import type { JudgeRequest } from '@shared/schemas/judge'
 
 const request: JudgeRequest = { game: 'oddly-specific', n: 1, roundId: 'r1', answer: 'pocket knife', attempt: 4 }
-const success = { attempt: 4, source: 'model', model: 'clef-flash', modelMs: 200, conditions: { pocket: { pass: true, p: 0.8 } } }
+const success = { attempt: 4, model: 'clef-flash', modelMs: 200, conditions: { pocket: { pass: true, p: 0.8 } } }
 const ok: RenewSession = () => Promise.resolve('ok')
 const reply = (status: number, body?: unknown) => Promise.resolve(body === undefined ? new Response('nope', { status }) : Response.json(body, { status }))
 

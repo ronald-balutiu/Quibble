@@ -6,9 +6,9 @@ import { judgeWithClef, judgeWithGemma, type JudgeQuestion } from './judge'
 import { findRound, type Library } from './library'
 import { readSession } from './session'
 
-// POST /api/judge (plan 3.4). Order: body size → session → schema and IDs →
-// normalize → known answers → usage limit → model. Known answers come before the
-// limit, so a known answer always passes even when the cloud can't judge.
+// POST /api/judge (plan 3.4, D-72). Order: body size → session → schema and IDs →
+// normalize → usage limit → model. Every answer is judged by the model; known
+// answers are only used for the reveal.
 
 const MAX_BODY_BYTES = 2048
 const RETRY_AFTER_SECONDS = 60
@@ -48,11 +48,6 @@ export async function handleJudge(request: Request, env: Env, library: Library):
   const normalized = normalizeAnswer(answer, game, new Map(Object.entries(library.aliases)))
   if (!isValidAnswer(normalized, game)) return error('invalid', attempt)
 
-  if (round.known.includes(normalized)) {
-    const known: JudgeSuccess = { attempt, source: 'known', conditions: Object.fromEntries(round.conditions.map((id) => [id, { pass: true }])) }
-    return json(known)
-  }
-
   const { success } = await env.JUDGE_LIMIT.limit({ key: sid })
   if (!success) return error('busy', attempt, { retryAfter: RETRY_AFTER_SECONDS })
 
@@ -73,7 +68,6 @@ export async function handleJudge(request: Request, env: Env, library: Library):
   const threshold = judgeConfig.passThreshold[model]
   const judged: JudgeSuccess = {
     attempt,
-    source: 'model',
     model,
     modelMs: verdict.modelMs,
     conditions: Object.fromEntries(Object.entries(verdict.scores).map(([id, p]) => [id, { pass: passes(p, threshold), p }])),

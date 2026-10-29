@@ -1,7 +1,12 @@
 import { z } from 'zod'
 import { gameIds } from '../games'
 
-// POST /api/judge contract shared by the browser and the Worker (plan 3.4).
+// API contracts shared by the browser and the Worker (plan 3.4).
+
+// The player's cloud judge: Clef-flash by default, Gemma 4 for more accuracy (D-66, D-67).
+export const cloudModels = ['clef-flash', 'gemma-4'] as const
+export type CloudModel = (typeof cloudModels)[number]
+export const defaultCloudModel: CloudModel = 'clef-flash'
 
 const id = z.string().regex(/^[\w.:#-]{1,100}$/u)
 
@@ -12,6 +17,7 @@ export const judgeRequestSchema = z.strictObject({
   level: z.int().min(1).optional(),
   answer: z.string().min(1).max(200),
   attempt: z.int().min(0),
+  model: z.enum(cloudModels).optional(),
 })
 export type JudgeRequest = z.infer<typeof judgeRequestSchema>
 
@@ -22,6 +28,8 @@ export const judgeSuccessSchema = z.strictObject({
   source: z.enum(['known', 'model']),
   // p is absent for known answers.
   conditions: z.record(id, z.strictObject({ pass: z.boolean(), p: probability.optional() })),
+  // The model that judged; absent for known answers.
+  model: z.enum(cloudModels).optional(),
   modelMs: z.number().min(0).optional(),
 })
 export type JudgeSuccess = z.infer<typeof judgeSuccessSchema>
@@ -36,3 +44,12 @@ export const judgeErrorSchema = z.strictObject({
   resetAt: z.iso.datetime().optional(),
 })
 export type JudgeError = z.infer<typeof judgeErrorSchema>
+
+// GET /api/reveal/:game/:n/:roundId: the example plus up to two more known answers,
+// or for Category Escape the confirmed path.
+export const revealSchema = z.strictObject({
+  example: z.string().min(1),
+  also: z.array(z.string().min(1)).max(2),
+  path: z.array(z.string().min(1)).optional(),
+})
+export type Reveal = z.infer<typeof revealSchema>

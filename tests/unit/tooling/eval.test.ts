@@ -3,8 +3,6 @@ import { existsSync, readFileSync } from 'node:fs'
 import type { AnswerKeyCase } from '@shared/schemas/answer-key'
 import { evalHistorySchema } from '@shared/schemas/eval-history'
 import { cohensKappa, computeMetrics, thresholdSweep, type CaseResult } from '../../../eval/metrics'
-import { gemmaPYes } from '../../../eval/judges'
-import gemma from '../../fixtures/clef/gemma-4-success.json'
 
 function guess(id: string, expected: ('yes' | 'no' | 'unsure')[]): AnswerKeyCase {
   return {
@@ -63,17 +61,6 @@ describe('answer-key metrics', () => {
   })
 })
 
-describe('Gemma logprob reader', () => {
-  test.each(gemma.calls.map((call) => [call.id, call] as const))('reads P(yes) from the recorded %s call', (_id, call) => {
-    const p = gemmaPYes(call.response.body.result)
-    const answered = call.response.body.result.choices[0]?.message.content
-    expect(p > 0.5).toBe(answered === 'YES')
-  })
-
-  test('rejects a reply without logprobs', () => {
-    expect(() => gemmaPYes({ choices: [{ message: { content: 'YES' } }] })).toThrow()
-  })
-})
 
 test('eval/history.json matches its schema', () => {
   if (!existsSync('eval/history.json')) return

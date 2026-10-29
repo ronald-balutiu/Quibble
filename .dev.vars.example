@@ -1,3 +1,6 @@
-# Future local Worker secrets. Copy to .dev.vars when session work begins.
-TURNSTILE_SECRET=
+# Local Worker secrets. Copy to .dev.vars before running the API locally.
+# Turnstile's published test secret: always passes, reporting hostname example.com.
+TURNSTILE_SECRET=1x0000000000000000000000000000000AA
+SITE_HOSTNAME=example.com
+# Any long random string; production uses its own secret.
 SESSION_KEY=

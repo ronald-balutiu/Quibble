@@ -5,8 +5,8 @@ import { startSession, type SessionResult } from './api'
 
 // Cloudflare's published test site key, which always passes, for local development.
 const TEST_SITE_KEY = '1x00000000000000000000AA'
-// The production widget's site key: public by design, set when the widget exists.
-const PRODUCTION_SITE_KEY = ''
+// The production widget's site key (public by design) for quibble.ronaldbalutiu.com.
+const PRODUCTION_SITE_KEY = '0x4AAAAAAFrzEYhfs8G-zzWN'
 const SCRIPT = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
 
 interface TurnstileApi {

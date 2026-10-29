@@ -9,8 +9,7 @@ test('the React entry point and local Worker load together', async ({ page, requ
 
   await page.goto('/')
   await expect(page).toHaveTitle('Quibble')
-  await expect(page.getByRole('heading', { name: 'Quibble', level: 1 })).toBeVisible()
-  await expect(page.getByText('Make your case.')).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Make your case.', level: 1 })).toBeVisible()
   const health = await request.get('/api/health')
   expect(health.status()).toBe(200)
   expect(await health.json()).toEqual({ status: 'ok' })
@@ -27,7 +26,7 @@ test('planned routes match on direct loads and refreshes', async ({ page }) => {
     ['/', 'home'],
     ['/play', 'library'],
     ['/play/oddly-specific/1', 'game'],
-    ['/about', 'about'],
+    ['/about', 'not-found'], // P1 is built in a later phase
     ['/not-a-route', 'not-found'],
   ] as const
 

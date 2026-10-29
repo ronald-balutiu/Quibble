@@ -1,15 +1,18 @@
 import { Route, Routes } from 'react-router'
-import { Scaffold } from '@/app/Scaffold'
+import { GameScene } from '@/scenes/game/GameScene'
+import { HomeScene } from '@/scenes/home/HomeScene'
+import { LibraryScene } from '@/scenes/library/LibraryScene'
+import { NotFoundScene } from '@/scenes/NotFoundScene'
 
-// Register planned URLs now; product scenes are implemented in later phases.
+// The planned routes only (D-37). /about (P1) is built in a later phase and
+// falls through to the not-found scene until then.
 export function App() {
   return (
     <Routes>
-      <Route path="/" element={<Scaffold scene="home" />} />
-      <Route path="/play" element={<Scaffold scene="library" />} />
-      <Route path="/play/:game/:n" element={<Scaffold scene="game" />} />
-      <Route path="/about" element={<Scaffold scene="about" />} />
-      <Route path="*" element={<Scaffold scene="not-found" />} />
+      <Route path="/" element={<HomeScene />} />
+      <Route path="/play" element={<LibraryScene />} />
+      <Route path="/play/:game/:n" element={<GameScene />} />
+      <Route path="*" element={<NotFoundScene />} />
     </Routes>
   )
 }

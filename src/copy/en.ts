@@ -1,7 +1,143 @@
-// Start the centralized copy catalog here; add each screen's §5.7 keys with it.
+// Every visible and accessible string, keyed as in plan 5.7 (D-34). Screen labels
+// that appear in only one mock are defined by that screen's 5.5 row. {braces} are
+// filled by format().
 export const en = {
   'app.name': 'Quibble',
+
+  // Home (H1, H2)
+  'home.eyebrow': 'Three word games / two AI judges',
   'home.title': 'Make your case.',
+  'home.lede': "Any answer that fits counts. Two AI judges decide whether it does. Overrule them when they're wrong.",
+  'home.play': 'Play',
+  'home.continue': 'Continue #{n}',
+  'home.games': 'Games',
+  'home.puzzles': '{code} · {count} puzzles',
+  'nav.main': 'Main',
+  'nav.about': 'About',
+  'nav.library': 'Library',
+  'nav.home': 'Home',
+  'nav.backToLibrary': 'Back to library',
+  footer: 'No accounts • progress stays in this browser',
+
+  // Games
+  'game.name.oddly-specific': 'Oddly Specific',
+  'game.name.category-escape': 'Category Escape',
+  'game.name.double-agent': 'Double Agent',
+  'game.code.oddly-specific': 'G-01',
+  'game.code.category-escape': 'G-02',
+  'game.code.double-agent': 'G-03',
+  'game.tagline.oddly-specific': 'Find one thing that fits all three.',
+  'game.tagline.category-escape': 'Stay in the category as the exits close.',
+  'game.tagline.double-agent': 'One word. Two meanings.',
+  'tip.oddly': 'Name one thing that fits all three. Both judges check each condition. 3 tries a round; a miss costs nothing until you move on.',
+  'tip.dismiss': 'Got it',
+
+  // Library (L1, L2)
+  'library.title': 'Library',
+  'library.solved': '{solved} / {total} solved',
+  'library.counts': 'Easy → hard · {solved} solved • {open} open • {perfect} perfect',
+  'library.tile': 'Puzzle {n}, {difficulty}, {status}',
+  'library.status.unplayed': 'not played',
+  'library.status.open': 'in progress',
+  'library.status.solved': 'best {best} of {max}',
+  'library.status.perfect': 'perfect',
+  'library.continue': 'Continue #{n} · round {round}',
+  'library.random': 'Random unplayed puzzle',
+  'library.empty': 'No puzzles yet.',
+  'sheet.play': 'Play',
+  'sheet.resume': 'Resume round {round}',
+  'sheet.replay': 'Replay from the start',
+  'sheet.reset': 'Reset this puzzle',
+  'sheet.close': 'Close',
+  'difficulty.easy': 'easy',
+  'difficulty.medium': 'medium',
+  'difficulty.hard': 'hard',
+
+  // Game (G1–G7)
+  'game.header': '{code} / #{n}',
+  'game.round': 'Rd {n} of {total}',
+  'game.points': '{points} pts',
+  'game.strikes': '{used} of {max} wrong guesses used',
+  'game.conditions': 'Conditions',
+  'game.answer': 'ANSWER',
+  'game.placeholder.oddly-specific': 'One thing',
+  'game.judge': 'JUDGE',
+  'game.judging': 'JUDGING',
+  'game.counter': '{count} / {max}',
+  'game.skip': 'Skip round',
+  'game.verdicts': 'Verdicts',
+  'game.pYes': 'P(YES)',
+  'game.cloudStatus': '● Cloud • {model} • ready',
+  'game.tryAgain': 'Try again',
+  'game.countAnyway': 'Count it anyway',
+  'game.nextRound': 'Round {n} of {total}',
+  'game.seeResults': 'See results',
+  'game.continueHint': 'Enter ↵ to continue',
+  'game.alsoFits': 'Also fits all three',
+  'game.yourGuesses': 'Your guesses',
+  'game.missed': 'missed {conditions}',
+  'game.loading': 'Loading puzzle…',
+  'game.notFound': "This puzzle doesn't exist.",
+
+  'verdict.label.accepted': 'VERDICT • ACCEPTED • +{points}',
+  'verdict.accepted': 'Solved on guess {n}.',
+  'verdict.known': 'Known answer.',
+  'verdict.label.rejected': 'VERDICT • REJECTED',
+  'verdict.rejected': 'It {negation}.',
+  'verdict.rejected.multi': 'It misses {conditions}.',
+  'verdict.closeCall': ' Close call.',
+  'verdict.overruled': 'COUNTED • YOU OVERRULED',
+  'verdict.judgedBy': 'Judged by {model}.',
+  'round.lost': 'ROUND {n} • NO POINTS',
+  'round.example': 'The example was',
+  'round.skipped': 'Skipped',
+
+  'results.score': '{score}/{max}',
+  'results.newBest': 'NEW BEST • PREVIOUS {n}',
+  'results.firstPlay': 'FIRST PLAY',
+  'results.best': 'BEST {n}',
+  'results.guesses': 'Guesses',
+  'results.overruled': 'Overruled',
+  'results.closeCalls': 'Close calls',
+  'results.next': 'Next puzzle #{n} · {difficulty}',
+  'results.copy': 'Copy result',
+  'results.share': '{game} #{n} {tiles} {score}/{max}',
+  'toast.copied': 'Copied',
+
+  // Errors and notices (5.7)
+  'notJudged.label': 'NOT JUDGED • NO STRIKE',
+  'judge.cloud.timeout': "The cloud judge didn't answer in 10 seconds.",
+  'judge.cloud.unreachable': "The cloud judge isn't reachable right now. Your guess wasn't counted.",
+  'net.offline': "You're offline. Reconnect and retry. Known answers still count.",
+  'cloud.busy': 'The cloud judge needs a moment. Try again in {s} s.',
+  'cloud.resting.headline': 'The cloud judge is resting until {time}.',
+  'cloud.resting.body': "It's used today's free judging. Answers we already know still count, so keep guessing.",
+  'session.botcheck': "We couldn't confirm you're not a bot. Reload the page to try again.",
+  'input.empty': 'Type an answer first.',
+  'input.tooLong': '40 characters max.',
+  'input.repeat': 'Already tried. Same verdict as before.',
+  'reveal.failed': "Couldn't load the other answers.",
+  'storage.off': "This browser isn't saving progress. You can still play.",
+  'action.retry': 'Retry',
+  'action.editAnswer': 'Edit answer',
+  'action.reload': 'Reload',
+  'action.dismiss': 'Dismiss',
+  'confirm.again': 'Press again to delete',
+
+  // Cloud judge choice (D-66, D-67)
+  'judgeChoice.title': 'Cloud judge',
+  'judgeChoice.clef-flash': 'Clef-flash',
+  'judgeChoice.clef-flash.note': 'Faster, less accurate.',
+  'judgeChoice.gemma-4': 'Gemma 4',
+  'judgeChoice.gemma-4.note': 'Slower, more accurate.',
+
+  // Not found (P2)
+  'notFound.title': 'Nothing here.',
+  'notFound.body': "This page doesn't exist. The puzzles are in the library.",
 } as const
 
 export type CopyKey = keyof typeof en
+
+export function format(key: CopyKey, values: Record<string, string | number> = {}): string {
+  return en[key].replace(/\{(\w+)\}/gu, (match, name: string) => (name in values ? String(values[name]) : match))
+}

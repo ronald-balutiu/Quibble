@@ -1,0 +1,60 @@
+{
+  "recordedAt": "2026-10-29T05:42:34.856Z",
+  "model": "@cf/cloudflare/clef-flash",
+  "request": {
+    "model": "clef-flash",
+    "state": {
+      "game": "word game",
+      "playerAnswer": "pocket knife"
+    },
+    "questions": {
+      "pocket": {
+        "type": "noul",
+        "instructions": "Does the thing ordinarily fit inside a clothing pocket? Judge its everyday meaning; do not imagine unusual situations."
+      },
+      "secure": {
+        "type": "noul",
+        "instructions": "Does the thing's ordinary use include fastening or securing something?"
+      },
+      "nonelec": {
+        "type": "noul",
+        "instructions": "Is the thing free of electronic components?"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "latencyMs": 385,
+    "headers": {
+      "cf-ai-neurons": "1.18",
+      "cf-ai-req-id": "92da9c32-6432-4cd6-ad32-5d10a6588036",
+      "content-type": "application/json"
+    },
+    "body": {
+      "result": {
+        "model": "clef-flash",
+        "answers": {
+          "pocket": {
+            "type": "noul",
+            "noul": 0.8376
+          },
+          "secure": {
+            "type": "noul",
+            "noul": 0.0676
+          },
+          "nonelec": {
+            "type": "noul",
+            "noul": 0.9738
+          }
+        },
+        "usage": {
+          "input_tokens": 342,
+          "output_tokens": 0
+        }
+      },
+      "success": true,
+      "errors": [],
+      "messages": []
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "recordedAt": "2026-10-29T05:42:35.243Z",
+  "model": "@cf/cloudflare/clef",
+  "request": {
+    "model": "clef",
+    "state": {
+      "game": "word game",
+      "playerAnswer": "pocket knife"
+    },
+    "questions": {
+      "pocket": {
+        "type": "noul",
+        "instructions": "Does the thing ordinarily fit inside a clothing pocket? Judge its everyday meaning; do not imagine unusual situations."
+      },
+      "secure": {
+        "type": "noul",
+        "instructions": "Does the thing's ordinary use include fastening or securing something?"
+      },
+      "nonelec": {
+        "type": "noul",
+        "instructions": "Is the thing free of electronic components?"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "latencyMs": 385,
+    "headers": {
+      "cf-ai-neurons": "7.46",
+      "cf-ai-req-id": "8d09ba14-ba58-4665-b60e-12a62895ef15",
+      "content-type": "application/json"
+    },
+    "body": {
+      "result": {
+        "model": "clef",
+        "answers": {
+          "pocket": {
+            "type": "noul",
+            "noul": 0.824
+          },
+          "secure": {
+            "type": "noul",
+            "noul": 0.081
+          },
+          "nonelec": {
+            "type": "noul",
+            "noul": 0.9644
+          }
+        },
+        "usage": {
+          "input_tokens": 342,
+          "output_tokens": 0
+        }
+      },
+      "success": true,
+      "errors": [],
+      "messages": []
+    }
+  }
+}

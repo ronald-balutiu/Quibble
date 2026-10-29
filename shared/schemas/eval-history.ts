@@ -21,7 +21,7 @@ export const evalRunSchema = z.strictObject({
       n: z.int().min(0), accuracy: interval, falseAccepts: z.int().min(0), falseRejects: z.int().min(0), brier: z.number(),
     }),
     guesses: z.strictObject({ n: z.int().min(0), accuracy: interval, falseAcceptRate: interval, falseRejectRate: interval }),
-    reliability: z.array(z.strictObject({ bin: z.int(), n: z.int().min(0), meanP: z.number(), observed: z.number() })),
+    reliability: z.array(z.strictObject({ bin: z.int(), n: z.int().min(0), meanP: z.number().nullable(), observed: z.number().nullable() })),
     latencyMs: z.strictObject({ median: z.number(), p95: z.number() }),
     neuronsPerGuess: z.number().min(0).optional(),
   }),

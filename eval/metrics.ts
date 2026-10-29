@@ -16,7 +16,7 @@ export interface Interval { value: number, low: number, high: number, n: number 
 export interface Metrics {
   conditions: { n: number, accuracy: Interval, falseAccepts: number, falseRejects: number, brier: number }
   guesses: { n: number, accuracy: Interval, falseAcceptRate: Interval, falseRejectRate: Interval }
-  reliability: { bin: number, n: number, meanP: number, observed: number }[]
+  reliability: { bin: number, n: number, meanP: number | null, observed: number | null }[] // null for an empty bin
   latencyMs: { median: number, p95: number }
   neuronsPerGuess?: number
 }
@@ -101,8 +101,8 @@ export function computeMetrics(cases: readonly AnswerKeyCase[], results: Readonl
     return {
       bin,
       n: inBin.length,
-      meanP: ratio(inBin.reduce((total, { p }) => total + p, 0), inBin.length),
-      observed: ratio(inBin.filter(({ yes }) => yes).length, inBin.length),
+      meanP: inBin.length === 0 ? null : inBin.reduce((total, { p }) => total + p, 0) / inBin.length,
+      observed: inBin.length === 0 ? null : inBin.filter(({ yes }) => yes).length / inBin.length,
     }
   })
 

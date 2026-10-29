@@ -19,7 +19,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-02-2",
@@ -41,7 +41,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-02-3",
@@ -63,7 +63,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-02-4",
@@ -85,7 +85,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-04-1",
@@ -107,7 +107,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-04-2",
@@ -129,7 +129,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-04-3",
@@ -151,14 +151,14 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-04-4",
     "game": "oddly-specific",
     "group": "os-04",
     "answer": "rake",
-    "kind": "one-fail",
+    "kind": "borderline",
     "conditions": [
       {
         "id": "garden",
@@ -166,14 +166,14 @@
       },
       {
         "id": "sharp",
-        "expected": "no"
+        "expected": "unsure"
       },
       {
         "id": "unpowered",
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-06-1",
@@ -195,7 +195,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-06-2",
@@ -217,7 +217,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-06-3",
@@ -239,7 +239,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-06-4",
@@ -261,7 +261,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-08-1",
@@ -283,7 +283,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-08-2",
@@ -305,7 +305,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-08-3",
@@ -324,10 +324,10 @@
       },
       {
         "id": "liftable",
-        "expected": "no"
+        "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-08-4",
@@ -349,7 +349,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-10-1",
@@ -371,7 +371,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-10-2",
@@ -382,7 +382,7 @@
     "conditions": [
       {
         "id": "metal",
-        "expected": "yes"
+        "expected": "unsure"
       },
       {
         "id": "noise",
@@ -393,7 +393,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-10-3",
@@ -415,7 +415,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-10-4",
@@ -426,7 +426,7 @@
     "conditions": [
       {
         "id": "metal",
-        "expected": "yes"
+        "expected": "unsure"
       },
       {
         "id": "noise",
@@ -437,7 +437,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-12-1",
@@ -459,7 +459,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-12-2",
@@ -481,7 +481,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-12-3",
@@ -503,7 +503,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-12-4",
@@ -525,7 +525,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-14-1",
@@ -547,7 +547,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-14-2",
@@ -569,7 +569,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-14-3",
@@ -591,7 +591,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-14-4",
@@ -610,10 +610,10 @@
       },
       {
         "id": "pocket",
-        "expected": "yes"
+        "expected": "unsure"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-16-1",
@@ -635,7 +635,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-16-2",
@@ -657,7 +657,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-16-3",
@@ -679,7 +679,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-16-4",
@@ -701,7 +701,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-18-1",
@@ -723,7 +723,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-18-2",
@@ -745,7 +745,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-18-3",
@@ -767,7 +767,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-18-4",
@@ -786,10 +786,10 @@
       },
       {
         "id": "wood",
-        "expected": "yes"
+        "expected": "unsure"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-20-1",
@@ -811,7 +811,7 @@
         "expected": "unsure"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-20-2",
@@ -833,7 +833,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-20-3",
@@ -855,18 +855,18 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-20-4",
     "game": "oddly-specific",
     "group": "os-20",
     "answer": "treadmill",
-    "kind": "multi-fail",
+    "kind": "one-fail",
     "conditions": [
       {
         "id": "electric",
-        "expected": "no"
+        "expected": "yes"
       },
       {
         "id": "pocket",
@@ -874,10 +874,10 @@
       },
       {
         "id": "sport",
-        "expected": "yes"
+        "expected": "unsure"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-22-1",
@@ -899,7 +899,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-22-2",
@@ -921,7 +921,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-22-3",
@@ -943,7 +943,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-22-4",
@@ -965,14 +965,14 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-24-1",
     "game": "oddly-specific",
     "group": "os-24",
     "answer": "coconut",
-    "kind": "clear",
+    "kind": "borderline",
     "conditions": [
       {
         "id": "round",
@@ -984,10 +984,10 @@
       },
       {
         "id": "liquid",
-        "expected": "yes"
+        "expected": "unsure"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-24-2",
@@ -1009,7 +1009,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-24-3",
@@ -1028,10 +1028,10 @@
       },
       {
         "id": "liquid",
-        "expected": "yes"
+        "expected": "unsure"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "os-24-4",
@@ -1053,7 +1053,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-02-1",
@@ -1068,7 +1068,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-02-2",
@@ -1087,7 +1087,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-02-3",
@@ -1110,7 +1110,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-02-4",
@@ -1137,7 +1137,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-02-5",
@@ -1168,7 +1168,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-02-6",
@@ -1203,7 +1203,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-02-7",
@@ -1230,7 +1230,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-02-8",
@@ -1253,7 +1253,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-02-9",
@@ -1288,7 +1288,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-02-10",
@@ -1303,7 +1303,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-04-1",
@@ -1322,7 +1322,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-04-2",
@@ -1338,14 +1338,14 @@
       },
       {
         "id": "alive",
-        "expected": "yes"
+        "expected": "unsure"
       },
       {
         "id": "nonfood",
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-04-3",
@@ -1372,7 +1372,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-04-4",
@@ -1399,7 +1399,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-04-5",
@@ -1430,7 +1430,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-04-6",
@@ -1449,7 +1449,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-04-7",
@@ -1472,7 +1472,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-04-8",
@@ -1499,7 +1499,7 @@
         "expected": "unsure"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-04-9",
@@ -1518,7 +1518,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-04-10",
@@ -1553,7 +1553,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-06-1",
@@ -1572,7 +1572,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-06-2",
@@ -1595,7 +1595,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-06-3",
@@ -1618,14 +1618,14 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-06-4",
     "game": "category-escape",
     "group": "ce-06",
     "answer": "electric kettle",
-    "kind": "clear",
+    "kind": "borderline",
     "level": 4,
     "conditions": [
       {
@@ -1642,10 +1642,10 @@
       },
       {
         "id": "metal",
-        "expected": "yes"
+        "expected": "unsure"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-06-5",
@@ -1676,46 +1676,15 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-06-6",
     "game": "category-escape",
     "group": "ce-06",
     "answer": "hand mixer",
-    "kind": "clear",
-    "level": 5,
-    "conditions": [
-      {
-        "id": "kitchen",
-        "expected": "yes"
-      },
-      {
-        "id": "electric",
-        "expected": "yes"
-      },
-      {
-        "id": "noise",
-        "expected": "yes"
-      },
-      {
-        "id": "metal",
-        "expected": "yes"
-      },
-      {
-        "id": "liftable",
-        "expected": "yes"
-      }
-    ],
-    "reviewed": false
-  },
-  {
-    "id": "ce-06-7",
-    "game": "category-escape",
-    "group": "ce-06",
-    "answer": "kitchen timer",
     "kind": "borderline",
-    "level": 6,
+    "level": 5,
     "conditions": [
       {
         "id": "kitchen",
@@ -1736,13 +1705,44 @@
       {
         "id": "liftable",
         "expected": "yes"
+      }
+    ],
+    "reviewed": true
+  },
+  {
+    "id": "ce-06-7",
+    "game": "category-escape",
+    "group": "ce-06",
+    "answer": "kitchen timer",
+    "kind": "borderline",
+    "level": 6,
+    "conditions": [
+      {
+        "id": "kitchen",
+        "expected": "yes"
+      },
+      {
+        "id": "electric",
+        "expected": "unsure"
+      },
+      {
+        "id": "noise",
+        "expected": "yes"
+      },
+      {
+        "id": "metal",
+        "expected": "unsure"
+      },
+      {
+        "id": "liftable",
+        "expected": "yes"
       },
       {
         "id": "pocket",
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-06-8",
@@ -1761,7 +1761,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-06-9",
@@ -1776,7 +1776,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-06-10",
@@ -1803,7 +1803,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-08-1",
@@ -1818,7 +1818,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-08-2",
@@ -1837,7 +1837,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-08-3",
@@ -1860,7 +1860,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-08-4",
@@ -1887,7 +1887,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-08-5",
@@ -1914,7 +1914,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-08-6",
@@ -1949,7 +1949,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-08-7",
@@ -1976,7 +1976,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-08-8",
@@ -2003,7 +2003,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-08-9",
@@ -2026,7 +2026,7 @@
         "expected": "unsure"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-08-10",
@@ -2041,7 +2041,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-10-1",
@@ -2056,7 +2056,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-10-2",
@@ -2075,7 +2075,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-10-3",
@@ -2098,7 +2098,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-10-4",
@@ -2125,7 +2125,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-10-5",
@@ -2156,7 +2156,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-10-6",
@@ -2191,7 +2191,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-10-7",
@@ -2222,7 +2222,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-10-8",
@@ -2245,7 +2245,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-10-9",
@@ -2280,7 +2280,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "ce-10-10",
@@ -2307,7 +2307,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-02-1",
@@ -2327,7 +2327,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-02-2",
@@ -2347,7 +2347,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-02-3",
@@ -2367,7 +2367,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-02-4",
@@ -2387,7 +2387,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-04-1",
@@ -2407,7 +2407,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-04-2",
@@ -2427,7 +2427,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-04-3",
@@ -2444,10 +2444,10 @@
       {
         "id": "clue:bark#2",
         "clue": "the rough outer layer of a tree",
-        "expected": "no"
+        "expected": "unsure"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-04-4",
@@ -2467,7 +2467,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-06-1",
@@ -2487,7 +2487,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-06-2",
@@ -2507,7 +2507,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-06-3",
@@ -2527,7 +2527,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-06-4",
@@ -2547,7 +2547,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-08-1",
@@ -2567,7 +2567,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-08-2",
@@ -2587,7 +2587,7 @@
         "expected": "unsure"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-08-3",
@@ -2607,7 +2607,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-08-4",
@@ -2627,7 +2627,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-10-1",
@@ -2647,19 +2647,19 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-10-2",
     "game": "double-agent",
     "group": "da-10",
     "answer": "walrus",
-    "kind": "multi-fail",
+    "kind": "one-fail",
     "conditions": [
       {
         "id": "clue:seal#1",
         "clue": "a sea mammal with flippers",
-        "expected": "no"
+        "expected": "yes"
       },
       {
         "id": "clue:seal#2",
@@ -2667,7 +2667,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-10-3",
@@ -2687,7 +2687,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-10-4",
@@ -2707,7 +2707,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-12-1",
@@ -2727,19 +2727,19 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-12-2",
     "game": "double-agent",
     "group": "da-12",
     "answer": "rat",
-    "kind": "multi-fail",
+    "kind": "one-fail",
     "conditions": [
       {
         "id": "clue:mouse#1",
         "clue": "a small rodent with a long tail",
-        "expected": "no"
+        "expected": "yes"
       },
       {
         "id": "clue:mouse#2",
@@ -2747,7 +2747,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-12-3",
@@ -2764,10 +2764,10 @@
       {
         "id": "clue:mouse#2",
         "clue": "a device that moves the pointer on a computer",
-        "expected": "no"
+        "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-12-4",
@@ -2787,7 +2787,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-14-1",
@@ -2807,7 +2807,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-14-2",
@@ -2827,7 +2827,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-14-3",
@@ -2847,7 +2847,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-14-4",
@@ -2867,7 +2867,7 @@
         "expected": "unsure"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-16-1",
@@ -2887,7 +2887,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-16-2",
@@ -2907,7 +2907,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-16-3",
@@ -2927,14 +2927,14 @@
         "expected": "unsure"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-16-4",
     "game": "double-agent",
     "group": "da-16",
     "answer": "stall",
-    "kind": "multi-fail",
+    "kind": "one-fail",
     "conditions": [
       {
         "id": "clue:pen#1",
@@ -2944,10 +2944,10 @@
       {
         "id": "clue:pen#2",
         "clue": "an enclosure for farm animals",
-        "expected": "no"
+        "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-18-1",
@@ -2967,7 +2967,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-18-2",
@@ -2987,7 +2987,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-18-3",
@@ -3007,7 +3007,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-18-4",
@@ -3027,7 +3027,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-20-1",
@@ -3047,7 +3047,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-20-2",
@@ -3067,7 +3067,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-20-3",
@@ -3087,7 +3087,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-20-4",
@@ -3107,7 +3107,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-22-1",
@@ -3127,7 +3127,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-22-2",
@@ -3139,7 +3139,7 @@
       {
         "id": "clue:jam#1",
         "clue": "a sweet spread made from fruit",
-        "expected": "no"
+        "expected": "yes"
       },
       {
         "id": "clue:jam#2",
@@ -3147,7 +3147,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-22-3",
@@ -3167,7 +3167,7 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-22-4",
@@ -3179,7 +3179,7 @@
       {
         "id": "clue:jam#1",
         "clue": "a sweet spread made from fruit",
-        "expected": "no"
+        "expected": "yes"
       },
       {
         "id": "clue:jam#2",
@@ -3187,7 +3187,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-24-1",
@@ -3207,19 +3207,19 @@
         "expected": "yes"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-24-2",
     "game": "double-agent",
     "group": "da-24",
     "answer": "goose",
-    "kind": "multi-fail",
+    "kind": "one-fail",
     "conditions": [
       {
         "id": "clue:duck#1",
         "clue": "a water bird with a flat beak",
-        "expected": "no"
+        "expected": "yes"
       },
       {
         "id": "clue:duck#2",
@@ -3227,7 +3227,7 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-24-3",
@@ -3244,10 +3244,10 @@
       {
         "id": "clue:duck#2",
         "clue": "to lower your head quickly to avoid something",
-        "expected": "no"
+        "expected": "unsure"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   },
   {
     "id": "da-24-4",
@@ -3267,6 +3267,6 @@
         "expected": "no"
       }
     ],
-    "reviewed": false
+    "reviewed": true
   }
 ]

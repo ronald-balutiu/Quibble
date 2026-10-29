@@ -1,7 +1,14 @@
-.scene {
+/* Doubled class: base.css loads after scene styles and sets the frame padding.
+   Sections pad themselves, so headers and rows can run edge to edge. */
+.app-frame.scene {
   display: flex;
   flex-direction: column;
   gap: var(--space-8);
+  padding: 0 0 var(--content-pad);
+}
+
+.scene > * {
+  padding-inline: var(--content-pad);
 }
 
 .scene-header {
@@ -16,6 +23,22 @@
   color: var(--text);
 }
 
+.scene-header--cells {
+  padding-inline: var(--space-4);
+}
+
+.scene-header__name {
+  color: var(--text);
+}
+
+.home-play {
+  display: flex;
+}
+
+.pill--wide {
+  flex: 1;
+}
+
 .scene-footer {
   margin-top: auto;
 }
@@ -27,6 +50,10 @@
   gap: var(--space-4);
 }
 
+.home-hero p {
+  font-size: var(--type-body-large);
+}
+
 .home-hero__title {
   margin: 0;
   font-size: var(--type-home);
@@ -35,19 +62,24 @@
   letter-spacing: var(--tracking-home);
 }
 
-.home-games {
+.scene > .home-games {
   display: grid;
-  gap: var(--space-3);
+  padding-inline: 0;
 }
 
 .home-game {
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
-  padding: var(--space-4);
-  border: var(--border-width) solid var(--line);
+  padding: var(--space-4) var(--content-pad);
+  border-top: var(--border-width) solid var(--line);
   color: var(--text);
   text-decoration: none;
+}
+
+.home-game__meta {
+  display: flex;
+  justify-content: space-between;
 }
 
 .home-game__name {
@@ -56,28 +88,53 @@
   letter-spacing: var(--tracking-panel);
 }
 
-.game-tabs {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  border: var(--border-width) solid var(--line);
+.scene-header__end {
+  margin-left: auto;
 }
 
-.game-tab {
+.scene > .game-rows {
   display: flex;
   flex-direction: column;
-  gap: var(--space-1);
-  padding: var(--space-3);
+  padding-inline: 0;
+}
+
+.game-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: var(--space-4);
+  align-items: baseline;
+  padding: var(--space-3) var(--content-pad);
   border: none;
-  border-right: var(--border-width) solid var(--line);
+  border-bottom: var(--border-width) solid var(--line);
+  border-left-width: var(--accent-line-width);
+  border-left-style: solid;
+  border-left-color: transparent;
   background: transparent;
   color: var(--muted);
   text-align: left;
   cursor: pointer;
 }
 
-.game-tab[aria-current='page'] {
+.game-row[aria-current='page'] {
+  border-left-color: var(--text);
+  background: var(--grid);
   color: var(--text);
-  border-top: var(--accent-line-width) solid var(--text);
+}
+
+.game-row__name {
+  font-size: var(--type-panel);
+  font-weight: var(--weight-light);
+  letter-spacing: var(--tracking-panel);
+}
+
+.library-actions {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.pill--icon {
+  width: var(--button-height);
+  padding: 0;
 }
 
 .library {
@@ -89,9 +146,10 @@
 .tiles {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: var(--space-2);
   margin: 0;
   padding: 0;
+  border-top: var(--border-width) solid var(--line);
+  border-left: var(--border-width) solid var(--line);
   list-style: none;
 }
 
@@ -101,19 +159,26 @@
   align-items: flex-start;
   justify-content: space-between;
   width: 100%;
-  min-height: var(--home-button-height);
+  aspect-ratio: 1;
   padding: var(--space-2);
-  border: var(--border-width) solid var(--line);
+  border: none;
+  border-right: var(--border-width) solid var(--line);
+  border-bottom: var(--border-width) solid var(--line);
   background: transparent;
-  color: var(--muted);
+  color: var(--dim);
   font-family: var(--font-mono);
   font-size: var(--type-label-large);
   cursor: pointer;
 }
 
 .tile--open {
-  border-color: var(--text);
+  outline: var(--border-width) dashed var(--text);
+  outline-offset: var(--tile-open-inset);
   color: var(--text);
+}
+
+.tile__score {
+  align-self: flex-end;
 }
 
 .tile--solved,
@@ -122,7 +187,8 @@
   color: var(--text);
 }
 
-.tile__score {
+.tile--solved .tile__n,
+.tile--perfect .tile__n {
   font-weight: var(--weight-bold);
 }
 
@@ -135,8 +201,14 @@
   border: var(--border-width) solid var(--line);
 }
 
+.judge-choice__option input {
+  min-width: 0;
+  min-height: 0;
+}
+
 .judge-choice__option {
   display: flex;
+  min-height: var(--target-min);
   flex-wrap: wrap;
   gap: var(--space-2);
   align-items: center;

@@ -25,7 +25,7 @@ export function HomeScene() {
       <section className="home-hero">
         <p className="telemetry">{en['home.eyebrow']}</p>
         <h1 className="home-hero__title">{en['home.title']}</h1>
-        <p>{en['home.lede']}</p>
+        <p className="home-hero__lede">{en['home.lede']}</p>
       </section>
       <RingMark />
       <section className="home-play">
@@ -45,7 +45,6 @@ export function HomeScene() {
           </Link>
         ))}
       </section>
-      <footer className="telemetry scene-footer">{en.footer}</footer>
     </main>
   )
 }

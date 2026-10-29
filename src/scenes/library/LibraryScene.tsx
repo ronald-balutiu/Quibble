@@ -40,17 +40,25 @@ export function LibraryScene() {
 
   return (
     <main className="app-frame scene" data-scene="library">
-      <header className="scene-header">
-        <Link className="control-link" to="/" aria-label={en['nav.home']}>{en['app.name']}</Link>
-        <span className="telemetry">{en['library.title']}</span>
+      <header className="scene-header scene-header--cells">
+        <Link className="game-header__back" to="/" aria-label={en['nav.home']}>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6" /></svg>
+        </Link>
+        <span className="telemetry scene-header__name">{en['library.title']}</span>
+        <span className="telemetry scene-header__end">{format('library.solved', { solved, total: puzzles.length })}</span>
       </header>
-      <nav className="game-tabs" aria-label={en['home.games']}>
-        {gameIds.map((id) => (
-          <button key={id} type="button" className="game-tab" aria-current={id === game ? 'page' : undefined} onClick={() => { setParams({ game: id }) }}>
-            <span className="telemetry">{en[`game.code.${id}`]}</span>
-            <span>{en[`game.name.${id}`]}</span>
-          </button>
-        ))}
+      <nav className="game-rows" aria-label={en['home.games']}>
+        {gameIds.map((id) => {
+          const count = index?.[id]?.length ?? 0
+          const done = (index?.[id] ?? []).filter(({ n }) => loadProgress(id, n).best !== undefined).length
+          return (
+            <button key={id} type="button" className="game-row" data-game={id} aria-current={id === game ? 'page' : undefined} onClick={() => { setParams({ game: id }) }}>
+              <span className="telemetry">{en[`game.code.${id}`]}</span>
+              <span className="game-row__name">{en[`game.name.${id}`]}</span>
+              <span className="telemetry">{count === 0 ? en['library.new'] : format('library.progress', { solved: String(done).padStart(3, '0'), total: String(count).padStart(3, '0') })}</span>
+            </button>
+          )
+        })}
       </nav>
       <section className="library" data-game={game}>
         <p className="telemetry">{format('library.counts', { solved, open: continuing ? 1 : 0, perfect: statuses.filter(({ status }) => status === 'perfect').length })}</p>
@@ -63,16 +71,16 @@ export function LibraryScene() {
                 aria-label={format('library.tile', { n, difficulty: en[`difficulty.${difficulty}`], status: format(`library.status.${status}`, { best: best ?? 0, max }) })}
               >
                 <span className="tile__n">{String(n).padStart(3, '0')}</span>
-                {best !== undefined && <span className="tile__score">{best}</span>}
+                <span className="tile__score">{status === 'open' ? en['library.openMark'] : status === 'perfect' ? en['library.perfectMark'] : best}</span>
               </button>
             </li>
           ))}
         </ol>
-        <div className="actions">
-          {continuing && <Link className="pill control-link" to={`/play/${game}/${String(continuing.n)}`}>{format('library.continue', { n: String(continuing.n).padStart(3, '0'), round: continuing.round ?? 1 })}</Link>}
+        <div className="library-actions">
+          {continuing && <Link className="pill pill--wide control-link" to={`/play/${game}/${String(continuing.n)}`}>{format('library.continue', { n: String(continuing.n).padStart(3, '0'), round: continuing.round ?? 1 })}</Link>}
           {unplayed.length > 0 && (
-            <button type="button" className="pill pill--quiet" onClick={() => { const pick = unplayed[Math.floor(Math.random() * unplayed.length)]; if (pick) void navigate(`/play/${game}/${String(pick.n)}`) }}>
-              {en['library.random']}
+            <button type="button" className="pill pill--quiet pill--icon" aria-label={en['library.random']} onClick={() => { const pick = unplayed[Math.floor(Math.random() * unplayed.length)]; if (pick) void navigate(`/play/${game}/${String(pick.n)}`) }}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5" /></svg>
             </button>
           )}
         </div>

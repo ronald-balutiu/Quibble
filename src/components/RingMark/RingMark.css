@@ -1,0 +1,72 @@
+.ring-mark {
+  display: block;
+  width: 100%;
+  max-width: var(--mark-max);
+  margin-inline: auto;
+}
+
+.ring-mark__axis {
+  stroke: var(--line-soft);
+}
+
+.ring-mark__ring {
+  fill: none;
+}
+
+.ring-mark__ring--oddly {
+  stroke: var(--game-oddly);
+}
+
+.ring-mark__ring--escape {
+  stroke: var(--game-escape);
+}
+
+.ring-mark__ring--agent {
+  stroke: var(--game-agent);
+}
+
+.ring-mark__orbit {
+  fill: none;
+  stroke: var(--text);
+  stroke-dasharray: 48 643;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ring-mark-orbit var(--t-orbit) linear infinite;
+}
+
+.ring-mark__orbit--slow {
+  stroke: var(--muted);
+  animation-duration: var(--t-orbit-slow);
+  animation-direction: reverse;
+}
+
+.ring-mark__point {
+  fill: var(--text);
+}
+
+.ring-mark__pulse {
+  fill: none;
+  stroke: var(--text);
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ring-mark-pulse var(--t-pulse) ease-in-out infinite;
+}
+
+@keyframes ring-mark-orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes ring-mark-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(0.6);
+  }
+
+  50% {
+    opacity: 0;
+    transform: scale(1.7);
+  }
+}

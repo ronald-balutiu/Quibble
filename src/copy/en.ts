@@ -11,7 +11,8 @@ export const en = {
   'home.play': 'Play',
   'home.continue': 'Continue #{n}',
   'home.games': 'Games',
-  'home.puzzles': '{code} · {count} puzzles',
+  'mark.label': 'The mark: three intersecting rings in honey, sky and orchid, one per condition. A white point pulses where all three overlap.',
+  'home.puzzles': '{count} puzzles',
   'nav.main': 'Main',
   'nav.about': 'About',
   'nav.library': 'Library',
@@ -34,6 +35,10 @@ export const en = {
 
   // Library (L1, L2)
   'library.title': 'Library',
+  'library.progress': '{solved} / {total}',
+  'library.new': 'New',
+  'library.openMark': '…',
+  'library.perfectMark': '★',
   'library.solved': '{solved} / {total} solved',
   'library.counts': 'Easy → hard · {solved} solved • {open} open • {perfect} perfect',
   'library.tile': 'Puzzle {n}, {difficulty}, {status}',

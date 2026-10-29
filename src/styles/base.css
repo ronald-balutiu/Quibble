@@ -20,10 +20,9 @@ body {
   min-width: 0;
   min-height: 100svh;
   padding: var(--frame-pad);
-  background-image:
-    linear-gradient(var(--grid) var(--border-width), transparent var(--border-width)),
-    linear-gradient(90deg, var(--grid) var(--border-width), transparent var(--border-width));
-  background-size: var(--grid-size) var(--grid-size);
+  /* A soft neutral glow from the top replaces the graph paper (D-71). */
+  background-image: radial-gradient(120% 70% at 50% 0%, var(--surface-2), transparent 70%);
+  background-attachment: fixed;
 }
 
 .app-frame {

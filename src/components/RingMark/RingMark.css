@@ -34,10 +34,12 @@
   animation: ring-mark-orbit var(--t-orbit) linear infinite;
 }
 
-.ring-mark__orbit--slow {
-  stroke: var(--muted);
-  animation-duration: var(--t-orbit-slow);
+.ring-mark__orbit--reverse {
   animation-direction: reverse;
+}
+
+.ring-mark__orbit--slow {
+  animation-duration: var(--t-orbit-slow);
 }
 
 .ring-mark__point {

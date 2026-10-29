@@ -11,14 +11,13 @@ export const en = {
   'home.play': 'Play',
   'home.continue': 'Continue #{n}',
   'home.games': 'Games',
-  'mark.label': 'The mark: three intersecting rings in honey, sky and orchid, one per condition. A white point pulses where all three overlap.',
+  'mark.label': 'The mark: three intersecting rings in honey, sky and orchid, one per condition. A white arc circles each ring, and a white point pulses where all three overlap.',
   'home.puzzles': '{count} puzzles',
   'nav.main': 'Main',
   'nav.about': 'About',
   'nav.library': 'Library',
   'nav.home': 'Home',
   'nav.backToLibrary': 'Back to library',
-  footer: 'No accounts • progress stays in this browser',
 
   // Games
   'game.name.oddly-specific': 'Oddly Specific',

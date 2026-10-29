@@ -2,8 +2,8 @@ export type DoubleAgentRounds = 3 | 5
 
 export const doubleAgentConfig = {
   id: 'double-agent',
-  // The yield report may change the default; consumers must handle either count.
-  rounds: 5 as DoubleAgentRounds,
+  // Set from the Phase 1 yield report (D-64); consumers must still handle either count.
+  rounds: 3 as DoubleAgentRounds,
   conditionsPerRound: 2,
   maxWrongGuessesPerRound: 3,
   pointsByGuess: [3, 2, 1],

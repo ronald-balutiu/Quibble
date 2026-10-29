@@ -33,8 +33,16 @@ function fromBase64url(text: string): Uint8Array<ArrayBuffer> | undefined {
   }
 }
 
+// Imported once per isolate and secret, rather than on every request.
+const keys = new Map<string, Promise<CryptoKey>>()
+
 function key(secret: string): Promise<CryptoKey> {
-  return crypto.subtle.importKey('raw', encoder.encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign', 'verify'])
+  let cached = keys.get(secret)
+  if (!cached) {
+    cached = crypto.subtle.importKey('raw', encoder.encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign', 'verify'])
+    keys.set(secret, cached)
+  }
+  return cached
 }
 
 export async function signSession(secret: string, sid: string, exp: number): Promise<string> {

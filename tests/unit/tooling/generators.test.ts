@@ -5,7 +5,8 @@ import { knownAnswers, oddlySpecificRounds, seeded, shuffled } from '../../../fa
 describe('truth matrix cells', () => {
   test.each([
     [{ flash: 0.9 }, 'yes'], [{ flash: 0.1 }, 'no'], [{ flash: 0.5 }, 'unknown'],
-    [{ flash: 0.5, clef: 0.85 }, 'yes'], [{ flash: 0.9, clef: 0.5 }, 'unknown'], [undefined, 'unknown'],
+    [{ flash: 0.65 }, 'yes'], [{ flash: 0.5, gemma: 0.85 }, 'yes'], [{ flash: 0.9, gemma: 0.5 }, 'unknown'],
+    [{ flash: 0.5, clef: 0.1 }, 'no'], [undefined, 'unknown'],
   ] as const)('%j is %s', (cell, expected) => {
     expect(truth(cell)).toBe(expected)
   })
@@ -14,7 +15,7 @@ describe('truth matrix cells', () => {
 describe('Oddly Specific generator', () => {
   const conditions = { a: { tag: 'size' }, b: { tag: 'use' }, c: { tag: 'power' }, d: { tag: 'power' } }
   const things = ['t1', 't2', 't3', 't4', 't5', 't6']
-  const row = (a: number, b: number, c: number, d = 0.9) => ({ a: { flash: a, clef: a }, b: { flash: b, clef: b }, c: { flash: c, clef: c }, d: { flash: d } })
+  const row = (a: number, b: number, c: number, d = 0.9) => ({ a: { flash: a, gemma: a }, b: { flash: b, gemma: b }, c: { flash: c, gemma: c }, d: { flash: d } })
   const matrix: Matrix = {
     t1: row(0.9, 0.9, 0.9), t2: row(0.9, 0.9, 0.9), t3: row(0.9, 0.9, 0.9), t4: row(0.9, 0.9, 0.9),
     t5: row(0.9, 0.9, 0.1), t6: row(0.1, 0.9, 0.9),
@@ -33,7 +34,7 @@ describe('Oddly Specific generator', () => {
     expect(full.map((r) => [r.conditions, r.solutions.length])).toEqual([[['a', 'b', 'c'], 4]])
   })
 
-  test('known answers need Clef to confirm every cell', () => {
+  test('known answers need Gemma 4 to confirm every cell', () => {
     const partial: Matrix = { ...matrix, t1: { ...matrix.t1, c: { flash: 0.9 } } }
     expect(knownAnswers(partial, ['t1', 't2'], ['a', 'b', 'c'])).toEqual(['t2'])
   })

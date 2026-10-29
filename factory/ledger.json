@@ -33,5 +33,33 @@
     "model": "gemma-4+clef-flash",
     "requests": 160,
     "neurons": 493.68
+  },
+  {
+    "date": "2026-10-29T21:11:20.354Z",
+    "step": "matrix",
+    "model": "clef-flash",
+    "requests": 112,
+    "neurons": 567.87
+  },
+  {
+    "date": "2026-10-29T21:11:39.039Z",
+    "step": "recheck",
+    "model": "clef",
+    "requests": 64,
+    "neurons": 635.88
+  },
+  {
+    "date": "2026-10-29T21:16:08.189Z",
+    "step": "recheck",
+    "model": "gemma-4",
+    "requests": 127,
+    "neurons": 58.65
+  },
+  {
+    "date": "2026-10-29T21:17:05.810Z",
+    "step": "confirm",
+    "model": "gemma-4",
+    "requests": 386,
+    "neurons": 170.72
   }
 ]

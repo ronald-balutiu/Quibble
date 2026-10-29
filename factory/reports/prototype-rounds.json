@@ -1,19 +1,146 @@
 {
   "sample": {
     "things": 112,
-    "conditions": 27,
-    "cells": 3024
+    "conditions": 42,
+    "cells": 4704
   },
   "oddlySpecific": {
-    "candidateRounds": 3,
-    "sampled": 3,
-    "withFourKnown": 0,
+    "candidateRounds": 53,
+    "sampled": 53,
+    "withFourKnown": 46,
     "solutions": [
       4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      7,
+      7,
+      7,
+      7,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      9,
+      9,
+      9,
+      10,
+      10,
+      11,
+      12,
+      12,
       13,
-      26
+      13,
+      14,
+      14,
+      14,
+      16,
+      16,
+      16,
+      31,
+      32,
+      40
     ],
     "examples": [
+      {
+        "conditions": [
+          "nonmetal",
+          "handle",
+          "cheap"
+        ],
+        "solutions": [
+          "wooden spoon",
+          "whisk",
+          "toothbrush",
+          "watering can",
+          "umbrella",
+          "broom"
+        ],
+        "known": [
+          "wooden spoon",
+          "whisk",
+          "toothbrush",
+          "watering can",
+          "umbrella",
+          "broom"
+        ]
+      },
+      {
+        "conditions": [
+          "liftable",
+          "unpowered",
+          "handle"
+        ],
+        "solutions": [
+          "pocket knife",
+          "chef knife",
+          "wooden spoon",
+          "fork",
+          "teaspoon",
+          "spatula",
+          "whisk",
+          "frying pan",
+          "toothbrush",
+          "rake",
+          "pruning shears",
+          "baseball bat",
+          "screwdriver",
+          "broom"
+        ],
+        "known": [
+          "pocket knife",
+          "chef knife",
+          "wooden spoon",
+          "fork",
+          "teaspoon",
+          "spatula",
+          "whisk",
+          "frying pan"
+        ]
+      },
+      {
+        "conditions": [
+          "wearable",
+          "bendy",
+          "cheap"
+        ],
+        "solutions": [
+          "oven mitt",
+          "scarf",
+          "sock",
+          "belt",
+          "sweater",
+          "necklace"
+        ],
+        "known": [
+          "scarf",
+          "sock",
+          "belt",
+          "necklace"
+        ]
+      },
       {
         "conditions": [
           "liftable",
@@ -29,10 +156,12 @@
           "envelope",
           "sticky note",
           "wooden spoon",
+          "whisk",
           "wine glass",
           "chopsticks",
           "oven mitt",
           "dish towel",
+          "toothbrush",
           "soap",
           "shampoo bottle",
           "rubber duck",
@@ -42,50 +171,44 @@
           "glove",
           "hat",
           "belt",
+          "sweater",
           "sunglasses",
           "tennis ball",
+          "baseball bat",
           "candle",
           "matchstick",
-          "rope"
+          "rope",
+          "broom"
         ],
-        "known": []
-      },
-      {
-        "conditions": [
-          "pocket",
-          "nonmetal",
-          "nonfood"
-        ],
-        "solutions": [
+        "known": [
           "zip tie",
           "pencil",
           "crayon",
           "highlighter",
           "eraser",
-          "wooden spoon",
-          "soap",
-          "earthworm",
-          "sock",
-          "glove",
-          "sunglasses",
-          "tennis ball",
-          "matchstick"
-        ],
-        "known": []
+          "envelope",
+          "sticky note",
+          "wooden spoon"
+        ]
       },
       {
         "conditions": [
-          "liftable",
-          "soft",
-          "nonfood"
+          "wearable",
+          "bendy",
+          "daily"
         ],
         "solutions": [
-          "dish towel",
-          "earthworm",
-          "scarf",
-          "tennis ball"
+          "sock",
+          "belt",
+          "sweater",
+          "jeans"
         ],
-        "known": []
+        "known": [
+          "sock",
+          "belt",
+          "sweater",
+          "jeans"
+        ]
       }
     ]
   },
@@ -113,10 +236,137 @@
         "size": 9
       }
     ],
-    "distinctRuns": 0,
-    "sampled": 0,
-    "pathConfirmed": 0,
-    "examples": []
+    "distinctRuns": 2,
+    "sampled": 2,
+    "pathConfirmed": 1,
+    "examples": [
+      {
+        "category": "kitchen",
+        "levels": [
+          [
+            "kitchen"
+          ],
+          [
+            "kitchen",
+            "handle"
+          ],
+          [
+            "kitchen",
+            "handle",
+            "liftable"
+          ],
+          [
+            "kitchen",
+            "handle",
+            "liftable",
+            "cheap"
+          ],
+          [
+            "kitchen",
+            "handle",
+            "liftable",
+            "cheap",
+            "pocket"
+          ],
+          [
+            "kitchen",
+            "handle",
+            "liftable",
+            "cheap",
+            "pocket",
+            "eatdrink"
+          ]
+        ],
+        "path": [
+          "toaster",
+          "fork",
+          "chef knife",
+          "wooden spoon",
+          "whisk",
+          "teaspoon"
+        ],
+        "fieldSizes": [
+          24,
+          8,
+          7,
+          5,
+          4,
+          3
+        ],
+        "pathConfirmed": true,
+        "knownPerLevel": [
+          8,
+          5,
+          5,
+          4,
+          2,
+          1
+        ]
+      },
+      {
+        "category": "kitchen",
+        "levels": [
+          [
+            "kitchen"
+          ],
+          [
+            "kitchen",
+            "nonelec"
+          ],
+          [
+            "kitchen",
+            "nonelec",
+            "eatdrink"
+          ],
+          [
+            "kitchen",
+            "nonelec",
+            "eatdrink",
+            "cheap"
+          ],
+          [
+            "kitchen",
+            "nonelec",
+            "eatdrink",
+            "cheap",
+            "pocket"
+          ],
+          [
+            "kitchen",
+            "nonelec",
+            "eatdrink",
+            "cheap",
+            "pocket",
+            "handle"
+          ]
+        ],
+        "path": [
+          "cheese grater",
+          "apple",
+          "wooden spoon",
+          "fork",
+          "mug",
+          "teaspoon"
+        ],
+        "fieldSizes": [
+          24,
+          20,
+          6,
+          5,
+          4,
+          3
+        ],
+        "pathConfirmed": false,
+        "knownPerLevel": [
+          8,
+          7,
+          4,
+          4,
+          1,
+          1
+        ]
+      }
+    ]
   },
-  "unconfirmedThings": 19
+  "unconfirmedThings": 0
 }

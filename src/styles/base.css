@@ -20,6 +20,10 @@ body {
   min-width: 0;
   min-height: 100svh;
   padding: var(--frame-pad);
+  background-image:
+    linear-gradient(var(--grid) var(--border-width), transparent var(--border-width)),
+    linear-gradient(90deg, var(--grid) var(--border-width), transparent var(--border-width));
+  background-size: var(--grid-size) var(--grid-size);
 }
 
 .app-frame {

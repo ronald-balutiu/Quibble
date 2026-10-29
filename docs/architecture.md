@@ -101,6 +101,11 @@ requests are served from static assets, with the single-page app fallback for di
 loads and refreshes. Unknown API paths return a JSON 404. After a build, Wrangler
 uses the generated deployment configuration under `dist/`.
 
+The Worker is served only at `quibble.ronaldbalutiu.com`, as a Workers custom
+domain; `workers.dev` and preview URLs are turned off so the app has a single
+public origin. The `JUDGE_LIMIT` rate-limiting binding is declared there for the
+judge route.
+
 `/api/health` returns `{"status":"ok"}` and is used by the browser tests.
 
 ## Styling

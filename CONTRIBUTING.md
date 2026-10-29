@@ -179,7 +179,7 @@ When new checks are added to `npm run check`, add them to the workflow too.
 | `.nvmrc` | Node version for `nvm use` and CI. |
 | `index.html` | Browser entry point where React mounts. |
 | `vite.config.ts` | React and Cloudflare plugins, import aliases, dev and preview ports, and files the dev server refuses to serve. |
-| `wrangler.jsonc` | Worker entry point, compatibility date, bindings, and static asset routing. |
+| `wrangler.jsonc` | Worker entry point, compatibility date, custom domain, bindings, and static asset routing. |
 | `tsconfig.json` | Builds the three TypeScript environments with `tsc -b`. |
 | `tsconfig.base.json` | Shared strict compiler options and import aliases. |
 | `tsconfig.app.json` | Browser environment: `src/`, `shared/`, and app tests. |

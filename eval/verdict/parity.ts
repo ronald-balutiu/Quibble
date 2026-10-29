@@ -2,26 +2,14 @@
 // compared with the Python reference and any browser runs passed as arguments.
 // Usage: npm run ts -- eval/verdict/parity.ts [browser-results.json ...]
 import { readFileSync, writeFileSync } from 'node:fs'
-import { Tokenizer } from '@huggingface/tokenizers'
-import * as ort from 'onnxruntime-node'
-import { deviceModel, scoreClaim, tensorFactory, type TensorFactory } from '@/judges/device/verdict'
+import { deviceModel } from '@/judges/device/verdict'
+import { loadDeviceJudge, nodeRuntime } from './node-runtime'
 
 interface ParityCase { id: string, answer: string, claim: string }
 interface RuntimeResults { runtime: string, results: { id: string, p: number }[] }
 
-// onnxruntime-node cannot read Node's native Float16Array, which onnxruntime-common
-// substitutes for Uint16Array data. Hand it the raw bits, as Transformers.js does.
-// Remove once onnxruntime-node accepts Float16Array input.
-const ortTensor = tensorFactory(ort.Tensor)
-const makeTensor: TensorFactory = (type, data, dims) => {
-  const tensor = ortTensor(type, data, dims) as ort.Tensor & { cpuData?: unknown }
-  if (type === 'float16') tensor.cpuData = data
-  return tensor
-}
-
 const MAX_DELTA = 0.02
 const THRESHOLD = 0.5
-const modelDir = 'eval/verdict/model'
 const fixtures = 'tests/fixtures/verdict'
 const readJson = (path: string): unknown => JSON.parse(readFileSync(path, 'utf8'))
 
@@ -31,11 +19,10 @@ if (reference.model.revision !== deviceModel.revision || reference.model.file !=
   throw new Error('python-reference.json was generated from a different model; rerun eval/verdict/reference.py.')
 }
 
-const tokenizer = new Tokenizer(readJson(`${modelDir}/tokenizer.json`) as object, readJson(`${modelDir}/tokenizer_config.json`) as object)
-const session = await ort.InferenceSession.create(`${modelDir}/${deviceModel.file}`, { executionProviders: ['cpu'] })
-const node: RuntimeResults = { runtime: `onnxruntime-node ${ort.env.versions.node ?? ''} (CPU)`, results: [] }
+const score = await loadDeviceJudge()
+const node: RuntimeResults = { runtime: nodeRuntime, results: [] }
 for (const { id, answer, claim } of cases) {
-  node.results.push({ id, p: await scoreClaim(session, makeTensor, tokenizer, answer, claim) })
+  node.results.push({ id, p: await score(answer, claim) })
 }
 
 const runtimes = [node, ...process.argv.slice(2).map((path) => readJson(path) as RuntimeResults)]

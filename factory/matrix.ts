@@ -1,28 +1,31 @@
-// Truth matrix (plan 3.9, step 1): Clef-flash answers every condition for every
-// thing, then Clef re-checks the uncertain cells. Resumable; every request's
+// Truth matrix (plan 3.9, step 1; D-68): Clef-flash answers every condition for
+// every thing, then Gemma 4 re-checks the uncertain cells. Resumable; every request's
 // Neurons go to factory/ledger.json, and a run stops at --max-neurons.
 // Usage: npm run ts -- factory/matrix.ts [--max-neurons 1500]
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import { parseArgs } from 'node:util'
-import { judgeWithClef } from '../worker/judge'
+import { judgeWithClef, judgeWithGemma } from '../worker/judge'
 import { AllowanceExhausted, restRunner } from './workers-ai'
 
-export interface Cell { flash: number, clef?: number }
+// clef holds re-checks made before D-68; gemma holds re-checks and confirmations since.
+export interface Cell { flash: number, clef?: number, gemma?: number }
 export type Matrix = Record<string, Record<string, Cell>>
 export type Truth = 'yes' | 'no' | 'unknown'
 
-const UNCERTAIN = { low: 0.2, high: 0.8 }
+// Clef-flash scores clear yes cases at 0.6–0.8, so 0.6 is its yes bar (D-68).
+const UNCERTAIN = { low: 0.2, high: 0.6 }
 
-// A cell is yes or no when Clef-flash is confident, or when Clef settles a re-check.
+// A cell is yes or no when Clef-flash is confident, or when a second model settles it.
 export function truth(cell: Cell | undefined): Truth {
   if (!cell) return 'unknown'
-  const p = cell.clef ?? cell.flash
+  const p = cell.gemma ?? cell.clef ?? cell.flash
   if (p >= UNCERTAIN.high) return 'yes'
   if (p <= UNCERTAIN.low) return 'no'
   return 'unknown'
 }
 
 export const isUncertain = (cell: Cell) => cell.flash > UNCERTAIN.low && cell.flash < UNCERTAIN.high
+  && cell.clef === undefined && cell.gemma === undefined
 
 export const readJson = <T>(path: string, fallback: T): T => (existsSync(path) ? JSON.parse(readFileSync(path, 'utf8')) as T : fallback)
 export const writeJson = (path: string, value: unknown) => { writeFileSync(path, `${JSON.stringify(value, null, 2)}\n`) }
@@ -60,7 +63,8 @@ if (import.meta.url === `file://${process.argv[1] ?? ''}`) {
 
   const steps = [
     {
-      step: 'matrix', model: 'clef-flash' as const,
+      step: 'matrix', model: 'clef-flash',
+      judge: (thing: string, questions: { id: string, question: string }[]) => judgeWithClef(budget.ai, thing, questions, { model: 'clef-flash' }),
       questionsFor: (thing: string) => ids.filter((id) => matrix[thing]?.[id] === undefined),
       apply: (thing: string, scores: Record<string, number>) => {
         const row = matrix[thing] ??= {}
@@ -68,27 +72,28 @@ if (import.meta.url === `file://${process.argv[1] ?? ''}`) {
       },
     },
     {
-      step: 'recheck', model: 'clef' as const,
+      step: 'recheck', model: 'gemma-4',
+      judge: (thing: string, questions: { id: string, question: string }[]) => judgeWithGemma(budget.ai, thing, questions),
       questionsFor: (thing: string) => ids.filter((id) => {
         const cell = matrix[thing]?.[id]
-        return cell !== undefined && isUncertain(cell) && cell.clef === undefined
+        return cell !== undefined && isUncertain(cell)
       }),
       apply: (thing: string, scores: Record<string, number>) => {
         for (const [id, p] of Object.entries(scores)) {
           const cell = matrix[thing]?.[id]
-          if (cell) cell.clef = p
+          if (cell) cell.gemma = p
         }
       },
     },
   ]
 
   try {
-    for (const { step, model, questionsFor, apply } of steps) {
+    for (const { step, model, judge, questionsFor, apply } of steps) {
       for (const thing of things) {
         if (budget.exhausted) break
         const pending = questionsFor(thing)
         if (pending.length === 0) continue
-        const verdict = await judgeWithClef(budget.ai, thing, pending.map((id) => ({ id, question: conditions[id]?.question ?? '' })), { model })
+        const verdict = await judge(thing, pending.map((id) => ({ id, question: conditions[id]?.question ?? '' })))
         if (!verdict.ok) {
           if (verdict.error === 'resting') throw new AllowanceExhausted('The daily Workers AI allowance is used up.')
           console.error(`${model} could not judge "${thing}"; it will be retried on the next run.`)

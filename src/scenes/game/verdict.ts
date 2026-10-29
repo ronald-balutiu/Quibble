@@ -21,6 +21,7 @@ export function toGuess(answer: string, result: JudgeSuccess, conditions: readon
     pass: failed.length === 0 && scores.every(({ pass, p }) => pass ?? (p !== undefined && passes(p, threshold))),
     failed,
     closeCall: result.source === 'model' && isCloseCall(deciding, threshold),
+    ...(result.source === 'known' ? { known: true } : {}),
   }
 }
 

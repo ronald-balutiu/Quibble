@@ -1,8 +1,9 @@
-.game-frame {
+/* Doubled class: base.css loads after scene styles and sets the frame border. */
+.app-frame.game-frame {
   display: flex;
   flex-direction: column;
   padding: 0;
-  box-shadow: var(--accent-stripe);
+  border-top: var(--accent-line-width) solid var(--accent);
 }
 
 .game-header {

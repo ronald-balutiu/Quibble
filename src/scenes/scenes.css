@@ -77,7 +77,7 @@
 
 .game-tab[aria-current='page'] {
   color: var(--text);
-  box-shadow: var(--accent-stripe);
+  border-top: var(--accent-line-width) solid var(--text);
 }
 
 .library {

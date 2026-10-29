@@ -52,7 +52,12 @@ function Game({ puzzle }: { puzzle: Puzzle }) {
   const { game, n } = puzzle
   const config = gameConfigs[game]
   const [run, dispatch] = useReducer(reduce, undefined, () => loadProgress(game, n).run ?? startRun(oddlySpecificConfig))
-  const [ui, setUi] = useState<Ui>({ kind: 'input' })
+  // A rejection still pending after a reload is shown again, so the player can move on or overrule.
+  const [ui, setUi] = useState<Ui>(() => {
+    const pending = run.rounds[run.current]
+    const last = pending?.pending ? pending.guesses.at(-1) : undefined
+    return last ? { kind: 'rejected', guess: last } : { kind: 'input' }
+  })
   const [answer, setAnswer] = useState('')
   const [scores, setScores] = useState<Record<string, number | undefined>>({})
   const [model] = useState<CloudModel>(loadCloudModel)
@@ -275,7 +280,7 @@ function RoundEnd({ run, puzzle, onNext }: { run: RunState, puzzle: Puzzle, onNe
         <>
           <p className="telemetry round-end__label">{round.overruled ? en['verdict.overruled'] : format('verdict.label.accepted', { points: round.points })}</p>
           <h1 className="round-end__answer">{winning?.answer}</h1>
-          <p>{format('verdict.accepted', { n: round.strikes + 1 })}</p>
+          <p>{winning?.known ? en['verdict.known'] : format('verdict.accepted', { n: round.strikes + 1 })}</p>
         </>
       ) : (
         <>

@@ -1,0 +1,36 @@
+{
+  "oddly-specific": [
+    {
+      "n": 1,
+      "difficulty": "easy"
+    },
+    {
+      "n": 2,
+      "difficulty": "easy"
+    },
+    {
+      "n": 3,
+      "difficulty": "easy"
+    },
+    {
+      "n": 4,
+      "difficulty": "medium"
+    },
+    {
+      "n": 5,
+      "difficulty": "medium"
+    },
+    {
+      "n": 6,
+      "difficulty": "medium"
+    },
+    {
+      "n": 7,
+      "difficulty": "hard"
+    },
+    {
+      "n": 8,
+      "difficulty": "hard"
+    }
+  ]
+}

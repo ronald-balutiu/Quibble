@@ -1,21 +1,21 @@
 // Phase 1 generator prototype for Oddly Specific and Category Escape on the
-// ingredient sample. With --confirm, Clef scores the cells that sampled known
+// ingredient sample. With --confirm, Gemma 4 scores the cells that sampled known
 // answers depend on (capped by --max-neurons), so both models confirm them.
-// Usage: npm run ts -- factory/prototype.ts [--confirm --max-neurons 900]
+// Usage: npm run ts -- factory/prototype.ts [--sample 20] [--confirm --max-neurons 900]
 import { parseArgs } from 'node:util'
-import { judgeWithClef } from '../worker/judge'
+import { judgeWithGemma } from '../worker/judge'
 import { budgetedRunner, readJson, writeJson, type Matrix } from './matrix'
 import {
   categoryEscapeRun, knownAnswers, oddlySpecificRounds, seeded, shuffled, unconfirmedCells,
   type CategoryEscapeRun, type Conditions,
 } from './generators/rounds'
 
-const { values } = parseArgs({ options: { confirm: { type: 'boolean', default: false }, 'max-neurons': { type: 'string', default: '900' } } })
+const { values } = parseArgs({ options: { confirm: { type: 'boolean', default: false }, sample: { type: 'string', default: '20' }, 'max-neurons': { type: 'string', default: '900' } } })
 
 const things = readJson<string[]>('factory/things.json', [])
 const conditions = readJson<Conditions & Record<string, { question: string }>>('factory/conditions.json', {})
 const matrix = readJson<Matrix>('factory/matrix.json', {})
-const SAMPLE_ROUNDS = 20
+const SAMPLE_ROUNDS = Number(values.sample)
 const next = seeded(20261029)
 
 // The plan's thresholds assume ~400 things; scale the category size to the sample.
@@ -49,17 +49,17 @@ if (values.confirm) {
   const budget = budgetedRunner(Number(values['max-neurons']))
   for (const [thing, ids] of needs) {
     if (budget.exhausted) break
-    const verdict = await judgeWithClef(budget.ai, thing, [...ids].map((id) => ({ id, question: conditions[id]?.question ?? '' })), { model: 'clef' })
-    if (!verdict.ok) { console.error(`clef could not confirm "${thing}".`); continue }
+    const verdict = await judgeWithGemma(budget.ai, thing, [...ids].map((id) => ({ id, question: conditions[id]?.question ?? '' })))
+    if (!verdict.ok) { console.error(`gemma-4 could not confirm "${thing}".`); continue }
     for (const [id, p] of Object.entries(verdict.scores)) {
       const cell = matrix[thing]?.[id]
-      if (cell) cell.clef = p
+      if (cell) cell.gemma = p
     }
     needs.delete(thing)
     writeJson('factory/matrix.json', matrix)
   }
   console.log(`confirm: ${budget.spent.toFixed(1)} Neurons; ${String(needs.size)} things still unconfirmed`)
-  budget.record('confirm', 'clef')
+  budget.record('confirm', 'gemma-4')
 }
 
 const osResults = osSample.map((round) => ({ ...round, known: knownAnswers(matrix, round.solutions, round.conditions) }))

@@ -6,7 +6,7 @@ import type { RunState } from '@/games/oddly-specific/reducer'
 // call is wrapped, so the game still plays when storage is blocked or full.
 // Saved data that no longer fits the shape is discarded, never migrated (1.1).
 
-const guess = z.strictObject({ answer: z.string(), pass: z.boolean(), failed: z.array(z.string()), closeCall: z.boolean() })
+const guess = z.strictObject({ answer: z.string(), pass: z.boolean(), failed: z.array(z.string()), closeCall: z.boolean(), known: z.boolean().exactOptional() })
 const round = z.strictObject({
   status: z.enum(['playing', 'solved', 'lost', 'skipped']),
   guesses: z.array(guess),

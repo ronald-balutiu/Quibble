@@ -97,8 +97,6 @@
   --radius-square: 0px;
   --radius-pill: 999px;
   --radius-circle: 50%;
-  /* The 2px accent line along a game's top edge (5.2 header strip). */
-  --accent-stripe: inset 0 var(--accent-line-width) 0 var(--accent);
   --t-scene: 250ms; --t-state: 150ms; --t-sheet: 200ms;
 }
 @media (min-width: 1024px) {

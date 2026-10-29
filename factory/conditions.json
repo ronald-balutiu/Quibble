@@ -1,83 +1,301 @@
 {
-  "pocket": { "label": "Fits in a pocket", "negation": "doesn't fit in a pocket", "tag": "size",
+  "pocket": {
+    "label": "Fits in a pocket",
+    "negation": "doesn't fit in a pocket",
+    "tag": "size",
     "question": "Could the thing ordinarily fit inside a clothing pocket, even if people don't usually carry it there? Judge its everyday size.",
-    "claim": "\"{answer}\" could ordinarily fit inside a clothing pocket." },
-  "big": { "label": "Bigger than a person", "negation": "isn't bigger than a person", "tag": "size",
+    "claim": "\"{answer}\" could ordinarily fit inside a clothing pocket."
+  },
+  "big": {
+    "label": "Bigger than a person",
+    "negation": "isn't bigger than a person",
+    "tag": "size",
     "question": "Is the thing ordinarily bigger than an adult person? Judge its everyday meaning.",
-    "claim": "\"{answer}\" is ordinarily bigger than an adult person." },
-  "liftable": { "label": "Can be lifted with one hand", "negation": "can't be lifted with one hand", "tag": "size",
+    "claim": "\"{answer}\" is ordinarily bigger than an adult person."
+  },
+  "liftable": {
+    "label": "Can be lifted with one hand",
+    "negation": "can't be lifted with one hand",
+    "tag": "size",
     "question": "Can an adult ordinarily lift the thing with one hand? Judge its everyday meaning.",
-    "claim": "An adult can ordinarily lift \"{answer}\" with one hand." },
-  "metal": { "label": "Mostly metal", "negation": "isn't mostly metal", "tag": "material",
+    "claim": "An adult can ordinarily lift \"{answer}\" with one hand."
+  },
+  "metal": {
+    "label": "Mostly metal",
+    "negation": "isn't mostly metal",
+    "tag": "material",
     "question": "Is the main body or structure of the thing ordinarily made of metal? Judge its everyday meaning.",
-    "claim": "The main body or structure of \"{answer}\" is ordinarily made of metal." },
-  "wood": { "label": "Mostly wood", "negation": "isn't mostly wood", "tag": "material",
+    "claim": "The main body or structure of \"{answer}\" is ordinarily made of metal."
+  },
+  "wood": {
+    "label": "Mostly wood",
+    "negation": "isn't mostly wood",
+    "tag": "material",
     "question": "Is the thing ordinarily made mostly of wood? Judge its everyday meaning.",
-    "claim": "\"{answer}\" is ordinarily made mostly of wood." },
-  "nonmetal": { "label": "Not metal", "negation": "is mostly metal", "tag": "material",
+    "claim": "\"{answer}\" is ordinarily made mostly of wood."
+  },
+  "nonmetal": {
+    "label": "Not metal",
+    "negation": "is mostly metal",
+    "tag": "material",
     "question": "Is the main body or structure of the thing ordinarily made of something other than metal? Judge its everyday meaning.",
-    "claim": "The main body or structure of \"{answer}\" is ordinarily made of something other than metal." },
-  "electric": { "label": "Needs electricity", "negation": "doesn't need electricity", "tag": "power",
+    "claim": "The main body or structure of \"{answer}\" is ordinarily made of something other than metal."
+  },
+  "electric": {
+    "label": "Needs electricity",
+    "negation": "doesn't need electricity",
+    "tag": "power",
     "question": "Does the thing need electricity, from a plug or a battery, to do its job? Judge its everyday meaning.",
-    "claim": "\"{answer}\" needs electricity, from a plug or a battery, to do its job." },
-  "nonelec": { "label": "Not electronic", "negation": "is electronic", "tag": "power",
+    "claim": "\"{answer}\" needs electricity, from a plug or a battery, to do its job."
+  },
+  "nonelec": {
+    "label": "Not electronic",
+    "negation": "is electronic",
+    "tag": "power",
     "question": "Is the thing free of electronic components? Judge its everyday meaning.",
-    "claim": "\"{answer}\" is free of electronic components." },
-  "secure": { "label": "Can secure something", "negation": "can't secure anything", "tag": "use",
+    "claim": "\"{answer}\" is free of electronic components."
+  },
+  "secure": {
+    "label": "Can secure something",
+    "negation": "can't secure anything",
+    "tag": "use",
     "question": "Does the thing's ordinary use include fastening or securing something?",
-    "claim": "The ordinary use of \"{answer}\" includes fastening or securing something." },
-  "cut": { "label": "Can cut things", "negation": "can't cut things", "tag": "use",
+    "claim": "The ordinary use of \"{answer}\" includes fastening or securing something."
+  },
+  "cut": {
+    "label": "Can cut things",
+    "negation": "can't cut things",
+    "tag": "use",
     "question": "Is the thing ordinarily used to cut something?",
-    "claim": "\"{answer}\" is ordinarily used to cut something." },
-  "write": { "label": "Used to write or draw", "negation": "isn't used to write or draw", "tag": "use",
+    "claim": "\"{answer}\" is ordinarily used to cut something."
+  },
+  "write": {
+    "label": "Used to write or draw",
+    "negation": "isn't used to write or draw",
+    "tag": "use",
     "question": "Is the thing ordinarily used to write or draw?",
-    "claim": "\"{answer}\" is ordinarily used to write or draw." },
-  "liquid": { "label": "Holds liquid", "negation": "doesn't hold liquid", "tag": "use",
+    "claim": "\"{answer}\" is ordinarily used to write or draw."
+  },
+  "liquid": {
+    "label": "Holds liquid",
+    "negation": "doesn't hold liquid",
+    "tag": "use",
     "question": "Does the thing ordinarily hold or contain a liquid, such as water or a drink, while it is in use?",
-    "claim": "\"{answer}\" ordinarily holds or contains a liquid while it is in use." },
-  "wearable": { "label": "Can be worn", "negation": "can't be worn", "tag": "use",
+    "claim": "\"{answer}\" ordinarily holds or contains a liquid while it is in use."
+  },
+  "wearable": {
+    "label": "Can be worn",
+    "negation": "can't be worn",
+    "tag": "use",
     "question": "Is the thing ordinarily worn on the body?",
-    "claim": "\"{answer}\" is ordinarily worn on the body." },
-  "sport": { "label": "Used in a sport", "negation": "isn't used in a sport", "tag": "use",
+    "claim": "\"{answer}\" is ordinarily worn on the body."
+  },
+  "sport": {
+    "label": "Used in a sport",
+    "negation": "isn't used in a sport",
+    "tag": "use",
     "question": "Is the thing ordinarily used to play a sport?",
-    "claim": "\"{answer}\" is ordinarily used to play a sport." },
-  "noise": { "label": "Makes a sound in use", "negation": "doesn't make a sound in use", "tag": "sense",
+    "claim": "\"{answer}\" is ordinarily used to play a sport."
+  },
+  "noise": {
+    "label": "Makes a sound in use",
+    "negation": "doesn't make a sound in use",
+    "tag": "sense",
     "question": "Does the thing ordinarily make a noticeable sound when it is used?",
-    "claim": "\"{answer}\" ordinarily makes a noticeable sound when it is used." },
-  "soft": { "label": "Soft to the touch", "negation": "isn't soft", "tag": "sense",
+    "claim": "\"{answer}\" ordinarily makes a noticeable sound when it is used."
+  },
+  "soft": {
+    "label": "Soft to the touch",
+    "negation": "isn't soft",
+    "tag": "sense",
     "question": "Is the thing ordinarily soft to the touch?",
-    "claim": "\"{answer}\" is ordinarily soft to the touch." },
-  "sharp": { "label": "Has a sharp edge or point", "negation": "has no sharp edge or point", "tag": "sense",
+    "claim": "\"{answer}\" is ordinarily soft to the touch."
+  },
+  "sharp": {
+    "label": "Has a sharp edge or point",
+    "negation": "has no sharp edge or point",
+    "tag": "sense",
     "question": "Does the thing ordinarily have a sharp edge or point?",
-    "claim": "\"{answer}\" ordinarily has a sharp edge or point." },
-  "round": { "label": "Round", "negation": "isn't round", "tag": "shape",
+    "claim": "\"{answer}\" ordinarily has a sharp edge or point."
+  },
+  "round": {
+    "label": "Round",
+    "negation": "isn't round",
+    "tag": "shape",
     "question": "Is the thing ordinarily round or ball-shaped?",
-    "claim": "\"{answer}\" is ordinarily round or ball-shaped." },
-  "food": { "label": "Is food", "negation": "isn't food", "tag": "kind",
+    "claim": "\"{answer}\" is ordinarily round or ball-shaped."
+  },
+  "food": {
+    "label": "Is food",
+    "negation": "isn't food",
+    "tag": "kind",
     "question": "Is the thing something people ordinarily eat?",
-    "claim": "\"{answer}\" is something people ordinarily eat." },
-  "nonfood": { "label": "Not food", "negation": "is food", "tag": "kind",
+    "claim": "\"{answer}\" is something people ordinarily eat."
+  },
+  "nonfood": {
+    "label": "Not food",
+    "negation": "is food",
+    "tag": "kind",
     "question": "Is the thing something people do not ordinarily eat?",
-    "claim": "\"{answer}\" is something people do not ordinarily eat." },
-  "alive": { "label": "Alive", "negation": "isn't alive", "tag": "kind",
+    "claim": "\"{answer}\" is something people do not ordinarily eat."
+  },
+  "alive": {
+    "label": "Alive",
+    "negation": "isn't alive",
+    "tag": "kind",
     "question": "Is the thing a living plant or animal?",
-    "claim": "\"{answer}\" is a living plant or animal." },
-  "kitchen": { "label": "Found in a kitchen", "negation": "isn't found in a kitchen", "tag": "place", "category": true,
+    "claim": "\"{answer}\" is a living plant or animal."
+  },
+  "kitchen": {
+    "label": "Found in a kitchen",
+    "negation": "isn't found in a kitchen",
+    "tag": "place",
+    "category": true,
     "question": "Is the thing ordinarily found in a home kitchen?",
-    "claim": "\"{answer}\" is ordinarily found in a home kitchen." },
-  "bathroom": { "label": "Found in a bathroom", "negation": "isn't found in a bathroom", "tag": "place", "category": true,
+    "claim": "\"{answer}\" is ordinarily found in a home kitchen."
+  },
+  "bathroom": {
+    "label": "Found in a bathroom",
+    "negation": "isn't found in a bathroom",
+    "tag": "place",
+    "category": true,
     "question": "Is the thing ordinarily found in a home bathroom?",
-    "claim": "\"{answer}\" is ordinarily found in a home bathroom." },
-  "office": { "label": "Found in an office", "negation": "isn't found in an office", "tag": "place", "category": true,
+    "claim": "\"{answer}\" is ordinarily found in a home bathroom."
+  },
+  "office": {
+    "label": "Found in an office",
+    "negation": "isn't found in an office",
+    "tag": "place",
+    "category": true,
     "question": "Is the thing ordinarily found in an office?",
-    "claim": "\"{answer}\" is ordinarily found in an office." },
-  "garden": { "label": "Found in a garden", "negation": "isn't found in a garden", "tag": "place", "category": true,
+    "claim": "\"{answer}\" is ordinarily found in an office."
+  },
+  "garden": {
+    "label": "Found in a garden",
+    "negation": "isn't found in a garden",
+    "tag": "place",
+    "category": true,
     "question": "Is the thing ordinarily found in a garden or yard?",
-    "claim": "\"{answer}\" is ordinarily found in a garden or yard." },
-  "clothing": { "label": "Clothing or accessory", "negation": "isn't clothing", "tag": "kind", "category": true,
+    "claim": "\"{answer}\" is ordinarily found in a garden or yard."
+  },
+  "clothing": {
+    "label": "Clothing or accessory",
+    "negation": "isn't clothing",
+    "tag": "kind",
+    "category": true,
     "question": "Is the thing an item of clothing or a fashion accessory?",
-    "claim": "\"{answer}\" is an item of clothing or a fashion accessory." },
-  "unpowered": { "label": "Not powered", "negation": "is powered", "tag": "power",
+    "claim": "\"{answer}\" is an item of clothing or a fashion accessory."
+  },
+  "unpowered": {
+    "label": "Not powered",
+    "negation": "is powered",
+    "tag": "power",
     "question": "Does the thing work without any electricity, battery or engine?",
-    "claim": "\"{answer}\" works without any electricity, battery or engine." }
+    "claim": "\"{answer}\" works without any electricity, battery or engine."
+  },
+  "plastic": {
+    "label": "Mostly plastic",
+    "negation": "isn't mostly plastic",
+    "tag": "material",
+    "question": "Is the main body of the thing ordinarily made of plastic? Judge its everyday meaning.",
+    "claim": "The main body of \"{answer}\" is ordinarily made of plastic."
+  },
+  "fabric": {
+    "label": "Made of fabric",
+    "negation": "isn't made of fabric",
+    "tag": "material",
+    "question": "Is the thing ordinarily made mostly of cloth or fabric? Judge its everyday meaning.",
+    "claim": "\"{answer}\" is ordinarily made mostly of cloth or fabric."
+  },
+  "handle": {
+    "label": "Has a handle",
+    "negation": "has no handle",
+    "tag": "shape",
+    "question": "Does the thing ordinarily have a handle you hold it by? Judge its everyday meaning.",
+    "claim": "\"{answer}\" ordinarily has a handle you hold it by."
+  },
+  "wheels": {
+    "label": "Has wheels",
+    "negation": "has no wheels",
+    "tag": "shape",
+    "question": "Does the thing ordinarily have wheels? Judge its everyday meaning.",
+    "claim": "\"{answer}\" ordinarily has wheels."
+  },
+  "bendy": {
+    "label": "Bends easily",
+    "negation": "doesn't bend easily",
+    "tag": "sense",
+    "question": "Can the thing ordinarily be bent or folded by hand without breaking? Judge its everyday meaning.",
+    "claim": "\"{answer}\" can ordinarily be bent or folded by hand without breaking."
+  },
+  "breakable": {
+    "label": "Breaks if dropped",
+    "negation": "doesn't break if dropped",
+    "tag": "sense",
+    "question": "Would the thing ordinarily break or shatter if dropped on a hard floor? Judge its everyday meaning.",
+    "claim": "\"{answer}\" would ordinarily break or shatter if dropped on a hard floor."
+  },
+  "cleaning": {
+    "label": "Used for cleaning",
+    "negation": "isn't used for cleaning",
+    "tag": "use",
+    "question": "Is the thing ordinarily used for cleaning something, including people? Judge its everyday meaning.",
+    "claim": "\"{answer}\" is ordinarily used for cleaning something."
+  },
+  "eatdrink": {
+    "label": "Used to eat or drink",
+    "negation": "isn't used to eat or drink",
+    "tag": "use",
+    "question": "Is the thing ordinarily used while eating or drinking, such as to hold, serve or bring food or drink to the mouth?",
+    "claim": "\"{answer}\" is ordinarily used while eating or drinking."
+  },
+  "light": {
+    "label": "Gives off light",
+    "negation": "doesn't give off light",
+    "tag": "sense",
+    "question": "Does the thing ordinarily give off light when it is used? Judge its everyday meaning.",
+    "claim": "\"{answer}\" ordinarily gives off light when it is used."
+  },
+  "heavy": {
+    "label": "Heavier than a bag of sugar",
+    "negation": "is lighter than a bag of sugar",
+    "tag": "size",
+    "question": "Does the thing ordinarily weigh more than 1 kilogram, about a bag of sugar? Judge its everyday meaning.",
+    "claim": "\"{answer}\" ordinarily weighs more than 1 kilogram."
+  },
+  "cheap": {
+    "label": "Usually costs under $10",
+    "negation": "usually costs more than $10",
+    "tag": "value",
+    "question": "Can the thing ordinarily be bought new for less than 10 US dollars? Judge its everyday meaning.",
+    "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+  },
+  "buttons": {
+    "label": "Has buttons",
+    "negation": "has no buttons",
+    "tag": "shape",
+    "question": "Does the thing ordinarily have buttons or keys you press? Judge its everyday meaning.",
+    "claim": "\"{answer}\" ordinarily has buttons or keys you press."
+  },
+  "batteries": {
+    "label": "Can run on batteries",
+    "negation": "can't run on batteries",
+    "tag": "power",
+    "question": "Can the thing ordinarily run on batteries? Judge its everyday meaning.",
+    "claim": "\"{answer}\" can ordinarily run on batteries."
+  },
+  "daily": {
+    "label": "Used most days",
+    "negation": "isn't used most days",
+    "tag": "value",
+    "question": "Do most people ordinarily use the thing on most days? Judge its everyday meaning.",
+    "claim": "Most people ordinarily use \"{answer}\" on most days."
+  },
+  "kids": {
+    "label": "Made for children",
+    "negation": "isn't made for children",
+    "tag": "kind",
+    "question": "Is the thing ordinarily made mainly for children? Judge its everyday meaning.",
+    "claim": "\"{answer}\" is ordinarily made mainly for children."
+  }
 }

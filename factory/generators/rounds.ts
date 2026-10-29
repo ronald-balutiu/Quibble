@@ -29,13 +29,13 @@ export function shuffled<T>(items: readonly T[], next: () => number): T[] {
 
 const fits = (matrix: Matrix, thing: string, ids: readonly string[]) => ids.every((id) => truth(matrix[thing]?.[id]) === 'yes')
 
-// A known answer needs Clef to agree on every cell, so both models confirm it.
+// A known answer needs Gemma 4 to agree on every cell too, so both models confirm it (D-68).
 export const confirmed = (matrix: Matrix, thing: string, ids: readonly string[]) =>
-  ids.every((id) => (matrix[thing]?.[id]?.clef ?? 0) >= CONFIRMED)
+  ids.every((id) => (matrix[thing]?.[id]?.gemma ?? 0) >= CONFIRMED)
 
-// Cells Clef still has to score before a candidate can become a known answer.
+// Cells Gemma 4 still has to score before a candidate can become a known answer.
 export function unconfirmedCells(matrix: Matrix, thing: string, ids: readonly string[]) {
-  return ids.filter((id) => matrix[thing]?.[id]?.clef === undefined)
+  return ids.filter((id) => matrix[thing]?.[id]?.gemma === undefined)
 }
 
 export interface OddlySpecificRound { conditions: string[], solutions: string[] }

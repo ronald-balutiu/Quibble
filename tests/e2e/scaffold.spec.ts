@@ -8,7 +8,8 @@ test('the React entry point and local Worker load together', async ({ page, requ
   })
 
   await page.goto('/')
-  await expect(page.getByRole('heading', { name: 'Technically Correct', level: 1 })).toBeVisible()
+  await expect(page).toHaveTitle('Quibble')
+  await expect(page.getByRole('heading', { name: 'Quibble', level: 1 })).toBeVisible()
   await expect(page.getByText('Make your case.')).toBeVisible()
   const health = await request.get('/api/health')
   expect(health.status()).toBe(200)

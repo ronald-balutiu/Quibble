@@ -7,7 +7,7 @@ status line.
 
 ## Overview
 
-Technically Correct is a React single-page app served by a Cloudflare Worker. The
+Quibble is a React single-page app served by a Cloudflare Worker. The
 Worker serves the built app as static assets and handles everything under `/api/*`.
 Build-time Node tools generate puzzles and evaluate the judges; their output is
 committed and shipped with the app or the Worker.

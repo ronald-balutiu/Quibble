@@ -1,4 +1,4 @@
-# Technically Correct
+# Quibble
 
 Three word games with open-ended answers. Two AI judges decide each answer.
 

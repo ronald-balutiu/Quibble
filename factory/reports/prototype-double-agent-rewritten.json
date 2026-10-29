@@ -1,0 +1,1010 @@
+{
+  "rewritten": true,
+  "pool": 1281,
+  "minSenses": 5,
+  "checked": 40,
+  "valid": 14,
+  "yield": 0.35,
+  "projectedWords": 448,
+  "clueFailures": {
+    "targetFailed": 31,
+    "tooVague": 0
+  },
+  "results": [
+    {
+      "word": "buffet",
+      "ok": false,
+      "clues": [
+        {
+          "domain": "noun.artifact",
+          "definition": "a piece of furniture that stands at the side of a dining room; has shelves and drawers",
+          "clue": "Sideboard with shelves and drawers",
+          "target": 0.8789,
+          "passingDecoys": [],
+          "decoyCount": 20,
+          "ok": true
+        },
+        {
+          "domain": "verb.contact",
+          "definition": "strike against forcefully",
+          "clue": "Hit or strike repeatedly",
+          "target": 0.038,
+          "passingDecoys": [],
+          "decoyCount": 20,
+          "ok": false
+        }
+      ]
+    },
+    {
+      "word": "supplement",
+      "ok": true,
+      "clues": [
+        {
+          "domain": "noun.communication",
+          "definition": "textual matter that is added onto a publication; usually at the end",
+          "clue": "Extra section at the end of a magazine",
+          "target": 0.9574,
+          "passingDecoys": [],
+          "decoyCount": 5,
+          "ok": true
+        },
+        {
+          "domain": "noun.attribute",
+          "definition": "a quantity added (e.g. to make up for a deficiency)",
+          "clue": "Something added to make up for a deficiency",
+          "target": 0.9591,
+          "passingDecoys": [],
+          "decoyCount": 7,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "word": "denial",
+      "ok": true,
+      "clues": [
+        {
+          "domain": "noun.communication",
+          "definition": "the act of refusing to comply (as with a request)",
+          "clue": "Refusal of a request",
+          "target": 0.922,
+          "passingDecoys": [],
+          "decoyCount": 5,
+          "ok": true
+        },
+        {
+          "domain": "noun.process",
+          "definition": "(psychiatry) a defense mechanism that denies painful thoughts",
+          "clue": "Psychological refusal to accept reality",
+          "target": 0.9383,
+          "passingDecoys": [],
+          "decoyCount": 20,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "word": "plunder",
+      "ok": false,
+      "clues": [
+        {
+          "domain": "noun.possession",
+          "definition": "goods or money obtained illegally",
+          "clue": "Stolen goods or money",
+          "target": 0.9258,
+          "passingDecoys": [
+            "filch"
+          ],
+          "decoyCount": 20,
+          "ok": true
+        },
+        {
+          "domain": "verb.possession",
+          "definition": "take illegally; of intellectual property",
+          "clue": "Steal intellectual property",
+          "target": 0.3085,
+          "passingDecoys": [],
+          "decoyCount": 6,
+          "ok": false
+        }
+      ]
+    },
+    {
+      "word": "judgement",
+      "ok": false,
+      "clues": [
+        {
+          "domain": "noun.communication",
+          "definition": "the legal document stating the reasons for a judicial decision",
+          "clue": "Written explanation of a court's decision",
+          "target": 0.5906,
+          "passingDecoys": [],
+          "decoyCount": 6,
+          "ok": false
+        },
+        {
+          "domain": "noun.cognition",
+          "definition": "an opinion formed by judging something",
+          "clue": "An opinion or conclusion reached after consideration",
+          "target": 0.9329,
+          "passingDecoys": [],
+          "decoyCount": 20,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "word": "broadside",
+      "ok": false,
+      "clues": [
+        {
+          "domain": "noun.communication",
+          "definition": "an advertisement (usually printed on a page or in a leaflet) intended for wide distribution",
+          "clue": "Printed advertisement for wide distribution",
+          "target": 0.7666,
+          "passingDecoys": [],
+          "decoyCount": 9,
+          "ok": false
+        },
+        {
+          "domain": "noun.artifact",
+          "definition": "all of the armament that is fired from one side of a warship",
+          "clue": "Full volley from one side of a warship",
+          "target": 0.9483,
+          "passingDecoys": [],
+          "decoyCount": 13,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "word": "fling",
+      "ok": false,
+      "clues": [
+        {
+          "domain": "noun.act",
+          "definition": "a usually brief attempt",
+          "clue": "A brief attempt",
+          "target": 0.5352,
+          "passingDecoys": [],
+          "decoyCount": 20,
+          "ok": false
+        },
+        {
+          "domain": "verb.contact",
+          "definition": "throw with force or recklessness",
+          "clue": "Cast aside with force",
+          "target": 0.9338,
+          "passingDecoys": [],
+          "decoyCount": 20,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "word": "soften",
+      "ok": false,
+      "clues": [
+        {
+          "domain": "verb.perception",
+          "definition": "make (images or sounds) soft or softer",
+          "clue": "Muffle or blur",
+          "target": 0.3844,
+          "passingDecoys": [],
+          "decoyCount": 6,
+          "ok": false
+        },
+        {
+          "domain": "verb.change",
+          "definition": "lessen in force or effect",
+          "clue": "Make less intense",
+          "target": 0.892,
+          "passingDecoys": [
+            "dim"
+          ],
+          "decoyCount": 8,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "word": "maneuver",
+      "ok": false,
+      "clues": [
+        {
+          "domain": "noun.act",
+          "definition": "a military training exercise",
+          "clue": "Military drill",
+          "target": 0.6311,
+          "passingDecoys": [],
+          "decoyCount": 9,
+          "ok": false
+        },
+        {
+          "domain": "noun.cognition",
+          "definition": "a plan for attaining a particular goal",
+          "clue": "A clever scheme to achieve a goal",
+          "target": 0.8333,
+          "passingDecoys": [],
+          "decoyCount": 12,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "word": "difference",
+      "ok": false,
+      "clues": [
+        {
+          "domain": "noun.attribute",
+          "definition": "the quality of being unlike or dissimilar",
+          "clue": "Lack of similarity",
+          "target": 0.9352,
+          "passingDecoys": [],
+          "decoyCount": 6,
+          "ok": true
+        },
+        {
+          "domain": "noun.event",
+          "definition": "a variation that deviates from the standard or norm",
+          "clue": "Departure from the norm",
+          "target": 0.6856,
+          "passingDecoys": [],
+          "decoyCount": 20,
+          "ok": false
+        }
+      ]
+    },
+    {
+      "word": "transition",
+      "ok": true,
+      "clues": [
+        {
+          "domain": "noun.act",
+          "definition": "the act of passing from one state or place to the next",
+          "clue": "Change from one state to another",
+          "target": 0.9326,
+          "passingDecoys": [
+            "conversion",
+            "changeover"
+          ],
+          "decoyCount": 6,
+          "ok": true
+        },
+        {
+          "domain": "noun.event",
+          "definition": "an event that results in a transformation",
+          "clue": "A change or shift from one state to another",
+          "target": 0.9619,
+          "passingDecoys": [],
+          "decoyCount": 20,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "word": "aspirate",
+      "ok": false,
+      "clues": [
+        {
+          "domain": "noun.communication",
+          "definition": "a consonant pronounced with aspiration",
+          "clue": "Breath-accompanied consonant",
+          "target": 0.7782,
+          "passingDecoys": [],
+          "decoyCount": 20,
+          "ok": false
+        },
+        {
+          "domain": "verb.contact",
+          "definition": "remove by suction",
+          "clue": "Draw out by suction",
+          "target": 0.8427,
+          "passingDecoys": [],
+          "decoyCount": 13,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "word": "rivet",
+      "ok": false,
+      "clues": [
+        {
+          "domain": "noun.artifact",
+          "definition": "ornament consisting of a circular rounded protuberance (as on a vault or shield or belt)",
+          "clue": "Circular decorative bump on a belt or shield",
+          "target": 0.7847,
+          "passingDecoys": [],
+          "decoyCount": 20,
+          "ok": false
+        },
+        {
+          "domain": "verb.cognition",
+          "definition": "direct one's attention on something",
+          "clue": "Fix one's gaze upon",
+          "target": 0.7229,
+          "passingDecoys": [],
+          "decoyCount": 20,
+          "ok": false
+        }
+      ]
+    },
+    {
+      "word": "reprobate",
+      "ok": false,
+      "clues": [
+        {
+          "domain": "noun.person",
+          "definition": "a person without moral scruples",
+          "clue": "Person with no moral compass",
+          "target": 0.8874,
+          "passingDecoys": [],
+          "decoyCount": 12,
+          "ok": true
+        },
+        {
+          "domain": "verb.cognition",
+          "definition": "reject (documents) as invalid",
+          "clue": "Dismiss documents as invalid",
+          "target": 0.3314,
+          "passingDecoys": [],
+          "decoyCount": 20,
+          "ok": false
+        }
+      ]
+    },
+    {
+      "word": "initiate",
+      "ok": false,
+      "clues": [
+        {
+          "domain": "noun.person",
+          "definition": "someone new to a field or activity",
+          "clue": "A newcomer to a group or activity",
+          "target": 0.6401,
+          "passingDecoys": [],
+          "decoyCount": 20,
+          "ok": false
+        },
+        {
+          "domain": "noun.group",
+          "definition": "people who have been introduced to the mysteries of some field or activity",
+          "clue": "New members of a secret group",
+          "target": 0.8291,
+          "passingDecoys": [],
+          "decoyCount": 14,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "word": "ebb",
+      "ok": true,
+      "clues": [
+        {
+          "domain": "noun.process",
+          "definition": "a gradual decline (in size or strength or power or number)",
+          "clue": "Gradual decline in strength or power",
+          "target": 0.8943,
+          "passingDecoys": [],
+          "decoyCount": 20,
+          "ok": true
+        },
+        {
+          "domain": "noun.event",
+          "definition": "the outward flow of the tide",
+          "clue": "Receding tide",
+          "target": 0.9337,
+          "passingDecoys": [
+            "ebbing"
+          ],
+          "decoyCount": 8,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "word": "skin",
+      "ok": true,
+      "clues": [
+        {
+          "domain": "noun.body",
+          "definition": "a natural protective body covering and site of the sense of touch",
+          "clue": "Outer body covering and organ of touch",
+          "target": 0.9668,
+          "passingDecoys": [],
+          "decoyCount": 15,
+          "ok": true
+        },
+        {
+          "domain": "noun.artifact",
+          "definition": "an outer surface (usually thin)",
+          "clue": "Outer layer or surface",
+          "target": 0.9386,
+          "passingDecoys": [
+            "tegument",
+            "pelt",
+            "plumage"
+          ],
+          "decoyCount": 19,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "word": "charcoal",
+      "ok": true,
+      "clues": [
+        {
+          "domain": "noun.substance",
+          "definition": "a carbonaceous material obtained by heating wood or other organic matter in the absence of air",
+          "clue": "Black fuel made from burnt wood",
+          "target": 0.9584,
+          "passingDecoys": [],
+          "decoyCount": 8,
+          "ok": true
+        },
+        {
+          "domain": "noun.artifact",
+          "definition": "a stick of black carbon material used for drawing",
+          "clue": "Black stick used for sketching",
+          "target": 0.944,
+          "passingDecoys": [],
+          "decoyCount": 20,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "word": "breast",
+      "ok": false,
+      "clues": [
+        {
+          "domain": "noun.body",
+          "definition": "the front of the trunk from the neck to the abdomen",
+          "clue": "Chest area from neck to abdomen",
+          "target": 0.5809,
+          "passingDecoys": [
+            "chest"
+          ],
+          "decoyCount": 16,
+          "ok": false
+        },
+        {
+          "domain": "noun.animal",
+          "definition": "the part of an animal's body that corresponds to a person's chest",
+          "clue": "Animal's chest area",
+          "target": 0.6143,
+          "passingDecoys": [
+            "chest"
+          ],
+          "decoyCount": 16,
+          "ok": false
+        }
+      ]
+    },
+    {
+      "word": "mosaic",
+      "ok": false,
+      "clues": [
+        {
+          "domain": "noun.artifact",
+          "definition": "art consisting of a design made of small pieces of colored stone or glass",
+          "clue": "Pattern made of small colored pieces",
+          "target": 0.9269,
+          "passingDecoys": [],
+          "decoyCount": 12,
+          "ok": true
+        },
+        {
+          "domain": "noun.state",
+          "definition": "viral disease in solanaceous plants (tomatoes, potatoes, tobacco) resulting in mottling and often shriveling of the leaves",
+          "clue": "Plant virus causing mottled leaves",
+          "target": 0.3773,
+          "passingDecoys": [],
+          "decoyCount": 10,
+          "ok": false
+        }
+      ]
+    },
+    {
+      "word": "scruple",
+      "ok": false,
+      "clues": [
+        {
+          "domain": "noun.quantity",
+          "definition": "a unit of apothecary weight equal to 20 grains",
+          "clue": "Small apothecary weight unit",
+          "target": 0.7588,
+          "passingDecoys": [],
+          "decoyCount": 15,
+          "ok": false
+        },
+        {
+          "domain": "noun.feeling",
+          "definition": "uneasiness about the fitness of an action (particularly for reasons of ethics, morals or propriety)",
+          "clue": "Moral hesitation",
+          "target": 0.932,
+          "passingDecoys": [],
+          "decoyCount": 5,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "word": "cleavage",
+      "ok": false,
+      "clues": [
+        {
+          "domain": "noun.state",
+          "definition": "the state of being split or cleft",
+          "clue": "State of being split or cleft",
+          "target": 0.8469,
+          "passingDecoys": [],
+          "decoyCount": 20,
+          "ok": true
+        },
+        {
+          "domain": "noun.process",
+          "definition": "the breaking of a chemical bond in a molecule resulting in smaller molecules",
+          "clue": "Splitting of a chemical bond",
+          "target": 0.78,
+          "passingDecoys": [],
+          "decoyCount": 20,
+          "ok": false
+        }
+      ]
+    },
+    {
+      "word": "outrage",
+      "ok": false,
+      "clues": [
+        {
+          "domain": "noun.feeling",
+          "definition": "a feeling of righteous anger",
+          "clue": "Feeling of righteous anger",
+          "target": 0.9132,
+          "passingDecoys": [],
+          "decoyCount": 5,
+          "ok": true
+        },
+        {
+          "domain": "noun.act",
+          "definition": "a wantonly cruel act",
+          "clue": "Cruel and senseless act",
+          "target": 0.552,
+          "passingDecoys": [],
+          "decoyCount": 13,
+          "ok": false
+        }
+      ]
+    },
+    {
+      "word": "nurture",
+      "ok": false,
+      "clues": [
+        {
+          "domain": "noun.attribute",
+          "definition": "the properties acquired as a consequence of the way you were treated as a child",
+          "clue": "Traits shaped by childhood upbringing",
+          "target": 0.7271,
+          "passingDecoys": [],
+          "decoyCount": 6,
+          "ok": false
+        },
+        {
+          "domain": "noun.act",
+          "definition": "helping someone grow up to be an accepted member of the community",
+          "clue": "Raise and guide a child",
+          "target": 0.941,
+          "passingDecoys": [
+            "rearing"
+          ],
+          "decoyCount": 5,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "word": "fuel",
+      "ok": true,
+      "clues": [
+        {
+          "domain": "noun.substance",
+          "definition": "a substance that can be consumed to produce energy",
+          "clue": "Material burned for energy",
+          "target": 0.9659,
+          "passingDecoys": [],
+          "decoyCount": 20,
+          "ok": true
+        },
+        {
+          "domain": "verb.possession",
+          "definition": "provide with a combustible substance that provides energy",
+          "clue": "Supply with energy source",
+          "target": 0.8363,
+          "passingDecoys": [],
+          "decoyCount": 20,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "word": "prance",
+      "ok": false,
+      "clues": [
+        {
+          "domain": "noun.act",
+          "definition": "a proud stiff pompous gait",
+          "clue": "Walk with a proud, stiff gait",
+          "target": 0.7409,
+          "passingDecoys": [
+            "swagger"
+          ],
+          "decoyCount": 20,
+          "ok": false
+        },
+        {
+          "domain": "verb.motion",
+          "definition": "to walk with a lofty proud gait, often in an attempt to impress others",
+          "clue": "Walk with a proud, showy gait",
+          "target": 0.932,
+          "passingDecoys": [
+            "strut",
+            "swagger"
+          ],
+          "decoyCount": 15,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "word": "resort",
+      "ok": true,
+      "clues": [
+        {
+          "domain": "noun.location",
+          "definition": "a frequently visited place",
+          "clue": "Popular vacation spot",
+          "target": 0.9232,
+          "passingDecoys": [],
+          "decoyCount": 5,
+          "ok": true
+        },
+        {
+          "domain": "noun.attribute",
+          "definition": "something or someone turned to for assistance or security",
+          "clue": "A person or thing turned to for help",
+          "target": 0.8351,
+          "passingDecoys": [],
+          "decoyCount": 20,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "word": "slam",
+      "ok": false,
+      "clues": [
+        {
+          "domain": "noun.event",
+          "definition": "winning all or all but one of the tricks in bridge",
+          "clue": "Bridge victory with almost all tricks taken",
+          "target": 0.4561,
+          "passingDecoys": [],
+          "decoyCount": 20,
+          "ok": false
+        },
+        {
+          "domain": "noun.communication",
+          "definition": "an aggressive remark directed at a person like a missile and intended to have a telling effect",
+          "clue": "Harsh verbal attack",
+          "target": 0.7474,
+          "passingDecoys": [],
+          "decoyCount": 12,
+          "ok": false
+        }
+      ]
+    },
+    {
+      "word": "hazard",
+      "ok": true,
+      "clues": [
+        {
+          "domain": "noun.state",
+          "definition": "a source of danger; a possibility of incurring loss or misfortune",
+          "clue": "Potential source of danger",
+          "target": 0.9493,
+          "passingDecoys": [],
+          "decoyCount": 12,
+          "ok": true
+        },
+        {
+          "domain": "noun.phenomenon",
+          "definition": "an unknown and unpredictable phenomenon that causes an event to result one way rather than another",
+          "clue": "An unpredictable factor that changes an outcome",
+          "target": 0.8299,
+          "passingDecoys": [],
+          "decoyCount": 5,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "word": "date",
+      "ok": true,
+      "clues": [
+        {
+          "domain": "noun.time",
+          "definition": "the specified day of the month",
+          "clue": "Specific day of the month",
+          "target": 0.9302,
+          "passingDecoys": [],
+          "decoyCount": 5,
+          "ok": true
+        },
+        {
+          "domain": "noun.group",
+          "definition": "a meeting arranged in advance",
+          "clue": "Prearranged social meeting",
+          "target": 0.9163,
+          "passingDecoys": [],
+          "decoyCount": 5,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "word": "stifle",
+      "ok": false,
+      "clues": [
+        {
+          "domain": "noun.animal",
+          "definition": "joint between the femur and tibia in a quadruped; corresponds to the human knee",
+          "clue": "Animal's knee joint",
+          "target": 0.7359,
+          "passingDecoys": [],
+          "decoyCount": 6,
+          "ok": false
+        },
+        {
+          "domain": "verb.contact",
+          "definition": "suppress in order to conceal or hide",
+          "clue": "Hold back to hide",
+          "target": 0.5813,
+          "passingDecoys": [],
+          "decoyCount": 6,
+          "ok": false
+        }
+      ]
+    },
+    {
+      "word": "address",
+      "ok": false,
+      "clues": [
+        {
+          "domain": "noun.communication",
+          "definition": "(computer science) the code that identifies where a piece of information is stored",
+          "clue": "Location of data in memory",
+          "target": 0.4072,
+          "passingDecoys": [],
+          "decoyCount": 8,
+          "ok": false
+        },
+        {
+          "domain": "noun.location",
+          "definition": "the place where a person or organization can be found or communicated with",
+          "clue": "Location for mail or visits",
+          "target": 0.9497,
+          "passingDecoys": [],
+          "decoyCount": 7,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "word": "aspect",
+      "ok": true,
+      "clues": [
+        {
+          "domain": "noun.cognition",
+          "definition": "a distinct feature or element in a problem",
+          "clue": "A particular feature or part of a situation",
+          "target": 0.9552,
+          "passingDecoys": [],
+          "decoyCount": 14,
+          "ok": true
+        },
+        {
+          "domain": "noun.attribute",
+          "definition": "a characteristic to be considered",
+          "clue": "A feature or characteristic to consider",
+          "target": 0.9513,
+          "passingDecoys": [],
+          "decoyCount": 11,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "word": "grate",
+      "ok": false,
+      "clues": [
+        {
+          "domain": "noun.artifact",
+          "definition": "a frame of iron bars to hold a fire",
+          "clue": "Iron frame for a fireplace",
+          "target": 0.933,
+          "passingDecoys": [],
+          "decoyCount": 20,
+          "ok": true
+        },
+        {
+          "domain": "noun.event",
+          "definition": "a harsh rasping sound made by scraping something",
+          "clue": "Harsh, rasping sound",
+          "target": 0.7777,
+          "passingDecoys": [],
+          "decoyCount": 20,
+          "ok": false
+        }
+      ]
+    },
+    {
+      "word": "facility",
+      "ok": true,
+      "clues": [
+        {
+          "domain": "noun.artifact",
+          "definition": "a building or place that provides a particular service or is used for a particular industry",
+          "clue": "A place or building for a specific purpose",
+          "target": 0.9152,
+          "passingDecoys": [],
+          "decoyCount": 13,
+          "ok": true
+        },
+        {
+          "domain": "noun.cognition",
+          "definition": "skillful performance or ability without difficulty",
+          "clue": "Ease of doing something skillfully",
+          "target": 0.9049,
+          "passingDecoys": [],
+          "decoyCount": 20,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "word": "benefit",
+      "ok": true,
+      "clues": [
+        {
+          "domain": "noun.possession",
+          "definition": "financial assistance in time of need",
+          "clue": "Financial aid during a crisis",
+          "target": 0.8026,
+          "passingDecoys": [
+            "welfare"
+          ],
+          "decoyCount": 7,
+          "ok": true
+        },
+        {
+          "domain": "noun.attribute",
+          "definition": "something that aids or promotes well-being",
+          "clue": "Something that promotes well-being",
+          "target": 0.8604,
+          "passingDecoys": [],
+          "decoyCount": 20,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "word": "indenture",
+      "ok": false,
+      "clues": [
+        {
+          "domain": "noun.shape",
+          "definition": "a concave cut into a surface or edge (as in a coastline)",
+          "clue": "A notch or inward curve in a coastline",
+          "target": 0.6455,
+          "passingDecoys": [],
+          "decoyCount": 10,
+          "ok": false
+        },
+        {
+          "domain": "noun.communication",
+          "definition": "formal agreement between the issuer of bonds and the bondholders as to terms of the debt",
+          "clue": "Bond agreement terms",
+          "target": 0.8032,
+          "passingDecoys": [],
+          "decoyCount": 15,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "word": "spoil",
+      "ok": false,
+      "clues": [
+        {
+          "domain": "noun.possession",
+          "definition": "(usually plural) valuables taken by violence (especially in war)",
+          "clue": "Plundered goods or booty",
+          "target": 0.4402,
+          "passingDecoys": [
+            "rapine"
+          ],
+          "decoyCount": 10,
+          "ok": false
+        },
+        {
+          "domain": "noun.act",
+          "definition": "the act of stripping and taking by force",
+          "clue": "Plunder or loot by force",
+          "target": 0.4304,
+          "passingDecoys": [
+            "loot",
+            "booty",
+            "pillage",
+            "plunder"
+          ],
+          "decoyCount": 6,
+          "ok": false
+        }
+      ]
+    },
+    {
+      "word": "bloom",
+      "ok": true,
+      "clues": [
+        {
+          "domain": "noun.process",
+          "definition": "the organic process of bearing flowers",
+          "clue": "Process of producing flowers",
+          "target": 0.901,
+          "passingDecoys": [
+            "blossom"
+          ],
+          "decoyCount": 20,
+          "ok": true
+        },
+        {
+          "domain": "noun.plant",
+          "definition": "reproductive organ of angiosperm plants especially one having showy or colorful parts",
+          "clue": "Colorful part of a plant",
+          "target": 0.8742,
+          "passingDecoys": [],
+          "decoyCount": 20,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "word": "mandate",
+      "ok": false,
+      "clues": [
+        {
+          "domain": "noun.communication",
+          "definition": "a document giving an official instruction or command",
+          "clue": "Official written command",
+          "target": 0.9004,
+          "passingDecoys": [],
+          "decoyCount": 9,
+          "ok": true
+        },
+        {
+          "domain": "noun.location",
+          "definition": "a territory surrendered by Turkey or Germany after World War I and put under the tutelage of some other European power until they are able to stand by themselves",
+          "clue": "Post-WWI territory under European control",
+          "target": 0.6059,
+          "passingDecoys": [],
+          "decoyCount": 20,
+          "ok": false
+        }
+      ]
+    }
+  ]
+}

@@ -31,4 +31,5 @@ __pycache__/
 .pytest_cache/
 *.onnx
 eval/verdict/model/
+factory/wordnet/
 *.safetensors

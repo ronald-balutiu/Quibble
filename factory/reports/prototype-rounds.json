@@ -1,0 +1,122 @@
+{
+  "sample": {
+    "things": 112,
+    "conditions": 27,
+    "cells": 3024
+  },
+  "oddlySpecific": {
+    "candidateRounds": 3,
+    "sampled": 3,
+    "withFourKnown": 0,
+    "solutions": [
+      4,
+      13,
+      26
+    ],
+    "examples": [
+      {
+        "conditions": [
+          "liftable",
+          "nonmetal",
+          "nonfood"
+        ],
+        "solutions": [
+          "zip tie",
+          "pencil",
+          "crayon",
+          "highlighter",
+          "eraser",
+          "envelope",
+          "sticky note",
+          "wooden spoon",
+          "wine glass",
+          "chopsticks",
+          "oven mitt",
+          "dish towel",
+          "soap",
+          "shampoo bottle",
+          "rubber duck",
+          "earthworm",
+          "scarf",
+          "sock",
+          "glove",
+          "hat",
+          "belt",
+          "sunglasses",
+          "tennis ball",
+          "candle",
+          "matchstick",
+          "rope"
+        ],
+        "known": []
+      },
+      {
+        "conditions": [
+          "pocket",
+          "nonmetal",
+          "nonfood"
+        ],
+        "solutions": [
+          "zip tie",
+          "pencil",
+          "crayon",
+          "highlighter",
+          "eraser",
+          "wooden spoon",
+          "soap",
+          "earthworm",
+          "sock",
+          "glove",
+          "sunglasses",
+          "tennis ball",
+          "matchstick"
+        ],
+        "known": []
+      },
+      {
+        "conditions": [
+          "liftable",
+          "soft",
+          "nonfood"
+        ],
+        "solutions": [
+          "dish towel",
+          "earthworm",
+          "scarf",
+          "tennis ball"
+        ],
+        "known": []
+      }
+    ]
+  },
+  "categoryEscape": {
+    "minCategory": 17,
+    "categories": [
+      {
+        "id": "kitchen",
+        "size": 22
+      },
+      {
+        "id": "bathroom",
+        "size": 10
+      },
+      {
+        "id": "office",
+        "size": 7
+      },
+      {
+        "id": "garden",
+        "size": 10
+      },
+      {
+        "id": "clothing",
+        "size": 9
+      }
+    ],
+    "distinctRuns": 0,
+    "sampled": 0,
+    "pathConfirmed": 0,
+    "examples": []
+  },
+  "unconfirmedThings": 19
+}

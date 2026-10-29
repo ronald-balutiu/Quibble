@@ -1,0 +1,9778 @@
+{
+  "safety pin": {
+    "pocket": {
+      "flash": 0.8805
+    },
+    "big": {
+      "flash": 0.0066
+    },
+    "liftable": {
+      "flash": 0.9716
+    },
+    "metal": {
+      "flash": 0.8807
+    },
+    "wood": {
+      "flash": 0.0078
+    },
+    "nonmetal": {
+      "flash": 0.0281
+    },
+    "electric": {
+      "flash": 0.0129
+    },
+    "nonelec": {
+      "flash": 0.9759
+    },
+    "secure": {
+      "flash": 0.8709
+    },
+    "cut": {
+      "flash": 0.0119
+    },
+    "write": {
+      "flash": 0.0065
+    },
+    "liquid": {
+      "flash": 0.0089
+    },
+    "wearable": {
+      "flash": 0.1331
+    },
+    "sport": {
+      "flash": 0.0095
+    },
+    "noise": {
+      "flash": 0.1027
+    },
+    "soft": {
+      "flash": 0.0243
+    },
+    "sharp": {
+      "flash": 0.2801,
+      "clef": 0.5683
+    },
+    "round": {
+      "flash": 0.026
+    },
+    "food": {
+      "flash": 0.0065
+    },
+    "nonfood": {
+      "flash": 0.9695
+    },
+    "alive": {
+      "flash": 0.0074
+    },
+    "kitchen": {
+      "flash": 0.2751,
+      "clef": 0.1307
+    },
+    "bathroom": {
+      "flash": 0.2199,
+      "clef": 0.2421
+    },
+    "office": {
+      "flash": 0.3237,
+      "clef": 0.1605
+    },
+    "garden": {
+      "flash": 0.0268
+    },
+    "clothing": {
+      "flash": 0.2139,
+      "clef": 0.3111
+    },
+    "unpowered": {
+      "flash": 0.9525
+    }
+  },
+  "paper clip": {
+    "pocket": {
+      "flash": 0.9245
+    },
+    "big": {
+      "flash": 0.0072
+    },
+    "liftable": {
+      "flash": 0.9732
+    },
+    "metal": {
+      "flash": 0.792,
+      "clef": 0.9634
+    },
+    "wood": {
+      "flash": 0.0082
+    },
+    "nonmetal": {
+      "flash": 0.0458
+    },
+    "electric": {
+      "flash": 0.0136
+    },
+    "nonelec": {
+      "flash": 0.9628
+    },
+    "secure": {
+      "flash": 0.8376
+    },
+    "cut": {
+      "flash": 0.0066
+    },
+    "write": {
+      "flash": 0.0143
+    },
+    "liquid": {
+      "flash": 0.0078
+    },
+    "wearable": {
+      "flash": 0.0121
+    },
+    "sport": {
+      "flash": 0.009
+    },
+    "noise": {
+      "flash": 0.0981
+    },
+    "soft": {
+      "flash": 0.0919
+    },
+    "sharp": {
+      "flash": 0.0146
+    },
+    "round": {
+      "flash": 0.0165
+    },
+    "food": {
+      "flash": 0.0058
+    },
+    "nonfood": {
+      "flash": 0.9588
+    },
+    "alive": {
+      "flash": 0.0061
+    },
+    "kitchen": {
+      "flash": 0.1477
+    },
+    "bathroom": {
+      "flash": 0.0463
+    },
+    "office": {
+      "flash": 0.8528
+    },
+    "garden": {
+      "flash": 0.016
+    },
+    "clothing": {
+      "flash": 0.0195
+    },
+    "unpowered": {
+      "flash": 0.9376
+    }
+  },
+  "zip tie": {
+    "pocket": {
+      "flash": 0.8321
+    },
+    "big": {
+      "flash": 0.0083
+    },
+    "liftable": {
+      "flash": 0.9614
+    },
+    "metal": {
+      "flash": 0.0309
+    },
+    "wood": {
+      "flash": 0.0072
+    },
+    "nonmetal": {
+      "flash": 0.9044
+    },
+    "electric": {
+      "flash": 0.0135
+    },
+    "nonelec": {
+      "flash": 0.9592
+    },
+    "secure": {
+      "flash": 0.8899
+    },
+    "cut": {
+      "flash": 0.0137
+    },
+    "write": {
+      "flash": 0.0068
+    },
+    "liquid": {
+      "flash": 0.0082
+    },
+    "wearable": {
+      "flash": 0.0174
+    },
+    "sport": {
+      "flash": 0.0157
+    },
+    "noise": {
+      "flash": 0.2174,
+      "clef": 0.063
+    },
+    "soft": {
+      "flash": 0.1161
+    },
+    "sharp": {
+      "flash": 0.0177
+    },
+    "round": {
+      "flash": 0.0161
+    },
+    "food": {
+      "flash": 0.0065
+    },
+    "nonfood": {
+      "flash": 0.9634
+    },
+    "alive": {
+      "flash": 0.0073
+    },
+    "kitchen": {
+      "flash": 0.2584,
+      "clef": 0.142
+    },
+    "bathroom": {
+      "flash": 0.1031
+    },
+    "office": {
+      "flash": 0.4185,
+      "clef": 0.3353
+    },
+    "garden": {
+      "flash": 0.1086
+    },
+    "clothing": {
+      "flash": 0.0171
+    },
+    "unpowered": {
+      "flash": 0.931
+    }
+  },
+  "padlock": {
+    "pocket": {
+      "flash": 0.6117,
+      "clef": 0.2019
+    },
+    "big": {
+      "flash": 0.0087
+    },
+    "liftable": {
+      "flash": 0.8768
+    },
+    "metal": {
+      "flash": 0.7732,
+      "clef": 0.8291
+    },
+    "wood": {
+      "flash": 0.0089
+    },
+    "nonmetal": {
+      "flash": 0.036
+    },
+    "electric": {
+      "flash": 0.0198
+    },
+    "nonelec": {
+      "flash": 0.9074
+    },
+    "secure": {
+      "flash": 0.9016
+    },
+    "cut": {
+      "flash": 0.0073
+    },
+    "write": {
+      "flash": 0.006
+    },
+    "liquid": {
+      "flash": 0.0092
+    },
+    "wearable": {
+      "flash": 0.0525
+    },
+    "sport": {
+      "flash": 0.0109
+    },
+    "noise": {
+      "flash": 0.1496
+    },
+    "soft": {
+      "flash": 0.0142
+    },
+    "sharp": {
+      "flash": 0.0146
+    },
+    "round": {
+      "flash": 0.0554
+    },
+    "food": {
+      "flash": 0.0057
+    },
+    "nonfood": {
+      "flash": 0.9619
+    },
+    "alive": {
+      "flash": 0.0073
+    },
+    "kitchen": {
+      "flash": 0.1321
+    },
+    "bathroom": {
+      "flash": 0.2166,
+      "clef": 0.0992
+    },
+    "office": {
+      "flash": 0.3348,
+      "clef": 0.2189
+    },
+    "garden": {
+      "flash": 0.1127
+    },
+    "clothing": {
+      "flash": 0.0296
+    },
+    "unpowered": {
+      "flash": 0.9018
+    }
+  },
+  "key ring": {
+    "pocket": {
+      "flash": 0.8445
+    },
+    "big": {
+      "flash": 0.0061
+    },
+    "liftable": {
+      "flash": 0.9741
+    },
+    "metal": {
+      "flash": 0.4589,
+      "clef": 0.6472
+    },
+    "wood": {
+      "flash": 0.0076
+    },
+    "nonmetal": {
+      "flash": 0.1896
+    },
+    "electric": {
+      "flash": 0.0151
+    },
+    "nonelec": {
+      "flash": 0.9466
+    },
+    "secure": {
+      "flash": 0.3719,
+      "clef": 0.6966
+    },
+    "cut": {
+      "flash": 0.0069
+    },
+    "write": {
+      "flash": 0.0068
+    },
+    "liquid": {
+      "flash": 0.0118
+    },
+    "wearable": {
+      "flash": 0.1156
+    },
+    "sport": {
+      "flash": 0.0109
+    },
+    "noise": {
+      "flash": 0.03
+    },
+    "soft": {
+      "flash": 0.0627
+    },
+    "sharp": {
+      "flash": 0.0115
+    },
+    "round": {
+      "flash": 0.0896
+    },
+    "food": {
+      "flash": 0.0058
+    },
+    "nonfood": {
+      "flash": 0.9665
+    },
+    "alive": {
+      "flash": 0.0074
+    },
+    "kitchen": {
+      "flash": 0.0818
+    },
+    "bathroom": {
+      "flash": 0.1539
+    },
+    "office": {
+      "flash": 0.3004,
+      "clef": 0.1684
+    },
+    "garden": {
+      "flash": 0.0123
+    },
+    "clothing": {
+      "flash": 0.1108
+    },
+    "unpowered": {
+      "flash": 0.9224
+    }
+  },
+  "pocket knife": {
+    "pocket": {
+      "flash": 0.8393
+    },
+    "big": {
+      "flash": 0.0092
+    },
+    "liftable": {
+      "flash": 0.9641
+    },
+    "metal": {
+      "flash": 0.7767,
+      "clef": 0.8533
+    },
+    "wood": {
+      "flash": 0.0163
+    },
+    "nonmetal": {
+      "flash": 0.0436
+    },
+    "electric": {
+      "flash": 0.024
+    },
+    "nonelec": {
+      "flash": 0.9544
+    },
+    "secure": {
+      "flash": 0.2042,
+      "clef": 0.0663
+    },
+    "cut": {
+      "flash": 0.8972
+    },
+    "write": {
+      "flash": 0.0087
+    },
+    "liquid": {
+      "flash": 0.008
+    },
+    "wearable": {
+      "flash": 0.0624
+    },
+    "sport": {
+      "flash": 0.0133
+    },
+    "noise": {
+      "flash": 0.2852,
+      "clef": 0.0785
+    },
+    "soft": {
+      "flash": 0.0172
+    },
+    "sharp": {
+      "flash": 0.9372
+    },
+    "round": {
+      "flash": 0.0133
+    },
+    "food": {
+      "flash": 0.0063
+    },
+    "nonfood": {
+      "flash": 0.9718
+    },
+    "alive": {
+      "flash": 0.0079
+    },
+    "kitchen": {
+      "flash": 0.3288,
+      "clef": 0.3718
+    },
+    "bathroom": {
+      "flash": 0.1041
+    },
+    "office": {
+      "flash": 0.1562
+    },
+    "garden": {
+      "flash": 0.2227,
+      "clef": 0.0951
+    },
+    "clothing": {
+      "flash": 0.039
+    },
+    "unpowered": {
+      "flash": 0.9217
+    }
+  },
+  "coin": {
+    "pocket": {
+      "flash": 0.947
+    },
+    "big": {
+      "flash": 0.0065
+    },
+    "liftable": {
+      "flash": 0.9718
+    },
+    "metal": {
+      "flash": 0.694,
+      "clef": 0.8181
+    },
+    "wood": {
+      "flash": 0.0075
+    },
+    "nonmetal": {
+      "flash": 0.066
+    },
+    "electric": {
+      "flash": 0.0323
+    },
+    "nonelec": {
+      "flash": 0.9282
+    },
+    "secure": {
+      "flash": 0.0625
+    },
+    "cut": {
+      "flash": 0.0079
+    },
+    "write": {
+      "flash": 0.0069
+    },
+    "liquid": {
+      "flash": 0.0119
+    },
+    "wearable": {
+      "flash": 0.0318
+    },
+    "sport": {
+      "flash": 0.1454
+    },
+    "noise": {
+      "flash": 0.1745
+    },
+    "soft": {
+      "flash": 0.0492
+    },
+    "sharp": {
+      "flash": 0.0108
+    },
+    "round": {
+      "flash": 0.7969,
+      "clef": 0.8041
+    },
+    "food": {
+      "flash": 0.0087
+    },
+    "nonfood": {
+      "flash": 0.9269
+    },
+    "alive": {
+      "flash": 0.0068
+    },
+    "kitchen": {
+      "flash": 0.1678
+    },
+    "bathroom": {
+      "flash": 0.0907
+    },
+    "office": {
+      "flash": 0.1555
+    },
+    "garden": {
+      "flash": 0.0397
+    },
+    "clothing": {
+      "flash": 0.0285
+    },
+    "unpowered": {
+      "flash": 0.9041
+    }
+  },
+  "button": {
+    "pocket": {
+      "flash": 0.6092,
+      "clef": 0.2602
+    },
+    "big": {
+      "flash": 0.0085
+    },
+    "liftable": {
+      "flash": 0.887
+    },
+    "metal": {
+      "flash": 0.1675
+    },
+    "wood": {
+      "flash": 0.0225
+    },
+    "nonmetal": {
+      "flash": 0.4514,
+      "clef": 0.538
+    },
+    "electric": {
+      "flash": 0.4328,
+      "clef": 0.1538
+    },
+    "nonelec": {
+      "flash": 0.2194,
+      "clef": 0.7229
+    },
+    "secure": {
+      "flash": 0.3259,
+      "clef": 0.0791
+    },
+    "cut": {
+      "flash": 0.0078
+    },
+    "write": {
+      "flash": 0.0149
+    },
+    "liquid": {
+      "flash": 0.0142
+    },
+    "wearable": {
+      "flash": 0.0236
+    },
+    "sport": {
+      "flash": 0.0403
+    },
+    "noise": {
+      "flash": 0.2649,
+      "clef": 0.126
+    },
+    "soft": {
+      "flash": 0.1504
+    },
+    "sharp": {
+      "flash": 0.0084
+    },
+    "round": {
+      "flash": 0.1124
+    },
+    "food": {
+      "flash": 0.0063
+    },
+    "nonfood": {
+      "flash": 0.9574
+    },
+    "alive": {
+      "flash": 0.0068
+    },
+    "kitchen": {
+      "flash": 0.1929
+    },
+    "bathroom": {
+      "flash": 0.2423,
+      "clef": 0.0834
+    },
+    "office": {
+      "flash": 0.4839,
+      "clef": 0.3323
+    },
+    "garden": {
+      "flash": 0.0246
+    },
+    "clothing": {
+      "flash": 0.0248
+    },
+    "unpowered": {
+      "flash": 0.2291,
+      "clef": 0.7923
+    }
+  },
+  "pencil": {
+    "pocket": {
+      "flash": 0.9058
+    },
+    "big": {
+      "flash": 0.0065
+    },
+    "liftable": {
+      "flash": 0.9758
+    },
+    "metal": {
+      "flash": 0.0318
+    },
+    "wood": {
+      "flash": 0.1978
+    },
+    "nonmetal": {
+      "flash": 0.9251
+    },
+    "electric": {
+      "flash": 0.013
+    },
+    "nonelec": {
+      "flash": 0.9611
+    },
+    "secure": {
+      "flash": 0.0319
+    },
+    "cut": {
+      "flash": 0.017
+    },
+    "write": {
+      "flash": 0.9366
+    },
+    "liquid": {
+      "flash": 0.0076
+    },
+    "wearable": {
+      "flash": 0.014
+    },
+    "sport": {
+      "flash": 0.0143
+    },
+    "noise": {
+      "flash": 0.0946
+    },
+    "soft": {
+      "flash": 0.3054,
+      "clef": 0.1206
+    },
+    "sharp": {
+      "flash": 0.3081,
+      "clef": 0.7414
+    },
+    "round": {
+      "flash": 0.0494
+    },
+    "food": {
+      "flash": 0.0057
+    },
+    "nonfood": {
+      "flash": 0.9622
+    },
+    "alive": {
+      "flash": 0.0079
+    },
+    "kitchen": {
+      "flash": 0.222,
+      "clef": 0.085
+    },
+    "bathroom": {
+      "flash": 0.098
+    },
+    "office": {
+      "flash": 0.8051
+    },
+    "garden": {
+      "flash": 0.1008
+    },
+    "clothing": {
+      "flash": 0.0088
+    },
+    "unpowered": {
+      "flash": 0.948
+    }
+  },
+  "ballpoint pen": {
+    "pocket": {
+      "flash": 0.9176
+    },
+    "big": {
+      "flash": 0.0072
+    },
+    "liftable": {
+      "flash": 0.973
+    },
+    "metal": {
+      "flash": 0.2192,
+      "clef": 0.3749
+    },
+    "wood": {
+      "flash": 0.011
+    },
+    "nonmetal": {
+      "flash": 0.5846,
+      "clef": 0.541
+    },
+    "electric": {
+      "flash": 0.0187
+    },
+    "nonelec": {
+      "flash": 0.9279
+    },
+    "secure": {
+      "flash": 0.0332
+    },
+    "cut": {
+      "flash": 0.0103
+    },
+    "write": {
+      "flash": 0.9607
+    },
+    "liquid": {
+      "flash": 0.2979,
+      "clef": 0.1047
+    },
+    "wearable": {
+      "flash": 0.0129
+    },
+    "sport": {
+      "flash": 0.0138
+    },
+    "noise": {
+      "flash": 0.1289
+    },
+    "soft": {
+      "flash": 0.1091
+    },
+    "sharp": {
+      "flash": 0.4062,
+      "clef": 0.7572
+    },
+    "round": {
+      "flash": 0.1257
+    },
+    "food": {
+      "flash": 0.0051
+    },
+    "nonfood": {
+      "flash": 0.9698
+    },
+    "alive": {
+      "flash": 0.0065
+    },
+    "kitchen": {
+      "flash": 0.155
+    },
+    "bathroom": {
+      "flash": 0.1344
+    },
+    "office": {
+      "flash": 0.8441
+    },
+    "garden": {
+      "flash": 0.0146
+    },
+    "clothing": {
+      "flash": 0.0091
+    },
+    "unpowered": {
+      "flash": 0.9106
+    }
+  },
+  "crayon": {
+    "pocket": {
+      "flash": 0.8913
+    },
+    "big": {
+      "flash": 0.0094
+    },
+    "liftable": {
+      "flash": 0.971
+    },
+    "metal": {
+      "flash": 0.018
+    },
+    "wood": {
+      "flash": 0.0237
+    },
+    "nonmetal": {
+      "flash": 0.9304
+    },
+    "electric": {
+      "flash": 0.0177
+    },
+    "nonelec": {
+      "flash": 0.9578
+    },
+    "secure": {
+      "flash": 0.0274
+    },
+    "cut": {
+      "flash": 0.0105
+    },
+    "write": {
+      "flash": 0.8785
+    },
+    "liquid": {
+      "flash": 0.0132
+    },
+    "wearable": {
+      "flash": 0.0186
+    },
+    "sport": {
+      "flash": 0.0105
+    },
+    "noise": {
+      "flash": 0.0557
+    },
+    "soft": {
+      "flash": 0.6247,
+      "clef": 0.1726
+    },
+    "sharp": {
+      "flash": 0.014
+    },
+    "round": {
+      "flash": 0.0852
+    },
+    "food": {
+      "flash": 0.0089
+    },
+    "nonfood": {
+      "flash": 0.957
+    },
+    "alive": {
+      "flash": 0.0091
+    },
+    "kitchen": {
+      "flash": 0.1554
+    },
+    "bathroom": {
+      "flash": 0.1259
+    },
+    "office": {
+      "flash": 0.2241,
+      "clef": 0.2771
+    },
+    "garden": {
+      "flash": 0.0483
+    },
+    "clothing": {
+      "flash": 0.0253
+    },
+    "unpowered": {
+      "flash": 0.9395
+    }
+  },
+  "highlighter": {
+    "pocket": {
+      "flash": 0.8598
+    },
+    "big": {
+      "flash": 0.0084
+    },
+    "liftable": {
+      "flash": 0.975
+    },
+    "metal": {
+      "flash": 0.039
+    },
+    "wood": {
+      "flash": 0.0094
+    },
+    "nonmetal": {
+      "flash": 0.846
+    },
+    "electric": {
+      "flash": 0.034
+    },
+    "nonelec": {
+      "flash": 0.9252
+    },
+    "secure": {
+      "flash": 0.0353
+    },
+    "cut": {
+      "flash": 0.0123
+    },
+    "write": {
+      "flash": 0.58,
+      "clef": 0.5782
+    },
+    "liquid": {
+      "flash": 0.2178,
+      "clef": 0.1455
+    },
+    "wearable": {
+      "flash": 0.0231
+    },
+    "sport": {
+      "flash": 0.0121
+    },
+    "noise": {
+      "flash": 0.0303
+    },
+    "soft": {
+      "flash": 0.3186,
+      "clef": 0.1492
+    },
+    "sharp": {
+      "flash": 0.0233
+    },
+    "round": {
+      "flash": 0.0224
+    },
+    "food": {
+      "flash": 0.0062
+    },
+    "nonfood": {
+      "flash": 0.9601
+    },
+    "alive": {
+      "flash": 0.0086
+    },
+    "kitchen": {
+      "flash": 0.1603
+    },
+    "bathroom": {
+      "flash": 0.1198
+    },
+    "office": {
+      "flash": 0.684,
+      "clef": 0.744
+    },
+    "garden": {
+      "flash": 0.0143
+    },
+    "clothing": {
+      "flash": 0.0177
+    },
+    "unpowered": {
+      "flash": 0.9088
+    }
+  },
+  "eraser": {
+    "pocket": {
+      "flash": 0.8317
+    },
+    "big": {
+      "flash": 0.0101
+    },
+    "liftable": {
+      "flash": 0.9513
+    },
+    "metal": {
+      "flash": 0.0338
+    },
+    "wood": {
+      "flash": 0.0349
+    },
+    "nonmetal": {
+      "flash": 0.8958
+    },
+    "electric": {
+      "flash": 0.0229
+    },
+    "nonelec": {
+      "flash": 0.9314
+    },
+    "secure": {
+      "flash": 0.0291
+    },
+    "cut": {
+      "flash": 0.0274
+    },
+    "write": {
+      "flash": 0.0993
+    },
+    "liquid": {
+      "flash": 0.0098
+    },
+    "wearable": {
+      "flash": 0.0243
+    },
+    "sport": {
+      "flash": 0.0104
+    },
+    "noise": {
+      "flash": 0.1256
+    },
+    "soft": {
+      "flash": 0.4683,
+      "clef": 0.3564
+    },
+    "sharp": {
+      "flash": 0.0193
+    },
+    "round": {
+      "flash": 0.0353
+    },
+    "food": {
+      "flash": 0.0066
+    },
+    "nonfood": {
+      "flash": 0.9521
+    },
+    "alive": {
+      "flash": 0.0089
+    },
+    "kitchen": {
+      "flash": 0.1653
+    },
+    "bathroom": {
+      "flash": 0.2612,
+      "clef": 0.4759
+    },
+    "office": {
+      "flash": 0.7066,
+      "clef": 0.4975
+    },
+    "garden": {
+      "flash": 0.0317
+    },
+    "clothing": {
+      "flash": 0.0128
+    },
+    "unpowered": {
+      "flash": 0.8973
+    }
+  },
+  "stapler": {
+    "pocket": {
+      "flash": 0.5691,
+      "clef": 0.2004
+    },
+    "big": {
+      "flash": 0.0078
+    },
+    "liftable": {
+      "flash": 0.9671
+    },
+    "metal": {
+      "flash": 0.3577,
+      "clef": 0.6907
+    },
+    "wood": {
+      "flash": 0.0158
+    },
+    "nonmetal": {
+      "flash": 0.3428,
+      "clef": 0.1829
+    },
+    "electric": {
+      "flash": 0.061
+    },
+    "nonelec": {
+      "flash": 0.8229
+    },
+    "secure": {
+      "flash": 0.8016
+    },
+    "cut": {
+      "flash": 0.0115
+    },
+    "write": {
+      "flash": 0.0089
+    },
+    "liquid": {
+      "flash": 0.0071
+    },
+    "wearable": {
+      "flash": 0.007
+    },
+    "sport": {
+      "flash": 0.0084
+    },
+    "noise": {
+      "flash": 0.3752,
+      "clef": 0.5221
+    },
+    "soft": {
+      "flash": 0.0259
+    },
+    "sharp": {
+      "flash": 0.0747
+    },
+    "round": {
+      "flash": 0.0128
+    },
+    "food": {
+      "flash": 0.0055
+    },
+    "nonfood": {
+      "flash": 0.9685
+    },
+    "alive": {
+      "flash": 0.0071
+    },
+    "kitchen": {
+      "flash": 0.1603
+    },
+    "bathroom": {
+      "flash": 0.0286
+    },
+    "office": {
+      "flash": 0.8651
+    },
+    "garden": {
+      "flash": 0.0161
+    },
+    "clothing": {
+      "flash": 0.0098
+    },
+    "unpowered": {
+      "flash": 0.8131
+    }
+  },
+  "scissors": {
+    "pocket": {
+      "flash": 0.8531
+    },
+    "big": {
+      "flash": 0.0085
+    },
+    "liftable": {
+      "flash": 0.9558
+    },
+    "metal": {
+      "flash": 0.6261,
+      "clef": 0.0798
+    },
+    "wood": {
+      "flash": 0.0164
+    },
+    "nonmetal": {
+      "flash": 0.1317
+    },
+    "electric": {
+      "flash": 0.0246
+    },
+    "nonelec": {
+      "flash": 0.9481
+    },
+    "secure": {
+      "flash": 0.1201
+    },
+    "cut": {
+      "flash": 0.8704
+    },
+    "write": {
+      "flash": 0.007
+    },
+    "liquid": {
+      "flash": 0.0065
+    },
+    "wearable": {
+      "flash": 0.0228
+    },
+    "sport": {
+      "flash": 0.0908
+    },
+    "noise": {
+      "flash": 0.367,
+      "clef": 0.1103
+    },
+    "soft": {
+      "flash": 0.0356
+    },
+    "sharp": {
+      "flash": 0.7998,
+      "clef": 0.4204
+    },
+    "round": {
+      "flash": 0.0186
+    },
+    "food": {
+      "flash": 0.0071
+    },
+    "nonfood": {
+      "flash": 0.963
+    },
+    "alive": {
+      "flash": 0.0084
+    },
+    "kitchen": {
+      "flash": 0.5518,
+      "clef": 0.1828
+    },
+    "bathroom": {
+      "flash": 0.1041
+    },
+    "office": {
+      "flash": 0.2764,
+      "clef": 0.1532
+    },
+    "garden": {
+      "flash": 0.1629
+    },
+    "clothing": {
+      "flash": 0.0364
+    },
+    "unpowered": {
+      "flash": 0.9362
+    }
+  },
+  "ruler": {
+    "pocket": {
+      "flash": 0.7572,
+      "clef": 0.4444
+    },
+    "big": {
+      "flash": 0.0104
+    },
+    "liftable": {
+      "flash": 0.9563
+    },
+    "metal": {
+      "flash": 0.3277,
+      "clef": 0.5541
+    },
+    "wood": {
+      "flash": 0.1066
+    },
+    "nonmetal": {
+      "flash": 0.3885,
+      "clef": 0.5188
+    },
+    "electric": {
+      "flash": 0.0169
+    },
+    "nonelec": {
+      "flash": 0.9407
+    },
+    "secure": {
+      "flash": 0.0979
+    },
+    "cut": {
+      "flash": 0.0133
+    },
+    "write": {
+      "flash": 0.0857
+    },
+    "liquid": {
+      "flash": 0.0077
+    },
+    "wearable": {
+      "flash": 0.0375
+    },
+    "sport": {
+      "flash": 0.0168
+    },
+    "noise": {
+      "flash": 0.0521
+    },
+    "soft": {
+      "flash": 0.0231
+    },
+    "sharp": {
+      "flash": 0.0757
+    },
+    "round": {
+      "flash": 0.0132
+    },
+    "food": {
+      "flash": 0.0055
+    },
+    "nonfood": {
+      "flash": 0.9701
+    },
+    "alive": {
+      "flash": 0.0073
+    },
+    "kitchen": {
+      "flash": 0.2255,
+      "clef": 0.1339
+    },
+    "bathroom": {
+      "flash": 0.1898
+    },
+    "office": {
+      "flash": 0.7477,
+      "clef": 0.5382
+    },
+    "garden": {
+      "flash": 0.0452
+    },
+    "clothing": {
+      "flash": 0.0223
+    },
+    "unpowered": {
+      "flash": 0.9188
+    }
+  },
+  "notebook": {
+    "pocket": {
+      "flash": 0.3834,
+      "clef": 0.0667
+    },
+    "big": {
+      "flash": 0.0108
+    },
+    "liftable": {
+      "flash": 0.7151,
+      "clef": 0.5021
+    },
+    "metal": {
+      "flash": 0.0143
+    },
+    "wood": {
+      "flash": 0.0342
+    },
+    "nonmetal": {
+      "flash": 0.9426
+    },
+    "electric": {
+      "flash": 0.0285
+    },
+    "nonelec": {
+      "flash": 0.9316
+    },
+    "secure": {
+      "flash": 0.0937
+    },
+    "cut": {
+      "flash": 0.0067
+    },
+    "write": {
+      "flash": 0.869
+    },
+    "liquid": {
+      "flash": 0.0108
+    },
+    "wearable": {
+      "flash": 0.0133
+    },
+    "sport": {
+      "flash": 0.0096
+    },
+    "noise": {
+      "flash": 0.0618
+    },
+    "soft": {
+      "flash": 0.3686,
+      "clef": 0.3531
+    },
+    "sharp": {
+      "flash": 0.009
+    },
+    "round": {
+      "flash": 0.0142
+    },
+    "food": {
+      "flash": 0.0055
+    },
+    "nonfood": {
+      "flash": 0.9693
+    },
+    "alive": {
+      "flash": 0.0078
+    },
+    "kitchen": {
+      "flash": 0.1485
+    },
+    "bathroom": {
+      "flash": 0.039
+    },
+    "office": {
+      "flash": 0.7857,
+      "clef": 0.5451
+    },
+    "garden": {
+      "flash": 0.0185
+    },
+    "clothing": {
+      "flash": 0.014
+    },
+    "unpowered": {
+      "flash": 0.903
+    }
+  },
+  "envelope": {
+    "pocket": {
+      "flash": 0.703,
+      "clef": 0.157
+    },
+    "big": {
+      "flash": 0.011
+    },
+    "liftable": {
+      "flash": 0.9078
+    },
+    "metal": {
+      "flash": 0.0164
+    },
+    "wood": {
+      "flash": 0.0165
+    },
+    "nonmetal": {
+      "flash": 0.9447
+    },
+    "electric": {
+      "flash": 0.022
+    },
+    "nonelec": {
+      "flash": 0.9345
+    },
+    "secure": {
+      "flash": 0.4867,
+      "clef": 0.219
+    },
+    "cut": {
+      "flash": 0.0075
+    },
+    "write": {
+      "flash": 0.1471
+    },
+    "liquid": {
+      "flash": 0.024
+    },
+    "wearable": {
+      "flash": 0.01
+    },
+    "sport": {
+      "flash": 0.0119
+    },
+    "noise": {
+      "flash": 0.0743
+    },
+    "soft": {
+      "flash": 0.2907,
+      "clef": 0.3096
+    },
+    "sharp": {
+      "flash": 0.0091
+    },
+    "round": {
+      "flash": 0.0168
+    },
+    "food": {
+      "flash": 0.0073
+    },
+    "nonfood": {
+      "flash": 0.9625
+    },
+    "alive": {
+      "flash": 0.0082
+    },
+    "kitchen": {
+      "flash": 0.1099
+    },
+    "bathroom": {
+      "flash": 0.0565
+    },
+    "office": {
+      "flash": 0.5939,
+      "clef": 0.4733
+    },
+    "garden": {
+      "flash": 0.0267
+    },
+    "clothing": {
+      "flash": 0.0185
+    },
+    "unpowered": {
+      "flash": 0.9023
+    }
+  },
+  "laptop": {
+    "pocket": {
+      "flash": 0.0726
+    },
+    "big": {
+      "flash": 0.0185
+    },
+    "liftable": {
+      "flash": 0.5941,
+      "clef": 0.184
+    },
+    "metal": {
+      "flash": 0.1461
+    },
+    "wood": {
+      "flash": 0.0071
+    },
+    "nonmetal": {
+      "flash": 0.4175,
+      "clef": 0.083
+    },
+    "electric": {
+      "flash": 0.9262
+    },
+    "nonelec": {
+      "flash": 0.0153
+    },
+    "secure": {
+      "flash": 0.0235
+    },
+    "cut": {
+      "flash": 0.0057
+    },
+    "write": {
+      "flash": 0.013
+    },
+    "liquid": {
+      "flash": 0.0065
+    },
+    "wearable": {
+      "flash": 0.0103
+    },
+    "sport": {
+      "flash": 0.0082
+    },
+    "noise": {
+      "flash": 0.1347
+    },
+    "soft": {
+      "flash": 0.0197
+    },
+    "sharp": {
+      "flash": 0.0058
+    },
+    "round": {
+      "flash": 0.0099
+    },
+    "food": {
+      "flash": 0.0047
+    },
+    "nonfood": {
+      "flash": 0.9642
+    },
+    "alive": {
+      "flash": 0.0066
+    },
+    "kitchen": {
+      "flash": 0.0713
+    },
+    "bathroom": {
+      "flash": 0.0491
+    },
+    "office": {
+      "flash": 0.8071
+    },
+    "garden": {
+      "flash": 0.0088
+    },
+    "clothing": {
+      "flash": 0.0071
+    },
+    "unpowered": {
+      "flash": 0.0193
+    }
+  },
+  "printer": {
+    "pocket": {
+      "flash": 0.0625
+    },
+    "big": {
+      "flash": 0.1649
+    },
+    "liftable": {
+      "flash": 0.2793,
+      "clef": 0.3357
+    },
+    "metal": {
+      "flash": 0.1209
+    },
+    "wood": {
+      "flash": 0.01
+    },
+    "nonmetal": {
+      "flash": 0.576,
+      "clef": 0.1455
+    },
+    "electric": {
+      "flash": 0.8558
+    },
+    "nonelec": {
+      "flash": 0.0618
+    },
+    "secure": {
+      "flash": 0.0505
+    },
+    "cut": {
+      "flash": 0.0062
+    },
+    "write": {
+      "flash": 0.0626
+    },
+    "liquid": {
+      "flash": 0.0085
+    },
+    "wearable": {
+      "flash": 0.0061
+    },
+    "sport": {
+      "flash": 0.007
+    },
+    "noise": {
+      "flash": 0.3769,
+      "clef": 0.7169
+    },
+    "soft": {
+      "flash": 0.0262
+    },
+    "sharp": {
+      "flash": 0.0087
+    },
+    "round": {
+      "flash": 0.0126
+    },
+    "food": {
+      "flash": 0.0053
+    },
+    "nonfood": {
+      "flash": 0.9594
+    },
+    "alive": {
+      "flash": 0.0069
+    },
+    "kitchen": {
+      "flash": 0.1227
+    },
+    "bathroom": {
+      "flash": 0.0923
+    },
+    "office": {
+      "flash": 0.7472,
+      "clef": 0.7771
+    },
+    "garden": {
+      "flash": 0.0153
+    },
+    "clothing": {
+      "flash": 0.0077
+    },
+    "unpowered": {
+      "flash": 0.0497
+    }
+  },
+  "desk lamp": {
+    "pocket": {
+      "flash": 0.0621
+    },
+    "big": {
+      "flash": 0.0226
+    },
+    "liftable": {
+      "flash": 0.5792,
+      "clef": 0.3073
+    },
+    "metal": {
+      "flash": 0.1639
+    },
+    "wood": {
+      "flash": 0.039
+    },
+    "nonmetal": {
+      "flash": 0.5201,
+      "clef": 0.1392
+    },
+    "electric": {
+      "flash": 0.8455
+    },
+    "nonelec": {
+      "flash": 0.0689
+    },
+    "secure": {
+      "flash": 0.017
+    },
+    "cut": {
+      "flash": 0.0051
+    },
+    "write": {
+      "flash": 0.0118
+    },
+    "liquid": {
+      "flash": 0.0064
+    },
+    "wearable": {
+      "flash": 0.0097
+    },
+    "sport": {
+      "flash": 0.0066
+    },
+    "noise": {
+      "flash": 0.0317
+    },
+    "soft": {
+      "flash": 0.0589
+    },
+    "sharp": {
+      "flash": 0.0067
+    },
+    "round": {
+      "flash": 0.0215
+    },
+    "food": {
+      "flash": 0.0043
+    },
+    "nonfood": {
+      "flash": 0.9617
+    },
+    "alive": {
+      "flash": 0.0066
+    },
+    "kitchen": {
+      "flash": 0.2318,
+      "clef": 0.0427
+    },
+    "bathroom": {
+      "flash": 0.1883
+    },
+    "office": {
+      "flash": 0.8146
+    },
+    "garden": {
+      "flash": 0.0253
+    },
+    "clothing": {
+      "flash": 0.0061
+    },
+    "unpowered": {
+      "flash": 0.0639
+    }
+  },
+  "office chair": {
+    "pocket": {
+      "flash": 0.012
+    },
+    "big": {
+      "flash": 0.1719
+    },
+    "liftable": {
+      "flash": 0.2076,
+      "clef": 0.0369
+    },
+    "metal": {
+      "flash": 0.058
+    },
+    "wood": {
+      "flash": 0.1017
+    },
+    "nonmetal": {
+      "flash": 0.8616
+    },
+    "electric": {
+      "flash": 0.0218
+    },
+    "nonelec": {
+      "flash": 0.8827
+    },
+    "secure": {
+      "flash": 0.0334
+    },
+    "cut": {
+      "flash": 0.0052
+    },
+    "write": {
+      "flash": 0.0073
+    },
+    "liquid": {
+      "flash": 0.008
+    },
+    "wearable": {
+      "flash": 0.0074
+    },
+    "sport": {
+      "flash": 0.0135
+    },
+    "noise": {
+      "flash": 0.0854
+    },
+    "soft": {
+      "flash": 0.3071,
+      "clef": 0.3168
+    },
+    "sharp": {
+      "flash": 0.0062
+    },
+    "round": {
+      "flash": 0.0159
+    },
+    "food": {
+      "flash": 0.0049
+    },
+    "nonfood": {
+      "flash": 0.9713
+    },
+    "alive": {
+      "flash": 0.007
+    },
+    "kitchen": {
+      "flash": 0.0505
+    },
+    "bathroom": {
+      "flash": 0.0383
+    },
+    "office": {
+      "flash": 0.9073
+    },
+    "garden": {
+      "flash": 0.0169
+    },
+    "clothing": {
+      "flash": 0.0088
+    },
+    "unpowered": {
+      "flash": 0.8543
+    }
+  },
+  "calculator": {
+    "pocket": {
+      "flash": 0.5392,
+      "clef": 0.0493
+    },
+    "big": {
+      "flash": 0.0107
+    },
+    "liftable": {
+      "flash": 0.9138
+    },
+    "metal": {
+      "flash": 0.164
+    },
+    "wood": {
+      "flash": 0.0093
+    },
+    "nonmetal": {
+      "flash": 0.4569,
+      "clef": 0.4753
+    },
+    "electric": {
+      "flash": 0.7807,
+      "clef": 0.8291
+    },
+    "nonelec": {
+      "flash": 0.106
+    },
+    "secure": {
+      "flash": 0.0137
+    },
+    "cut": {
+      "flash": 0.006
+    },
+    "write": {
+      "flash": 0.0123
+    },
+    "liquid": {
+      "flash": 0.0064
+    },
+    "wearable": {
+      "flash": 0.0332
+    },
+    "sport": {
+      "flash": 0.0085
+    },
+    "noise": {
+      "flash": 0.1454
+    },
+    "soft": {
+      "flash": 0.0336
+    },
+    "sharp": {
+      "flash": 0.0081
+    },
+    "round": {
+      "flash": 0.037
+    },
+    "food": {
+      "flash": 0.0057
+    },
+    "nonfood": {
+      "flash": 0.9645
+    },
+    "alive": {
+      "flash": 0.007
+    },
+    "kitchen": {
+      "flash": 0.2247,
+      "clef": 0.092
+    },
+    "bathroom": {
+      "flash": 0.0639
+    },
+    "office": {
+      "flash": 0.6971,
+      "clef": 0.5992
+    },
+    "garden": {
+      "flash": 0.0097
+    },
+    "clothing": {
+      "flash": 0.008
+    },
+    "unpowered": {
+      "flash": 0.162
+    }
+  },
+  "sticky note": {
+    "pocket": {
+      "flash": 0.7744,
+      "clef": 0.6035
+    },
+    "big": {
+      "flash": 0.0076
+    },
+    "liftable": {
+      "flash": 0.961
+    },
+    "metal": {
+      "flash": 0.0147
+    },
+    "wood": {
+      "flash": 0.0186
+    },
+    "nonmetal": {
+      "flash": 0.9399
+    },
+    "electric": {
+      "flash": 0.0195
+    },
+    "nonelec": {
+      "flash": 0.9452
+    },
+    "secure": {
+      "flash": 0.2942,
+      "clef": 0.1289
+    },
+    "cut": {
+      "flash": 0.0072
+    },
+    "write": {
+      "flash": 0.439,
+      "clef": 0.4684
+    },
+    "liquid": {
+      "flash": 0.012
+    },
+    "wearable": {
+      "flash": 0.018
+    },
+    "sport": {
+      "flash": 0.0099
+    },
+    "noise": {
+      "flash": 0.0339
+    },
+    "soft": {
+      "flash": 0.4085,
+      "clef": 0.2592
+    },
+    "sharp": {
+      "flash": 0.0076
+    },
+    "round": {
+      "flash": 0.0133
+    },
+    "food": {
+      "flash": 0.0062
+    },
+    "nonfood": {
+      "flash": 0.9598
+    },
+    "alive": {
+      "flash": 0.0085
+    },
+    "kitchen": {
+      "flash": 0.2694,
+      "clef": 0.0812
+    },
+    "bathroom": {
+      "flash": 0.2034,
+      "clef": 0.0737
+    },
+    "office": {
+      "flash": 0.7496,
+      "clef": 0.7715
+    },
+    "garden": {
+      "flash": 0.019
+    },
+    "clothing": {
+      "flash": 0.0113
+    },
+    "unpowered": {
+      "flash": 0.9132
+    }
+  },
+  "chef knife": {
+    "pocket": {
+      "flash": 0.3581,
+      "clef": 0.0269
+    },
+    "big": {
+      "flash": 0.0144
+    },
+    "liftable": {
+      "flash": 0.8346
+    },
+    "metal": {
+      "flash": 0.7575,
+      "clef": 0.8142
+    },
+    "wood": {
+      "flash": 0.0122
+    },
+    "nonmetal": {
+      "flash": 0.0727
+    },
+    "electric": {
+      "flash": 0.0118
+    },
+    "nonelec": {
+      "flash": 0.9453
+    },
+    "secure": {
+      "flash": 0.0289
+    },
+    "cut": {
+      "flash": 0.9524
+    },
+    "write": {
+      "flash": 0.0056
+    },
+    "liquid": {
+      "flash": 0.0079
+    },
+    "wearable": {
+      "flash": 0.0087
+    },
+    "sport": {
+      "flash": 0.0097
+    },
+    "noise": {
+      "flash": 0.1653
+    },
+    "soft": {
+      "flash": 0.0177
+    },
+    "sharp": {
+      "flash": 0.9321
+    },
+    "round": {
+      "flash": 0.0144
+    },
+    "food": {
+      "flash": 0.0081
+    },
+    "nonfood": {
+      "flash": 0.9561
+    },
+    "alive": {
+      "flash": 0.0061
+    },
+    "kitchen": {
+      "flash": 0.9089
+    },
+    "bathroom": {
+      "flash": 0.0192
+    },
+    "office": {
+      "flash": 0.0331
+    },
+    "garden": {
+      "flash": 0.0692
+    },
+    "clothing": {
+      "flash": 0.0079
+    },
+    "unpowered": {
+      "flash": 0.9245
+    }
+  },
+  "wooden spoon": {
+    "pocket": {
+      "flash": 0.8021
+    },
+    "big": {
+      "flash": 0.0107
+    },
+    "liftable": {
+      "flash": 0.9642
+    },
+    "metal": {
+      "flash": 0.0165
+    },
+    "wood": {
+      "flash": 0.8897
+    },
+    "nonmetal": {
+      "flash": 0.9401
+    },
+    "electric": {
+      "flash": 0.011
+    },
+    "nonelec": {
+      "flash": 0.9729
+    },
+    "secure": {
+      "flash": 0.0217
+    },
+    "cut": {
+      "flash": 0.0118
+    },
+    "write": {
+      "flash": 0.009
+    },
+    "liquid": {
+      "flash": 0.0598
+    },
+    "wearable": {
+      "flash": 0.0222
+    },
+    "sport": {
+      "flash": 0.187
+    },
+    "noise": {
+      "flash": 0.1052
+    },
+    "soft": {
+      "flash": 0.1663
+    },
+    "sharp": {
+      "flash": 0.0113
+    },
+    "round": {
+      "flash": 0.0389
+    },
+    "food": {
+      "flash": 0.0301
+    },
+    "nonfood": {
+      "flash": 0.9276
+    },
+    "alive": {
+      "flash": 0.0135
+    },
+    "kitchen": {
+      "flash": 0.7174,
+      "clef": 0.9803
+    },
+    "bathroom": {
+      "flash": 0.0373
+    },
+    "office": {
+      "flash": 0.0462
+    },
+    "garden": {
+      "flash": 0.1404
+    },
+    "clothing": {
+      "flash": 0.0265
+    },
+    "unpowered": {
+      "flash": 0.9372
+    }
+  },
+  "fork": {
+    "pocket": {
+      "flash": 0.8162
+    },
+    "big": {
+      "flash": 0.0078
+    },
+    "liftable": {
+      "flash": 0.9617
+    },
+    "metal": {
+      "flash": 0.411,
+      "clef": 0.6183
+    },
+    "wood": {
+      "flash": 0.0193
+    },
+    "nonmetal": {
+      "flash": 0.2741,
+      "clef": 0.1799
+    },
+    "electric": {
+      "flash": 0.028
+    },
+    "nonelec": {
+      "flash": 0.9519
+    },
+    "secure": {
+      "flash": 0.0663
+    },
+    "cut": {
+      "flash": 0.1781
+    },
+    "write": {
+      "flash": 0.0068
+    },
+    "liquid": {
+      "flash": 0.0292
+    },
+    "wearable": {
+      "flash": 0.0105
+    },
+    "sport": {
+      "flash": 0.0379
+    },
+    "noise": {
+      "flash": 0.1753
+    },
+    "soft": {
+      "flash": 0.0469
+    },
+    "sharp": {
+      "flash": 0.394,
+      "clef": 0.4967
+    },
+    "round": {
+      "flash": 0.0278
+    },
+    "food": {
+      "flash": 0.2387,
+      "clef": 0.0373
+    },
+    "nonfood": {
+      "flash": 0.6749,
+      "clef": 0.8769
+    },
+    "alive": {
+      "flash": 0.012
+    },
+    "kitchen": {
+      "flash": 0.8885
+    },
+    "bathroom": {
+      "flash": 0.0211
+    },
+    "office": {
+      "flash": 0.109
+    },
+    "garden": {
+      "flash": 0.0892
+    },
+    "clothing": {
+      "flash": 0.0132
+    },
+    "unpowered": {
+      "flash": 0.8814
+    }
+  },
+  "teaspoon": {
+    "pocket": {
+      "flash": 0.8192
+    },
+    "big": {
+      "flash": 0.0085
+    },
+    "liftable": {
+      "flash": 0.969
+    },
+    "metal": {
+      "flash": 0.1554
+    },
+    "wood": {
+      "flash": 0.0158
+    },
+    "nonmetal": {
+      "flash": 0.6945,
+      "clef": 0.1513
+    },
+    "electric": {
+      "flash": 0.0129
+    },
+    "nonelec": {
+      "flash": 0.9515
+    },
+    "secure": {
+      "flash": 0.0403
+    },
+    "cut": {
+      "flash": 0.0129
+    },
+    "write": {
+      "flash": 0.0091
+    },
+    "liquid": {
+      "flash": 0.1989
+    },
+    "wearable": {
+      "flash": 0.0107
+    },
+    "sport": {
+      "flash": 0.0118
+    },
+    "noise": {
+      "flash": 0.036
+    },
+    "soft": {
+      "flash": 0.2378,
+      "clef": 0.041
+    },
+    "sharp": {
+      "flash": 0.0154
+    },
+    "round": {
+      "flash": 0.1137
+    },
+    "food": {
+      "flash": 0.0725
+    },
+    "nonfood": {
+      "flash": 0.8138
+    },
+    "alive": {
+      "flash": 0.011
+    },
+    "kitchen": {
+      "flash": 0.8953
+    },
+    "bathroom": {
+      "flash": 0.054
+    },
+    "office": {
+      "flash": 0.0669
+    },
+    "garden": {
+      "flash": 0.0579
+    },
+    "clothing": {
+      "flash": 0.0103
+    },
+    "unpowered": {
+      "flash": 0.9237
+    }
+  },
+  "spatula": {
+    "pocket": {
+      "flash": 0.5059,
+      "clef": 0.0342
+    },
+    "big": {
+      "flash": 0.0122
+    },
+    "liftable": {
+      "flash": 0.9532
+    },
+    "metal": {
+      "flash": 0.1146
+    },
+    "wood": {
+      "flash": 0.0308
+    },
+    "nonmetal": {
+      "flash": 0.7951,
+      "clef": 0.1749
+    },
+    "electric": {
+      "flash": 0.0231
+    },
+    "nonelec": {
+      "flash": 0.9555
+    },
+    "secure": {
+      "flash": 0.0333
+    },
+    "cut": {
+      "flash": 0.0158
+    },
+    "write": {
+      "flash": 0.0069
+    },
+    "liquid": {
+      "flash": 0.0256
+    },
+    "wearable": {
+      "flash": 0.0093
+    },
+    "sport": {
+      "flash": 0.0316
+    },
+    "noise": {
+      "flash": 0.1326
+    },
+    "soft": {
+      "flash": 0.1362
+    },
+    "sharp": {
+      "flash": 0.0125
+    },
+    "round": {
+      "flash": 0.0269
+    },
+    "food": {
+      "flash": 0.0138
+    },
+    "nonfood": {
+      "flash": 0.9472
+    },
+    "alive": {
+      "flash": 0.0072
+    },
+    "kitchen": {
+      "flash": 0.9212
+    },
+    "bathroom": {
+      "flash": 0.0333
+    },
+    "office": {
+      "flash": 0.039
+    },
+    "garden": {
+      "flash": 0.1131
+    },
+    "clothing": {
+      "flash": 0.0083
+    },
+    "unpowered": {
+      "flash": 0.879
+    }
+  },
+  "whisk": {
+    "pocket": {
+      "flash": 0.8484
+    },
+    "big": {
+      "flash": 0.0116
+    },
+    "liftable": {
+      "flash": 0.9552
+    },
+    "metal": {
+      "flash": 0.0414
+    },
+    "wood": {
+      "flash": 0.0928
+    },
+    "nonmetal": {
+      "flash": 0.879
+    },
+    "electric": {
+      "flash": 0.2474,
+      "clef": 0.0905
+    },
+    "nonelec": {
+      "flash": 0.7756,
+      "clef": 0.8874
+    },
+    "secure": {
+      "flash": 0.0537
+    },
+    "cut": {
+      "flash": 0.051
+    },
+    "write": {
+      "flash": 0.0224
+    },
+    "liquid": {
+      "flash": 0.0482
+    },
+    "wearable": {
+      "flash": 0.0196
+    },
+    "sport": {
+      "flash": 0.0389
+    },
+    "noise": {
+      "flash": 0.2203,
+      "clef": 0.2469
+    },
+    "soft": {
+      "flash": 0.327,
+      "clef": 0.2261
+    },
+    "sharp": {
+      "flash": 0.0609
+    },
+    "round": {
+      "flash": 0.0423
+    },
+    "food": {
+      "flash": 0.1385
+    },
+    "nonfood": {
+      "flash": 0.7698,
+      "clef": 0.7402
+    },
+    "alive": {
+      "flash": 0.0273
+    },
+    "kitchen": {
+      "flash": 0.8259
+    },
+    "bathroom": {
+      "flash": 0.2165,
+      "clef": 0.109
+    },
+    "office": {
+      "flash": 0.067
+    },
+    "garden": {
+      "flash": 0.1808
+    },
+    "clothing": {
+      "flash": 0.0268
+    },
+    "unpowered": {
+      "flash": 0.6146,
+      "clef": 0.8836
+    }
+  },
+  "cheese grater": {
+    "pocket": {
+      "flash": 0.3763,
+      "clef": 0.0704
+    },
+    "big": {
+      "flash": 0.0119
+    },
+    "liftable": {
+      "flash": 0.9119
+    },
+    "metal": {
+      "flash": 0.4116,
+      "clef": 0.6171
+    },
+    "wood": {
+      "flash": 0.02
+    },
+    "nonmetal": {
+      "flash": 0.3415,
+      "clef": 0.1874
+    },
+    "electric": {
+      "flash": 0.0167
+    },
+    "nonelec": {
+      "flash": 0.9264
+    },
+    "secure": {
+      "flash": 0.0261
+    },
+    "cut": {
+      "flash": 0.0973
+    },
+    "write": {
+      "flash": 0.0069
+    },
+    "liquid": {
+      "flash": 0.0089
+    },
+    "wearable": {
+      "flash": 0.0101
+    },
+    "sport": {
+      "flash": 0.0098
+    },
+    "noise": {
+      "flash": 0.1417
+    },
+    "soft": {
+      "flash": 0.1001
+    },
+    "sharp": {
+      "flash": 0.4774,
+      "clef": 0.567
+    },
+    "round": {
+      "flash": 0.0286
+    },
+    "food": {
+      "flash": 0.0453
+    },
+    "nonfood": {
+      "flash": 0.8613
+    },
+    "alive": {
+      "flash": 0.0079
+    },
+    "kitchen": {
+      "flash": 0.9109
+    },
+    "bathroom": {
+      "flash": 0.0327
+    },
+    "office": {
+      "flash": 0.0437
+    },
+    "garden": {
+      "flash": 0.0615
+    },
+    "clothing": {
+      "flash": 0.0111
+    },
+    "unpowered": {
+      "flash": 0.8804
+    }
+  },
+  "can opener": {
+    "pocket": {
+      "flash": 0.4599,
+      "clef": 0.3
+    },
+    "big": {
+      "flash": 0.0106
+    },
+    "liftable": {
+      "flash": 0.9587
+    },
+    "metal": {
+      "flash": 0.6667,
+      "clef": 0.748
+    },
+    "wood": {
+      "flash": 0.0104
+    },
+    "nonmetal": {
+      "flash": 0.0955
+    },
+    "electric": {
+      "flash": 0.2404,
+      "clef": 0.0807
+    },
+    "nonelec": {
+      "flash": 0.6276,
+      "clef": 0.8712
+    },
+    "secure": {
+      "flash": 0.0909
+    },
+    "cut": {
+      "flash": 0.0425
+    },
+    "write": {
+      "flash": 0.0057
+    },
+    "liquid": {
+      "flash": 0.0264
+    },
+    "wearable": {
+      "flash": 0.0088
+    },
+    "sport": {
+      "flash": 0.0083
+    },
+    "noise": {
+      "flash": 0.5555,
+      "clef": 0.243
+    },
+    "soft": {
+      "flash": 0.0251
+    },
+    "sharp": {
+      "flash": 0.1348
+    },
+    "round": {
+      "flash": 0.0377
+    },
+    "food": {
+      "flash": 0.0099
+    },
+    "nonfood": {
+      "flash": 0.9573
+    },
+    "alive": {
+      "flash": 0.008
+    },
+    "kitchen": {
+      "flash": 0.8835
+    },
+    "bathroom": {
+      "flash": 0.0217
+    },
+    "office": {
+      "flash": 0.0891
+    },
+    "garden": {
+      "flash": 0.0279
+    },
+    "clothing": {
+      "flash": 0.0079
+    },
+    "unpowered": {
+      "flash": 0.5242,
+      "clef": 0.8405
+    }
+  },
+  "toaster": {
+    "pocket": {
+      "flash": 0.0615
+    },
+    "big": {
+      "flash": 0.0287
+    },
+    "liftable": {
+      "flash": 0.668,
+      "clef": 0.6251
+    },
+    "metal": {
+      "flash": 0.2609,
+      "clef": 0.7677
+    },
+    "wood": {
+      "flash": 0.0119
+    },
+    "nonmetal": {
+      "flash": 0.3519,
+      "clef": 0.3325
+    },
+    "electric": {
+      "flash": 0.9193
+    },
+    "nonelec": {
+      "flash": 0.0429
+    },
+    "secure": {
+      "flash": 0.04
+    },
+    "cut": {
+      "flash": 0.0063
+    },
+    "write": {
+      "flash": 0.0056
+    },
+    "liquid": {
+      "flash": 0.0136
+    },
+    "wearable": {
+      "flash": 0.0079
+    },
+    "sport": {
+      "flash": 0.0082
+    },
+    "noise": {
+      "flash": 0.362,
+      "clef": 0.5401
+    },
+    "soft": {
+      "flash": 0.0337
+    },
+    "sharp": {
+      "flash": 0.0108
+    },
+    "round": {
+      "flash": 0.0235
+    },
+    "food": {
+      "flash": 0.0109
+    },
+    "nonfood": {
+      "flash": 0.9561
+    },
+    "alive": {
+      "flash": 0.007
+    },
+    "kitchen": {
+      "flash": 0.8887
+    },
+    "bathroom": {
+      "flash": 0.0295
+    },
+    "office": {
+      "flash": 0.0947
+    },
+    "garden": {
+      "flash": 0.033
+    },
+    "clothing": {
+      "flash": 0.0091
+    },
+    "unpowered": {
+      "flash": 0.0232
+    }
+  },
+  "blender": {
+    "pocket": {
+      "flash": 0.1602
+    },
+    "big": {
+      "flash": 0.0487
+    },
+    "liftable": {
+      "flash": 0.6115,
+      "clef": 0.3793
+    },
+    "metal": {
+      "flash": 0.1851
+    },
+    "wood": {
+      "flash": 0.0123
+    },
+    "nonmetal": {
+      "flash": 0.5722,
+      "clef": 0.1277
+    },
+    "electric": {
+      "flash": 0.8727
+    },
+    "nonelec": {
+      "flash": 0.0569
+    },
+    "secure": {
+      "flash": 0.0208
+    },
+    "cut": {
+      "flash": 0.0209
+    },
+    "write": {
+      "flash": 0.0067
+    },
+    "liquid": {
+      "flash": 0.4185,
+      "clef": 0.2332
+    },
+    "wearable": {
+      "flash": 0.0085
+    },
+    "sport": {
+      "flash": 0.0108
+    },
+    "noise": {
+      "flash": 0.6055,
+      "clef": 0.8289
+    },
+    "soft": {
+      "flash": 0.0693
+    },
+    "sharp": {
+      "flash": 0.0228
+    },
+    "round": {
+      "flash": 0.0639
+    },
+    "food": {
+      "flash": 0.0383
+    },
+    "nonfood": {
+      "flash": 0.9108
+    },
+    "alive": {
+      "flash": 0.0111
+    },
+    "kitchen": {
+      "flash": 0.8335
+    },
+    "bathroom": {
+      "flash": 0.0528
+    },
+    "office": {
+      "flash": 0.0722
+    },
+    "garden": {
+      "flash": 0.0524
+    },
+    "clothing": {
+      "flash": 0.0119
+    },
+    "unpowered": {
+      "flash": 0.0373
+    }
+  },
+  "kettle": {
+    "pocket": {
+      "flash": 0.302,
+      "clef": 0.0732
+    },
+    "big": {
+      "flash": 0.0138
+    },
+    "liftable": {
+      "flash": 0.6102,
+      "clef": 0.573
+    },
+    "metal": {
+      "flash": 0.4277,
+      "clef": 0.6074
+    },
+    "wood": {
+      "flash": 0.0144
+    },
+    "nonmetal": {
+      "flash": 0.2205,
+      "clef": 0.2961
+    },
+    "electric": {
+      "flash": 0.2981,
+      "clef": 0.1619
+    },
+    "nonelec": {
+      "flash": 0.6402,
+      "clef": 0.7604
+    },
+    "secure": {
+      "flash": 0.0331
+    },
+    "cut": {
+      "flash": 0.0068
+    },
+    "write": {
+      "flash": 0.0062
+    },
+    "liquid": {
+      "flash": 0.7259,
+      "clef": 0.6133
+    },
+    "wearable": {
+      "flash": 0.009
+    },
+    "sport": {
+      "flash": 0.0096
+    },
+    "noise": {
+      "flash": 0.2404,
+      "clef": 0.3493
+    },
+    "soft": {
+      "flash": 0.0348
+    },
+    "sharp": {
+      "flash": 0.0077
+    },
+    "round": {
+      "flash": 0.1197
+    },
+    "food": {
+      "flash": 0.0074
+    },
+    "nonfood": {
+      "flash": 0.9503
+    },
+    "alive": {
+      "flash": 0.0074
+    },
+    "kitchen": {
+      "flash": 0.8912
+    },
+    "bathroom": {
+      "flash": 0.1523
+    },
+    "office": {
+      "flash": 0.0691
+    },
+    "garden": {
+      "flash": 0.1153
+    },
+    "clothing": {
+      "flash": 0.0097
+    },
+    "unpowered": {
+      "flash": 0.45,
+      "clef": 0.6137
+    }
+  },
+  "microwave": {
+    "pocket": {
+      "flash": 0.0327
+    },
+    "big": {
+      "flash": 0.2371,
+      "clef": 0.444
+    },
+    "liftable": {
+      "flash": 0.2282,
+      "clef": 0.2037
+    },
+    "metal": {
+      "flash": 0.2178,
+      "clef": 0.6405
+    },
+    "wood": {
+      "flash": 0.0115
+    },
+    "nonmetal": {
+      "flash": 0.258,
+      "clef": 0.255
+    },
+    "electric": {
+      "flash": 0.9323
+    },
+    "nonelec": {
+      "flash": 0.0214
+    },
+    "secure": {
+      "flash": 0.0187
+    },
+    "cut": {
+      "flash": 0.0063
+    },
+    "write": {
+      "flash": 0.0054
+    },
+    "liquid": {
+      "flash": 0.0785
+    },
+    "wearable": {
+      "flash": 0.0069
+    },
+    "sport": {
+      "flash": 0.0083
+    },
+    "noise": {
+      "flash": 0.3904,
+      "clef": 0.6665
+    },
+    "soft": {
+      "flash": 0.0352
+    },
+    "sharp": {
+      "flash": 0.0077
+    },
+    "round": {
+      "flash": 0.0255
+    },
+    "food": {
+      "flash": 0.0174
+    },
+    "nonfood": {
+      "flash": 0.9423
+    },
+    "alive": {
+      "flash": 0.0066
+    },
+    "kitchen": {
+      "flash": 0.8922
+    },
+    "bathroom": {
+      "flash": 0.022
+    },
+    "office": {
+      "flash": 0.1097
+    },
+    "garden": {
+      "flash": 0.0124
+    },
+    "clothing": {
+      "flash": 0.0068
+    },
+    "unpowered": {
+      "flash": 0.0179
+    }
+  },
+  "refrigerator": {
+    "pocket": {
+      "flash": 0.0138
+    },
+    "big": {
+      "flash": 0.7482,
+      "clef": 0.9006
+    },
+    "liftable": {
+      "flash": 0.0572
+    },
+    "metal": {
+      "flash": 0.4204,
+      "clef": 0.7996
+    },
+    "wood": {
+      "flash": 0.0135
+    },
+    "nonmetal": {
+      "flash": 0.1717
+    },
+    "electric": {
+      "flash": 0.9318
+    },
+    "nonelec": {
+      "flash": 0.0587
+    },
+    "secure": {
+      "flash": 0.1056
+    },
+    "cut": {
+      "flash": 0.0065
+    },
+    "write": {
+      "flash": 0.0061
+    },
+    "liquid": {
+      "flash": 0.2507,
+      "clef": 0.0603
+    },
+    "wearable": {
+      "flash": 0.0071
+    },
+    "sport": {
+      "flash": 0.0089
+    },
+    "noise": {
+      "flash": 0.1542
+    },
+    "soft": {
+      "flash": 0.0217
+    },
+    "sharp": {
+      "flash": 0.0094
+    },
+    "round": {
+      "flash": 0.0264
+    },
+    "food": {
+      "flash": 0.0105
+    },
+    "nonfood": {
+      "flash": 0.9616
+    },
+    "alive": {
+      "flash": 0.0081
+    },
+    "kitchen": {
+      "flash": 0.8479
+    },
+    "bathroom": {
+      "flash": 0.0397
+    },
+    "office": {
+      "flash": 0.119
+    },
+    "garden": {
+      "flash": 0.0165
+    },
+    "clothing": {
+      "flash": 0.0067
+    },
+    "unpowered": {
+      "flash": 0.0218
+    }
+  },
+  "frying pan": {
+    "pocket": {
+      "flash": 0.1096
+    },
+    "big": {
+      "flash": 0.027
+    },
+    "liftable": {
+      "flash": 0.598,
+      "clef": 0.7335
+    },
+    "metal": {
+      "flash": 0.7696,
+      "clef": 0.7973
+    },
+    "wood": {
+      "flash": 0.0076
+    },
+    "nonmetal": {
+      "flash": 0.0372
+    },
+    "electric": {
+      "flash": 0.1054
+    },
+    "nonelec": {
+      "flash": 0.8631
+    },
+    "secure": {
+      "flash": 0.026
+    },
+    "cut": {
+      "flash": 0.0098
+    },
+    "write": {
+      "flash": 0.0051
+    },
+    "liquid": {
+      "flash": 0.066
+    },
+    "wearable": {
+      "flash": 0.0071
+    },
+    "sport": {
+      "flash": 0.0127
+    },
+    "noise": {
+      "flash": 0.2222,
+      "clef": 0.0844
+    },
+    "soft": {
+      "flash": 0.0194
+    },
+    "sharp": {
+      "flash": 0.0328
+    },
+    "round": {
+      "flash": 0.092
+    },
+    "food": {
+      "flash": 0.0108
+    },
+    "nonfood": {
+      "flash": 0.9625
+    },
+    "alive": {
+      "flash": 0.0063
+    },
+    "kitchen": {
+      "flash": 0.9391
+    },
+    "bathroom": {
+      "flash": 0.022
+    },
+    "office": {
+      "flash": 0.0403
+    },
+    "garden": {
+      "flash": 0.053
+    },
+    "clothing": {
+      "flash": 0.0081
+    },
+    "unpowered": {
+      "flash": 0.6856,
+      "clef": 0.7924
+    }
+  },
+  "mug": {
+    "pocket": {
+      "flash": 0.8163
+    },
+    "big": {
+      "flash": 0.0098
+    },
+    "liftable": {
+      "flash": 0.9457
+    },
+    "metal": {
+      "flash": 0.2354,
+      "clef": 0.3592
+    },
+    "wood": {
+      "flash": 0.0187
+    },
+    "nonmetal": {
+      "flash": 0.5019,
+      "clef": 0.508
+    },
+    "electric": {
+      "flash": 0.0404
+    },
+    "nonelec": {
+      "flash": 0.9364
+    },
+    "secure": {
+      "flash": 0.1254
+    },
+    "cut": {
+      "flash": 0.0161
+    },
+    "write": {
+      "flash": 0.0094
+    },
+    "liquid": {
+      "flash": 0.2696,
+      "clef": 0.7648
+    },
+    "wearable": {
+      "flash": 0.0413
+    },
+    "sport": {
+      "flash": 0.1173
+    },
+    "noise": {
+      "flash": 0.1168
+    },
+    "soft": {
+      "flash": 0.204,
+      "clef": 0.0458
+    },
+    "sharp": {
+      "flash": 0.0153
+    },
+    "round": {
+      "flash": 0.211,
+      "clef": 0.1852
+    },
+    "food": {
+      "flash": 0.0304
+    },
+    "nonfood": {
+      "flash": 0.8942
+    },
+    "alive": {
+      "flash": 0.0114
+    },
+    "kitchen": {
+      "flash": 0.6901,
+      "clef": 0.7309
+    },
+    "bathroom": {
+      "flash": 0.2676,
+      "clef": 0.0631
+    },
+    "office": {
+      "flash": 0.1457
+    },
+    "garden": {
+      "flash": 0.0711
+    },
+    "clothing": {
+      "flash": 0.0453
+    },
+    "unpowered": {
+      "flash": 0.8689
+    }
+  },
+  "wine glass": {
+    "pocket": {
+      "flash": 0.3362,
+      "clef": 0.0643
+    },
+    "big": {
+      "flash": 0.0112
+    },
+    "liftable": {
+      "flash": 0.8938
+    },
+    "metal": {
+      "flash": 0.0758
+    },
+    "wood": {
+      "flash": 0.0198
+    },
+    "nonmetal": {
+      "flash": 0.859
+    },
+    "electric": {
+      "flash": 0.0122
+    },
+    "nonelec": {
+      "flash": 0.9704
+    },
+    "secure": {
+      "flash": 0.0232
+    },
+    "cut": {
+      "flash": 0.008
+    },
+    "write": {
+      "flash": 0.0081
+    },
+    "liquid": {
+      "flash": 0.8959
+    },
+    "wearable": {
+      "flash": 0.0091
+    },
+    "sport": {
+      "flash": 0.0174
+    },
+    "noise": {
+      "flash": 0.0885
+    },
+    "soft": {
+      "flash": 0.1094
+    },
+    "sharp": {
+      "flash": 0.0125
+    },
+    "round": {
+      "flash": 0.213,
+      "clef": 0.1136
+    },
+    "food": {
+      "flash": 0.009
+    },
+    "nonfood": {
+      "flash": 0.9485
+    },
+    "alive": {
+      "flash": 0.0073
+    },
+    "kitchen": {
+      "flash": 0.4868,
+      "clef": 0.409
+    },
+    "bathroom": {
+      "flash": 0.1178
+    },
+    "office": {
+      "flash": 0.1393
+    },
+    "garden": {
+      "flash": 0.0641
+    },
+    "clothing": {
+      "flash": 0.012
+    },
+    "unpowered": {
+      "flash": 0.9333
+    }
+  },
+  "cutting board": {
+    "pocket": {
+      "flash": 0.1083
+    },
+    "big": {
+      "flash": 0.1351
+    },
+    "liftable": {
+      "flash": 0.3755,
+      "clef": 0.3733
+    },
+    "metal": {
+      "flash": 0.0197
+    },
+    "wood": {
+      "flash": 0.6476,
+      "clef": 0.5948
+    },
+    "nonmetal": {
+      "flash": 0.9351
+    },
+    "electric": {
+      "flash": 0.0142
+    },
+    "nonelec": {
+      "flash": 0.9577
+    },
+    "secure": {
+      "flash": 0.056
+    },
+    "cut": {
+      "flash": 0.5234,
+      "clef": 0.0508
+    },
+    "write": {
+      "flash": 0.007
+    },
+    "liquid": {
+      "flash": 0.0079
+    },
+    "wearable": {
+      "flash": 0.0076
+    },
+    "sport": {
+      "flash": 0.0137
+    },
+    "noise": {
+      "flash": 0.0823
+    },
+    "soft": {
+      "flash": 0.122
+    },
+    "sharp": {
+      "flash": 0.0793
+    },
+    "round": {
+      "flash": 0.0121
+    },
+    "food": {
+      "flash": 0.0142
+    },
+    "nonfood": {
+      "flash": 0.9501
+    },
+    "alive": {
+      "flash": 0.0088
+    },
+    "kitchen": {
+      "flash": 0.9187
+    },
+    "bathroom": {
+      "flash": 0.0271
+    },
+    "office": {
+      "flash": 0.0699
+    },
+    "garden": {
+      "flash": 0.0957
+    },
+    "clothing": {
+      "flash": 0.008
+    },
+    "unpowered": {
+      "flash": 0.9139
+    }
+  },
+  "rolling pin": {
+    "pocket": {
+      "flash": 0.3502,
+      "clef": 0.0882
+    },
+    "big": {
+      "flash": 0.0178
+    },
+    "liftable": {
+      "flash": 0.672,
+      "clef": 0.4142
+    },
+    "metal": {
+      "flash": 0.0153
+    },
+    "wood": {
+      "flash": 0.6081,
+      "clef": 0.466
+    },
+    "nonmetal": {
+      "flash": 0.9222
+    },
+    "electric": {
+      "flash": 0.0107
+    },
+    "nonelec": {
+      "flash": 0.9691
+    },
+    "secure": {
+      "flash": 0.016
+    },
+    "cut": {
+      "flash": 0.0148
+    },
+    "write": {
+      "flash": 0.0088
+    },
+    "liquid": {
+      "flash": 0.0121
+    },
+    "wearable": {
+      "flash": 0.0081
+    },
+    "sport": {
+      "flash": 0.0349
+    },
+    "noise": {
+      "flash": 0.1062
+    },
+    "soft": {
+      "flash": 0.1596
+    },
+    "sharp": {
+      "flash": 0.0107
+    },
+    "round": {
+      "flash": 0.0482
+    },
+    "food": {
+      "flash": 0.0182
+    },
+    "nonfood": {
+      "flash": 0.9276
+    },
+    "alive": {
+      "flash": 0.0069
+    },
+    "kitchen": {
+      "flash": 0.9037
+    },
+    "bathroom": {
+      "flash": 0.0131
+    },
+    "office": {
+      "flash": 0.0204
+    },
+    "garden": {
+      "flash": 0.036
+    },
+    "clothing": {
+      "flash": 0.0116
+    },
+    "unpowered": {
+      "flash": 0.9503
+    }
+  },
+  "chopsticks": {
+    "pocket": {
+      "flash": 0.7624,
+      "clef": 0.1897
+    },
+    "big": {
+      "flash": 0.0128
+    },
+    "liftable": {
+      "flash": 0.9361
+    },
+    "metal": {
+      "flash": 0.1056
+    },
+    "wood": {
+      "flash": 0.6321,
+      "clef": 0.3902
+    },
+    "nonmetal": {
+      "flash": 0.8759
+    },
+    "electric": {
+      "flash": 0.0177
+    },
+    "nonelec": {
+      "flash": 0.9607
+    },
+    "secure": {
+      "flash": 0.039
+    },
+    "cut": {
+      "flash": 0.1812
+    },
+    "write": {
+      "flash": 0.0092
+    },
+    "liquid": {
+      "flash": 0.0143
+    },
+    "wearable": {
+      "flash": 0.0228
+    },
+    "sport": {
+      "flash": 0.3243,
+      "clef": 0.0919
+    },
+    "noise": {
+      "flash": 0.1715
+    },
+    "soft": {
+      "flash": 0.1444
+    },
+    "sharp": {
+      "flash": 0.1639
+    },
+    "round": {
+      "flash": 0.0296
+    },
+    "food": {
+      "flash": 0.072
+    },
+    "nonfood": {
+      "flash": 0.8889
+    },
+    "alive": {
+      "flash": 0.0184
+    },
+    "kitchen": {
+      "flash": 0.7253,
+      "clef": 0.7076
+    },
+    "bathroom": {
+      "flash": 0.0577
+    },
+    "office": {
+      "flash": 0.093
+    },
+    "garden": {
+      "flash": 0.1199
+    },
+    "clothing": {
+      "flash": 0.0182
+    },
+    "unpowered": {
+      "flash": 0.9424
+    }
+  },
+  "oven mitt": {
+    "pocket": {
+      "flash": 0.7384,
+      "clef": 0.0642
+    },
+    "big": {
+      "flash": 0.0091
+    },
+    "liftable": {
+      "flash": 0.9668
+    },
+    "metal": {
+      "flash": 0.0179
+    },
+    "wood": {
+      "flash": 0.0087
+    },
+    "nonmetal": {
+      "flash": 0.9425
+    },
+    "electric": {
+      "flash": 0.0175
+    },
+    "nonelec": {
+      "flash": 0.961
+    },
+    "secure": {
+      "flash": 0.0306
+    },
+    "cut": {
+      "flash": 0.0075
+    },
+    "write": {
+      "flash": 0.0062
+    },
+    "liquid": {
+      "flash": 0.0134
+    },
+    "wearable": {
+      "flash": 0.4564,
+      "clef": 0.8797
+    },
+    "sport": {
+      "flash": 0.0543
+    },
+    "noise": {
+      "flash": 0.0169
+    },
+    "soft": {
+      "flash": 0.7738,
+      "clef": 0.7608
+    },
+    "sharp": {
+      "flash": 0.007
+    },
+    "round": {
+      "flash": 0.0285
+    },
+    "food": {
+      "flash": 0.0113
+    },
+    "nonfood": {
+      "flash": 0.9571
+    },
+    "alive": {
+      "flash": 0.0095
+    },
+    "kitchen": {
+      "flash": 0.898
+    },
+    "bathroom": {
+      "flash": 0.0302
+    },
+    "office": {
+      "flash": 0.0423
+    },
+    "garden": {
+      "flash": 0.0684
+    },
+    "clothing": {
+      "flash": 0.3526,
+      "clef": 0.424
+    },
+    "unpowered": {
+      "flash": 0.9346
+    }
+  },
+  "dish towel": {
+    "pocket": {
+      "flash": 0.5577,
+      "clef": 0.0694
+    },
+    "big": {
+      "flash": 0.0111
+    },
+    "liftable": {
+      "flash": 0.9233
+    },
+    "metal": {
+      "flash": 0.0115
+    },
+    "wood": {
+      "flash": 0.0072
+    },
+    "nonmetal": {
+      "flash": 0.9523
+    },
+    "electric": {
+      "flash": 0.0118
+    },
+    "nonelec": {
+      "flash": 0.9658
+    },
+    "secure": {
+      "flash": 0.1056
+    },
+    "cut": {
+      "flash": 0.0094
+    },
+    "write": {
+      "flash": 0.0092
+    },
+    "liquid": {
+      "flash": 0.029
+    },
+    "wearable": {
+      "flash": 0.0228
+    },
+    "sport": {
+      "flash": 0.0132
+    },
+    "noise": {
+      "flash": 0.0255
+    },
+    "soft": {
+      "flash": 0.8663
+    },
+    "sharp": {
+      "flash": 0.0071
+    },
+    "round": {
+      "flash": 0.0127
+    },
+    "food": {
+      "flash": 0.0103
+    },
+    "nonfood": {
+      "flash": 0.9547
+    },
+    "alive": {
+      "flash": 0.0084
+    },
+    "kitchen": {
+      "flash": 0.9222
+    },
+    "bathroom": {
+      "flash": 0.247,
+      "clef": 0.3617
+    },
+    "office": {
+      "flash": 0.0586
+    },
+    "garden": {
+      "flash": 0.0535
+    },
+    "clothing": {
+      "flash": 0.0299
+    },
+    "unpowered": {
+      "flash": 0.9509
+    }
+  },
+  "sponge": {
+    "pocket": {
+      "flash": 0.4604,
+      "clef": 0.1412
+    },
+    "big": {
+      "flash": 0.0541
+    },
+    "liftable": {
+      "flash": 0.6794,
+      "clef": 0.4862
+    },
+    "metal": {
+      "flash": 0.0098
+    },
+    "wood": {
+      "flash": 0.0143
+    },
+    "nonmetal": {
+      "flash": 0.9517
+    },
+    "electric": {
+      "flash": 0.0208
+    },
+    "nonelec": {
+      "flash": 0.9394
+    },
+    "secure": {
+      "flash": 0.0342
+    },
+    "cut": {
+      "flash": 0.0103
+    },
+    "write": {
+      "flash": 0.0097
+    },
+    "liquid": {
+      "flash": 0.0634
+    },
+    "wearable": {
+      "flash": 0.0306
+    },
+    "sport": {
+      "flash": 0.0401
+    },
+    "noise": {
+      "flash": 0.0446
+    },
+    "soft": {
+      "flash": 0.7342,
+      "clef": 0.7775
+    },
+    "sharp": {
+      "flash": 0.0093
+    },
+    "round": {
+      "flash": 0.0929
+    },
+    "food": {
+      "flash": 0.0987
+    },
+    "nonfood": {
+      "flash": 0.7673,
+      "clef": 0.7656
+    },
+    "alive": {
+      "flash": 0.1223
+    },
+    "kitchen": {
+      "flash": 0.3179,
+      "clef": 0.4303
+    },
+    "bathroom": {
+      "flash": 0.3078,
+      "clef": 0.4289
+    },
+    "office": {
+      "flash": 0.0347
+    },
+    "garden": {
+      "flash": 0.4801,
+      "clef": 0.0799
+    },
+    "clothing": {
+      "flash": 0.0393
+    },
+    "unpowered": {
+      "flash": 0.914
+    }
+  },
+  "apple": {
+    "pocket": {
+      "flash": 0.8705
+    },
+    "big": {
+      "flash": 0.0106
+    },
+    "liftable": {
+      "flash": 0.9656
+    },
+    "metal": {
+      "flash": 0.0116
+    },
+    "wood": {
+      "flash": 0.0211
+    },
+    "nonmetal": {
+      "flash": 0.9292
+    },
+    "electric": {
+      "flash": 0.0566
+    },
+    "nonelec": {
+      "flash": 0.9015
+    },
+    "secure": {
+      "flash": 0.024
+    },
+    "cut": {
+      "flash": 0.0183
+    },
+    "write": {
+      "flash": 0.0081
+    },
+    "liquid": {
+      "flash": 0.0301
+    },
+    "wearable": {
+      "flash": 0.0196
+    },
+    "sport": {
+      "flash": 0.0886
+    },
+    "noise": {
+      "flash": 0.0384
+    },
+    "soft": {
+      "flash": 0.6797,
+      "clef": 0.3567
+    },
+    "sharp": {
+      "flash": 0.0128
+    },
+    "round": {
+      "flash": 0.3909,
+      "clef": 0.5973
+    },
+    "food": {
+      "flash": 0.9377
+    },
+    "nonfood": {
+      "flash": 0.0421
+    },
+    "alive": {
+      "flash": 0.6003,
+      "clef": 0.5236
+    },
+    "kitchen": {
+      "flash": 0.8246
+    },
+    "bathroom": {
+      "flash": 0.0515
+    },
+    "office": {
+      "flash": 0.0544
+    },
+    "garden": {
+      "flash": 0.7603,
+      "clef": 0.5384
+    },
+    "clothing": {
+      "flash": 0.0097
+    },
+    "unpowered": {
+      "flash": 0.8985
+    }
+  },
+  "banana": {
+    "pocket": {
+      "flash": 0.7963,
+      "clef": 0.0935
+    },
+    "big": {
+      "flash": 0.0082
+    },
+    "liftable": {
+      "flash": 0.9501
+    },
+    "metal": {
+      "flash": 0.0086
+    },
+    "wood": {
+      "flash": 0.0108
+    },
+    "nonmetal": {
+      "flash": 0.9624
+    },
+    "electric": {
+      "flash": 0.0117
+    },
+    "nonelec": {
+      "flash": 0.9635
+    },
+    "secure": {
+      "flash": 0.0158
+    },
+    "cut": {
+      "flash": 0.0125
+    },
+    "write": {
+      "flash": 0.0075
+    },
+    "liquid": {
+      "flash": 0.0396
+    },
+    "wearable": {
+      "flash": 0.017
+    },
+    "sport": {
+      "flash": 0.1191
+    },
+    "noise": {
+      "flash": 0.0321
+    },
+    "soft": {
+      "flash": 0.808
+    },
+    "sharp": {
+      "flash": 0.0212
+    },
+    "round": {
+      "flash": 0.4953,
+      "clef": 0.0683
+    },
+    "food": {
+      "flash": 0.9609
+    },
+    "nonfood": {
+      "flash": 0.0307
+    },
+    "alive": {
+      "flash": 0.6391,
+      "clef": 0.7305
+    },
+    "kitchen": {
+      "flash": 0.8272
+    },
+    "bathroom": {
+      "flash": 0.031
+    },
+    "office": {
+      "flash": 0.0226
+    },
+    "garden": {
+      "flash": 0.6819,
+      "clef": 0.2769
+    },
+    "clothing": {
+      "flash": 0.0095
+    },
+    "unpowered": {
+      "flash": 0.9425
+    }
+  },
+  "bread": {
+    "pocket": {
+      "flash": 0.6647,
+      "clef": 0.1166
+    },
+    "big": {
+      "flash": 0.0132
+    },
+    "liftable": {
+      "flash": 0.8716
+    },
+    "metal": {
+      "flash": 0.0079
+    },
+    "wood": {
+      "flash": 0.0107
+    },
+    "nonmetal": {
+      "flash": 0.9466
+    },
+    "electric": {
+      "flash": 0.0132
+    },
+    "nonelec": {
+      "flash": 0.9624
+    },
+    "secure": {
+      "flash": 0.0331
+    },
+    "cut": {
+      "flash": 0.0153
+    },
+    "write": {
+      "flash": 0.0082
+    },
+    "liquid": {
+      "flash": 0.0175
+    },
+    "wearable": {
+      "flash": 0.0193
+    },
+    "sport": {
+      "flash": 0.0246
+    },
+    "noise": {
+      "flash": 0.0254
+    },
+    "soft": {
+      "flash": 0.6926,
+      "clef": 0.5297
+    },
+    "sharp": {
+      "flash": 0.012
+    },
+    "round": {
+      "flash": 0.1559
+    },
+    "food": {
+      "flash": 0.9506
+    },
+    "nonfood": {
+      "flash": 0.0297
+    },
+    "alive": {
+      "flash": 0.1102
+    },
+    "kitchen": {
+      "flash": 0.8809
+    },
+    "bathroom": {
+      "flash": 0.0176
+    },
+    "office": {
+      "flash": 0.0576
+    },
+    "garden": {
+      "flash": 0.2572,
+      "clef": 0.055
+    },
+    "clothing": {
+      "flash": 0.0148
+    },
+    "unpowered": {
+      "flash": 0.9414
+    }
+  },
+  "egg": {
+    "pocket": {
+      "flash": 0.9085
+    },
+    "big": {
+      "flash": 0.0085
+    },
+    "liftable": {
+      "flash": 0.9665
+    },
+    "metal": {
+      "flash": 0.0117
+    },
+    "wood": {
+      "flash": 0.0083
+    },
+    "nonmetal": {
+      "flash": 0.9363
+    },
+    "electric": {
+      "flash": 0.0176
+    },
+    "nonelec": {
+      "flash": 0.9627
+    },
+    "secure": {
+      "flash": 0.0383
+    },
+    "cut": {
+      "flash": 0.0108
+    },
+    "write": {
+      "flash": 0.0103
+    },
+    "liquid": {
+      "flash": 0.0486
+    },
+    "wearable": {
+      "flash": 0.0215
+    },
+    "sport": {
+      "flash": 0.1559
+    },
+    "noise": {
+      "flash": 0.0317
+    },
+    "soft": {
+      "flash": 0.6883,
+      "clef": 0.3474
+    },
+    "sharp": {
+      "flash": 0.0093
+    },
+    "round": {
+      "flash": 0.6348,
+      "clef": 0.4329
+    },
+    "food": {
+      "flash": 0.851
+    },
+    "nonfood": {
+      "flash": 0.0759
+    },
+    "alive": {
+      "flash": 0.2846,
+      "clef": 0.1886
+    },
+    "kitchen": {
+      "flash": 0.8187
+    },
+    "bathroom": {
+      "flash": 0.1639
+    },
+    "office": {
+      "flash": 0.0329
+    },
+    "garden": {
+      "flash": 0.3502,
+      "clef": 0.1453
+    },
+    "clothing": {
+      "flash": 0.0122
+    },
+    "unpowered": {
+      "flash": 0.927
+    }
+  },
+  "toothbrush": {
+    "pocket": {
+      "flash": 0.8309
+    },
+    "big": {
+      "flash": 0.008
+    },
+    "liftable": {
+      "flash": 0.9664
+    },
+    "metal": {
+      "flash": 0.0777
+    },
+    "wood": {
+      "flash": 0.0095
+    },
+    "nonmetal": {
+      "flash": 0.7386,
+      "clef": 0.615
+    },
+    "electric": {
+      "flash": 0.286,
+      "clef": 0.0457
+    },
+    "nonelec": {
+      "flash": 0.6656,
+      "clef": 0.8733
+    },
+    "secure": {
+      "flash": 0.0355
+    },
+    "cut": {
+      "flash": 0.0094
+    },
+    "write": {
+      "flash": 0.0066
+    },
+    "liquid": {
+      "flash": 0.0677
+    },
+    "wearable": {
+      "flash": 0.0946
+    },
+    "sport": {
+      "flash": 0.0084
+    },
+    "noise": {
+      "flash": 0.0849
+    },
+    "soft": {
+      "flash": 0.2814,
+      "clef": 0.4185
+    },
+    "sharp": {
+      "flash": 0.0216
+    },
+    "round": {
+      "flash": 0.028
+    },
+    "food": {
+      "flash": 0.0058
+    },
+    "nonfood": {
+      "flash": 0.9662
+    },
+    "alive": {
+      "flash": 0.0089
+    },
+    "kitchen": {
+      "flash": 0.5682,
+      "clef": 0.1092
+    },
+    "bathroom": {
+      "flash": 0.9418
+    },
+    "office": {
+      "flash": 0.0447
+    },
+    "garden": {
+      "flash": 0.0091
+    },
+    "clothing": {
+      "flash": 0.0125
+    },
+    "unpowered": {
+      "flash": 0.5541,
+      "clef": 0.9191
+    }
+  },
+  "comb": {
+    "pocket": {
+      "flash": 0.8684
+    },
+    "big": {
+      "flash": 0.0086
+    },
+    "liftable": {
+      "flash": 0.9687
+    },
+    "metal": {
+      "flash": 0.1789
+    },
+    "wood": {
+      "flash": 0.166
+    },
+    "nonmetal": {
+      "flash": 0.558,
+      "clef": 0.4675
+    },
+    "electric": {
+      "flash": 0.1104
+    },
+    "nonelec": {
+      "flash": 0.8464
+    },
+    "secure": {
+      "flash": 0.1915
+    },
+    "cut": {
+      "flash": 0.0933
+    },
+    "write": {
+      "flash": 0.0158
+    },
+    "liquid": {
+      "flash": 0.0199
+    },
+    "wearable": {
+      "flash": 0.1629
+    },
+    "sport": {
+      "flash": 0.0388
+    },
+    "noise": {
+      "flash": 0.1927
+    },
+    "soft": {
+      "flash": 0.2294,
+      "clef": 0.2826
+    },
+    "sharp": {
+      "flash": 0.1621
+    },
+    "round": {
+      "flash": 0.041
+    },
+    "food": {
+      "flash": 0.0261
+    },
+    "nonfood": {
+      "flash": 0.9403
+    },
+    "alive": {
+      "flash": 0.0151
+    },
+    "kitchen": {
+      "flash": 0.5111,
+      "clef": 0.3218
+    },
+    "bathroom": {
+      "flash": 0.4549,
+      "clef": 0.1795
+    },
+    "office": {
+      "flash": 0.1712
+    },
+    "garden": {
+      "flash": 0.2303,
+      "clef": 0.2256
+    },
+    "clothing": {
+      "flash": 0.1343
+    },
+    "unpowered": {
+      "flash": 0.7107,
+      "clef": 0.633
+    }
+  },
+  "towel": {
+    "pocket": {
+      "flash": 0.5957,
+      "clef": 0.0907
+    },
+    "big": {
+      "flash": 0.0163
+    },
+    "liftable": {
+      "flash": 0.762,
+      "clef": 0.5955
+    },
+    "metal": {
+      "flash": 0.0101
+    },
+    "wood": {
+      "flash": 0.011
+    },
+    "nonmetal": {
+      "flash": 0.9425
+    },
+    "electric": {
+      "flash": 0.0149
+    },
+    "nonelec": {
+      "flash": 0.9574
+    },
+    "secure": {
+      "flash": 0.0535
+    },
+    "cut": {
+      "flash": 0.0085
+    },
+    "write": {
+      "flash": 0.0066
+    },
+    "liquid": {
+      "flash": 0.1307
+    },
+    "wearable": {
+      "flash": 0.0969
+    },
+    "sport": {
+      "flash": 0.0943
+    },
+    "noise": {
+      "flash": 0.0216
+    },
+    "soft": {
+      "flash": 0.8765
+    },
+    "sharp": {
+      "flash": 0.008
+    },
+    "round": {
+      "flash": 0.0108
+    },
+    "food": {
+      "flash": 0.0094
+    },
+    "nonfood": {
+      "flash": 0.9394
+    },
+    "alive": {
+      "flash": 0.0167
+    },
+    "kitchen": {
+      "flash": 0.3478,
+      "clef": 0.1862
+    },
+    "bathroom": {
+      "flash": 0.8544
+    },
+    "office": {
+      "flash": 0.0788
+    },
+    "garden": {
+      "flash": 0.0695
+    },
+    "clothing": {
+      "flash": 0.1
+    },
+    "unpowered": {
+      "flash": 0.9273
+    }
+  },
+  "soap": {
+    "pocket": {
+      "flash": 0.8442
+    },
+    "big": {
+      "flash": 0.0111
+    },
+    "liftable": {
+      "flash": 0.9476
+    },
+    "metal": {
+      "flash": 0.0202
+    },
+    "wood": {
+      "flash": 0.009
+    },
+    "nonmetal": {
+      "flash": 0.9089
+    },
+    "electric": {
+      "flash": 0.1412
+    },
+    "nonelec": {
+      "flash": 0.8459
+    },
+    "secure": {
+      "flash": 0.0673
+    },
+    "cut": {
+      "flash": 0.0141
+    },
+    "write": {
+      "flash": 0.009
+    },
+    "liquid": {
+      "flash": 0.2353,
+      "clef": 0.3476
+    },
+    "wearable": {
+      "flash": 0.0682
+    },
+    "sport": {
+      "flash": 0.0119
+    },
+    "noise": {
+      "flash": 0.0587
+    },
+    "soft": {
+      "flash": 0.6309,
+      "clef": 0.5806
+    },
+    "sharp": {
+      "flash": 0.0107
+    },
+    "round": {
+      "flash": 0.0596
+    },
+    "food": {
+      "flash": 0.0141
+    },
+    "nonfood": {
+      "flash": 0.9373
+    },
+    "alive": {
+      "flash": 0.0128
+    },
+    "kitchen": {
+      "flash": 0.7432,
+      "clef": 0.5087
+    },
+    "bathroom": {
+      "flash": 0.8932
+    },
+    "office": {
+      "flash": 0.0803
+    },
+    "garden": {
+      "flash": 0.1187
+    },
+    "clothing": {
+      "flash": 0.0323
+    },
+    "unpowered": {
+      "flash": 0.6828,
+      "clef": 0.8949
+    }
+  },
+  "shampoo bottle": {
+    "pocket": {
+      "flash": 0.5282,
+      "clef": 0.0226
+    },
+    "big": {
+      "flash": 0.0113
+    },
+    "liftable": {
+      "flash": 0.9172
+    },
+    "metal": {
+      "flash": 0.0417
+    },
+    "wood": {
+      "flash": 0.0083
+    },
+    "nonmetal": {
+      "flash": 0.8822
+    },
+    "electric": {
+      "flash": 0.0256
+    },
+    "nonelec": {
+      "flash": 0.9497
+    },
+    "secure": {
+      "flash": 0.0307
+    },
+    "cut": {
+      "flash": 0.007
+    },
+    "write": {
+      "flash": 0.0068
+    },
+    "liquid": {
+      "flash": 0.8601
+    },
+    "wearable": {
+      "flash": 0.0111
+    },
+    "sport": {
+      "flash": 0.009
+    },
+    "noise": {
+      "flash": 0.0284
+    },
+    "soft": {
+      "flash": 0.1934
+    },
+    "sharp": {
+      "flash": 0.0081
+    },
+    "round": {
+      "flash": 0.1728
+    },
+    "food": {
+      "flash": 0.0084
+    },
+    "nonfood": {
+      "flash": 0.9564
+    },
+    "alive": {
+      "flash": 0.0066
+    },
+    "kitchen": {
+      "flash": 0.7094,
+      "clef": 0.159
+    },
+    "bathroom": {
+      "flash": 0.9347
+    },
+    "office": {
+      "flash": 0.0527
+    },
+    "garden": {
+      "flash": 0.0175
+    },
+    "clothing": {
+      "flash": 0.009
+    },
+    "unpowered": {
+      "flash": 0.8996
+    }
+  },
+  "hair dryer": {
+    "pocket": {
+      "flash": 0.0941
+    },
+    "big": {
+      "flash": 0.0599
+    },
+    "liftable": {
+      "flash": 0.5539,
+      "clef": 0.3616
+    },
+    "metal": {
+      "flash": 0.1534
+    },
+    "wood": {
+      "flash": 0.0096
+    },
+    "nonmetal": {
+      "flash": 0.4953,
+      "clef": 0.1057
+    },
+    "electric": {
+      "flash": 0.9263
+    },
+    "nonelec": {
+      "flash": 0.0261
+    },
+    "secure": {
+      "flash": 0.0149
+    },
+    "cut": {
+      "flash": 0.0084
+    },
+    "write": {
+      "flash": 0.0057
+    },
+    "liquid": {
+      "flash": 0.0258
+    },
+    "wearable": {
+      "flash": 0.0165
+    },
+    "sport": {
+      "flash": 0.0084
+    },
+    "noise": {
+      "flash": 0.5595,
+      "clef": 0.8986
+    },
+    "soft": {
+      "flash": 0.0518
+    },
+    "sharp": {
+      "flash": 0.0083
+    },
+    "round": {
+      "flash": 0.0222
+    },
+    "food": {
+      "flash": 0.0053
+    },
+    "nonfood": {
+      "flash": 0.9622
+    },
+    "alive": {
+      "flash": 0.0074
+    },
+    "kitchen": {
+      "flash": 0.2527,
+      "clef": 0.1526
+    },
+    "bathroom": {
+      "flash": 0.8456
+    },
+    "office": {
+      "flash": 0.0724
+    },
+    "garden": {
+      "flash": 0.0149
+    },
+    "clothing": {
+      "flash": 0.0139
+    },
+    "unpowered": {
+      "flash": 0.0168
+    }
+  },
+  "razor": {
+    "pocket": {
+      "flash": 0.7496,
+      "clef": 0.3573
+    },
+    "big": {
+      "flash": 0.0101
+    },
+    "liftable": {
+      "flash": 0.9663
+    },
+    "metal": {
+      "flash": 0.468,
+      "clef": 0.7747
+    },
+    "wood": {
+      "flash": 0.0142
+    },
+    "nonmetal": {
+      "flash": 0.2551,
+      "clef": 0.1683
+    },
+    "electric": {
+      "flash": 0.273,
+      "clef": 0.0213
+    },
+    "nonelec": {
+      "flash": 0.6455,
+      "clef": 0.9216
+    },
+    "secure": {
+      "flash": 0.0514
+    },
+    "cut": {
+      "flash": 0.8792
+    },
+    "write": {
+      "flash": 0.0084
+    },
+    "liquid": {
+      "flash": 0.0064
+    },
+    "wearable": {
+      "flash": 0.0613
+    },
+    "sport": {
+      "flash": 0.0181
+    },
+    "noise": {
+      "flash": 0.2711,
+      "clef": 0.1488
+    },
+    "soft": {
+      "flash": 0.0456
+    },
+    "sharp": {
+      "flash": 0.9075
+    },
+    "round": {
+      "flash": 0.0256
+    },
+    "food": {
+      "flash": 0.0069
+    },
+    "nonfood": {
+      "flash": 0.9667
+    },
+    "alive": {
+      "flash": 0.0091
+    },
+    "kitchen": {
+      "flash": 0.3713,
+      "clef": 0.2436
+    },
+    "bathroom": {
+      "flash": 0.7206,
+      "clef": 0.5122
+    },
+    "office": {
+      "flash": 0.1436
+    },
+    "garden": {
+      "flash": 0.1103
+    },
+    "clothing": {
+      "flash": 0.0261
+    },
+    "unpowered": {
+      "flash": 0.6205,
+      "clef": 0.9008
+    }
+  },
+  "bathtub": {
+    "pocket": {
+      "flash": 0.022
+    },
+    "big": {
+      "flash": 0.2494,
+      "clef": 0.7096
+    },
+    "liftable": {
+      "flash": 0.2047,
+      "clef": 0.0618
+    },
+    "metal": {
+      "flash": 0.0355
+    },
+    "wood": {
+      "flash": 0.0387
+    },
+    "nonmetal": {
+      "flash": 0.7992,
+      "clef": 0.4625
+    },
+    "electric": {
+      "flash": 0.1241
+    },
+    "nonelec": {
+      "flash": 0.7985,
+      "clef": 0.9018
+    },
+    "secure": {
+      "flash": 0.0338
+    },
+    "cut": {
+      "flash": 0.0059
+    },
+    "write": {
+      "flash": 0.0058
+    },
+    "liquid": {
+      "flash": 0.7854,
+      "clef": 0.7146
+    },
+    "wearable": {
+      "flash": 0.0086
+    },
+    "sport": {
+      "flash": 0.0184
+    },
+    "noise": {
+      "flash": 0.1408
+    },
+    "soft": {
+      "flash": 0.1827
+    },
+    "sharp": {
+      "flash": 0.0064
+    },
+    "round": {
+      "flash": 0.0273
+    },
+    "food": {
+      "flash": 0.006
+    },
+    "nonfood": {
+      "flash": 0.9536
+    },
+    "alive": {
+      "flash": 0.0111
+    },
+    "kitchen": {
+      "flash": 0.2135,
+      "clef": 0.0734
+    },
+    "bathroom": {
+      "flash": 0.9315
+    },
+    "office": {
+      "flash": 0.0267
+    },
+    "garden": {
+      "flash": 0.0191
+    },
+    "clothing": {
+      "flash": 0.009
+    },
+    "unpowered": {
+      "flash": 0.6384,
+      "clef": 0.8526
+    }
+  },
+  "toilet": {
+    "pocket": {
+      "flash": 0.053
+    },
+    "big": {
+      "flash": 0.1611
+    },
+    "liftable": {
+      "flash": 0.3083,
+      "clef": 0.0922
+    },
+    "metal": {
+      "flash": 0.1004
+    },
+    "wood": {
+      "flash": 0.0127
+    },
+    "nonmetal": {
+      "flash": 0.7133,
+      "clef": 0.5444
+    },
+    "electric": {
+      "flash": 0.3175,
+      "clef": 0.1174
+    },
+    "nonelec": {
+      "flash": 0.5872,
+      "clef": 0.8286
+    },
+    "secure": {
+      "flash": 0.098
+    },
+    "cut": {
+      "flash": 0.006
+    },
+    "write": {
+      "flash": 0.0094
+    },
+    "liquid": {
+      "flash": 0.2331,
+      "clef": 0.5596
+    },
+    "wearable": {
+      "flash": 0.009
+    },
+    "sport": {
+      "flash": 0.0076
+    },
+    "noise": {
+      "flash": 0.3539,
+      "clef": 0.3385
+    },
+    "soft": {
+      "flash": 0.0984
+    },
+    "sharp": {
+      "flash": 0.0083
+    },
+    "round": {
+      "flash": 0.0606
+    },
+    "food": {
+      "flash": 0.0062
+    },
+    "nonfood": {
+      "flash": 0.9614
+    },
+    "alive": {
+      "flash": 0.0105
+    },
+    "kitchen": {
+      "flash": 0.0391
+    },
+    "bathroom": {
+      "flash": 0.9444
+    },
+    "office": {
+      "flash": 0.0679
+    },
+    "garden": {
+      "flash": 0.0207
+    },
+    "clothing": {
+      "flash": 0.0121
+    },
+    "unpowered": {
+      "flash": 0.4352,
+      "clef": 0.858
+    }
+  },
+  "mirror": {
+    "pocket": {
+      "flash": 0.2459,
+      "clef": 0.1207
+    },
+    "big": {
+      "flash": 0.1631
+    },
+    "liftable": {
+      "flash": 0.5475,
+      "clef": 0.33
+    },
+    "metal": {
+      "flash": 0.1046
+    },
+    "wood": {
+      "flash": 0.0158
+    },
+    "nonmetal": {
+      "flash": 0.5217,
+      "clef": 0.3719
+    },
+    "electric": {
+      "flash": 0.2082,
+      "clef": 0.0447
+    },
+    "nonelec": {
+      "flash": 0.8409
+    },
+    "secure": {
+      "flash": 0.0246
+    },
+    "cut": {
+      "flash": 0.0063
+    },
+    "write": {
+      "flash": 0.0071
+    },
+    "liquid": {
+      "flash": 0.0086
+    },
+    "wearable": {
+      "flash": 0.0605
+    },
+    "sport": {
+      "flash": 0.0172
+    },
+    "noise": {
+      "flash": 0.0279
+    },
+    "soft": {
+      "flash": 0.0568
+    },
+    "sharp": {
+      "flash": 0.0092
+    },
+    "round": {
+      "flash": 0.0312
+    },
+    "food": {
+      "flash": 0.0055
+    },
+    "nonfood": {
+      "flash": 0.9638
+    },
+    "alive": {
+      "flash": 0.0062
+    },
+    "kitchen": {
+      "flash": 0.1498
+    },
+    "bathroom": {
+      "flash": 0.8088
+    },
+    "office": {
+      "flash": 0.1542
+    },
+    "garden": {
+      "flash": 0.0323
+    },
+    "clothing": {
+      "flash": 0.0419
+    },
+    "unpowered": {
+      "flash": 0.6712,
+      "clef": 0.8908
+    }
+  },
+  "rubber duck": {
+    "pocket": {
+      "flash": 0.53,
+      "clef": 0.4945
+    },
+    "big": {
+      "flash": 0.0112
+    },
+    "liftable": {
+      "flash": 0.9468
+    },
+    "metal": {
+      "flash": 0.0173
+    },
+    "wood": {
+      "flash": 0.0171
+    },
+    "nonmetal": {
+      "flash": 0.9402
+    },
+    "electric": {
+      "flash": 0.0359
+    },
+    "nonelec": {
+      "flash": 0.8992
+    },
+    "secure": {
+      "flash": 0.0259
+    },
+    "cut": {
+      "flash": 0.0071
+    },
+    "write": {
+      "flash": 0.0081
+    },
+    "liquid": {
+      "flash": 0.0606
+    },
+    "wearable": {
+      "flash": 0.0129
+    },
+    "sport": {
+      "flash": 0.0206
+    },
+    "noise": {
+      "flash": 0.1892
+    },
+    "soft": {
+      "flash": 0.5533,
+      "clef": 0.7461
+    },
+    "sharp": {
+      "flash": 0.0063
+    },
+    "round": {
+      "flash": 0.2496,
+      "clef": 0.3077
+    },
+    "food": {
+      "flash": 0.0084
+    },
+    "nonfood": {
+      "flash": 0.9567
+    },
+    "alive": {
+      "flash": 0.0129
+    },
+    "kitchen": {
+      "flash": 0.5115,
+      "clef": 0.1126
+    },
+    "bathroom": {
+      "flash": 0.8516
+    },
+    "office": {
+      "flash": 0.0624
+    },
+    "garden": {
+      "flash": 0.0639
+    },
+    "clothing": {
+      "flash": 0.0135
+    },
+    "unpowered": {
+      "flash": 0.8927
+    }
+  },
+  "shower curtain": {
+    "pocket": {
+      "flash": 0.027
+    },
+    "big": {
+      "flash": 0.5053,
+      "clef": 0.4075
+    },
+    "liftable": {
+      "flash": 0.1983
+    },
+    "metal": {
+      "flash": 0.0196
+    },
+    "wood": {
+      "flash": 0.0122
+    },
+    "nonmetal": {
+      "flash": 0.9244
+    },
+    "electric": {
+      "flash": 0.0606
+    },
+    "nonelec": {
+      "flash": 0.9275
+    },
+    "secure": {
+      "flash": 0.2707,
+      "clef": 0.3878
+    },
+    "cut": {
+      "flash": 0.0063
+    },
+    "write": {
+      "flash": 0.0062
+    },
+    "liquid": {
+      "flash": 0.2812,
+      "clef": 0.0955
+    },
+    "wearable": {
+      "flash": 0.015
+    },
+    "sport": {
+      "flash": 0.0111
+    },
+    "noise": {
+      "flash": 0.0843
+    },
+    "soft": {
+      "flash": 0.6851,
+      "clef": 0.6473
+    },
+    "sharp": {
+      "flash": 0.0068
+    },
+    "round": {
+      "flash": 0.0144
+    },
+    "food": {
+      "flash": 0.0061
+    },
+    "nonfood": {
+      "flash": 0.9601
+    },
+    "alive": {
+      "flash": 0.0086
+    },
+    "kitchen": {
+      "flash": 0.2318,
+      "clef": 0.0728
+    },
+    "bathroom": {
+      "flash": 0.9455
+    },
+    "office": {
+      "flash": 0.0356
+    },
+    "garden": {
+      "flash": 0.0199
+    },
+    "clothing": {
+      "flash": 0.0416
+    },
+    "unpowered": {
+      "flash": 0.8791
+    }
+  },
+  "shovel": {
+    "pocket": {
+      "flash": 0.3959,
+      "clef": 0.0355
+    },
+    "big": {
+      "flash": 0.0223
+    },
+    "liftable": {
+      "flash": 0.7548,
+      "clef": 0.4932
+    },
+    "metal": {
+      "flash": 0.1662
+    },
+    "wood": {
+      "flash": 0.065
+    },
+    "nonmetal": {
+      "flash": 0.3922,
+      "clef": 0.0679
+    },
+    "electric": {
+      "flash": 0.0104
+    },
+    "nonelec": {
+      "flash": 0.9607
+    },
+    "secure": {
+      "flash": 0.0394
+    },
+    "cut": {
+      "flash": 0.0105
+    },
+    "write": {
+      "flash": 0.0063
+    },
+    "liquid": {
+      "flash": 0.0082
+    },
+    "wearable": {
+      "flash": 0.0075
+    },
+    "sport": {
+      "flash": 0.171
+    },
+    "noise": {
+      "flash": 0.1732
+    },
+    "soft": {
+      "flash": 0.0209
+    },
+    "sharp": {
+      "flash": 0.0342
+    },
+    "round": {
+      "flash": 0.0093
+    },
+    "food": {
+      "flash": 0.0061
+    },
+    "nonfood": {
+      "flash": 0.9668
+    },
+    "alive": {
+      "flash": 0.0075
+    },
+    "kitchen": {
+      "flash": 0.1249
+    },
+    "bathroom": {
+      "flash": 0.0334
+    },
+    "office": {
+      "flash": 0.0474
+    },
+    "garden": {
+      "flash": 0.8223
+    },
+    "clothing": {
+      "flash": 0.0074
+    },
+    "unpowered": {
+      "flash": 0.9034
+    }
+  },
+  "rake": {
+    "pocket": {
+      "flash": 0.4622,
+      "clef": 0.3303
+    },
+    "big": {
+      "flash": 0.0086
+    },
+    "liftable": {
+      "flash": 0.9133
+    },
+    "metal": {
+      "flash": 0.102
+    },
+    "wood": {
+      "flash": 0.2731,
+      "clef": 0.2844
+    },
+    "nonmetal": {
+      "flash": 0.6734,
+      "clef": 0.4295
+    },
+    "electric": {
+      "flash": 0.0158
+    },
+    "nonelec": {
+      "flash": 0.9507
+    },
+    "secure": {
+      "flash": 0.0374
+    },
+    "cut": {
+      "flash": 0.023
+    },
+    "write": {
+      "flash": 0.0124
+    },
+    "liquid": {
+      "flash": 0.0096
+    },
+    "wearable": {
+      "flash": 0.0137
+    },
+    "sport": {
+      "flash": 0.1095
+    },
+    "noise": {
+      "flash": 0.298,
+      "clef": 0.1778
+    },
+    "soft": {
+      "flash": 0.0476
+    },
+    "sharp": {
+      "flash": 0.0825
+    },
+    "round": {
+      "flash": 0.0239
+    },
+    "food": {
+      "flash": 0.01
+    },
+    "nonfood": {
+      "flash": 0.95
+    },
+    "alive": {
+      "flash": 0.0225
+    },
+    "kitchen": {
+      "flash": 0.1766
+    },
+    "bathroom": {
+      "flash": 0.0366
+    },
+    "office": {
+      "flash": 0.1381
+    },
+    "garden": {
+      "flash": 0.8299
+    },
+    "clothing": {
+      "flash": 0.0189
+    },
+    "unpowered": {
+      "flash": 0.8927
+    }
+  },
+  "garden hose": {
+    "pocket": {
+      "flash": 0.0406
+    },
+    "big": {
+      "flash": 0.2148,
+      "clef": 0.5285
+    },
+    "liftable": {
+      "flash": 0.446,
+      "clef": 0.282
+    },
+    "metal": {
+      "flash": 0.0204
+    },
+    "wood": {
+      "flash": 0.0106
+    },
+    "nonmetal": {
+      "flash": 0.8731
+    },
+    "electric": {
+      "flash": 0.0899
+    },
+    "nonelec": {
+      "flash": 0.8497
+    },
+    "secure": {
+      "flash": 0.0322
+    },
+    "cut": {
+      "flash": 0.0076
+    },
+    "write": {
+      "flash": 0.0056
+    },
+    "liquid": {
+      "flash": 0.2438,
+      "clef": 0.3709
+    },
+    "wearable": {
+      "flash": 0.0075
+    },
+    "sport": {
+      "flash": 0.0221
+    },
+    "noise": {
+      "flash": 0.1319
+    },
+    "soft": {
+      "flash": 0.2062,
+      "clef": 0.5211
+    },
+    "sharp": {
+      "flash": 0.0081
+    },
+    "round": {
+      "flash": 0.0352
+    },
+    "food": {
+      "flash": 0.0066
+    },
+    "nonfood": {
+      "flash": 0.961
+    },
+    "alive": {
+      "flash": 0.0385
+    },
+    "kitchen": {
+      "flash": 0.1443
+    },
+    "bathroom": {
+      "flash": 0.1357
+    },
+    "office": {
+      "flash": 0.0521
+    },
+    "garden": {
+      "flash": 0.7996,
+      "clef": 0.7892
+    },
+    "clothing": {
+      "flash": 0.0068
+    },
+    "unpowered": {
+      "flash": 0.6373,
+      "clef": 0.9029
+    }
+  },
+  "watering can": {
+    "pocket": {
+      "flash": 0.1186
+    },
+    "big": {
+      "flash": 0.0281
+    },
+    "liftable": {
+      "flash": 0.5068,
+      "clef": 0.4476
+    },
+    "metal": {
+      "flash": 0.0851
+    },
+    "wood": {
+      "flash": 0.1786
+    },
+    "nonmetal": {
+      "flash": 0.8456
+    },
+    "electric": {
+      "flash": 0.038
+    },
+    "nonelec": {
+      "flash": 0.9385
+    },
+    "secure": {
+      "flash": 0.0247
+    },
+    "cut": {
+      "flash": 0.0072
+    },
+    "write": {
+      "flash": 0.0076
+    },
+    "liquid": {
+      "flash": 0.8206
+    },
+    "wearable": {
+      "flash": 0.0067
+    },
+    "sport": {
+      "flash": 0.0141
+    },
+    "noise": {
+      "flash": 0.065
+    },
+    "soft": {
+      "flash": 0.1427
+    },
+    "sharp": {
+      "flash": 0.0081
+    },
+    "round": {
+      "flash": 0.0608
+    },
+    "food": {
+      "flash": 0.0075
+    },
+    "nonfood": {
+      "flash": 0.9529
+    },
+    "alive": {
+      "flash": 0.0122
+    },
+    "kitchen": {
+      "flash": 0.4011,
+      "clef": 0.324
+    },
+    "bathroom": {
+      "flash": 0.1267
+    },
+    "office": {
+      "flash": 0.0412
+    },
+    "garden": {
+      "flash": 0.812
+    },
+    "clothing": {
+      "flash": 0.0075
+    },
+    "unpowered": {
+      "flash": 0.8655
+    }
+  },
+  "lawnmower": {
+    "pocket": {
+      "flash": 0.0172
+    },
+    "big": {
+      "flash": 0.5517,
+      "clef": 0.7718
+    },
+    "liftable": {
+      "flash": 0.0924
+    },
+    "metal": {
+      "flash": 0.2492,
+      "clef": 0.7058
+    },
+    "wood": {
+      "flash": 0.0172
+    },
+    "nonmetal": {
+      "flash": 0.2139,
+      "clef": 0.1658
+    },
+    "electric": {
+      "flash": 0.5197,
+      "clef": 0.1604
+    },
+    "nonelec": {
+      "flash": 0.1981
+    },
+    "secure": {
+      "flash": 0.0212
+    },
+    "cut": {
+      "flash": 0.3576,
+      "clef": 0.5316
+    },
+    "write": {
+      "flash": 0.0052
+    },
+    "liquid": {
+      "flash": 0.0103
+    },
+    "wearable": {
+      "flash": 0.0063
+    },
+    "sport": {
+      "flash": 0.0095
+    },
+    "noise": {
+      "flash": 0.793,
+      "clef": 0.8359
+    },
+    "soft": {
+      "flash": 0.0198
+    },
+    "sharp": {
+      "flash": 0.0679
+    },
+    "round": {
+      "flash": 0.0098
+    },
+    "food": {
+      "flash": 0.0054
+    },
+    "nonfood": {
+      "flash": 0.9651
+    },
+    "alive": {
+      "flash": 0.0095
+    },
+    "kitchen": {
+      "flash": 0.0486
+    },
+    "bathroom": {
+      "flash": 0.0091
+    },
+    "office": {
+      "flash": 0.0342
+    },
+    "garden": {
+      "flash": 0.8025
+    },
+    "clothing": {
+      "flash": 0.0068
+    },
+    "unpowered": {
+      "flash": 0.1521
+    }
+  },
+  "wheelbarrow": {
+    "pocket": {
+      "flash": 0.0262
+    },
+    "big": {
+      "flash": 0.3391,
+      "clef": 0.4674
+    },
+    "liftable": {
+      "flash": 0.0562
+    },
+    "metal": {
+      "flash": 0.1539
+    },
+    "wood": {
+      "flash": 0.0694
+    },
+    "nonmetal": {
+      "flash": 0.5932,
+      "clef": 0.1012
+    },
+    "electric": {
+      "flash": 0.0103
+    },
+    "nonelec": {
+      "flash": 0.9544
+    },
+    "secure": {
+      "flash": 0.0276
+    },
+    "cut": {
+      "flash": 0.0061
+    },
+    "write": {
+      "flash": 0.006
+    },
+    "liquid": {
+      "flash": 0.0409
+    },
+    "wearable": {
+      "flash": 0.0072
+    },
+    "sport": {
+      "flash": 0.0465
+    },
+    "noise": {
+      "flash": 0.1985
+    },
+    "soft": {
+      "flash": 0.0317
+    },
+    "sharp": {
+      "flash": 0.0087
+    },
+    "round": {
+      "flash": 0.0377
+    },
+    "food": {
+      "flash": 0.0076
+    },
+    "nonfood": {
+      "flash": 0.9549
+    },
+    "alive": {
+      "flash": 0.0086
+    },
+    "kitchen": {
+      "flash": 0.0331
+    },
+    "bathroom": {
+      "flash": 0.0164
+    },
+    "office": {
+      "flash": 0.0357
+    },
+    "garden": {
+      "flash": 0.7539,
+      "clef": 0.5125
+    },
+    "clothing": {
+      "flash": 0.0091
+    },
+    "unpowered": {
+      "flash": 0.8952
+    }
+  },
+  "flower pot": {
+    "pocket": {
+      "flash": 0.1599
+    },
+    "big": {
+      "flash": 0.026
+    },
+    "liftable": {
+      "flash": 0.5768,
+      "clef": 0.2333
+    },
+    "metal": {
+      "flash": 0.0373
+    },
+    "wood": {
+      "flash": 0.1188
+    },
+    "nonmetal": {
+      "flash": 0.8818
+    },
+    "electric": {
+      "flash": 0.012
+    },
+    "nonelec": {
+      "flash": 0.9561
+    },
+    "secure": {
+      "flash": 0.083
+    },
+    "cut": {
+      "flash": 0.0063
+    },
+    "write": {
+      "flash": 0.0065
+    },
+    "liquid": {
+      "flash": 0.1249
+    },
+    "wearable": {
+      "flash": 0.008
+    },
+    "sport": {
+      "flash": 0.0136
+    },
+    "noise": {
+      "flash": 0.0213
+    },
+    "soft": {
+      "flash": 0.1822
+    },
+    "sharp": {
+      "flash": 0.0068
+    },
+    "round": {
+      "flash": 0.1357
+    },
+    "food": {
+      "flash": 0.0144
+    },
+    "nonfood": {
+      "flash": 0.9167
+    },
+    "alive": {
+      "flash": 0.0827
+    },
+    "kitchen": {
+      "flash": 0.3576,
+      "clef": 0.163
+    },
+    "bathroom": {
+      "flash": 0.0288
+    },
+    "office": {
+      "flash": 0.0823
+    },
+    "garden": {
+      "flash": 0.8013
+    },
+    "clothing": {
+      "flash": 0.008
+    },
+    "unpowered": {
+      "flash": 0.9289
+    }
+  },
+  "rose bush": {
+    "pocket": {
+      "flash": 0.1112
+    },
+    "big": {
+      "flash": 0.1058
+    },
+    "liftable": {
+      "flash": 0.3363,
+      "clef": 0.2144
+    },
+    "metal": {
+      "flash": 0.0083
+    },
+    "wood": {
+      "flash": 0.2772,
+      "clef": 0.0396
+    },
+    "nonmetal": {
+      "flash": 0.9348
+    },
+    "electric": {
+      "flash": 0.0084
+    },
+    "nonelec": {
+      "flash": 0.9643
+    },
+    "secure": {
+      "flash": 0.0266
+    },
+    "cut": {
+      "flash": 0.0074
+    },
+    "write": {
+      "flash": 0.0077
+    },
+    "liquid": {
+      "flash": 0.0126
+    },
+    "wearable": {
+      "flash": 0.0186
+    },
+    "sport": {
+      "flash": 0.0197
+    },
+    "noise": {
+      "flash": 0.0203
+    },
+    "soft": {
+      "flash": 0.6911,
+      "clef": 0.3575
+    },
+    "sharp": {
+      "flash": 0.0109
+    },
+    "round": {
+      "flash": 0.0499
+    },
+    "food": {
+      "flash": 0.0769
+    },
+    "nonfood": {
+      "flash": 0.7461,
+      "clef": 0.8153
+    },
+    "alive": {
+      "flash": 0.8166
+    },
+    "kitchen": {
+      "flash": 0.0736
+    },
+    "bathroom": {
+      "flash": 0.0355
+    },
+    "office": {
+      "flash": 0.0315
+    },
+    "garden": {
+      "flash": 0.9348
+    },
+    "clothing": {
+      "flash": 0.0142
+    },
+    "unpowered": {
+      "flash": 0.9462
+    }
+  },
+  "oak tree": {
+    "pocket": {
+      "flash": 0.0258
+    },
+    "big": {
+      "flash": 0.8738
+    },
+    "liftable": {
+      "flash": 0.0577
+    },
+    "metal": {
+      "flash": 0.0117
+    },
+    "wood": {
+      "flash": 0.8413
+    },
+    "nonmetal": {
+      "flash": 0.958
+    },
+    "electric": {
+      "flash": 0.0103
+    },
+    "nonelec": {
+      "flash": 0.9724
+    },
+    "secure": {
+      "flash": 0.026
+    },
+    "cut": {
+      "flash": 0.0116
+    },
+    "write": {
+      "flash": 0.01
+    },
+    "liquid": {
+      "flash": 0.0082
+    },
+    "wearable": {
+      "flash": 0.0126
+    },
+    "sport": {
+      "flash": 0.0193
+    },
+    "noise": {
+      "flash": 0.0344
+    },
+    "soft": {
+      "flash": 0.1837
+    },
+    "sharp": {
+      "flash": 0.0108
+    },
+    "round": {
+      "flash": 0.0335
+    },
+    "food": {
+      "flash": 0.037
+    },
+    "nonfood": {
+      "flash": 0.9262
+    },
+    "alive": {
+      "flash": 0.8844
+    },
+    "kitchen": {
+      "flash": 0.0288
+    },
+    "bathroom": {
+      "flash": 0.0119
+    },
+    "office": {
+      "flash": 0.0288
+    },
+    "garden": {
+      "flash": 0.8866
+    },
+    "clothing": {
+      "flash": 0.0074
+    },
+    "unpowered": {
+      "flash": 0.925
+    }
+  },
+  "earthworm": {
+    "pocket": {
+      "flash": 0.8111
+    },
+    "big": {
+      "flash": 0.0099
+    },
+    "liftable": {
+      "flash": 0.9247
+    },
+    "metal": {
+      "flash": 0.0092
+    },
+    "wood": {
+      "flash": 0.0078
+    },
+    "nonmetal": {
+      "flash": 0.9567
+    },
+    "electric": {
+      "flash": 0.0109
+    },
+    "nonelec": {
+      "flash": 0.969
+    },
+    "secure": {
+      "flash": 0.0189
+    },
+    "cut": {
+      "flash": 0.0097
+    },
+    "write": {
+      "flash": 0.0079
+    },
+    "liquid": {
+      "flash": 0.0104
+    },
+    "wearable": {
+      "flash": 0.0141
+    },
+    "sport": {
+      "flash": 0.0146
+    },
+    "noise": {
+      "flash": 0.0224
+    },
+    "soft": {
+      "flash": 0.5983,
+      "clef": 0.917
+    },
+    "sharp": {
+      "flash": 0.0098
+    },
+    "round": {
+      "flash": 0.0829
+    },
+    "food": {
+      "flash": 0.0704
+    },
+    "nonfood": {
+      "flash": 0.8468
+    },
+    "alive": {
+      "flash": 0.9212
+    },
+    "kitchen": {
+      "flash": 0.079
+    },
+    "bathroom": {
+      "flash": 0.0694
+    },
+    "office": {
+      "flash": 0.0235
+    },
+    "garden": {
+      "flash": 0.8355
+    },
+    "clothing": {
+      "flash": 0.008
+    },
+    "unpowered": {
+      "flash": 0.9353
+    }
+  },
+  "pruning shears": {
+    "pocket": {
+      "flash": 0.2466,
+      "clef": 0.066
+    },
+    "big": {
+      "flash": 0.0218
+    },
+    "liftable": {
+      "flash": 0.4295,
+      "clef": 0.6475
+    },
+    "metal": {
+      "flash": 0.6228,
+      "clef": 0.8664
+    },
+    "wood": {
+      "flash": 0.0119
+    },
+    "nonmetal": {
+      "flash": 0.1204
+    },
+    "electric": {
+      "flash": 0.0333
+    },
+    "nonelec": {
+      "flash": 0.9114
+    },
+    "secure": {
+      "flash": 0.0182
+    },
+    "cut": {
+      "flash": 0.8756
+    },
+    "write": {
+      "flash": 0.0057
+    },
+    "liquid": {
+      "flash": 0.0064
+    },
+    "wearable": {
+      "flash": 0.0097
+    },
+    "sport": {
+      "flash": 0.0114
+    },
+    "noise": {
+      "flash": 0.2122,
+      "clef": 0.4962
+    },
+    "soft": {
+      "flash": 0.0184
+    },
+    "sharp": {
+      "flash": 0.6072,
+      "clef": 0.8761
+    },
+    "round": {
+      "flash": 0.0107
+    },
+    "food": {
+      "flash": 0.0062
+    },
+    "nonfood": {
+      "flash": 0.9651
+    },
+    "alive": {
+      "flash": 0.0083
+    },
+    "kitchen": {
+      "flash": 0.2592,
+      "clef": 0.0576
+    },
+    "bathroom": {
+      "flash": 0.0389
+    },
+    "office": {
+      "flash": 0.0968
+    },
+    "garden": {
+      "flash": 0.8152
+    },
+    "clothing": {
+      "flash": 0.0084
+    },
+    "unpowered": {
+      "flash": 0.862
+    }
+  },
+  "bird feeder": {
+    "pocket": {
+      "flash": 0.0734
+    },
+    "big": {
+      "flash": 0.1865
+    },
+    "liftable": {
+      "flash": 0.3008,
+      "clef": 0.4306
+    },
+    "metal": {
+      "flash": 0.1313
+    },
+    "wood": {
+      "flash": 0.2936,
+      "clef": 0.2573
+    },
+    "nonmetal": {
+      "flash": 0.7803,
+      "clef": 0.5193
+    },
+    "electric": {
+      "flash": 0.0294
+    },
+    "nonelec": {
+      "flash": 0.9323
+    },
+    "secure": {
+      "flash": 0.0837
+    },
+    "cut": {
+      "flash": 0.0053
+    },
+    "write": {
+      "flash": 0.0048
+    },
+    "liquid": {
+      "flash": 0.1498
+    },
+    "wearable": {
+      "flash": 0.0056
+    },
+    "sport": {
+      "flash": 0.0089
+    },
+    "noise": {
+      "flash": 0.0529
+    },
+    "soft": {
+      "flash": 0.079
+    },
+    "sharp": {
+      "flash": 0.0066
+    },
+    "round": {
+      "flash": 0.0551
+    },
+    "food": {
+      "flash": 0.0152
+    },
+    "nonfood": {
+      "flash": 0.9302
+    },
+    "alive": {
+      "flash": 0.0451
+    },
+    "kitchen": {
+      "flash": 0.0544
+    },
+    "bathroom": {
+      "flash": 0.0098
+    },
+    "office": {
+      "flash": 0.0193
+    },
+    "garden": {
+      "flash": 0.8347
+    },
+    "clothing": {
+      "flash": 0.0072
+    },
+    "unpowered": {
+      "flash": 0.8461
+    }
+  },
+  "scarf": {
+    "pocket": {
+      "flash": 0.2694,
+      "clef": 0.223
+    },
+    "big": {
+      "flash": 0.0179
+    },
+    "liftable": {
+      "flash": 0.9187
+    },
+    "metal": {
+      "flash": 0.011
+    },
+    "wood": {
+      "flash": 0.0079
+    },
+    "nonmetal": {
+      "flash": 0.9419
+    },
+    "electric": {
+      "flash": 0.0101
+    },
+    "nonelec": {
+      "flash": 0.9729
+    },
+    "secure": {
+      "flash": 0.314,
+      "clef": 0.1835
+    },
+    "cut": {
+      "flash": 0.0072
+    },
+    "write": {
+      "flash": 0.0067
+    },
+    "liquid": {
+      "flash": 0.0074
+    },
+    "wearable": {
+      "flash": 0.9001
+    },
+    "sport": {
+      "flash": 0.0311
+    },
+    "noise": {
+      "flash": 0.0212
+    },
+    "soft": {
+      "flash": 0.8684
+    },
+    "sharp": {
+      "flash": 0.0087
+    },
+    "round": {
+      "flash": 0.0155
+    },
+    "food": {
+      "flash": 0.0078
+    },
+    "nonfood": {
+      "flash": 0.9572
+    },
+    "alive": {
+      "flash": 0.0135
+    },
+    "kitchen": {
+      "flash": 0.0423
+    },
+    "bathroom": {
+      "flash": 0.1482
+    },
+    "office": {
+      "flash": 0.0996
+    },
+    "garden": {
+      "flash": 0.0362
+    },
+    "clothing": {
+      "flash": 0.9491
+    },
+    "unpowered": {
+      "flash": 0.9475
+    }
+  },
+  "sock": {
+    "pocket": {
+      "flash": 0.856
+    },
+    "big": {
+      "flash": 0.0083
+    },
+    "liftable": {
+      "flash": 0.9696
+    },
+    "metal": {
+      "flash": 0.0147
+    },
+    "wood": {
+      "flash": 0.0076
+    },
+    "nonmetal": {
+      "flash": 0.927
+    },
+    "electric": {
+      "flash": 0.021
+    },
+    "nonelec": {
+      "flash": 0.9479
+    },
+    "secure": {
+      "flash": 0.2266,
+      "clef": 0.2756
+    },
+    "cut": {
+      "flash": 0.0077
+    },
+    "write": {
+      "flash": 0.0072
+    },
+    "liquid": {
+      "flash": 0.0111
+    },
+    "wearable": {
+      "flash": 0.8935
+    },
+    "sport": {
+      "flash": 0.157
+    },
+    "noise": {
+      "flash": 0.0992
+    },
+    "soft": {
+      "flash": 0.776,
+      "clef": 0.75
+    },
+    "sharp": {
+      "flash": 0.0078
+    },
+    "round": {
+      "flash": 0.0911
+    },
+    "food": {
+      "flash": 0.012
+    },
+    "nonfood": {
+      "flash": 0.9451
+    },
+    "alive": {
+      "flash": 0.0266
+    },
+    "kitchen": {
+      "flash": 0.0765
+    },
+    "bathroom": {
+      "flash": 0.638,
+      "clef": 0.3158
+    },
+    "office": {
+      "flash": 0.108
+    },
+    "garden": {
+      "flash": 0.0656
+    },
+    "clothing": {
+      "flash": 0.8676
+    },
+    "unpowered": {
+      "flash": 0.8998
+    }
+  },
+  "glove": {
+    "pocket": {
+      "flash": 0.8228
+    },
+    "big": {
+      "flash": 0.0108
+    },
+    "liftable": {
+      "flash": 0.9399
+    },
+    "metal": {
+      "flash": 0.0172
+    },
+    "wood": {
+      "flash": 0.012
+    },
+    "nonmetal": {
+      "flash": 0.9341
+    },
+    "electric": {
+      "flash": 0.0152
+    },
+    "nonelec": {
+      "flash": 0.9648
+    },
+    "secure": {
+      "flash": 0.2359,
+      "clef": 0.2679
+    },
+    "cut": {
+      "flash": 0.0078
+    },
+    "write": {
+      "flash": 0.0063
+    },
+    "liquid": {
+      "flash": 0.0126
+    },
+    "wearable": {
+      "flash": 0.8735
+    },
+    "sport": {
+      "flash": 0.1625
+    },
+    "noise": {
+      "flash": 0.0314
+    },
+    "soft": {
+      "flash": 0.7375,
+      "clef": 0.64
+    },
+    "sharp": {
+      "flash": 0.0085
+    },
+    "round": {
+      "flash": 0.0671
+    },
+    "food": {
+      "flash": 0.0085
+    },
+    "nonfood": {
+      "flash": 0.9632
+    },
+    "alive": {
+      "flash": 0.0133
+    },
+    "kitchen": {
+      "flash": 0.123
+    },
+    "bathroom": {
+      "flash": 0.2255,
+      "clef": 0.0765
+    },
+    "office": {
+      "flash": 0.1207
+    },
+    "garden": {
+      "flash": 0.0606
+    },
+    "clothing": {
+      "flash": 0.8764
+    },
+    "unpowered": {
+      "flash": 0.9279
+    }
+  },
+  "hat": {
+    "pocket": {
+      "flash": 0.709,
+      "clef": 0.2941
+    },
+    "big": {
+      "flash": 0.0105
+    },
+    "liftable": {
+      "flash": 0.9537
+    },
+    "metal": {
+      "flash": 0.0309
+    },
+    "wood": {
+      "flash": 0.0393
+    },
+    "nonmetal": {
+      "flash": 0.925
+    },
+    "electric": {
+      "flash": 0.0174
+    },
+    "nonelec": {
+      "flash": 0.9636
+    },
+    "secure": {
+      "flash": 0.2363,
+      "clef": 0.1964
+    },
+    "cut": {
+      "flash": 0.0082
+    },
+    "write": {
+      "flash": 0.0069
+    },
+    "liquid": {
+      "flash": 0.0267
+    },
+    "wearable": {
+      "flash": 0.9018
+    },
+    "sport": {
+      "flash": 0.053
+    },
+    "noise": {
+      "flash": 0.0354
+    },
+    "soft": {
+      "flash": 0.4933,
+      "clef": 0.2452
+    },
+    "sharp": {
+      "flash": 0.0099
+    },
+    "round": {
+      "flash": 0.0785
+    },
+    "food": {
+      "flash": 0.0127
+    },
+    "nonfood": {
+      "flash": 0.9573
+    },
+    "alive": {
+      "flash": 0.015
+    },
+    "kitchen": {
+      "flash": 0.1394
+    },
+    "bathroom": {
+      "flash": 0.326,
+      "clef": 0.0981
+    },
+    "office": {
+      "flash": 0.1736
+    },
+    "garden": {
+      "flash": 0.1077
+    },
+    "clothing": {
+      "flash": 0.8854
+    },
+    "unpowered": {
+      "flash": 0.9488
+    }
+  },
+  "belt": {
+    "pocket": {
+      "flash": 0.4184,
+      "clef": 0.3268
+    },
+    "big": {
+      "flash": 0.0193
+    },
+    "liftable": {
+      "flash": 0.915
+    },
+    "metal": {
+      "flash": 0.0822
+    },
+    "wood": {
+      "flash": 0.0215
+    },
+    "nonmetal": {
+      "flash": 0.8004
+    },
+    "electric": {
+      "flash": 0.029
+    },
+    "nonelec": {
+      "flash": 0.9604
+    },
+    "secure": {
+      "flash": 0.7106,
+      "clef": 0.7843
+    },
+    "cut": {
+      "flash": 0.0151
+    },
+    "write": {
+      "flash": 0.0071
+    },
+    "liquid": {
+      "flash": 0.0125
+    },
+    "wearable": {
+      "flash": 0.7025,
+      "clef": 0.7952
+    },
+    "sport": {
+      "flash": 0.0625
+    },
+    "noise": {
+      "flash": 0.068
+    },
+    "soft": {
+      "flash": 0.2817,
+      "clef": 0.366
+    },
+    "sharp": {
+      "flash": 0.0262
+    },
+    "round": {
+      "flash": 0.02
+    },
+    "food": {
+      "flash": 0.0105
+    },
+    "nonfood": {
+      "flash": 0.9598
+    },
+    "alive": {
+      "flash": 0.0107
+    },
+    "kitchen": {
+      "flash": 0.1145
+    },
+    "bathroom": {
+      "flash": 0.1611
+    },
+    "office": {
+      "flash": 0.2408,
+      "clef": 0.1571
+    },
+    "garden": {
+      "flash": 0.0806
+    },
+    "clothing": {
+      "flash": 0.7408,
+      "clef": 0.7422
+    },
+    "unpowered": {
+      "flash": 0.8722
+    }
+  },
+  "sweater": {
+    "pocket": {
+      "flash": 0.1976
+    },
+    "big": {
+      "flash": 0.0232
+    },
+    "liftable": {
+      "flash": 0.6722,
+      "clef": 0.6501
+    },
+    "metal": {
+      "flash": 0.0095
+    },
+    "wood": {
+      "flash": 0.0088
+    },
+    "nonmetal": {
+      "flash": 0.9538
+    },
+    "electric": {
+      "flash": 0.0162
+    },
+    "nonelec": {
+      "flash": 0.9577
+    },
+    "secure": {
+      "flash": 0.3287,
+      "clef": 0.2045
+    },
+    "cut": {
+      "flash": 0.0067
+    },
+    "write": {
+      "flash": 0.0066
+    },
+    "liquid": {
+      "flash": 0.0094
+    },
+    "wearable": {
+      "flash": 0.9095
+    },
+    "sport": {
+      "flash": 0.0299
+    },
+    "noise": {
+      "flash": 0.0161
+    },
+    "soft": {
+      "flash": 0.791,
+      "clef": 0.9021
+    },
+    "sharp": {
+      "flash": 0.0064
+    },
+    "round": {
+      "flash": 0.0164
+    },
+    "food": {
+      "flash": 0.0077
+    },
+    "nonfood": {
+      "flash": 0.9616
+    },
+    "alive": {
+      "flash": 0.0116
+    },
+    "kitchen": {
+      "flash": 0.0542
+    },
+    "bathroom": {
+      "flash": 0.0681
+    },
+    "office": {
+      "flash": 0.1637
+    },
+    "garden": {
+      "flash": 0.0287
+    },
+    "clothing": {
+      "flash": 0.9544
+    },
+    "unpowered": {
+      "flash": 0.9428
+    }
+  },
+  "jeans": {
+    "pocket": {
+      "flash": 0.1098
+    },
+    "big": {
+      "flash": 0.0512
+    },
+    "liftable": {
+      "flash": 0.615,
+      "clef": 0.3061
+    },
+    "metal": {
+      "flash": 0.0217
+    },
+    "wood": {
+      "flash": 0.0064
+    },
+    "nonmetal": {
+      "flash": 0.9136
+    },
+    "electric": {
+      "flash": 0.0108
+    },
+    "nonelec": {
+      "flash": 0.9661
+    },
+    "secure": {
+      "flash": 0.2888,
+      "clef": 0.2012
+    },
+    "cut": {
+      "flash": 0.0093
+    },
+    "write": {
+      "flash": 0.0068
+    },
+    "liquid": {
+      "flash": 0.0097
+    },
+    "wearable": {
+      "flash": 0.9148
+    },
+    "sport": {
+      "flash": 0.031
+    },
+    "noise": {
+      "flash": 0.0153
+    },
+    "soft": {
+      "flash": 0.4377,
+      "clef": 0.6194
+    },
+    "sharp": {
+      "flash": 0.0087
+    },
+    "round": {
+      "flash": 0.0154
+    },
+    "food": {
+      "flash": 0.0082
+    },
+    "nonfood": {
+      "flash": 0.9564
+    },
+    "alive": {
+      "flash": 0.0158
+    },
+    "kitchen": {
+      "flash": 0.0302
+    },
+    "bathroom": {
+      "flash": 0.0884
+    },
+    "office": {
+      "flash": 0.2186,
+      "clef": 0.0821
+    },
+    "garden": {
+      "flash": 0.0478
+    },
+    "clothing": {
+      "flash": 0.9449
+    },
+    "unpowered": {
+      "flash": 0.9374
+    }
+  },
+  "sneakers": {
+    "pocket": {
+      "flash": 0.3455,
+      "clef": 0.0445
+    },
+    "big": {
+      "flash": 0.0163
+    },
+    "liftable": {
+      "flash": 0.7973,
+      "clef": 0.2113
+    },
+    "metal": {
+      "flash": 0.0145
+    },
+    "wood": {
+      "flash": 0.0075
+    },
+    "nonmetal": {
+      "flash": 0.9449
+    },
+    "electric": {
+      "flash": 0.0242
+    },
+    "nonelec": {
+      "flash": 0.9155
+    },
+    "secure": {
+      "flash": 0.3359,
+      "clef": 0.2068
+    },
+    "cut": {
+      "flash": 0.0073
+    },
+    "write": {
+      "flash": 0.0063
+    },
+    "liquid": {
+      "flash": 0.0092
+    },
+    "wearable": {
+      "flash": 0.9283
+    },
+    "sport": {
+      "flash": 0.519,
+      "clef": 0.2295
+    },
+    "noise": {
+      "flash": 0.1237
+    },
+    "soft": {
+      "flash": 0.5294,
+      "clef": 0.3965
+    },
+    "sharp": {
+      "flash": 0.0069
+    },
+    "round": {
+      "flash": 0.0395
+    },
+    "food": {
+      "flash": 0.0068
+    },
+    "nonfood": {
+      "flash": 0.9716
+    },
+    "alive": {
+      "flash": 0.0135
+    },
+    "kitchen": {
+      "flash": 0.0347
+    },
+    "bathroom": {
+      "flash": 0.1474
+    },
+    "office": {
+      "flash": 0.0944
+    },
+    "garden": {
+      "flash": 0.1241
+    },
+    "clothing": {
+      "flash": 0.9073
+    },
+    "unpowered": {
+      "flash": 0.9144
+    }
+  },
+  "wristwatch": {
+    "pocket": {
+      "flash": 0.7629,
+      "clef": 0.2657
+    },
+    "big": {
+      "flash": 0.0066
+    },
+    "liftable": {
+      "flash": 0.9602
+    },
+    "metal": {
+      "flash": 0.4135,
+      "clef": 0.7572
+    },
+    "wood": {
+      "flash": 0.0082
+    },
+    "nonmetal": {
+      "flash": 0.0974
+    },
+    "electric": {
+      "flash": 0.4523,
+      "clef": 0.5347
+    },
+    "nonelec": {
+      "flash": 0.3039,
+      "clef": 0.3065
+    },
+    "secure": {
+      "flash": 0.1809
+    },
+    "cut": {
+      "flash": 0.0069
+    },
+    "write": {
+      "flash": 0.0077
+    },
+    "liquid": {
+      "flash": 0.011
+    },
+    "wearable": {
+      "flash": 0.7917,
+      "clef": 0.9453
+    },
+    "sport": {
+      "flash": 0.0123
+    },
+    "noise": {
+      "flash": 0.045
+    },
+    "soft": {
+      "flash": 0.0608
+    },
+    "sharp": {
+      "flash": 0.0098
+    },
+    "round": {
+      "flash": 0.0956
+    },
+    "food": {
+      "flash": 0.0056
+    },
+    "nonfood": {
+      "flash": 0.9729
+    },
+    "alive": {
+      "flash": 0.0073
+    },
+    "kitchen": {
+      "flash": 0.0712
+    },
+    "bathroom": {
+      "flash": 0.2782,
+      "clef": 0.0536
+    },
+    "office": {
+      "flash": 0.3529,
+      "clef": 0.1753
+    },
+    "garden": {
+      "flash": 0.01
+    },
+    "clothing": {
+      "flash": 0.6796,
+      "clef": 0.7289
+    },
+    "unpowered": {
+      "flash": 0.2743,
+      "clef": 0.3436
+    }
+  },
+  "ring": {
+    "pocket": {
+      "flash": 0.8877
+    },
+    "big": {
+      "flash": 0.0079
+    },
+    "liftable": {
+      "flash": 0.9591
+    },
+    "metal": {
+      "flash": 0.2488,
+      "clef": 0.5417
+    },
+    "wood": {
+      "flash": 0.013
+    },
+    "nonmetal": {
+      "flash": 0.3669,
+      "clef": 0.4666
+    },
+    "electric": {
+      "flash": 0.0421
+    },
+    "nonelec": {
+      "flash": 0.8747
+    },
+    "secure": {
+      "flash": 0.2874,
+      "clef": 0.2226
+    },
+    "cut": {
+      "flash": 0.0087
+    },
+    "write": {
+      "flash": 0.0118
+    },
+    "liquid": {
+      "flash": 0.0172
+    },
+    "wearable": {
+      "flash": 0.4997,
+      "clef": 0.9061
+    },
+    "sport": {
+      "flash": 0.1132
+    },
+    "noise": {
+      "flash": 0.3335,
+      "clef": 0.0363
+    },
+    "soft": {
+      "flash": 0.2131,
+      "clef": 0.0315
+    },
+    "sharp": {
+      "flash": 0.0118
+    },
+    "round": {
+      "flash": 0.7939,
+      "clef": 0.5018
+    },
+    "food": {
+      "flash": 0.0184
+    },
+    "nonfood": {
+      "flash": 0.9373
+    },
+    "alive": {
+      "flash": 0.0192
+    },
+    "kitchen": {
+      "flash": 0.1815
+    },
+    "bathroom": {
+      "flash": 0.3517,
+      "clef": 0.2293
+    },
+    "office": {
+      "flash": 0.2349,
+      "clef": 0.1407
+    },
+    "garden": {
+      "flash": 0.2077,
+      "clef": 0.1036
+    },
+    "clothing": {
+      "flash": 0.383,
+      "clef": 0.7338
+    },
+    "unpowered": {
+      "flash": 0.8519
+    }
+  },
+  "necklace": {
+    "pocket": {
+      "flash": 0.6493,
+      "clef": 0.2208
+    },
+    "big": {
+      "flash": 0.0128
+    },
+    "liftable": {
+      "flash": 0.943
+    },
+    "metal": {
+      "flash": 0.2719,
+      "clef": 0.4634
+    },
+    "wood": {
+      "flash": 0.012
+    },
+    "nonmetal": {
+      "flash": 0.4504,
+      "clef": 0.2461
+    },
+    "electric": {
+      "flash": 0.0119
+    },
+    "nonelec": {
+      "flash": 0.9588
+    },
+    "secure": {
+      "flash": 0.2818,
+      "clef": 0.2492
+    },
+    "cut": {
+      "flash": 0.0067
+    },
+    "write": {
+      "flash": 0.0065
+    },
+    "liquid": {
+      "flash": 0.0091
+    },
+    "wearable": {
+      "flash": 0.8608
+    },
+    "sport": {
+      "flash": 0.012
+    },
+    "noise": {
+      "flash": 0.0216
+    },
+    "soft": {
+      "flash": 0.2432,
+      "clef": 0.0603
+    },
+    "sharp": {
+      "flash": 0.0135
+    },
+    "round": {
+      "flash": 0.0609
+    },
+    "food": {
+      "flash": 0.0068
+    },
+    "nonfood": {
+      "flash": 0.966
+    },
+    "alive": {
+      "flash": 0.0095
+    },
+    "kitchen": {
+      "flash": 0.0448
+    },
+    "bathroom": {
+      "flash": 0.2895,
+      "clef": 0.0996
+    },
+    "office": {
+      "flash": 0.107
+    },
+    "garden": {
+      "flash": 0.0223
+    },
+    "clothing": {
+      "flash": 0.8662
+    },
+    "unpowered": {
+      "flash": 0.943
+    }
+  },
+  "sunglasses": {
+    "pocket": {
+      "flash": 0.8232
+    },
+    "big": {
+      "flash": 0.0104
+    },
+    "liftable": {
+      "flash": 0.9655
+    },
+    "metal": {
+      "flash": 0.0793
+    },
+    "wood": {
+      "flash": 0.0077
+    },
+    "nonmetal": {
+      "flash": 0.8528
+    },
+    "electric": {
+      "flash": 0.0172
+    },
+    "nonelec": {
+      "flash": 0.9462
+    },
+    "secure": {
+      "flash": 0.0511
+    },
+    "cut": {
+      "flash": 0.0072
+    },
+    "write": {
+      "flash": 0.0057
+    },
+    "liquid": {
+      "flash": 0.0111
+    },
+    "wearable": {
+      "flash": 0.8218
+    },
+    "sport": {
+      "flash": 0.0381
+    },
+    "noise": {
+      "flash": 0.0165
+    },
+    "soft": {
+      "flash": 0.0654
+    },
+    "sharp": {
+      "flash": 0.0096
+    },
+    "round": {
+      "flash": 0.066
+    },
+    "food": {
+      "flash": 0.0058
+    },
+    "nonfood": {
+      "flash": 0.9691
+    },
+    "alive": {
+      "flash": 0.0076
+    },
+    "kitchen": {
+      "flash": 0.0402
+    },
+    "bathroom": {
+      "flash": 0.261,
+      "clef": 0.0434
+    },
+    "office": {
+      "flash": 0.2274,
+      "clef": 0.0683
+    },
+    "garden": {
+      "flash": 0.0569
+    },
+    "clothing": {
+      "flash": 0.8712
+    },
+    "unpowered": {
+      "flash": 0.9412
+    }
+  },
+  "umbrella": {
+    "pocket": {
+      "flash": 0.1272
+    },
+    "big": {
+      "flash": 0.0645
+    },
+    "liftable": {
+      "flash": 0.6141,
+      "clef": 0.5419
+    },
+    "metal": {
+      "flash": 0.0267
+    },
+    "wood": {
+      "flash": 0.0112
+    },
+    "nonmetal": {
+      "flash": 0.9242
+    },
+    "electric": {
+      "flash": 0.0187
+    },
+    "nonelec": {
+      "flash": 0.9574
+    },
+    "secure": {
+      "flash": 0.1461
+    },
+    "cut": {
+      "flash": 0.0067
+    },
+    "write": {
+      "flash": 0.0057
+    },
+    "liquid": {
+      "flash": 0.028
+    },
+    "wearable": {
+      "flash": 0.0838
+    },
+    "sport": {
+      "flash": 0.0222
+    },
+    "noise": {
+      "flash": 0.0183
+    },
+    "soft": {
+      "flash": 0.2491,
+      "clef": 0.2602
+    },
+    "sharp": {
+      "flash": 0.007
+    },
+    "round": {
+      "flash": 0.0302
+    },
+    "food": {
+      "flash": 0.0056
+    },
+    "nonfood": {
+      "flash": 0.9649
+    },
+    "alive": {
+      "flash": 0.0113
+    },
+    "kitchen": {
+      "flash": 0.0377
+    },
+    "bathroom": {
+      "flash": 0.2199,
+      "clef": 0.1048
+    },
+    "office": {
+      "flash": 0.0862
+    },
+    "garden": {
+      "flash": 0.2804,
+      "clef": 0.2446
+    },
+    "clothing": {
+      "flash": 0.1619
+    },
+    "unpowered": {
+      "flash": 0.9123
+    }
+  },
+  "backpack": {
+    "pocket": {
+      "flash": 0.0978
+    },
+    "big": {
+      "flash": 0.014
+    },
+    "liftable": {
+      "flash": 0.5402,
+      "clef": 0.2776
+    },
+    "metal": {
+      "flash": 0.0209
+    },
+    "wood": {
+      "flash": 0.008
+    },
+    "nonmetal": {
+      "flash": 0.9078
+    },
+    "electric": {
+      "flash": 0.0227
+    },
+    "nonelec": {
+      "flash": 0.9445
+    },
+    "secure": {
+      "flash": 0.566,
+      "clef": 0.0882
+    },
+    "cut": {
+      "flash": 0.0074
+    },
+    "write": {
+      "flash": 0.0072
+    },
+    "liquid": {
+      "flash": 0.0197
+    },
+    "wearable": {
+      "flash": 0.2211,
+      "clef": 0.5599
+    },
+    "sport": {
+      "flash": 0.0385
+    },
+    "noise": {
+      "flash": 0.0369
+    },
+    "soft": {
+      "flash": 0.2521,
+      "clef": 0.3892
+    },
+    "sharp": {
+      "flash": 0.0114
+    },
+    "round": {
+      "flash": 0.0159
+    },
+    "food": {
+      "flash": 0.0068
+    },
+    "nonfood": {
+      "flash": 0.9686
+    },
+    "alive": {
+      "flash": 0.0089
+    },
+    "kitchen": {
+      "flash": 0.0563
+    },
+    "bathroom": {
+      "flash": 0.0624
+    },
+    "office": {
+      "flash": 0.2045,
+      "clef": 0.0554
+    },
+    "garden": {
+      "flash": 0.0968
+    },
+    "clothing": {
+      "flash": 0.4569,
+      "clef": 0.1224
+    },
+    "unpowered": {
+      "flash": 0.8885
+    }
+  },
+  "tennis ball": {
+    "pocket": {
+      "flash": 0.8581
+    },
+    "big": {
+      "flash": 0.0083
+    },
+    "liftable": {
+      "flash": 0.9595
+    },
+    "metal": {
+      "flash": 0.0145
+    },
+    "wood": {
+      "flash": 0.0086
+    },
+    "nonmetal": {
+      "flash": 0.9495
+    },
+    "electric": {
+      "flash": 0.0151
+    },
+    "nonelec": {
+      "flash": 0.959
+    },
+    "secure": {
+      "flash": 0.0216
+    },
+    "cut": {
+      "flash": 0.0072
+    },
+    "write": {
+      "flash": 0.0074
+    },
+    "liquid": {
+      "flash": 0.0211
+    },
+    "wearable": {
+      "flash": 0.0312
+    },
+    "sport": {
+      "flash": 0.9292
+    },
+    "noise": {
+      "flash": 0.0773
+    },
+    "soft": {
+      "flash": 0.6232,
+      "clef": 0.8429
+    },
+    "sharp": {
+      "flash": 0.008
+    },
+    "round": {
+      "flash": 0.9481
+    },
+    "food": {
+      "flash": 0.0087
+    },
+    "nonfood": {
+      "flash": 0.9545
+    },
+    "alive": {
+      "flash": 0.0171
+    },
+    "kitchen": {
+      "flash": 0.0416
+    },
+    "bathroom": {
+      "flash": 0.0725
+    },
+    "office": {
+      "flash": 0.0277
+    },
+    "garden": {
+      "flash": 0.1697
+    },
+    "clothing": {
+      "flash": 0.0178
+    },
+    "unpowered": {
+      "flash": 0.9216
+    }
+  },
+  "basketball": {
+    "pocket": {
+      "flash": 0.0476
+    },
+    "big": {
+      "flash": 0.3187,
+      "clef": 0.3572
+    },
+    "liftable": {
+      "flash": 0.5666,
+      "clef": 0.3033
+    },
+    "metal": {
+      "flash": 0.0181
+    },
+    "wood": {
+      "flash": 0.0172
+    },
+    "nonmetal": {
+      "flash": 0.8673
+    },
+    "electric": {
+      "flash": 0.0195
+    },
+    "nonelec": {
+      "flash": 0.9076
+    },
+    "secure": {
+      "flash": 0.0385
+    },
+    "cut": {
+      "flash": 0.0063
+    },
+    "write": {
+      "flash": 0.0063
+    },
+    "liquid": {
+      "flash": 0.0203
+    },
+    "wearable": {
+      "flash": 0.023
+    },
+    "sport": {
+      "flash": 0.8745
+    },
+    "noise": {
+      "flash": 0.1682
+    },
+    "soft": {
+      "flash": 0.2009,
+      "clef": 0.173
+    },
+    "sharp": {
+      "flash": 0.0061
+    },
+    "round": {
+      "flash": 0.74,
+      "clef": 0.6784
+    },
+    "food": {
+      "flash": 0.0067
+    },
+    "nonfood": {
+      "flash": 0.963
+    },
+    "alive": {
+      "flash": 0.0109
+    },
+    "kitchen": {
+      "flash": 0.0209
+    },
+    "bathroom": {
+      "flash": 0.0129
+    },
+    "office": {
+      "flash": 0.0357
+    },
+    "garden": {
+      "flash": 0.0867
+    },
+    "clothing": {
+      "flash": 0.0185
+    },
+    "unpowered": {
+      "flash": 0.7961,
+      "clef": 0.8747
+    }
+  },
+  "baseball bat": {
+    "pocket": {
+      "flash": 0.0587
+    },
+    "big": {
+      "flash": 0.1172
+    },
+    "liftable": {
+      "flash": 0.409,
+      "clef": 0.6348
+    },
+    "metal": {
+      "flash": 0.0218
+    },
+    "wood": {
+      "flash": 0.7449,
+      "clef": 0.6856
+    },
+    "nonmetal": {
+      "flash": 0.938
+    },
+    "electric": {
+      "flash": 0.0125
+    },
+    "nonelec": {
+      "flash": 0.968
+    },
+    "secure": {
+      "flash": 0.0206
+    },
+    "cut": {
+      "flash": 0.01
+    },
+    "write": {
+      "flash": 0.0067
+    },
+    "liquid": {
+      "flash": 0.0071
+    },
+    "wearable": {
+      "flash": 0.0104
+    },
+    "sport": {
+      "flash": 0.8532
+    },
+    "noise": {
+      "flash": 0.2747,
+      "clef": 0.4454
+    },
+    "soft": {
+      "flash": 0.0314
+    },
+    "sharp": {
+      "flash": 0.0151
+    },
+    "round": {
+      "flash": 0.018
+    },
+    "food": {
+      "flash": 0.0062
+    },
+    "nonfood": {
+      "flash": 0.9637
+    },
+    "alive": {
+      "flash": 0.0099
+    },
+    "kitchen": {
+      "flash": 0.0376
+    },
+    "bathroom": {
+      "flash": 0.0105
+    },
+    "office": {
+      "flash": 0.036
+    },
+    "garden": {
+      "flash": 0.2122,
+      "clef": 0.0719
+    },
+    "clothing": {
+      "flash": 0.0119
+    },
+    "unpowered": {
+      "flash": 0.9271
+    }
+  },
+  "skateboard": {
+    "pocket": {
+      "flash": 0.031
+    },
+    "big": {
+      "flash": 0.1198
+    },
+    "liftable": {
+      "flash": 0.273,
+      "clef": 0.1313
+    },
+    "metal": {
+      "flash": 0.0485
+    },
+    "wood": {
+      "flash": 0.0868
+    },
+    "nonmetal": {
+      "flash": 0.8208
+    },
+    "electric": {
+      "flash": 0.0248
+    },
+    "nonelec": {
+      "flash": 0.8892
+    },
+    "secure": {
+      "flash": 0.0339
+    },
+    "cut": {
+      "flash": 0.0064
+    },
+    "write": {
+      "flash": 0.0063
+    },
+    "liquid": {
+      "flash": 0.0083
+    },
+    "wearable": {
+      "flash": 0.063
+    },
+    "sport": {
+      "flash": 0.5738,
+      "clef": 0.6382
+    },
+    "noise": {
+      "flash": 0.228,
+      "clef": 0.229
+    },
+    "soft": {
+      "flash": 0.0223
+    },
+    "sharp": {
+      "flash": 0.0097
+    },
+    "round": {
+      "flash": 0.016
+    },
+    "food": {
+      "flash": 0.0052
+    },
+    "nonfood": {
+      "flash": 0.9646
+    },
+    "alive": {
+      "flash": 0.0088
+    },
+    "kitchen": {
+      "flash": 0.0139
+    },
+    "bathroom": {
+      "flash": 0.0194
+    },
+    "office": {
+      "flash": 0.0336
+    },
+    "garden": {
+      "flash": 0.1199
+    },
+    "clothing": {
+      "flash": 0.0532
+    },
+    "unpowered": {
+      "flash": 0.5646,
+      "clef": 0.9054
+    }
+  },
+  "bicycle": {
+    "pocket": {
+      "flash": 0.0537
+    },
+    "big": {
+      "flash": 0.1344
+    },
+    "liftable": {
+      "flash": 0.2206,
+      "clef": 0.0409
+    },
+    "metal": {
+      "flash": 0.1073
+    },
+    "wood": {
+      "flash": 0.0199
+    },
+    "nonmetal": {
+      "flash": 0.6519,
+      "clef": 0.0498
+    },
+    "electric": {
+      "flash": 0.0488
+    },
+    "nonelec": {
+      "flash": 0.8553
+    },
+    "secure": {
+      "flash": 0.0604
+    },
+    "cut": {
+      "flash": 0.0059
+    },
+    "write": {
+      "flash": 0.0055
+    },
+    "liquid": {
+      "flash": 0.0106
+    },
+    "wearable": {
+      "flash": 0.0179
+    },
+    "sport": {
+      "flash": 0.3249,
+      "clef": 0.2302
+    },
+    "noise": {
+      "flash": 0.1148
+    },
+    "soft": {
+      "flash": 0.0169
+    },
+    "sharp": {
+      "flash": 0.0063
+    },
+    "round": {
+      "flash": 0.0208
+    },
+    "food": {
+      "flash": 0.0054
+    },
+    "nonfood": {
+      "flash": 0.9517
+    },
+    "alive": {
+      "flash": 0.0107
+    },
+    "kitchen": {
+      "flash": 0.0172
+    },
+    "bathroom": {
+      "flash": 0.0112
+    },
+    "office": {
+      "flash": 0.0965
+    },
+    "garden": {
+      "flash": 0.234,
+      "clef": 0.1432
+    },
+    "clothing": {
+      "flash": 0.0115
+    },
+    "unpowered": {
+      "flash": 0.7674,
+      "clef": 0.8605
+    }
+  },
+  "guitar": {
+    "pocket": {
+      "flash": 0.053
+    },
+    "big": {
+      "flash": 0.1083
+    },
+    "liftable": {
+      "flash": 0.2413,
+      "clef": 0.3297
+    },
+    "metal": {
+      "flash": 0.0705
+    },
+    "wood": {
+      "flash": 0.4891,
+      "clef": 0.4325
+    },
+    "nonmetal": {
+      "flash": 0.8897
+    },
+    "electric": {
+      "flash": 0.1108
+    },
+    "nonelec": {
+      "flash": 0.4598,
+      "clef": 0.7394
+    },
+    "secure": {
+      "flash": 0.0218
+    },
+    "cut": {
+      "flash": 0.0063
+    },
+    "write": {
+      "flash": 0.007
+    },
+    "liquid": {
+      "flash": 0.0067
+    },
+    "wearable": {
+      "flash": 0.0245
+    },
+    "sport": {
+      "flash": 0.0477
+    },
+    "noise": {
+      "flash": 0.8012
+    },
+    "soft": {
+      "flash": 0.1149
+    },
+    "sharp": {
+      "flash": 0.0083
+    },
+    "round": {
+      "flash": 0.0228
+    },
+    "food": {
+      "flash": 0.0053
+    },
+    "nonfood": {
+      "flash": 0.9558
+    },
+    "alive": {
+      "flash": 0.0083
+    },
+    "kitchen": {
+      "flash": 0.0444
+    },
+    "bathroom": {
+      "flash": 0.0163
+    },
+    "office": {
+      "flash": 0.1183
+    },
+    "garden": {
+      "flash": 0.0333
+    },
+    "clothing": {
+      "flash": 0.014
+    },
+    "unpowered": {
+      "flash": 0.5296,
+      "clef": 0.8333
+    }
+  },
+  "drum": {
+    "pocket": {
+      "flash": 0.1777
+    },
+    "big": {
+      "flash": 0.0464
+    },
+    "liftable": {
+      "flash": 0.609,
+      "clef": 0.6225
+    },
+    "metal": {
+      "flash": 0.0616
+    },
+    "wood": {
+      "flash": 0.1522
+    },
+    "nonmetal": {
+      "flash": 0.7937,
+      "clef": 0.3249
+    },
+    "electric": {
+      "flash": 0.0417
+    },
+    "nonelec": {
+      "flash": 0.8824
+    },
+    "secure": {
+      "flash": 0.0622
+    },
+    "cut": {
+      "flash": 0.0065
+    },
+    "write": {
+      "flash": 0.0101
+    },
+    "liquid": {
+      "flash": 0.0182
+    },
+    "wearable": {
+      "flash": 0.0239
+    },
+    "sport": {
+      "flash": 0.2707,
+      "clef": 0.1816
+    },
+    "noise": {
+      "flash": 0.8277
+    },
+    "soft": {
+      "flash": 0.1681
+    },
+    "sharp": {
+      "flash": 0.0072
+    },
+    "round": {
+      "flash": 0.2963,
+      "clef": 0.5426
+    },
+    "food": {
+      "flash": 0.0066
+    },
+    "nonfood": {
+      "flash": 0.9526
+    },
+    "alive": {
+      "flash": 0.0123
+    },
+    "kitchen": {
+      "flash": 0.1205
+    },
+    "bathroom": {
+      "flash": 0.107
+    },
+    "office": {
+      "flash": 0.1302
+    },
+    "garden": {
+      "flash": 0.1465
+    },
+    "clothing": {
+      "flash": 0.0351
+    },
+    "unpowered": {
+      "flash": 0.7939,
+      "clef": 0.8889
+    }
+  },
+  "whistle": {
+    "pocket": {
+      "flash": 0.7445,
+      "clef": 0.347
+    },
+    "big": {
+      "flash": 0.0085
+    },
+    "liftable": {
+      "flash": 0.9663
+    },
+    "metal": {
+      "flash": 0.2785,
+      "clef": 0.4805
+    },
+    "wood": {
+      "flash": 0.0139
+    },
+    "nonmetal": {
+      "flash": 0.3547,
+      "clef": 0.3989
+    },
+    "electric": {
+      "flash": 0.091
+    },
+    "nonelec": {
+      "flash": 0.8256
+    },
+    "secure": {
+      "flash": 0.0476
+    },
+    "cut": {
+      "flash": 0.0075
+    },
+    "write": {
+      "flash": 0.007
+    },
+    "liquid": {
+      "flash": 0.0157
+    },
+    "wearable": {
+      "flash": 0.0477
+    },
+    "sport": {
+      "flash": 0.4453,
+      "clef": 0.2131
+    },
+    "noise": {
+      "flash": 0.8986
+    },
+    "soft": {
+      "flash": 0.0306
+    },
+    "sharp": {
+      "flash": 0.0093
+    },
+    "round": {
+      "flash": 0.0956
+    },
+    "food": {
+      "flash": 0.0056
+    },
+    "nonfood": {
+      "flash": 0.9594
+    },
+    "alive": {
+      "flash": 0.0109
+    },
+    "kitchen": {
+      "flash": 0.07
+    },
+    "bathroom": {
+      "flash": 0.0938
+    },
+    "office": {
+      "flash": 0.1707
+    },
+    "garden": {
+      "flash": 0.131
+    },
+    "clothing": {
+      "flash": 0.0215
+    },
+    "unpowered": {
+      "flash": 0.7382,
+      "clef": 0.7727
+    }
+  },
+  "candle": {
+    "pocket": {
+      "flash": 0.6371,
+      "clef": 0.0944
+    },
+    "big": {
+      "flash": 0.0092
+    },
+    "liftable": {
+      "flash": 0.9177
+    },
+    "metal": {
+      "flash": 0.0229
+    },
+    "wood": {
+      "flash": 0.1356
+    },
+    "nonmetal": {
+      "flash": 0.9097
+    },
+    "electric": {
+      "flash": 0.0428
+    },
+    "nonelec": {
+      "flash": 0.9172
+    },
+    "secure": {
+      "flash": 0.0278
+    },
+    "cut": {
+      "flash": 0.0074
+    },
+    "write": {
+      "flash": 0.0209
+    },
+    "liquid": {
+      "flash": 0.0469
+    },
+    "wearable": {
+      "flash": 0.0105
+    },
+    "sport": {
+      "flash": 0.0093
+    },
+    "noise": {
+      "flash": 0.1059
+    },
+    "soft": {
+      "flash": 0.4471,
+      "clef": 0.1701
+    },
+    "sharp": {
+      "flash": 0.0187
+    },
+    "round": {
+      "flash": 0.0892
+    },
+    "food": {
+      "flash": 0.0084
+    },
+    "nonfood": {
+      "flash": 0.9345
+    },
+    "alive": {
+      "flash": 0.0156
+    },
+    "kitchen": {
+      "flash": 0.5847,
+      "clef": 0.181
+    },
+    "bathroom": {
+      "flash": 0.1539
+    },
+    "office": {
+      "flash": 0.1407
+    },
+    "garden": {
+      "flash": 0.2719,
+      "clef": 0.1008
+    },
+    "clothing": {
+      "flash": 0.0107
+    },
+    "unpowered": {
+      "flash": 0.768,
+      "clef": 0.8195
+    }
+  },
+  "matchstick": {
+    "pocket": {
+      "flash": 0.9071
+    },
+    "big": {
+      "flash": 0.0082
+    },
+    "liftable": {
+      "flash": 0.965
+    },
+    "metal": {
+      "flash": 0.0455
+    },
+    "wood": {
+      "flash": 0.6304,
+      "clef": 0.239
+    },
+    "nonmetal": {
+      "flash": 0.866
+    },
+    "electric": {
+      "flash": 0.0631
+    },
+    "nonelec": {
+      "flash": 0.9248
+    },
+    "secure": {
+      "flash": 0.0462
+    },
+    "cut": {
+      "flash": 0.0349
+    },
+    "write": {
+      "flash": 0.0948
+    },
+    "liquid": {
+      "flash": 0.0073
+    },
+    "wearable": {
+      "flash": 0.0141
+    },
+    "sport": {
+      "flash": 0.0641
+    },
+    "noise": {
+      "flash": 0.2391,
+      "clef": 0.1514
+    },
+    "soft": {
+      "flash": 0.1254
+    },
+    "sharp": {
+      "flash": 0.2039,
+      "clef": 0.2903
+    },
+    "round": {
+      "flash": 0.0243
+    },
+    "food": {
+      "flash": 0.0382
+    },
+    "nonfood": {
+      "flash": 0.9119
+    },
+    "alive": {
+      "flash": 0.0213
+    },
+    "kitchen": {
+      "flash": 0.4179,
+      "clef": 0.4647
+    },
+    "bathroom": {
+      "flash": 0.0676
+    },
+    "office": {
+      "flash": 0.1891
+    },
+    "garden": {
+      "flash": 0.2085,
+      "clef": 0.2122
+    },
+    "clothing": {
+      "flash": 0.0114
+    },
+    "unpowered": {
+      "flash": 0.8302
+    }
+  },
+  "flashlight": {
+    "pocket": {
+      "flash": 0.5426,
+      "clef": 0.275
+    },
+    "big": {
+      "flash": 0.0094
+    },
+    "liftable": {
+      "flash": 0.9473
+    },
+    "metal": {
+      "flash": 0.194
+    },
+    "wood": {
+      "flash": 0.0067
+    },
+    "nonmetal": {
+      "flash": 0.4479,
+      "clef": 0.1535
+    },
+    "electric": {
+      "flash": 0.8845
+    },
+    "nonelec": {
+      "flash": 0.094
+    },
+    "secure": {
+      "flash": 0.0184
+    },
+    "cut": {
+      "flash": 0.0064
+    },
+    "write": {
+      "flash": 0.0061
+    },
+    "liquid": {
+      "flash": 0.0152
+    },
+    "wearable": {
+      "flash": 0.0243
+    },
+    "sport": {
+      "flash": 0.012
+    },
+    "noise": {
+      "flash": 0.0534
+    },
+    "soft": {
+      "flash": 0.0492
+    },
+    "sharp": {
+      "flash": 0.0097
+    },
+    "round": {
+      "flash": 0.0445
+    },
+    "food": {
+      "flash": 0.0048
+    },
+    "nonfood": {
+      "flash": 0.9693
+    },
+    "alive": {
+      "flash": 0.0076
+    },
+    "kitchen": {
+      "flash": 0.1967
+    },
+    "bathroom": {
+      "flash": 0.3677,
+      "clef": 0.0652
+    },
+    "office": {
+      "flash": 0.3733,
+      "clef": 0.1161
+    },
+    "garden": {
+      "flash": 0.0373
+    },
+    "clothing": {
+      "flash": 0.0125
+    },
+    "unpowered": {
+      "flash": 0.0882
+    }
+  },
+  "hammer": {
+    "pocket": {
+      "flash": 0.2212,
+      "clef": 0.08
+    },
+    "big": {
+      "flash": 0.0279
+    },
+    "liftable": {
+      "flash": 0.7717,
+      "clef": 0.4802
+    },
+    "metal": {
+      "flash": 0.5074,
+      "clef": 0.7267
+    },
+    "wood": {
+      "flash": 0.1683
+    },
+    "nonmetal": {
+      "flash": 0.2322,
+      "clef": 0.16
+    },
+    "electric": {
+      "flash": 0.0458
+    },
+    "nonelec": {
+      "flash": 0.9222
+    },
+    "secure": {
+      "flash": 0.2024,
+      "clef": 0.1283
+    },
+    "cut": {
+      "flash": 0.0115
+    },
+    "write": {
+      "flash": 0.0085
+    },
+    "liquid": {
+      "flash": 0.0071
+    },
+    "wearable": {
+      "flash": 0.0151
+    },
+    "sport": {
+      "flash": 0.1096
+    },
+    "noise": {
+      "flash": 0.7922,
+      "clef": 0.5826
+    },
+    "soft": {
+      "flash": 0.0145
+    },
+    "sharp": {
+      "flash": 0.2134,
+      "clef": 0.1711
+    },
+    "round": {
+      "flash": 0.0184
+    },
+    "food": {
+      "flash": 0.0061
+    },
+    "nonfood": {
+      "flash": 0.9679
+    },
+    "alive": {
+      "flash": 0.0079
+    },
+    "kitchen": {
+      "flash": 0.2333,
+      "clef": 0.1256
+    },
+    "bathroom": {
+      "flash": 0.0619
+    },
+    "office": {
+      "flash": 0.2028,
+      "clef": 0.0685
+    },
+    "garden": {
+      "flash": 0.4064,
+      "clef": 0.1966
+    },
+    "clothing": {
+      "flash": 0.0116
+    },
+    "unpowered": {
+      "flash": 0.8395
+    }
+  },
+  "screwdriver": {
+    "pocket": {
+      "flash": 0.3276,
+      "clef": 0.2076
+    },
+    "big": {
+      "flash": 0.0193
+    },
+    "liftable": {
+      "flash": 0.8828
+    },
+    "metal": {
+      "flash": 0.5633,
+      "clef": 0.8877
+    },
+    "wood": {
+      "flash": 0.0134
+    },
+    "nonmetal": {
+      "flash": 0.0727
+    },
+    "electric": {
+      "flash": 0.0391
+    },
+    "nonelec": {
+      "flash": 0.9107
+    },
+    "secure": {
+      "flash": 0.3802,
+      "clef": 0.1408
+    },
+    "cut": {
+      "flash": 0.0121
+    },
+    "write": {
+      "flash": 0.0068
+    },
+    "liquid": {
+      "flash": 0.0082
+    },
+    "wearable": {
+      "flash": 0.0087
+    },
+    "sport": {
+      "flash": 0.0094
+    },
+    "noise": {
+      "flash": 0.3302,
+      "clef": 0.2929
+    },
+    "soft": {
+      "flash": 0.0146
+    },
+    "sharp": {
+      "flash": 0.125
+    },
+    "round": {
+      "flash": 0.0184
+    },
+    "food": {
+      "flash": 0.0059
+    },
+    "nonfood": {
+      "flash": 0.9652
+    },
+    "alive": {
+      "flash": 0.0073
+    },
+    "kitchen": {
+      "flash": 0.299,
+      "clef": 0.0619
+    },
+    "bathroom": {
+      "flash": 0.0291
+    },
+    "office": {
+      "flash": 0.3313,
+      "clef": 0.0549
+    },
+    "garden": {
+      "flash": 0.3218,
+      "clef": 0.1674
+    },
+    "clothing": {
+      "flash": 0.0082
+    },
+    "unpowered": {
+      "flash": 0.789,
+      "clef": 0.8355
+    }
+  },
+  "nail": {
+    "pocket": {
+      "flash": 0.7174,
+      "clef": 0.7249
+    },
+    "big": {
+      "flash": 0.0071
+    },
+    "liftable": {
+      "flash": 0.9452
+    },
+    "metal": {
+      "flash": 0.3459,
+      "clef": 0.5016
+    },
+    "wood": {
+      "flash": 0.088
+    },
+    "nonmetal": {
+      "flash": 0.3501,
+      "clef": 0.486
+    },
+    "electric": {
+      "flash": 0.0159
+    },
+    "nonelec": {
+      "flash": 0.9647
+    },
+    "secure": {
+      "flash": 0.7436,
+      "clef": 0.4884
+    },
+    "cut": {
+      "flash": 0.0462
+    },
+    "write": {
+      "flash": 0.0205
+    },
+    "liquid": {
+      "flash": 0.0076
+    },
+    "wearable": {
+      "flash": 0.0806
+    },
+    "sport": {
+      "flash": 0.0624
+    },
+    "noise": {
+      "flash": 0.3773,
+      "clef": 0.1272
+    },
+    "soft": {
+      "flash": 0.0517
+    },
+    "sharp": {
+      "flash": 0.4369,
+      "clef": 0.6618
+    },
+    "round": {
+      "flash": 0.021
+    },
+    "food": {
+      "flash": 0.0345
+    },
+    "nonfood": {
+      "flash": 0.9386
+    },
+    "alive": {
+      "flash": 0.0109
+    },
+    "kitchen": {
+      "flash": 0.2734,
+      "clef": 0.1677
+    },
+    "bathroom": {
+      "flash": 0.1398
+    },
+    "office": {
+      "flash": 0.4058,
+      "clef": 0.246
+    },
+    "garden": {
+      "flash": 0.2805,
+      "clef": 0.1965
+    },
+    "clothing": {
+      "flash": 0.0387
+    },
+    "unpowered": {
+      "flash": 0.929
+    }
+  },
+  "rope": {
+    "pocket": {
+      "flash": 0.5517,
+      "clef": 0.18
+    },
+    "big": {
+      "flash": 0.0222
+    },
+    "liftable": {
+      "flash": 0.8217
+    },
+    "metal": {
+      "flash": 0.0119
+    },
+    "wood": {
+      "flash": 0.0212
+    },
+    "nonmetal": {
+      "flash": 0.9124
+    },
+    "electric": {
+      "flash": 0.0122
+    },
+    "nonelec": {
+      "flash": 0.9669
+    },
+    "secure": {
+      "flash": 0.6948,
+      "clef": 0.2231
+    },
+    "cut": {
+      "flash": 0.0227
+    },
+    "write": {
+      "flash": 0.008
+    },
+    "liquid": {
+      "flash": 0.0087
+    },
+    "wearable": {
+      "flash": 0.0548
+    },
+    "sport": {
+      "flash": 0.1357
+    },
+    "noise": {
+      "flash": 0.0815
+    },
+    "soft": {
+      "flash": 0.2028,
+      "clef": 0.3811
+    },
+    "sharp": {
+      "flash": 0.0287
+    },
+    "round": {
+      "flash": 0.0174
+    },
+    "food": {
+      "flash": 0.0149
+    },
+    "nonfood": {
+      "flash": 0.932
+    },
+    "alive": {
+      "flash": 0.0292
+    },
+    "kitchen": {
+      "flash": 0.1409
+    },
+    "bathroom": {
+      "flash": 0.1492
+    },
+    "office": {
+      "flash": 0.1489
+    },
+    "garden": {
+      "flash": 0.2676,
+      "clef": 0.1465
+    },
+    "clothing": {
+      "flash": 0.0439
+    },
+    "unpowered": {
+      "flash": 0.9525
+    }
+  },
+  "chain": {
+    "pocket": {
+      "flash": 0.5536,
+      "clef": 0.2733
+    },
+    "big": {
+      "flash": 0.0196
+    },
+    "liftable": {
+      "flash": 0.7963,
+      "clef": 0.4252
+    },
+    "metal": {
+      "flash": 0.1646
+    },
+    "wood": {
+      "flash": 0.0251
+    },
+    "nonmetal": {
+      "flash": 0.4045,
+      "clef": 0.3847
+    },
+    "electric": {
+      "flash": 0.0343
+    },
+    "nonelec": {
+      "flash": 0.9029
+    },
+    "secure": {
+      "flash": 0.3363,
+      "clef": 0.3405
+    },
+    "cut": {
+      "flash": 0.0098
+    },
+    "write": {
+      "flash": 0.0088
+    },
+    "liquid": {
+      "flash": 0.0129
+    },
+    "wearable": {
+      "flash": 0.0556
+    },
+    "sport": {
+      "flash": 0.0484
+    },
+    "noise": {
+      "flash": 0.1355
+    },
+    "soft": {
+      "flash": 0.1117
+    },
+    "sharp": {
+      "flash": 0.0203
+    },
+    "round": {
+      "flash": 0.0178
+    },
+    "food": {
+      "flash": 0.0249
+    },
+    "nonfood": {
+      "flash": 0.905
+    },
+    "alive": {
+      "flash": 0.0157
+    },
+    "kitchen": {
+      "flash": 0.1714
+    },
+    "bathroom": {
+      "flash": 0.1175
+    },
+    "office": {
+      "flash": 0.2369,
+      "clef": 0.2244
+    },
+    "garden": {
+      "flash": 0.0918
+    },
+    "clothing": {
+      "flash": 0.0809
+    },
+    "unpowered": {
+      "flash": 0.8246
+    }
+  },
+  "bucket": {
+    "pocket": {
+      "flash": 0.1702
+    },
+    "big": {
+      "flash": 0.0218
+    },
+    "liftable": {
+      "flash": 0.7066,
+      "clef": 0.49
+    },
+    "metal": {
+      "flash": 0.087
+    },
+    "wood": {
+      "flash": 0.0376
+    },
+    "nonmetal": {
+      "flash": 0.7525,
+      "clef": 0.4932
+    },
+    "electric": {
+      "flash": 0.0181
+    },
+    "nonelec": {
+      "flash": 0.9618
+    },
+    "secure": {
+      "flash": 0.2415,
+      "clef": 0.0713
+    },
+    "cut": {
+      "flash": 0.0085
+    },
+    "write": {
+      "flash": 0.0134
+    },
+    "liquid": {
+      "flash": 0.4404,
+      "clef": 0.7139
+    },
+    "wearable": {
+      "flash": 0.0183
+    },
+    "sport": {
+      "flash": 0.1616
+    },
+    "noise": {
+      "flash": 0.1885
+    },
+    "soft": {
+      "flash": 0.1169
+    },
+    "sharp": {
+      "flash": 0.0094
+    },
+    "round": {
+      "flash": 0.0562
+    },
+    "food": {
+      "flash": 0.0098
+    },
+    "nonfood": {
+      "flash": 0.9588
+    },
+    "alive": {
+      "flash": 0.0079
+    },
+    "kitchen": {
+      "flash": 0.4356,
+      "clef": 0.3517
+    },
+    "bathroom": {
+      "flash": 0.3436,
+      "clef": 0.2855
+    },
+    "office": {
+      "flash": 0.1771
+    },
+    "garden": {
+      "flash": 0.2977,
+      "clef": 0.5293
+    },
+    "clothing": {
+      "flash": 0.0203
+    },
+    "unpowered": {
+      "flash": 0.9114
+    }
+  },
+  "broom": {
+    "pocket": {
+      "flash": 0.0868
+    },
+    "big": {
+      "flash": 0.0408
+    },
+    "liftable": {
+      "flash": 0.6966,
+      "clef": 0.7484
+    },
+    "metal": {
+      "flash": 0.0133
+    },
+    "wood": {
+      "flash": 0.3741,
+      "clef": 0.646
+    },
+    "nonmetal": {
+      "flash": 0.9411
+    },
+    "electric": {
+      "flash": 0.0287
+    },
+    "nonelec": {
+      "flash": 0.9473
+    },
+    "secure": {
+      "flash": 0.0296
+    },
+    "cut": {
+      "flash": 0.008
+    },
+    "write": {
+      "flash": 0.0086
+    },
+    "liquid": {
+      "flash": 0.0135
+    },
+    "wearable": {
+      "flash": 0.0151
+    },
+    "sport": {
+      "flash": 0.0699
+    },
+    "noise": {
+      "flash": 0.1975
+    },
+    "soft": {
+      "flash": 0.1095
+    },
+    "sharp": {
+      "flash": 0.0178
+    },
+    "round": {
+      "flash": 0.0096
+    },
+    "food": {
+      "flash": 0.0062
+    },
+    "nonfood": {
+      "flash": 0.9648
+    },
+    "alive": {
+      "flash": 0.0107
+    },
+    "kitchen": {
+      "flash": 0.1884
+    },
+    "bathroom": {
+      "flash": 0.085
+    },
+    "office": {
+      "flash": 0.0693
+    },
+    "garden": {
+      "flash": 0.4433,
+      "clef": 0.7275
+    },
+    "clothing": {
+      "flash": 0.0121
+    },
+    "unpowered": {
+      "flash": 0.8713
+    }
+  },
+  "pillow": {
+    "pocket": {
+      "flash": 0.1164
+    },
+    "big": {
+      "flash": 0.0183
+    },
+    "liftable": {
+      "flash": 0.7383,
+      "clef": 0.4243
+    },
+    "metal": {
+      "flash": 0.0088
+    },
+    "wood": {
+      "flash": 0.022
+    },
+    "nonmetal": {
+      "flash": 0.9453
+    },
+    "electric": {
+      "flash": 0.0093
+    },
+    "nonelec": {
+      "flash": 0.9714
+    },
+    "secure": {
+      "flash": 0.0309
+    },
+    "cut": {
+      "flash": 0.0057
+    },
+    "write": {
+      "flash": 0.0065
+    },
+    "liquid": {
+      "flash": 0.0102
+    },
+    "wearable": {
+      "flash": 0.0246
+    },
+    "sport": {
+      "flash": 0.018
+    },
+    "noise": {
+      "flash": 0.0476
+    },
+    "soft": {
+      "flash": 0.9088
+    },
+    "sharp": {
+      "flash": 0.0071
+    },
+    "round": {
+      "flash": 0.0631
+    },
+    "food": {
+      "flash": 0.0099
+    },
+    "nonfood": {
+      "flash": 0.947
+    },
+    "alive": {
+      "flash": 0.0095
+    },
+    "kitchen": {
+      "flash": 0.0784
+    },
+    "bathroom": {
+      "flash": 0.2594,
+      "clef": 0.2186
+    },
+    "office": {
+      "flash": 0.1459
+    },
+    "garden": {
+      "flash": 0.0684
+    },
+    "clothing": {
+      "flash": 0.0165
+    },
+    "unpowered": {
+      "flash": 0.942
+    }
+  },
+  "blanket": {
+    "pocket": {
+      "flash": 0.064
+    },
+    "big": {
+      "flash": 0.2415,
+      "clef": 0.2563
+    },
+    "liftable": {
+      "flash": 0.3134,
+      "clef": 0.2037
+    },
+    "metal": {
+      "flash": 0.0063
+    },
+    "wood": {
+      "flash": 0.0126
+    },
+    "nonmetal": {
+      "flash": 0.9463
+    },
+    "electric": {
+      "flash": 0.0123
+    },
+    "nonelec": {
+      "flash": 0.9592
+    },
+    "secure": {
+      "flash": 0.1316
+    },
+    "cut": {
+      "flash": 0.0063
+    },
+    "write": {
+      "flash": 0.0068
+    },
+    "liquid": {
+      "flash": 0.0078
+    },
+    "wearable": {
+      "flash": 0.1181
+    },
+    "sport": {
+      "flash": 0.0165
+    },
+    "noise": {
+      "flash": 0.0169
+    },
+    "soft": {
+      "flash": 0.9149
+    },
+    "sharp": {
+      "flash": 0.006
+    },
+    "round": {
+      "flash": 0.0107
+    },
+    "food": {
+      "flash": 0.0068
+    },
+    "nonfood": {
+      "flash": 0.9572
+    },
+    "alive": {
+      "flash": 0.0106
+    },
+    "kitchen": {
+      "flash": 0.0802
+    },
+    "bathroom": {
+      "flash": 0.11
+    },
+    "office": {
+      "flash": 0.1283
+    },
+    "garden": {
+      "flash": 0.1553
+    },
+    "clothing": {
+      "flash": 0.1426
+    },
+    "unpowered": {
+      "flash": 0.9288
+    }
+  },
+  "teddy bear": {
+    "pocket": {
+      "flash": 0.2722,
+      "clef": 0.0148
+    },
+    "big": {
+      "flash": 0.0206
+    },
+    "liftable": {
+      "flash": 0.5887,
+      "clef": 0.1068
+    },
+    "metal": {
+      "flash": 0.0077
+    },
+    "wood": {
+      "flash": 0.0298
+    },
+    "nonmetal": {
+      "flash": 0.9403
+    },
+    "electric": {
+      "flash": 0.0765
+    },
+    "nonelec": {
+      "flash": 0.8431
+    },
+    "secure": {
+      "flash": 0.0194
+    },
+    "cut": {
+      "flash": 0.0061
+    },
+    "write": {
+      "flash": 0.006
+    },
+    "liquid": {
+      "flash": 0.0079
+    },
+    "wearable": {
+      "flash": 0.0589
+    },
+    "sport": {
+      "flash": 0.0116
+    },
+    "noise": {
+      "flash": 0.0373
+    },
+    "soft": {
+      "flash": 0.8875
+    },
+    "sharp": {
+      "flash": 0.0061
+    },
+    "round": {
+      "flash": 0.0759
+    },
+    "food": {
+      "flash": 0.0087
+    },
+    "nonfood": {
+      "flash": 0.9345
+    },
+    "alive": {
+      "flash": 0.0274
+    },
+    "kitchen": {
+      "flash": 0.0437
+    },
+    "bathroom": {
+      "flash": 0.0472
+    },
+    "office": {
+      "flash": 0.0358
+    },
+    "garden": {
+      "flash": 0.0956
+    },
+    "clothing": {
+      "flash": 0.0339
+    },
+    "unpowered": {
+      "flash": 0.8111
+    }
+  },
+  "smartphone": {
+    "pocket": {
+      "flash": 0.7655,
+      "clef": 0.3496
+    },
+    "big": {
+      "flash": 0.0064
+    },
+    "liftable": {
+      "flash": 0.9651
+    },
+    "metal": {
+      "flash": 0.065
+    },
+    "wood": {
+      "flash": 0.0067
+    },
+    "nonmetal": {
+      "flash": 0.7265,
+      "clef": 0.2182
+    },
+    "electric": {
+      "flash": 0.9323
+    },
+    "nonelec": {
+      "flash": 0.0131
+    },
+    "secure": {
+      "flash": 0.0323
+    },
+    "cut": {
+      "flash": 0.0059
+    },
+    "write": {
+      "flash": 0.0144
+    },
+    "liquid": {
+      "flash": 0.0088
+    },
+    "wearable": {
+      "flash": 0.0637
+    },
+    "sport": {
+      "flash": 0.0111
+    },
+    "noise": {
+      "flash": 0.0703
+    },
+    "soft": {
+      "flash": 0.0448
+    },
+    "sharp": {
+      "flash": 0.0072
+    },
+    "round": {
+      "flash": 0.0448
+    },
+    "food": {
+      "flash": 0.0055
+    },
+    "nonfood": {
+      "flash": 0.9673
+    },
+    "alive": {
+      "flash": 0.0067
+    },
+    "kitchen": {
+      "flash": 0.0612
+    },
+    "bathroom": {
+      "flash": 0.1048
+    },
+    "office": {
+      "flash": 0.4622,
+      "clef": 0.3348
+    },
+    "garden": {
+      "flash": 0.0107
+    },
+    "clothing": {
+      "flash": 0.0111
+    },
+    "unpowered": {
+      "flash": 0.0238
+    }
+  },
+  "headphones": {
+    "pocket": {
+      "flash": 0.4891,
+      "clef": 0.0638
+    },
+    "big": {
+      "flash": 0.0119
+    },
+    "liftable": {
+      "flash": 0.858
+    },
+    "metal": {
+      "flash": 0.081
+    },
+    "wood": {
+      "flash": 0.0068
+    },
+    "nonmetal": {
+      "flash": 0.715,
+      "clef": 0.2799
+    },
+    "electric": {
+      "flash": 0.7782,
+      "clef": 0.6837
+    },
+    "nonelec": {
+      "flash": 0.05
+    },
+    "secure": {
+      "flash": 0.105
+    },
+    "cut": {
+      "flash": 0.0061
+    },
+    "write": {
+      "flash": 0.006
+    },
+    "liquid": {
+      "flash": 0.0082
+    },
+    "wearable": {
+      "flash": 0.7505,
+      "clef": 0.7791
+    },
+    "sport": {
+      "flash": 0.0231
+    },
+    "noise": {
+      "flash": 0.1283
+    },
+    "soft": {
+      "flash": 0.2652,
+      "clef": 0.1884
+    },
+    "sharp": {
+      "flash": 0.0063
+    },
+    "round": {
+      "flash": 0.05
+    },
+    "food": {
+      "flash": 0.0057
+    },
+    "nonfood": {
+      "flash": 0.9678
+    },
+    "alive": {
+      "flash": 0.0073
+    },
+    "kitchen": {
+      "flash": 0.0197
+    },
+    "bathroom": {
+      "flash": 0.1463
+    },
+    "office": {
+      "flash": 0.3788,
+      "clef": 0.1999
+    },
+    "garden": {
+      "flash": 0.0102
+    },
+    "clothing": {
+      "flash": 0.2259,
+      "clef": 0.0966
+    },
+    "unpowered": {
+      "flash": 0.0865
+    }
+  },
+  "television": {
+    "pocket": {
+      "flash": 0.027
+    },
+    "big": {
+      "flash": 0.3056,
+      "clef": 0.6579
+    },
+    "liftable": {
+      "flash": 0.1623
+    },
+    "metal": {
+      "flash": 0.0902
+    },
+    "wood": {
+      "flash": 0.0093
+    },
+    "nonmetal": {
+      "flash": 0.467,
+      "clef": 0.3163
+    },
+    "electric": {
+      "flash": 0.8959
+    },
+    "nonelec": {
+      "flash": 0.0262
+    },
+    "secure": {
+      "flash": 0.0208
+    },
+    "cut": {
+      "flash": 0.0051
+    },
+    "write": {
+      "flash": 0.0063
+    },
+    "liquid": {
+      "flash": 0.0079
+    },
+    "wearable": {
+      "flash": 0.0108
+    },
+    "sport": {
+      "flash": 0.0083
+    },
+    "noise": {
+      "flash": 0.1292
+    },
+    "soft": {
+      "flash": 0.0243
+    },
+    "sharp": {
+      "flash": 0.0069
+    },
+    "round": {
+      "flash": 0.0133
+    },
+    "food": {
+      "flash": 0.0049
+    },
+    "nonfood": {
+      "flash": 0.9658
+    },
+    "alive": {
+      "flash": 0.0081
+    },
+    "kitchen": {
+      "flash": 0.0315
+    },
+    "bathroom": {
+      "flash": 0.0358
+    },
+    "office": {
+      "flash": 0.1868
+    },
+    "garden": {
+      "flash": 0.0124
+    },
+    "clothing": {
+      "flash": 0.0066
+    },
+    "unpowered": {
+      "flash": 0.0183
+    }
+  }
+}

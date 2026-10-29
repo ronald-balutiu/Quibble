@@ -1,0 +1,960 @@
+[
+  {
+    "date": "2026-10-29T06:22:13.269Z",
+    "split": "dev",
+    "judge": "clef-flash",
+    "model": "@cf/cloudflare/clef-flash",
+    "precision": "hosted",
+    "backend": "Workers AI REST",
+    "n": 154,
+    "reviewed": 154,
+    "caseSetHash": "8d0272f3c7e0110364e2a66c8635e0f00d6a276a41fac6eaf569071ef2830566",
+    "threshold": 0.5,
+    "note": "First dev baseline on AI-reviewed labels (D-60)",
+    "metrics": {
+      "conditions": {
+        "n": 407,
+        "accuracy": {
+          "value": 0.8918918918918919,
+          "low": 0.85995085995086,
+          "high": 0.92,
+          "n": 407
+        },
+        "falseAccepts": 11,
+        "falseRejects": 33,
+        "brier": 0.08204170329238326
+      },
+      "guesses": {
+        "n": 130,
+        "accuracy": {
+          "value": 0.8307692307692308,
+          "low": 0.7669172932330827,
+          "high": 0.889763779527559,
+          "n": 130
+        },
+        "falseAcceptRate": {
+          "value": 0.03333333333333333,
+          "low": 0,
+          "high": 0.08928571428571429,
+          "n": 60
+        },
+        "falseRejectRate": {
+          "value": 0.2857142857142857,
+          "low": 0.18421052631578946,
+          "high": 0.39436619718309857,
+          "n": 70
+        }
+      },
+      "reliability": [
+        {
+          "bin": 0,
+          "n": 63,
+          "meanP": 0.04287936507936509,
+          "observed": 0.07936507936507936
+        },
+        {
+          "bin": 1,
+          "n": 19,
+          "meanP": 0.15038947368421052,
+          "observed": 0.2631578947368421
+        },
+        {
+          "bin": 2,
+          "n": 13,
+          "meanP": 0.23094615384615386,
+          "observed": 0.3076923076923077
+        },
+        {
+          "bin": 3,
+          "n": 11,
+          "meanP": 0.3456818181818182,
+          "observed": 0.6363636363636364
+        },
+        {
+          "bin": 4,
+          "n": 15,
+          "meanP": 0.44433333333333336,
+          "observed": 0.8
+        },
+        {
+          "bin": 5,
+          "n": 17,
+          "meanP": 0.5486176470588235,
+          "observed": 0.7647058823529411
+        },
+        {
+          "bin": 6,
+          "n": 23,
+          "meanP": 0.6586652173913043,
+          "observed": 0.8695652173913043
+        },
+        {
+          "bin": 7,
+          "n": 30,
+          "meanP": 0.7576700000000003,
+          "observed": 0.9666666666666667
+        },
+        {
+          "bin": 8,
+          "n": 91,
+          "meanP": 0.8543373626373629,
+          "observed": 0.967032967032967
+        },
+        {
+          "bin": 9,
+          "n": 125,
+          "meanP": 0.9379312000000003,
+          "observed": 1
+        }
+      ],
+      "latencyMs": {
+        "median": 203.10725000000093,
+        "p95": 321.8684169999997
+      },
+      "neuronsPerGuess": 1.1274675324675316
+    },
+    "kappa": {
+      "clef": 0.6334,
+      "gemma-4": 0.6804,
+      "device": 0.2459
+    }
+  },
+  {
+    "date": "2026-10-29T06:22:52.394Z",
+    "split": "dev",
+    "judge": "clef",
+    "model": "@cf/cloudflare/clef",
+    "precision": "hosted",
+    "backend": "Workers AI REST",
+    "n": 154,
+    "reviewed": 154,
+    "caseSetHash": "8d0272f3c7e0110364e2a66c8635e0f00d6a276a41fac6eaf569071ef2830566",
+    "threshold": 0.5,
+    "note": "First dev baseline on AI-reviewed labels (D-60)",
+    "metrics": {
+      "conditions": {
+        "n": 407,
+        "accuracy": {
+          "value": 0.8992628992628993,
+          "low": 0.8698795180722891,
+          "high": 0.9267139479905437,
+          "n": 407
+        },
+        "falseAccepts": 12,
+        "falseRejects": 29,
+        "brier": 0.08093710614250621
+      },
+      "guesses": {
+        "n": 130,
+        "accuracy": {
+          "value": 0.8769230769230769,
+          "low": 0.8175182481751825,
+          "high": 0.9307692307692308,
+          "n": 130
+        },
+        "falseAcceptRate": {
+          "value": 0.03333333333333333,
+          "low": 0,
+          "high": 0.08064516129032258,
+          "n": 60
+        },
+        "falseRejectRate": {
+          "value": 0.2,
+          "low": 0.1095890410958904,
+          "high": 0.3026315789473684,
+          "n": 70
+        }
+      },
+      "reliability": [
+        {
+          "bin": 0,
+          "n": 52,
+          "meanP": 0.04789230769230769,
+          "observed": 0.038461538461538464
+        },
+        {
+          "bin": 1,
+          "n": 23,
+          "meanP": 0.14302608695652178,
+          "observed": 0.2608695652173913
+        },
+        {
+          "bin": 2,
+          "n": 12,
+          "meanP": 0.24043333333333336,
+          "observed": 0.25
+        },
+        {
+          "bin": 3,
+          "n": 13,
+          "meanP": 0.3557538461538462,
+          "observed": 0.7692307692307693
+        },
+        {
+          "bin": 4,
+          "n": 16,
+          "meanP": 0.4497375,
+          "observed": 0.5
+        },
+        {
+          "bin": 5,
+          "n": 17,
+          "meanP": 0.5550882352941175,
+          "observed": 0.8823529411764706
+        },
+        {
+          "bin": 6,
+          "n": 21,
+          "meanP": 0.6578428571428572,
+          "observed": 0.7619047619047619
+        },
+        {
+          "bin": 7,
+          "n": 45,
+          "meanP": 0.7505488888888892,
+          "observed": 0.9555555555555556
+        },
+        {
+          "bin": 8,
+          "n": 89,
+          "meanP": 0.8594831460674156,
+          "observed": 0.9662921348314607
+        },
+        {
+          "bin": 9,
+          "n": 119,
+          "meanP": 0.9425016806722691,
+          "observed": 1
+        }
+      ],
+      "latencyMs": {
+        "median": 212.45616700000392,
+        "p95": 475.43912499999715
+      },
+      "neuronsPerGuess": 7.124935064935063
+    },
+    "kappa": {
+      "clef-flash": 0.6334,
+      "gemma-4": 0.6773,
+      "device": 0.1976
+    }
+  },
+  {
+    "date": "2026-10-29T06:25:33.800Z",
+    "split": "dev",
+    "judge": "gemma-4",
+    "model": "@cf/google/gemma-4-26b-a4b-it",
+    "precision": "hosted",
+    "backend": "Workers AI REST",
+    "n": 154,
+    "reviewed": 154,
+    "caseSetHash": "8d0272f3c7e0110364e2a66c8635e0f00d6a276a41fac6eaf569071ef2830566",
+    "threshold": 0.5,
+    "note": "First dev baseline on AI-reviewed labels (D-60)",
+    "metrics": {
+      "conditions": {
+        "n": 407,
+        "accuracy": {
+          "value": 0.941031941031941,
+          "low": 0.9181141439205955,
+          "high": 0.9637305699481865,
+          "n": 407
+        },
+        "falseAccepts": 9,
+        "falseRejects": 15,
+        "brier": 0.04848612984362031
+      },
+      "guesses": {
+        "n": 130,
+        "accuracy": {
+          "value": 0.9307692307692308,
+          "low": 0.8848920863309353,
+          "high": 0.9699248120300752,
+          "n": 130
+        },
+        "falseAcceptRate": {
+          "value": 0.016666666666666666,
+          "low": 0,
+          "high": 0.057692307692307696,
+          "n": 60
+        },
+        "falseRejectRate": {
+          "value": 0.11428571428571428,
+          "low": 0.04411764705882353,
+          "high": 0.19047619047619047,
+          "n": 70
+        }
+      },
+      "reliability": [
+        {
+          "bin": 0,
+          "n": 95,
+          "meanP": 0.0005034551980254171,
+          "observed": 0.08421052631578947
+        },
+        {
+          "bin": 1,
+          "n": 5,
+          "meanP": 0.1320905045234368,
+          "observed": 0.6
+        },
+        {
+          "bin": 2,
+          "n": 1,
+          "meanP": 0.2219562290004048,
+          "observed": 1
+        },
+        {
+          "bin": 3,
+          "n": 2,
+          "meanP": 0.3372819030754012,
+          "observed": 1
+        },
+        {
+          "bin": 4,
+          "n": 2,
+          "meanP": 0.4999951983490841,
+          "observed": 0.5
+        },
+        {
+          "bin": 5,
+          "n": 0,
+          "meanP": null,
+          "observed": null
+        },
+        {
+          "bin": 6,
+          "n": 1,
+          "meanP": 0.6926412060205789,
+          "observed": 0
+        },
+        {
+          "bin": 7,
+          "n": 4,
+          "meanP": 0.7589368531476187,
+          "observed": 0.5
+        },
+        {
+          "bin": 8,
+          "n": 0,
+          "meanP": null,
+          "observed": null
+        },
+        {
+          "bin": 9,
+          "n": 297,
+          "meanP": 0.9989723878325887,
+          "observed": 0.9797979797979798
+        }
+      ],
+      "latencyMs": {
+        "median": 858.2147919999843,
+        "p95": 2342.956542
+      },
+      "neuronsPerGuess": 1.203571428571428
+    },
+    "kappa": {
+      "clef-flash": 0.6804,
+      "clef": 0.6773,
+      "device": 0.2472
+    }
+  },
+  {
+    "date": "2026-10-29T06:26:07.745Z",
+    "split": "dev",
+    "judge": "device",
+    "model": "onnx-community/Qwen3.5-0.8B-Text-ONNX@25cdf33f",
+    "precision": "q4",
+    "backend": "onnxruntime-node 1.31.1 (CPU)",
+    "n": 154,
+    "reviewed": 154,
+    "caseSetHash": "8d0272f3c7e0110364e2a66c8635e0f00d6a276a41fac6eaf569071ef2830566",
+    "threshold": 0.5,
+    "note": "First dev baseline on AI-reviewed labels (D-60)",
+    "metrics": {
+      "conditions": {
+        "n": 407,
+        "accuracy": {
+          "value": 0.7985257985257985,
+          "low": 0.7566844919786097,
+          "high": 0.8392434988179669,
+          "n": 407
+        },
+        "falseAccepts": 71,
+        "falseRejects": 11,
+        "brier": 0.14387361993345676
+      },
+      "guesses": {
+        "n": 130,
+        "accuracy": {
+          "value": 0.6538461538461539,
+          "low": 0.5746268656716418,
+          "high": 0.7301587301587301,
+          "n": 130
+        },
+        "falseAcceptRate": {
+          "value": 0.6,
+          "low": 0.4745762711864407,
+          "high": 0.7222222222222222,
+          "n": 60
+        },
+        "falseRejectRate": {
+          "value": 0.12857142857142856,
+          "low": 0.06349206349206349,
+          "high": 0.21311475409836064,
+          "n": 70
+        }
+      },
+      "reliability": [
+        {
+          "bin": 0,
+          "n": 1,
+          "meanP": 0.06759711458644908,
+          "observed": 0
+        },
+        {
+          "bin": 1,
+          "n": 4,
+          "meanP": 0.15588724546118696,
+          "observed": 0
+        },
+        {
+          "bin": 2,
+          "n": 3,
+          "meanP": 0.2528750661584684,
+          "observed": 0
+        },
+        {
+          "bin": 3,
+          "n": 13,
+          "meanP": 0.3448716116742193,
+          "observed": 0.23076923076923078
+        },
+        {
+          "bin": 4,
+          "n": 18,
+          "meanP": 0.45137751883487975,
+          "observed": 0.4444444444444444
+        },
+        {
+          "bin": 5,
+          "n": 44,
+          "meanP": 0.5494372059994812,
+          "observed": 0.5454545454545454
+        },
+        {
+          "bin": 6,
+          "n": 58,
+          "meanP": 0.6590484778585219,
+          "observed": 0.6379310344827587
+        },
+        {
+          "bin": 7,
+          "n": 106,
+          "meanP": 0.7547475782561195,
+          "observed": 0.8207547169811321
+        },
+        {
+          "bin": 8,
+          "n": 104,
+          "meanP": 0.8491906241180047,
+          "observed": 0.9326923076923077
+        },
+        {
+          "bin": 9,
+          "n": 56,
+          "meanP": 0.932056307089557,
+          "observed": 0.9285714285714286
+        }
+      ],
+      "latencyMs": {
+        "median": 211.58145800000057,
+        "p95": 389.2100830000127
+      }
+    },
+    "kappa": {
+      "clef-flash": 0.2459,
+      "clef": 0.1976,
+      "gemma-4": 0.2472
+    }
+  },
+  {
+    "date": "2026-10-29T06:34:47.839Z",
+    "split": "dev",
+    "judge": "clef-flash",
+    "model": "@cf/cloudflare/clef-flash",
+    "precision": "hosted",
+    "backend": "Workers AI REST",
+    "n": 154,
+    "reviewed": 154,
+    "caseSetHash": "8d0272f3c7e0110364e2a66c8635e0f00d6a276a41fac6eaf569071ef2830566",
+    "threshold": 0.5,
+    "note": "Reworded pocket, metal, nonmetal and liquid conditions",
+    "metrics": {
+      "conditions": {
+        "n": 407,
+        "accuracy": {
+          "value": 0.9041769041769042,
+          "low": 0.875,
+          "high": 0.9326923076923077,
+          "n": 407
+        },
+        "falseAccepts": 12,
+        "falseRejects": 27,
+        "brier": 0.07252134599508601
+      },
+      "guesses": {
+        "n": 130,
+        "accuracy": {
+          "value": 0.8615384615384616,
+          "low": 0.8029197080291971,
+          "high": 0.916030534351145,
+          "n": 130
+        },
+        "falseAcceptRate": {
+          "value": 0.03333333333333333,
+          "low": 0,
+          "high": 0.08928571428571429,
+          "n": 60
+        },
+        "falseRejectRate": {
+          "value": 0.22857142857142856,
+          "low": 0.14084507042253522,
+          "high": 0.32857142857142857,
+          "n": 70
+        }
+      },
+      "reliability": [
+        {
+          "bin": 0,
+          "n": 60,
+          "meanP": 0.048250000000000015,
+          "observed": 0.03333333333333333
+        },
+        {
+          "bin": 1,
+          "n": 19,
+          "meanP": 0.14943157894736842,
+          "observed": 0.21052631578947367
+        },
+        {
+          "bin": 2,
+          "n": 11,
+          "meanP": 0.23709999999999995,
+          "observed": 0.36363636363636365
+        },
+        {
+          "bin": 3,
+          "n": 11,
+          "meanP": 0.3449181818181818,
+          "observed": 0.6363636363636364
+        },
+        {
+          "bin": 4,
+          "n": 13,
+          "meanP": 0.43999230769230774,
+          "observed": 0.7692307692307693
+        },
+        {
+          "bin": 5,
+          "n": 15,
+          "meanP": 0.5600266666666668,
+          "observed": 0.7333333333333333
+        },
+        {
+          "bin": 6,
+          "n": 16,
+          "meanP": 0.6626875,
+          "observed": 0.8125
+        },
+        {
+          "bin": 7,
+          "n": 37,
+          "meanP": 0.7518864864864866,
+          "observed": 0.972972972972973
+        },
+        {
+          "bin": 8,
+          "n": 99,
+          "meanP": 0.8574787878787881,
+          "observed": 0.9595959595959596
+        },
+        {
+          "bin": 9,
+          "n": 126,
+          "meanP": 0.9371896825396828,
+          "observed": 1
+        }
+      ],
+      "latencyMs": {
+        "median": 224.20604200000162,
+        "p95": 614.954166
+      },
+      "neuronsPerGuess": 1.143311688311688
+    },
+    "kappa": {
+      "clef": 0.6347,
+      "gemma-4": 0.6516,
+      "device": 0.2606
+    }
+  },
+  {
+    "date": "2026-10-29T06:35:25.028Z",
+    "split": "dev",
+    "judge": "clef",
+    "model": "@cf/cloudflare/clef",
+    "precision": "hosted",
+    "backend": "Workers AI REST",
+    "n": 154,
+    "reviewed": 154,
+    "caseSetHash": "8d0272f3c7e0110364e2a66c8635e0f00d6a276a41fac6eaf569071ef2830566",
+    "threshold": 0.5,
+    "note": "Reworded pocket, metal, nonmetal and liquid conditions",
+    "metrics": {
+      "conditions": {
+        "n": 407,
+        "accuracy": {
+          "value": 0.9090909090909091,
+          "low": 0.882903981264637,
+          "high": 0.9354838709677419,
+          "n": 407
+        },
+        "falseAccepts": 12,
+        "falseRejects": 25,
+        "brier": 0.07743535899262902
+      },
+      "guesses": {
+        "n": 130,
+        "accuracy": {
+          "value": 0.8769230769230769,
+          "low": 0.8174603174603174,
+          "high": 0.9302325581395349,
+          "n": 130
+        },
+        "falseAcceptRate": {
+          "value": 0.03333333333333333,
+          "low": 0,
+          "high": 0.08064516129032258,
+          "n": 60
+        },
+        "falseRejectRate": {
+          "value": 0.2,
+          "low": 0.10666666666666667,
+          "high": 0.3013698630136986,
+          "n": 70
+        }
+      },
+      "reliability": [
+        {
+          "bin": 0,
+          "n": 49,
+          "meanP": 0.05052040816326529,
+          "observed": 0.02040816326530612
+        },
+        {
+          "bin": 1,
+          "n": 24,
+          "meanP": 0.14670833333333336,
+          "observed": 0.20833333333333334
+        },
+        {
+          "bin": 2,
+          "n": 10,
+          "meanP": 0.24737,
+          "observed": 0.3
+        },
+        {
+          "bin": 3,
+          "n": 17,
+          "meanP": 0.3529882352941177,
+          "observed": 0.7647058823529411
+        },
+        {
+          "bin": 4,
+          "n": 12,
+          "meanP": 0.45153333333333334,
+          "observed": 0.25
+        },
+        {
+          "bin": 5,
+          "n": 14,
+          "meanP": 0.5495428571428572,
+          "observed": 0.9285714285714286
+        },
+        {
+          "bin": 6,
+          "n": 26,
+          "meanP": 0.6481,
+          "observed": 0.7692307692307693
+        },
+        {
+          "bin": 7,
+          "n": 37,
+          "meanP": 0.7551324324324326,
+          "observed": 0.9459459459459459
+        },
+        {
+          "bin": 8,
+          "n": 89,
+          "meanP": 0.853078651685393,
+          "observed": 0.9662921348314607
+        },
+        {
+          "bin": 9,
+          "n": 129,
+          "meanP": 0.9410139534883725,
+          "observed": 1
+        }
+      ],
+      "latencyMs": {
+        "median": 205.01137500000186,
+        "p95": 466.7666670000035
+      },
+      "neuronsPerGuess": 7.222987012987011
+    },
+    "kappa": {
+      "clef-flash": 0.6347,
+      "gemma-4": 0.6741,
+      "device": 0.2191
+    }
+  },
+  {
+    "date": "2026-10-29T06:39:53.523Z",
+    "split": "dev",
+    "judge": "gemma-4",
+    "model": "@cf/google/gemma-4-26b-a4b-it",
+    "precision": "hosted",
+    "backend": "Workers AI REST",
+    "n": 154,
+    "reviewed": 154,
+    "caseSetHash": "8d0272f3c7e0110364e2a66c8635e0f00d6a276a41fac6eaf569071ef2830566",
+    "threshold": 0.5,
+    "note": "Reworded pocket, metal, nonmetal and liquid conditions",
+    "metrics": {
+      "conditions": {
+        "n": 407,
+        "accuracy": {
+          "value": 0.9533169533169533,
+          "low": 0.9328537170263789,
+          "high": 0.9747474747474747,
+          "n": 407
+        },
+        "falseAccepts": 9,
+        "falseRejects": 10,
+        "brier": 0.041426283263116724
+      },
+      "guesses": {
+        "n": 130,
+        "accuracy": {
+          "value": 0.9384615384615385,
+          "low": 0.8939393939393939,
+          "high": 0.9772727272727273,
+          "n": 130
+        },
+        "falseAcceptRate": {
+          "value": 0.016666666666666666,
+          "low": 0,
+          "high": 0.057692307692307696,
+          "n": 60
+        },
+        "falseRejectRate": {
+          "value": 0.1,
+          "low": 0.03076923076923077,
+          "high": 0.16666666666666666,
+          "n": 70
+        }
+      },
+      "reliability": [
+        {
+          "bin": 0,
+          "n": 92,
+          "meanP": 0.001949717746092036,
+          "observed": 0.06521739130434782
+        },
+        {
+          "bin": 1,
+          "n": 4,
+          "meanP": 0.13008582442259803,
+          "observed": 0.5
+        },
+        {
+          "bin": 2,
+          "n": 1,
+          "meanP": 0.2219562238538737,
+          "observed": 1
+        },
+        {
+          "bin": 3,
+          "n": 1,
+          "meanP": 0.3046057354626904,
+          "observed": 1
+        },
+        {
+          "bin": 4,
+          "n": 2,
+          "meanP": 0.44592980023014667,
+          "observed": 0
+        },
+        {
+          "bin": 5,
+          "n": 0,
+          "meanP": null,
+          "observed": null
+        },
+        {
+          "bin": 6,
+          "n": 1,
+          "meanP": 0.6558104401908554,
+          "observed": 0
+        },
+        {
+          "bin": 7,
+          "n": 2,
+          "meanP": 0.776688748594967,
+          "observed": 0.5
+        },
+        {
+          "bin": 8,
+          "n": 1,
+          "meanP": 0.8533567726039907,
+          "observed": 1
+        },
+        {
+          "bin": 9,
+          "n": 303,
+          "meanP": 0.9991697756611215,
+          "observed": 0.976897689768977
+        }
+      ],
+      "latencyMs": {
+        "median": 1019.2332080000197,
+        "p95": 6414.830083999957
+      },
+      "neuronsPerGuess": 1.2449999999999994
+    },
+    "kappa": {
+      "clef-flash": 0.6516,
+      "clef": 0.6741,
+      "device": 0.2911
+    }
+  },
+  {
+    "date": "2026-10-29T06:40:27.923Z",
+    "split": "dev",
+    "judge": "device",
+    "model": "onnx-community/Qwen3.5-0.8B-Text-ONNX@25cdf33f",
+    "precision": "q4",
+    "backend": "onnxruntime-node 1.31.1 (CPU)",
+    "n": 154,
+    "reviewed": 154,
+    "caseSetHash": "8d0272f3c7e0110364e2a66c8635e0f00d6a276a41fac6eaf569071ef2830566",
+    "threshold": 0.5,
+    "note": "Reworded pocket, metal, nonmetal and liquid conditions",
+    "metrics": {
+      "conditions": {
+        "n": 407,
+        "accuracy": {
+          "value": 0.800982800982801,
+          "low": 0.7610837438423645,
+          "high": 0.8405466970387244,
+          "n": 407
+        },
+        "falseAccepts": 71,
+        "falseRejects": 10,
+        "brier": 0.14416430878354985
+      },
+      "guesses": {
+        "n": 130,
+        "accuracy": {
+          "value": 0.6461538461538462,
+          "low": 0.5661764705882353,
+          "high": 0.7235772357723578,
+          "n": 130
+        },
+        "falseAcceptRate": {
+          "value": 0.6166666666666667,
+          "low": 0.4909090909090909,
+          "high": 0.7377049180327869,
+          "n": 60
+        },
+        "falseRejectRate": {
+          "value": 0.12857142857142856,
+          "low": 0.06349206349206349,
+          "high": 0.21311475409836064,
+          "n": 70
+        }
+      },
+      "reliability": [
+        {
+          "bin": 0,
+          "n": 1,
+          "meanP": 0.06759711458644908,
+          "observed": 0
+        },
+        {
+          "bin": 1,
+          "n": 4,
+          "meanP": 0.13829014445346322,
+          "observed": 0
+        },
+        {
+          "bin": 2,
+          "n": 3,
+          "meanP": 0.2528750661584684,
+          "observed": 0
+        },
+        {
+          "bin": 3,
+          "n": 13,
+          "meanP": 0.3476303291289718,
+          "observed": 0.23076923076923078
+        },
+        {
+          "bin": 4,
+          "n": 17,
+          "meanP": 0.452320123471452,
+          "observed": 0.4117647058823529
+        },
+        {
+          "bin": 5,
+          "n": 41,
+          "meanP": 0.5464645636304232,
+          "observed": 0.5609756097560976
+        },
+        {
+          "bin": 6,
+          "n": 56,
+          "meanP": 0.6552882986722907,
+          "observed": 0.6607142857142857
+        },
+        {
+          "bin": 7,
+          "n": 100,
+          "meanP": 0.7498584458107821,
+          "observed": 0.8
+        },
+        {
+          "bin": 8,
+          "n": 115,
+          "meanP": 0.8492267153968869,
+          "observed": 0.9130434782608695
+        },
+        {
+          "bin": 9,
+          "n": 57,
+          "meanP": 0.9320052462167008,
+          "observed": 0.9298245614035088
+        }
+      ],
+      "latencyMs": {
+        "median": 216.66774999996414,
+        "p95": 391.73891600000206
+      }
+    },
+    "kappa": {
+      "clef-flash": 0.2606,
+      "clef": 0.2191,
+      "gemma-4": 0.2911
+    }
+  }
+]

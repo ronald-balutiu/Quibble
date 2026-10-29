@@ -43,7 +43,7 @@ if (split === 'test') {
 const caseSetHash = createHash('sha256').update(raw).digest('hex')
 
 const runs = new Map<JudgeName, { results: Map<string, CaseResult>, threshold: number, run: Omit<EvalRun, 'kappa'> }>()
-const sweep = [0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
+const sweep = Array.from({ length: 13 }, (_, i) => Number((0.3 + i * 0.05).toFixed(2)))
 for (const name of judges) {
   const judge = await loadJudge(name)
   const results = new Map<string, CaseResult>()
@@ -61,7 +61,7 @@ for (const name of judges) {
   }
   process.stdout.write('\n')
 
-  const threshold = (name === 'device' ? judgeConfig.device : judgeConfig.cloud).passThreshold
+  const threshold = judgeConfig.passThreshold[name]
   const metrics = computeMetrics(cases, results, threshold)
   runs.set(name, {
     results,
@@ -89,7 +89,7 @@ for (const name of judges) {
     if (wrong.length > 0) console.log(`  misjudged conditions:\n${wrong.join('\n')}`)
     console.log('  threshold sweep (whole-guess accuracy / false accepts / false rejects):')
     for (const row of thresholdSweep(cases, results, sweep)) {
-      console.log(`    ${row.threshold.toFixed(1)}: ${pct(row.accuracy)} / ${pct(row.falseAcceptRate)} / ${pct(row.falseRejectRate)}`)
+      console.log(`    ${row.threshold.toFixed(2)}: ${pct(row.accuracy)} / ${pct(row.falseAcceptRate)} / ${pct(row.falseRejectRate)}`)
     }
   }
 }

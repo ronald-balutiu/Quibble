@@ -46,6 +46,12 @@ describe('answer-key metrics', () => {
     expect(metrics.neuronsPerGuess).toBe(1)
   })
 
+  test('marks empty reliability bins as null so the history stays valid JSON', () => {
+    const empty = metrics.reliability.filter((bin) => bin.n === 0)
+    expect(empty.length).toBeGreaterThan(0)
+    expect(empty.every((bin) => bin.meanP === null && bin.observed === null)).toBe(true)
+  })
+
   test("Cohen's κ is 1 for identical judges", () => {
     expect(cohensKappa(cases, { results, threshold: 0.5 }, { results, threshold: 0.5 })).toBe(1)
   })

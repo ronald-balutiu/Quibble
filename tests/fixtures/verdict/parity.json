@@ -1,0 +1,197 @@
+{
+  "model": {
+    "repo": "onnx-community/Qwen3.5-0.8B-Text-ONNX",
+    "revision": "25cdf33f386b487a25f3d743e86442517bdb77ff",
+    "file": "onnx/model_q4.onnx"
+  },
+  "reference": "onnxruntime 1.31.1 (CPU)",
+  "runtimes": [
+    "onnxruntime-node 1.31.1 (CPU)",
+    "onnxruntime-web 1.31.1 (WebGPU, q4)"
+  ],
+  "maxAllowedDelta": 0.02,
+  "maxDelta": 0.000004,
+  "pass": true,
+  "rows": [
+    {
+      "id": "pocket-knife",
+      "python": 0.886527,
+      "deltas": {
+        "onnxruntime-node 1.31.1 (CPU)": 0,
+        "onnxruntime-web 1.31.1 (WebGPU, q4)": 0
+      },
+      "nearThreshold": false
+    },
+    {
+      "id": "pocket-refrigerator",
+      "python": 0.760531,
+      "deltas": {
+        "onnxruntime-node 1.31.1 (CPU)": 0,
+        "onnxruntime-web 1.31.1 (WebGPU, q4)": 0
+      },
+      "nearThreshold": false
+    },
+    {
+      "id": "pocket-umbrella",
+      "python": 0.877426,
+      "deltas": {
+        "onnxruntime-node 1.31.1 (CPU)": 0,
+        "onnxruntime-web 1.31.1 (WebGPU, q4)": -0.000002
+      },
+      "nearThreshold": false
+    },
+    {
+      "id": "pocket-coin",
+      "python": 0.68477,
+      "deltas": {
+        "onnxruntime-node 1.31.1 (CPU)": 0,
+        "onnxruntime-web 1.31.1 (WebGPU, q4)": 0
+      },
+      "nearThreshold": false
+    },
+    {
+      "id": "metal-spoon",
+      "python": 0.78612,
+      "deltas": {
+        "onnxruntime-node 1.31.1 (CPU)": 0,
+        "onnxruntime-web 1.31.1 (WebGPU, q4)": -0.000003
+      },
+      "nearThreshold": false
+    },
+    {
+      "id": "metal-pillow",
+      "python": 0.503192,
+      "deltas": {
+        "onnxruntime-node 1.31.1 (CPU)": 0,
+        "onnxruntime-web 1.31.1 (WebGPU, q4)": -0.000003
+      },
+      "nearThreshold": true
+    },
+    {
+      "id": "metal-bicycle",
+      "python": 0.859658,
+      "deltas": {
+        "onnxruntime-node 1.31.1 (CPU)": 0,
+        "onnxruntime-web 1.31.1 (WebGPU, q4)": -0.000001
+      },
+      "nearThreshold": false
+    },
+    {
+      "id": "kitchen-whisk",
+      "python": 0.943057,
+      "deltas": {
+        "onnxruntime-node 1.31.1 (CPU)": 0,
+        "onnxruntime-web 1.31.1 (WebGPU, q4)": -0.000001
+      },
+      "nearThreshold": false
+    },
+    {
+      "id": "kitchen-lawnmower",
+      "python": 0.624069,
+      "deltas": {
+        "onnxruntime-node 1.31.1 (CPU)": 0,
+        "onnxruntime-web 1.31.1 (WebGPU, q4)": 0.000001
+      },
+      "nearThreshold": false
+    },
+    {
+      "id": "electricity-toaster",
+      "python": 0.779838,
+      "deltas": {
+        "onnxruntime-node 1.31.1 (CPU)": 0,
+        "onnxruntime-web 1.31.1 (WebGPU, q4)": -0.000003
+      },
+      "nearThreshold": false
+    },
+    {
+      "id": "electricity-broom",
+      "python": 0.602011,
+      "deltas": {
+        "onnxruntime-node 1.31.1 (CPU)": 0,
+        "onnxruntime-web 1.31.1 (WebGPU, q4)": -0.000001
+      },
+      "nearThreshold": false
+    },
+    {
+      "id": "electricity-clock",
+      "python": 0.684541,
+      "deltas": {
+        "onnxruntime-node 1.31.1 (CPU)": 0,
+        "onnxruntime-web 1.31.1 (WebGPU, q4)": 0
+      },
+      "nearThreshold": false
+    },
+    {
+      "id": "edible-banana",
+      "python": 0.972087,
+      "deltas": {
+        "onnxruntime-node 1.31.1 (CPU)": 0,
+        "onnxruntime-web 1.31.1 (WebGPU, q4)": 0
+      },
+      "nearThreshold": false
+    },
+    {
+      "id": "edible-stapler",
+      "python": 0.366825,
+      "deltas": {
+        "onnxruntime-node 1.31.1 (CPU)": 0,
+        "onnxruntime-web 1.31.1 (WebGPU, q4)": -0.000001
+      },
+      "nearThreshold": false
+    },
+    {
+      "id": "clue-charge-court",
+      "python": 0.771096,
+      "deltas": {
+        "onnxruntime-node 1.31.1 (CPU)": 0,
+        "onnxruntime-web 1.31.1 (WebGPU, q4)": 0
+      },
+      "nearThreshold": false
+    },
+    {
+      "id": "clue-charge-battery",
+      "python": 0.593195,
+      "deltas": {
+        "onnxruntime-node 1.31.1 (CPU)": 0,
+        "onnxruntime-web 1.31.1 (WebGPU, q4)": 0
+      },
+      "nearThreshold": false
+    },
+    {
+      "id": "clue-bank-river",
+      "python": 0.789715,
+      "deltas": {
+        "onnxruntime-node 1.31.1 (CPU)": 0,
+        "onnxruntime-web 1.31.1 (WebGPU, q4)": -0.000004
+      },
+      "nearThreshold": false
+    },
+    {
+      "id": "clue-bank-fruit",
+      "python": 0.172311,
+      "deltas": {
+        "onnxruntime-node 1.31.1 (CPU)": 0,
+        "onnxruntime-web 1.31.1 (WebGPU, q4)": -0.000001
+      },
+      "nearThreshold": false
+    },
+    {
+      "id": "clue-bat-animal",
+      "python": 0.712955,
+      "deltas": {
+        "onnxruntime-node 1.31.1 (CPU)": 0,
+        "onnxruntime-web 1.31.1 (WebGPU, q4)": -0.000003
+      },
+      "nearThreshold": false
+    },
+    {
+      "id": "clue-pitch-tar",
+      "python": 0.831713,
+      "deltas": {
+        "onnxruntime-node 1.31.1 (CPU)": 0,
+        "onnxruntime-web 1.31.1 (WebGPU, q4)": -0.000001
+      },
+      "nearThreshold": false
+    }
+  ]
+}

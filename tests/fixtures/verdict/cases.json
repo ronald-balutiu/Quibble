@@ -1,0 +1,22 @@
+[
+  { "id": "pocket-knife", "answer": "pocket knife", "claim": "\"{answer}\" ordinarily fits inside a clothing pocket." },
+  { "id": "pocket-refrigerator", "answer": "refrigerator", "claim": "\"{answer}\" ordinarily fits inside a clothing pocket." },
+  { "id": "pocket-umbrella", "answer": "umbrella", "claim": "\"{answer}\" ordinarily fits inside a clothing pocket." },
+  { "id": "pocket-coin", "answer": "coin", "claim": "\"{answer}\" ordinarily fits inside a clothing pocket." },
+  { "id": "metal-spoon", "answer": "spoon", "claim": "\"{answer}\" is usually made of metal." },
+  { "id": "metal-pillow", "answer": "pillow", "claim": "\"{answer}\" is usually made of metal." },
+  { "id": "metal-bicycle", "answer": "bicycle", "claim": "\"{answer}\" is usually made of metal." },
+  { "id": "kitchen-whisk", "answer": "whisk", "claim": "\"{answer}\" is usually found in a kitchen." },
+  { "id": "kitchen-lawnmower", "answer": "lawnmower", "claim": "\"{answer}\" is usually found in a kitchen." },
+  { "id": "electricity-toaster", "answer": "toaster", "claim": "\"{answer}\" needs electricity to work." },
+  { "id": "electricity-broom", "answer": "broom", "claim": "\"{answer}\" needs electricity to work." },
+  { "id": "electricity-clock", "answer": "clock", "claim": "\"{answer}\" needs electricity to work." },
+  { "id": "edible-banana", "answer": "banana", "claim": "\"{answer}\" is something people eat." },
+  { "id": "edible-stapler", "answer": "stapler", "claim": "\"{answer}\" is something people eat." },
+  { "id": "clue-charge-court", "answer": "charge", "claim": "The word \"{answer}\" can mean: an accusation in court." },
+  { "id": "clue-charge-battery", "answer": "charge", "claim": "The word \"{answer}\" can mean: energy stored in a battery." },
+  { "id": "clue-bank-river", "answer": "bank", "claim": "The word \"{answer}\" can mean: the land along the side of a river." },
+  { "id": "clue-bank-fruit", "answer": "bank", "claim": "The word \"{answer}\" can mean: a small tropical fruit." },
+  { "id": "clue-bat-animal", "answer": "bat", "claim": "The word \"{answer}\" can mean: a flying mammal that is active at night." },
+  { "id": "clue-pitch-tar", "answer": "pitch", "claim": "The word \"{answer}\" can mean: a sticky black substance made from tar." }
+]

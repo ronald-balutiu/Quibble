@@ -1,0 +1,145 @@
+/* Double Agent (5.5 D1, D2). Layout and pieces shared with the other games live in game.css. */
+
+/* Doubled class: game.css loads after this file and sets .telemetry. */
+.telemetry.clues__eyebrow {
+  color: var(--accent);
+}
+
+.clues__pair {
+  display: grid;
+  gap: var(--space-5);
+  margin-top: var(--space-3);
+}
+
+.clue__label {
+  margin: var(--space-1) 0 0;
+  color: var(--text);
+  font-size: var(--type-condition);
+  font-weight: var(--weight-light);
+  line-height: var(--leading-condition);
+  letter-spacing: var(--tracking-condition);
+}
+
+.clue--failed .clue__label,
+.clue--failed .telemetry {
+  color: var(--fail);
+}
+
+/* The two-circle diagram: phone shows it under the clues, desktop in the side panel. */
+.guess-map {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.guess-map svg {
+  width: 100%;
+  overflow: visible;
+  font-family: var(--font-mono);
+}
+
+.guess-map__axis {
+  stroke: var(--line);
+}
+
+.guess-map__ring {
+  fill: none;
+  stroke: var(--accent);
+}
+
+.guess-map__letter {
+  fill: var(--muted);
+  font-size: var(--type-label-large);
+}
+
+.guess-map__target {
+  fill: var(--text);
+  font-size: var(--type-label);
+  letter-spacing: var(--tracking-label);
+}
+
+.guess-map__target--mark {
+  font-size: var(--type-label-large);
+}
+
+.guess-map__guess {
+  fill: var(--fail);
+  font-size: var(--type-label);
+  letter-spacing: var(--tracking-label);
+}
+
+.guess-map__guess--pass {
+  fill: var(--text);
+}
+
+.game-side {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+/* D2: each round's word, its points and both clues. */
+.round-words {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: var(--border-width) solid var(--line);
+}
+
+.round-words__row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: var(--space-1) var(--space-3);
+  align-items: baseline;
+  padding: var(--space-3) 0;
+  border-bottom: var(--border-width) solid var(--line);
+}
+
+.round-words__word {
+  font-size: var(--type-panel);
+  font-weight: var(--weight-light);
+}
+
+.telemetry.round-words__points {
+  color: var(--accent);
+}
+
+.telemetry.round-words__points--none {
+  color: var(--muted);
+}
+
+.round-words__clues {
+  grid-column: 2 / -1;
+  color: var(--muted);
+}
+
+@media (max-width: 1023px) {
+  .guess-map--side {
+    display: none;
+  }
+
+  .guess-map--main svg {
+    max-height: var(--guess-map-phone-height);
+  }
+}
+
+@media (min-width: 1024px) {
+  .guess-map--main {
+    display: none;
+  }
+
+  .clues__pair {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .game-side {
+    padding: var(--panel-pad);
+    border-left: var(--border-width) solid var(--line);
+  }
+
+  .game-side .axes {
+    padding: 0;
+    border-left: none;
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 1,
+  "difficulty": "easy",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:1-r1-a",
+          "label": "An accusation in court",
+          "negation": "doesn't mean that",
+          "claim": "{answer} can mean an accusation in court"
+        },
+        {
+          "id": "clue:1-r1-b",
+          "label": "Stored electrical energy",
+          "negation": "doesn't mean that",
+          "claim": "{answer} can mean stored electrical energy"
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:1-r2-a",
+          "label": "The side of a river",
+          "negation": "doesn't mean that",
+          "claim": "{answer} can mean the side of a river"
+        },
+        {
+          "id": "clue:1-r2-b",
+          "label": "A place that keeps money",
+          "negation": "doesn't mean that",
+          "claim": "{answer} can mean a place that keeps money"
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:1-r3-a",
+          "label": "A stick for hitting a ball",
+          "negation": "doesn't mean that",
+          "claim": "{answer} can mean a stick for hitting a ball"
+        },
+        {
+          "id": "clue:1-r3-b",
+          "label": "A flying mammal",
+          "negation": "doesn't mean that",
+          "claim": "{answer} can mean a flying mammal"
+        }
+      ]
+    }
+  ]
+}

@@ -102,6 +102,7 @@
   --t-orbit-a: 7s; --t-orbit-b: 10s; --t-orbit-c: 13s; --t-pulse: 2.4s;
   --mark-max: 300px;
   --mark-max-wide: 420px;
+  --guess-map-phone-height: 180px; /* Double Agent's two-circle diagram above the field (D1 phone) */
   --tile-open-inset: -6px; /* the open puzzle's dashed outline sits inside its tile */
 }
 @media (min-width: 1024px) {

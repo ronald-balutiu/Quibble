@@ -2,14 +2,17 @@ import { useEffect, useReducer, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router'
 import { judgeConfig } from '@shared/config'
 import { gameConfigs, gameIds, type GameId } from '@shared/games'
+import { doubleAgentConfig } from '@shared/games/double-agent'
 import { oddlySpecificConfig } from '@shared/games/oddly-specific'
 import { isValidAnswer, normalizeAnswer } from '@shared/normalize'
 import type { CloudModel, Reveal } from '@shared/schemas/judge'
 import type { Puzzle } from '@shared/schemas/puzzle'
-import { en, format } from '@/copy/en'
+import { en, format, type CopyKey } from '@/copy/en'
 import { EscapeGame } from '@/games/category-escape/Screen'
+import { Clues, GuessMap, RoundWords } from '@/games/double-agent/Screen'
+import { agentSentence } from '@/games/double-agent/verdict'
 import {
-  maxScore, previousGuess, runReducer, shareGrid, startRun, totalScore, type RunState,
+  maxScore, previousGuess, runReducer, shareGrid, startRun, totalScore, type RoundsConfig, type RunState,
 } from '@/games/oddly-specific/reducer'
 import { fetchReveal } from '@/lib/api'
 import { loadPuzzle, loadPuzzleIndex } from '@/lib/puzzles'
@@ -20,8 +23,27 @@ import { AnswerForm, GameHeader, NotJudgedPanel, RejectedPanel, ScoreAxes, Strik
 import { letterFor, rejectedSentence } from './verdict'
 import './game.css'
 
-const reduce = runReducer(oddlySpecificConfig)
-const PLAYABLE: readonly GameId[] = ['oddly-specific', 'category-escape']
+// What differs between the two round-based games: Oddly Specific (G1–G6) and
+// Double Agent (D1, D2). Double Agent's clues, guess map and word list are drawn below.
+interface RoundGame {
+  config: RoundsConfig & { input: { maxCharacters: number } }
+  reduce: ReturnType<typeof runReducer>
+  tip: CopyKey
+  label: CopyKey
+  tooLong: CopyKey
+  alsoFits: CopyKey
+}
+const roundGames: Record<'oddly-specific' | 'double-agent', RoundGame> = {
+  'oddly-specific': {
+    config: oddlySpecificConfig, reduce: runReducer(oddlySpecificConfig),
+    tip: 'tip.oddly', label: 'game.answer', tooLong: 'input.tooLong', alsoFits: 'game.alsoFits',
+  },
+  'double-agent': {
+    config: doubleAgentConfig, reduce: runReducer(doubleAgentConfig),
+    tip: 'tip.agent', label: 'game.word', tooLong: 'input.tooLong.double-agent', alsoFits: 'game.alsoFits.double-agent',
+  },
+}
+const PLAYABLE: readonly GameId[] = ['oddly-specific', 'category-escape', 'double-agent']
 
 export function GameScene() {
   const params = useParams()
@@ -40,13 +62,14 @@ export function GameScene() {
   if (playable && puzzle === undefined) return <main data-scene="game" className="app-frame game-frame" aria-busy="true"><p>{en['game.loading']}</p></main>
   if (!playable || !puzzle) return <main data-scene="game" className="app-frame game-frame"><p>{en['game.notFound']}</p><Link className="control-link" to="/play">{en['nav.library']}</Link></main>
   if (puzzle.game === 'category-escape') return <EscapeGame key={`${game}-${String(n)}`} puzzle={puzzle} />
-  return <Game key={`${game}-${String(n)}`} puzzle={puzzle} />
+  return <Game key={`${game}-${String(n)}`} puzzle={puzzle} variant={roundGames[puzzle.game]} />
 }
 
-function Game({ puzzle }: { puzzle: Puzzle }) {
+function Game({ puzzle, variant }: { puzzle: Puzzle, variant: RoundGame }) {
   const { game, n } = puzzle
   const config = gameConfigs[game]
-  const [run, dispatch] = useReducer(reduce, undefined, () => loadProgress(game, n).run ?? startRun(oddlySpecificConfig))
+  const agent = game === 'double-agent'
+  const [run, dispatch] = useReducer(variant.reduce, undefined, () => loadProgress(game, n).run ?? startRun(variant.config))
   // A rejection still pending after a reload is shown again, so the player can move on or overrule.
   const [ui, setUi] = useState<Ui>(() => {
     const pending = run.rounds[run.current]
@@ -113,7 +136,7 @@ function Game({ puzzle }: { puzzle: Puzzle }) {
   if (!round) return null
   const header = (
     <GameHeader game={game} n={n} status={run.finished ? format('game.points', { points: score }) : format('game.round', { n: run.current + 1, total: run.rounds.length })}>
-      <StrikeDots used={round.strikes} max={oddlySpecificConfig.maxWrongGuessesPerRound} />
+      <StrikeDots used={round.strikes} max={variant.config.maxWrongGuessesPerRound} />
     </GameHeader>
   )
 
@@ -123,37 +146,46 @@ function Game({ puzzle }: { puzzle: Puzzle }) {
       {!storageOn && <p className="strip" role="status">{en['storage.off']}</p>}
       <div ref={turnstile} className="turnstile" />
       {run.finished
-        ? <Results run={run} puzzle={puzzle} best={best} />
+        ? <Results run={run} puzzle={puzzle} best={best} config={variant.config} />
         : roundOver
-          ? <RoundEnd run={run} puzzle={puzzle} onNext={nextRound} />
+          ? <RoundEnd run={run} puzzle={puzzle} alsoFits={variant.alsoFits} onNext={nextRound} />
           : (
               <div className="game-body">
                 <section className="game-main" aria-label={en['game.conditions']}>
                   {showTip && run.current === 0 && (
                     <aside className="tip">
-                      <span>{en['tip.oddly']}</span>
+                      <span>{en[variant.tip]}</span>
                       <button type="button" className="pill pill--quiet" onClick={() => { markTipSeen(game); setShowTip(false) }}>{en['tip.dismiss']}</button>
                     </aside>
                   )}
-                  <ol className="conditions">
-                    {conditions.map((condition, i) => (
-                      <li key={condition.id} className={ui.kind === 'rejected' && ui.guess.failed.includes(condition.id) ? 'conditions__item conditions__item--failed' : 'conditions__item'}>
-                        <span className="conditions__letter">{letterFor(i)}</span>
-                        <span className="conditions__label">{condition.label}</span>
-                      </li>
-                    ))}
-                  </ol>
+                  {agent
+                    ? (
+                        <>
+                          <Clues conditions={conditions} failed={ui.kind === 'rejected' ? ui.guess.failed : []} />
+                          <GuessMap className="guess-map--main" guesses={round.guesses} conditions={conditions} />
+                        </>
+                      )
+                    : (
+                        <ol className="conditions">
+                          {conditions.map((condition, i) => (
+                            <li key={condition.id} className={ui.kind === 'rejected' && ui.guess.failed.includes(condition.id) ? 'conditions__item conditions__item--failed' : 'conditions__item'}>
+                              <span className="conditions__letter">{letterFor(i)}</span>
+                              <span className="conditions__label">{condition.label}</span>
+                            </li>
+                          ))}
+                        </ol>
+                      )}
                   <AnswerForm
-                    label={en['game.answer']} placeholder={en['game.placeholder.oddly-specific']} answer={answer} maxLength={config.input.maxCharacters}
+                    label={en[variant.label]} placeholder={en[`game.placeholder.${game}`]} answer={answer} maxLength={config.input.maxCharacters}
                     judging={ui.kind === 'judging'} input={input} onType={type} onSubmit={() => { void judge(answer) }}
                   />
                   <p id="answer-note" className="telemetry">
-                    {ui.kind === 'input' && ui.notice ? en[ui.notice] : format('game.counter', { count: [...answer].length, max: config.input.maxCharacters })}
+                    {ui.kind === 'input' && ui.notice ? en[ui.notice === 'input.tooLong' ? variant.tooLong : ui.notice] : format('game.counter', { count: [...answer].length, max: 'maxLetters' in config.input ? config.input.maxLetters : config.input.maxCharacters })}
                   </p>
                   <div aria-live="polite">
                     {ui.kind === 'rejected' && (
                       <RejectedPanel
-                        sentence={rejectedSentence(ui.guess, conditions)}
+                        sentence={agent ? agentSentence(ui.guess, conditions) : rejectedSentence(ui.guess, conditions)}
                         onTryAgain={() => { dispatch({ type: 'moveOn' }); setUi({ kind: 'input' }); setAnswer(''); input.current?.focus() }}
                         onCountAnyway={() => { dispatch({ type: 'countAnyway' }) }}
                       />
@@ -162,14 +194,21 @@ function Game({ puzzle }: { puzzle: Puzzle }) {
                   </div>
                   <button type="button" className="pill pill--quiet game-skip" onClick={() => { dispatch({ type: 'skip' }) }} disabled={ui.kind === 'judging'}>{en['game.skip']}</button>
                 </section>
-                <ScoreAxes conditions={conditions} scores={scores} threshold={judgeConfig.passThreshold[model]} model={model} />
+                {agent
+                  ? (
+                      <aside className="game-side">
+                        <GuessMap className="guess-map--side" guesses={round.guesses} conditions={conditions} />
+                        <ScoreAxes conditions={conditions} scores={scores} threshold={judgeConfig.passThreshold[model]} model={model} />
+                      </aside>
+                    )
+                  : <ScoreAxes conditions={conditions} scores={scores} threshold={judgeConfig.passThreshold[model]} model={model} />}
               </div>
             )}
     </main>
   )
 }
 
-function RoundEnd({ run, puzzle, onNext }: { run: RunState, puzzle: Puzzle, onNext: () => void }) {
+function RoundEnd({ run, puzzle, alsoFits, onNext }: { run: RunState, puzzle: Puzzle, alsoFits: CopyKey, onNext: () => void }) {
   const round = run.rounds[run.current]
   const conditions = puzzle.rounds[run.current]?.conditions ?? []
   const [reveal, setReveal] = useState<Reveal | null | undefined>(undefined)
@@ -205,7 +244,7 @@ function RoundEnd({ run, puzzle, onNext }: { run: RunState, puzzle: Puzzle, onNe
           <h1 className="round-end__answer">{reveal?.example}</h1>
         </>
       )}
-      <h2 className="telemetry">{en['game.alsoFits']}</h2>
+      <h2 className="telemetry">{en[alsoFits]}</h2>
       {reveal === null
         ? <p>{en['reveal.failed']} <button type="button" className="link-button" onClick={loadReveal}>{en['action.retry']}</button></p>
         : <ul className="also">{(reveal ? (solved ? [reveal.example, ...reveal.also] : reveal.also) : []).filter((w) => w !== winning?.answer).map((word) => <li key={word}>{word}</li>)}</ul>}
@@ -229,9 +268,9 @@ function RoundEnd({ run, puzzle, onNext }: { run: RunState, puzzle: Puzzle, onNe
   )
 }
 
-function Results({ run, puzzle, best }: { run: RunState, puzzle: Puzzle, best: number | undefined }) {
+function Results({ run, puzzle, best, config }: { run: RunState, puzzle: Puzzle, best: number | undefined, config: RoundsConfig }) {
   const score = totalScore(run)
-  const max = maxScore(oddlySpecificConfig)
+  const max = maxScore(config)
   const grid = shareGrid(run)
   const [copied, setCopied] = useState(false)
   const [nextPuzzle, setNextPuzzle] = useState<{ n: number, difficulty: string } | undefined>()
@@ -249,6 +288,7 @@ function Results({ run, puzzle, best }: { run: RunState, puzzle: Puzzle, best: n
       <p className="telemetry">{bestLabel}</p>
       <p className="results__score">{format('results.score', { score, max })}</p>
       <p className="results__tiles" aria-label={grid.text}>{grid.tiles}</p>
+      {puzzle.game === 'double-agent' && <RoundWords run={run} puzzle={puzzle} />}
       <dl className="facts">
         <dt>{en['results.guesses']}</dt><dd>{guesses}</dd>
         <dt>{en['results.overruled']}</dt><dd>{run.rounds.filter((round) => round.overruled).length}</dd>

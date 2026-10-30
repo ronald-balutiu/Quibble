@@ -10,14 +10,15 @@ import { letterFor } from './verdict'
 // The components every game screen shares (5.5 G1–G7, 5.6): the header, strike
 // dots, score axes, the answer field, and the rejected, not-judged and resting panels.
 
-export function GameHeader({ game, n, status, children }: { game: GameId, n: number, status: string, children: ReactNode }) {
+// `statusClass` lets a screen hide its status on phone, where its mock has none.
+export function GameHeader({ game, n, status, statusClass, children }: { game: GameId, n: number, status: string, statusClass?: string | undefined, children: ReactNode }) {
   return (
     <header className="game-header">
       <Link className="game-header__back" to="/play" aria-label={en['nav.backToLibrary']}>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6" /></svg>
       </Link>
       <span className="game-header__code">{format('game.header', { code: en[`game.code.${game}`], n: String(n).padStart(3, '0') })}</span>
-      <span className="telemetry">{status}</span>
+      <span className={statusClass ? `telemetry ${statusClass}` : 'telemetry'}>{status}</span>
       {children}
     </header>
   )

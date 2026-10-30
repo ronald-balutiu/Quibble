@@ -11,13 +11,13 @@ import './agent.css'
 // Specific's round, round end and results (G1–G6), shared in GameScene.
 
 // Meanings A and B as headlines (D1).
-export function Clues({ conditions, failed }: { conditions: readonly PuzzleCondition[], failed: readonly string[] }) {
+export function Clues({ conditions }: { conditions: readonly PuzzleCondition[] }) {
   return (
     <div className="clues">
       <p className="telemetry clues__eyebrow">{en['agent.eyebrow']}</p>
       <div className="clues__pair">
         {conditions.map((condition, i) => (
-          <div key={condition.id} className={failed.includes(condition.id) ? 'clue clue--failed' : 'clue'}>
+          <div key={condition.id} className="clue">
             <p className="telemetry">{format('agent.meaning', { letter: letterFor(i) })}</p>
             <p className="clue__label">{condition.label}</p>
           </div>

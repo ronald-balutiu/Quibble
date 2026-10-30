@@ -122,7 +122,7 @@ export function EscapeGame({ puzzle }: { puzzle: Puzzle }) {
 
   return (
     <main data-scene="game" className="app-frame game-frame" data-game={game}>
-      <GameHeader game={game} n={n} status={run.finished ? en['escape.runOver'] : format('escape.cleared', { n: cleared })}>
+      <GameHeader game={game} n={n} status={run.finished ? en['escape.runOver'] : format('escape.cleared', { n: cleared })} statusClass={run.finished ? undefined : 'game-header__status--wide'}>
         <StrikeDots used={strikesUsed(run)} max={config.maxWrongGuessesPerRun} />
       </GameHeader>
       {!storageOn && <p className="strip" role="status">{en['storage.off']}</p>}
@@ -172,7 +172,7 @@ export function EscapeGame({ puzzle }: { puzzle: Puzzle }) {
                 </div>
                 <div className="escape-footer">
                   <button type="button" className="pill pill--quiet" onClick={() => { dispatch({ type: 'giveUp' }) }} disabled={ui.kind === 'judging'}>{en['escape.giveUp']}</button>
-                  <span className="telemetry">{en['escape.hint']}</span>
+                  <span className="escape-footer__hint">{en['escape.hint']}</span>
                 </div>
               </section>
               <aside className="escape-side escape-side--play">

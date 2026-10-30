@@ -1,14 +1,14 @@
 /* Double Agent (5.5 D1, D2). Layout and pieces shared with the other games live in game.css. */
 
 /* Doubled class: game.css loads after this file and sets .telemetry. */
-.telemetry.clues__eyebrow {
+.clue .telemetry {
   color: var(--accent);
 }
 
 .clues__pair {
   display: grid;
-  gap: var(--space-5);
-  margin-top: var(--space-3);
+  gap: var(--space-4);
+  margin-top: var(--space-4);
 }
 
 .clue__label {
@@ -18,11 +18,6 @@
   font-weight: var(--weight-light);
   line-height: var(--leading-condition);
   letter-spacing: var(--tracking-condition);
-}
-
-.clue--failed .clue__label,
-.clue--failed .telemetry {
-  color: var(--fail);
 }
 
 /* The two-circle diagram: phone shows it under the clues, desktop in the side panel. */
@@ -115,8 +110,13 @@
 }
 
 @media (max-width: 1023px) {
-  .guess-map--side {
+  .guess-map--side,
+  .clues__eyebrow {
     display: none;
+  }
+
+  .clues__pair {
+    margin-top: 0;
   }
 
   .guess-map--main svg {
@@ -127,10 +127,6 @@
 @media (min-width: 1024px) {
   .guess-map--main {
     display: none;
-  }
-
-  .clues__pair {
-    grid-template-columns: 1fr 1fr;
   }
 
   .game-side {

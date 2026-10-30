@@ -79,9 +79,6 @@
   color: var(--text);
 }
 
-.level--locked .level__rule {
-  color: var(--dim);
-}
 
 .level--failed .level__rule {
   color: var(--fail);
@@ -95,11 +92,19 @@
   color: var(--fail);
 }
 
+/* Phone: the hint as plain text on the left, Give up on the right, over a rule (E1 phone mock). */
 .escape-footer {
   display: flex;
-  flex-wrap: wrap;
   gap: var(--space-4);
   align-items: center;
+  padding-top: var(--space-4);
+  border-top: var(--border-width) solid var(--line);
+}
+
+.escape-footer__hint {
+  order: -1;
+  flex: 1;
+  color: var(--muted);
 }
 
 .escape-side {
@@ -125,8 +130,25 @@
 }
 
 .used__answer {
-  font-size: var(--type-panel);
+  font-size: var(--type-verdict);
   font-weight: var(--weight-light);
+}
+
+/* E2's wrong guesses: a coral dot, the word, then the level and broken rule. */
+.used--wrong .used__answer {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  font-size: var(--type-body-large);
+  font-weight: var(--weight-regular);
+}
+
+.used--wrong .used__answer::before {
+  content: '';
+  width: var(--strike-size);
+  height: var(--strike-size);
+  border-radius: var(--radius-circle);
+  background: var(--fail);
 }
 
 .used--wrong .telemetry {
@@ -135,6 +157,10 @@
 
 .telemetry.escape-over__end {
   color: var(--accent);
+}
+
+.results.escape-over {
+  padding: 0;
 }
 
 .escape-over__max {
@@ -173,9 +199,19 @@
   color: var(--accent);
 }
 
+.path-table td:nth-child(n + 3) {
+  font-family: var(--font-mono);
+  font-size: var(--type-label-large);
+}
+
+.path-table .path-table__end td.muted {
+  color: var(--fail);
+}
+
 /* E1's side panel is desktop only; the phone mock has none. */
 @media (max-width: 1023px) {
-  .escape-side--play {
+  .escape-side--play,
+  .game-header__status--wide {
     display: none;
   }
 }
@@ -189,5 +225,20 @@
   .escape-side .axes {
     padding: 0;
     border-left: none;
+  }
+
+  /* Desktop: Give up first, then the hint as a mono label. */
+  .escape-footer {
+    padding-top: 0;
+    border-top: none;
+  }
+
+  .escape-footer__hint {
+    order: 0;
+    flex: initial;
+    font-family: var(--font-mono);
+    font-size: var(--type-label);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
   }
 }

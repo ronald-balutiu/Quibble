@@ -161,7 +161,7 @@ function Game({ puzzle, variant }: { puzzle: Puzzle, variant: RoundGame }) {
                   {agent
                     ? (
                         <>
-                          <Clues conditions={conditions} failed={ui.kind === 'rejected' ? ui.guess.failed : []} />
+                          <Clues conditions={conditions} />
                           <GuessMap className="guess-map--main" guesses={round.guesses} conditions={conditions} />
                         </>
                       )

@@ -11,11 +11,13 @@ imports this file, so every agent follows the same rules.
    [docs/architecture.md](docs/architecture.md) for structure and runtime boundaries.
 3. Read the local `plan/word-games-build-plan.html` for product rules, design, copy,
    and build order. It is ignored by Git. If it is missing, stop and ask the owner
-   rather than working from memory.
+   rather than working from memory. Start with its status note at the top of 4.1,
+   which says what is in progress, on which branch and worktree, and what comes
+   next. Update that note when you finish a step, so another agent can continue.
 4. Use the scripts in `package.json` instead of running their steps by hand.
 
 Work through the plan's phases in order. Do not start a phase until the previous
-phase's checklist passes.
+phase's checklist passes, unless a decision in the plan's decision log allows it.
 
 ## Documentation
 

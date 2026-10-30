@@ -31,8 +31,28 @@
   color: var(--text);
 }
 
+.home-top {
+  display: grid;
+  grid-template-areas: 'hero' 'mark' 'play';
+  gap: var(--space-8);
+}
+
+.home-hero {
+  grid-area: hero;
+}
+
+.home-mark {
+  grid-area: mark;
+}
+
 .home-play {
   display: flex;
+  gap: var(--space-3);
+  grid-area: play;
+}
+
+.home-play__library {
+  display: none;
 }
 
 .pill--wide {
@@ -88,10 +108,74 @@
   margin-left: auto;
 }
 
-.scene > .game-rows {
+.scene > .library-layout {
+  display: grid;
+  grid-template-areas: 'rows' 'grid' 'actions' 'judge';
+  gap: var(--space-8);
+  padding-inline: 0;
+}
+
+.library-layout > * {
+  padding-inline: var(--content-pad);
+}
+
+.library-layout > .game-rows {
+  grid-area: rows;
+  padding-inline: 0;
+}
+
+.library-layout > .library {
+  grid-area: grid;
+}
+
+.library-layout > .library-actions {
+  grid-area: actions;
+}
+
+.library-layout > .judge-choice {
+  grid-area: judge;
+  margin-inline: var(--content-pad);
+}
+
+.library__title {
+  display: none;
+  margin: 0;
+  font-size: var(--type-panel-large);
+  font-weight: var(--weight-light);
+  letter-spacing: var(--tracking-panel);
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.filter {
+  padding: 0 var(--space-3);
+  border: var(--border-width) solid var(--line-strong);
+  background: transparent;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: var(--type-label-large);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.filter[aria-pressed='true'] {
+  border-color: var(--text);
+  background: var(--text);
+  color: var(--ground);
+}
+
+.game-row__tagline {
+  display: none;
+}
+
+.game-rows {
   display: flex;
   flex-direction: column;
-  padding-inline: 0;
 }
 
 .game-row {
@@ -225,11 +309,61 @@
 }
 
 @media (min-width: 1024px) {
-  .home-games {
+  .home-top {
+    grid-template-areas: 'hero mark' 'play mark';
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+  }
+
+  .home-play {
+    align-self: start;
+  }
+
+  .home-play .pill--wide {
+    flex: none;
+  }
+
+  .home-play__library {
+    display: inline-flex;
+  }
+
+  .home-mark .ring-mark {
+    max-width: var(--mark-max-wide);
+  }
+
+  .scene > .home-games {
     grid-template-columns: repeat(3, 1fr);
   }
 
   .tiles {
     grid-template-columns: repeat(10, 1fr);
+  }
+
+  .scene > .library-layout {
+    grid-template-areas: 'rows grid' 'actions grid' 'judge grid';
+    grid-template-columns: minmax(var(--panel-min), var(--panel-max)) 1fr;
+    grid-template-rows: auto auto 1fr;
+    align-items: start;
+  }
+
+  .library__title {
+    display: block;
+  }
+
+  .library-layout > .library {
+    padding-top: var(--space-6);
+    border-left: var(--border-width) solid var(--line);
+  }
+
+  .game-row > :last-child {
+    grid-row: 1;
+    grid-column: 3;
+  }
+
+  .game-row__tagline {
+    display: block;
+    grid-row: 2;
+    grid-column: 2 / -1;
+    font-size: var(--type-body);
   }
 }

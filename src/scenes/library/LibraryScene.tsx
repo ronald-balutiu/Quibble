@@ -12,6 +12,8 @@ import { loadCloudModel, saveCloudModel } from '@/lib/storage/settings'
 import '../scenes.css'
 
 type Status = 'unplayed' | 'open' | 'solved' | 'perfect'
+const FILTERS = ['all', 'easy', 'hard', 'unplayed'] as const
+type Filter = (typeof FILTERS)[number]
 
 const max = maxScore(oddlySpecificConfig)
 
@@ -28,6 +30,7 @@ export function LibraryScene() {
   const [index, setIndex] = useState<PuzzleIndex | null | undefined>(undefined)
   const [open, setOpen] = useState<number | undefined>()
   const [model, setModel] = useState<CloudModel>(loadCloudModel)
+  const [filter, setFilter] = useState<Filter>('all')
   const navigate = useNavigate()
 
   useEffect(() => { void loadPuzzleIndex().then((value) => { setIndex(value ?? null) }) }, [])
@@ -37,6 +40,7 @@ export function LibraryScene() {
   const solved = statuses.filter(({ status }) => status === 'solved' || status === 'perfect').length
   const continuing = statuses.find(({ status }) => status === 'open')
   const unplayed = statuses.filter(({ status }) => status === 'unplayed')
+  const shown = statuses.filter((entry) => filter === 'all' || (filter === 'unplayed' ? entry.status === 'unplayed' : entry.difficulty === filter))
 
   return (
     <main className="app-frame scene" data-scene="library">
@@ -47,6 +51,8 @@ export function LibraryScene() {
         <span className="telemetry scene-header__name">{en['library.title']}</span>
         <span className="telemetry scene-header__end">{format('library.solved', { solved, total: puzzles.length })}</span>
       </header>
+      {/* Phone: rows, grid, actions, judge choice. Desktop (L1): a sidebar beside the grid. */}
+      <div className="library-layout">
       <nav className="game-rows" aria-label={en['home.games']}>
         {gameIds.map((id) => {
           const count = index?.[id]?.length ?? 0
@@ -55,16 +61,23 @@ export function LibraryScene() {
             <button key={id} type="button" className="game-row" data-game={id} aria-current={id === game ? 'page' : undefined} onClick={() => { setParams({ game: id }) }}>
               <span className="telemetry">{en[`game.code.${id}`]}</span>
               <span className="game-row__name">{en[`game.name.${id}`]}</span>
+              <span className="muted game-row__tagline">{en[`game.tagline.${id}`]}</span>
               <span className="telemetry">{count === 0 ? en['library.new'] : format('library.progress', { solved: String(done).padStart(3, '0'), total: String(count).padStart(3, '0') })}</span>
             </button>
           )
         })}
       </nav>
       <section className="library" data-game={game}>
-        <p className="telemetry">{format('library.counts', { solved, open: continuing ? 1 : 0, perfect: statuses.filter(({ status }) => status === 'perfect').length })}</p>
+        <h1 className="library__title">{en[`game.name.${game}`]}</h1>
+        <div className="filters" role="group" aria-label={en['library.filters']}>
+          {FILTERS.map((option) => (
+            <button key={option} type="button" className="filter" aria-pressed={filter === option} onClick={() => { setFilter(option) }}>{en[`library.filter.${option}`]}</button>
+          ))}
+        </div>
+        <p className="telemetry">{format('library.counts', { solved, open: statuses.filter(({ status }) => status === 'open').length, perfect: statuses.filter(({ status }) => status === 'perfect').length })}</p>
         {index !== undefined && puzzles.length === 0 && <p>{en['library.empty']}</p>}
         <ol className="tiles">
-          {statuses.map(({ n, difficulty, status, best }) => (
+          {shown.map(({ n, difficulty, status, best }) => (
             <li key={n}>
               <button
                 type="button" className={`tile tile--${status}`} onClick={() => { setOpen(n) }}
@@ -76,6 +89,7 @@ export function LibraryScene() {
             </li>
           ))}
         </ol>
+      </section>
         <div className="library-actions">
           {continuing && <Link className="pill pill--wide control-link" to={`/play/${game}/${String(continuing.n)}`}>{format('library.continue', { n: String(continuing.n).padStart(3, '0'), round: continuing.round ?? 1 })}</Link>}
           {unplayed.length > 0 && (
@@ -84,7 +98,6 @@ export function LibraryScene() {
             </button>
           )}
         </div>
-      </section>
       <fieldset className="judge-choice">
         <legend className="telemetry">{en['judgeChoice.title']}</legend>
         {cloudModels.map((option) => (
@@ -95,6 +108,7 @@ export function LibraryScene() {
           </label>
         ))}
       </fieldset>
+      </div>
       {open !== undefined && <PuzzleSheet game={game} n={open} onClose={() => { setOpen(undefined) }} />}
     </main>
   )

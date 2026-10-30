@@ -21,14 +21,18 @@ export interface JudgeOptions {
 }
 
 // Workers AI error codes (developers.cloudflare.com/workers-ai/platform/errors/).
-// 3036 is the documented daily-allowance code; D-58 still requires it to be
-// confirmed against a live response before the usage handling ships.
-const DAILY_ALLOWANCE = 3036
+// 3036 is the documented daily-allowance code, but a live response on 2026-10-30
+// returned 4006 ("you have used up your daily free allocation"), so both count (D-58).
+const DAILY_ALLOWANCE = new Set([3036, 4006])
 const TIMEOUT_CODES = new Set([3007, 3008])
 
 function errorCode(error: unknown): number | undefined {
   const match = error instanceof Error ? /^(\d{4}):/u.exec(error.message) : null
   return match?.[1] === undefined ? undefined : Number(match[1])
+}
+
+export function isDailyAllowance(error: unknown): boolean {
+  return DAILY_ALLOWANCE.has(errorCode(error) ?? 0) || (error instanceof Error && /daily free allocation/iu.test(error.message))
 }
 
 function isTimeout(error: unknown): boolean {
@@ -58,7 +62,7 @@ export async function judgeWithClef(
       return read.ok ? { ok: true, scores: read.scores, modelMs: Date.now() - started } : { ok: false, error: 'unavailable' }
     } catch (error) {
       const code = errorCode(error)
-      if (code === DAILY_ALLOWANCE) return { ok: false, error: 'resting' }
+      if (isDailyAllowance(error)) return { ok: false, error: 'resting' }
       // Retry once on a timeout or an uncoded (upstream) failure only; usage, auth
       // and validation errors carry a code and are not retried.
       if (!isTimeout(error) && code !== undefined) return { ok: false, error: 'unavailable' }
@@ -99,7 +103,7 @@ export async function judgeWithGemma(
       return { ok: true, scores: Object.fromEntries(questions.map(({ id }, i) => [id, scores[i] ?? 0])), modelMs: Date.now() - started }
     } catch (error) {
       const code = errorCode(error)
-      if (code === DAILY_ALLOWANCE) return { ok: false, error: 'resting' }
+      if (isDailyAllowance(error)) return { ok: false, error: 'resting' }
       if (!isTimeout(error) && code !== undefined) return { ok: false, error: 'unavailable' }
     }
   }

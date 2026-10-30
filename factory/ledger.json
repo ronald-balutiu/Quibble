@@ -103,5 +103,33 @@
     "model": "gemma-4",
     "requests": 356,
     "neurons": 156.21
+  },
+  {
+    "date": "2026-10-30T04:45:45.201Z",
+    "step": "matrix",
+    "model": "clef-flash",
+    "requests": 232,
+    "neurons": 1735.47
+  },
+  {
+    "date": "2026-10-30T04:49:36.254Z",
+    "step": "recheck",
+    "model": "gemma-4",
+    "requests": 1510,
+    "neurons": 365.71
+  },
+  {
+    "date": "2026-10-30T04:49:45.352Z",
+    "step": "confirm",
+    "model": "gemma-4",
+    "requests": 1284,
+    "neurons": 0
+  },
+  {
+    "date": "2026-10-30T04:51:13.848Z",
+    "step": "agents",
+    "model": "clef-flash+gemma-4",
+    "requests": 1932,
+    "neurons": 0
   }
 ]

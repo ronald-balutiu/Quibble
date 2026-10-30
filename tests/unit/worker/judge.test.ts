@@ -30,8 +30,12 @@ describe('judgeWithClef', () => {
     expect(inputs).toEqual(fixture.request)
   })
 
-  test('maps the daily-allowance error to resting without retrying', async () => {
-    const ai = runner(aiError('3036: You have used up your daily free allocation of 10,000 neurons.'))
+  test.each([
+    '3036: You have used up your daily free allocation of 10,000 neurons.',
+    '4006: AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade.',
+    'AiError: you have used up your daily free allocation of 10,000 neurons.',
+  ])('maps the daily-allowance error to resting without retrying: %s', async (message) => {
+    const ai = runner(aiError(message))
     expect(await judgeWithClef(ai, 'x', questions, { sleep: noSleep })).toEqual({ ok: false, error: 'resting' })
     expect(ai.run).toHaveBeenCalledTimes(1)
   })

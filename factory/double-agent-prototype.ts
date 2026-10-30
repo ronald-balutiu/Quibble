@@ -5,6 +5,7 @@
 // plain clue, as the factory will.
 // Usage: npm run ts -- factory/double-agent-prototype.ts [--sample 40] [--rewrite] [--max-neurons 700]
 import { parseArgs } from 'node:util'
+import { isDailyAllowance } from '../worker/judge'
 import { readAnswers } from '../worker/read-answers'
 import { candidate, loadWordNet, type Candidate } from './generators/double-agent'
 import { seeded, shuffled } from './generators/rounds'
@@ -51,7 +52,7 @@ try {
       try {
         response = await budget.ai.run(freeModels['clef-flash'], { model: 'clef-flash', state: { game: 'word game', clue }, questions })
       } catch (error) {
-        if (error instanceof Error && error.message.startsWith('3036:')) throw new AllowanceExhausted(error.message)
+        if (isDailyAllowance(error)) throw new AllowanceExhausted('The daily Workers AI allowance is used up.')
         throw error
       }
       const read = readAnswers(response, 'clef-flash', Object.keys(questions))

@@ -11,7 +11,7 @@
 // Usage: npm run ts -- factory/run.ts [--dry-run] [--steps matrix,recheck,confirm,agents]
 import { parseArgs } from 'node:util'
 import { clueQuestion } from '@shared/clues'
-import { judgeWithClef, judgeWithGemma, type JudgeQuestion } from '../worker/judge'
+import { isDailyAllowance, judgeWithClef, judgeWithGemma, type JudgeQuestion } from '../worker/judge'
 import { readAnswers } from '../worker/read-answers'
 import { candidate, loadWordNet, type Candidate } from './generators/double-agent'
 import { seeded, shuffled } from './generators/rounds'
@@ -163,7 +163,7 @@ async function agentsStep() {
           try {
             response = await budget.ai.run(freeModels['clef-flash'], { model: 'clef-flash', state: { game: 'word game', clue }, questions: qs })
           } catch (error) {
-            if (error instanceof Error && error.message.startsWith('3036:')) throw new AllowanceExhausted(error.message)
+            if (isDailyAllowance(error)) throw new AllowanceExhausted('The daily Workers AI allowance is used up.')
             throw error
           }
           const read = readAnswers(response, 'clef-flash', Object.keys(qs))
@@ -184,7 +184,7 @@ async function agentsStep() {
 
   // The word list the library builder reads, clearest first (easy to hard).
   const clarity = (check: AgentCheck) => Math.min(...(check.gemma ?? [0])) * (check.first?.common ?? 0)
-  writeJson('factory/double-agent.json', checks.filter((check) => check.accepted).sort((x, y) => clarity(y) - clarity(x))
+  if (accepted(checks) > 0) writeJson('factory/double-agent.json', checks.filter((check) => check.accepted).sort((x, y) => clarity(y) - clarity(x))
     .map(({ word, clues }) => ({ word, clues })))
   console.log(`agents: ${String(accepted(checks))} words accepted of ${String(checks.filter((check) => check.accepted !== undefined).length)} checked.`)
 }

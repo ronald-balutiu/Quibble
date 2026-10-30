@@ -1,13 +1,13 @@
 {
   "sample": {
-    "things": 112,
+    "things": 212,
     "conditions": 42,
-    "cells": 4704
+    "cells": 8904
   },
   "oddlySpecific": {
-    "candidateRounds": 53,
-    "sampled": 53,
-    "withFourKnown": 46,
+    "candidateRounds": 246,
+    "sampled": 0,
+    "withFourKnown": 0,
     "solutions": [
       4,
       4,
@@ -15,6 +15,29 @@
       4,
       4,
       4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
       5,
       5,
       5,
@@ -23,6 +46,35 @@
       5,
       5,
       5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
       6,
       6,
       6,
@@ -37,6 +89,38 @@
       7,
       7,
       7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      7,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
       8,
       8,
       8,
@@ -46,199 +130,161 @@
       9,
       9,
       9,
+      9,
+      9,
+      9,
+      9,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
       10,
       10,
       11,
+      11,
+      11,
+      11,
+      11,
+      11,
+      11,
+      11,
+      12,
+      12,
+      12,
+      12,
+      12,
+      12,
+      12,
+      12,
+      12,
       12,
       12,
       13,
       13,
+      13,
+      13,
+      13,
       14,
       14,
       14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      15,
+      15,
+      15,
+      15,
+      15,
       16,
       16,
       16,
+      17,
+      17,
+      17,
+      17,
+      18,
+      18,
+      18,
+      18,
+      19,
+      19,
+      19,
+      19,
+      19,
+      19,
+      20,
+      20,
+      20,
+      20,
+      20,
+      20,
+      20,
+      20,
+      20,
+      21,
+      21,
+      21,
+      22,
+      22,
+      23,
+      23,
+      23,
+      23,
+      23,
+      24,
+      25,
+      25,
+      25,
+      28,
+      28,
+      28,
+      28,
+      29,
+      29,
+      29,
+      29,
+      30,
+      31,
       31,
       32,
+      32,
+      32,
+      32,
+      33,
+      33,
+      33,
+      33,
+      34,
+      35,
+      35,
+      36,
+      37,
+      38,
+      38,
+      39,
+      39,
+      40,
+      40,
+      40,
+      40,
       40
     ],
-    "examples": [
-      {
-        "conditions": [
-          "nonmetal",
-          "handle",
-          "cheap"
-        ],
-        "solutions": [
-          "wooden spoon",
-          "whisk",
-          "toothbrush",
-          "watering can",
-          "umbrella",
-          "broom"
-        ],
-        "known": [
-          "wooden spoon",
-          "whisk",
-          "toothbrush",
-          "watering can",
-          "umbrella",
-          "broom"
-        ]
-      },
-      {
-        "conditions": [
-          "liftable",
-          "unpowered",
-          "handle"
-        ],
-        "solutions": [
-          "pocket knife",
-          "chef knife",
-          "wooden spoon",
-          "fork",
-          "teaspoon",
-          "spatula",
-          "whisk",
-          "frying pan",
-          "toothbrush",
-          "rake",
-          "pruning shears",
-          "baseball bat",
-          "screwdriver",
-          "broom"
-        ],
-        "known": [
-          "pocket knife",
-          "chef knife",
-          "wooden spoon",
-          "fork",
-          "teaspoon",
-          "spatula",
-          "whisk",
-          "frying pan"
-        ]
-      },
-      {
-        "conditions": [
-          "wearable",
-          "bendy",
-          "cheap"
-        ],
-        "solutions": [
-          "oven mitt",
-          "scarf",
-          "sock",
-          "belt",
-          "sweater",
-          "necklace"
-        ],
-        "known": [
-          "scarf",
-          "sock",
-          "belt",
-          "necklace"
-        ]
-      },
-      {
-        "conditions": [
-          "liftable",
-          "nonmetal",
-          "nonfood"
-        ],
-        "solutions": [
-          "zip tie",
-          "pencil",
-          "crayon",
-          "highlighter",
-          "eraser",
-          "envelope",
-          "sticky note",
-          "wooden spoon",
-          "whisk",
-          "wine glass",
-          "chopsticks",
-          "oven mitt",
-          "dish towel",
-          "toothbrush",
-          "soap",
-          "shampoo bottle",
-          "rubber duck",
-          "earthworm",
-          "scarf",
-          "sock",
-          "glove",
-          "hat",
-          "belt",
-          "sweater",
-          "sunglasses",
-          "tennis ball",
-          "baseball bat",
-          "candle",
-          "matchstick",
-          "rope",
-          "broom"
-        ],
-        "known": [
-          "zip tie",
-          "pencil",
-          "crayon",
-          "highlighter",
-          "eraser",
-          "envelope",
-          "sticky note",
-          "wooden spoon"
-        ]
-      },
-      {
-        "conditions": [
-          "wearable",
-          "bendy",
-          "daily"
-        ],
-        "solutions": [
-          "sock",
-          "belt",
-          "sweater",
-          "jeans"
-        ],
-        "known": [
-          "sock",
-          "belt",
-          "sweater",
-          "jeans"
-        ]
-      }
-    ]
+    "examples": []
   },
   "categoryEscape": {
-    "minCategory": 17,
+    "minCategory": 32,
     "categories": [
       {
         "id": "kitchen",
-        "size": 22
+        "size": 38
       },
       {
         "id": "bathroom",
-        "size": 10
+        "size": 18
       },
       {
         "id": "office",
-        "size": 7
+        "size": 12
       },
       {
         "id": "garden",
-        "size": 10
+        "size": 23
       },
       {
         "id": "clothing",
-        "size": 9
+        "size": 24
       }
     ],
-    "distinctRuns": 2,
-    "sampled": 2,
-    "pathConfirmed": 1,
+    "distinctRuns": 37,
+    "sampled": 10,
+    "pathConfirmed": 3,
     "examples": [
       {
         "category": "kitchen",
@@ -248,58 +294,121 @@
           ],
           [
             "kitchen",
-            "handle"
+            "plastic"
           ],
           [
             "kitchen",
-            "handle",
+            "plastic",
             "liftable"
           ],
           [
             "kitchen",
-            "handle",
+            "plastic",
             "liftable",
-            "cheap"
+            "nonelec"
           ],
           [
             "kitchen",
-            "handle",
+            "plastic",
             "liftable",
-            "cheap",
+            "nonelec",
             "pocket"
           ],
           [
             "kitchen",
-            "handle",
+            "plastic",
             "liftable",
-            "cheap",
+            "nonelec",
             "pocket",
-            "eatdrink"
+            "daily"
           ]
         ],
         "path": [
-          "toaster",
           "fork",
-          "chef knife",
-          "wooden spoon",
-          "whisk",
-          "teaspoon"
+          "lunchbox",
+          "measuring cup",
+          "toothpaste",
+          "salt shaker",
+          "soap dish"
         ],
         "fieldSizes": [
-          24,
+          51,
+          9,
           8,
           7,
           5,
-          4,
           3
         ],
-        "pathConfirmed": true,
+        "pathConfirmed": false,
         "knownPerLevel": [
           8,
           5,
-          5,
-          4,
           2,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "category": "kitchen",
+        "levels": [
+          [
+            "kitchen"
+          ],
+          [
+            "kitchen",
+            "unpowered"
+          ],
+          [
+            "kitchen",
+            "unpowered",
+            "pocket"
+          ],
+          [
+            "kitchen",
+            "unpowered",
+            "pocket",
+            "plastic"
+          ],
+          [
+            "kitchen",
+            "unpowered",
+            "pocket",
+            "plastic",
+            "nonelec"
+          ],
+          [
+            "kitchen",
+            "unpowered",
+            "pocket",
+            "plastic",
+            "nonelec",
+            "daily"
+          ]
+        ],
+        "path": [
+          "blender",
+          "placemat",
+          "pizza cutter",
+          "toothpaste",
+          "ice cube tray",
+          "salt shaker"
+        ],
+        "fieldSizes": [
+          51,
+          43,
+          17,
+          6,
+          5,
+          3
+        ],
+        "pathConfirmed": false,
+        "knownPerLevel": [
+          8,
+          8,
+          4,
+          1,
+          1,
           1
         ]
       },
@@ -316,53 +425,53 @@
           [
             "kitchen",
             "nonelec",
+            "handle"
+          ],
+          [
+            "kitchen",
+            "nonelec",
+            "handle",
             "eatdrink"
           ],
           [
             "kitchen",
             "nonelec",
+            "handle",
             "eatdrink",
-            "cheap"
+            "nonmetal"
           ],
           [
             "kitchen",
             "nonelec",
+            "handle",
             "eatdrink",
-            "cheap",
-            "pocket"
-          ],
-          [
-            "kitchen",
-            "nonelec",
-            "eatdrink",
-            "cheap",
-            "pocket",
-            "handle"
+            "nonmetal",
+            "daily"
           ]
         ],
         "path": [
-          "cheese grater",
-          "apple",
-          "wooden spoon",
-          "fork",
-          "mug",
-          "teaspoon"
+          "napkin",
+          "cookie jar",
+          "teaspoon",
+          "coffee mug",
+          "lunchbox",
+          "ladle"
         ],
         "fieldSizes": [
-          24,
-          20,
+          51,
+          42,
+          17,
+          8,
           6,
-          5,
-          4,
           3
         ],
         "pathConfirmed": false,
         "knownPerLevel": [
           8,
-          7,
-          4,
-          4,
-          1,
+          8,
+          8,
+          6,
+          2,
           1
         ]
       }

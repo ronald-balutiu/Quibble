@@ -75,3 +75,21 @@ targets scored 0.6–0.79, just under the factory's 0.8 bar.
 - Re-check near-miss targets (0.6–0.8) with Clef rather than dropping them, as the
   truth matrix does.
 - Re-estimate the Neuron budget: the matrix alone projects to about 15,000.
+
+## Phase 2 prototypes (2026-10-30)
+
+Run on a larger sample to exercise all three generators; the raw output is in
+`prototype-puzzles.json`. Only Oddly Specific is playable in Phase 2, so the
+Category Escape and Double Agent prototypes are not shipped.
+
+| Game | Prototype output | Notes |
+| --- | --- | --- |
+| Oddly Specific | 8 puzzles, shipped | 42 conditions × 112 things; the Clef-flash yes bar is 0.6 (D-68). |
+| Category Escape | 10 runs | 212 things. Every level's answer is confirmed by Clef-flash and Gemma 4. Only the kitchen reached the scaled category size (32 of 212); the prototype used 10%. |
+| Double Agent | 10 puzzles of 3 | 42 of 100 candidates passed both clue checks (yield 42%, projecting about 538 words), and 38 of those were also confirmed by Gemma 4 on both clues. |
+
+The larger Double Agent sample projects just over the 500 words that 5 rounds
+need, too thin a margin to change D-64's 3 rounds. Some passing words still have
+two clues that mean the same thing ("transition", "supplement"), confirming the
+sense-pair follow-up above. These prototypes spent about 3,160 Neurons, recorded
+in `factory/ledger.json`.

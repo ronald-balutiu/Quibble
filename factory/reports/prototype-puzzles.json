@@ -1,0 +1,1225 @@
+{
+  "categoryEscape": {
+    "minCategory": 22,
+    "puzzles": [
+      {
+        "levels": [
+          [
+            "bathroom"
+          ],
+          [
+            "bathroom",
+            "nonmetal"
+          ],
+          [
+            "bathroom",
+            "nonmetal",
+            "bendy"
+          ],
+          [
+            "bathroom",
+            "nonmetal",
+            "bendy",
+            "soft"
+          ],
+          [
+            "bathroom",
+            "nonmetal",
+            "bendy",
+            "soft",
+            "pocket"
+          ],
+          [
+            "bathroom",
+            "nonmetal",
+            "bendy",
+            "soft",
+            "pocket",
+            "daily"
+          ]
+        ],
+        "path": [
+          "toothbrush",
+          "towel",
+          "shower curtain",
+          "bath mat",
+          "bath sponge",
+          "toothpaste"
+        ],
+        "known": [
+          [
+            "toothbrush",
+            "towel",
+            "soap",
+            "shampoo bottle",
+            "hair dryer",
+            "bathtub",
+            "toilet",
+            "mirror"
+          ],
+          [
+            "toothbrush",
+            "towel",
+            "soap",
+            "shampoo bottle",
+            "rubber duck",
+            "shower curtain",
+            "bath mat",
+            "hand towel"
+          ],
+          [
+            "shower curtain",
+            "bath mat",
+            "hand towel",
+            "toilet paper",
+            "bath sponge",
+            "cotton swab",
+            "toothpaste",
+            "dental floss"
+          ],
+          [
+            "bath mat",
+            "hand towel",
+            "toilet paper",
+            "bath sponge",
+            "cotton swab",
+            "toothpaste",
+            "dental floss",
+            "bath towel"
+          ],
+          [
+            "bath sponge",
+            "cotton swab",
+            "toothpaste",
+            "dental floss",
+            "face cloth",
+            "tissue box"
+          ],
+          [
+            "toothpaste",
+            "face cloth",
+            "tissue box"
+          ]
+        ]
+      },
+      {
+        "levels": [
+          [
+            "clothing"
+          ],
+          [
+            "clothing",
+            "bendy"
+          ],
+          [
+            "clothing",
+            "bendy",
+            "liftable"
+          ],
+          [
+            "clothing",
+            "bendy",
+            "liftable",
+            "pocket"
+          ],
+          [
+            "clothing",
+            "bendy",
+            "liftable",
+            "pocket",
+            "soft"
+          ],
+          [
+            "clothing",
+            "bendy",
+            "liftable",
+            "pocket",
+            "soft",
+            "cheap"
+          ]
+        ],
+        "path": [
+          "scarf",
+          "sock",
+          "belt",
+          "jacket",
+          "coat",
+          "mittens"
+        ],
+        "known": [
+          [
+            "scarf",
+            "sock",
+            "glove",
+            "hat",
+            "belt",
+            "sweater",
+            "jeans",
+            "sneakers"
+          ],
+          [
+            "scarf",
+            "sock",
+            "belt",
+            "sweater",
+            "jeans",
+            "garden gloves",
+            "t-shirt",
+            "jacket"
+          ],
+          [
+            "scarf",
+            "sock",
+            "belt",
+            "garden gloves",
+            "jacket",
+            "coat",
+            "pajamas",
+            "sandals"
+          ],
+          [
+            "sock",
+            "jacket",
+            "coat",
+            "bracelet",
+            "mittens"
+          ],
+          [
+            "sock",
+            "jacket",
+            "coat",
+            "mittens"
+          ],
+          [
+            "sock",
+            "mittens"
+          ]
+        ]
+      },
+      {
+        "levels": [
+          [
+            "clothing"
+          ],
+          [
+            "clothing",
+            "liftable"
+          ],
+          [
+            "clothing",
+            "liftable",
+            "fabric"
+          ],
+          [
+            "clothing",
+            "liftable",
+            "fabric",
+            "daily"
+          ],
+          [
+            "clothing",
+            "liftable",
+            "fabric",
+            "daily",
+            "unpowered"
+          ],
+          [
+            "clothing",
+            "liftable",
+            "fabric",
+            "daily",
+            "unpowered",
+            "cheap"
+          ]
+        ],
+        "path": [
+          "scarf",
+          "sock",
+          "glove",
+          "hat",
+          "jacket",
+          "pajamas"
+        ],
+        "known": [
+          [
+            "scarf",
+            "sock",
+            "glove",
+            "hat",
+            "belt",
+            "sweater",
+            "jeans",
+            "sneakers"
+          ],
+          [
+            "scarf",
+            "sock",
+            "glove",
+            "hat",
+            "belt",
+            "wristwatch",
+            "sunglasses",
+            "garden gloves"
+          ],
+          [
+            "scarf",
+            "sock",
+            "glove",
+            "hat",
+            "garden gloves",
+            "jacket",
+            "coat",
+            "pajamas"
+          ],
+          [
+            "sock",
+            "hat",
+            "jacket",
+            "coat",
+            "pajamas",
+            "slippers",
+            "baseball cap",
+            "beanie"
+          ],
+          [
+            "sock",
+            "jacket",
+            "coat",
+            "pajamas",
+            "slippers",
+            "baseball cap",
+            "beanie"
+          ],
+          [
+            "sock",
+            "pajamas",
+            "slippers",
+            "baseball cap",
+            "beanie"
+          ]
+        ]
+      },
+      {
+        "levels": [
+          [
+            "clothing"
+          ],
+          [
+            "clothing",
+            "cheap"
+          ],
+          [
+            "clothing",
+            "cheap",
+            "liftable"
+          ],
+          [
+            "clothing",
+            "cheap",
+            "liftable",
+            "bendy"
+          ],
+          [
+            "clothing",
+            "cheap",
+            "liftable",
+            "bendy",
+            "pocket"
+          ],
+          [
+            "clothing",
+            "cheap",
+            "liftable",
+            "bendy",
+            "pocket",
+            "soft"
+          ]
+        ],
+        "path": [
+          "scarf",
+          "sock",
+          "glove",
+          "belt",
+          "bracelet",
+          "mittens"
+        ],
+        "known": [
+          [
+            "scarf",
+            "sock",
+            "glove",
+            "hat",
+            "belt",
+            "sweater",
+            "jeans",
+            "sneakers"
+          ],
+          [
+            "scarf",
+            "sock",
+            "glove",
+            "hat",
+            "belt",
+            "wristwatch",
+            "ring",
+            "sunglasses"
+          ],
+          [
+            "scarf",
+            "sock",
+            "glove",
+            "hat",
+            "belt",
+            "wristwatch",
+            "sunglasses",
+            "garden gloves"
+          ],
+          [
+            "scarf",
+            "sock",
+            "belt",
+            "garden gloves",
+            "pajamas",
+            "slippers",
+            "bracelet"
+          ],
+          [
+            "sock",
+            "bracelet",
+            "mittens"
+          ],
+          [
+            "sock",
+            "mittens"
+          ]
+        ]
+      },
+      {
+        "levels": [
+          [
+            "kitchen"
+          ],
+          [
+            "kitchen",
+            "nonfood"
+          ],
+          [
+            "kitchen",
+            "nonfood",
+            "nonelec"
+          ],
+          [
+            "kitchen",
+            "nonfood",
+            "nonelec",
+            "daily"
+          ],
+          [
+            "kitchen",
+            "nonfood",
+            "nonelec",
+            "daily",
+            "bendy"
+          ],
+          [
+            "kitchen",
+            "nonfood",
+            "nonelec",
+            "daily",
+            "bendy",
+            "pocket"
+          ]
+        ],
+        "path": [
+          "chef knife",
+          "wooden spoon",
+          "frying pan",
+          "hand towel",
+          "paper",
+          "tea bag"
+        ],
+        "known": [
+          [
+            "chef knife",
+            "wooden spoon",
+            "fork",
+            "teaspoon",
+            "spatula",
+            "whisk",
+            "cheese grater",
+            "can opener"
+          ],
+          [
+            "chef knife",
+            "wooden spoon",
+            "toaster",
+            "blender",
+            "kettle"
+          ],
+          [
+            "chef knife",
+            "wooden spoon",
+            "frying pan",
+            "mug",
+            "cutting board",
+            "oven mitt",
+            "dish towel"
+          ],
+          [
+            "hand towel",
+            "paper",
+            "coffee mug",
+            "tea bag",
+            "napkin"
+          ],
+          [
+            "hand towel",
+            "paper",
+            "tea bag",
+            "napkin"
+          ],
+          [
+            "paper",
+            "tea bag",
+            "napkin"
+          ]
+        ]
+      },
+      {
+        "levels": [
+          [
+            "office"
+          ],
+          [
+            "office",
+            "pocket"
+          ],
+          [
+            "office",
+            "pocket",
+            "nonelec"
+          ],
+          [
+            "office",
+            "pocket",
+            "nonelec",
+            "bendy"
+          ],
+          [
+            "office",
+            "pocket",
+            "nonelec",
+            "bendy",
+            "nonmetal"
+          ],
+          [
+            "office",
+            "pocket",
+            "nonelec",
+            "bendy",
+            "nonmetal",
+            "soft"
+          ]
+        ],
+        "path": [
+          "paper clip",
+          "pencil",
+          "ballpoint pen",
+          "tissue box",
+          "paper",
+          "rubber band"
+        ],
+        "known": [
+          [
+            "paper clip",
+            "pencil",
+            "ballpoint pen",
+            "highlighter",
+            "stapler",
+            "laptop",
+            "printer",
+            "desk lamp"
+          ],
+          [
+            "paper clip",
+            "pencil",
+            "ballpoint pen",
+            "highlighter",
+            "sticky note",
+            "tissue box",
+            "whiteboard marker",
+            "paper"
+          ],
+          [
+            "paper clip",
+            "pencil",
+            "ballpoint pen",
+            "highlighter",
+            "sticky note",
+            "tissue box",
+            "whiteboard marker",
+            "paper"
+          ],
+          [
+            "paper clip",
+            "tissue box",
+            "paper",
+            "folder",
+            "rubber band"
+          ],
+          [
+            "tissue box",
+            "paper",
+            "folder",
+            "rubber band"
+          ],
+          [
+            "tissue box",
+            "paper",
+            "rubber band"
+          ]
+        ]
+      },
+      {
+        "levels": [
+          [
+            "clothing"
+          ],
+          [
+            "clothing",
+            "unpowered"
+          ],
+          [
+            "clothing",
+            "unpowered",
+            "fabric"
+          ],
+          [
+            "clothing",
+            "unpowered",
+            "fabric",
+            "soft"
+          ],
+          [
+            "clothing",
+            "unpowered",
+            "fabric",
+            "soft",
+            "pocket"
+          ],
+          [
+            "clothing",
+            "unpowered",
+            "fabric",
+            "soft",
+            "pocket",
+            "daily"
+          ]
+        ],
+        "path": [
+          "scarf",
+          "sock",
+          "glove",
+          "sweater",
+          "jacket",
+          "coat"
+        ],
+        "known": [
+          [
+            "scarf",
+            "sock",
+            "glove",
+            "hat",
+            "belt",
+            "sweater",
+            "jeans",
+            "sneakers"
+          ],
+          [
+            "scarf",
+            "sock",
+            "glove",
+            "belt",
+            "sweater",
+            "jeans",
+            "sneakers",
+            "ring"
+          ],
+          [
+            "scarf",
+            "sock",
+            "glove",
+            "sweater",
+            "jeans",
+            "sneakers",
+            "garden gloves",
+            "t-shirt"
+          ],
+          [
+            "scarf",
+            "sock",
+            "glove",
+            "sweater",
+            "jeans",
+            "garden gloves",
+            "t-shirt",
+            "jacket"
+          ],
+          [
+            "sock",
+            "glove",
+            "jacket",
+            "coat"
+          ],
+          [
+            "sock",
+            "jacket",
+            "coat"
+          ]
+        ]
+      },
+      {
+        "levels": [
+          [
+            "clothing"
+          ],
+          [
+            "clothing",
+            "fabric"
+          ],
+          [
+            "clothing",
+            "fabric",
+            "bendy"
+          ],
+          [
+            "clothing",
+            "fabric",
+            "bendy",
+            "cheap"
+          ],
+          [
+            "clothing",
+            "fabric",
+            "bendy",
+            "cheap",
+            "liftable"
+          ],
+          [
+            "clothing",
+            "fabric",
+            "bendy",
+            "cheap",
+            "liftable",
+            "soft"
+          ]
+        ],
+        "path": [
+          "scarf",
+          "sock",
+          "sweater",
+          "garden gloves",
+          "pajamas",
+          "slippers"
+        ],
+        "known": [
+          [
+            "scarf",
+            "sock",
+            "glove",
+            "hat",
+            "belt",
+            "sweater",
+            "jeans",
+            "sneakers"
+          ],
+          [
+            "scarf",
+            "sock",
+            "glove",
+            "hat",
+            "sweater",
+            "jeans",
+            "sneakers",
+            "garden gloves"
+          ],
+          [
+            "scarf",
+            "sock",
+            "sweater",
+            "jeans",
+            "garden gloves",
+            "t-shirt",
+            "jacket",
+            "coat"
+          ],
+          [
+            "scarf",
+            "sock",
+            "garden gloves",
+            "t-shirt",
+            "dress",
+            "skirt",
+            "shorts",
+            "pajamas"
+          ],
+          [
+            "scarf",
+            "sock",
+            "garden gloves",
+            "pajamas",
+            "slippers",
+            "baseball cap",
+            "beanie",
+            "mittens"
+          ],
+          [
+            "scarf",
+            "sock",
+            "garden gloves",
+            "pajamas",
+            "slippers",
+            "baseball cap",
+            "beanie",
+            "mittens"
+          ]
+        ]
+      },
+      {
+        "levels": [
+          [
+            "clothing"
+          ],
+          [
+            "clothing",
+            "soft"
+          ],
+          [
+            "clothing",
+            "soft",
+            "unpowered"
+          ],
+          [
+            "clothing",
+            "soft",
+            "unpowered",
+            "daily"
+          ],
+          [
+            "clothing",
+            "soft",
+            "unpowered",
+            "daily",
+            "liftable"
+          ],
+          [
+            "clothing",
+            "soft",
+            "unpowered",
+            "daily",
+            "liftable",
+            "pocket"
+          ]
+        ],
+        "path": [
+          "scarf",
+          "sock",
+          "glove",
+          "sweater",
+          "jacket",
+          "coat"
+        ],
+        "known": [
+          [
+            "scarf",
+            "sock",
+            "glove",
+            "hat",
+            "belt",
+            "sweater",
+            "jeans",
+            "sneakers"
+          ],
+          [
+            "scarf",
+            "sock",
+            "glove",
+            "sweater",
+            "jeans",
+            "garden gloves",
+            "t-shirt",
+            "jacket"
+          ],
+          [
+            "scarf",
+            "sock",
+            "glove",
+            "sweater",
+            "jeans",
+            "garden gloves",
+            "t-shirt",
+            "jacket"
+          ],
+          [
+            "sock",
+            "sweater",
+            "jeans",
+            "t-shirt",
+            "jacket",
+            "coat",
+            "pajamas",
+            "slippers"
+          ],
+          [
+            "sock",
+            "jacket",
+            "coat",
+            "pajamas",
+            "slippers",
+            "baseball cap",
+            "beanie"
+          ],
+          [
+            "sock",
+            "jacket",
+            "coat"
+          ]
+        ]
+      },
+      {
+        "levels": [
+          [
+            "office"
+          ],
+          [
+            "office",
+            "nonelec"
+          ],
+          [
+            "office",
+            "nonelec",
+            "liftable"
+          ],
+          [
+            "office",
+            "nonelec",
+            "liftable",
+            "nonmetal"
+          ],
+          [
+            "office",
+            "nonelec",
+            "liftable",
+            "nonmetal",
+            "soft"
+          ],
+          [
+            "office",
+            "nonelec",
+            "liftable",
+            "nonmetal",
+            "soft",
+            "bendy"
+          ]
+        ],
+        "path": [
+          "paper clip",
+          "pencil",
+          "ballpoint pen",
+          "highlighter",
+          "tissue box",
+          "paper"
+        ],
+        "known": [
+          [
+            "paper clip",
+            "pencil",
+            "ballpoint pen",
+            "highlighter",
+            "stapler",
+            "laptop",
+            "printer",
+            "desk lamp"
+          ],
+          [
+            "paper clip",
+            "pencil",
+            "ballpoint pen",
+            "highlighter",
+            "stapler",
+            "office chair",
+            "sticky note",
+            "tissue box"
+          ],
+          [
+            "paper clip",
+            "pencil",
+            "ballpoint pen",
+            "highlighter",
+            "stapler",
+            "sticky note",
+            "tissue box",
+            "whiteboard marker"
+          ],
+          [
+            "pencil",
+            "highlighter",
+            "sticky note",
+            "tissue box",
+            "whiteboard marker",
+            "paper",
+            "folder",
+            "binder"
+          ],
+          [
+            "tissue box",
+            "paper",
+            "rubber band",
+            "mouse pad"
+          ],
+          [
+            "tissue box",
+            "paper",
+            "rubber band"
+          ]
+        ]
+      }
+    ]
+  },
+  "doubleAgent": {
+    "confirmedWords": 38,
+    "of": 42,
+    "puzzles": [
+      [
+        {
+          "word": "supplement",
+          "clues": [
+            "Extra section at the end of a magazine",
+            "Extra amount added to make up a deficiency"
+          ]
+        },
+        {
+          "word": "denial",
+          "clues": [
+            "Refusal of a request",
+            "Psychological refusal to accept reality"
+          ]
+        },
+        {
+          "word": "transition",
+          "clues": [
+            "Change from one state to another",
+            "A change or shift from one state to another"
+          ]
+        }
+      ],
+      [
+        {
+          "word": "ebb",
+          "clues": [
+            "Gradual decline in strength or power",
+            "Receding tide"
+          ]
+        },
+        {
+          "word": "skin",
+          "clues": [
+            "Outer body covering and organ of touch",
+            "Outer layer or surface"
+          ]
+        },
+        {
+          "word": "charcoal",
+          "clues": [
+            "Black fuel made from burnt wood",
+            "Black stick used for sketching"
+          ]
+        }
+      ],
+      [
+        {
+          "word": "fuel",
+          "clues": [
+            "Material burned for energy",
+            "Supply with energy source"
+          ]
+        },
+        {
+          "word": "resort",
+          "clues": [
+            "Popular vacation spot",
+            "A person or thing turned to for help"
+          ]
+        },
+        {
+          "word": "hazard",
+          "clues": [
+            "Potential source of danger",
+            "An unpredictable factor that changes an outcome"
+          ]
+        }
+      ],
+      [
+        {
+          "word": "aspect",
+          "clues": [
+            "A particular feature or part of a situation",
+            "A feature or characteristic to consider"
+          ]
+        },
+        {
+          "word": "facility",
+          "clues": [
+            "A place or building for a specific purpose",
+            "Ease of doing something skillfully"
+          ]
+        },
+        {
+          "word": "benefit",
+          "clues": [
+            "Financial aid during a crisis",
+            "Something that promotes well-being"
+          ]
+        }
+      ],
+      [
+        {
+          "word": "bloom",
+          "clues": [
+            "Process of producing flowers",
+            "Colorful part of a plant"
+          ]
+        },
+        {
+          "word": "part",
+          "clues": [
+            "A piece of a whole",
+            "Piece of a whole object"
+          ]
+        },
+        {
+          "word": "timber",
+          "clues": [
+            "Wood prepared for construction",
+            "Wooden beam"
+          ]
+        }
+      ],
+      [
+        {
+          "word": "commit",
+          "clues": [
+            "Carry out a crime or error",
+            "Save changes permanently"
+          ]
+        },
+        {
+          "word": "creep",
+          "clues": [
+            "An unpleasant or weird person",
+            "Slow, gradual deformation or movement"
+          ]
+        },
+        {
+          "word": "rule",
+          "clues": [
+            "A standard for behavior",
+            "Standard for behavior"
+          ]
+        }
+      ],
+      [
+        {
+          "word": "inject",
+          "clues": [
+            "Add a new element or quality",
+            "Drive a fluid into via a needle"
+          ]
+        },
+        {
+          "word": "patch",
+          "clues": [
+            "Small area of different color or texture",
+            "Small area of specific plants"
+          ]
+        },
+        {
+          "word": "wing",
+          "clues": [
+            "Bird's limb used for flight",
+            "Airplane part used for lift"
+          ]
+        }
+      ],
+      [
+        {
+          "word": "nucleus",
+          "clues": [
+            "Cell's genetic control center",
+            "Dense, positive center of an atom"
+          ]
+        },
+        {
+          "word": "stuff",
+          "clues": [
+            "Material used to make something",
+            "Various random items"
+          ]
+        },
+        {
+          "word": "genius",
+          "clues": [
+            "Brilliant or highly original person",
+            "Exceptional intellectual power"
+          ]
+        }
+      ],
+      [
+        {
+          "word": "view",
+          "clues": [
+            "Perspective or standpoint",
+            "Act of observing"
+          ]
+        },
+        {
+          "word": "coat",
+          "clues": [
+            "Outerwear with sleeves worn outdoors",
+            "Animal's fur or hair"
+          ]
+        },
+        {
+          "word": "pair",
+          "clues": [
+            "Two of a kind",
+            "Two of a kind"
+          ]
+        }
+      ],
+      [
+        {
+          "word": "conveyance",
+          "clues": [
+            "Legal paper for transferring property",
+            "A means of transport"
+          ]
+        },
+        {
+          "word": "plop",
+          "clues": [
+            "Sound of something dropping into water",
+            "Sound of something hitting water"
+          ]
+        },
+        {
+          "word": "howl",
+          "clues": [
+            "Long, loud cry of grief or pain",
+            "Wolf's long, mournful cry"
+          ]
+        }
+      ]
+    ]
+  }
+}

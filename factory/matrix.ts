@@ -1,11 +1,7 @@
-// Truth matrix (plan 3.9, step 1; D-68): Clef-flash answers every condition for
-// every thing, then Gemma 4 re-checks the uncertain cells. Resumable; every request's
-// Neurons go to factory/ledger.json, and a run stops at --max-neurons.
-// Usage: npm run ts -- factory/matrix.ts [--max-neurons 1500]
+// Truth matrix cells and the factory's shared helpers (plan 3.9, step 1; D-68).
+// factory/run.ts fills the matrix.
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
-import { parseArgs } from 'node:util'
-import { judgeWithClef, judgeWithGemma } from '../worker/judge'
-import { AllowanceExhausted, restRunner } from './workers-ai'
+import { restRunner } from './workers-ai'
 
 // clef holds re-checks made before D-68; gemma holds re-checks and confirmations since.
 export interface Cell { flash: number, clef?: number, gemma?: number }
@@ -51,67 +47,4 @@ export function budgetedRunner(maxNeurons: number) {
       requests = 0
     },
   }
-}
-
-if (import.meta.url === `file://${process.argv[1] ?? ''}`) {
-  const { values } = parseArgs({ options: { 'max-neurons': { type: 'string', default: '1500' } } })
-  const budget = budgetedRunner(Number(values['max-neurons']))
-  const things = readJson<string[]>('factory/things.json', [])
-  const conditions = readJson<Record<string, { question: string }>>('factory/conditions.json', {})
-  const matrix = readJson<Matrix>('factory/matrix.json', {})
-  const ids = Object.keys(conditions)
-
-  const steps = [
-    {
-      step: 'matrix', model: 'clef-flash',
-      judge: (thing: string, questions: { id: string, question: string }[]) => judgeWithClef(budget.ai, thing, questions, { model: 'clef-flash' }),
-      questionsFor: (thing: string) => ids.filter((id) => matrix[thing]?.[id] === undefined),
-      apply: (thing: string, scores: Record<string, number>) => {
-        const row = matrix[thing] ??= {}
-        for (const [id, p] of Object.entries(scores)) row[id] = { flash: p }
-      },
-    },
-    {
-      step: 'recheck', model: 'gemma-4',
-      judge: (thing: string, questions: { id: string, question: string }[]) => judgeWithGemma(budget.ai, thing, questions),
-      questionsFor: (thing: string) => ids.filter((id) => {
-        const cell = matrix[thing]?.[id]
-        return cell !== undefined && isUncertain(cell)
-      }),
-      apply: (thing: string, scores: Record<string, number>) => {
-        for (const [id, p] of Object.entries(scores)) {
-          const cell = matrix[thing]?.[id]
-          if (cell) cell.gemma = p
-        }
-      },
-    },
-  ]
-
-  try {
-    for (const { step, model, judge, questionsFor, apply } of steps) {
-      for (const thing of things) {
-        if (budget.exhausted) break
-        const pending = questionsFor(thing)
-        if (pending.length === 0) continue
-        const verdict = await judge(thing, pending.map((id) => ({ id, question: conditions[id]?.question ?? '' })))
-        if (!verdict.ok) {
-          if (verdict.error === 'resting') throw new AllowanceExhausted('The daily Workers AI allowance is used up.')
-          console.error(`${model} could not judge "${thing}"; it will be retried on the next run.`)
-          continue
-        }
-        apply(thing, verdict.scores)
-        writeJson('factory/matrix.json', matrix)
-      }
-      console.log(`${step}: ${budget.spent.toFixed(1)} Neurons`)
-      budget.record(step, model)
-    }
-  } catch (error) {
-    budget.record('interrupted', 'mixed')
-    throw error
-  }
-
-  const cells = Object.values(matrix).flatMap((row) => Object.values(row))
-  const counts = { yes: 0, no: 0, unknown: 0 }
-  for (const cell of cells) counts[truth(cell)] += 1
-  console.log(`${String(cells.length)} cells: ${String(counts.yes)} yes, ${String(counts.no)} no, ${String(counts.unknown)} unknown${budget.exhausted ? ' (stopped at the Neuron cap; rerun to continue)' : ''}`)
 }

@@ -297,5 +297,133 @@
     "tag": "kind",
     "question": "Is the thing ordinarily made mainly for children? Judge its everyday meaning.",
     "claim": "\"{answer}\" is ordinarily made mainly for children."
+  },
+  "outdoor": {
+    "label": "Usually kept outdoors",
+    "negation": "isn't usually kept outdoors",
+    "tag": "place",
+    "question": "Is the thing ordinarily kept outdoors? Judge its everyday meaning.",
+    "claim": "\"{answer}\" is ordinarily kept outdoors."
+  },
+  "folds": {
+    "label": "Folds or rolls up",
+    "negation": "doesn't fold or roll up",
+    "tag": "shape",
+    "question": "Can the thing ordinarily be folded or rolled up? Judge its everyday meaning.",
+    "claim": "\"{answer}\" can ordinarily be folded or rolled up."
+  },
+  "wet": {
+    "label": "Gets wet when used",
+    "negation": "doesn't get wet when used",
+    "tag": "use",
+    "question": "Does the thing ordinarily get wet when it is used? Judge its everyday meaning.",
+    "claim": "\"{answer}\" ordinarily gets wet when it is used."
+  },
+  "twohands": {
+    "label": "Used with both hands",
+    "negation": "isn't used with both hands",
+    "tag": "use",
+    "question": "Do people ordinarily use both hands to use the thing? Judge its everyday meaning.",
+    "claim": "People ordinarily use both hands to use \"{answer}\"."
+  },
+  "moving": {
+    "label": "Has moving parts",
+    "negation": "has no moving parts",
+    "tag": "shape",
+    "question": "Does the thing ordinarily have parts that move against each other, such as hinges, blades or wheels? Judge its everyday meaning.",
+    "claim": "\"{answer}\" ordinarily has moving parts."
+  },
+  "hangs": {
+    "label": "Often hung up",
+    "negation": "isn't usually hung up",
+    "tag": "place",
+    "question": "Is the thing ordinarily hung on a hook, rail or wall when not in use? Judge its everyday meaning.",
+    "claim": "\"{answer}\" is ordinarily hung up when not in use."
+  },
+  "usedup": {
+    "label": "Gets used up",
+    "negation": "doesn't get used up",
+    "tag": "value",
+    "question": "Does the thing ordinarily get used up or thrown away after a few uses? Judge its everyday meaning.",
+    "claim": "\"{answer}\" ordinarily gets used up or thrown away after a few uses."
+  },
+  "container": {
+    "label": "Holds other things",
+    "negation": "doesn't hold other things",
+    "tag": "use",
+    "question": "Is the thing ordinarily used to hold or store other objects? Judge its everyday meaning.",
+    "claim": "\"{answer}\" is ordinarily used to hold or store other objects."
+  },
+  "opens": {
+    "label": "Opens and closes",
+    "negation": "doesn't open and close",
+    "tag": "shape",
+    "question": "Does the thing ordinarily open and close, like a lid, door or clasp? Judge its everyday meaning.",
+    "claim": "\"{answer}\" ordinarily opens and closes."
+  },
+  "tool": {
+    "label": "Is a tool",
+    "negation": "isn't a tool",
+    "tag": "kind",
+    "question": "Is the thing ordinarily considered a hand tool or tool for doing a job? Judge its everyday meaning.",
+    "claim": "\"{answer}\" is ordinarily considered a tool."
+  },
+  "drawer": {
+    "label": "Often kept in a drawer",
+    "negation": "isn't usually kept in a drawer",
+    "tag": "place",
+    "question": "Is the thing ordinarily kept in a drawer at home? Judge its everyday meaning.",
+    "claim": "\"{answer}\" is ordinarily kept in a drawer."
+  },
+  "hot": {
+    "label": "Gets hot when used",
+    "negation": "doesn't get hot when used",
+    "tag": "sense",
+    "question": "Does the thing ordinarily get hot when it is used? Judge its everyday meaning.",
+    "claim": "\"{answer}\" ordinarily gets hot when it is used."
+  },
+  "thin": {
+    "label": "Thinner than a finger",
+    "negation": "isn't thinner than a finger",
+    "tag": "size",
+    "question": "Is the thing ordinarily thinner than an adult's finger at its thickest point? Judge its everyday meaning.",
+    "claim": "\"{answer}\" is ordinarily thinner than a finger."
+  },
+  "pack": {
+    "label": "Usually bought in packs",
+    "negation": "isn't usually bought in packs",
+    "tag": "value",
+    "question": "Is the thing ordinarily bought in a pack of several or many? Judge its everyday meaning.",
+    "claim": "\"{answer}\" is ordinarily bought in a pack of several or many."
+  },
+  "floats": {
+    "label": "Floats on water",
+    "negation": "doesn't float on water",
+    "tag": "sense",
+    "question": "Would the thing ordinarily float if put in water? Judge its everyday meaning.",
+    "claim": "\"{answer}\" would ordinarily float on water."
+  },
+  "glass": {
+    "label": "Mostly glass or ceramic",
+    "negation": "isn't mostly glass or ceramic",
+    "tag": "material",
+    "question": "Is the thing ordinarily made mostly of glass, porcelain or ceramic? Judge its everyday meaning.",
+    "claim": "\"{answer}\" is ordinarily made mostly of glass or ceramic."
+  },
+  "bedroom": {
+    "label": "Found in a bedroom",
+    "negation": "isn't found in a bedroom",
+    "tag": "place",
+    "question": "Is the thing ordinarily found in a bedroom? Judge its everyday meaning.",
+    "claim": "\"{answer}\" is ordinarily found in a bedroom.",
+    "category": true
+  },
+  "garage": {
+    "label": "Found in a garage or shed",
+    "negation": "isn't found in a garage or shed",
+    "tag": "place",
+    "question": "Is the thing ordinarily found in a garage or garden shed? Judge its everyday meaning.",
+    "claim": "\"{answer}\" is ordinarily found in a garage or shed.",
+    "category": true
   }
 }

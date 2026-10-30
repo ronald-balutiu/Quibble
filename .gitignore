@@ -33,3 +33,6 @@ __pycache__/
 eval/verdict/model/
 factory/wordnet/
 *.safetensors
+
+# Factory spot-check page (regenerate with factory/preview.ts)
+/factory/preview.html

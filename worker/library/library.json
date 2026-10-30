@@ -5,255 +5,6 @@
         "rounds": {
           "r1": {
             "conditions": [
-              "fabric",
-              "bendy",
-              "daily"
-            ],
-            "known": [
-              "sock",
-              "sweater",
-              "jeans",
-              "pillow",
-              "blanket"
-            ],
-            "example": "sock"
-          },
-          "r2": {
-            "conditions": [
-              "metal",
-              "unpowered",
-              "handle"
-            ],
-            "known": [
-              "pocket knife",
-              "chef knife",
-              "fork",
-              "kettle",
-              "frying pan",
-              "pruning shears",
-              "hammer",
-              "screwdriver"
-            ],
-            "example": "pocket knife"
-          },
-          "r3": {
-            "conditions": [
-              "nonelec",
-              "handle",
-              "heavy"
-            ],
-            "known": [
-              "shovel",
-              "watering can",
-              "wheelbarrow",
-              "baseball bat",
-              "bicycle",
-              "hammer",
-              "bucket",
-              "broom"
-            ],
-            "example": "shovel"
-          },
-          "r4": {
-            "conditions": [
-              "nonelec",
-              "wearable",
-              "daily"
-            ],
-            "known": [
-              "sock",
-              "hat",
-              "belt",
-              "sweater",
-              "jeans",
-              "sneakers"
-            ],
-            "example": "sock"
-          },
-          "r5": {
-            "conditions": [
-              "unpowered",
-              "heavy",
-              "daily"
-            ],
-            "known": [
-              "toilet",
-              "jeans",
-              "backpack",
-              "bucket",
-              "pillow",
-              "blanket"
-            ],
-            "example": "toilet"
-          }
-        }
-      },
-      "2": {
-        "rounds": {
-          "r1": {
-            "conditions": [
-              "wearable",
-              "fabric",
-              "daily"
-            ],
-            "known": [
-              "sock",
-              "hat",
-              "sweater",
-              "jeans",
-              "sneakers"
-            ],
-            "example": "sock"
-          },
-          "r2": {
-            "conditions": [
-              "unpowered",
-              "handle",
-              "heavy"
-            ],
-            "known": [
-              "shovel",
-              "watering can",
-              "wheelbarrow",
-              "baseball bat",
-              "bicycle",
-              "hammer",
-              "bucket",
-              "broom"
-            ],
-            "example": "shovel"
-          },
-          "r3": {
-            "conditions": [
-              "metal",
-              "nonelec",
-              "handle"
-            ],
-            "known": [
-              "pocket knife",
-              "chef knife",
-              "fork",
-              "frying pan",
-              "pruning shears",
-              "hammer",
-              "screwdriver"
-            ],
-            "example": "pocket knife"
-          },
-          "r4": {
-            "conditions": [
-              "nonelec",
-              "heavy",
-              "daily"
-            ],
-            "known": [
-              "toilet",
-              "jeans",
-              "backpack",
-              "bucket",
-              "pillow",
-              "blanket"
-            ],
-            "example": "toilet"
-          },
-          "r5": {
-            "conditions": [
-              "fabric",
-              "bendy",
-              "cheap"
-            ],
-            "known": [
-              "scarf",
-              "sock",
-              "umbrella",
-              "pillow",
-              "teddy bear"
-            ],
-            "example": "scarf"
-          }
-        }
-      },
-      "3": {
-        "rounds": {
-          "r1": {
-            "conditions": [
-              "wearable",
-              "bendy",
-              "daily"
-            ],
-            "known": [
-              "sock",
-              "belt",
-              "sweater",
-              "jeans"
-            ],
-            "example": "sock"
-          },
-          "r2": {
-            "conditions": [
-              "liftable",
-              "metal",
-              "handle"
-            ],
-            "known": [
-              "pocket knife",
-              "chef knife",
-              "fork",
-              "frying pan",
-              "pruning shears",
-              "screwdriver"
-            ],
-            "example": "pocket knife"
-          },
-          "r3": {
-            "conditions": [
-              "handle",
-              "heavy",
-              "cheap"
-            ],
-            "known": [
-              "shovel",
-              "watering can",
-              "hammer",
-              "bucket",
-              "broom"
-            ],
-            "example": "shovel"
-          },
-          "r4": {
-            "conditions": [
-              "liftable",
-              "wearable",
-              "fabric"
-            ],
-            "known": [
-              "scarf",
-              "sock",
-              "glove",
-              "hat"
-            ],
-            "example": "scarf"
-          },
-          "r5": {
-            "conditions": [
-              "nonfood",
-              "unpowered",
-              "handle"
-            ],
-            "known": [
-              "wooden spoon",
-              "kettle",
-              "toothbrush",
-              "baseball bat"
-            ],
-            "example": "wooden spoon"
-          }
-        }
-      },
-      "4": {
-        "rounds": {
-          "r1": {
-            "conditions": [
               "wearable",
               "fabric",
               "bendy"
@@ -262,73 +13,338 @@
               "scarf",
               "sock",
               "sweater",
-              "jeans"
+              "jeans",
+              "garden gloves",
+              "apron"
             ],
             "example": "scarf"
           },
           "r2": {
             "conditions": [
-              "nonmetal",
-              "wearable",
+              "soft",
+              "fabric",
               "daily"
             ],
             "known": [
               "sock",
-              "hat",
-              "belt",
               "sweater",
               "jeans",
-              "sneakers"
+              "pillow",
+              "bath mat",
+              "hand towel",
+              "bath towel",
+              "t-shirt"
             ],
             "example": "sock"
           },
           "r3": {
             "conditions": [
-              "metal",
-              "handle",
-              "cheap"
+              "pocket",
+              "bendy",
+              "daily"
             ],
             "known": [
-              "fork",
-              "pruning shears",
-              "hammer",
-              "screwdriver"
+              "sock",
+              "toothpaste",
+              "face cloth",
+              "tissue box",
+              "paper",
+              "jacket",
+              "coat",
+              "tea bag"
             ],
-            "example": "fork"
+            "example": "sock"
           },
           "r4": {
             "conditions": [
               "pocket",
-              "nonmetal",
-              "unpowered"
+              "soft",
+              "cleaning"
             ],
             "known": [
-              "whisk",
-              "toothbrush",
-              "earthworm",
-              "sock",
-              "sunglasses",
-              "matchstick"
+              "bath sponge",
+              "cotton swab",
+              "toothpaste",
+              "dental floss",
+              "tissue box"
             ],
-            "example": "whisk"
+            "example": "bath sponge"
+          },
+          "r5": {
+            "conditions": [
+              "pocket",
+              "unpowered",
+              "plastic"
+            ],
+            "known": [
+              "bath sponge",
+              "dental floss",
+              "salt shaker",
+              "kitchen timer"
+            ],
+            "example": "bath sponge"
+          }
+        }
+      },
+      "2": {
+        "rounds": {
+          "r1": {
+            "conditions": [
+              "metal",
+              "nonfood",
+              "handle"
+            ],
+            "known": [
+              "chef knife",
+              "kettle",
+              "frying pan",
+              "hedge trimmer"
+            ],
+            "example": "chef knife"
+          },
+          "r2": {
+            "conditions": [
+              "nonelec",
+              "handle",
+              "heavy"
+            ],
+            "known": [
+              "shovel",
+              "watering can",
+              "wheelbarrow",
+              "baseball bat",
+              "bicycle",
+              "hammer",
+              "bucket",
+              "broom"
+            ],
+            "example": "shovel"
+          },
+          "r3": {
+            "conditions": [
+              "nonmetal",
+              "nonfood",
+              "heavy"
+            ],
+            "known": [
+              "watering can",
+              "flower pot",
+              "baseball bat",
+              "guitar",
+              "pillow"
+            ],
+            "example": "watering can"
+          },
+          "r4": {
+            "conditions": [
+              "liftable",
+              "metal",
+              "nonelec"
+            ],
+            "known": [
+              "pocket knife",
+              "chef knife",
+              "fork",
+              "frying pan",
+              "pruning shears",
+              "screwdriver",
+              "hole punch"
+            ],
+            "example": "pocket knife"
           },
           "r5": {
             "conditions": [
               "liftable",
+              "nonmetal",
+              "handle"
+            ],
+            "known": [
+              "wooden spoon",
+              "whisk",
+              "toothbrush",
+              "baseball bat",
+              "broom",
+              "whiteboard marker",
+              "hole punch",
+              "pepper grinder"
+            ],
+            "example": "wooden spoon"
+          }
+        }
+      },
+      "3": {
+        "rounds": {
+          "r1": {
+            "conditions": [
+              "fabric",
+              "bendy",
+              "daily"
+            ],
+            "known": [
+              "sock",
+              "sweater",
+              "jeans",
+              "pillow",
+              "blanket",
+              "bath mat",
+              "hand towel",
+              "bath towel"
+            ],
+            "example": "sock"
+          },
+          "r2": {
+            "conditions": [
+              "pocket",
+              "soft",
+              "daily"
+            ],
+            "known": [
+              "sock",
+              "toothpaste",
+              "face cloth",
+              "tissue box",
+              "paper",
+              "jacket",
+              "coat",
+              "tea bag"
+            ],
+            "example": "sock"
+          },
+          "r3": {
+            "conditions": [
+              "pocket",
+              "bendy",
+              "cleaning"
+            ],
+            "known": [
+              "bath sponge",
+              "cotton swab",
+              "toothpaste",
+              "dental floss",
+              "tissue box",
+              "napkin"
+            ],
+            "example": "bath sponge"
+          },
+          "r4": {
+            "conditions": [
+              "soft",
+              "unpowered",
+              "fabric"
+            ],
+            "known": [
+              "scarf",
+              "sock",
+              "glove",
+              "sweater",
+              "jeans",
+              "pillow",
+              "garden gloves",
+              "t-shirt"
+            ],
+            "example": "scarf"
+          },
+          "r5": {
+            "conditions": [
+              "wearable",
+              "unpowered",
+              "bendy"
+            ],
+            "known": [
+              "scarf",
+              "sock",
+              "belt",
+              "sweater",
+              "jeans",
+              "necklace",
+              "hair clip",
+              "garden gloves"
+            ],
+            "example": "scarf"
+          }
+        }
+      },
+      "4": {
+        "rounds": {
+          "r1": {
+            "conditions": [
+              "metal",
               "nonelec",
               "handle"
             ],
             "known": [
               "pocket knife",
               "chef knife",
-              "wooden spoon",
               "fork",
-              "teaspoon",
-              "spatula",
-              "whisk",
-              "frying pan"
+              "frying pan",
+              "pruning shears",
+              "hammer",
+              "screwdriver",
+              "hole punch"
             ],
             "example": "pocket knife"
+          },
+          "r2": {
+            "conditions": [
+              "plastic",
+              "heavy",
+              "cheap"
+            ],
+            "known": [
+              "watering can",
+              "bucket",
+              "desk fan",
+              "compost bin",
+              "sprinkler"
+            ],
+            "example": "watering can"
+          },
+          "r3": {
+            "conditions": [
+              "liftable",
+              "plastic",
+              "breakable"
+            ],
+            "known": [
+              "flashlight",
+              "smartphone",
+              "soap dish",
+              "salt shaker"
+            ],
+            "example": "flashlight"
+          },
+          "r4": {
+            "conditions": [
+              "nonelec",
+              "nonfood",
+              "heavy"
+            ],
+            "known": [
+              "toilet",
+              "shovel",
+              "watering can",
+              "flower pot",
+              "baseball bat",
+              "pillow"
+            ],
+            "example": "toilet"
+          },
+          "r5": {
+            "conditions": [
+              "liftable",
+              "nonfood",
+              "handle"
+            ],
+            "known": [
+              "chef knife",
+              "wooden spoon",
+              "frying pan",
+              "toothbrush",
+              "baseball bat",
+              "flashlight",
+              "pepper grinder"
+            ],
+            "example": "chef knife"
           }
         }
       },
@@ -337,7 +353,7 @@
           "r1": {
             "conditions": [
               "wearable",
-              "unpowered",
+              "bendy",
               "daily"
             ],
             "known": [
@@ -345,77 +361,73 @@
               "belt",
               "sweater",
               "jeans",
-              "sneakers"
+              "hair clip"
             ],
             "example": "sock"
           },
           "r2": {
             "conditions": [
+              "soft",
+              "cleaning",
+              "daily"
+            ],
+            "known": [
+              "hand towel",
+              "toilet paper",
+              "toothpaste",
+              "bath towel",
+              "tissue box"
+            ],
+            "example": "hand towel"
+          },
+          "r3": {
+            "conditions": [
+              "pocket",
+              "fabric",
+              "bendy"
+            ],
+            "known": [
+              "sock",
+              "jacket",
+              "coat",
+              "mittens"
+            ],
+            "example": "sock"
+          },
+          "r4": {
+            "conditions": [
+              "pocket",
+              "soft",
+              "unpowered"
+            ],
+            "known": [
+              "earthworm",
+              "sock",
+              "glove",
+              "bath sponge",
+              "toothpaste",
+              "dental floss",
+              "jacket",
+              "coat"
+            ],
+            "example": "earthworm"
+          },
+          "r5": {
+            "conditions": [
               "wearable",
-              "bendy",
-              "cheap"
+              "unpowered",
+              "fabric"
             ],
             "known": [
               "scarf",
               "sock",
-              "belt",
-              "necklace"
+              "glove",
+              "sweater",
+              "jeans",
+              "sneakers",
+              "garden gloves"
             ],
             "example": "scarf"
-          },
-          "r3": {
-            "conditions": [
-              "nonelec",
-              "handle",
-              "cheap"
-            ],
-            "known": [
-              "wooden spoon",
-              "fork",
-              "teaspoon",
-              "spatula",
-              "whisk",
-              "toothbrush",
-              "shovel",
-              "rake"
-            ],
-            "example": "wooden spoon"
-          },
-          "r4": {
-            "conditions": [
-              "liftable",
-              "unpowered",
-              "handle"
-            ],
-            "known": [
-              "pocket knife",
-              "chef knife",
-              "wooden spoon",
-              "fork",
-              "teaspoon",
-              "spatula",
-              "whisk",
-              "frying pan"
-            ],
-            "example": "pocket knife"
-          },
-          "r5": {
-            "conditions": [
-              "pocket",
-              "nonmetal",
-              "nonfood"
-            ],
-            "known": [
-              "zip tie",
-              "pencil",
-              "crayon",
-              "highlighter",
-              "eraser",
-              "sticky note",
-              "toothbrush",
-              "soap"
-            ],
-            "example": "zip tie"
           }
         }
       },
@@ -423,51 +435,67 @@
         "rounds": {
           "r1": {
             "conditions": [
-              "wearable",
-              "fabric",
-              "cheap"
+              "liftable",
+              "metal",
+              "handle"
             ],
             "known": [
-              "scarf",
-              "sock",
-              "glove",
-              "hat"
+              "pocket knife",
+              "chef knife",
+              "fork",
+              "frying pan",
+              "pruning shears",
+              "screwdriver",
+              "hole punch"
             ],
-            "example": "scarf"
+            "example": "pocket knife"
           },
           "r2": {
             "conditions": [
-              "unpowered",
+              "nonelec",
               "handle",
-              "cheap"
+              "eatdrink"
             ],
             "known": [
               "wooden spoon",
               "fork",
               "teaspoon",
-              "spatula",
-              "whisk",
-              "toothbrush",
-              "shovel",
-              "rake"
+              "coffee mug",
+              "ladle",
+              "lunchbox"
             ],
             "example": "wooden spoon"
           },
           "r3": {
             "conditions": [
-              "liftable",
-              "nonfood",
-              "handle"
+              "handle",
+              "heavy",
+              "cheap"
             ],
             "known": [
-              "wooden spoon",
-              "toothbrush",
-              "baseball bat",
-              "flashlight"
+              "shovel",
+              "watering can",
+              "hammer",
+              "bucket",
+              "broom"
             ],
-            "example": "wooden spoon"
+            "example": "shovel"
           },
           "r4": {
+            "conditions": [
+              "liftable",
+              "plastic",
+              "cheap"
+            ],
+            "known": [
+              "flashlight",
+              "dental floss",
+              "keyboard",
+              "desk fan"
+            ],
+            "example": "flashlight"
+          },
+          "r5": {
             "conditions": [
               "nonmetal",
               "nonelec",
@@ -484,24 +512,6 @@
               "blanket"
             ],
             "example": "watering can"
-          },
-          "r5": {
-            "conditions": [
-              "soft",
-              "nonfood",
-              "cheap"
-            ],
-            "known": [
-              "oven mitt",
-              "dish towel",
-              "sponge",
-              "towel",
-              "rubber duck",
-              "earthworm",
-              "scarf",
-              "sock"
-            ],
-            "example": "oven mitt"
           }
         }
       },
@@ -509,86 +519,82 @@
         "rounds": {
           "r1": {
             "conditions": [
-              "nonmetal",
-              "bendy",
-              "cheap"
+              "wearable",
+              "fabric",
+              "daily"
             ],
             "known": [
-              "oven mitt",
-              "earthworm",
-              "scarf",
               "sock",
-              "belt",
-              "umbrella",
-              "rope",
-              "pillow"
+              "hat",
+              "sweater",
+              "jeans",
+              "sneakers"
             ],
-            "example": "oven mitt"
+            "example": "sock"
           },
           "r2": {
             "conditions": [
-              "liftable",
-              "nonelec",
-              "wearable"
+              "bendy",
+              "cleaning",
+              "daily"
             ],
             "known": [
-              "scarf",
-              "sock",
-              "glove",
-              "hat",
-              "belt",
-              "sunglasses"
+              "hand towel",
+              "toilet paper",
+              "toothpaste",
+              "bath towel",
+              "tissue box",
+              "napkin"
             ],
-            "example": "scarf"
+            "example": "hand towel"
           },
           "r3": {
             "conditions": [
-              "liftable",
-              "soft",
-              "nonfood"
+              "unpowered",
+              "fabric",
+              "bendy"
             ],
             "known": [
-              "oven mitt",
-              "dish towel",
-              "rubber duck",
-              "earthworm",
               "scarf",
               "sock",
-              "glove"
+              "sweater",
+              "jeans",
+              "umbrella",
+              "pillow",
+              "blanket",
+              "garden gloves"
             ],
-            "example": "oven mitt"
+            "example": "scarf"
           },
           "r4": {
             "conditions": [
-              "nonelec",
+              "pocket",
               "nonfood",
-              "breakable"
+              "daily"
             ],
             "known": [
-              "mug",
-              "wine glass",
-              "toilet",
-              "mirror",
-              "flower pot",
-              "sunglasses",
-              "matchstick"
+              "toothbrush",
+              "sock",
+              "soap dish",
+              "paper",
+              "tea bag",
+              "napkin"
             ],
-            "example": "mug"
+            "example": "toothbrush"
           },
           "r5": {
             "conditions": [
               "wearable",
-              "unpowered",
-              "cheap"
+              "soft",
+              "unpowered"
             ],
             "known": [
               "scarf",
               "sock",
               "glove",
-              "belt",
-              "ring",
-              "necklace",
-              "sunglasses"
+              "sweater",
+              "jeans",
+              "garden gloves"
             ],
             "example": "scarf"
           }
@@ -598,104 +604,110 @@
         "rounds": {
           "r1": {
             "conditions": [
-              "nonelec",
-              "wearable",
-              "cheap"
-            ],
-            "known": [
-              "scarf",
-              "sock",
-              "glove",
-              "hat",
-              "belt",
-              "ring",
-              "necklace",
-              "sunglasses"
-            ],
-            "example": "scarf"
-          },
-          "r2": {
-            "conditions": [
-              "liftable",
-              "wearable",
-              "unpowered"
-            ],
-            "known": [
-              "scarf",
-              "sock",
-              "glove",
-              "belt",
-              "sunglasses"
-            ],
-            "example": "scarf"
-          },
-          "r3": {
-            "conditions": [
-              "nonmetal",
+              "metal",
               "handle",
               "cheap"
             ],
             "known": [
-              "wooden spoon",
-              "whisk",
-              "toothbrush",
-              "watering can",
-              "umbrella",
-              "broom"
+              "fork",
+              "pruning shears",
+              "hammer",
+              "screwdriver",
+              "hole punch"
             ],
-            "example": "wooden spoon"
+            "example": "fork"
+          },
+          "r2": {
+            "conditions": [
+              "liftable",
+              "nonelec",
+              "handle"
+            ],
+            "known": [
+              "pocket knife",
+              "chef knife",
+              "wooden spoon",
+              "fork",
+              "teaspoon",
+              "spatula",
+              "whisk",
+              "frying pan"
+            ],
+            "example": "pocket knife"
+          },
+          "r3": {
+            "conditions": [
+              "nonelec",
+              "heavy",
+              "cheap"
+            ],
+            "known": [
+              "shovel",
+              "watering can",
+              "flower pot",
+              "hammer",
+              "bucket",
+              "broom",
+              "pillow",
+              "whiteboard"
+            ],
+            "example": "shovel"
           },
           "r4": {
             "conditions": [
-              "liftable",
               "nonmetal",
-              "bendy"
-            ],
-            "known": [
-              "oven mitt",
-              "earthworm",
-              "scarf",
-              "sock",
-              "belt"
-            ],
-            "example": "oven mitt"
-          },
-          "r5": {
-            "conditions": [
-              "nonmetal",
-              "nonfood",
+              "nonelec",
               "breakable"
             ],
             "known": [
               "wine glass",
+              "egg",
               "flower pot",
               "sunglasses",
-              "guitar",
-              "matchstick"
+              "matchstick",
+              "soap dish",
+              "salt shaker"
             ],
             "example": "wine glass"
+          },
+          "r5": {
+            "conditions": [
+              "liftable",
+              "breakable",
+              "cheap"
+            ],
+            "known": [
+              "mug",
+              "sunglasses",
+              "matchstick",
+              "flashlight"
+            ],
+            "example": "mug"
           }
         }
       }
     }
   },
   "questions": {
+    "wearable": "Is the thing ordinarily worn on the body?",
     "fabric": "Is the thing ordinarily made mostly of cloth or fabric? Judge its everyday meaning.",
     "bendy": "Can the thing ordinarily be bent or folded by hand without breaking? Judge its everyday meaning.",
+    "soft": "Is the thing ordinarily soft to the touch?",
     "daily": "Do most people ordinarily use the thing on most days? Judge its everyday meaning.",
-    "metal": "Is the main body or structure of the thing ordinarily made of metal? Judge its everyday meaning.",
+    "pocket": "Could the thing ordinarily fit inside a clothing pocket, even if people don't usually carry it there? Judge its everyday size.",
+    "cleaning": "Is the thing ordinarily used for cleaning something, including people? Judge its everyday meaning.",
     "unpowered": "Does the thing work without any electricity, battery or engine?",
+    "plastic": "Is the main body of the thing ordinarily made of plastic? Judge its everyday meaning.",
+    "metal": "Is the main body or structure of the thing ordinarily made of metal? Judge its everyday meaning.",
+    "nonfood": "Is the thing something people do not ordinarily eat?",
     "handle": "Does the thing ordinarily have a handle you hold it by? Judge its everyday meaning.",
     "nonelec": "Is the thing free of electronic components? Judge its everyday meaning.",
     "heavy": "Does the thing ordinarily weigh more than 1 kilogram, about a bag of sugar? Judge its everyday meaning.",
-    "wearable": "Is the thing ordinarily worn on the body?",
-    "cheap": "Can the thing ordinarily be bought new for less than 10 US dollars? Judge its everyday meaning.",
-    "liftable": "Can an adult ordinarily lift the thing with one hand? Judge its everyday meaning.",
-    "nonfood": "Is the thing something people do not ordinarily eat?",
     "nonmetal": "Is the main body or structure of the thing ordinarily made of something other than metal? Judge its everyday meaning.",
-    "pocket": "Could the thing ordinarily fit inside a clothing pocket, even if people don't usually carry it there? Judge its everyday size.",
-    "soft": "Is the thing ordinarily soft to the touch?",
-    "breakable": "Would the thing ordinarily break or shatter if dropped on a hard floor? Judge its everyday meaning."
+    "liftable": "Can an adult ordinarily lift the thing with one hand? Judge its everyday meaning.",
+    "cheap": "Can the thing ordinarily be bought new for less than 10 US dollars? Judge its everyday meaning.",
+    "breakable": "Would the thing ordinarily break or shatter if dropped on a hard floor? Judge its everyday meaning.",
+    "eatdrink": "Is the thing ordinarily used while eating or drinking, such as to hold, serve or bring food or drink to the mouth?"
   },
   "aliases": {}
 }

@@ -7,22 +7,22 @@
       "id": "r1",
       "conditions": [
         {
-          "id": "wearable",
-          "label": "Can be worn",
-          "negation": "can't be worn",
-          "claim": "\"{answer}\" is ordinarily worn on the body."
+          "id": "liftable",
+          "label": "Can be lifted with one hand",
+          "negation": "can't be lifted with one hand",
+          "claim": "An adult can ordinarily lift \"{answer}\" with one hand."
         },
         {
-          "id": "fabric",
-          "label": "Made of fabric",
-          "negation": "isn't made of fabric",
-          "claim": "\"{answer}\" is ordinarily made mostly of cloth or fabric."
+          "id": "metal",
+          "label": "Mostly metal",
+          "negation": "isn't mostly metal",
+          "claim": "The main body or structure of \"{answer}\" is ordinarily made of metal."
         },
         {
-          "id": "cheap",
-          "label": "Usually costs under $10",
-          "negation": "usually costs more than $10",
-          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+          "id": "handle",
+          "label": "Has a handle",
+          "negation": "has no handle",
+          "claim": "\"{answer}\" ordinarily has a handle you hold it by."
         }
       ]
     },
@@ -30,10 +30,10 @@
       "id": "r2",
       "conditions": [
         {
-          "id": "unpowered",
-          "label": "Not powered",
-          "negation": "is powered",
-          "claim": "\"{answer}\" works without any electricity, battery or engine."
+          "id": "nonelec",
+          "label": "Not electronic",
+          "negation": "is electronic",
+          "claim": "\"{answer}\" is free of electronic components."
         },
         {
           "id": "handle",
@@ -42,6 +42,29 @@
           "claim": "\"{answer}\" ordinarily has a handle you hold it by."
         },
         {
+          "id": "eatdrink",
+          "label": "Used to eat or drink",
+          "negation": "isn't used to eat or drink",
+          "claim": "\"{answer}\" is ordinarily used while eating or drinking."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "handle",
+          "label": "Has a handle",
+          "negation": "has no handle",
+          "claim": "\"{answer}\" ordinarily has a handle you hold it by."
+        },
+        {
+          "id": "heavy",
+          "label": "Heavier than a bag of sugar",
+          "negation": "is lighter than a bag of sugar",
+          "claim": "\"{answer}\" ordinarily weighs more than 1 kilogram."
+        },
+        {
           "id": "cheap",
           "label": "Usually costs under $10",
           "negation": "usually costs more than $10",
@@ -50,7 +73,7 @@
       ]
     },
     {
-      "id": "r3",
+      "id": "r4",
       "conditions": [
         {
           "id": "liftable",
@@ -59,21 +82,21 @@
           "claim": "An adult can ordinarily lift \"{answer}\" with one hand."
         },
         {
-          "id": "nonfood",
-          "label": "Not food",
-          "negation": "is food",
-          "claim": "\"{answer}\" is something people do not ordinarily eat."
+          "id": "plastic",
+          "label": "Mostly plastic",
+          "negation": "isn't mostly plastic",
+          "claim": "The main body of \"{answer}\" is ordinarily made of plastic."
         },
         {
-          "id": "handle",
-          "label": "Has a handle",
-          "negation": "has no handle",
-          "claim": "\"{answer}\" ordinarily has a handle you hold it by."
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
         }
       ]
     },
     {
-      "id": "r4",
+      "id": "r5",
       "conditions": [
         {
           "id": "nonmetal",
@@ -92,29 +115,6 @@
           "label": "Heavier than a bag of sugar",
           "negation": "is lighter than a bag of sugar",
           "claim": "\"{answer}\" ordinarily weighs more than 1 kilogram."
-        }
-      ]
-    },
-    {
-      "id": "r5",
-      "conditions": [
-        {
-          "id": "soft",
-          "label": "Soft to the touch",
-          "negation": "isn't soft",
-          "claim": "\"{answer}\" is ordinarily soft to the touch."
-        },
-        {
-          "id": "nonfood",
-          "label": "Not food",
-          "negation": "is food",
-          "claim": "\"{answer}\" is something people do not ordinarily eat."
-        },
-        {
-          "id": "cheap",
-          "label": "Usually costs under $10",
-          "negation": "usually costs more than $10",
-          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
         }
       ]
     }

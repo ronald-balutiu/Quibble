@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router'
-import { gameIds, type GameId } from '@shared/games'
-import { oddlySpecificConfig } from '@shared/games/oddly-specific'
+import { gameConfigs, gameIds, type GameId } from '@shared/games'
 import { cloudModels, type CloudModel } from '@shared/schemas/judge'
 import type { PuzzleIndex } from '@shared/schemas/puzzle'
 import { en, format } from '@/copy/en'
@@ -15,13 +14,22 @@ type Status = 'unplayed' | 'open' | 'solved' | 'perfect'
 const FILTERS = ['all', 'easy', 'hard', 'unplayed'] as const
 type Filter = (typeof FILTERS)[number]
 
-const max = maxScore(oddlySpecificConfig)
+// A perfect score: 15/15 or 9/9 points, or 6/6 levels for Category Escape (5.5 L1).
+function maxFor(game: GameId): number {
+  const config = gameConfigs[game]
+  return 'levels' in config ? config.levels : maxScore(config)
+}
+
+// Category Escape counts levels where the other games count rounds (D-78).
+function progressText(game: GameId, key: 'library.continue' | 'sheet.resume', values: Record<string, string | number>): string {
+  return format(game === 'category-escape' ? `${key}.level` : key, values)
+}
 
 function statusOf(game: GameId, n: number): { status: Status, best?: number, round?: number } {
   const { best, run } = loadProgress(game, n)
   if (run) return { status: 'open', round: run.current + 1, ...(best === undefined ? {} : { best }) }
   if (best === undefined) return { status: 'unplayed' }
-  return { status: best === max ? 'perfect' : 'solved', best }
+  return { status: best === maxFor(game) ? 'perfect' : 'solved', best }
 }
 
 export function LibraryScene() {
@@ -81,7 +89,7 @@ export function LibraryScene() {
             <li key={n}>
               <button
                 type="button" className={`tile tile--${status}`} onClick={() => { setOpen(n) }}
-                aria-label={format('library.tile', { n, difficulty: en[`difficulty.${difficulty}`], status: format(`library.status.${status}`, { best: best ?? 0, max }) })}
+                aria-label={format('library.tile', { n, difficulty: en[`difficulty.${difficulty}`], status: format(`library.status.${status}`, { best: best ?? 0, max: maxFor(game) }) })}
               >
                 <span className="tile__n">{String(n).padStart(3, '0')}</span>
                 <span className="tile__score">{status === 'open' ? en['library.openMark'] : status === 'perfect' ? en['library.perfectMark'] : best}</span>
@@ -91,7 +99,7 @@ export function LibraryScene() {
         </ol>
       </section>
         <div className="library-actions">
-          {continuing && <Link className="pill pill--wide control-link" to={`/play/${game}/${String(continuing.n)}`}>{format('library.continue', { n: String(continuing.n).padStart(3, '0'), round: continuing.round ?? 1 })}</Link>}
+          {continuing && <Link className="pill pill--wide control-link" to={`/play/${game}/${String(continuing.n)}`}>{progressText(game, 'library.continue', { n: String(continuing.n).padStart(3, '0'), round: continuing.round ?? 1 })}</Link>}
           {unplayed.length > 0 && (
             <button type="button" className="pill pill--quiet pill--icon" aria-label={en['library.random']} onClick={() => { const pick = unplayed[Math.floor(Math.random() * unplayed.length)]; if (pick) void navigate(`/play/${game}/${String(pick.n)}`) }}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5" /></svg>
@@ -142,7 +150,7 @@ function PuzzleSheet({ game, n, onClose }: { game: GameId, n: number, onClose: (
       <h2 id="sheet-title">{format('game.header', { code: en[`game.code.${game}`], n: String(n).padStart(3, '0') })}</h2>
       <div className="actions">
         <button type="button" className="pill" onClick={() => { void navigate(`/play/${game}/${String(n)}`) }}>
-          {status === 'open' ? format('sheet.resume', { round: round ?? 1 }) : en['sheet.play']}
+          {status === 'open' ? progressText(game, 'sheet.resume', { round: round ?? 1 }) : en['sheet.play']}
         </button>
         {status !== 'unplayed' && (
           <button type="button" className="pill pill--quiet" onClick={reset}>{confirming ? en['confirm.again'] : en['sheet.reset']}</button>

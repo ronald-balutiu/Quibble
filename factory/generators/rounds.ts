@@ -6,7 +6,7 @@ export interface ConditionInfo { tag: string, category?: boolean }
 export type Conditions = Record<string, ConditionInfo>
 
 const MAX_KNOWN = 8
-const CONFIRMED = 0.8
+const CONFIRMED = 0.85 // the minimum score margin (D-74)
 
 export function seeded(seed: number) {
   let state = seed >>> 0
@@ -29,7 +29,7 @@ export function shuffled<T>(items: readonly T[], next: () => number): T[] {
 
 const fits = (matrix: Matrix, thing: string, ids: readonly string[]) => ids.every((id) => truth(matrix[thing]?.[id]) === 'yes')
 
-// A known answer needs Gemma 4 to agree on every cell too, so both models confirm it (D-68).
+// A known answer needs Gemma 4 to agree on every cell too, so both models confirm it (D-68), with a margin over 0.8 (D-74).
 export const confirmed = (matrix: Matrix, thing: string, ids: readonly string[]) =>
   ids.every((id) => (matrix[thing]?.[id]?.gemma ?? 0) >= CONFIRMED)
 

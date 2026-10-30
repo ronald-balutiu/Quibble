@@ -66,6 +66,10 @@ describe('Category Escape run', () => {
     expect(reduce(state, pass('g'))).toBe(state)
   })
 
+  test('restart begins a fresh run', () => {
+    expect(reduce(play(pass('a'), { type: 'giveUp' }), { type: 'restart' })).toEqual(startEscape(categoryEscapeConfig))
+  })
+
   test('builds the share grid with a colour-free text form', () => {
     const state = play(pass('a'), fail('x'), moveOn, pass('b'), fail('y'), { type: 'countAnyway' }, fail('z'), moveOn, fail('w'), moveOn)
     expect(escapeShareGrid(state)).toEqual({ tiles: '🟩🟨🟦🟥⬛⬛', text: '✓ 2 ✓* ✗ - -' })

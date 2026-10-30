@@ -14,6 +14,7 @@ export type EscapeAction =
   | { type: 'moveOn' }
   | { type: 'countAnyway' }
   | { type: 'giveUp' }
+  | { type: 'restart' }
 
 export type EscapeEnd = 'escaped' | 'over' | 'gaveUp'
 
@@ -54,6 +55,7 @@ function clear(state: RunState, change: (level: RoundState) => RoundState): RunS
 
 export function escapeReducer(config: EscapeConfig) {
   return (state: RunState, action: EscapeAction): RunState => {
+    if (action.type === 'restart') return startEscape(config)
     const level = state.rounds[state.current]
     if (!level || state.finished) return state
 

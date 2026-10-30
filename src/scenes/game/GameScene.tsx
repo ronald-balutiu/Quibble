@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useRef, useState, type CSSProperties, type FormEvent } from 'react'
+import { useEffect, useReducer, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router'
 import { judgeConfig } from '@shared/config'
 import { gameConfigs, gameIds, type GameId } from '@shared/games'
@@ -7,27 +7,21 @@ import { isValidAnswer, normalizeAnswer } from '@shared/normalize'
 import type { CloudModel, Reveal } from '@shared/schemas/judge'
 import type { Puzzle } from '@shared/schemas/puzzle'
 import { en, format } from '@/copy/en'
+import { EscapeGame } from '@/games/category-escape/Screen'
 import {
-  maxScore, previousGuess, runReducer, shareGrid, startRun, totalScore, type Guess, type RunState,
+  maxScore, previousGuess, runReducer, shareGrid, startRun, totalScore, type RunState,
 } from '@/games/oddly-specific/reducer'
-import { judgeOnCloud, type CloudMessage } from '@/judges/attempt'
 import { fetchReveal } from '@/lib/api'
 import { loadPuzzle, loadPuzzleIndex } from '@/lib/puzzles'
 import { isStorageAvailable, loadProgress, saveRun } from '@/lib/storage/progress'
 import { loadCloudModel, markTipSeen, tipSeen } from '@/lib/storage/settings'
-import { renewSession } from '@/lib/turnstile'
-import { letterFor, rejectedSentence, toGuess } from './verdict'
+import { judgeGuess, type Ui } from './judge-guess'
+import { AnswerForm, GameHeader, NotJudgedPanel, RejectedPanel, ScoreAxes, StrikeDots } from './parts'
+import { letterFor, rejectedSentence } from './verdict'
 import './game.css'
 
-type Ui =
-  | { kind: 'input', notice?: 'input.empty' | 'input.tooLong' | 'input.repeat' }
-  | { kind: 'judging' }
-  | { kind: 'rejected', guess: Guess }
-  | { kind: 'notJudged', message: CloudMessage | 'cloud.busy', retryAfter?: number }
-  | { kind: 'resting', resetAt: string }
-
 const reduce = runReducer(oddlySpecificConfig)
-const PLAYABLE: readonly GameId[] = ['oddly-specific']
+const PLAYABLE: readonly GameId[] = ['oddly-specific', 'category-escape']
 
 export function GameScene() {
   const params = useParams()
@@ -45,6 +39,7 @@ export function GameScene() {
 
   if (playable && puzzle === undefined) return <main data-scene="game" className="app-frame game-frame" aria-busy="true"><p>{en['game.loading']}</p></main>
   if (!playable || !puzzle) return <main data-scene="game" className="app-frame game-frame"><p>{en['game.notFound']}</p><Link className="control-link" to="/play">{en['nav.library']}</Link></main>
+  if (puzzle.game === 'category-escape') return <EscapeGame key={`${game}-${String(n)}`} puzzle={puzzle} />
   return <Game key={`${game}-${String(n)}`} puzzle={puzzle} />
 }
 
@@ -99,30 +94,13 @@ function Game({ puzzle }: { puzzle: Puzzle }) {
 
     attempt.current += 1
     setUi({ kind: 'judging' })
-    const container = turnstile.current
-    const outcome = await judgeOnCloud(
-      { game, n, roundId: puzzle.rounds[run.current]?.id ?? '', answer: text, attempt: attempt.current, model },
-      () => (container ? renewSession(container) : Promise.resolve('error')),
-    )
-    switch (outcome.kind) {
-      case 'judged': {
-        const guess = toGuess(normalized, outcome.result, conditions, model)
-        setScores(Object.fromEntries(Object.entries(outcome.result.conditions).map(([id, { p }]) => [id, p])))
-        dispatch({ type: 'judged', guess })
-        setUi(guess.pass ? { kind: 'input' } : { kind: 'rejected', guess })
-        return
-      }
-      case 'busy': setUi({ kind: 'notJudged', message: 'cloud.busy', retryAfter: outcome.retryAfter }); return
-      case 'resting': setUi({ kind: 'resting', resetAt: outcome.resetAt }); return
-      case 'invalid': setUi({ kind: 'input', notice: 'input.tooLong' }); return
-      case 'error': setUi({ kind: 'notJudged', message: outcome.message }); return
-    }
-  }
-
-  function submit(event: FormEvent) {
-    event.preventDefault()
-    if (ui.kind === 'judging') return
-    void judge(answer)
+    const result = await judgeGuess({
+      game, n, roundId: puzzle.rounds[run.current]?.id ?? '', text, normalized, attempt: attempt.current, model, conditions, turnstile: turnstile.current,
+    })
+    if ('ui' in result) { setUi(result.ui); return }
+    setScores(result.scores)
+    dispatch({ type: 'judged', guess: result.guess })
+    setUi(result.guess.pass ? { kind: 'input' } : { kind: 'rejected', guess: result.guess })
   }
 
   function type(value: string) {
@@ -134,14 +112,9 @@ function Game({ puzzle }: { puzzle: Puzzle }) {
 
   if (!round) return null
   const header = (
-    <header className="game-header">
-      <Link className="game-header__back" to="/play" aria-label={en['nav.backToLibrary']}>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6" /></svg>
-      </Link>
-      <span className="game-header__code">{format('game.header', { code: en[`game.code.${game}`], n: String(n).padStart(3, '0') })}</span>
-      <span className="telemetry">{run.finished ? format('game.points', { points: score }) : format('game.round', { n: run.current + 1, total: run.rounds.length })}</span>
+    <GameHeader game={game} n={n} status={run.finished ? format('game.points', { points: score }) : format('game.round', { n: run.current + 1, total: run.rounds.length })}>
       <StrikeDots used={round.strikes} max={oddlySpecificConfig.maxWrongGuessesPerRound} />
-    </header>
+    </GameHeader>
   )
 
   return (
@@ -170,52 +143,22 @@ function Game({ puzzle }: { puzzle: Puzzle }) {
                       </li>
                     ))}
                   </ol>
-                  <form className="answer" onSubmit={submit}>
-                    <label htmlFor="answer" className="telemetry">{en['game.answer']}</label>
-                    <input
-                      ref={input} id="answer" value={answer} autoComplete="off"
-                      maxLength={config.input.maxCharacters} placeholder={en['game.placeholder.oddly-specific']}
-                      disabled={ui.kind === 'judging'} aria-describedby="answer-note"
-                      onChange={(event) => { type(event.target.value) }}
-                    />
-                    <button type="submit" className="answer__judge" disabled={!answer.trim() || ui.kind === 'judging'}>
-                      {ui.kind === 'judging' ? en['game.judging'] : en['game.judge']}
-                    </button>
-                  </form>
+                  <AnswerForm
+                    label={en['game.answer']} placeholder={en['game.placeholder.oddly-specific']} answer={answer} maxLength={config.input.maxCharacters}
+                    judging={ui.kind === 'judging'} input={input} onType={type} onSubmit={() => { void judge(answer) }}
+                  />
                   <p id="answer-note" className="telemetry">
                     {ui.kind === 'input' && ui.notice ? en[ui.notice] : format('game.counter', { count: [...answer].length, max: config.input.maxCharacters })}
                   </p>
                   <div aria-live="polite">
                     {ui.kind === 'rejected' && (
-                      <div className="verdict verdict--rejected">
-                        <p className="telemetry verdict__label">{en['verdict.label.rejected']}</p>
-                        <p className="verdict__sentence">{rejectedSentence(ui.guess, conditions)}</p>
-                        <div className="actions">
-                          <button type="button" className="pill" onClick={() => { dispatch({ type: 'moveOn' }); setUi({ kind: 'input' }); setAnswer(''); input.current?.focus() }}>{en['game.tryAgain']}</button>
-                          <button type="button" className="pill pill--quiet" onClick={() => { dispatch({ type: 'countAnyway' }) }}>{en['game.countAnyway']}</button>
-                        </div>
-                      </div>
+                      <RejectedPanel
+                        sentence={rejectedSentence(ui.guess, conditions)}
+                        onTryAgain={() => { dispatch({ type: 'moveOn' }); setUi({ kind: 'input' }); setAnswer(''); input.current?.focus() }}
+                        onCountAnyway={() => { dispatch({ type: 'countAnyway' }) }}
+                      />
                     )}
-                    {ui.kind === 'notJudged' && (
-                      <div className="verdict">
-                        <p className="telemetry verdict__label">{en['notJudged.label']}</p>
-                        <p className="verdict__sentence">{ui.message === 'cloud.busy' ? format('cloud.busy', { s: ui.retryAfter ?? 60 }) : en[ui.message]}</p>
-                        <div className="actions">
-                          {ui.message === 'session.botcheck'
-                            ? <button type="button" className="pill" onClick={() => { window.location.reload() }}>{en['action.reload']}</button>
-                            : <button type="button" className="pill" onClick={() => { void judge(answer) }}>{en['action.retry']}</button>}
-                          <button type="button" className="pill pill--quiet" onClick={() => { setUi({ kind: 'input' }); input.current?.focus() }}>{en['action.editAnswer']}</button>
-                        </div>
-                      </div>
-                    )}
-                    {ui.kind === 'resting' && (
-                      <div className="verdict">
-                        <p className="telemetry verdict__label">{en['notJudged.label']}</p>
-                        <p className="verdict__sentence">{format('cloud.resting.headline', { time: new Date(ui.resetAt).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) })}</p>
-                        <p>{en['cloud.resting.body']}</p>
-                        <div className="actions"><Link className="pill control-link" to="/play">{en['nav.backToLibrary']}</Link></div>
-                      </div>
-                    )}
+                    <NotJudgedPanel ui={ui} onRetry={() => { void judge(answer) }} onEdit={() => { setUi({ kind: 'input' }); input.current?.focus() }} />
                   </div>
                   <button type="button" className="pill pill--quiet game-skip" onClick={() => { dispatch({ type: 'skip' }) }} disabled={ui.kind === 'judging'}>{en['game.skip']}</button>
                 </section>
@@ -223,39 +166,6 @@ function Game({ puzzle }: { puzzle: Puzzle }) {
               </div>
             )}
     </main>
-  )
-}
-
-function StrikeDots({ used, max }: { used: number, max: number }) {
-  return (
-    <span className="strikes" role="img" aria-label={format('game.strikes', { used, max })}>
-      {Array.from({ length: max }, (_, i) => <span key={i} className={i < used ? 'strikes__dot strikes__dot--used' : 'strikes__dot'} />)}
-    </span>
-  )
-}
-
-function ScoreAxes({ conditions, scores, threshold, model }: { conditions: Puzzle['rounds'][number]['conditions'], scores: Record<string, number | undefined>, threshold: number, model: CloudModel }) {
-  return (
-    <section className="axes" aria-label={en['game.verdicts']}>
-      <p className="telemetry axes__head">
-        <span>{format('game.cloudStatus', { model: en[`judgeChoice.${model}`] })}</span>
-        <span>{en['game.pYes']}</span>
-      </p>
-      {conditions.map((condition, i) => {
-        const p = scores[condition.id]
-        return (
-          <div key={condition.id} className="axis">
-            <span className="axis__letter">{letterFor(i)}</span>
-            {/* eslint-disable-next-line react/forbid-dom-props -- the threshold and score positions are runtime values; CSS owns the styling. */}
-            <span className="axis__track" style={{ '--threshold': threshold, '--p': p ?? 0 } as CSSProperties}>
-              <span className="axis__tick" />
-              {p !== undefined && <span className={p >= threshold ? 'axis__dot' : 'axis__dot axis__dot--fail'} />}
-            </span>
-            <span className="axis__value">{p === undefined ? '' : p.toFixed(2)}</span>
-          </div>
-        )
-      })}
-    </section>
   )
 }
 

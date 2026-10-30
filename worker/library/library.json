@@ -27,13 +27,13 @@
             ],
             "known": [
               "sock",
-              "sweater",
               "jeans",
               "pillow",
               "bath mat",
               "hand towel",
               "bath towel",
-              "t-shirt"
+              "t-shirt",
+              "jacket"
             ],
             "example": "sock"
           },
@@ -47,11 +47,11 @@
               "sock",
               "toothpaste",
               "face cloth",
-              "tissue box",
               "paper",
               "jacket",
               "coat",
-              "tea bag"
+              "tea bag",
+              "napkin"
             ],
             "example": "sock"
           },
@@ -65,8 +65,7 @@
               "bath sponge",
               "cotton swab",
               "toothpaste",
-              "dental floss",
-              "tissue box"
+              "dental floss"
             ],
             "example": "bath sponge"
           },
@@ -182,13 +181,13 @@
             ],
             "known": [
               "sock",
-              "sweater",
               "jeans",
               "pillow",
               "blanket",
               "bath mat",
               "hand towel",
-              "bath towel"
+              "bath towel",
+              "t-shirt"
             ],
             "example": "sock"
           },
@@ -202,7 +201,6 @@
               "sock",
               "toothpaste",
               "face cloth",
-              "tissue box",
               "paper",
               "jacket",
               "coat",
@@ -221,7 +219,6 @@
               "cotton swab",
               "toothpaste",
               "dental floss",
-              "tissue box",
               "napkin"
             ],
             "example": "bath sponge"
@@ -359,7 +356,6 @@
             "known": [
               "sock",
               "belt",
-              "sweater",
               "jeans",
               "hair clip"
             ],
@@ -526,7 +522,6 @@
             "known": [
               "sock",
               "hat",
-              "sweater",
               "jeans",
               "sneakers"
             ],
@@ -664,7 +659,6 @@
               "egg",
               "flower pot",
               "sunglasses",
-              "matchstick",
               "soap dish",
               "salt shaker"
             ],
@@ -672,17 +666,17 @@
           },
           "r5": {
             "conditions": [
-              "liftable",
-              "breakable",
+              "nonmetal",
+              "noise",
               "cheap"
             ],
             "known": [
-              "mug",
-              "sunglasses",
-              "matchstick",
-              "flashlight"
+              "hole punch",
+              "keyboard",
+              "desk fan",
+              "sprinkler"
             ],
-            "example": "mug"
+            "example": "hole punch"
           }
         }
       }
@@ -707,7 +701,8 @@
     "liftable": "Can an adult ordinarily lift the thing with one hand? Judge its everyday meaning.",
     "cheap": "Can the thing ordinarily be bought new for less than 10 US dollars? Judge its everyday meaning.",
     "breakable": "Would the thing ordinarily break or shatter if dropped on a hard floor? Judge its everyday meaning.",
-    "eatdrink": "Is the thing ordinarily used while eating or drinking, such as to hold, serve or bring food or drink to the mouth?"
+    "eatdrink": "Is the thing ordinarily used while eating or drinking, such as to hold, serve or bring food or drink to the mouth?",
+    "noise": "Does the thing ordinarily make a noticeable sound when it is used?"
   },
   "aliases": {}
 }

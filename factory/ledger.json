@@ -61,5 +61,47 @@
     "model": "gemma-4",
     "requests": 386,
     "neurons": 170.72
+  },
+  {
+    "date": "2026-10-30T03:50:03.564Z",
+    "step": "double-agent-rewrite-and-clues",
+    "model": "gemma-4+clef-flash",
+    "requests": 400,
+    "neurons": 1274.96
+  },
+  {
+    "date": "2026-10-30T03:51:57.520Z",
+    "step": "matrix",
+    "model": "clef-flash",
+    "requests": 100,
+    "neurons": 1340.05
+  },
+  {
+    "date": "2026-10-30T03:53:50.769Z",
+    "step": "recheck",
+    "model": "gemma-4",
+    "requests": 736,
+    "neurons": 330.81
+  },
+  {
+    "date": "2026-10-30T03:54:06.260Z",
+    "step": "recheck",
+    "model": "gemma-4",
+    "requests": 19,
+    "neurons": 8.67
+  },
+  {
+    "date": "2026-10-30T03:54:22.991Z",
+    "step": "confirm",
+    "model": "gemma-4",
+    "requests": 109,
+    "neurons": 47.97
+  },
+  {
+    "date": "2026-10-30T03:57:00.211Z",
+    "step": "prototype-puzzles",
+    "model": "gemma-4",
+    "requests": 356,
+    "neurons": 156.21
   }
 ]

@@ -1,0 +1,193 @@
+/* Category Escape (5.5 E1, E2). Layout and pieces shared with the other games live in game.css. */
+/* Doubled classes: game.css loads after this file and sets .telemetry and .answer. */
+.telemetry.escape-category {
+  color: var(--accent);
+}
+
+.escape-title {
+  margin: 0;
+  font-size: var(--type-category);
+  font-weight: var(--weight-light);
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-answer);
+}
+
+/* The level scale: L-06 at the top, the current level marked in the game colour. */
+.levels {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-left: var(--border-width) solid var(--line-strong);
+}
+
+.level {
+  position: relative;
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  min-height: var(--target-min);
+  padding-left: var(--space-6);
+  color: var(--muted);
+}
+
+.level::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: var(--space-2);
+  height: var(--border-width);
+  background: var(--dim);
+}
+
+.level__code,
+.level__note {
+  font-family: var(--font-mono);
+  font-size: var(--type-label-large);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.level__code {
+  width: var(--space-10);
+}
+
+.level__rule {
+  flex: 1;
+  font-size: var(--type-body-large);
+}
+
+.level--done::before {
+  background: var(--text);
+}
+
+.level--done .level__code {
+  color: var(--text);
+}
+
+.level--now::before {
+  width: var(--space-4);
+  background: var(--accent);
+}
+
+.level--now .level__code,
+.level--now .level__note {
+  color: var(--accent);
+}
+
+.level--now .level__rule {
+  color: var(--text);
+}
+
+.level--locked .level__rule {
+  color: var(--dim);
+}
+
+.level--failed .level__rule {
+  color: var(--fail);
+}
+
+.answer.answer--invalid {
+  border-color: var(--fail);
+}
+
+.telemetry.answer-note--fail {
+  color: var(--fail);
+}
+
+.escape-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  align-items: center;
+}
+
+.escape-side {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.used {
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: var(--border-width) solid var(--line);
+}
+
+.used li {
+  display: flex;
+  gap: var(--space-3);
+  align-items: baseline;
+  justify-content: space-between;
+  padding: var(--space-2) 0;
+  border-bottom: var(--border-width) solid var(--line);
+}
+
+.used__answer {
+  font-size: var(--type-panel);
+  font-weight: var(--weight-light);
+}
+
+.used--wrong .telemetry {
+  color: var(--fail);
+}
+
+.telemetry.escape-over__end {
+  color: var(--accent);
+}
+
+.escape-over__max {
+  font-size: var(--type-score-suffix);
+  letter-spacing: var(--tracking-answer);
+  color: var(--muted);
+}
+
+.path-table {
+  overflow-x: auto;
+}
+
+.path-table table {
+  width: 100%;
+  border-collapse: collapse;
+  border-top: var(--border-width) solid var(--line);
+}
+
+.path-table th,
+.path-table td {
+  padding: var(--space-2) var(--space-3) var(--space-2) 0;
+  border-bottom: var(--border-width) solid var(--line-soft);
+  text-align: left;
+  font-weight: var(--weight-regular);
+}
+
+.path-table thead th,
+.path-table tbody th {
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  letter-spacing: var(--tracking-label);
+  color: var(--muted);
+}
+
+.path-table .path-table__end th {
+  color: var(--accent);
+}
+
+/* E1's side panel is desktop only; the phone mock has none. */
+@media (max-width: 1023px) {
+  .escape-side--play {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .escape-side {
+    padding: var(--panel-pad);
+    border-left: var(--border-width) solid var(--line);
+  }
+
+  .escape-side .axes {
+    padding: 0;
+    border-left: none;
+  }
+}

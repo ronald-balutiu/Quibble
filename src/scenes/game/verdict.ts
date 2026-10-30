@@ -24,12 +24,13 @@ export function toGuess(answer: string, result: JudgeSuccess, conditions: readon
   }
 }
 
-export function rejectedSentence(guess: Guess, conditions: readonly PuzzleCondition[]): string {
+// `mark` names a condition in the multi-failure sentence: a letter, or a Category Escape level code.
+export function rejectedSentence(guess: Guess, conditions: readonly PuzzleCondition[], mark = letterFor): string {
   const failed = conditions.filter(({ id }) => guess.failed.includes(id))
   const sentence = failed.length === 1 && failed[0]
     ? format('verdict.rejected', { negation: failed[0].negation })
     : format('verdict.rejected.multi', {
-        conditions: failed.map((condition) => letterFor(conditions.indexOf(condition))).join(' and '),
+        conditions: failed.map((condition) => mark(conditions.indexOf(condition))).join(' and '),
       })
   return guess.closeCall ? sentence + format('verdict.closeCall') : sentence
 }

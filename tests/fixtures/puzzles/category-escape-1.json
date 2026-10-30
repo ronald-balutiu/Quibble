@@ -1,0 +1,163 @@
+{
+  "game": "category-escape",
+  "n": 1,
+  "difficulty": "easy",
+  "rounds": [
+    {
+      "id": "L1",
+      "conditions": [
+        {
+          "id": "kitchen",
+          "label": "In a kitchen",
+          "negation": "isn't in a kitchen",
+          "claim": "{answer} is found in a kitchen"
+        }
+      ]
+    },
+    {
+      "id": "L2",
+      "conditions": [
+        {
+          "id": "kitchen",
+          "label": "In a kitchen",
+          "negation": "isn't in a kitchen",
+          "claim": "{answer} is found in a kitchen"
+        },
+        {
+          "id": "notfood",
+          "label": "Not food",
+          "negation": "is food",
+          "claim": "{answer} is not food"
+        }
+      ]
+    },
+    {
+      "id": "L3",
+      "conditions": [
+        {
+          "id": "kitchen",
+          "label": "In a kitchen",
+          "negation": "isn't in a kitchen",
+          "claim": "{answer} is found in a kitchen"
+        },
+        {
+          "id": "notfood",
+          "label": "Not food",
+          "negation": "is food",
+          "claim": "{answer} is not food"
+        },
+        {
+          "id": "unpowered",
+          "label": "Not powered",
+          "negation": "needs power",
+          "claim": "{answer} does not need power"
+        }
+      ]
+    },
+    {
+      "id": "L4",
+      "conditions": [
+        {
+          "id": "kitchen",
+          "label": "In a kitchen",
+          "negation": "isn't in a kitchen",
+          "claim": "{answer} is found in a kitchen"
+        },
+        {
+          "id": "notfood",
+          "label": "Not food",
+          "negation": "is food",
+          "claim": "{answer} is not food"
+        },
+        {
+          "id": "unpowered",
+          "label": "Not powered",
+          "negation": "needs power",
+          "claim": "{answer} does not need power"
+        },
+        {
+          "id": "soft",
+          "label": "Softer than wood",
+          "negation": "isn't softer than wood",
+          "claim": "{answer} is softer than wood"
+        }
+      ]
+    },
+    {
+      "id": "L5",
+      "conditions": [
+        {
+          "id": "kitchen",
+          "label": "In a kitchen",
+          "negation": "isn't in a kitchen",
+          "claim": "{answer} is found in a kitchen"
+        },
+        {
+          "id": "notfood",
+          "label": "Not food",
+          "negation": "is food",
+          "claim": "{answer} is not food"
+        },
+        {
+          "id": "unpowered",
+          "label": "Not powered",
+          "negation": "needs power",
+          "claim": "{answer} does not need power"
+        },
+        {
+          "id": "soft",
+          "label": "Softer than wood",
+          "negation": "isn't softer than wood",
+          "claim": "{answer} is softer than wood"
+        },
+        {
+          "id": "small",
+          "label": "Smaller than a hand",
+          "negation": "isn't smaller than a hand",
+          "claim": "{answer} is smaller than a hand"
+        }
+      ]
+    },
+    {
+      "id": "L6",
+      "conditions": [
+        {
+          "id": "kitchen",
+          "label": "In a kitchen",
+          "negation": "isn't in a kitchen",
+          "claim": "{answer} is found in a kitchen"
+        },
+        {
+          "id": "notfood",
+          "label": "Not food",
+          "negation": "is food",
+          "claim": "{answer} is not food"
+        },
+        {
+          "id": "unpowered",
+          "label": "Not powered",
+          "negation": "needs power",
+          "claim": "{answer} does not need power"
+        },
+        {
+          "id": "soft",
+          "label": "Softer than wood",
+          "negation": "isn't softer than wood",
+          "claim": "{answer} is softer than wood"
+        },
+        {
+          "id": "small",
+          "label": "Smaller than a hand",
+          "negation": "isn't smaller than a hand",
+          "claim": "{answer} is smaller than a hand"
+        },
+        {
+          "id": "floats",
+          "label": "Floats",
+          "negation": "doesn't float",
+          "claim": "{answer} floats"
+        }
+      ]
+    }
+  ]
+}

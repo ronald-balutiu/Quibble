@@ -24,7 +24,9 @@
     "test:e2e": "playwright test",
     "check:assets": "node scripts/check-assets.mjs",
     "check:bundle": "wrangler deploy --dry-run",
-    "check": "npm run build && npm test && npm run check:assets && npm run check:bundle",
+    "check-puzzles": "tsx --tsconfig tsconfig.node.json factory/check-puzzles.ts",
+    "preview-puzzles": "tsx --tsconfig tsconfig.node.json factory/preview.ts",
+    "check": "npm run build && npm test && npm run check-puzzles && npm run check:assets && npm run check:bundle",
     "deploy": "npm run build && npm run check:assets && wrangler deploy"
   },
   "dependencies": {

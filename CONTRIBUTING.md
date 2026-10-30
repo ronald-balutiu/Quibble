@@ -24,7 +24,9 @@ configuration, and the Git and pull request workflow.
 | `npm run test:e2e` | Build, serve a production preview, and run Playwright at desktop and phone sizes. |
 | `npm run check:assets` | Check built client assets against Cloudflare's per-file size limit. |
 | `npm run check:bundle` | Validate the built Worker with a Wrangler deployment dry run. |
-| `npm run check` | Build, then run unit tests, asset checks, and the deployment dry run. |
+| `npm run check-puzzles` | Check the puzzle files and Worker library against the library guarantees. |
+| `npm run preview-puzzles` | Write `factory/preview.html`, a random sample of puzzles to spot-check. Ignored by Git. |
+| `npm run check` | Build, then run unit tests, the puzzle checks, asset checks, and the deployment dry run. |
 | `npm run deploy` | Build and deploy to Cloudflare with your authenticated account. |
 
 `npm run build` treats lint warnings as errors. `npm run check` reuses the build's

@@ -35,6 +35,7 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npm test
+      - run: npm run check-puzzles
       - run: npm run check:assets
       - run: npm run check:bundle
 

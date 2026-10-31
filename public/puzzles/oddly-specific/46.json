@@ -7,81 +7,6 @@
       "id": "r1",
       "conditions": [
         {
-          "id": "bendy",
-          "label": "Bends easily",
-          "negation": "doesn't bend easily",
-          "claim": "\"{answer}\" can ordinarily be bent or folded by hand without breaking."
-        },
-        {
-          "id": "wet",
-          "label": "Gets wet when used",
-          "negation": "doesn't get wet when used",
-          "claim": "\"{answer}\" ordinarily gets wet when it is used."
-        },
-        {
-          "id": "hangs",
-          "label": "Often hung up",
-          "negation": "isn't usually hung up",
-          "claim": "\"{answer}\" is ordinarily hung up when not in use."
-        }
-      ]
-    },
-    {
-      "id": "r2",
-      "conditions": [
-        {
-          "id": "soft",
-          "label": "Soft to the touch",
-          "negation": "isn't soft",
-          "claim": "\"{answer}\" is ordinarily soft to the touch."
-        },
-        {
-          "id": "wet",
-          "label": "Gets wet when used",
-          "negation": "doesn't get wet when used",
-          "claim": "\"{answer}\" ordinarily gets wet when it is used."
-        },
-        {
-          "id": "thin",
-          "label": "Thinner than a finger",
-          "negation": "isn't thinner than a finger",
-          "claim": "\"{answer}\" is ordinarily thinner than a finger."
-        }
-      ]
-    },
-    {
-      "id": "r3",
-      "conditions": [
-        {
-          "id": "bendy",
-          "label": "Bends easily",
-          "negation": "doesn't bend easily",
-          "claim": "\"{answer}\" can ordinarily be bent or folded by hand without breaking."
-        },
-        {
-          "id": "folds",
-          "label": "Folds or rolls up",
-          "negation": "doesn't fold or roll up",
-          "claim": "\"{answer}\" can ordinarily be folded or rolled up."
-        },
-        {
-          "id": "thin",
-          "label": "Thinner than a finger",
-          "negation": "isn't thinner than a finger",
-          "claim": "\"{answer}\" is ordinarily thinner than a finger."
-        }
-      ]
-    },
-    {
-      "id": "r4",
-      "conditions": [
-        {
-          "id": "fabric",
-          "label": "Made of fabric",
-          "negation": "isn't made of fabric",
-          "claim": "\"{answer}\" is ordinarily made mostly of cloth or fabric."
-        },
-        {
           "id": "daily",
           "label": "Used most days",
           "negation": "isn't used most days",
@@ -92,17 +17,69 @@
           "label": "Gets wet when used",
           "negation": "doesn't get wet when used",
           "claim": "\"{answer}\" ordinarily gets wet when it is used."
+        },
+        {
+          "id": "thin",
+          "label": "Thinner than a finger",
+          "negation": "isn't thinner than a finger",
+          "claim": "\"{answer}\" is ordinarily thinner than a finger."
         }
       ]
     },
     {
-      "id": "r5",
+      "id": "r2",
       "conditions": [
         {
-          "id": "folds",
-          "label": "Folds or rolls up",
-          "negation": "doesn't fold or roll up",
-          "claim": "\"{answer}\" can ordinarily be folded or rolled up."
+          "id": "handle",
+          "label": "Has a handle",
+          "negation": "has no handle",
+          "claim": "\"{answer}\" ordinarily has a handle you hold it by."
+        },
+        {
+          "id": "wet",
+          "label": "Gets wet when used",
+          "negation": "doesn't get wet when used",
+          "claim": "\"{answer}\" ordinarily gets wet when it is used."
+        },
+        {
+          "id": "floats",
+          "label": "Floats on water",
+          "negation": "doesn't float on water",
+          "claim": "\"{answer}\" would ordinarily float on water."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "metal",
+          "label": "Mostly metal",
+          "negation": "isn't mostly metal",
+          "claim": "The main body or structure of \"{answer}\" is ordinarily made of metal."
+        },
+        {
+          "id": "handle",
+          "label": "Has a handle",
+          "negation": "has no handle",
+          "claim": "\"{answer}\" ordinarily has a handle you hold it by."
+        },
+        {
+          "id": "hangs",
+          "label": "Often hung up",
+          "negation": "isn't usually hung up",
+          "claim": "\"{answer}\" is ordinarily hung up when not in use."
+        }
+      ]
+    },
+    {
+      "id": "r4",
+      "conditions": [
+        {
+          "id": "wearable",
+          "label": "Can be worn",
+          "negation": "can't be worn",
+          "claim": "\"{answer}\" is ordinarily worn on the body."
         },
         {
           "id": "hangs",
@@ -111,10 +88,33 @@
           "claim": "\"{answer}\" is ordinarily hung up when not in use."
         },
         {
-          "id": "pack",
-          "label": "Usually bought in packs",
-          "negation": "isn't usually bought in packs",
-          "claim": "\"{answer}\" is ordinarily bought in a pack of several or many."
+          "id": "floats",
+          "label": "Floats on water",
+          "negation": "doesn't float on water",
+          "claim": "\"{answer}\" would ordinarily float on water."
+        }
+      ]
+    },
+    {
+      "id": "r5",
+      "conditions": [
+        {
+          "id": "daily",
+          "label": "Used most days",
+          "negation": "isn't used most days",
+          "claim": "Most people ordinarily use \"{answer}\" on most days."
+        },
+        {
+          "id": "opens",
+          "label": "Opens and closes",
+          "negation": "doesn't open and close",
+          "claim": "\"{answer}\" ordinarily opens and closes."
+        },
+        {
+          "id": "floats",
+          "label": "Floats on water",
+          "negation": "doesn't float on water",
+          "claim": "\"{answer}\" would ordinarily float on water."
         }
       ]
     }

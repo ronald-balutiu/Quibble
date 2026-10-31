@@ -187,5 +187,19 @@
     "model": "clef-flash+gemma-4",
     "requests": 1143,
     "neurons": 2073.22
+  },
+  {
+    "date": "2026-10-31T21:26:46.245Z",
+    "step": "recheck",
+    "model": "gemma-4",
+    "requests": 38,
+    "neurons": 17.41
+  },
+  {
+    "date": "2026-10-31T21:26:54.891Z",
+    "step": "agents",
+    "model": "clef-flash+gemma-4",
+    "requests": 32,
+    "neurons": 54.92
   }
 ]

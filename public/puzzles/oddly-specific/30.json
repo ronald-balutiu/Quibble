@@ -7,22 +7,22 @@
       "id": "r1",
       "conditions": [
         {
-          "id": "daily",
-          "label": "Used most days",
-          "negation": "isn't used most days",
-          "claim": "Most people ordinarily use \"{answer}\" on most days."
+          "id": "soft",
+          "label": "Soft to the touch",
+          "negation": "isn't soft",
+          "claim": "\"{answer}\" is ordinarily soft to the touch."
         },
         {
-          "id": "folds",
-          "label": "Folds or rolls up",
-          "negation": "doesn't fold or roll up",
-          "claim": "\"{answer}\" can ordinarily be folded or rolled up."
+          "id": "fabric",
+          "label": "Made of fabric",
+          "negation": "isn't made of fabric",
+          "claim": "\"{answer}\" is ordinarily made mostly of cloth or fabric."
         },
         {
-          "id": "wet",
-          "label": "Gets wet when used",
-          "negation": "doesn't get wet when used",
-          "claim": "\"{answer}\" ordinarily gets wet when it is used."
+          "id": "hangs",
+          "label": "Often hung up",
+          "negation": "isn't usually hung up",
+          "claim": "\"{answer}\" is ordinarily hung up when not in use."
         }
       ]
     },
@@ -30,16 +30,16 @@
       "id": "r2",
       "conditions": [
         {
-          "id": "pocket",
-          "label": "Fits in a pocket",
-          "negation": "doesn't fit in a pocket",
-          "claim": "\"{answer}\" could ordinarily fit inside a clothing pocket."
+          "id": "fabric",
+          "label": "Made of fabric",
+          "negation": "isn't made of fabric",
+          "claim": "\"{answer}\" is ordinarily made mostly of cloth or fabric."
         },
         {
-          "id": "bendy",
-          "label": "Bends easily",
-          "negation": "doesn't bend easily",
-          "claim": "\"{answer}\" can ordinarily be bent or folded by hand without breaking."
+          "id": "folds",
+          "label": "Folds or rolls up",
+          "negation": "doesn't fold or roll up",
+          "claim": "\"{answer}\" can ordinarily be folded or rolled up."
         },
         {
           "id": "wet",
@@ -59,33 +59,10 @@
           "claim": "\"{answer}\" can ordinarily be bent or folded by hand without breaking."
         },
         {
-          "id": "daily",
-          "label": "Used most days",
-          "negation": "isn't used most days",
-          "claim": "Most people ordinarily use \"{answer}\" on most days."
-        },
-        {
           "id": "thin",
           "label": "Thinner than a finger",
           "negation": "isn't thinner than a finger",
           "claim": "\"{answer}\" is ordinarily thinner than a finger."
-        }
-      ]
-    },
-    {
-      "id": "r4",
-      "conditions": [
-        {
-          "id": "pocket",
-          "label": "Fits in a pocket",
-          "negation": "doesn't fit in a pocket",
-          "claim": "\"{answer}\" could ordinarily fit inside a clothing pocket."
-        },
-        {
-          "id": "folds",
-          "label": "Folds or rolls up",
-          "negation": "doesn't fold or roll up",
-          "claim": "\"{answer}\" can ordinarily be folded or rolled up."
         },
         {
           "id": "pack",
@@ -96,8 +73,14 @@
       ]
     },
     {
-      "id": "r5",
+      "id": "r4",
       "conditions": [
+        {
+          "id": "bendy",
+          "label": "Bends easily",
+          "negation": "doesn't bend easily",
+          "claim": "\"{answer}\" can ordinarily be bent or folded by hand without breaking."
+        },
         {
           "id": "wet",
           "label": "Gets wet when used",
@@ -105,16 +88,33 @@
           "claim": "\"{answer}\" ordinarily gets wet when it is used."
         },
         {
+          "id": "hangs",
+          "label": "Often hung up",
+          "negation": "isn't usually hung up",
+          "claim": "\"{answer}\" is ordinarily hung up when not in use."
+        }
+      ]
+    },
+    {
+      "id": "r5",
+      "conditions": [
+        {
+          "id": "bendy",
+          "label": "Bends easily",
+          "negation": "doesn't bend easily",
+          "claim": "\"{answer}\" can ordinarily be bent or folded by hand without breaking."
+        },
+        {
+          "id": "cleaning",
+          "label": "Used for cleaning",
+          "negation": "isn't used for cleaning",
+          "claim": "\"{answer}\" is ordinarily used for cleaning something."
+        },
+        {
           "id": "usedup",
           "label": "Gets used up",
           "negation": "doesn't get used up",
           "claim": "\"{answer}\" ordinarily gets used up or thrown away after a few uses."
-        },
-        {
-          "id": "floats",
-          "label": "Floats on water",
-          "negation": "doesn't float on water",
-          "claim": "\"{answer}\" would ordinarily float on water."
         }
       ]
     }

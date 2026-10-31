@@ -7,51 +7,11 @@
       "id": "r1",
       "conditions": [
         {
-          "id": "plastic",
-          "label": "Mostly plastic",
-          "negation": "isn't mostly plastic",
-          "claim": "The main body of \"{answer}\" is ordinarily made of plastic."
+          "id": "pocket",
+          "label": "Fits in a pocket",
+          "negation": "doesn't fit in a pocket",
+          "claim": "\"{answer}\" could ordinarily fit inside a clothing pocket."
         },
-        {
-          "id": "handle",
-          "label": "Has a handle",
-          "negation": "has no handle",
-          "claim": "\"{answer}\" ordinarily has a handle you hold it by."
-        },
-        {
-          "id": "wet",
-          "label": "Gets wet when used",
-          "negation": "doesn't get wet when used",
-          "claim": "\"{answer}\" ordinarily gets wet when it is used."
-        }
-      ]
-    },
-    {
-      "id": "r2",
-      "conditions": [
-        {
-          "id": "plastic",
-          "label": "Mostly plastic",
-          "negation": "isn't mostly plastic",
-          "claim": "The main body of \"{answer}\" is ordinarily made of plastic."
-        },
-        {
-          "id": "cleaning",
-          "label": "Used for cleaning",
-          "negation": "isn't used for cleaning",
-          "claim": "\"{answer}\" is ordinarily used for cleaning something."
-        },
-        {
-          "id": "drawer",
-          "label": "Often kept in a drawer",
-          "negation": "isn't usually kept in a drawer",
-          "claim": "\"{answer}\" is ordinarily kept in a drawer."
-        }
-      ]
-    },
-    {
-      "id": "r3",
-      "conditions": [
         {
           "id": "nonmetal",
           "label": "Not metal",
@@ -59,16 +19,56 @@
           "claim": "The main body or structure of \"{answer}\" is ordinarily made of something other than metal."
         },
         {
-          "id": "drawer",
-          "label": "Often kept in a drawer",
-          "negation": "isn't usually kept in a drawer",
-          "claim": "\"{answer}\" is ordinarily kept in a drawer."
+          "id": "floats",
+          "label": "Floats on water",
+          "negation": "doesn't float on water",
+          "claim": "\"{answer}\" would ordinarily float on water."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "nonfood",
+          "label": "Not food",
+          "negation": "is food",
+          "claim": "\"{answer}\" is something people do not ordinarily eat."
         },
         {
-          "id": "thin",
-          "label": "Thinner than a finger",
-          "negation": "isn't thinner than a finger",
-          "claim": "\"{answer}\" is ordinarily thinner than a finger."
+          "id": "pack",
+          "label": "Usually bought in packs",
+          "negation": "isn't usually bought in packs",
+          "claim": "\"{answer}\" is ordinarily bought in a pack of several or many."
+        },
+        {
+          "id": "floats",
+          "label": "Floats on water",
+          "negation": "doesn't float on water",
+          "claim": "\"{answer}\" would ordinarily float on water."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "pocket",
+          "label": "Fits in a pocket",
+          "negation": "doesn't fit in a pocket",
+          "claim": "\"{answer}\" could ordinarily fit inside a clothing pocket."
+        },
+        {
+          "id": "nonfood",
+          "label": "Not food",
+          "negation": "is food",
+          "claim": "\"{answer}\" is something people do not ordinarily eat."
+        },
+        {
+          "id": "usedup",
+          "label": "Gets used up",
+          "negation": "doesn't get used up",
+          "claim": "\"{answer}\" ordinarily gets used up or thrown away after a few uses."
         }
       ]
     },
@@ -82,16 +82,16 @@
           "claim": "The main body or structure of \"{answer}\" is ordinarily made of something other than metal."
         },
         {
-          "id": "wearable",
-          "label": "Can be worn",
-          "negation": "can't be worn",
-          "claim": "\"{answer}\" is ordinarily worn on the body."
+          "id": "thin",
+          "label": "Thinner than a finger",
+          "negation": "isn't thinner than a finger",
+          "claim": "\"{answer}\" is ordinarily thinner than a finger."
         },
         {
-          "id": "bendy",
-          "label": "Bends easily",
-          "negation": "doesn't bend easily",
-          "claim": "\"{answer}\" can ordinarily be bent or folded by hand without breaking."
+          "id": "pack",
+          "label": "Usually bought in packs",
+          "negation": "isn't usually bought in packs",
+          "claim": "\"{answer}\" is ordinarily bought in a pack of several or many."
         }
       ]
     },
@@ -99,22 +99,22 @@
       "id": "r5",
       "conditions": [
         {
-          "id": "wearable",
-          "label": "Can be worn",
-          "negation": "can't be worn",
-          "claim": "\"{answer}\" is ordinarily worn on the body."
+          "id": "soft",
+          "label": "Soft to the touch",
+          "negation": "isn't soft",
+          "claim": "\"{answer}\" is ordinarily soft to the touch."
+        },
+        {
+          "id": "fabric",
+          "label": "Made of fabric",
+          "negation": "isn't made of fabric",
+          "claim": "\"{answer}\" is ordinarily made mostly of cloth or fabric."
         },
         {
           "id": "cheap",
           "label": "Usually costs under $10",
           "negation": "usually costs more than $10",
           "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
-        },
-        {
-          "id": "drawer",
-          "label": "Often kept in a drawer",
-          "negation": "isn't usually kept in a drawer",
-          "claim": "\"{answer}\" is ordinarily kept in a drawer."
         }
       ]
     }

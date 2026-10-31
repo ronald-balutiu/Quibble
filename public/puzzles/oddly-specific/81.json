@@ -7,22 +7,22 @@
       "id": "r1",
       "conditions": [
         {
-          "id": "bendy",
-          "label": "Bends easily",
-          "negation": "doesn't bend easily",
-          "claim": "\"{answer}\" can ordinarily be bent or folded by hand without breaking."
+          "id": "pocket",
+          "label": "Fits in a pocket",
+          "negation": "doesn't fit in a pocket",
+          "claim": "\"{answer}\" could ordinarily fit inside a clothing pocket."
         },
         {
-          "id": "twohands",
-          "label": "Used with both hands",
-          "negation": "isn't used with both hands",
-          "claim": "People ordinarily use both hands to use \"{answer}\"."
+          "id": "daily",
+          "label": "Used most days",
+          "negation": "isn't used most days",
+          "claim": "Most people ordinarily use \"{answer}\" on most days."
         },
         {
-          "id": "drawer",
-          "label": "Often kept in a drawer",
-          "negation": "isn't usually kept in a drawer",
-          "claim": "\"{answer}\" is ordinarily kept in a drawer."
+          "id": "opens",
+          "label": "Opens and closes",
+          "negation": "doesn't open and close",
+          "claim": "\"{answer}\" ordinarily opens and closes."
         }
       ]
     },
@@ -30,10 +30,79 @@
       "id": "r2",
       "conditions": [
         {
-          "id": "handle",
-          "label": "Has a handle",
-          "negation": "has no handle",
-          "claim": "\"{answer}\" ordinarily has a handle you hold it by."
+          "id": "electric",
+          "label": "Needs electricity",
+          "negation": "doesn't need electricity",
+          "claim": "\"{answer}\" needs electricity, from a plug or a battery, to do its job."
+        },
+        {
+          "id": "noise",
+          "label": "Makes a sound in use",
+          "negation": "doesn't make a sound in use",
+          "claim": "\"{answer}\" ordinarily makes a noticeable sound when it is used."
+        },
+        {
+          "id": "twohands",
+          "label": "Used with both hands",
+          "negation": "isn't used with both hands",
+          "claim": "People ordinarily use both hands to use \"{answer}\"."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "electric",
+          "label": "Needs electricity",
+          "negation": "doesn't need electricity",
+          "claim": "\"{answer}\" needs electricity, from a plug or a battery, to do its job."
+        },
+        {
+          "id": "plastic",
+          "label": "Mostly plastic",
+          "negation": "isn't mostly plastic",
+          "claim": "The main body of \"{answer}\" is ordinarily made of plastic."
+        },
+        {
+          "id": "buttons",
+          "label": "Has buttons",
+          "negation": "has no buttons",
+          "claim": "\"{answer}\" ordinarily has buttons or keys you press."
+        }
+      ]
+    },
+    {
+      "id": "r4",
+      "conditions": [
+        {
+          "id": "plastic",
+          "label": "Mostly plastic",
+          "negation": "isn't mostly plastic",
+          "claim": "The main body of \"{answer}\" is ordinarily made of plastic."
+        },
+        {
+          "id": "daily",
+          "label": "Used most days",
+          "negation": "isn't used most days",
+          "claim": "Most people ordinarily use \"{answer}\" on most days."
+        },
+        {
+          "id": "container",
+          "label": "Holds other things",
+          "negation": "doesn't hold other things",
+          "claim": "\"{answer}\" is ordinarily used to hold or store other objects."
+        }
+      ]
+    },
+    {
+      "id": "r5",
+      "conditions": [
+        {
+          "id": "plastic",
+          "label": "Mostly plastic",
+          "negation": "isn't mostly plastic",
+          "claim": "The main body of \"{answer}\" is ordinarily made of plastic."
         },
         {
           "id": "heavy",
@@ -42,79 +111,10 @@
           "claim": "\"{answer}\" ordinarily weighs more than 1 kilogram."
         },
         {
-          "id": "hot",
-          "label": "Gets hot when used",
-          "negation": "doesn't get hot when used",
-          "claim": "\"{answer}\" ordinarily gets hot when it is used."
-        }
-      ]
-    },
-    {
-      "id": "r3",
-      "conditions": [
-        {
-          "id": "secure",
-          "label": "Can secure something",
-          "negation": "can't secure anything",
-          "claim": "The ordinary use of \"{answer}\" includes fastening or securing something."
-        },
-        {
           "id": "moving",
           "label": "Has moving parts",
           "negation": "has no moving parts",
           "claim": "\"{answer}\" ordinarily has moving parts."
-        },
-        {
-          "id": "drawer",
-          "label": "Often kept in a drawer",
-          "negation": "isn't usually kept in a drawer",
-          "claim": "\"{answer}\" is ordinarily kept in a drawer."
-        }
-      ]
-    },
-    {
-      "id": "r4",
-      "conditions": [
-        {
-          "id": "wet",
-          "label": "Gets wet when used",
-          "negation": "doesn't get wet when used",
-          "claim": "\"{answer}\" ordinarily gets wet when it is used."
-        },
-        {
-          "id": "tool",
-          "label": "Is a tool",
-          "negation": "isn't a tool",
-          "claim": "\"{answer}\" is ordinarily considered a tool."
-        },
-        {
-          "id": "thin",
-          "label": "Thinner than a finger",
-          "negation": "isn't thinner than a finger",
-          "claim": "\"{answer}\" is ordinarily thinner than a finger."
-        }
-      ]
-    },
-    {
-      "id": "r5",
-      "conditions": [
-        {
-          "id": "nonfood",
-          "label": "Not food",
-          "negation": "is food",
-          "claim": "\"{answer}\" is something people do not ordinarily eat."
-        },
-        {
-          "id": "drawer",
-          "label": "Often kept in a drawer",
-          "negation": "isn't usually kept in a drawer",
-          "claim": "\"{answer}\" is ordinarily kept in a drawer."
-        },
-        {
-          "id": "thin",
-          "label": "Thinner than a finger",
-          "negation": "isn't thinner than a finger",
-          "claim": "\"{answer}\" is ordinarily thinner than a finger."
         }
       ]
     }

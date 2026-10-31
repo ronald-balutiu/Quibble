@@ -7,22 +7,22 @@
       "id": "r1",
       "conditions": [
         {
-          "id": "bendy",
-          "label": "Bends easily",
-          "negation": "doesn't bend easily",
-          "claim": "\"{answer}\" can ordinarily be bent or folded by hand without breaking."
-        },
-        {
           "id": "wet",
           "label": "Gets wet when used",
           "negation": "doesn't get wet when used",
           "claim": "\"{answer}\" ordinarily gets wet when it is used."
         },
         {
-          "id": "drawer",
-          "label": "Often kept in a drawer",
-          "negation": "isn't usually kept in a drawer",
-          "claim": "\"{answer}\" is ordinarily kept in a drawer."
+          "id": "hangs",
+          "label": "Often hung up",
+          "negation": "isn't usually hung up",
+          "claim": "\"{answer}\" is ordinarily hung up when not in use."
+        },
+        {
+          "id": "pack",
+          "label": "Usually bought in packs",
+          "negation": "isn't usually bought in packs",
+          "claim": "\"{answer}\" is ordinarily bought in a pack of several or many."
         }
       ]
     },
@@ -36,10 +36,56 @@
           "claim": "\"{answer}\" ordinarily has a handle you hold it by."
         },
         {
-          "id": "eatdrink",
-          "label": "Used to eat or drink",
-          "negation": "isn't used to eat or drink",
-          "claim": "\"{answer}\" is ordinarily used while eating or drinking."
+          "id": "heavy",
+          "label": "Heavier than a bag of sugar",
+          "negation": "is lighter than a bag of sugar",
+          "claim": "\"{answer}\" ordinarily weighs more than 1 kilogram."
+        },
+        {
+          "id": "container",
+          "label": "Holds other things",
+          "negation": "doesn't hold other things",
+          "claim": "\"{answer}\" is ordinarily used to hold or store other objects."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "pocket",
+          "label": "Fits in a pocket",
+          "negation": "doesn't fit in a pocket",
+          "claim": "\"{answer}\" could ordinarily fit inside a clothing pocket."
+        },
+        {
+          "id": "handle",
+          "label": "Has a handle",
+          "negation": "has no handle",
+          "claim": "\"{answer}\" ordinarily has a handle you hold it by."
+        },
+        {
+          "id": "wet",
+          "label": "Gets wet when used",
+          "negation": "doesn't get wet when used",
+          "claim": "\"{answer}\" ordinarily gets wet when it is used."
+        }
+      ]
+    },
+    {
+      "id": "r4",
+      "conditions": [
+        {
+          "id": "pocket",
+          "label": "Fits in a pocket",
+          "negation": "doesn't fit in a pocket",
+          "claim": "\"{answer}\" could ordinarily fit inside a clothing pocket."
+        },
+        {
+          "id": "hangs",
+          "label": "Often hung up",
+          "negation": "isn't usually hung up",
+          "claim": "\"{answer}\" is ordinarily hung up when not in use."
         },
         {
           "id": "floats",
@@ -50,65 +96,19 @@
       ]
     },
     {
-      "id": "r3",
+      "id": "r5",
       "conditions": [
+        {
+          "id": "pocket",
+          "label": "Fits in a pocket",
+          "negation": "doesn't fit in a pocket",
+          "claim": "\"{answer}\" could ordinarily fit inside a clothing pocket."
+        },
         {
           "id": "secure",
           "label": "Can secure something",
           "negation": "can't secure anything",
           "claim": "The ordinary use of \"{answer}\" includes fastening or securing something."
-        },
-        {
-          "id": "drawer",
-          "label": "Often kept in a drawer",
-          "negation": "isn't usually kept in a drawer",
-          "claim": "\"{answer}\" is ordinarily kept in a drawer."
-        },
-        {
-          "id": "pack",
-          "label": "Usually bought in packs",
-          "negation": "isn't usually bought in packs",
-          "claim": "\"{answer}\" is ordinarily bought in a pack of several or many."
-        }
-      ]
-    },
-    {
-      "id": "r4",
-      "conditions": [
-        {
-          "id": "sharp",
-          "label": "Has a sharp edge or point",
-          "negation": "has no sharp edge or point",
-          "claim": "\"{answer}\" ordinarily has a sharp edge or point."
-        },
-        {
-          "id": "handle",
-          "label": "Has a handle",
-          "negation": "has no handle",
-          "claim": "\"{answer}\" ordinarily has a handle you hold it by."
-        },
-        {
-          "id": "drawer",
-          "label": "Often kept in a drawer",
-          "negation": "isn't usually kept in a drawer",
-          "claim": "\"{answer}\" is ordinarily kept in a drawer."
-        }
-      ]
-    },
-    {
-      "id": "r5",
-      "conditions": [
-        {
-          "id": "sharp",
-          "label": "Has a sharp edge or point",
-          "negation": "has no sharp edge or point",
-          "claim": "\"{answer}\" ordinarily has a sharp edge or point."
-        },
-        {
-          "id": "thin",
-          "label": "Thinner than a finger",
-          "negation": "isn't thinner than a finger",
-          "claim": "\"{answer}\" is ordinarily thinner than a finger."
         },
         {
           "id": "pack",

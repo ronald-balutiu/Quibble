@@ -14,22 +14,390 @@
     },
     {
       "n": 4,
-      "difficulty": "medium"
+      "difficulty": "easy"
     },
     {
       "n": 5,
-      "difficulty": "medium"
+      "difficulty": "easy"
     },
     {
       "n": 6,
-      "difficulty": "medium"
+      "difficulty": "easy"
     },
     {
       "n": 7,
-      "difficulty": "hard"
+      "difficulty": "easy"
     },
     {
       "n": 8,
+      "difficulty": "easy"
+    },
+    {
+      "n": 9,
+      "difficulty": "easy"
+    },
+    {
+      "n": 10,
+      "difficulty": "easy"
+    },
+    {
+      "n": 11,
+      "difficulty": "easy"
+    },
+    {
+      "n": 12,
+      "difficulty": "easy"
+    },
+    {
+      "n": 13,
+      "difficulty": "easy"
+    },
+    {
+      "n": 14,
+      "difficulty": "easy"
+    },
+    {
+      "n": 15,
+      "difficulty": "easy"
+    },
+    {
+      "n": 16,
+      "difficulty": "easy"
+    },
+    {
+      "n": 17,
+      "difficulty": "easy"
+    },
+    {
+      "n": 18,
+      "difficulty": "easy"
+    },
+    {
+      "n": 19,
+      "difficulty": "easy"
+    },
+    {
+      "n": 20,
+      "difficulty": "easy"
+    },
+    {
+      "n": 21,
+      "difficulty": "easy"
+    },
+    {
+      "n": 22,
+      "difficulty": "easy"
+    },
+    {
+      "n": 23,
+      "difficulty": "easy"
+    },
+    {
+      "n": 24,
+      "difficulty": "easy"
+    },
+    {
+      "n": 25,
+      "difficulty": "easy"
+    },
+    {
+      "n": 26,
+      "difficulty": "easy"
+    },
+    {
+      "n": 27,
+      "difficulty": "easy"
+    },
+    {
+      "n": 28,
+      "difficulty": "easy"
+    },
+    {
+      "n": 29,
+      "difficulty": "easy"
+    },
+    {
+      "n": 30,
+      "difficulty": "easy"
+    },
+    {
+      "n": 31,
+      "difficulty": "easy"
+    },
+    {
+      "n": 32,
+      "difficulty": "easy"
+    },
+    {
+      "n": 33,
+      "difficulty": "easy"
+    },
+    {
+      "n": 34,
+      "difficulty": "easy"
+    },
+    {
+      "n": 35,
+      "difficulty": "medium"
+    },
+    {
+      "n": 36,
+      "difficulty": "medium"
+    },
+    {
+      "n": 37,
+      "difficulty": "medium"
+    },
+    {
+      "n": 38,
+      "difficulty": "medium"
+    },
+    {
+      "n": 39,
+      "difficulty": "medium"
+    },
+    {
+      "n": 40,
+      "difficulty": "medium"
+    },
+    {
+      "n": 41,
+      "difficulty": "medium"
+    },
+    {
+      "n": 42,
+      "difficulty": "medium"
+    },
+    {
+      "n": 43,
+      "difficulty": "medium"
+    },
+    {
+      "n": 44,
+      "difficulty": "medium"
+    },
+    {
+      "n": 45,
+      "difficulty": "medium"
+    },
+    {
+      "n": 46,
+      "difficulty": "medium"
+    },
+    {
+      "n": 47,
+      "difficulty": "medium"
+    },
+    {
+      "n": 48,
+      "difficulty": "medium"
+    },
+    {
+      "n": 49,
+      "difficulty": "medium"
+    },
+    {
+      "n": 50,
+      "difficulty": "medium"
+    },
+    {
+      "n": 51,
+      "difficulty": "medium"
+    },
+    {
+      "n": 52,
+      "difficulty": "medium"
+    },
+    {
+      "n": 53,
+      "difficulty": "medium"
+    },
+    {
+      "n": 54,
+      "difficulty": "medium"
+    },
+    {
+      "n": 55,
+      "difficulty": "medium"
+    },
+    {
+      "n": 56,
+      "difficulty": "medium"
+    },
+    {
+      "n": 57,
+      "difficulty": "medium"
+    },
+    {
+      "n": 58,
+      "difficulty": "medium"
+    },
+    {
+      "n": 59,
+      "difficulty": "medium"
+    },
+    {
+      "n": 60,
+      "difficulty": "medium"
+    },
+    {
+      "n": 61,
+      "difficulty": "medium"
+    },
+    {
+      "n": 62,
+      "difficulty": "medium"
+    },
+    {
+      "n": 63,
+      "difficulty": "medium"
+    },
+    {
+      "n": 64,
+      "difficulty": "medium"
+    },
+    {
+      "n": 65,
+      "difficulty": "medium"
+    },
+    {
+      "n": 66,
+      "difficulty": "medium"
+    },
+    {
+      "n": 67,
+      "difficulty": "medium"
+    },
+    {
+      "n": 68,
+      "difficulty": "hard"
+    },
+    {
+      "n": 69,
+      "difficulty": "hard"
+    },
+    {
+      "n": 70,
+      "difficulty": "hard"
+    },
+    {
+      "n": 71,
+      "difficulty": "hard"
+    },
+    {
+      "n": 72,
+      "difficulty": "hard"
+    },
+    {
+      "n": 73,
+      "difficulty": "hard"
+    },
+    {
+      "n": 74,
+      "difficulty": "hard"
+    },
+    {
+      "n": 75,
+      "difficulty": "hard"
+    },
+    {
+      "n": 76,
+      "difficulty": "hard"
+    },
+    {
+      "n": 77,
+      "difficulty": "hard"
+    },
+    {
+      "n": 78,
+      "difficulty": "hard"
+    },
+    {
+      "n": 79,
+      "difficulty": "hard"
+    },
+    {
+      "n": 80,
+      "difficulty": "hard"
+    },
+    {
+      "n": 81,
+      "difficulty": "hard"
+    },
+    {
+      "n": 82,
+      "difficulty": "hard"
+    },
+    {
+      "n": 83,
+      "difficulty": "hard"
+    },
+    {
+      "n": 84,
+      "difficulty": "hard"
+    },
+    {
+      "n": 85,
+      "difficulty": "hard"
+    },
+    {
+      "n": 86,
+      "difficulty": "hard"
+    },
+    {
+      "n": 87,
+      "difficulty": "hard"
+    },
+    {
+      "n": 88,
+      "difficulty": "hard"
+    },
+    {
+      "n": 89,
+      "difficulty": "hard"
+    },
+    {
+      "n": 90,
+      "difficulty": "hard"
+    },
+    {
+      "n": 91,
+      "difficulty": "hard"
+    },
+    {
+      "n": 92,
+      "difficulty": "hard"
+    },
+    {
+      "n": 93,
+      "difficulty": "hard"
+    },
+    {
+      "n": 94,
+      "difficulty": "hard"
+    },
+    {
+      "n": 95,
+      "difficulty": "hard"
+    },
+    {
+      "n": 96,
+      "difficulty": "hard"
+    },
+    {
+      "n": 97,
+      "difficulty": "hard"
+    },
+    {
+      "n": 98,
+      "difficulty": "hard"
+    },
+    {
+      "n": 99,
+      "difficulty": "hard"
+    },
+    {
+      "n": 100,
       "difficulty": "hard"
     }
   ]

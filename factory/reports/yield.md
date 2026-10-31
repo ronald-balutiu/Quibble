@@ -93,3 +93,59 @@ need, too thin a margin to change D-64's 3 rounds. Some passing words still have
 two clues that mean the same thing ("transition", "supplement"), confirming the
 sense-pair follow-up above. These prototypes spent about 3,160 Neurons, recorded
 in `factory/ledger.json`.
+
+## Phase 3 run (2026-10-30 to 2026-10-31)
+
+The full factory, run by `factory/run.ts` over two UTC days. The truth matrix is in
+`factory/matrix.json` and the Double Agent checks in `factory/double-agent-checks.json`.
+
+| Day (UTC) | Step | Model | Requests | Neurons |
+| --- | --- | --- | --- | --- |
+| 2026-10-30 | Every condition for every thing | Clef-flash | 232 | 1,736 |
+| 2026-10-30 | Re-check uncertain cells | Gemma 4 | 1,510 | 366 |
+| 2026-10-31 | Re-check uncertain cells | Gemma 4 | 943 | 428 |
+| 2026-10-31 | Confirm known answers | Gemma 4 | 1,479 | 652 |
+| 2026-10-31 | Double Agent word checks | Clef-flash + Gemma 4 | 2,685 | 4,906 |
+
+The ledger records 2,101 Neurons on day 1 and 5,986 on day 2. Day 1's runs came
+after about 3,160 Neurons of Phase 2 prototypes, and Cloudflare stopped day 1 (error
+4006) at a ledger total of about 5,300 for that day, well short of the 10,000
+allowance, so the ledger undercounts what Cloudflare bills. Day 2's Double Agent
+figure combines a run that stopped on a five-minute request timeout (2,833 Neurons,
+recorded as `interrupted`) with the run that finished (2,073).
+
+Result: 14,130 cells, 2,872 yes, 10,824 no and 434 unknown (3%).
+
+### Double Agent
+
+| Check | Words checked | Failed |
+| --- | --- | --- |
+| First check (both clues, common, two distinct meanings) | 1,900 | 1,695 |
+| Decoys (at most 2 of 10 fit each clue) | 205 | 23 |
+| Gemma 4 confirmation (both clues ≥ 0.85) | 181 | 14 |
+
+167 words were accepted of 1,899 checked (9%). That uses up the WordNet candidate
+pool: 26 candidates that could not be judged and 1 waiting on Gemma 4 remain, so
+another run adds at most 27 words. That is well short of the 330 words that 100
+puzzles of 3 rounds need. Most first-check failures are words that are not common
+or whose two senses are not clearly different.
+
+### Library
+
+| Game | Full build | Shipped |
+| --- | --- | --- |
+| Oddly Specific | 100 | 100 |
+| Category Escape | 100 | 0 |
+| Double Agent | 55 | 0 |
+
+`npm run check-puzzles` passed on the full build. Only Oddly Specific ships until
+Phase 4 makes the other two games playable, so their files were removed and the
+library rebuilt with `--games oddly-specific`.
+
+### Work left
+
+- 38 matrix re-checks that Gemma 4 could not judge (about 17 Neurons).
+- The 27 pending Double Agent candidates (well under 100 Neurons).
+- Double Agent needs a bigger candidate pool, or fewer puzzles, to reach 100
+  puzzles. The dry run's estimate of about 2,100 more Neurons assumes candidates
+  that the pool does not have.

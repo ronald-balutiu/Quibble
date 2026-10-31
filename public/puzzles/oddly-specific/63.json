@@ -7,85 +7,16 @@
       "id": "r1",
       "conditions": [
         {
-          "id": "wet",
-          "label": "Gets wet when used",
-          "negation": "doesn't get wet when used",
-          "claim": "\"{answer}\" ordinarily gets wet when it is used."
-        },
-        {
-          "id": "drawer",
-          "label": "Often kept in a drawer",
-          "negation": "isn't usually kept in a drawer",
-          "claim": "\"{answer}\" is ordinarily kept in a drawer."
-        },
-        {
-          "id": "pack",
-          "label": "Usually bought in packs",
-          "negation": "isn't usually bought in packs",
-          "claim": "\"{answer}\" is ordinarily bought in a pack of several or many."
-        }
-      ]
-    },
-    {
-      "id": "r2",
-      "conditions": [
-        {
-          "id": "folds",
-          "label": "Folds or rolls up",
-          "negation": "doesn't fold or roll up",
-          "claim": "\"{answer}\" can ordinarily be folded or rolled up."
-        },
-        {
-          "id": "drawer",
-          "label": "Often kept in a drawer",
-          "negation": "isn't usually kept in a drawer",
-          "claim": "\"{answer}\" is ordinarily kept in a drawer."
-        },
-        {
-          "id": "thin",
-          "label": "Thinner than a finger",
-          "negation": "isn't thinner than a finger",
-          "claim": "\"{answer}\" is ordinarily thinner than a finger."
-        }
-      ]
-    },
-    {
-      "id": "r3",
-      "conditions": [
-        {
-          "id": "fabric",
-          "label": "Made of fabric",
-          "negation": "isn't made of fabric",
-          "claim": "\"{answer}\" is ordinarily made mostly of cloth or fabric."
-        },
-        {
-          "id": "wet",
-          "label": "Gets wet when used",
-          "negation": "doesn't get wet when used",
-          "claim": "\"{answer}\" ordinarily gets wet when it is used."
-        },
-        {
-          "id": "floats",
-          "label": "Floats on water",
-          "negation": "doesn't float on water",
-          "claim": "\"{answer}\" would ordinarily float on water."
-        }
-      ]
-    },
-    {
-      "id": "r4",
-      "conditions": [
-        {
           "id": "pocket",
           "label": "Fits in a pocket",
           "negation": "doesn't fit in a pocket",
           "claim": "\"{answer}\" could ordinarily fit inside a clothing pocket."
         },
         {
-          "id": "folds",
-          "label": "Folds or rolls up",
-          "negation": "doesn't fold or roll up",
-          "claim": "\"{answer}\" can ordinarily be folded or rolled up."
+          "id": "bendy",
+          "label": "Bends easily",
+          "negation": "doesn't bend easily",
+          "claim": "\"{answer}\" can ordinarily be bent or folded by hand without breaking."
         },
         {
           "id": "wet",
@@ -96,7 +27,7 @@
       ]
     },
     {
-      "id": "r5",
+      "id": "r2",
       "conditions": [
         {
           "id": "pocket",
@@ -115,6 +46,75 @@
           "label": "Soft to the touch",
           "negation": "isn't soft",
           "claim": "\"{answer}\" is ordinarily soft to the touch."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "electric",
+          "label": "Needs electricity",
+          "negation": "doesn't need electricity",
+          "claim": "\"{answer}\" needs electricity, from a plug or a battery, to do its job."
+        },
+        {
+          "id": "moving",
+          "label": "Has moving parts",
+          "negation": "has no moving parts",
+          "claim": "\"{answer}\" ordinarily has moving parts."
+        },
+        {
+          "id": "tool",
+          "label": "Is a tool",
+          "negation": "isn't a tool",
+          "claim": "\"{answer}\" is ordinarily considered a tool."
+        }
+      ]
+    },
+    {
+      "id": "r4",
+      "conditions": [
+        {
+          "id": "handle",
+          "label": "Has a handle",
+          "negation": "has no handle",
+          "claim": "\"{answer}\" ordinarily has a handle you hold it by."
+        },
+        {
+          "id": "eatdrink",
+          "label": "Used to eat or drink",
+          "negation": "isn't used to eat or drink",
+          "claim": "\"{answer}\" is ordinarily used while eating or drinking."
+        },
+        {
+          "id": "floats",
+          "label": "Floats on water",
+          "negation": "doesn't float on water",
+          "claim": "\"{answer}\" would ordinarily float on water."
+        }
+      ]
+    },
+    {
+      "id": "r5",
+      "conditions": [
+        {
+          "id": "noise",
+          "label": "Makes a sound in use",
+          "negation": "doesn't make a sound in use",
+          "claim": "\"{answer}\" ordinarily makes a noticeable sound when it is used."
+        },
+        {
+          "id": "plastic",
+          "label": "Mostly plastic",
+          "negation": "isn't mostly plastic",
+          "claim": "The main body of \"{answer}\" is ordinarily made of plastic."
+        },
+        {
+          "id": "moving",
+          "label": "Has moving parts",
+          "negation": "has no moving parts",
+          "claim": "\"{answer}\" ordinarily has moving parts."
         }
       ]
     }

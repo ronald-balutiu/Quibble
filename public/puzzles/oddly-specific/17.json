@@ -13,33 +13,10 @@
           "claim": "\"{answer}\" is ordinarily made mostly of cloth or fabric."
         },
         {
-          "id": "bendy",
-          "label": "Bends easily",
-          "negation": "doesn't bend easily",
-          "claim": "\"{answer}\" can ordinarily be bent or folded by hand without breaking."
-        },
-        {
-          "id": "hangs",
-          "label": "Often hung up",
-          "negation": "isn't usually hung up",
-          "claim": "\"{answer}\" is ordinarily hung up when not in use."
-        }
-      ]
-    },
-    {
-      "id": "r2",
-      "conditions": [
-        {
-          "id": "pocket",
-          "label": "Fits in a pocket",
-          "negation": "doesn't fit in a pocket",
-          "claim": "\"{answer}\" could ordinarily fit inside a clothing pocket."
-        },
-        {
-          "id": "metal",
-          "label": "Mostly metal",
-          "negation": "isn't mostly metal",
-          "claim": "The main body or structure of \"{answer}\" is ordinarily made of metal."
+          "id": "folds",
+          "label": "Folds or rolls up",
+          "negation": "doesn't fold or roll up",
+          "claim": "\"{answer}\" can ordinarily be folded or rolled up."
         },
         {
           "id": "drawer",
@@ -50,19 +27,42 @@
       ]
     },
     {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "folds",
+          "label": "Folds or rolls up",
+          "negation": "doesn't fold or roll up",
+          "claim": "\"{answer}\" can ordinarily be folded or rolled up."
+        },
+        {
+          "id": "wet",
+          "label": "Gets wet when used",
+          "negation": "doesn't get wet when used",
+          "claim": "\"{answer}\" ordinarily gets wet when it is used."
+        },
+        {
+          "id": "floats",
+          "label": "Floats on water",
+          "negation": "doesn't float on water",
+          "claim": "\"{answer}\" would ordinarily float on water."
+        }
+      ]
+    },
+    {
       "id": "r3",
       "conditions": [
         {
-          "id": "wearable",
-          "label": "Can be worn",
-          "negation": "can't be worn",
-          "claim": "\"{answer}\" is ordinarily worn on the body."
+          "id": "bendy",
+          "label": "Bends easily",
+          "negation": "doesn't bend easily",
+          "claim": "\"{answer}\" can ordinarily be bent or folded by hand without breaking."
         },
         {
-          "id": "fabric",
-          "label": "Made of fabric",
-          "negation": "isn't made of fabric",
-          "claim": "\"{answer}\" is ordinarily made mostly of cloth or fabric."
+          "id": "wet",
+          "label": "Gets wet when used",
+          "negation": "doesn't get wet when used",
+          "claim": "\"{answer}\" ordinarily gets wet when it is used."
         },
         {
           "id": "drawer",
@@ -76,22 +76,22 @@
       "id": "r4",
       "conditions": [
         {
-          "id": "daily",
-          "label": "Used most days",
-          "negation": "isn't used most days",
-          "claim": "Most people ordinarily use \"{answer}\" on most days."
+          "id": "bendy",
+          "label": "Bends easily",
+          "negation": "doesn't bend easily",
+          "claim": "\"{answer}\" can ordinarily be bent or folded by hand without breaking."
         },
         {
-          "id": "hangs",
-          "label": "Often hung up",
-          "negation": "isn't usually hung up",
-          "claim": "\"{answer}\" is ordinarily hung up when not in use."
+          "id": "cleaning",
+          "label": "Used for cleaning",
+          "negation": "isn't used for cleaning",
+          "claim": "\"{answer}\" is ordinarily used for cleaning something."
         },
         {
-          "id": "floats",
-          "label": "Floats on water",
-          "negation": "doesn't float on water",
-          "claim": "\"{answer}\" would ordinarily float on water."
+          "id": "pack",
+          "label": "Usually bought in packs",
+          "negation": "isn't usually bought in packs",
+          "claim": "\"{answer}\" is ordinarily bought in a pack of several or many."
         }
       ]
     },
@@ -99,22 +99,22 @@
       "id": "r5",
       "conditions": [
         {
-          "id": "pocket",
-          "label": "Fits in a pocket",
-          "negation": "doesn't fit in a pocket",
-          "claim": "\"{answer}\" could ordinarily fit inside a clothing pocket."
+          "id": "cleaning",
+          "label": "Used for cleaning",
+          "negation": "isn't used for cleaning",
+          "claim": "\"{answer}\" is ordinarily used for cleaning something."
         },
         {
-          "id": "soft",
-          "label": "Soft to the touch",
-          "negation": "isn't soft",
-          "claim": "\"{answer}\" is ordinarily soft to the touch."
+          "id": "drawer",
+          "label": "Often kept in a drawer",
+          "negation": "isn't usually kept in a drawer",
+          "claim": "\"{answer}\" is ordinarily kept in a drawer."
         },
         {
-          "id": "daily",
-          "label": "Used most days",
-          "negation": "isn't used most days",
-          "claim": "Most people ordinarily use \"{answer}\" on most days."
+          "id": "floats",
+          "label": "Floats on water",
+          "negation": "doesn't float on water",
+          "claim": "\"{answer}\" would ordinarily float on water."
         }
       ]
     }

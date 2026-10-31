@@ -53,29 +53,6 @@
       "id": "r3",
       "conditions": [
         {
-          "id": "electric",
-          "label": "Needs electricity",
-          "negation": "doesn't need electricity",
-          "claim": "\"{answer}\" needs electricity, from a plug or a battery, to do its job."
-        },
-        {
-          "id": "noise",
-          "label": "Makes a sound in use",
-          "negation": "doesn't make a sound in use",
-          "claim": "\"{answer}\" ordinarily makes a noticeable sound when it is used."
-        },
-        {
-          "id": "heavy",
-          "label": "Heavier than a bag of sugar",
-          "negation": "is lighter than a bag of sugar",
-          "claim": "\"{answer}\" ordinarily weighs more than 1 kilogram."
-        }
-      ]
-    },
-    {
-      "id": "r4",
-      "conditions": [
-        {
           "id": "handle",
           "label": "Has a handle",
           "negation": "has no handle",
@@ -96,7 +73,7 @@
       ]
     },
     {
-      "id": "r5",
+      "id": "r4",
       "conditions": [
         {
           "id": "electric",
@@ -105,16 +82,39 @@
           "claim": "\"{answer}\" needs electricity, from a plug or a battery, to do its job."
         },
         {
-          "id": "moving",
-          "label": "Has moving parts",
-          "negation": "has no moving parts",
-          "claim": "\"{answer}\" ordinarily has moving parts."
+          "id": "heavy",
+          "label": "Heavier than a bag of sugar",
+          "negation": "is lighter than a bag of sugar",
+          "claim": "\"{answer}\" ordinarily weighs more than 1 kilogram."
         },
         {
           "id": "hot",
           "label": "Gets hot when used",
           "negation": "doesn't get hot when used",
           "claim": "\"{answer}\" ordinarily gets hot when it is used."
+        }
+      ]
+    },
+    {
+      "id": "r5",
+      "conditions": [
+        {
+          "id": "metal",
+          "label": "Mostly metal",
+          "negation": "isn't mostly metal",
+          "claim": "The main body or structure of \"{answer}\" is ordinarily made of metal."
+        },
+        {
+          "id": "noise",
+          "label": "Makes a sound in use",
+          "negation": "doesn't make a sound in use",
+          "claim": "\"{answer}\" ordinarily makes a noticeable sound when it is used."
+        },
+        {
+          "id": "heavy",
+          "label": "Heavier than a bag of sugar",
+          "negation": "is lighter than a bag of sugar",
+          "claim": "\"{answer}\" ordinarily weighs more than 1 kilogram."
         }
       ]
     }

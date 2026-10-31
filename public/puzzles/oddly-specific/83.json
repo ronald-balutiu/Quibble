@@ -7,22 +7,22 @@
       "id": "r1",
       "conditions": [
         {
-          "id": "folds",
-          "label": "Folds or rolls up",
-          "negation": "doesn't fold or roll up",
-          "claim": "\"{answer}\" can ordinarily be folded or rolled up."
+          "id": "pocket",
+          "label": "Fits in a pocket",
+          "negation": "doesn't fit in a pocket",
+          "claim": "\"{answer}\" could ordinarily fit inside a clothing pocket."
         },
         {
-          "id": "wet",
-          "label": "Gets wet when used",
-          "negation": "doesn't get wet when used",
-          "claim": "\"{answer}\" ordinarily gets wet when it is used."
+          "id": "wearable",
+          "label": "Can be worn",
+          "negation": "can't be worn",
+          "claim": "\"{answer}\" is ordinarily worn on the body."
         },
         {
-          "id": "drawer",
-          "label": "Often kept in a drawer",
-          "negation": "isn't usually kept in a drawer",
-          "claim": "\"{answer}\" is ordinarily kept in a drawer."
+          "id": "daily",
+          "label": "Used most days",
+          "negation": "isn't used most days",
+          "claim": "Most people ordinarily use \"{answer}\" on most days."
         }
       ]
     },
@@ -30,10 +30,10 @@
       "id": "r2",
       "conditions": [
         {
-          "id": "handle",
-          "label": "Has a handle",
-          "negation": "has no handle",
-          "claim": "\"{answer}\" ordinarily has a handle you hold it by."
+          "id": "heavy",
+          "label": "Heavier than a bag of sugar",
+          "negation": "is lighter than a bag of sugar",
+          "claim": "\"{answer}\" ordinarily weighs more than 1 kilogram."
         },
         {
           "id": "twohands",
@@ -42,10 +42,10 @@
           "claim": "People ordinarily use both hands to use \"{answer}\"."
         },
         {
-          "id": "drawer",
-          "label": "Often kept in a drawer",
-          "negation": "isn't usually kept in a drawer",
-          "claim": "\"{answer}\" is ordinarily kept in a drawer."
+          "id": "floats",
+          "label": "Floats on water",
+          "negation": "doesn't float on water",
+          "claim": "\"{answer}\" would ordinarily float on water."
         }
       ]
     },
@@ -53,22 +53,22 @@
       "id": "r3",
       "conditions": [
         {
-          "id": "sharp",
-          "label": "Has a sharp edge or point",
-          "negation": "has no sharp edge or point",
-          "claim": "\"{answer}\" ordinarily has a sharp edge or point."
+          "id": "metal",
+          "label": "Mostly metal",
+          "negation": "isn't mostly metal",
+          "claim": "The main body or structure of \"{answer}\" is ordinarily made of metal."
         },
         {
-          "id": "drawer",
-          "label": "Often kept in a drawer",
-          "negation": "isn't usually kept in a drawer",
-          "claim": "\"{answer}\" is ordinarily kept in a drawer."
+          "id": "moving",
+          "label": "Has moving parts",
+          "negation": "has no moving parts",
+          "claim": "\"{answer}\" ordinarily has moving parts."
         },
         {
-          "id": "pack",
-          "label": "Usually bought in packs",
-          "negation": "isn't usually bought in packs",
-          "claim": "\"{answer}\" is ordinarily bought in a pack of several or many."
+          "id": "hot",
+          "label": "Gets hot when used",
+          "negation": "doesn't get hot when used",
+          "claim": "\"{answer}\" ordinarily gets hot when it is used."
         }
       ]
     },
@@ -76,22 +76,22 @@
       "id": "r4",
       "conditions": [
         {
-          "id": "sharp",
-          "label": "Has a sharp edge or point",
-          "negation": "has no sharp edge or point",
-          "claim": "\"{answer}\" ordinarily has a sharp edge or point."
+          "id": "plastic",
+          "label": "Mostly plastic",
+          "negation": "isn't mostly plastic",
+          "claim": "The main body of \"{answer}\" is ordinarily made of plastic."
         },
         {
-          "id": "hangs",
-          "label": "Often hung up",
-          "negation": "isn't usually hung up",
-          "claim": "\"{answer}\" is ordinarily hung up when not in use."
+          "id": "container",
+          "label": "Holds other things",
+          "negation": "doesn't hold other things",
+          "claim": "\"{answer}\" is ordinarily used to hold or store other objects."
         },
         {
-          "id": "tool",
-          "label": "Is a tool",
-          "negation": "isn't a tool",
-          "claim": "\"{answer}\" is ordinarily considered a tool."
+          "id": "floats",
+          "label": "Floats on water",
+          "negation": "doesn't float on water",
+          "claim": "\"{answer}\" would ordinarily float on water."
         }
       ]
     },
@@ -99,22 +99,22 @@
       "id": "r5",
       "conditions": [
         {
-          "id": "nonelec",
-          "label": "Not electronic",
-          "negation": "is electronic",
-          "claim": "\"{answer}\" is free of electronic components."
+          "id": "plastic",
+          "label": "Mostly plastic",
+          "negation": "isn't mostly plastic",
+          "claim": "The main body of \"{answer}\" is ordinarily made of plastic."
         },
         {
-          "id": "bendy",
-          "label": "Bends easily",
-          "negation": "doesn't bend easily",
-          "claim": "\"{answer}\" can ordinarily be bent or folded by hand without breaking."
+          "id": "daily",
+          "label": "Used most days",
+          "negation": "isn't used most days",
+          "claim": "Most people ordinarily use \"{answer}\" on most days."
         },
         {
-          "id": "folds",
-          "label": "Folds or rolls up",
-          "negation": "doesn't fold or roll up",
-          "claim": "\"{answer}\" can ordinarily be folded or rolled up."
+          "id": "opens",
+          "label": "Opens and closes",
+          "negation": "doesn't open and close",
+          "claim": "\"{answer}\" ordinarily opens and closes."
         }
       ]
     }

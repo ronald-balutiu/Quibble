@@ -7,16 +7,16 @@
       "id": "r1",
       "conditions": [
         {
-          "id": "metal",
-          "label": "Mostly metal",
-          "negation": "isn't mostly metal",
-          "claim": "The main body or structure of \"{answer}\" is ordinarily made of metal."
+          "id": "unpowered",
+          "label": "Not powered",
+          "negation": "is powered",
+          "claim": "\"{answer}\" works without any electricity, battery or engine."
         },
         {
-          "id": "nonelec",
-          "label": "Not electronic",
-          "negation": "is electronic",
-          "claim": "\"{answer}\" is free of electronic components."
+          "id": "handle",
+          "label": "Has a handle",
+          "negation": "has no handle",
+          "claim": "\"{answer}\" ordinarily has a handle you hold it by."
         },
         {
           "id": "tool",
@@ -30,16 +30,16 @@
       "id": "r2",
       "conditions": [
         {
-          "id": "pocket",
-          "label": "Fits in a pocket",
-          "negation": "doesn't fit in a pocket",
-          "claim": "\"{answer}\" could ordinarily fit inside a clothing pocket."
+          "id": "unpowered",
+          "label": "Not powered",
+          "negation": "is powered",
+          "claim": "\"{answer}\" works without any electricity, battery or engine."
         },
         {
-          "id": "nonfood",
-          "label": "Not food",
-          "negation": "is food",
-          "claim": "\"{answer}\" is something people do not ordinarily eat."
+          "id": "bendy",
+          "label": "Bends easily",
+          "negation": "doesn't bend easily",
+          "claim": "\"{answer}\" can ordinarily be bent or folded by hand without breaking."
         },
         {
           "id": "daily",
@@ -53,33 +53,10 @@
       "id": "r3",
       "conditions": [
         {
-          "id": "pocket",
-          "label": "Fits in a pocket",
-          "negation": "doesn't fit in a pocket",
-          "claim": "\"{answer}\" could ordinarily fit inside a clothing pocket."
-        },
-        {
-          "id": "unpowered",
-          "label": "Not powered",
-          "negation": "is powered",
-          "claim": "\"{answer}\" works without any electricity, battery or engine."
-        },
-        {
-          "id": "tool",
-          "label": "Is a tool",
-          "negation": "isn't a tool",
-          "claim": "\"{answer}\" is ordinarily considered a tool."
-        }
-      ]
-    },
-    {
-      "id": "r4",
-      "conditions": [
-        {
-          "id": "unpowered",
-          "label": "Not powered",
-          "negation": "is powered",
-          "claim": "\"{answer}\" works without any electricity, battery or engine."
+          "id": "nonelec",
+          "label": "Not electronic",
+          "negation": "is electronic",
+          "claim": "\"{answer}\" is free of electronic components."
         },
         {
           "id": "daily",
@@ -88,10 +65,33 @@
           "claim": "Most people ordinarily use \"{answer}\" on most days."
         },
         {
-          "id": "folds",
-          "label": "Folds or rolls up",
-          "negation": "doesn't fold or roll up",
-          "claim": "\"{answer}\" can ordinarily be folded or rolled up."
+          "id": "drawer",
+          "label": "Often kept in a drawer",
+          "negation": "isn't usually kept in a drawer",
+          "claim": "\"{answer}\" is ordinarily kept in a drawer."
+        }
+      ]
+    },
+    {
+      "id": "r4",
+      "conditions": [
+        {
+          "id": "nonmetal",
+          "label": "Not metal",
+          "negation": "is mostly metal",
+          "claim": "The main body or structure of \"{answer}\" is ordinarily made of something other than metal."
+        },
+        {
+          "id": "wet",
+          "label": "Gets wet when used",
+          "negation": "doesn't get wet when used",
+          "claim": "\"{answer}\" ordinarily gets wet when it is used."
+        },
+        {
+          "id": "drawer",
+          "label": "Often kept in a drawer",
+          "negation": "isn't usually kept in a drawer",
+          "claim": "\"{answer}\" is ordinarily kept in a drawer."
         }
       ]
     },
@@ -99,22 +99,22 @@
       "id": "r5",
       "conditions": [
         {
-          "id": "unpowered",
-          "label": "Not powered",
-          "negation": "is powered",
-          "claim": "\"{answer}\" works without any electricity, battery or engine."
+          "id": "liftable",
+          "label": "Can be lifted with one hand",
+          "negation": "can't be lifted with one hand",
+          "claim": "An adult can ordinarily lift \"{answer}\" with one hand."
         },
         {
-          "id": "fabric",
-          "label": "Made of fabric",
-          "negation": "isn't made of fabric",
-          "claim": "\"{answer}\" is ordinarily made mostly of cloth or fabric."
+          "id": "soft",
+          "label": "Soft to the touch",
+          "negation": "isn't soft",
+          "claim": "\"{answer}\" is ordinarily soft to the touch."
         },
         {
-          "id": "hangs",
-          "label": "Often hung up",
-          "negation": "isn't usually hung up",
-          "claim": "\"{answer}\" is ordinarily hung up when not in use."
+          "id": "drawer",
+          "label": "Often kept in a drawer",
+          "negation": "isn't usually kept in a drawer",
+          "claim": "\"{answer}\" is ordinarily kept in a drawer."
         }
       ]
     }

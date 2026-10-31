@@ -7,16 +7,16 @@
       "id": "r1",
       "conditions": [
         {
-          "id": "folds",
-          "label": "Folds or rolls up",
-          "negation": "doesn't fold or roll up",
-          "claim": "\"{answer}\" can ordinarily be folded or rolled up."
+          "id": "pocket",
+          "label": "Fits in a pocket",
+          "negation": "doesn't fit in a pocket",
+          "claim": "\"{answer}\" could ordinarily fit inside a clothing pocket."
         },
         {
-          "id": "drawer",
-          "label": "Often kept in a drawer",
-          "negation": "isn't usually kept in a drawer",
-          "claim": "\"{answer}\" is ordinarily kept in a drawer."
+          "id": "wet",
+          "label": "Gets wet when used",
+          "negation": "doesn't get wet when used",
+          "claim": "\"{answer}\" ordinarily gets wet when it is used."
         },
         {
           "id": "pack",
@@ -30,16 +30,16 @@
       "id": "r2",
       "conditions": [
         {
-          "id": "tool",
-          "label": "Is a tool",
-          "negation": "isn't a tool",
-          "claim": "\"{answer}\" is ordinarily considered a tool."
+          "id": "wet",
+          "label": "Gets wet when used",
+          "negation": "doesn't get wet when used",
+          "claim": "\"{answer}\" ordinarily gets wet when it is used."
         },
         {
-          "id": "drawer",
-          "label": "Often kept in a drawer",
-          "negation": "isn't usually kept in a drawer",
-          "claim": "\"{answer}\" is ordinarily kept in a drawer."
+          "id": "usedup",
+          "label": "Gets used up",
+          "negation": "doesn't get used up",
+          "claim": "\"{answer}\" ordinarily gets used up or thrown away after a few uses."
         },
         {
           "id": "floats",
@@ -53,22 +53,22 @@
       "id": "r3",
       "conditions": [
         {
-          "id": "electric",
-          "label": "Needs electricity",
-          "negation": "doesn't need electricity",
-          "claim": "\"{answer}\" needs electricity, from a plug or a battery, to do its job."
+          "id": "fabric",
+          "label": "Made of fabric",
+          "negation": "isn't made of fabric",
+          "claim": "\"{answer}\" is ordinarily made mostly of cloth or fabric."
         },
         {
-          "id": "plastic",
-          "label": "Mostly plastic",
-          "negation": "isn't mostly plastic",
-          "claim": "The main body of \"{answer}\" is ordinarily made of plastic."
+          "id": "wet",
+          "label": "Gets wet when used",
+          "negation": "doesn't get wet when used",
+          "claim": "\"{answer}\" ordinarily gets wet when it is used."
         },
         {
-          "id": "heavy",
-          "label": "Heavier than a bag of sugar",
-          "negation": "is lighter than a bag of sugar",
-          "claim": "\"{answer}\" ordinarily weighs more than 1 kilogram."
+          "id": "drawer",
+          "label": "Often kept in a drawer",
+          "negation": "isn't usually kept in a drawer",
+          "claim": "\"{answer}\" is ordinarily kept in a drawer."
         }
       ]
     },
@@ -76,22 +76,22 @@
       "id": "r4",
       "conditions": [
         {
-          "id": "electric",
-          "label": "Needs electricity",
-          "negation": "doesn't need electricity",
-          "claim": "\"{answer}\" needs electricity, from a plug or a battery, to do its job."
+          "id": "pocket",
+          "label": "Fits in a pocket",
+          "negation": "doesn't fit in a pocket",
+          "claim": "\"{answer}\" could ordinarily fit inside a clothing pocket."
         },
         {
-          "id": "tool",
-          "label": "Is a tool",
-          "negation": "isn't a tool",
-          "claim": "\"{answer}\" is ordinarily considered a tool."
+          "id": "wearable",
+          "label": "Can be worn",
+          "negation": "can't be worn",
+          "claim": "\"{answer}\" is ordinarily worn on the body."
         },
         {
-          "id": "hot",
-          "label": "Gets hot when used",
-          "negation": "doesn't get hot when used",
-          "claim": "\"{answer}\" ordinarily gets hot when it is used."
+          "id": "fabric",
+          "label": "Made of fabric",
+          "negation": "isn't made of fabric",
+          "claim": "\"{answer}\" is ordinarily made mostly of cloth or fabric."
         }
       ]
     },
@@ -99,22 +99,22 @@
       "id": "r5",
       "conditions": [
         {
-          "id": "heavy",
-          "label": "Heavier than a bag of sugar",
-          "negation": "is lighter than a bag of sugar",
-          "claim": "\"{answer}\" ordinarily weighs more than 1 kilogram."
+          "id": "container",
+          "label": "Holds other things",
+          "negation": "doesn't hold other things",
+          "claim": "\"{answer}\" is ordinarily used to hold or store other objects."
         },
         {
-          "id": "buttons",
-          "label": "Has buttons",
-          "negation": "has no buttons",
-          "claim": "\"{answer}\" ordinarily has buttons or keys you press."
+          "id": "drawer",
+          "label": "Often kept in a drawer",
+          "negation": "isn't usually kept in a drawer",
+          "claim": "\"{answer}\" is ordinarily kept in a drawer."
         },
         {
-          "id": "hot",
-          "label": "Gets hot when used",
-          "negation": "doesn't get hot when used",
-          "claim": "\"{answer}\" ordinarily gets hot when it is used."
+          "id": "floats",
+          "label": "Floats on water",
+          "negation": "doesn't float on water",
+          "claim": "\"{answer}\" would ordinarily float on water."
         }
       ]
     }

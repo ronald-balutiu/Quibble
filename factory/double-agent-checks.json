@@ -22758,63 +22758,134 @@
     "clues": [
       "A plaything consisting of a board balanced on a fulcrum; the board is ridden up and down by children at either end",
       "Ride on a plank"
-    ]
+    ],
+    "first": {
+      "a": 0.9696,
+      "b": 0.4089,
+      "common": 0.8253,
+      "distinct": 0.1734
+    },
+    "accepted": false
   },
   {
     "word": "victual",
     "clues": [
       "Any substance that can be used as food",
       "Supply with food"
-    ]
+    ],
+    "first": {
+      "a": 0.6339,
+      "b": 0.3401,
+      "common": 0.2177,
+      "distinct": 0.4165
+    },
+    "accepted": false
   },
   {
     "word": "quaver",
     "clues": [
       "A tremulous sound",
       "A musical note having the time value of an eighth of a whole note"
-    ]
+    ],
+    "first": {
+      "a": 0.9021,
+      "b": 0.3326,
+      "common": 0.4707,
+      "distinct": 0.7763
+    },
+    "accepted": false
   },
   {
     "word": "regiment",
     "clues": [
       "Army unit smaller than a division, which can be divided into several companies, squadrons, or batteries and often into two battalions.",
       "Subject to rigid discipline, order, and systematization"
-    ]
+    ],
+    "first": {
+      "a": 0.9599,
+      "b": 0.3078,
+      "common": 0.3999,
+      "distinct": 0.7295
+    },
+    "accepted": false
   },
   {
     "word": "disruption",
     "clues": [
       "An act of delaying or interrupting the continuity",
       "A disorderly outburst or tumult"
-    ]
+    ],
+    "first": {
+      "a": 0.8813,
+      "b": 0.465,
+      "common": 0.7098,
+      "distinct": 0.5209
+    },
+    "accepted": false
   },
   {
     "word": "visualize",
     "clues": [
       "Imagine; conceive of; see in one's mind",
       "View the outline of by means of an X-ray"
-    ]
+    ],
+    "first": {
+      "a": 0.7941,
+      "b": 0.0283,
+      "common": 0.3785,
+      "distinct": 0.11
+    },
+    "accepted": false
   },
   {
     "word": "scribble",
     "clues": [
       "Poor handwriting",
       "An aimless drawing"
-    ]
+    ],
+    "first": {
+      "a": 0.4494,
+      "b": 0.8721,
+      "common": 0.7776,
+      "distinct": 0.6294
+    },
+    "accepted": false
   },
   {
     "word": "chest",
     "clues": [
       "The part of the human torso between the neck and the diaphragm or the corresponding part in other vertebrates",
       "Box with a lid; used for storage; usually large and sturdy"
-    ]
+    ],
+    "first": {
+      "a": 0.6538,
+      "b": 0.9606,
+      "common": 0.9461,
+      "distinct": 0.775
+    },
+    "decoys": [
+      0,
+      0
+    ],
+    "gemma": [
+      0.9999999982083572,
+      1
+    ],
+    "accepted": true
   },
   {
     "word": "entree",
     "clues": [
       "The principal dish of a meal",
       "The right to enter"
-    ]
+    ],
+    "first": {
+      "a": 0.9357,
+      "b": 0.0442,
+      "common": 0.667,
+      "distinct": 0.0947
+    },
+    "accepted": false
   },
   {
     "word": "fulminate",
@@ -23549,63 +23620,126 @@
     "clues": [
       "A harsh hoarse utterance (as of a frog)",
       "Pass from physical life and lose all bodily attributes and functions necessary to sustain life"
-    ]
+    ],
+    "first": {
+      "a": 0.9344,
+      "b": 0.0581,
+      "common": 0.7757,
+      "distinct": 0.5839
+    },
+    "accepted": false
   },
   {
     "word": "striking",
     "clues": [
       "The physical coming together of two or more things",
       "The act of contacting one thing with another"
-    ]
+    ],
+    "first": {
+      "a": 0.044,
+      "b": 0.2351,
+      "common": 0.736,
+      "distinct": 0.0812
+    },
+    "accepted": false
   },
   {
     "word": "swan",
     "clues": [
       "Stately heavy-bodied aquatic bird with very long neck and usually white plumage as adult",
       "To declare or affirm solemnly and formally as true"
-    ]
+    ],
+    "first": {
+      "a": 0.9637,
+      "b": 0.0218,
+      "common": 0.8262,
+      "distinct": 0.2078
+    },
+    "accepted": false
   },
   {
     "word": "soaking",
     "clues": [
       "The process of becoming softened and saturated as a consequence of being immersed in water (or other liquid)",
       "The act of making something completely wet"
-    ]
+    ],
+    "first": {
+      "a": 0.8673,
+      "b": 0.8415,
+      "common": 0.8683,
+      "distinct": 0.4807
+    },
+    "accepted": false
   },
   {
     "word": "perfumery",
     "clues": [
       "Perfumes in general",
       "The art of making perfumes"
-    ]
+    ],
+    "first": {
+      "a": 0.6753,
+      "b": 0.6836,
+      "common": 0.2558,
+      "distinct": 0.3891
+    },
+    "accepted": false
   },
   {
     "word": "terminate",
     "clues": [
       "Bring to an end or halt",
       "Have an end, in a temporal, spatial, or quantitative sense; either spatial or metaphorical"
-    ]
+    ],
+    "first": {
+      "a": 0.9533,
+      "b": 0.1594,
+      "common": 0.6853,
+      "distinct": 0.3053
+    },
+    "accepted": false
   },
   {
     "word": "procedure",
     "clues": [
       "A particular course of action intended to achieve a result",
       "A set sequence of steps, part of larger computer program"
-    ]
+    ],
+    "first": {
+      "a": 0.9608,
+      "b": 0.5697,
+      "common": 0.7236,
+      "distinct": 0.4826
+    },
+    "accepted": false
   },
   {
     "word": "divergence",
     "clues": [
       "The act of moving away in different direction from a common point",
       "A variation that deviates from the standard or norm"
-    ]
+    ],
+    "first": {
+      "a": 0.9342,
+      "b": 0.4003,
+      "common": 0.4051,
+      "distinct": 0.63
+    },
+    "accepted": false
   },
   {
     "word": "plait",
     "clues": [
       "A hairdo formed by braiding or twisting the hair",
       "Any of various types of fold formed by doubling fabric back upon itself and then pressing or stitching into shape"
-    ]
+    ],
+    "first": {
+      "a": 0.9395,
+      "b": 0.1088,
+      "common": 0.5363,
+      "distinct": 0.7078
+    },
+    "accepted": false
   },
   {
     "word": "restrain",
@@ -24980,21 +25114,42 @@
     "clues": [
       "Have as a part, be made up out of",
       "Consider as part of something"
-    ]
+    ],
+    "first": {
+      "a": 0.9483,
+      "b": 0.7321,
+      "common": 0.926,
+      "distinct": 0.2987
+    },
+    "accepted": false
   },
   {
     "word": "summation",
     "clues": [
       "A concluding summary (as in presenting a case before a law court)",
       "(physiology) the process whereby multiple stimuli can produce a response (in a muscle or nerve or other part) that one stimulus alone does not produce"
-    ]
+    ],
+    "first": {
+      "a": 0.3863,
+      "b": 0.3333,
+      "common": 0.2736,
+      "distinct": 0.6194
+    },
+    "accepted": false
   },
   {
     "word": "engineer",
     "clues": [
       "A person who uses scientific knowledge to solve practical problems",
       "Plan and direct (a complex undertaking)"
-    ]
+    ],
+    "first": {
+      "a": 0.8825,
+      "b": 0.1888,
+      "common": 0.7264,
+      "distinct": 0.2929
+    },
+    "accepted": false
   },
   {
     "word": "employment",
@@ -25095,35 +25250,68 @@
     "decoys": [
       1,
       0
-    ]
+    ],
+    "gemma": [
+      1,
+      1
+    ],
+    "accepted": true
   },
   {
     "word": "inebriate",
     "clues": [
       "A chronic drinker",
       "Fill with sublime emotion"
-    ]
+    ],
+    "first": {
+      "a": 0.4628,
+      "b": 0.0331,
+      "common": 0.4181,
+      "distinct": 0.1206
+    },
+    "accepted": false
   },
   {
     "word": "caudate",
     "clues": [
       "A tail-shaped basal ganglion located in a lateral ventricle of the brain",
       "Amphibians that resemble lizards"
-    ]
+    ],
+    "first": {
+      "a": 0.7612,
+      "b": 0.1215,
+      "common": 0.0362,
+      "distinct": 0.4859
+    },
+    "accepted": false
   },
   {
     "word": "mammee",
     "clues": [
       "Tropical American tree having wood like mahogany and sweet edible egg-shaped fruit; in some classifications placed in the genus Calocarpum",
       "Globular or ovoid tropical fruit with thick russet leathery rind and juicy yellow or reddish flesh"
-    ]
+    ],
+    "first": {
+      "a": 0.3546,
+      "b": 0.467,
+      "common": 0.1133,
+      "distinct": 0.4554
+    },
+    "accepted": false
   },
   {
     "word": "posit",
     "clues": [
       "(logic) a proposition that is accepted as true in order to provide a basis for logical reasoning",
       "Put (something somewhere) firmly"
-    ]
+    ],
+    "first": {
+      "a": 0.7989,
+      "b": 0.5439,
+      "common": 0.6736,
+      "distinct": 0.4387
+    },
+    "accepted": false
   },
   {
     "word": "whore",
@@ -25320,7 +25508,14 @@
     "clues": [
       "Position seven in a countable series of things",
       "One part in seven equal parts"
-    ]
+    ],
+    "first": {
+      "a": 0.9584,
+      "b": 0.4941,
+      "common": 0.7668,
+      "distinct": 0.5612
+    },
+    "accepted": false
   },
   {
     "word": "audience",

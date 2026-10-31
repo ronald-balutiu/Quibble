@@ -7,22 +7,22 @@
       "id": "r1",
       "conditions": [
         {
-          "id": "soft",
-          "label": "Soft to the touch",
-          "negation": "isn't soft",
-          "claim": "\"{answer}\" is ordinarily soft to the touch."
+          "id": "metal",
+          "label": "Mostly metal",
+          "negation": "isn't mostly metal",
+          "claim": "The main body or structure of \"{answer}\" is ordinarily made of metal."
         },
         {
-          "id": "cleaning",
-          "label": "Used for cleaning",
-          "negation": "isn't used for cleaning",
-          "claim": "\"{answer}\" is ordinarily used for cleaning something."
+          "id": "hangs",
+          "label": "Often hung up",
+          "negation": "isn't usually hung up",
+          "claim": "\"{answer}\" is ordinarily hung up when not in use."
         },
         {
-          "id": "usedup",
-          "label": "Gets used up",
-          "negation": "doesn't get used up",
-          "claim": "\"{answer}\" ordinarily gets used up or thrown away after a few uses."
+          "id": "tool",
+          "label": "Is a tool",
+          "negation": "isn't a tool",
+          "claim": "\"{answer}\" is ordinarily considered a tool."
         }
       ]
     },
@@ -30,16 +30,16 @@
       "id": "r2",
       "conditions": [
         {
-          "id": "soft",
-          "label": "Soft to the touch",
-          "negation": "isn't soft",
-          "claim": "\"{answer}\" is ordinarily soft to the touch."
+          "id": "handle",
+          "label": "Has a handle",
+          "negation": "has no handle",
+          "claim": "\"{answer}\" ordinarily has a handle you hold it by."
         },
         {
-          "id": "daily",
-          "label": "Used most days",
-          "negation": "isn't used most days",
-          "claim": "Most people ordinarily use \"{answer}\" on most days."
+          "id": "tool",
+          "label": "Is a tool",
+          "negation": "isn't a tool",
+          "claim": "\"{answer}\" is ordinarily considered a tool."
         },
         {
           "id": "thin",
@@ -53,22 +53,22 @@
       "id": "r3",
       "conditions": [
         {
-          "id": "secure",
-          "label": "Can secure something",
-          "negation": "can't secure anything",
-          "claim": "The ordinary use of \"{answer}\" includes fastening or securing something."
+          "id": "metal",
+          "label": "Mostly metal",
+          "negation": "isn't mostly metal",
+          "claim": "The main body or structure of \"{answer}\" is ordinarily made of metal."
         },
         {
-          "id": "bendy",
-          "label": "Bends easily",
-          "negation": "doesn't bend easily",
-          "claim": "\"{answer}\" can ordinarily be bent or folded by hand without breaking."
+          "id": "heavy",
+          "label": "Heavier than a bag of sugar",
+          "negation": "is lighter than a bag of sugar",
+          "claim": "\"{answer}\" ordinarily weighs more than 1 kilogram."
         },
         {
-          "id": "hangs",
-          "label": "Often hung up",
-          "negation": "isn't usually hung up",
-          "claim": "\"{answer}\" is ordinarily hung up when not in use."
+          "id": "moving",
+          "label": "Has moving parts",
+          "negation": "has no moving parts",
+          "claim": "\"{answer}\" ordinarily has moving parts."
         }
       ]
     },
@@ -76,22 +76,22 @@
       "id": "r4",
       "conditions": [
         {
-          "id": "wet",
-          "label": "Gets wet when used",
-          "negation": "doesn't get wet when used",
-          "claim": "\"{answer}\" ordinarily gets wet when it is used."
+          "id": "daily",
+          "label": "Used most days",
+          "negation": "isn't used most days",
+          "claim": "Most people ordinarily use \"{answer}\" on most days."
         },
         {
-          "id": "hangs",
-          "label": "Often hung up",
-          "negation": "isn't usually hung up",
-          "claim": "\"{answer}\" is ordinarily hung up when not in use."
+          "id": "container",
+          "label": "Holds other things",
+          "negation": "doesn't hold other things",
+          "claim": "\"{answer}\" is ordinarily used to hold or store other objects."
         },
         {
-          "id": "thin",
-          "label": "Thinner than a finger",
-          "negation": "isn't thinner than a finger",
-          "claim": "\"{answer}\" is ordinarily thinner than a finger."
+          "id": "opens",
+          "label": "Opens and closes",
+          "negation": "doesn't open and close",
+          "claim": "\"{answer}\" ordinarily opens and closes."
         }
       ]
     },
@@ -99,22 +99,22 @@
       "id": "r5",
       "conditions": [
         {
-          "id": "cleaning",
-          "label": "Used for cleaning",
-          "negation": "isn't used for cleaning",
-          "claim": "\"{answer}\" is ordinarily used for cleaning something."
+          "id": "electric",
+          "label": "Needs electricity",
+          "negation": "doesn't need electricity",
+          "claim": "\"{answer}\" needs electricity, from a plug or a battery, to do its job."
         },
         {
-          "id": "daily",
-          "label": "Used most days",
-          "negation": "isn't used most days",
-          "claim": "Most people ordinarily use \"{answer}\" on most days."
+          "id": "handle",
+          "label": "Has a handle",
+          "negation": "has no handle",
+          "claim": "\"{answer}\" ordinarily has a handle you hold it by."
         },
         {
-          "id": "hangs",
-          "label": "Often hung up",
-          "negation": "isn't usually hung up",
-          "claim": "\"{answer}\" is ordinarily hung up when not in use."
+          "id": "heavy",
+          "label": "Heavier than a bag of sugar",
+          "negation": "is lighter than a bag of sugar",
+          "claim": "\"{answer}\" ordinarily weighs more than 1 kilogram."
         }
       ]
     }

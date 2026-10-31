@@ -7,16 +7,16 @@
       "id": "r1",
       "conditions": [
         {
+          "id": "noise",
+          "label": "Makes a sound in use",
+          "negation": "doesn't make a sound in use",
+          "claim": "\"{answer}\" ordinarily makes a noticeable sound when it is used."
+        },
+        {
           "id": "handle",
           "label": "Has a handle",
           "negation": "has no handle",
           "claim": "\"{answer}\" ordinarily has a handle you hold it by."
-        },
-        {
-          "id": "hangs",
-          "label": "Often hung up",
-          "negation": "isn't usually hung up",
-          "claim": "\"{answer}\" is ordinarily hung up when not in use."
         },
         {
           "id": "tool",
@@ -30,16 +30,16 @@
       "id": "r2",
       "conditions": [
         {
-          "id": "metal",
-          "label": "Mostly metal",
-          "negation": "isn't mostly metal",
-          "claim": "The main body or structure of \"{answer}\" is ordinarily made of metal."
-        },
-        {
           "id": "noise",
           "label": "Makes a sound in use",
           "negation": "doesn't make a sound in use",
           "claim": "\"{answer}\" ordinarily makes a noticeable sound when it is used."
+        },
+        {
+          "id": "heavy",
+          "label": "Heavier than a bag of sugar",
+          "negation": "is lighter than a bag of sugar",
+          "claim": "\"{answer}\" ordinarily weighs more than 1 kilogram."
         },
         {
           "id": "moving",
@@ -99,22 +99,22 @@
       "id": "r5",
       "conditions": [
         {
-          "id": "electric",
-          "label": "Needs electricity",
-          "negation": "doesn't need electricity",
-          "claim": "\"{answer}\" needs electricity, from a plug or a battery, to do its job."
+          "id": "cut",
+          "label": "Can cut things",
+          "negation": "can't cut things",
+          "claim": "\"{answer}\" is ordinarily used to cut something."
         },
         {
-          "id": "heavy",
-          "label": "Heavier than a bag of sugar",
-          "negation": "is lighter than a bag of sugar",
-          "claim": "\"{answer}\" ordinarily weighs more than 1 kilogram."
+          "id": "sharp",
+          "label": "Has a sharp edge or point",
+          "negation": "has no sharp edge or point",
+          "claim": "\"{answer}\" ordinarily has a sharp edge or point."
         },
         {
-          "id": "moving",
-          "label": "Has moving parts",
-          "negation": "has no moving parts",
-          "claim": "\"{answer}\" ordinarily has moving parts."
+          "id": "handle",
+          "label": "Has a handle",
+          "negation": "has no handle",
+          "claim": "\"{answer}\" ordinarily has a handle you hold it by."
         }
       ]
     }

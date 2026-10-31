@@ -106,15 +106,16 @@ The full factory, run by `factory/run.ts` over two UTC days. The truth matrix is
 | 2026-10-31 | Re-check uncertain cells | Gemma 4 | 943 | 428 |
 | 2026-10-31 | Confirm known answers | Gemma 4 | 1,479 | 652 |
 | 2026-10-31 | Double Agent word checks | Clef-flash + Gemma 4 | 2,685 | 4,906 |
+| 2026-10-31 | Last re-checks and Double Agent candidates | Gemma 4 + Clef-flash | | 72 |
 
-The ledger records 2,101 Neurons on day 1 and 5,986 on day 2. Day 1's runs came
+The ledger records 2,101 Neurons on day 1 and 6,058 on day 2. Day 1's runs came
 after about 3,160 Neurons of Phase 2 prototypes, and Cloudflare stopped day 1 (error
 4006) at a ledger total of about 5,300 for that day, well short of the 10,000
 allowance, so the ledger undercounts what Cloudflare bills. Day 2's Double Agent
 figure combines a run that stopped on a five-minute request timeout (2,833 Neurons,
 recorded as `interrupted`) with the run that finished (2,073).
 
-Result: 14,130 cells, 2,872 yes, 10,824 no and 434 unknown (3%).
+Result: 14,130 cells, 2,887 yes, 10,846 no and 397 unknown (3%).
 
 ### Double Agent
 
@@ -124,10 +125,9 @@ Result: 14,130 cells, 2,872 yes, 10,824 no and 434 unknown (3%).
 | Decoys (at most 2 of 10 fit each clue) | 205 | 23 |
 | Gemma 4 confirmation (both clues ≥ 0.85) | 181 | 14 |
 
-167 words were accepted of 1,899 checked (9%). That uses up the WordNet candidate
-pool: 26 candidates that could not be judged and 1 waiting on Gemma 4 remain, so
-another run adds at most 27 words. That is well short of the 330 words that 100
-puzzles of 3 rounds need. Most first-check failures are words that are not common
+169 words were accepted of all 1,926 candidates (9%); the last 27, judged in a short
+final run, added 2. That uses up the WordNet candidate pool (4 or more senses), well
+short of the 330 words that 100 puzzles of 3 rounds need. Most first-check failures are words that are not common
 or whose two senses are not clearly different.
 
 ### Library
@@ -136,7 +136,7 @@ or whose two senses are not clearly different.
 | --- | --- | --- |
 | Oddly Specific | 100 | 100 |
 | Category Escape | 100 | 0 |
-| Double Agent | 55 | 0 |
+| Double Agent | 56 | 0 |
 
 `npm run check-puzzles` passed on the full build. Only Oddly Specific ships until
 Phase 4 makes the other two games playable, so their files were removed and the
@@ -144,8 +144,9 @@ library rebuilt with `--games oddly-specific`.
 
 ### Work left
 
-- 38 matrix re-checks that Gemma 4 could not judge (about 17 Neurons).
-- The 27 pending Double Agent candidates (well under 100 Neurons).
-- Double Agent needs a bigger candidate pool, or fewer puzzles, to reach 100
-  puzzles. The dry run's estimate of about 2,100 more Neurons assumes candidates
-  that the pool does not have.
+None in the factory: the dry run finds no matrix, re-check or confirmation work, and
+every Double Agent candidate is judged. The final run also changed 15 cells to yes,
+so the Oddly Specific build changed 97 of its 100 puzzles; none had been deployed
+(the live site still serves the 8 Phase 2 prototypes). Double
+Agent has 56 puzzles. D-02 lets a library ship smaller; growing it would need a
+bigger WordNet pool (for example 3 senses) and another paid run.

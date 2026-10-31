@@ -7,10 +7,10 @@
       "id": "r1",
       "conditions": [
         {
-          "id": "daily",
-          "label": "Used most days",
-          "negation": "isn't used most days",
-          "claim": "Most people ordinarily use \"{answer}\" on most days."
+          "id": "cleaning",
+          "label": "Used for cleaning",
+          "negation": "isn't used for cleaning",
+          "claim": "\"{answer}\" is ordinarily used for cleaning something."
         },
         {
           "id": "drawer",
@@ -19,10 +19,10 @@
           "claim": "\"{answer}\" is ordinarily kept in a drawer."
         },
         {
-          "id": "thin",
-          "label": "Thinner than a finger",
-          "negation": "isn't thinner than a finger",
-          "claim": "\"{answer}\" is ordinarily thinner than a finger."
+          "id": "pack",
+          "label": "Usually bought in packs",
+          "negation": "isn't usually bought in packs",
+          "claim": "\"{answer}\" is ordinarily bought in a pack of several or many."
         }
       ]
     },
@@ -30,16 +30,16 @@
       "id": "r2",
       "conditions": [
         {
-          "id": "bendy",
-          "label": "Bends easily",
-          "negation": "doesn't bend easily",
-          "claim": "\"{answer}\" can ordinarily be bent or folded by hand without breaking."
+          "id": "metal",
+          "label": "Mostly metal",
+          "negation": "isn't mostly metal",
+          "claim": "The main body or structure of \"{answer}\" is ordinarily made of metal."
         },
         {
-          "id": "cleaning",
-          "label": "Used for cleaning",
-          "negation": "isn't used for cleaning",
-          "claim": "\"{answer}\" is ordinarily used for cleaning something."
+          "id": "sharp",
+          "label": "Has a sharp edge or point",
+          "negation": "has no sharp edge or point",
+          "claim": "\"{answer}\" ordinarily has a sharp edge or point."
         },
         {
           "id": "drawer",
@@ -53,22 +53,22 @@
       "id": "r3",
       "conditions": [
         {
-          "id": "bendy",
-          "label": "Bends easily",
-          "negation": "doesn't bend easily",
-          "claim": "\"{answer}\" can ordinarily be bent or folded by hand without breaking."
+          "id": "noise",
+          "label": "Makes a sound in use",
+          "negation": "doesn't make a sound in use",
+          "claim": "\"{answer}\" ordinarily makes a noticeable sound when it is used."
         },
         {
-          "id": "usedup",
-          "label": "Gets used up",
-          "negation": "doesn't get used up",
-          "claim": "\"{answer}\" ordinarily gets used up or thrown away after a few uses."
+          "id": "handle",
+          "label": "Has a handle",
+          "negation": "has no handle",
+          "claim": "\"{answer}\" ordinarily has a handle you hold it by."
         },
         {
-          "id": "thin",
-          "label": "Thinner than a finger",
-          "negation": "isn't thinner than a finger",
-          "claim": "\"{answer}\" is ordinarily thinner than a finger."
+          "id": "drawer",
+          "label": "Often kept in a drawer",
+          "negation": "isn't usually kept in a drawer",
+          "claim": "\"{answer}\" is ordinarily kept in a drawer."
         }
       ]
     },
@@ -76,22 +76,22 @@
       "id": "r4",
       "conditions": [
         {
-          "id": "metal",
-          "label": "Mostly metal",
-          "negation": "isn't mostly metal",
-          "claim": "The main body or structure of \"{answer}\" is ordinarily made of metal."
+          "id": "pocket",
+          "label": "Fits in a pocket",
+          "negation": "doesn't fit in a pocket",
+          "claim": "\"{answer}\" could ordinarily fit inside a clothing pocket."
         },
         {
-          "id": "tool",
-          "label": "Is a tool",
-          "negation": "isn't a tool",
-          "claim": "\"{answer}\" is ordinarily considered a tool."
+          "id": "opens",
+          "label": "Opens and closes",
+          "negation": "doesn't open and close",
+          "claim": "\"{answer}\" ordinarily opens and closes."
         },
         {
-          "id": "thin",
-          "label": "Thinner than a finger",
-          "negation": "isn't thinner than a finger",
-          "claim": "\"{answer}\" is ordinarily thinner than a finger."
+          "id": "drawer",
+          "label": "Often kept in a drawer",
+          "negation": "isn't usually kept in a drawer",
+          "claim": "\"{answer}\" is ordinarily kept in a drawer."
         }
       ]
     },
@@ -99,22 +99,22 @@
       "id": "r5",
       "conditions": [
         {
-          "id": "metal",
-          "label": "Mostly metal",
-          "negation": "isn't mostly metal",
-          "claim": "The main body or structure of \"{answer}\" is ordinarily made of metal."
+          "id": "pocket",
+          "label": "Fits in a pocket",
+          "negation": "doesn't fit in a pocket",
+          "claim": "\"{answer}\" could ordinarily fit inside a clothing pocket."
         },
         {
-          "id": "noise",
-          "label": "Makes a sound in use",
-          "negation": "doesn't make a sound in use",
-          "claim": "\"{answer}\" ordinarily makes a noticeable sound when it is used."
+          "id": "cleaning",
+          "label": "Used for cleaning",
+          "negation": "isn't used for cleaning",
+          "claim": "\"{answer}\" is ordinarily used for cleaning something."
         },
         {
-          "id": "drawer",
-          "label": "Often kept in a drawer",
-          "negation": "isn't usually kept in a drawer",
-          "claim": "\"{answer}\" is ordinarily kept in a drawer."
+          "id": "floats",
+          "label": "Floats on water",
+          "negation": "doesn't float on water",
+          "claim": "\"{answer}\" would ordinarily float on water."
         }
       ]
     }

@@ -7,10 +7,33 @@
       "id": "r1",
       "conditions": [
         {
-          "id": "bendy",
-          "label": "Bends easily",
-          "negation": "doesn't bend easily",
-          "claim": "\"{answer}\" can ordinarily be bent or folded by hand without breaking."
+          "id": "daily",
+          "label": "Used most days",
+          "negation": "isn't used most days",
+          "claim": "Most people ordinarily use \"{answer}\" on most days."
+        },
+        {
+          "id": "drawer",
+          "label": "Often kept in a drawer",
+          "negation": "isn't usually kept in a drawer",
+          "claim": "\"{answer}\" is ordinarily kept in a drawer."
+        },
+        {
+          "id": "floats",
+          "label": "Floats on water",
+          "negation": "doesn't float on water",
+          "claim": "\"{answer}\" would ordinarily float on water."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "fabric",
+          "label": "Made of fabric",
+          "negation": "isn't made of fabric",
+          "claim": "\"{answer}\" is ordinarily made mostly of cloth or fabric."
         },
         {
           "id": "daily",
@@ -19,33 +42,10 @@
           "claim": "Most people ordinarily use \"{answer}\" on most days."
         },
         {
-          "id": "hangs",
-          "label": "Often hung up",
-          "negation": "isn't usually hung up",
-          "claim": "\"{answer}\" is ordinarily hung up when not in use."
-        }
-      ]
-    },
-    {
-      "id": "r2",
-      "conditions": [
-        {
-          "id": "wearable",
-          "label": "Can be worn",
-          "negation": "can't be worn",
-          "claim": "\"{answer}\" is ordinarily worn on the body."
-        },
-        {
-          "id": "fabric",
-          "label": "Made of fabric",
-          "negation": "isn't made of fabric",
-          "claim": "\"{answer}\" is ordinarily made mostly of cloth or fabric."
-        },
-        {
-          "id": "hangs",
-          "label": "Often hung up",
-          "negation": "isn't usually hung up",
-          "claim": "\"{answer}\" is ordinarily hung up when not in use."
+          "id": "folds",
+          "label": "Folds or rolls up",
+          "negation": "doesn't fold or roll up",
+          "claim": "\"{answer}\" can ordinarily be folded or rolled up."
         }
       ]
     },
@@ -59,16 +59,16 @@
           "claim": "\"{answer}\" is ordinarily worn on the body."
         },
         {
-          "id": "soft",
-          "label": "Soft to the touch",
-          "negation": "isn't soft",
-          "claim": "\"{answer}\" is ordinarily soft to the touch."
+          "id": "bendy",
+          "label": "Bends easily",
+          "negation": "doesn't bend easily",
+          "claim": "\"{answer}\" can ordinarily be bent or folded by hand without breaking."
         },
         {
-          "id": "drawer",
-          "label": "Often kept in a drawer",
-          "negation": "isn't usually kept in a drawer",
-          "claim": "\"{answer}\" is ordinarily kept in a drawer."
+          "id": "hangs",
+          "label": "Often hung up",
+          "negation": "isn't usually hung up",
+          "claim": "\"{answer}\" is ordinarily hung up when not in use."
         }
       ]
     },
@@ -82,16 +82,16 @@
           "claim": "\"{answer}\" is ordinarily made mostly of cloth or fabric."
         },
         {
-          "id": "daily",
-          "label": "Used most days",
-          "negation": "isn't used most days",
-          "claim": "Most people ordinarily use \"{answer}\" on most days."
+          "id": "hangs",
+          "label": "Often hung up",
+          "negation": "isn't usually hung up",
+          "claim": "\"{answer}\" is ordinarily hung up when not in use."
         },
         {
-          "id": "drawer",
-          "label": "Often kept in a drawer",
-          "negation": "isn't usually kept in a drawer",
-          "claim": "\"{answer}\" is ordinarily kept in a drawer."
+          "id": "floats",
+          "label": "Floats on water",
+          "negation": "doesn't float on water",
+          "claim": "\"{answer}\" would ordinarily float on water."
         }
       ]
     },
@@ -99,16 +99,16 @@
       "id": "r5",
       "conditions": [
         {
-          "id": "metal",
-          "label": "Mostly metal",
-          "negation": "isn't mostly metal",
-          "claim": "The main body or structure of \"{answer}\" is ordinarily made of metal."
+          "id": "wearable",
+          "label": "Can be worn",
+          "negation": "can't be worn",
+          "claim": "\"{answer}\" is ordinarily worn on the body."
         },
         {
-          "id": "moving",
-          "label": "Has moving parts",
-          "negation": "has no moving parts",
-          "claim": "\"{answer}\" ordinarily has moving parts."
+          "id": "folds",
+          "label": "Folds or rolls up",
+          "negation": "doesn't fold or roll up",
+          "claim": "\"{answer}\" can ordinarily be folded or rolled up."
         },
         {
           "id": "drawer",

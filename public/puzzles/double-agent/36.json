@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 36,
+  "difficulty": "medium",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:36-r1-a",
+          "label": "A person or thing that is a resource that helps make something easier or possible to do",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A person or thing that is a resource that helps make something easier or possible to do."
+        },
+        {
+          "id": "clue:36-r1-b",
+          "label": "The activity of contributing to the fulfillment of a need or furtherance of an effort or purpose",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The activity of contributing to the fulfillment of a need or furtherance of an effort or purpose."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:36-r2-a",
+          "label": "A carbonaceous material obtained by heating wood or other organic matter in the absence of air",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A carbonaceous material obtained by heating wood or other organic matter in the absence of air."
+        },
+        {
+          "id": "clue:36-r2-b",
+          "label": "A stick of black carbon material used for drawing",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A stick of black carbon material used for drawing."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:36-r3-a",
+          "label": "A hard coarse-grained siliceous sandstone",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A hard coarse-grained siliceous sandstone."
+        },
+        {
+          "id": "clue:36-r3-b",
+          "label": "Fortitude and determination",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Fortitude and determination."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 51,
+  "difficulty": "hard",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:51-r1-a",
+          "label": "A special group delegated to consider some matter",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A special group delegated to consider some matter."
+        },
+        {
+          "id": "clue:51-r1-b",
+          "label": "A fee for services rendered based on a percentage of an amount received or collected or agreed to be paid (as distinguished from a salary)",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A fee for services rendered based on a percentage of an amount received or collected or agreed to be paid (as distinguished from a salary)."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:51-r2-a",
+          "label": "A vertical structure that divides or separates (as a wall divides one room from another)",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A vertical structure that divides or separates (as a wall divides one room from another)."
+        },
+        {
+          "id": "clue:51-r2-b",
+          "label": "(computer science) the part of a hard disk that is dedicated to a particular operating system or application and accessed as a single unit",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: (computer science) the part of a hard disk that is dedicated to a particular operating system or application and accessed as a single unit."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:51-r3-a",
+          "label": "Take to be the case or to be true; accept without verification or proof",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Take to be the case or to be true; accept without verification or proof."
+        },
+        {
+          "id": "clue:51-r3-b",
+          "label": "Take upon oneself; act presumptuously, without permission",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Take upon oneself; act presumptuously, without permission."
+        }
+      ]
+    }
+  ]
+}

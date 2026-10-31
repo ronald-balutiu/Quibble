@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 23,
+  "difficulty": "medium",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:23-r1-a",
+          "label": "The main stem of a tree; usually covered with bark; the bole is usually the part that is commercially useful for lumber",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The main stem of a tree; usually covered with bark; the bole is usually the part that is commercially useful for lumber."
+        },
+        {
+          "id": "clue:23-r1-b",
+          "label": "Luggage consisting of a large strong case used when traveling or for storage",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Luggage consisting of a large strong case used when traveling or for storage."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:23-r2-a",
+          "label": "Sewing that repairs a worn or torn hole (especially in a garment)",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Sewing that repairs a worn or torn hole (especially in a garment)."
+        },
+        {
+          "id": "clue:23-r2-b",
+          "label": "The act of putting something in working order again",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The act of putting something in working order again."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:23-r3-a",
+          "label": "A person who is the aim of an attack (especially a victim of ridicule or exploitation) by some hostile person or influence",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A person who is the aim of an attack (especially a victim of ridicule or exploitation) by some hostile person or influence."
+        },
+        {
+          "id": "clue:23-r3-b",
+          "label": "Animal hunted or caught for food",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Animal hunted or caught for food."
+        }
+      ]
+    }
+  ]
+}

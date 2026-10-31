@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 41,
+  "difficulty": "hard",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:41-r1-a",
+          "label": "A slender and greatly elongated substance capable of being spun into yarn",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A slender and greatly elongated substance capable of being spun into yarn."
+        },
+        {
+          "id": "clue:41-r1-b",
+          "label": "Any of several elongated, threadlike cells (especially a muscle fiber or a nerve fiber)",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Any of several elongated, threadlike cells (especially a muscle fiber or a nerve fiber)."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:41-r2-a",
+          "label": "A rich, frothy, creamy dessert made with whipped egg whites and heavy cream",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A rich, frothy, creamy dessert made with whipped egg whites and heavy cream."
+        },
+        {
+          "id": "clue:41-r2-b",
+          "label": "Toiletry consisting of an aerosol foam used in hair styling",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Toiletry consisting of an aerosol foam used in hair styling."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:41-r3-a",
+          "label": "(mathematics) a symbol or function representing a mathematical operation",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: (mathematics) a symbol or function representing a mathematical operation."
+        },
+        {
+          "id": "clue:41-r3-b",
+          "label": "An agent that operates some apparatus or machine",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: An agent that operates some apparatus or machine."
+        }
+      ]
+    }
+  ]
+}

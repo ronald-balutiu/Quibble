@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 45,
+  "difficulty": "hard",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:45-r1-a",
+          "label": "The edge of a piece of cloth; especially the finished edge that has been doubled under and stitched down",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The edge of a piece of cloth; especially the finished edge that has been doubled under and stitched down."
+        },
+        {
+          "id": "clue:45-r1-b",
+          "label": "The utterance of a sound similar to clearing the throat; intended to get attention, express hesitancy, fill a pause, hide embarrassment, warn a friend, etc.",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The utterance of a sound similar to clearing the throat; intended to get attention, express hesitancy, fill a pause, hide embarrassment, warn a friend, etc.."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:45-r2-a",
+          "label": "A bowl-shaped vessel; usually used for holding food or liquids",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A bowl-shaped vessel; usually used for holding food or liquids."
+        },
+        {
+          "id": "clue:45-r2-b",
+          "label": "A natural depression in the surface of the land often with a lake at the bottom of it",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A natural depression in the surface of the land often with a lake at the bottom of it."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:45-r3-a",
+          "label": "The smallest administrative district of several European countries",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The smallest administrative district of several European countries."
+        },
+        {
+          "id": "clue:45-r3-b",
+          "label": "A body of people or families living together and sharing everything",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A body of people or families living together and sharing everything."
+        }
+      ]
+    }
+  ]
+}

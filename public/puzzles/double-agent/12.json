@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 12,
+  "difficulty": "easy",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:12-r1-a",
+          "label": "A demanding or stimulating situation",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A demanding or stimulating situation."
+        },
+        {
+          "id": "clue:12-r1-b",
+          "label": "A call to engage in a contest or fight",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A call to engage in a contest or fight."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:12-r2-a",
+          "label": "The act of moving hurriedly and in a careless manner",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The act of moving hurriedly and in a careless manner."
+        },
+        {
+          "id": "clue:12-r2-b",
+          "label": "A sudden forceful flow",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A sudden forceful flow."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:12-r3-a",
+          "label": "Any materials unused and rejected as worthless or unwanted",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Any materials unused and rejected as worthless or unwanted."
+        },
+        {
+          "id": "clue:12-r3-b",
+          "label": "Useless or profitless activity; using or expending or consuming thoughtlessly or carelessly",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Useless or profitless activity; using or expending or consuming thoughtlessly or carelessly."
+        }
+      ]
+    }
+  ]
+}

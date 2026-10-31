@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 3,
+  "difficulty": "easy",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:3-r1-a",
+          "label": "A particular instance of buying or selling",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A particular instance of buying or selling."
+        },
+        {
+          "id": "clue:3-r1-b",
+          "label": "An agreement between parties (usually arrived at after discussion) fixing obligations of each",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: An agreement between parties (usually arrived at after discussion) fixing obligations of each."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:3-r2-a",
+          "label": "A formation of people or things one beside another",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A formation of people or things one beside another."
+        },
+        {
+          "id": "clue:3-r2-b",
+          "label": "A mark that is long relative to its width",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A mark that is long relative to its width."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:3-r3-a",
+          "label": "A cry or shout of approval",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A cry or shout of approval."
+        },
+        {
+          "id": "clue:3-r3-b",
+          "label": "Give encouragement to",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Give encouragement to."
+        }
+      ]
+    }
+  ]
+}

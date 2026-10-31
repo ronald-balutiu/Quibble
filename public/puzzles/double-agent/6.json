@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 6,
+  "difficulty": "easy",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:6-r1-a",
+          "label": "A sandwich in which the filling is rolled up in a soft tortilla",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A sandwich in which the filling is rolled up in a soft tortilla."
+        },
+        {
+          "id": "clue:6-r1-b",
+          "label": "Arrange or fold as a cover or protection",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Arrange or fold as a cover or protection."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:6-r2-a",
+          "label": "A light shade of red",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A light shade of red."
+        },
+        {
+          "id": "clue:6-r2-b",
+          "label": "Any of various flowers of plants of the genus Dianthus cultivated for their fragrant flowers",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Any of various flowers of plants of the genus Dianthus cultivated for their fragrant flowers."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:6-r3-a",
+          "label": "Possession of controlling influence",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Possession of controlling influence."
+        },
+        {
+          "id": "clue:6-r3-b",
+          "label": "(physics) the rate of doing work; measured in watts (= joules/second)",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: (physics) the rate of doing work; measured in watts (= joules/second)."
+        }
+      ]
+    }
+  ]
+}

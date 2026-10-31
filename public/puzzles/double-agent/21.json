@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 21,
+  "difficulty": "medium",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:21-r1-a",
+          "label": "A thing constructed; a complex entity constructed of many parts",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A thing constructed; a complex entity constructed of many parts."
+        },
+        {
+          "id": "clue:21-r1-b",
+          "label": "The manner of construction of something and the arrangement of its parts",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The manner of construction of something and the arrangement of its parts."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:21-r2-a",
+          "label": "The sound made by something moving rapidly or by steam coming out of a small aperture",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The sound made by something moving rapidly or by steam coming out of a small aperture."
+        },
+        {
+          "id": "clue:21-r2-b",
+          "label": "A small wind instrument that produces a whistling sound by blowing into it",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A small wind instrument that produces a whistling sound by blowing into it."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:21-r3-a",
+          "label": "A periodical that summarizes the news",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A periodical that summarizes the news."
+        },
+        {
+          "id": "clue:21-r3-b",
+          "label": "Convert food into absorbable substances",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Convert food into absorbable substances."
+        }
+      ]
+    }
+  ]
+}

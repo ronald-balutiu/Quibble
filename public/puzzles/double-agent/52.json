@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 52,
+  "difficulty": "hard",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:52-r1-a",
+          "label": "Dry outer covering of a fruit or seed or nut",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Dry outer covering of a fruit or seed or nut."
+        },
+        {
+          "id": "clue:52-r1-b",
+          "label": "The frame or body of ship",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The frame or body of ship."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:52-r2-a",
+          "label": "(formal) a person who announces important news",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: (formal) a person who announces important news."
+        },
+        {
+          "id": "clue:52-r2-b",
+          "label": "Something that precedes and indicates the approach of something or someone",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Something that precedes and indicates the approach of something or someone."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:52-r3-a",
+          "label": "Reason by deduction; establish by deduction",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Reason by deduction; establish by deduction."
+        },
+        {
+          "id": "clue:52-r3-b",
+          "label": "Obtain",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Obtain."
+        }
+      ]
+    }
+  ]
+}

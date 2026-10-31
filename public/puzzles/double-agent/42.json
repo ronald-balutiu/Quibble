@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 42,
+  "difficulty": "hard",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:42-r1-a",
+          "label": "The act of passing from one state or place to the next",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The act of passing from one state or place to the next."
+        },
+        {
+          "id": "clue:42-r1-b",
+          "label": "A section of text; particularly a section of medium length",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A section of text; particularly a section of medium length."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:42-r2-a",
+          "label": "Fix or adjust the time, amount, degree, or rate of",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Fix or adjust the time, amount, degree, or rate of."
+        },
+        {
+          "id": "clue:42-r2-b",
+          "label": "Bring into conformity with rules or principles or usage; impose regulations",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Bring into conformity with rules or principles or usage; impose regulations."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:42-r3-a",
+          "label": "(baseball) a ballplayer who is batting",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: (baseball) a ballplayer who is batting."
+        },
+        {
+          "id": "clue:42-r3-b",
+          "label": "A liquid or semiliquid mixture, as of flour, eggs, and milk, used in cooking",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A liquid or semiliquid mixture, as of flour, eggs, and milk, used in cooking."
+        }
+      ]
+    }
+  ]
+}

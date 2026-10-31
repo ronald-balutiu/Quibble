@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 39,
+  "difficulty": "hard",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:39-r1-a",
+          "label": "The person or thing chosen or selected",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The person or thing chosen or selected."
+        },
+        {
+          "id": "clue:39-r1-b",
+          "label": "The act of choosing or selecting",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The act of choosing or selecting."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:39-r2-a",
+          "label": "Textual matter that is added onto a publication; usually at the end",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Textual matter that is added onto a publication; usually at the end."
+        },
+        {
+          "id": "clue:39-r2-b",
+          "label": "A quantity added (e.g. to make up for a deficiency)",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A quantity added (e.g. to make up for a deficiency)."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:39-r3-a",
+          "label": "An individual instance of a type of symbol",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: An individual instance of a type of symbol."
+        },
+        {
+          "id": "clue:39-r3-b",
+          "label": "A metal or plastic disk that can be redeemed or used in designated slot machines",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A metal or plastic disk that can be redeemed or used in designated slot machines."
+        }
+      ]
+    }
+  ]
+}

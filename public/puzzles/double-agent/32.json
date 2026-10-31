@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 32,
+  "difficulty": "medium",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:32-r1-a",
+          "label": "The basic unit of length adopted under the Systeme International d'Unites (approximately 1.094 yards)",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The basic unit of length adopted under the Systeme International d'Unites (approximately 1.094 yards)."
+        },
+        {
+          "id": "clue:32-r1-b",
+          "label": "Any of various measuring instruments for measuring a quantity",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Any of various measuring instruments for measuring a quantity."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:32-r2-a",
+          "label": "A source of danger; a possibility of incurring loss or misfortune",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A source of danger; a possibility of incurring loss or misfortune."
+        },
+        {
+          "id": "clue:32-r2-b",
+          "label": "A venture undertaken without regard to possible loss or injury",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A venture undertaken without regard to possible loss or injury."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:32-r3-a",
+          "label": "A thin layer covering the surface of a liquid",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A thin layer covering the surface of a liquid."
+        },
+        {
+          "id": "clue:32-r3-b",
+          "label": "Reading or glancing through quickly",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Reading or glancing through quickly."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 31,
+  "difficulty": "medium",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:31-r1-a",
+          "label": "An abstract part of something",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: An abstract part of something."
+        },
+        {
+          "id": "clue:31-r1-b",
+          "label": "An artifact that is one of the individual parts of which a composite entity is made up; especially a part that can be separated from or attached to a system",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: An artifact that is one of the individual parts of which a composite entity is made up; especially a part that can be separated from or attached to a system."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:31-r2-a",
+          "label": "A perceptual structure",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A perceptual structure."
+        },
+        {
+          "id": "clue:31-r2-b",
+          "label": "A customary way of operation or behavior",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A customary way of operation or behavior."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:31-r3-a",
+          "label": "A sudden event that imparts energy or excitement, usually with a dramatic impact",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A sudden event that imparts energy or excitement, usually with a dramatic impact."
+        },
+        {
+          "id": "clue:31-r3-b",
+          "label": "Strike suddenly and with force",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Strike suddenly and with force."
+        }
+      ]
+    }
+  ]
+}

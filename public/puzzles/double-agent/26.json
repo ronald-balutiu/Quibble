@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 26,
+  "difficulty": "medium",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:26-r1-a",
+          "label": "The shape of a raised edge of a more or less circular object",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The shape of a raised edge of a more or less circular object."
+        },
+        {
+          "id": "clue:26-r1-b",
+          "label": "(basketball) the hoop from which the net is suspended",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: (basketball) the hoop from which the net is suspended."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:26-r2-a",
+          "label": "Motion of hands or body to emphasize or help to express a thought or feeling",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Motion of hands or body to emphasize or help to express a thought or feeling."
+        },
+        {
+          "id": "clue:26-r2-b",
+          "label": "The use of movements (especially of the hands) to communicate familiar or prearranged signals",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The use of movements (especially of the hands) to communicate familiar or prearranged signals."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:26-r3-a",
+          "label": "Get over an illness or shock",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Get over an illness or shock."
+        },
+        {
+          "id": "clue:26-r3-b",
+          "label": "Regain a former condition after a financial loss",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Regain a former condition after a financial loss."
+        }
+      ]
+    }
+  ]
+}

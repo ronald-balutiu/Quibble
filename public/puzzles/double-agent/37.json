@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 37,
+  "difficulty": "medium",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:37-r1-a",
+          "label": "An abrupt failure of function or complete physical exhaustion",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: An abrupt failure of function or complete physical exhaustion."
+        },
+        {
+          "id": "clue:37-r1-b",
+          "label": "A natural event caused by something suddenly falling down or caving in",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A natural event caused by something suddenly falling down or caving in."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:37-r2-a",
+          "label": "A hard malleable ductile silvery metallic element that is resistant to corrosion; used in alloys; occurs in pentlandite and smaltite and garnierite and millerite",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A hard malleable ductile silvery metallic element that is resistant to corrosion; used in alloys; occurs in pentlandite and smaltite and garnierite and millerite."
+        },
+        {
+          "id": "clue:37-r2-b",
+          "label": "A United States coin worth one twentieth of a dollar",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A United States coin worth one twentieth of a dollar."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:37-r3-a",
+          "label": "The line at which the sky and Earth appear to meet",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The line at which the sky and Earth appear to meet."
+        },
+        {
+          "id": "clue:37-r3-b",
+          "label": "The range of interest or activity that can be anticipated",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The range of interest or activity that can be anticipated."
+        }
+      ]
+    }
+  ]
+}

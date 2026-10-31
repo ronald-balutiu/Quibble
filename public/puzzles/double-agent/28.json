@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 28,
+  "difficulty": "medium",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:28-r1-a",
+          "label": "A mixture of lime or gypsum with sand and water; hardens into a smooth solid; used to cover walls and ceilings",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A mixture of lime or gypsum with sand and water; hardens into a smooth solid; used to cover walls and ceilings."
+        },
+        {
+          "id": "clue:28-r1-b",
+          "label": "A medical dressing consisting of a soft heated mass of meal or clay that is spread on a cloth and applied to the skin to treat inflamed areas or improve circulation etc.",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A medical dressing consisting of a soft heated mass of meal or clay that is spread on a cloth and applied to the skin to treat inflamed areas or improve circulation etc.."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:28-r2-a",
+          "label": "A slender and greatly elongated substance capable of being spun into yarn",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A slender and greatly elongated substance capable of being spun into yarn."
+        },
+        {
+          "id": "clue:28-r2-b",
+          "label": "Coarse, indigestible plant food low in nutrients; its bulk stimulates intestinal peristalsis",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Coarse, indigestible plant food low in nutrients; its bulk stimulates intestinal peristalsis."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:28-r3-a",
+          "label": "Any distinct time period in a sequence of events",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Any distinct time period in a sequence of events."
+        },
+        {
+          "id": "clue:28-r3-b",
+          "label": "(astronomy) the particular appearance of a body's state of illumination (especially one of the recurring shapes of the part of Earth's moon that is illuminated by the sun)",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: (astronomy) the particular appearance of a body's state of illumination (especially one of the recurring shapes of the part of Earth's moon that is illuminated by the sun)."
+        }
+      ]
+    }
+  ]
+}

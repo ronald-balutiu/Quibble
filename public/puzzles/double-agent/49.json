@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 49,
+  "difficulty": "hard",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:49-r1-a",
+          "label": "Street names for marijuana",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Street names for marijuana."
+        },
+        {
+          "id": "clue:49-r1-b",
+          "label": "An ignorant or foolish person",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: An ignorant or foolish person."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:49-r2-a",
+          "label": "A gradual decline (in size or strength or power or number)",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A gradual decline (in size or strength or power or number)."
+        },
+        {
+          "id": "clue:49-r2-b",
+          "label": "The outward flow of the tide",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The outward flow of the tide."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:49-r3-a",
+          "label": "A document incorporating an institution and specifying its rights; includes the articles of incorporation and the certificate of incorporation",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A document incorporating an institution and specifying its rights; includes the articles of incorporation and the certificate of incorporation."
+        },
+        {
+          "id": "clue:49-r3-b",
+          "label": "Hold under a lease or rental agreement; of goods and services",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Hold under a lease or rental agreement; of goods and services."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 40,
+  "difficulty": "hard",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:40-r1-a",
+          "label": "The boundary line or the area immediately inside the boundary",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The boundary line or the area immediately inside the boundary."
+        },
+        {
+          "id": "clue:40-r1-b",
+          "label": "An amount beyond the minimum necessary",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: An amount beyond the minimum necessary."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:40-r2-a",
+          "label": "Dense vegetation consisting of stunted trees or bushes",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Dense vegetation consisting of stunted trees or bushes."
+        },
+        {
+          "id": "clue:40-r2-b",
+          "label": "The act of cleaning a surface by rubbing it with a brush and soap and water",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The act of cleaning a surface by rubbing it with a brush and soap and water."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:40-r3-a",
+          "label": "The mental attitude that something is believable and should be accepted as true",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The mental attitude that something is believable and should be accepted as true."
+        },
+        {
+          "id": "clue:40-r3-b",
+          "label": "The act of accepting with approval; favorable reception",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The act of accepting with approval; favorable reception."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 35,
+  "difficulty": "medium",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:35-r1-a",
+          "label": "Establish after a calculation, investigation, experiment, survey, or study",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Establish after a calculation, investigation, experiment, survey, or study."
+        },
+        {
+          "id": "clue:35-r1-b",
+          "label": "Shape or influence; give direction to",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Shape or influence; give direction to."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:35-r2-a",
+          "label": "A measuring instrument for measuring and indicating a quantity such as the thickness of wire or the amount of rain etc.",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A measuring instrument for measuring and indicating a quantity such as the thickness of wire or the amount of rain etc.."
+        },
+        {
+          "id": "clue:35-r2-b",
+          "label": "Accepted or approved instance or example of a quantity or quality against which others are judged or measured or compared",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Accepted or approved instance or example of a quantity or quality against which others are judged or measured or compared."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:35-r3-a",
+          "label": "Wingless usually flattened bloodsucking insect parasitic on warm-blooded animals",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Wingless usually flattened bloodsucking insect parasitic on warm-blooded animals."
+        },
+        {
+          "id": "clue:35-r3-b",
+          "label": "A person who has a nasty or unethical character undeserving of respect",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A person who has a nasty or unethical character undeserving of respect."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 1,
+  "difficulty": "easy",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:1-r1-a",
+          "label": "The event of something burning (often destructive)",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The event of something burning (often destructive)."
+        },
+        {
+          "id": "clue:1-r1-b",
+          "label": "The act of firing weapons or artillery at an enemy",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The act of firing weapons or artillery at an enemy."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:1-r2-a",
+          "label": "An artistic form of auditory communication incorporating instrumental or vocal tones in a structured and continuous manner",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: An artistic form of auditory communication incorporating instrumental or vocal tones in a structured and continuous manner."
+        },
+        {
+          "id": "clue:1-r2-b",
+          "label": "Any agreeable (pleasing and harmonious) sounds",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Any agreeable (pleasing and harmonious) sounds."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:1-r3-a",
+          "label": "Any collection of particles (e.g., smoke or dust) or gases that is visible",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Any collection of particles (e.g., smoke or dust) or gases that is visible."
+        },
+        {
+          "id": "clue:1-r3-b",
+          "label": "A visible mass of water or ice particles suspended at a considerable altitude",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A visible mass of water or ice particles suspended at a considerable altitude."
+        }
+      ]
+    }
+  ]
+}

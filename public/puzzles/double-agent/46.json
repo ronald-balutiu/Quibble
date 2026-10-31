@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 46,
+  "difficulty": "hard",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:46-r1-a",
+          "label": "Come into existence; take on form or shape",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Come into existence; take on form or shape."
+        },
+        {
+          "id": "clue:46-r1-b",
+          "label": "Rise to one's feet",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Rise to one's feet."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:46-r2-a",
+          "label": "(botany) outer tissue of bark; a protective layer of dead cells",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: (botany) outer tissue of bark; a protective layer of dead cells."
+        },
+        {
+          "id": "clue:46-r2-b",
+          "label": "The plug in the mouth of a bottle (especially a wine bottle)",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The plug in the mouth of a bottle (especially a wine bottle)."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:46-r3-a",
+          "label": "The people who inhabit a territory or state",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The people who inhabit a territory or state."
+        },
+        {
+          "id": "clue:46-r3-b",
+          "label": "(statistics) the entire aggregation of items from which samples can be drawn",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: (statistics) the entire aggregation of items from which samples can be drawn."
+        }
+      ]
+    }
+  ]
+}

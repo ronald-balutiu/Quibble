@@ -93,8 +93,9 @@ test('a whole Category Escape run can be played with the keyboard alone', async 
   await expect(page.getByText('L-02 • is food')).toBeVisible()
 
   // Try again starts a fresh run; clearing all six levels escapes.
-  await expect(page.getByRole('button', { name: 'Try #001 again' })).toBeFocused()
-  await page.keyboard.press('Enter')
+  // The next puzzle is the primary action; Try again is one Tab away.
+  await expect(page.getByRole('link', { name: /^Next puzzle #002/u })).toBeFocused()
+  await tabTo(page, 'Try #001 again')
   await expect(page.getByRole('img', { name: '0 of 3 wrong guesses used' })).toBeVisible()
   for (const [i, thing] of ['one', 'two', 'three', 'four', 'five'].entries()) {
     await guess(page, `good ${thing}`)
@@ -105,7 +106,7 @@ test('a whole Category Escape run can be played with the keyboard alone', async 
   await expect(page.getByText('NEW BEST • PREVIOUS 3')).toBeVisible()
 
   // Give up ends a run at the levels cleared.
-  await page.keyboard.press('Enter')
+  await tabTo(page, 'Try #001 again')
   await guess(page, 'good first')
   await expect(answer).toBeFocused()
   await tabTo(page, 'Give up')

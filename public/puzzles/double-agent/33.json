@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 33,
+  "difficulty": "medium",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:33-r1-a",
+          "label": "The manner in which something is greeted",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The manner in which something is greeted."
+        },
+        {
+          "id": "clue:33-r1-b",
+          "label": "A formal party of people; as after a wedding",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A formal party of people; as after a wedding."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:33-r2-a",
+          "label": "Cover from sight",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Cover from sight."
+        },
+        {
+          "id": "clue:33-r2-b",
+          "label": "Place in a grave or tomb",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Place in a grave or tomb."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:33-r3-a",
+          "label": "The act of choosing or selecting",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The act of choosing or selecting."
+        },
+        {
+          "id": "clue:33-r3-b",
+          "label": "An assortment of things from which a choice can be made",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: An assortment of things from which a choice can be made."
+        }
+      ]
+    }
+  ]
+}

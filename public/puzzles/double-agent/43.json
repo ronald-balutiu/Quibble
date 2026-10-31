@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 43,
+  "difficulty": "hard",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:43-r1-a",
+          "label": "The outside boundary or surface of something",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The outside boundary or surface of something."
+        },
+        {
+          "id": "clue:43-r1-b",
+          "label": "A part of the city far removed from the center",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A part of the city far removed from the center."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:43-r2-a",
+          "label": "(law) a right or legal share of something; a financial involvement with something",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: (law) a right or legal share of something; a financial involvement with something."
+        },
+        {
+          "id": "clue:43-r2-b",
+          "label": "Instrument of execution consisting of a vertical post that a victim is tied to for burning",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Instrument of execution consisting of a vertical post that a victim is tied to for burning."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:43-r3-a",
+          "label": "A seat for the rider of a horse or other animal",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A seat for the rider of a horse or other animal."
+        },
+        {
+          "id": "clue:43-r3-b",
+          "label": "Cut of meat (especially mutton or lamb) consisting of part of the backbone and both loins",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Cut of meat (especially mutton or lamb) consisting of part of the backbone and both loins."
+        }
+      ]
+    }
+  ]
+}

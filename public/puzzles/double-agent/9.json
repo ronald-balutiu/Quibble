@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 9,
+  "difficulty": "easy",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:9-r1-a",
+          "label": "A movable organ for flying (one of a pair)",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A movable organ for flying (one of a pair)."
+        },
+        {
+          "id": "clue:9-r1-b",
+          "label": "One of the horizontal airfoils on either side of the fuselage of an airplane",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: One of the horizontal airfoils on either side of the fuselage of an airplane."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:9-r2-a",
+          "label": "A sweet yellow liquid produced by bees",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A sweet yellow liquid produced by bees."
+        },
+        {
+          "id": "clue:9-r2-b",
+          "label": "A beloved person; used as terms of endearment",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A beloved person; used as terms of endearment."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:9-r3-a",
+          "label": "The part of the body between the neck and the upper arm",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The part of the body between the neck and the upper arm."
+        },
+        {
+          "id": "clue:9-r3-b",
+          "label": "A cut of meat including the upper joint of the foreleg",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A cut of meat including the upper joint of the foreleg."
+        }
+      ]
+    }
+  ]
+}

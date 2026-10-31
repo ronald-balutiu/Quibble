@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 30,
+  "difficulty": "medium",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:30-r1-a",
+          "label": "A subdivision of a written work; usually numbered and titled",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A subdivision of a written work; usually numbered and titled."
+        },
+        {
+          "id": "clue:30-r1-b",
+          "label": "Any distinct period in history or in a person's life",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Any distinct period in history or in a person's life."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:30-r2-a",
+          "label": "The piece of land on which something is located (or is to be located)",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The piece of land on which something is located (or is to be located)."
+        },
+        {
+          "id": "clue:30-r2-b",
+          "label": "A computer connected to the internet that maintains a series of web pages on the World Wide Web; a computer connected to the internet that maintains a series of web pages on the World Wide Web",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A computer connected to the internet that maintains a series of web pages on the World Wide Web; a computer connected to the internet that maintains a series of web pages on the World Wide Web."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:30-r3-a",
+          "label": "A compact mass",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A compact mass."
+        },
+        {
+          "id": "clue:30-r3-b",
+          "label": "An abnormal protuberance or localized enlargement",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: An abnormal protuberance or localized enlargement."
+        }
+      ]
+    }
+  ]
+}

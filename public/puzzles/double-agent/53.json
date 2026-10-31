@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 53,
+  "difficulty": "hard",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:53-r1-a",
+          "label": "Prepare for crops",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Prepare for crops."
+        },
+        {
+          "id": "clue:53-r1-b",
+          "label": "Teach or refine to be discriminative in taste or judgment",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Teach or refine to be discriminative in taste or judgment."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:53-r2-a",
+          "label": "A loud low dull continuous noise",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A loud low dull continuous noise."
+        },
+        {
+          "id": "clue:53-r2-b",
+          "label": "A complaint uttered in a low and indistinct tone",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A complaint uttered in a low and indistinct tone."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:53-r3-a",
+          "label": "The smallest whole number or a numeral representing this number",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The smallest whole number or a numeral representing this number."
+        },
+        {
+          "id": "clue:53-r3-b",
+          "label": "One of four playing cards in a deck having a single pip on its face",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: One of four playing cards in a deck having a single pip on its face."
+        }
+      ]
+    }
+  ]
+}

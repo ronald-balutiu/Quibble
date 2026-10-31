@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 17,
+  "difficulty": "easy",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:17-r1-a",
+          "label": "The only fertile female in a colony of social insects such as bees and ants and termites; its function is to lay eggs",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The only fertile female in a colony of social insects such as bees and ants and termites; its function is to lay eggs."
+        },
+        {
+          "id": "clue:17-r1-b",
+          "label": "A female sovereign ruler",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A female sovereign ruler."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:17-r2-a",
+          "label": "The place where something begins, where it springs into being",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The place where something begins, where it springs into being."
+        },
+        {
+          "id": "clue:17-r2-b",
+          "label": "A document (or organization) from which information is obtained",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A document (or organization) from which information is obtained."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:17-r3-a",
+          "label": "A collection of things wrapped or boxed together",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A collection of things wrapped or boxed together."
+        },
+        {
+          "id": "clue:17-r3-b",
+          "label": "(computer science) a message or message fragment",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: (computer science) a message or message fragment."
+        }
+      ]
+    }
+  ]
+}

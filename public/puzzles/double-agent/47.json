@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 47,
+  "difficulty": "hard",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:47-r1-a",
+          "label": "Kill as a means of socially sanctioned punishment",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Kill as a means of socially sanctioned punishment."
+        },
+        {
+          "id": "clue:47-r1-b",
+          "label": "Put in effect",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Put in effect."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:47-r2-a",
+          "label": "Get lost, as without warning or explanation",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Get lost, as without warning or explanation."
+        },
+        {
+          "id": "clue:47-r2-b",
+          "label": "Become invisible or unnoticeable",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Become invisible or unnoticeable."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:47-r3-a",
+          "label": "Vigorous and enthusiastic enjoyment",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Vigorous and enthusiastic enjoyment."
+        },
+        {
+          "id": "clue:47-r3-b",
+          "label": "Spicy or savory condiment",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Spicy or savory condiment."
+        }
+      ]
+    }
+  ]
+}

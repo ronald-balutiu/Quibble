@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 29,
+  "difficulty": "medium",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:29-r1-a",
+          "label": "(botany) the usually underground organ that lacks buds or leaves or nodes; absorbs water and mineral salts; usually it anchors the plant to the ground",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: (botany) the usually underground organ that lacks buds or leaves or nodes; absorbs water and mineral salts; usually it anchors the plant to the ground."
+        },
+        {
+          "id": "clue:29-r1-b",
+          "label": "The place where something begins, where it springs into being",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The place where something begins, where it springs into being."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:29-r2-a",
+          "label": "Accumulated knowledge or erudition or enlightenment",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Accumulated knowledge or erudition or enlightenment."
+        },
+        {
+          "id": "clue:29-r2-b",
+          "label": "The trait of utilizing knowledge and experience with common sense and insight",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The trait of utilizing knowledge and experience with common sense and insight."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:29-r3-a",
+          "label": "Lever that activates the firing mechanism of a gun",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Lever that activates the firing mechanism of a gun."
+        },
+        {
+          "id": "clue:29-r3-b",
+          "label": "An act that sets in motion some course of events",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: An act that sets in motion some course of events."
+        }
+      ]
+    }
+  ]
+}

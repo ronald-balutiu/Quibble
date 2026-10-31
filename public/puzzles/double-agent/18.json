@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 18,
+  "difficulty": "easy",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:18-r1-a",
+          "label": "Personnel who assist their superior in carrying out an assigned task",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Personnel who assist their superior in carrying out an assigned task."
+        },
+        {
+          "id": "clue:18-r1-b",
+          "label": "A strong rod or stick with a specialized utilitarian purpose",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A strong rod or stick with a specialized utilitarian purpose."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:18-r2-a",
+          "label": "The striking of one body against another",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The striking of one body against another."
+        },
+        {
+          "id": "clue:18-r2-b",
+          "label": "A forceful consequence; a strong effect",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A forceful consequence; a strong effect."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:18-r3-a",
+          "label": "Any of various large food and game fishes of northern waters; usually migrate from salt to fresh water to spawn",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Any of various large food and game fishes of northern waters; usually migrate from salt to fresh water to spawn."
+        },
+        {
+          "id": "clue:18-r3-b",
+          "label": "A pale pinkish orange color",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A pale pinkish orange color."
+        }
+      ]
+    }
+  ]
+}

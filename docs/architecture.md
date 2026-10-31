@@ -138,6 +138,26 @@ casual, open-source game: these files are not secrets or an anti-cheat measure.
 import the answer library and `public/` must not contain it. It is bundled into the
 Worker, and the API returns only what each endpoint is meant to return.
 
+## On-device judge
+
+The optional on-device judge runs Qwen3.5-0.8B (q4) on WebGPU in a module Web
+Worker, `src/judges/device/worker.ts`. The game talks to it only through
+`src/judges/device/client.ts`, which starts the worker on first use, follows a load,
+and gives each guess a 10-second limit. `protocol.ts` defines the messages between
+them.
+
+- The model files download from Hugging Face at a pinned revision (`verdict.ts`),
+  each into one buffer of its exact size (`download.ts`).
+- "Keep on this device" also stores them in the Cache API, in 64 MB parts, because
+  Chrome rejects a single 551 MB entry. A file counts as kept only once its part
+  count is written. `src/lib/storage/device.ts` deletes a kept model that has gone
+  unused for 14 days.
+- onnxruntime-web's WebGPU runtime is larger than the 25 MiB static asset limit.
+  `vite.config.ts` ships it gzipped as `/ort/runtime.wasm.gz`, and the worker unpacks
+  it.
+- The device gate, `gate.ts`, offers the judge only to desktop browsers with a WebGPU
+  adapter.
+
 ## Python reference
 
 `eval/verdict/` holds the Python reference implementation of the on-device judge.

@@ -10,6 +10,18 @@ export const deviceModel = {
   file: 'onnx/model_q4.onnx',
 } as const
 
+// Everything the browser downloads, with sizes at the pinned revision. The sizes
+// are exact, so each download fills one preallocated buffer (3.6).
+export const deviceFiles = [
+  { path: 'tokenizer_config.json', bytes: 10_027 },
+  { path: 'tokenizer.json', bytes: 19_226_111 },
+  { path: 'onnx/model_q4.onnx', bytes: 482_783 },
+  { path: 'onnx/model_q4.onnx_data', bytes: 550_764_544 },
+] as const
+export type DeviceFile = (typeof deviceFiles)[number]
+
+export const deviceFileUrl = (path: string) => `https://huggingface.co/${deviceModel.repo}/resolve/${deviceModel.revision}/${path}`
+
 const MAX_TOKENS = 512
 const YES_TOKENS = [9405, 9175] // "yes", "Yes"
 const NO_TOKENS = [2083, 2665] // "no", "No"

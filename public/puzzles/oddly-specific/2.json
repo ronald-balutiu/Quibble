@@ -7,22 +7,22 @@
       "id": "r1",
       "conditions": [
         {
-          "id": "metal",
-          "label": "Mostly metal",
-          "negation": "isn't mostly metal",
-          "claim": "The main body or structure of \"{answer}\" is ordinarily made of metal."
+          "id": "electric",
+          "label": "Needs electricity",
+          "negation": "doesn't need electricity",
+          "claim": "\"{answer}\" needs electricity, from a plug or a battery, to do its job."
         },
         {
-          "id": "nonfood",
-          "label": "Not food",
-          "negation": "is food",
-          "claim": "\"{answer}\" is something people do not ordinarily eat."
+          "id": "noise",
+          "label": "Makes a sound in use",
+          "negation": "doesn't make a sound in use",
+          "claim": "\"{answer}\" ordinarily makes a noticeable sound when it is used."
         },
         {
-          "id": "handle",
-          "label": "Has a handle",
-          "negation": "has no handle",
-          "claim": "\"{answer}\" ordinarily has a handle you hold it by."
+          "id": "moving",
+          "label": "Has moving parts",
+          "negation": "has no moving parts",
+          "claim": "\"{answer}\" ordinarily has moving parts."
         }
       ]
     },
@@ -30,22 +30,22 @@
       "id": "r2",
       "conditions": [
         {
-          "id": "nonelec",
-          "label": "Not electronic",
-          "negation": "is electronic",
-          "claim": "\"{answer}\" is free of electronic components."
-        },
-        {
-          "id": "handle",
-          "label": "Has a handle",
-          "negation": "has no handle",
-          "claim": "\"{answer}\" ordinarily has a handle you hold it by."
+          "id": "electric",
+          "label": "Needs electricity",
+          "negation": "doesn't need electricity",
+          "claim": "\"{answer}\" needs electricity, from a plug or a battery, to do its job."
         },
         {
           "id": "heavy",
           "label": "Heavier than a bag of sugar",
           "negation": "is lighter than a bag of sugar",
           "claim": "\"{answer}\" ordinarily weighs more than 1 kilogram."
+        },
+        {
+          "id": "hot",
+          "label": "Gets hot when used",
+          "negation": "doesn't get hot when used",
+          "claim": "\"{answer}\" ordinarily gets hot when it is used."
         }
       ]
     },
@@ -53,22 +53,22 @@
       "id": "r3",
       "conditions": [
         {
-          "id": "nonmetal",
-          "label": "Not metal",
-          "negation": "is mostly metal",
-          "claim": "The main body or structure of \"{answer}\" is ordinarily made of something other than metal."
-        },
-        {
-          "id": "nonfood",
-          "label": "Not food",
-          "negation": "is food",
-          "claim": "\"{answer}\" is something people do not ordinarily eat."
+          "id": "noise",
+          "label": "Makes a sound in use",
+          "negation": "doesn't make a sound in use",
+          "claim": "\"{answer}\" ordinarily makes a noticeable sound when it is used."
         },
         {
           "id": "heavy",
           "label": "Heavier than a bag of sugar",
           "negation": "is lighter than a bag of sugar",
           "claim": "\"{answer}\" ordinarily weighs more than 1 kilogram."
+        },
+        {
+          "id": "twohands",
+          "label": "Used with both hands",
+          "negation": "isn't used with both hands",
+          "claim": "People ordinarily use both hands to use \"{answer}\"."
         }
       ]
     },
@@ -76,22 +76,22 @@
       "id": "r4",
       "conditions": [
         {
-          "id": "liftable",
-          "label": "Can be lifted with one hand",
-          "negation": "can't be lifted with one hand",
-          "claim": "An adult can ordinarily lift \"{answer}\" with one hand."
+          "id": "cut",
+          "label": "Can cut things",
+          "negation": "can't cut things",
+          "claim": "\"{answer}\" is ordinarily used to cut something."
         },
         {
-          "id": "metal",
-          "label": "Mostly metal",
-          "negation": "isn't mostly metal",
-          "claim": "The main body or structure of \"{answer}\" is ordinarily made of metal."
+          "id": "sharp",
+          "label": "Has a sharp edge or point",
+          "negation": "has no sharp edge or point",
+          "claim": "\"{answer}\" ordinarily has a sharp edge or point."
         },
         {
-          "id": "nonelec",
-          "label": "Not electronic",
-          "negation": "is electronic",
-          "claim": "\"{answer}\" is free of electronic components."
+          "id": "moving",
+          "label": "Has moving parts",
+          "negation": "has no moving parts",
+          "claim": "\"{answer}\" ordinarily has moving parts."
         }
       ]
     },
@@ -99,22 +99,22 @@
       "id": "r5",
       "conditions": [
         {
-          "id": "liftable",
-          "label": "Can be lifted with one hand",
-          "negation": "can't be lifted with one hand",
-          "claim": "An adult can ordinarily lift \"{answer}\" with one hand."
+          "id": "heavy",
+          "label": "Heavier than a bag of sugar",
+          "negation": "is lighter than a bag of sugar",
+          "claim": "\"{answer}\" ordinarily weighs more than 1 kilogram."
         },
         {
-          "id": "nonmetal",
-          "label": "Not metal",
-          "negation": "is mostly metal",
-          "claim": "The main body or structure of \"{answer}\" is ordinarily made of something other than metal."
+          "id": "container",
+          "label": "Holds other things",
+          "negation": "doesn't hold other things",
+          "claim": "\"{answer}\" is ordinarily used to hold or store other objects."
         },
         {
-          "id": "handle",
-          "label": "Has a handle",
-          "negation": "has no handle",
-          "claim": "\"{answer}\" ordinarily has a handle you hold it by."
+          "id": "opens",
+          "label": "Opens and closes",
+          "negation": "doesn't open and close",
+          "claim": "\"{answer}\" ordinarily opens and closes."
         }
       ]
     }

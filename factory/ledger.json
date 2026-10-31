@@ -131,5 +131,61 @@
     "model": "clef-flash+gemma-4",
     "requests": 1932,
     "neurons": 0
+  },
+  {
+    "date": "2026-10-31T01:26:12.282Z",
+    "step": "recheck",
+    "model": "gemma-4",
+    "requests": 608,
+    "neurons": 276.86
+  },
+  {
+    "date": "2026-10-31T03:05:53.434Z",
+    "step": "confirm",
+    "model": "gemma-4",
+    "requests": 1167,
+    "neurons": 514.72
+  },
+  {
+    "date": "2026-10-31T03:17:58.938Z",
+    "step": "recheck",
+    "model": "gemma-4",
+    "requests": 191,
+    "neurons": 86.54
+  },
+  {
+    "date": "2026-10-31T03:50:14.358Z",
+    "step": "confirm",
+    "model": "gemma-4",
+    "requests": 212,
+    "neurons": 93.57
+  },
+  {
+    "date": "2026-10-31T07:00:36.435Z",
+    "step": "interrupted",
+    "model": "mixed",
+    "requests": 1542,
+    "neurons": 2833.1
+  },
+  {
+    "date": "2026-10-31T07:16:14.300Z",
+    "step": "recheck",
+    "model": "gemma-4",
+    "requests": 144,
+    "neurons": 64.29
+  },
+  {
+    "date": "2026-10-31T07:16:33.090Z",
+    "step": "confirm",
+    "model": "gemma-4",
+    "requests": 100,
+    "neurons": 44.02
+  },
+  {
+    "date": "2026-10-31T09:53:57.177Z",
+    "step": "agents",
+    "model": "clef-flash+gemma-4",
+    "requests": 1143,
+    "neurons": 2073.22
   }
 ]

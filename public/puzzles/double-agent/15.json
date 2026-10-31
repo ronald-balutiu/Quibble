@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 15,
+  "difficulty": "easy",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:15-r1-a",
+          "label": "One of three equal parts of a divisible whole",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: One of three equal parts of a divisible whole."
+        },
+        {
+          "id": "clue:15-r1-b",
+          "label": "Following the second position in an ordering or series",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Following the second position in an ordering or series."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:15-r2-a",
+          "label": "The property of a body that causes it to have weight in a gravitational field",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The property of a body that causes it to have weight in a gravitational field."
+        },
+        {
+          "id": "clue:15-r2-b",
+          "label": "(often followed by ‘of’) a large number or amount or extent",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: (often followed by ‘of’) a large number or amount or extent."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:15-r3-a",
+          "label": "The state of matter distinguished from the solid and liquid states by: relatively low density and viscosity; relatively great expansion and contraction with changes in pressure and temperature; the ability to diffuse readily; and the spontaneous tendency to become distributed uniformly throughout any container",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The state of matter distinguished from the solid and liquid states by: relatively low density and viscosity; relatively great expansion and contraction with changes in pressure and temperature; the ability to diffuse readily; and the spontaneous tendency to become distributed uniformly throughout any container."
+        },
+        {
+          "id": "clue:15-r3-b",
+          "label": "A volatile flammable mixture of hydrocarbons (hexane and heptane and octane etc.) derived from petroleum; used mainly as a fuel in internal-combustion engines",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A volatile flammable mixture of hydrocarbons (hexane and heptane and octane etc.) derived from petroleum; used mainly as a fuel in internal-combustion engines."
+        }
+      ]
+    }
+  ]
+}

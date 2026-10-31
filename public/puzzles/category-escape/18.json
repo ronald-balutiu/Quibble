@@ -1,0 +1,163 @@
+{
+  "game": "category-escape",
+  "n": 18,
+  "difficulty": "easy",
+  "rounds": [
+    {
+      "id": "L1",
+      "conditions": [
+        {
+          "id": "garage",
+          "label": "Found in a garage or shed",
+          "negation": "isn't found in a garage or shed",
+          "claim": "\"{answer}\" is ordinarily found in a garage or shed."
+        }
+      ]
+    },
+    {
+      "id": "L2",
+      "conditions": [
+        {
+          "id": "garage",
+          "label": "Found in a garage or shed",
+          "negation": "isn't found in a garage or shed",
+          "claim": "\"{answer}\" is ordinarily found in a garage or shed."
+        },
+        {
+          "id": "unpowered",
+          "label": "Not powered",
+          "negation": "is powered",
+          "claim": "\"{answer}\" works without any electricity, battery or engine."
+        }
+      ]
+    },
+    {
+      "id": "L3",
+      "conditions": [
+        {
+          "id": "garage",
+          "label": "Found in a garage or shed",
+          "negation": "isn't found in a garage or shed",
+          "claim": "\"{answer}\" is ordinarily found in a garage or shed."
+        },
+        {
+          "id": "unpowered",
+          "label": "Not powered",
+          "negation": "is powered",
+          "claim": "\"{answer}\" works without any electricity, battery or engine."
+        },
+        {
+          "id": "nonelec",
+          "label": "Not electronic",
+          "negation": "is electronic",
+          "claim": "\"{answer}\" is free of electronic components."
+        }
+      ]
+    },
+    {
+      "id": "L4",
+      "conditions": [
+        {
+          "id": "garage",
+          "label": "Found in a garage or shed",
+          "negation": "isn't found in a garage or shed",
+          "claim": "\"{answer}\" is ordinarily found in a garage or shed."
+        },
+        {
+          "id": "unpowered",
+          "label": "Not powered",
+          "negation": "is powered",
+          "claim": "\"{answer}\" works without any electricity, battery or engine."
+        },
+        {
+          "id": "nonelec",
+          "label": "Not electronic",
+          "negation": "is electronic",
+          "claim": "\"{answer}\" is free of electronic components."
+        },
+        {
+          "id": "outdoor",
+          "label": "Usually kept outdoors",
+          "negation": "isn't usually kept outdoors",
+          "claim": "\"{answer}\" is ordinarily kept outdoors."
+        }
+      ]
+    },
+    {
+      "id": "L5",
+      "conditions": [
+        {
+          "id": "garage",
+          "label": "Found in a garage or shed",
+          "negation": "isn't found in a garage or shed",
+          "claim": "\"{answer}\" is ordinarily found in a garage or shed."
+        },
+        {
+          "id": "unpowered",
+          "label": "Not powered",
+          "negation": "is powered",
+          "claim": "\"{answer}\" works without any electricity, battery or engine."
+        },
+        {
+          "id": "nonelec",
+          "label": "Not electronic",
+          "negation": "is electronic",
+          "claim": "\"{answer}\" is free of electronic components."
+        },
+        {
+          "id": "outdoor",
+          "label": "Usually kept outdoors",
+          "negation": "isn't usually kept outdoors",
+          "claim": "\"{answer}\" is ordinarily kept outdoors."
+        },
+        {
+          "id": "tool",
+          "label": "Is a tool",
+          "negation": "isn't a tool",
+          "claim": "\"{answer}\" is ordinarily considered a tool."
+        }
+      ]
+    },
+    {
+      "id": "L6",
+      "conditions": [
+        {
+          "id": "garage",
+          "label": "Found in a garage or shed",
+          "negation": "isn't found in a garage or shed",
+          "claim": "\"{answer}\" is ordinarily found in a garage or shed."
+        },
+        {
+          "id": "unpowered",
+          "label": "Not powered",
+          "negation": "is powered",
+          "claim": "\"{answer}\" works without any electricity, battery or engine."
+        },
+        {
+          "id": "nonelec",
+          "label": "Not electronic",
+          "negation": "is electronic",
+          "claim": "\"{answer}\" is free of electronic components."
+        },
+        {
+          "id": "outdoor",
+          "label": "Usually kept outdoors",
+          "negation": "isn't usually kept outdoors",
+          "claim": "\"{answer}\" is ordinarily kept outdoors."
+        },
+        {
+          "id": "tool",
+          "label": "Is a tool",
+          "negation": "isn't a tool",
+          "claim": "\"{answer}\" is ordinarily considered a tool."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,163 @@
+{
+  "game": "category-escape",
+  "n": 95,
+  "difficulty": "hard",
+  "rounds": [
+    {
+      "id": "L1",
+      "conditions": [
+        {
+          "id": "office",
+          "label": "Found in an office",
+          "negation": "isn't found in an office",
+          "claim": "\"{answer}\" is ordinarily found in an office."
+        }
+      ]
+    },
+    {
+      "id": "L2",
+      "conditions": [
+        {
+          "id": "office",
+          "label": "Found in an office",
+          "negation": "isn't found in an office",
+          "claim": "\"{answer}\" is ordinarily found in an office."
+        },
+        {
+          "id": "liftable",
+          "label": "Can be lifted with one hand",
+          "negation": "can't be lifted with one hand",
+          "claim": "An adult can ordinarily lift \"{answer}\" with one hand."
+        }
+      ]
+    },
+    {
+      "id": "L3",
+      "conditions": [
+        {
+          "id": "office",
+          "label": "Found in an office",
+          "negation": "isn't found in an office",
+          "claim": "\"{answer}\" is ordinarily found in an office."
+        },
+        {
+          "id": "liftable",
+          "label": "Can be lifted with one hand",
+          "negation": "can't be lifted with one hand",
+          "claim": "An adult can ordinarily lift \"{answer}\" with one hand."
+        },
+        {
+          "id": "drawer",
+          "label": "Often kept in a drawer",
+          "negation": "isn't usually kept in a drawer",
+          "claim": "\"{answer}\" is ordinarily kept in a drawer."
+        }
+      ]
+    },
+    {
+      "id": "L4",
+      "conditions": [
+        {
+          "id": "office",
+          "label": "Found in an office",
+          "negation": "isn't found in an office",
+          "claim": "\"{answer}\" is ordinarily found in an office."
+        },
+        {
+          "id": "liftable",
+          "label": "Can be lifted with one hand",
+          "negation": "can't be lifted with one hand",
+          "claim": "An adult can ordinarily lift \"{answer}\" with one hand."
+        },
+        {
+          "id": "drawer",
+          "label": "Often kept in a drawer",
+          "negation": "isn't usually kept in a drawer",
+          "claim": "\"{answer}\" is ordinarily kept in a drawer."
+        },
+        {
+          "id": "plastic",
+          "label": "Mostly plastic",
+          "negation": "isn't mostly plastic",
+          "claim": "The main body of \"{answer}\" is ordinarily made of plastic."
+        }
+      ]
+    },
+    {
+      "id": "L5",
+      "conditions": [
+        {
+          "id": "office",
+          "label": "Found in an office",
+          "negation": "isn't found in an office",
+          "claim": "\"{answer}\" is ordinarily found in an office."
+        },
+        {
+          "id": "liftable",
+          "label": "Can be lifted with one hand",
+          "negation": "can't be lifted with one hand",
+          "claim": "An adult can ordinarily lift \"{answer}\" with one hand."
+        },
+        {
+          "id": "drawer",
+          "label": "Often kept in a drawer",
+          "negation": "isn't usually kept in a drawer",
+          "claim": "\"{answer}\" is ordinarily kept in a drawer."
+        },
+        {
+          "id": "plastic",
+          "label": "Mostly plastic",
+          "negation": "isn't mostly plastic",
+          "claim": "The main body of \"{answer}\" is ordinarily made of plastic."
+        },
+        {
+          "id": "nonelec",
+          "label": "Not electronic",
+          "negation": "is electronic",
+          "claim": "\"{answer}\" is free of electronic components."
+        }
+      ]
+    },
+    {
+      "id": "L6",
+      "conditions": [
+        {
+          "id": "office",
+          "label": "Found in an office",
+          "negation": "isn't found in an office",
+          "claim": "\"{answer}\" is ordinarily found in an office."
+        },
+        {
+          "id": "liftable",
+          "label": "Can be lifted with one hand",
+          "negation": "can't be lifted with one hand",
+          "claim": "An adult can ordinarily lift \"{answer}\" with one hand."
+        },
+        {
+          "id": "drawer",
+          "label": "Often kept in a drawer",
+          "negation": "isn't usually kept in a drawer",
+          "claim": "\"{answer}\" is ordinarily kept in a drawer."
+        },
+        {
+          "id": "plastic",
+          "label": "Mostly plastic",
+          "negation": "isn't mostly plastic",
+          "claim": "The main body of \"{answer}\" is ordinarily made of plastic."
+        },
+        {
+          "id": "nonelec",
+          "label": "Not electronic",
+          "negation": "is electronic",
+          "claim": "\"{answer}\" is free of electronic components."
+        },
+        {
+          "id": "container",
+          "label": "Holds other things",
+          "negation": "doesn't hold other things",
+          "claim": "\"{answer}\" is ordinarily used to hold or store other objects."
+        }
+      ]
+    }
+  ]
+}

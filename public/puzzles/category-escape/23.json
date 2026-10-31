@@ -1,0 +1,163 @@
+{
+  "game": "category-escape",
+  "n": 23,
+  "difficulty": "easy",
+  "rounds": [
+    {
+      "id": "L1",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        }
+      ]
+    },
+    {
+      "id": "L2",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "bendy",
+          "label": "Bends easily",
+          "negation": "doesn't bend easily",
+          "claim": "\"{answer}\" can ordinarily be bent or folded by hand without breaking."
+        }
+      ]
+    },
+    {
+      "id": "L3",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "bendy",
+          "label": "Bends easily",
+          "negation": "doesn't bend easily",
+          "claim": "\"{answer}\" can ordinarily be bent or folded by hand without breaking."
+        },
+        {
+          "id": "drawer",
+          "label": "Often kept in a drawer",
+          "negation": "isn't usually kept in a drawer",
+          "claim": "\"{answer}\" is ordinarily kept in a drawer."
+        }
+      ]
+    },
+    {
+      "id": "L4",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "bendy",
+          "label": "Bends easily",
+          "negation": "doesn't bend easily",
+          "claim": "\"{answer}\" can ordinarily be bent or folded by hand without breaking."
+        },
+        {
+          "id": "drawer",
+          "label": "Often kept in a drawer",
+          "negation": "isn't usually kept in a drawer",
+          "claim": "\"{answer}\" is ordinarily kept in a drawer."
+        },
+        {
+          "id": "hangs",
+          "label": "Often hung up",
+          "negation": "isn't usually hung up",
+          "claim": "\"{answer}\" is ordinarily hung up when not in use."
+        }
+      ]
+    },
+    {
+      "id": "L5",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "bendy",
+          "label": "Bends easily",
+          "negation": "doesn't bend easily",
+          "claim": "\"{answer}\" can ordinarily be bent or folded by hand without breaking."
+        },
+        {
+          "id": "drawer",
+          "label": "Often kept in a drawer",
+          "negation": "isn't usually kept in a drawer",
+          "claim": "\"{answer}\" is ordinarily kept in a drawer."
+        },
+        {
+          "id": "hangs",
+          "label": "Often hung up",
+          "negation": "isn't usually hung up",
+          "claim": "\"{answer}\" is ordinarily hung up when not in use."
+        },
+        {
+          "id": "unpowered",
+          "label": "Not powered",
+          "negation": "is powered",
+          "claim": "\"{answer}\" works without any electricity, battery or engine."
+        }
+      ]
+    },
+    {
+      "id": "L6",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "bendy",
+          "label": "Bends easily",
+          "negation": "doesn't bend easily",
+          "claim": "\"{answer}\" can ordinarily be bent or folded by hand without breaking."
+        },
+        {
+          "id": "drawer",
+          "label": "Often kept in a drawer",
+          "negation": "isn't usually kept in a drawer",
+          "claim": "\"{answer}\" is ordinarily kept in a drawer."
+        },
+        {
+          "id": "hangs",
+          "label": "Often hung up",
+          "negation": "isn't usually hung up",
+          "claim": "\"{answer}\" is ordinarily hung up when not in use."
+        },
+        {
+          "id": "unpowered",
+          "label": "Not powered",
+          "negation": "is powered",
+          "claim": "\"{answer}\" works without any electricity, battery or engine."
+        },
+        {
+          "id": "folds",
+          "label": "Folds or rolls up",
+          "negation": "doesn't fold or roll up",
+          "claim": "\"{answer}\" can ordinarily be folded or rolled up."
+        }
+      ]
+    }
+  ]
+}

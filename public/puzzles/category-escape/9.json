@@ -1,0 +1,163 @@
+{
+  "game": "category-escape",
+  "n": 9,
+  "difficulty": "easy",
+  "rounds": [
+    {
+      "id": "L1",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        }
+      ]
+    },
+    {
+      "id": "L2",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "nonelec",
+          "label": "Not electronic",
+          "negation": "is electronic",
+          "claim": "\"{answer}\" is free of electronic components."
+        }
+      ]
+    },
+    {
+      "id": "L3",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "nonelec",
+          "label": "Not electronic",
+          "negation": "is electronic",
+          "claim": "\"{answer}\" is free of electronic components."
+        },
+        {
+          "id": "hangs",
+          "label": "Often hung up",
+          "negation": "isn't usually hung up",
+          "claim": "\"{answer}\" is ordinarily hung up when not in use."
+        }
+      ]
+    },
+    {
+      "id": "L4",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "nonelec",
+          "label": "Not electronic",
+          "negation": "is electronic",
+          "claim": "\"{answer}\" is free of electronic components."
+        },
+        {
+          "id": "hangs",
+          "label": "Often hung up",
+          "negation": "isn't usually hung up",
+          "claim": "\"{answer}\" is ordinarily hung up when not in use."
+        },
+        {
+          "id": "nonfood",
+          "label": "Not food",
+          "negation": "is food",
+          "claim": "\"{answer}\" is something people do not ordinarily eat."
+        }
+      ]
+    },
+    {
+      "id": "L5",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "nonelec",
+          "label": "Not electronic",
+          "negation": "is electronic",
+          "claim": "\"{answer}\" is free of electronic components."
+        },
+        {
+          "id": "hangs",
+          "label": "Often hung up",
+          "negation": "isn't usually hung up",
+          "claim": "\"{answer}\" is ordinarily hung up when not in use."
+        },
+        {
+          "id": "nonfood",
+          "label": "Not food",
+          "negation": "is food",
+          "claim": "\"{answer}\" is something people do not ordinarily eat."
+        },
+        {
+          "id": "bendy",
+          "label": "Bends easily",
+          "negation": "doesn't bend easily",
+          "claim": "\"{answer}\" can ordinarily be bent or folded by hand without breaking."
+        }
+      ]
+    },
+    {
+      "id": "L6",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "nonelec",
+          "label": "Not electronic",
+          "negation": "is electronic",
+          "claim": "\"{answer}\" is free of electronic components."
+        },
+        {
+          "id": "hangs",
+          "label": "Often hung up",
+          "negation": "isn't usually hung up",
+          "claim": "\"{answer}\" is ordinarily hung up when not in use."
+        },
+        {
+          "id": "nonfood",
+          "label": "Not food",
+          "negation": "is food",
+          "claim": "\"{answer}\" is something people do not ordinarily eat."
+        },
+        {
+          "id": "bendy",
+          "label": "Bends easily",
+          "negation": "doesn't bend easily",
+          "claim": "\"{answer}\" can ordinarily be bent or folded by hand without breaking."
+        },
+        {
+          "id": "soft",
+          "label": "Soft to the touch",
+          "negation": "isn't soft",
+          "claim": "\"{answer}\" is ordinarily soft to the touch."
+        }
+      ]
+    }
+  ]
+}

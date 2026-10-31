@@ -1,0 +1,163 @@
+{
+  "game": "category-escape",
+  "n": 30,
+  "difficulty": "easy",
+  "rounds": [
+    {
+      "id": "L1",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        }
+      ]
+    },
+    {
+      "id": "L2",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "nonmetal",
+          "label": "Not metal",
+          "negation": "is mostly metal",
+          "claim": "The main body or structure of \"{answer}\" is ordinarily made of something other than metal."
+        }
+      ]
+    },
+    {
+      "id": "L3",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "nonmetal",
+          "label": "Not metal",
+          "negation": "is mostly metal",
+          "claim": "The main body or structure of \"{answer}\" is ordinarily made of something other than metal."
+        },
+        {
+          "id": "wearable",
+          "label": "Can be worn",
+          "negation": "can't be worn",
+          "claim": "\"{answer}\" is ordinarily worn on the body."
+        }
+      ]
+    },
+    {
+      "id": "L4",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "nonmetal",
+          "label": "Not metal",
+          "negation": "is mostly metal",
+          "claim": "The main body or structure of \"{answer}\" is ordinarily made of something other than metal."
+        },
+        {
+          "id": "wearable",
+          "label": "Can be worn",
+          "negation": "can't be worn",
+          "claim": "\"{answer}\" is ordinarily worn on the body."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        }
+      ]
+    },
+    {
+      "id": "L5",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "nonmetal",
+          "label": "Not metal",
+          "negation": "is mostly metal",
+          "claim": "The main body or structure of \"{answer}\" is ordinarily made of something other than metal."
+        },
+        {
+          "id": "wearable",
+          "label": "Can be worn",
+          "negation": "can't be worn",
+          "claim": "\"{answer}\" is ordinarily worn on the body."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        },
+        {
+          "id": "liftable",
+          "label": "Can be lifted with one hand",
+          "negation": "can't be lifted with one hand",
+          "claim": "An adult can ordinarily lift \"{answer}\" with one hand."
+        }
+      ]
+    },
+    {
+      "id": "L6",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "nonmetal",
+          "label": "Not metal",
+          "negation": "is mostly metal",
+          "claim": "The main body or structure of \"{answer}\" is ordinarily made of something other than metal."
+        },
+        {
+          "id": "wearable",
+          "label": "Can be worn",
+          "negation": "can't be worn",
+          "claim": "\"{answer}\" is ordinarily worn on the body."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        },
+        {
+          "id": "liftable",
+          "label": "Can be lifted with one hand",
+          "negation": "can't be lifted with one hand",
+          "claim": "An adult can ordinarily lift \"{answer}\" with one hand."
+        },
+        {
+          "id": "fabric",
+          "label": "Made of fabric",
+          "negation": "isn't made of fabric",
+          "claim": "\"{answer}\" is ordinarily made mostly of cloth or fabric."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 25,
+  "difficulty": "medium",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:25-r1-a",
+          "label": "A teeming multitude",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A teeming multitude."
+        },
+        {
+          "id": "clue:25-r1-b",
+          "label": "A man-made receptacle that houses a swarm of bees",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A man-made receptacle that houses a swarm of bees."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:25-r2-a",
+          "label": "A small group of indispensable persons or things",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A small group of indispensable persons or things."
+        },
+        {
+          "id": "clue:25-r2-b",
+          "label": "The center of an object",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The center of an object."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:25-r3-a",
+          "label": "An overwhelming feeling of fear and anxiety",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: An overwhelming feeling of fear and anxiety."
+        },
+        {
+          "id": "clue:25-r3-b",
+          "label": "A person who inspires fear or dread",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A person who inspires fear or dread."
+        }
+      ]
+    }
+  ]
+}

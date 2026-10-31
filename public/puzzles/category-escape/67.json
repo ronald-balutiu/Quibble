@@ -1,0 +1,163 @@
+{
+  "game": "category-escape",
+  "n": 67,
+  "difficulty": "medium",
+  "rounds": [
+    {
+      "id": "L1",
+      "conditions": [
+        {
+          "id": "kitchen",
+          "label": "Found in a kitchen",
+          "negation": "isn't found in a kitchen",
+          "claim": "\"{answer}\" is ordinarily found in a home kitchen."
+        }
+      ]
+    },
+    {
+      "id": "L2",
+      "conditions": [
+        {
+          "id": "kitchen",
+          "label": "Found in a kitchen",
+          "negation": "isn't found in a kitchen",
+          "claim": "\"{answer}\" is ordinarily found in a home kitchen."
+        },
+        {
+          "id": "nonfood",
+          "label": "Not food",
+          "negation": "is food",
+          "claim": "\"{answer}\" is something people do not ordinarily eat."
+        }
+      ]
+    },
+    {
+      "id": "L3",
+      "conditions": [
+        {
+          "id": "kitchen",
+          "label": "Found in a kitchen",
+          "negation": "isn't found in a kitchen",
+          "claim": "\"{answer}\" is ordinarily found in a home kitchen."
+        },
+        {
+          "id": "nonfood",
+          "label": "Not food",
+          "negation": "is food",
+          "claim": "\"{answer}\" is something people do not ordinarily eat."
+        },
+        {
+          "id": "pack",
+          "label": "Usually bought in packs",
+          "negation": "isn't usually bought in packs",
+          "claim": "\"{answer}\" is ordinarily bought in a pack of several or many."
+        }
+      ]
+    },
+    {
+      "id": "L4",
+      "conditions": [
+        {
+          "id": "kitchen",
+          "label": "Found in a kitchen",
+          "negation": "isn't found in a kitchen",
+          "claim": "\"{answer}\" is ordinarily found in a home kitchen."
+        },
+        {
+          "id": "nonfood",
+          "label": "Not food",
+          "negation": "is food",
+          "claim": "\"{answer}\" is something people do not ordinarily eat."
+        },
+        {
+          "id": "pack",
+          "label": "Usually bought in packs",
+          "negation": "isn't usually bought in packs",
+          "claim": "\"{answer}\" is ordinarily bought in a pack of several or many."
+        },
+        {
+          "id": "thin",
+          "label": "Thinner than a finger",
+          "negation": "isn't thinner than a finger",
+          "claim": "\"{answer}\" is ordinarily thinner than a finger."
+        }
+      ]
+    },
+    {
+      "id": "L5",
+      "conditions": [
+        {
+          "id": "kitchen",
+          "label": "Found in a kitchen",
+          "negation": "isn't found in a kitchen",
+          "claim": "\"{answer}\" is ordinarily found in a home kitchen."
+        },
+        {
+          "id": "nonfood",
+          "label": "Not food",
+          "negation": "is food",
+          "claim": "\"{answer}\" is something people do not ordinarily eat."
+        },
+        {
+          "id": "pack",
+          "label": "Usually bought in packs",
+          "negation": "isn't usually bought in packs",
+          "claim": "\"{answer}\" is ordinarily bought in a pack of several or many."
+        },
+        {
+          "id": "thin",
+          "label": "Thinner than a finger",
+          "negation": "isn't thinner than a finger",
+          "claim": "\"{answer}\" is ordinarily thinner than a finger."
+        },
+        {
+          "id": "nonmetal",
+          "label": "Not metal",
+          "negation": "is mostly metal",
+          "claim": "The main body or structure of \"{answer}\" is ordinarily made of something other than metal."
+        }
+      ]
+    },
+    {
+      "id": "L6",
+      "conditions": [
+        {
+          "id": "kitchen",
+          "label": "Found in a kitchen",
+          "negation": "isn't found in a kitchen",
+          "claim": "\"{answer}\" is ordinarily found in a home kitchen."
+        },
+        {
+          "id": "nonfood",
+          "label": "Not food",
+          "negation": "is food",
+          "claim": "\"{answer}\" is something people do not ordinarily eat."
+        },
+        {
+          "id": "pack",
+          "label": "Usually bought in packs",
+          "negation": "isn't usually bought in packs",
+          "claim": "\"{answer}\" is ordinarily bought in a pack of several or many."
+        },
+        {
+          "id": "thin",
+          "label": "Thinner than a finger",
+          "negation": "isn't thinner than a finger",
+          "claim": "\"{answer}\" is ordinarily thinner than a finger."
+        },
+        {
+          "id": "nonmetal",
+          "label": "Not metal",
+          "negation": "is mostly metal",
+          "claim": "The main body or structure of \"{answer}\" is ordinarily made of something other than metal."
+        },
+        {
+          "id": "wet",
+          "label": "Gets wet when used",
+          "negation": "doesn't get wet when used",
+          "claim": "\"{answer}\" ordinarily gets wet when it is used."
+        }
+      ]
+    }
+  ]
+}

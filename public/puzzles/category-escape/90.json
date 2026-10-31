@@ -1,0 +1,163 @@
+{
+  "game": "category-escape",
+  "n": 90,
+  "difficulty": "hard",
+  "rounds": [
+    {
+      "id": "L1",
+      "conditions": [
+        {
+          "id": "garage",
+          "label": "Found in a garage or shed",
+          "negation": "isn't found in a garage or shed",
+          "claim": "\"{answer}\" is ordinarily found in a garage or shed."
+        }
+      ]
+    },
+    {
+      "id": "L2",
+      "conditions": [
+        {
+          "id": "garage",
+          "label": "Found in a garage or shed",
+          "negation": "isn't found in a garage or shed",
+          "claim": "\"{answer}\" is ordinarily found in a garage or shed."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        }
+      ]
+    },
+    {
+      "id": "L3",
+      "conditions": [
+        {
+          "id": "garage",
+          "label": "Found in a garage or shed",
+          "negation": "isn't found in a garage or shed",
+          "claim": "\"{answer}\" is ordinarily found in a garage or shed."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        },
+        {
+          "id": "nonelec",
+          "label": "Not electronic",
+          "negation": "is electronic",
+          "claim": "\"{answer}\" is free of electronic components."
+        }
+      ]
+    },
+    {
+      "id": "L4",
+      "conditions": [
+        {
+          "id": "garage",
+          "label": "Found in a garage or shed",
+          "negation": "isn't found in a garage or shed",
+          "claim": "\"{answer}\" is ordinarily found in a garage or shed."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        },
+        {
+          "id": "nonelec",
+          "label": "Not electronic",
+          "negation": "is electronic",
+          "claim": "\"{answer}\" is free of electronic components."
+        },
+        {
+          "id": "hangs",
+          "label": "Often hung up",
+          "negation": "isn't usually hung up",
+          "claim": "\"{answer}\" is ordinarily hung up when not in use."
+        }
+      ]
+    },
+    {
+      "id": "L5",
+      "conditions": [
+        {
+          "id": "garage",
+          "label": "Found in a garage or shed",
+          "negation": "isn't found in a garage or shed",
+          "claim": "\"{answer}\" is ordinarily found in a garage or shed."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        },
+        {
+          "id": "nonelec",
+          "label": "Not electronic",
+          "negation": "is electronic",
+          "claim": "\"{answer}\" is free of electronic components."
+        },
+        {
+          "id": "hangs",
+          "label": "Often hung up",
+          "negation": "isn't usually hung up",
+          "claim": "\"{answer}\" is ordinarily hung up when not in use."
+        },
+        {
+          "id": "twohands",
+          "label": "Used with both hands",
+          "negation": "isn't used with both hands",
+          "claim": "People ordinarily use both hands to use \"{answer}\"."
+        }
+      ]
+    },
+    {
+      "id": "L6",
+      "conditions": [
+        {
+          "id": "garage",
+          "label": "Found in a garage or shed",
+          "negation": "isn't found in a garage or shed",
+          "claim": "\"{answer}\" is ordinarily found in a garage or shed."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        },
+        {
+          "id": "nonelec",
+          "label": "Not electronic",
+          "negation": "is electronic",
+          "claim": "\"{answer}\" is free of electronic components."
+        },
+        {
+          "id": "hangs",
+          "label": "Often hung up",
+          "negation": "isn't usually hung up",
+          "claim": "\"{answer}\" is ordinarily hung up when not in use."
+        },
+        {
+          "id": "twohands",
+          "label": "Used with both hands",
+          "negation": "isn't used with both hands",
+          "claim": "People ordinarily use both hands to use \"{answer}\"."
+        },
+        {
+          "id": "moving",
+          "label": "Has moving parts",
+          "negation": "has no moving parts",
+          "claim": "\"{answer}\" ordinarily has moving parts."
+        }
+      ]
+    }
+  ]
+}

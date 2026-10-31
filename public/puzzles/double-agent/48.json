@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 48,
+  "difficulty": "hard",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:48-r1-a",
+          "label": "A vague idea in which some confidence is placed",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A vague idea in which some confidence is placed."
+        },
+        {
+          "id": "clue:48-r1-b",
+          "label": "An outward appearance",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: An outward appearance."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:48-r2-a",
+          "label": "A sudden rapid flow (as of water)",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A sudden rapid flow (as of water)."
+        },
+        {
+          "id": "clue:48-r2-b",
+          "label": "An unrestrained expression of emotion",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: An unrestrained expression of emotion."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:48-r3-a",
+          "label": "A transparent deep red variety of corundum; used as a gemstone and in lasers",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A transparent deep red variety of corundum; used as a gemstone and in lasers."
+        },
+        {
+          "id": "clue:48-r3-b",
+          "label": "A deep and vivid red color",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A deep and vivid red color."
+        }
+      ]
+    }
+  ]
+}

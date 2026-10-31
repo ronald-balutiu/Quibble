@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 13,
+  "difficulty": "easy",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:13-r1-a",
+          "label": "An event (or a course of events) that will inevitably happen in the future",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: An event (or a course of events) that will inevitably happen in the future."
+        },
+        {
+          "id": "clue:13-r1-b",
+          "label": "The ultimate agency regarded as predetermining the course of events",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The ultimate agency regarded as predetermining the course of events."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:13-r2-a",
+          "label": "People in general (often used in the plural)",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: People in general (often used in the plural)."
+        },
+        {
+          "id": "clue:13-r2-b",
+          "label": "The traditional and typically anonymous music that is an expression of the life of people in a community",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The traditional and typically anonymous music that is an expression of the life of people in a community."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:13-r3-a",
+          "label": "Any of numerous trees and shrubs producing a small fleshy round fruit with a single hard stone; many also produce a valuable hardwood",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Any of numerous trees and shrubs producing a small fleshy round fruit with a single hard stone; many also produce a valuable hardwood."
+        },
+        {
+          "id": "clue:13-r3-b",
+          "label": "A red fruit with a single hard stone",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A red fruit with a single hard stone."
+        }
+      ]
+    }
+  ]
+}

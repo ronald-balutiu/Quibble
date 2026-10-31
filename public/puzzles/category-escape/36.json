@@ -1,0 +1,163 @@
+{
+  "game": "category-escape",
+  "n": 36,
+  "difficulty": "medium",
+  "rounds": [
+    {
+      "id": "L1",
+      "conditions": [
+        {
+          "id": "garage",
+          "label": "Found in a garage or shed",
+          "negation": "isn't found in a garage or shed",
+          "claim": "\"{answer}\" is ordinarily found in a garage or shed."
+        }
+      ]
+    },
+    {
+      "id": "L2",
+      "conditions": [
+        {
+          "id": "garage",
+          "label": "Found in a garage or shed",
+          "negation": "isn't found in a garage or shed",
+          "claim": "\"{answer}\" is ordinarily found in a garage or shed."
+        },
+        {
+          "id": "outdoor",
+          "label": "Usually kept outdoors",
+          "negation": "isn't usually kept outdoors",
+          "claim": "\"{answer}\" is ordinarily kept outdoors."
+        }
+      ]
+    },
+    {
+      "id": "L3",
+      "conditions": [
+        {
+          "id": "garage",
+          "label": "Found in a garage or shed",
+          "negation": "isn't found in a garage or shed",
+          "claim": "\"{answer}\" is ordinarily found in a garage or shed."
+        },
+        {
+          "id": "outdoor",
+          "label": "Usually kept outdoors",
+          "negation": "isn't usually kept outdoors",
+          "claim": "\"{answer}\" is ordinarily kept outdoors."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        }
+      ]
+    },
+    {
+      "id": "L4",
+      "conditions": [
+        {
+          "id": "garage",
+          "label": "Found in a garage or shed",
+          "negation": "isn't found in a garage or shed",
+          "claim": "\"{answer}\" is ordinarily found in a garage or shed."
+        },
+        {
+          "id": "outdoor",
+          "label": "Usually kept outdoors",
+          "negation": "isn't usually kept outdoors",
+          "claim": "\"{answer}\" is ordinarily kept outdoors."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        },
+        {
+          "id": "nonelec",
+          "label": "Not electronic",
+          "negation": "is electronic",
+          "claim": "\"{answer}\" is free of electronic components."
+        }
+      ]
+    },
+    {
+      "id": "L5",
+      "conditions": [
+        {
+          "id": "garage",
+          "label": "Found in a garage or shed",
+          "negation": "isn't found in a garage or shed",
+          "claim": "\"{answer}\" is ordinarily found in a garage or shed."
+        },
+        {
+          "id": "outdoor",
+          "label": "Usually kept outdoors",
+          "negation": "isn't usually kept outdoors",
+          "claim": "\"{answer}\" is ordinarily kept outdoors."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        },
+        {
+          "id": "nonelec",
+          "label": "Not electronic",
+          "negation": "is electronic",
+          "claim": "\"{answer}\" is free of electronic components."
+        },
+        {
+          "id": "nonmetal",
+          "label": "Not metal",
+          "negation": "is mostly metal",
+          "claim": "The main body or structure of \"{answer}\" is ordinarily made of something other than metal."
+        }
+      ]
+    },
+    {
+      "id": "L6",
+      "conditions": [
+        {
+          "id": "garage",
+          "label": "Found in a garage or shed",
+          "negation": "isn't found in a garage or shed",
+          "claim": "\"{answer}\" is ordinarily found in a garage or shed."
+        },
+        {
+          "id": "outdoor",
+          "label": "Usually kept outdoors",
+          "negation": "isn't usually kept outdoors",
+          "claim": "\"{answer}\" is ordinarily kept outdoors."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        },
+        {
+          "id": "nonelec",
+          "label": "Not electronic",
+          "negation": "is electronic",
+          "claim": "\"{answer}\" is free of electronic components."
+        },
+        {
+          "id": "nonmetal",
+          "label": "Not metal",
+          "negation": "is mostly metal",
+          "claim": "The main body or structure of \"{answer}\" is ordinarily made of something other than metal."
+        },
+        {
+          "id": "heavy",
+          "label": "Heavier than a bag of sugar",
+          "negation": "is lighter than a bag of sugar",
+          "claim": "\"{answer}\" ordinarily weighs more than 1 kilogram."
+        }
+      ]
+    }
+  ]
+}

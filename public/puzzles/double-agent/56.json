@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 56,
+  "difficulty": "hard",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:56-r1-a",
+          "label": "An explanation or definition of an obscure word in a text",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: An explanation or definition of an obscure word in a text."
+        },
+        {
+          "id": "clue:56-r1-b",
+          "label": "The property of being smooth and shiny",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The property of being smooth and shiny."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:56-r2-a",
+          "label": "A distinctive influence",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A distinctive influence."
+        },
+        {
+          "id": "clue:56-r2-b",
+          "label": "A concavity in a surface produced by pressing",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A concavity in a surface produced by pressing."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:56-r3-a",
+          "label": "The choicest or most essential or most vital part of some idea or experience",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The choicest or most essential or most vital part of some idea or experience."
+        },
+        {
+          "id": "clue:56-r3-b",
+          "label": "Any substance possessing to a high degree the predominant properties of a plant or drug or other natural product from which it is extracted",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Any substance possessing to a high degree the predominant properties of a plant or drug or other natural product from which it is extracted."
+        }
+      ]
+    }
+  ]
+}

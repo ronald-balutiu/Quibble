@@ -1,0 +1,163 @@
+{
+  "game": "category-escape",
+  "n": 24,
+  "difficulty": "easy",
+  "rounds": [
+    {
+      "id": "L1",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        }
+      ]
+    },
+    {
+      "id": "L2",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "fabric",
+          "label": "Made of fabric",
+          "negation": "isn't made of fabric",
+          "claim": "\"{answer}\" is ordinarily made mostly of cloth or fabric."
+        }
+      ]
+    },
+    {
+      "id": "L3",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "fabric",
+          "label": "Made of fabric",
+          "negation": "isn't made of fabric",
+          "claim": "\"{answer}\" is ordinarily made mostly of cloth or fabric."
+        },
+        {
+          "id": "hangs",
+          "label": "Often hung up",
+          "negation": "isn't usually hung up",
+          "claim": "\"{answer}\" is ordinarily hung up when not in use."
+        }
+      ]
+    },
+    {
+      "id": "L4",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "fabric",
+          "label": "Made of fabric",
+          "negation": "isn't made of fabric",
+          "claim": "\"{answer}\" is ordinarily made mostly of cloth or fabric."
+        },
+        {
+          "id": "hangs",
+          "label": "Often hung up",
+          "negation": "isn't usually hung up",
+          "claim": "\"{answer}\" is ordinarily hung up when not in use."
+        },
+        {
+          "id": "drawer",
+          "label": "Often kept in a drawer",
+          "negation": "isn't usually kept in a drawer",
+          "claim": "\"{answer}\" is ordinarily kept in a drawer."
+        }
+      ]
+    },
+    {
+      "id": "L5",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "fabric",
+          "label": "Made of fabric",
+          "negation": "isn't made of fabric",
+          "claim": "\"{answer}\" is ordinarily made mostly of cloth or fabric."
+        },
+        {
+          "id": "hangs",
+          "label": "Often hung up",
+          "negation": "isn't usually hung up",
+          "claim": "\"{answer}\" is ordinarily hung up when not in use."
+        },
+        {
+          "id": "drawer",
+          "label": "Often kept in a drawer",
+          "negation": "isn't usually kept in a drawer",
+          "claim": "\"{answer}\" is ordinarily kept in a drawer."
+        },
+        {
+          "id": "daily",
+          "label": "Used most days",
+          "negation": "isn't used most days",
+          "claim": "Most people ordinarily use \"{answer}\" on most days."
+        }
+      ]
+    },
+    {
+      "id": "L6",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "fabric",
+          "label": "Made of fabric",
+          "negation": "isn't made of fabric",
+          "claim": "\"{answer}\" is ordinarily made mostly of cloth or fabric."
+        },
+        {
+          "id": "hangs",
+          "label": "Often hung up",
+          "negation": "isn't usually hung up",
+          "claim": "\"{answer}\" is ordinarily hung up when not in use."
+        },
+        {
+          "id": "drawer",
+          "label": "Often kept in a drawer",
+          "negation": "isn't usually kept in a drawer",
+          "claim": "\"{answer}\" is ordinarily kept in a drawer."
+        },
+        {
+          "id": "daily",
+          "label": "Used most days",
+          "negation": "isn't used most days",
+          "claim": "Most people ordinarily use \"{answer}\" on most days."
+        },
+        {
+          "id": "folds",
+          "label": "Folds or rolls up",
+          "negation": "doesn't fold or roll up",
+          "claim": "\"{answer}\" can ordinarily be folded or rolled up."
+        }
+      ]
+    }
+  ]
+}

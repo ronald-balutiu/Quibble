@@ -1,0 +1,163 @@
+{
+  "game": "category-escape",
+  "n": 99,
+  "difficulty": "hard",
+  "rounds": [
+    {
+      "id": "L1",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        }
+      ]
+    },
+    {
+      "id": "L2",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "floats",
+          "label": "Floats on water",
+          "negation": "doesn't float on water",
+          "claim": "\"{answer}\" would ordinarily float on water."
+        }
+      ]
+    },
+    {
+      "id": "L3",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "floats",
+          "label": "Floats on water",
+          "negation": "doesn't float on water",
+          "claim": "\"{answer}\" would ordinarily float on water."
+        },
+        {
+          "id": "nonmetal",
+          "label": "Not metal",
+          "negation": "is mostly metal",
+          "claim": "The main body or structure of \"{answer}\" is ordinarily made of something other than metal."
+        }
+      ]
+    },
+    {
+      "id": "L4",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "floats",
+          "label": "Floats on water",
+          "negation": "doesn't float on water",
+          "claim": "\"{answer}\" would ordinarily float on water."
+        },
+        {
+          "id": "nonmetal",
+          "label": "Not metal",
+          "negation": "is mostly metal",
+          "claim": "The main body or structure of \"{answer}\" is ordinarily made of something other than metal."
+        },
+        {
+          "id": "fabric",
+          "label": "Made of fabric",
+          "negation": "isn't made of fabric",
+          "claim": "\"{answer}\" is ordinarily made mostly of cloth or fabric."
+        }
+      ]
+    },
+    {
+      "id": "L5",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "floats",
+          "label": "Floats on water",
+          "negation": "doesn't float on water",
+          "claim": "\"{answer}\" would ordinarily float on water."
+        },
+        {
+          "id": "nonmetal",
+          "label": "Not metal",
+          "negation": "is mostly metal",
+          "claim": "The main body or structure of \"{answer}\" is ordinarily made of something other than metal."
+        },
+        {
+          "id": "fabric",
+          "label": "Made of fabric",
+          "negation": "isn't made of fabric",
+          "claim": "\"{answer}\" is ordinarily made mostly of cloth or fabric."
+        },
+        {
+          "id": "wearable",
+          "label": "Can be worn",
+          "negation": "can't be worn",
+          "claim": "\"{answer}\" is ordinarily worn on the body."
+        }
+      ]
+    },
+    {
+      "id": "L6",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "floats",
+          "label": "Floats on water",
+          "negation": "doesn't float on water",
+          "claim": "\"{answer}\" would ordinarily float on water."
+        },
+        {
+          "id": "nonmetal",
+          "label": "Not metal",
+          "negation": "is mostly metal",
+          "claim": "The main body or structure of \"{answer}\" is ordinarily made of something other than metal."
+        },
+        {
+          "id": "fabric",
+          "label": "Made of fabric",
+          "negation": "isn't made of fabric",
+          "claim": "\"{answer}\" is ordinarily made mostly of cloth or fabric."
+        },
+        {
+          "id": "wearable",
+          "label": "Can be worn",
+          "negation": "can't be worn",
+          "claim": "\"{answer}\" is ordinarily worn on the body."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        }
+      ]
+    }
+  ]
+}

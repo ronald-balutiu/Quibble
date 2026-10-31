@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 34,
+  "difficulty": "medium",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:34-r1-a",
+          "label": "The mechanical advantage gained by being in a position to use a lever",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The mechanical advantage gained by being in a position to use a lever."
+        },
+        {
+          "id": "clue:34-r1-b",
+          "label": "Strategic advantage; power to act effectively",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Strategic advantage; power to act effectively."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:34-r2-a",
+          "label": "The act of removing floating material from the surface of a liquid",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The act of removing floating material from the surface of a liquid."
+        },
+        {
+          "id": "clue:34-r2-b",
+          "label": "Reading or glancing through quickly",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Reading or glancing through quickly."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:34-r3-a",
+          "label": "A hard crystalline metamorphic rock that takes a high polish; used for sculpture and as building material",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A hard crystalline metamorphic rock that takes a high polish; used for sculpture and as building material."
+        },
+        {
+          "id": "clue:34-r3-b",
+          "label": "A small ball of glass that is used in various games",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A small ball of glass that is used in various games."
+        }
+      ]
+    }
+  ]
+}

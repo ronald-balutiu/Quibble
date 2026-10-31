@@ -1,0 +1,163 @@
+{
+  "game": "category-escape",
+  "n": 86,
+  "difficulty": "hard",
+  "rounds": [
+    {
+      "id": "L1",
+      "conditions": [
+        {
+          "id": "garage",
+          "label": "Found in a garage or shed",
+          "negation": "isn't found in a garage or shed",
+          "claim": "\"{answer}\" is ordinarily found in a garage or shed."
+        }
+      ]
+    },
+    {
+      "id": "L2",
+      "conditions": [
+        {
+          "id": "garage",
+          "label": "Found in a garage or shed",
+          "negation": "isn't found in a garage or shed",
+          "claim": "\"{answer}\" is ordinarily found in a garage or shed."
+        },
+        {
+          "id": "liftable",
+          "label": "Can be lifted with one hand",
+          "negation": "can't be lifted with one hand",
+          "claim": "An adult can ordinarily lift \"{answer}\" with one hand."
+        }
+      ]
+    },
+    {
+      "id": "L3",
+      "conditions": [
+        {
+          "id": "garage",
+          "label": "Found in a garage or shed",
+          "negation": "isn't found in a garage or shed",
+          "claim": "\"{answer}\" is ordinarily found in a garage or shed."
+        },
+        {
+          "id": "liftable",
+          "label": "Can be lifted with one hand",
+          "negation": "can't be lifted with one hand",
+          "claim": "An adult can ordinarily lift \"{answer}\" with one hand."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        }
+      ]
+    },
+    {
+      "id": "L4",
+      "conditions": [
+        {
+          "id": "garage",
+          "label": "Found in a garage or shed",
+          "negation": "isn't found in a garage or shed",
+          "claim": "\"{answer}\" is ordinarily found in a garage or shed."
+        },
+        {
+          "id": "liftable",
+          "label": "Can be lifted with one hand",
+          "negation": "can't be lifted with one hand",
+          "claim": "An adult can ordinarily lift \"{answer}\" with one hand."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        },
+        {
+          "id": "metal",
+          "label": "Mostly metal",
+          "negation": "isn't mostly metal",
+          "claim": "The main body or structure of \"{answer}\" is ordinarily made of metal."
+        }
+      ]
+    },
+    {
+      "id": "L5",
+      "conditions": [
+        {
+          "id": "garage",
+          "label": "Found in a garage or shed",
+          "negation": "isn't found in a garage or shed",
+          "claim": "\"{answer}\" is ordinarily found in a garage or shed."
+        },
+        {
+          "id": "liftable",
+          "label": "Can be lifted with one hand",
+          "negation": "can't be lifted with one hand",
+          "claim": "An adult can ordinarily lift \"{answer}\" with one hand."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        },
+        {
+          "id": "metal",
+          "label": "Mostly metal",
+          "negation": "isn't mostly metal",
+          "claim": "The main body or structure of \"{answer}\" is ordinarily made of metal."
+        },
+        {
+          "id": "moving",
+          "label": "Has moving parts",
+          "negation": "has no moving parts",
+          "claim": "\"{answer}\" ordinarily has moving parts."
+        }
+      ]
+    },
+    {
+      "id": "L6",
+      "conditions": [
+        {
+          "id": "garage",
+          "label": "Found in a garage or shed",
+          "negation": "isn't found in a garage or shed",
+          "claim": "\"{answer}\" is ordinarily found in a garage or shed."
+        },
+        {
+          "id": "liftable",
+          "label": "Can be lifted with one hand",
+          "negation": "can't be lifted with one hand",
+          "claim": "An adult can ordinarily lift \"{answer}\" with one hand."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        },
+        {
+          "id": "metal",
+          "label": "Mostly metal",
+          "negation": "isn't mostly metal",
+          "claim": "The main body or structure of \"{answer}\" is ordinarily made of metal."
+        },
+        {
+          "id": "moving",
+          "label": "Has moving parts",
+          "negation": "has no moving parts",
+          "claim": "\"{answer}\" ordinarily has moving parts."
+        },
+        {
+          "id": "handle",
+          "label": "Has a handle",
+          "negation": "has no handle",
+          "claim": "\"{answer}\" ordinarily has a handle you hold it by."
+        }
+      ]
+    }
+  ]
+}

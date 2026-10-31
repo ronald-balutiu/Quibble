@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 14,
+  "difficulty": "easy",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:14-r1-a",
+          "label": "Fresh fruits and vegetable grown for the market",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Fresh fruits and vegetable grown for the market."
+        },
+        {
+          "id": "clue:14-r1-b",
+          "label": "Bring forth or yield",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Bring forth or yield."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:14-r2-a",
+          "label": "The back of a military formation or procession",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The back of a military formation or procession."
+        },
+        {
+          "id": "clue:14-r2-b",
+          "label": "The side of an object that is opposite its front",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The side of an object that is opposite its front."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:14-r3-a",
+          "label": "A wrong action attributable to bad judgment or ignorance or inattention",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A wrong action attributable to bad judgment or ignorance or inattention."
+        },
+        {
+          "id": "clue:14-r3-b",
+          "label": "An imperfection in an object or machine",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: An imperfection in an object or machine."
+        }
+      ]
+    }
+  ]
+}

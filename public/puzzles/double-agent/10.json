@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 10,
+  "difficulty": "easy",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:10-r1-a",
+          "label": "The part of the human torso between the neck and the diaphragm or the corresponding part in other vertebrates",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The part of the human torso between the neck and the diaphragm or the corresponding part in other vertebrates."
+        },
+        {
+          "id": "clue:10-r1-b",
+          "label": "Box with a lid; used for storage; usually large and sturdy",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Box with a lid; used for storage; usually large and sturdy."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:10-r2-a",
+          "label": "That part of the central nervous system that includes all the higher nervous centers; enclosed within the skull; continuous with the spinal cord",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: That part of the central nervous system that includes all the higher nervous centers; enclosed within the skull; continuous with the spinal cord."
+        },
+        {
+          "id": "clue:10-r2-b",
+          "label": "Mental ability",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Mental ability."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:10-r3-a",
+          "label": "Merchandise issued for sale or public showing (especially a record or film)",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Merchandise issued for sale or public showing (especially a record or film)."
+        },
+        {
+          "id": "clue:10-r3-b",
+          "label": "The act of liberating someone or something",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The act of liberating someone or something."
+        }
+      ]
+    }
+  ]
+}

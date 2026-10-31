@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 54,
+  "difficulty": "hard",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:54-r1-a",
+          "label": "Something (manuscripts or architectural plans and models or estimates or works of art of all genres etc.) submitted for the judgment of others (as in a competition)",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Something (manuscripts or architectural plans and models or estimates or works of art of all genres etc.) submitted for the judgment of others (as in a competition)."
+        },
+        {
+          "id": "clue:54-r1-b",
+          "label": "The act of submitting; usually surrendering power to another",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The act of submitting; usually surrendering power to another."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:54-r2-a",
+          "label": "Someone who kills by strangling",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Someone who kills by strangling."
+        },
+        {
+          "id": "clue:54-r2-b",
+          "label": "Necklace that fits tightly around a woman's neck",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Necklace that fits tightly around a woman's neck."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:54-r3-a",
+          "label": "An operation moving an organ from one organism (the donor) to another (the recipient)",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: An operation moving an organ from one organism (the donor) to another (the recipient)."
+        },
+        {
+          "id": "clue:54-r3-b",
+          "label": "Lift and reset in another soil or situation",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Lift and reset in another soil or situation."
+        }
+      ]
+    }
+  ]
+}

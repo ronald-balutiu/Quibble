@@ -1,0 +1,163 @@
+{
+  "game": "category-escape",
+  "n": 55,
+  "difficulty": "medium",
+  "rounds": [
+    {
+      "id": "L1",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        }
+      ]
+    },
+    {
+      "id": "L2",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "unpowered",
+          "label": "Not powered",
+          "negation": "is powered",
+          "claim": "\"{answer}\" works without any electricity, battery or engine."
+        }
+      ]
+    },
+    {
+      "id": "L3",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "unpowered",
+          "label": "Not powered",
+          "negation": "is powered",
+          "claim": "\"{answer}\" works without any electricity, battery or engine."
+        },
+        {
+          "id": "liftable",
+          "label": "Can be lifted with one hand",
+          "negation": "can't be lifted with one hand",
+          "claim": "An adult can ordinarily lift \"{answer}\" with one hand."
+        }
+      ]
+    },
+    {
+      "id": "L4",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "unpowered",
+          "label": "Not powered",
+          "negation": "is powered",
+          "claim": "\"{answer}\" works without any electricity, battery or engine."
+        },
+        {
+          "id": "liftable",
+          "label": "Can be lifted with one hand",
+          "negation": "can't be lifted with one hand",
+          "claim": "An adult can ordinarily lift \"{answer}\" with one hand."
+        },
+        {
+          "id": "nonfood",
+          "label": "Not food",
+          "negation": "is food",
+          "claim": "\"{answer}\" is something people do not ordinarily eat."
+        }
+      ]
+    },
+    {
+      "id": "L5",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "unpowered",
+          "label": "Not powered",
+          "negation": "is powered",
+          "claim": "\"{answer}\" works without any electricity, battery or engine."
+        },
+        {
+          "id": "liftable",
+          "label": "Can be lifted with one hand",
+          "negation": "can't be lifted with one hand",
+          "claim": "An adult can ordinarily lift \"{answer}\" with one hand."
+        },
+        {
+          "id": "nonfood",
+          "label": "Not food",
+          "negation": "is food",
+          "claim": "\"{answer}\" is something people do not ordinarily eat."
+        },
+        {
+          "id": "opens",
+          "label": "Opens and closes",
+          "negation": "doesn't open and close",
+          "claim": "\"{answer}\" ordinarily opens and closes."
+        }
+      ]
+    },
+    {
+      "id": "L6",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "unpowered",
+          "label": "Not powered",
+          "negation": "is powered",
+          "claim": "\"{answer}\" works without any electricity, battery or engine."
+        },
+        {
+          "id": "liftable",
+          "label": "Can be lifted with one hand",
+          "negation": "can't be lifted with one hand",
+          "claim": "An adult can ordinarily lift \"{answer}\" with one hand."
+        },
+        {
+          "id": "nonfood",
+          "label": "Not food",
+          "negation": "is food",
+          "claim": "\"{answer}\" is something people do not ordinarily eat."
+        },
+        {
+          "id": "opens",
+          "label": "Opens and closes",
+          "negation": "doesn't open and close",
+          "claim": "\"{answer}\" ordinarily opens and closes."
+        },
+        {
+          "id": "usedup",
+          "label": "Gets used up",
+          "negation": "doesn't get used up",
+          "claim": "\"{answer}\" ordinarily gets used up or thrown away after a few uses."
+        }
+      ]
+    }
+  ]
+}

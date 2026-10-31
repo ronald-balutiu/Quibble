@@ -1,0 +1,163 @@
+{
+  "game": "category-escape",
+  "n": 80,
+  "difficulty": "hard",
+  "rounds": [
+    {
+      "id": "L1",
+      "conditions": [
+        {
+          "id": "office",
+          "label": "Found in an office",
+          "negation": "isn't found in an office",
+          "claim": "\"{answer}\" is ordinarily found in an office."
+        }
+      ]
+    },
+    {
+      "id": "L2",
+      "conditions": [
+        {
+          "id": "office",
+          "label": "Found in an office",
+          "negation": "isn't found in an office",
+          "claim": "\"{answer}\" is ordinarily found in an office."
+        },
+        {
+          "id": "nonfood",
+          "label": "Not food",
+          "negation": "is food",
+          "claim": "\"{answer}\" is something people do not ordinarily eat."
+        }
+      ]
+    },
+    {
+      "id": "L3",
+      "conditions": [
+        {
+          "id": "office",
+          "label": "Found in an office",
+          "negation": "isn't found in an office",
+          "claim": "\"{answer}\" is ordinarily found in an office."
+        },
+        {
+          "id": "nonfood",
+          "label": "Not food",
+          "negation": "is food",
+          "claim": "\"{answer}\" is something people do not ordinarily eat."
+        },
+        {
+          "id": "electric",
+          "label": "Needs electricity",
+          "negation": "doesn't need electricity",
+          "claim": "\"{answer}\" needs electricity, from a plug or a battery, to do its job."
+        }
+      ]
+    },
+    {
+      "id": "L4",
+      "conditions": [
+        {
+          "id": "office",
+          "label": "Found in an office",
+          "negation": "isn't found in an office",
+          "claim": "\"{answer}\" is ordinarily found in an office."
+        },
+        {
+          "id": "nonfood",
+          "label": "Not food",
+          "negation": "is food",
+          "claim": "\"{answer}\" is something people do not ordinarily eat."
+        },
+        {
+          "id": "electric",
+          "label": "Needs electricity",
+          "negation": "doesn't need electricity",
+          "claim": "\"{answer}\" needs electricity, from a plug or a battery, to do its job."
+        },
+        {
+          "id": "hot",
+          "label": "Gets hot when used",
+          "negation": "doesn't get hot when used",
+          "claim": "\"{answer}\" ordinarily gets hot when it is used."
+        }
+      ]
+    },
+    {
+      "id": "L5",
+      "conditions": [
+        {
+          "id": "office",
+          "label": "Found in an office",
+          "negation": "isn't found in an office",
+          "claim": "\"{answer}\" is ordinarily found in an office."
+        },
+        {
+          "id": "nonfood",
+          "label": "Not food",
+          "negation": "is food",
+          "claim": "\"{answer}\" is something people do not ordinarily eat."
+        },
+        {
+          "id": "electric",
+          "label": "Needs electricity",
+          "negation": "doesn't need electricity",
+          "claim": "\"{answer}\" needs electricity, from a plug or a battery, to do its job."
+        },
+        {
+          "id": "hot",
+          "label": "Gets hot when used",
+          "negation": "doesn't get hot when used",
+          "claim": "\"{answer}\" ordinarily gets hot when it is used."
+        },
+        {
+          "id": "moving",
+          "label": "Has moving parts",
+          "negation": "has no moving parts",
+          "claim": "\"{answer}\" ordinarily has moving parts."
+        }
+      ]
+    },
+    {
+      "id": "L6",
+      "conditions": [
+        {
+          "id": "office",
+          "label": "Found in an office",
+          "negation": "isn't found in an office",
+          "claim": "\"{answer}\" is ordinarily found in an office."
+        },
+        {
+          "id": "nonfood",
+          "label": "Not food",
+          "negation": "is food",
+          "claim": "\"{answer}\" is something people do not ordinarily eat."
+        },
+        {
+          "id": "electric",
+          "label": "Needs electricity",
+          "negation": "doesn't need electricity",
+          "claim": "\"{answer}\" needs electricity, from a plug or a battery, to do its job."
+        },
+        {
+          "id": "hot",
+          "label": "Gets hot when used",
+          "negation": "doesn't get hot when used",
+          "claim": "\"{answer}\" ordinarily gets hot when it is used."
+        },
+        {
+          "id": "moving",
+          "label": "Has moving parts",
+          "negation": "has no moving parts",
+          "claim": "\"{answer}\" ordinarily has moving parts."
+        },
+        {
+          "id": "buttons",
+          "label": "Has buttons",
+          "negation": "has no buttons",
+          "claim": "\"{answer}\" ordinarily has buttons or keys you press."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 5,
+  "difficulty": "easy",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:5-r1-a",
+          "label": "The specified day of the month",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The specified day of the month."
+        },
+        {
+          "id": "clue:5-r1-b",
+          "label": "A meeting arranged in advance",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A meeting arranged in advance."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:5-r2-a",
+          "label": "A painful emotion resulting from an awareness of inadequacy or guilt",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A painful emotion resulting from an awareness of inadequacy or guilt."
+        },
+        {
+          "id": "clue:5-r2-b",
+          "label": "A state of dishonor",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A state of dishonor."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:5-r3-a",
+          "label": "The motion characteristic of fluids (liquids or gases)",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The motion characteristic of fluids (liquids or gases)."
+        },
+        {
+          "id": "clue:5-r3-b",
+          "label": "Any uninterrupted stream or discharge",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Any uninterrupted stream or discharge."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,163 @@
+{
+  "game": "category-escape",
+  "n": 59,
+  "difficulty": "medium",
+  "rounds": [
+    {
+      "id": "L1",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        }
+      ]
+    },
+    {
+      "id": "L2",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "nonfood",
+          "label": "Not food",
+          "negation": "is food",
+          "claim": "\"{answer}\" is something people do not ordinarily eat."
+        }
+      ]
+    },
+    {
+      "id": "L3",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "nonfood",
+          "label": "Not food",
+          "negation": "is food",
+          "claim": "\"{answer}\" is something people do not ordinarily eat."
+        },
+        {
+          "id": "electric",
+          "label": "Needs electricity",
+          "negation": "doesn't need electricity",
+          "claim": "\"{answer}\" needs electricity, from a plug or a battery, to do its job."
+        }
+      ]
+    },
+    {
+      "id": "L4",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "nonfood",
+          "label": "Not food",
+          "negation": "is food",
+          "claim": "\"{answer}\" is something people do not ordinarily eat."
+        },
+        {
+          "id": "electric",
+          "label": "Needs electricity",
+          "negation": "doesn't need electricity",
+          "claim": "\"{answer}\" needs electricity, from a plug or a battery, to do its job."
+        },
+        {
+          "id": "batteries",
+          "label": "Can run on batteries",
+          "negation": "can't run on batteries",
+          "claim": "\"{answer}\" can ordinarily run on batteries."
+        }
+      ]
+    },
+    {
+      "id": "L5",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "nonfood",
+          "label": "Not food",
+          "negation": "is food",
+          "claim": "\"{answer}\" is something people do not ordinarily eat."
+        },
+        {
+          "id": "electric",
+          "label": "Needs electricity",
+          "negation": "doesn't need electricity",
+          "claim": "\"{answer}\" needs electricity, from a plug or a battery, to do its job."
+        },
+        {
+          "id": "batteries",
+          "label": "Can run on batteries",
+          "negation": "can't run on batteries",
+          "claim": "\"{answer}\" can ordinarily run on batteries."
+        },
+        {
+          "id": "breakable",
+          "label": "Breaks if dropped",
+          "negation": "doesn't break if dropped",
+          "claim": "\"{answer}\" would ordinarily break or shatter if dropped on a hard floor."
+        }
+      ]
+    },
+    {
+      "id": "L6",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "nonfood",
+          "label": "Not food",
+          "negation": "is food",
+          "claim": "\"{answer}\" is something people do not ordinarily eat."
+        },
+        {
+          "id": "electric",
+          "label": "Needs electricity",
+          "negation": "doesn't need electricity",
+          "claim": "\"{answer}\" needs electricity, from a plug or a battery, to do its job."
+        },
+        {
+          "id": "batteries",
+          "label": "Can run on batteries",
+          "negation": "can't run on batteries",
+          "claim": "\"{answer}\" can ordinarily run on batteries."
+        },
+        {
+          "id": "breakable",
+          "label": "Breaks if dropped",
+          "negation": "doesn't break if dropped",
+          "claim": "\"{answer}\" would ordinarily break or shatter if dropped on a hard floor."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        }
+      ]
+    }
+  ]
+}

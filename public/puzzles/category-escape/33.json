@@ -1,0 +1,163 @@
+{
+  "game": "category-escape",
+  "n": 33,
+  "difficulty": "easy",
+  "rounds": [
+    {
+      "id": "L1",
+      "conditions": [
+        {
+          "id": "office",
+          "label": "Found in an office",
+          "negation": "isn't found in an office",
+          "claim": "\"{answer}\" is ordinarily found in an office."
+        }
+      ]
+    },
+    {
+      "id": "L2",
+      "conditions": [
+        {
+          "id": "office",
+          "label": "Found in an office",
+          "negation": "isn't found in an office",
+          "claim": "\"{answer}\" is ordinarily found in an office."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        }
+      ]
+    },
+    {
+      "id": "L3",
+      "conditions": [
+        {
+          "id": "office",
+          "label": "Found in an office",
+          "negation": "isn't found in an office",
+          "claim": "\"{answer}\" is ordinarily found in an office."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        },
+        {
+          "id": "liftable",
+          "label": "Can be lifted with one hand",
+          "negation": "can't be lifted with one hand",
+          "claim": "An adult can ordinarily lift \"{answer}\" with one hand."
+        }
+      ]
+    },
+    {
+      "id": "L4",
+      "conditions": [
+        {
+          "id": "office",
+          "label": "Found in an office",
+          "negation": "isn't found in an office",
+          "claim": "\"{answer}\" is ordinarily found in an office."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        },
+        {
+          "id": "liftable",
+          "label": "Can be lifted with one hand",
+          "negation": "can't be lifted with one hand",
+          "claim": "An adult can ordinarily lift \"{answer}\" with one hand."
+        },
+        {
+          "id": "floats",
+          "label": "Floats on water",
+          "negation": "doesn't float on water",
+          "claim": "\"{answer}\" would ordinarily float on water."
+        }
+      ]
+    },
+    {
+      "id": "L5",
+      "conditions": [
+        {
+          "id": "office",
+          "label": "Found in an office",
+          "negation": "isn't found in an office",
+          "claim": "\"{answer}\" is ordinarily found in an office."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        },
+        {
+          "id": "liftable",
+          "label": "Can be lifted with one hand",
+          "negation": "can't be lifted with one hand",
+          "claim": "An adult can ordinarily lift \"{answer}\" with one hand."
+        },
+        {
+          "id": "floats",
+          "label": "Floats on water",
+          "negation": "doesn't float on water",
+          "claim": "\"{answer}\" would ordinarily float on water."
+        },
+        {
+          "id": "thin",
+          "label": "Thinner than a finger",
+          "negation": "isn't thinner than a finger",
+          "claim": "\"{answer}\" is ordinarily thinner than a finger."
+        }
+      ]
+    },
+    {
+      "id": "L6",
+      "conditions": [
+        {
+          "id": "office",
+          "label": "Found in an office",
+          "negation": "isn't found in an office",
+          "claim": "\"{answer}\" is ordinarily found in an office."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        },
+        {
+          "id": "liftable",
+          "label": "Can be lifted with one hand",
+          "negation": "can't be lifted with one hand",
+          "claim": "An adult can ordinarily lift \"{answer}\" with one hand."
+        },
+        {
+          "id": "floats",
+          "label": "Floats on water",
+          "negation": "doesn't float on water",
+          "claim": "\"{answer}\" would ordinarily float on water."
+        },
+        {
+          "id": "thin",
+          "label": "Thinner than a finger",
+          "negation": "isn't thinner than a finger",
+          "claim": "\"{answer}\" is ordinarily thinner than a finger."
+        },
+        {
+          "id": "write",
+          "label": "Used to write or draw",
+          "negation": "isn't used to write or draw",
+          "claim": "\"{answer}\" is ordinarily used to write or draw."
+        }
+      ]
+    }
+  ]
+}

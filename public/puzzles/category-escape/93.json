@@ -1,0 +1,163 @@
+{
+  "game": "category-escape",
+  "n": 93,
+  "difficulty": "hard",
+  "rounds": [
+    {
+      "id": "L1",
+      "conditions": [
+        {
+          "id": "kitchen",
+          "label": "Found in a kitchen",
+          "negation": "isn't found in a kitchen",
+          "claim": "\"{answer}\" is ordinarily found in a home kitchen."
+        }
+      ]
+    },
+    {
+      "id": "L2",
+      "conditions": [
+        {
+          "id": "kitchen",
+          "label": "Found in a kitchen",
+          "negation": "isn't found in a kitchen",
+          "claim": "\"{answer}\" is ordinarily found in a home kitchen."
+        },
+        {
+          "id": "hangs",
+          "label": "Often hung up",
+          "negation": "isn't usually hung up",
+          "claim": "\"{answer}\" is ordinarily hung up when not in use."
+        }
+      ]
+    },
+    {
+      "id": "L3",
+      "conditions": [
+        {
+          "id": "kitchen",
+          "label": "Found in a kitchen",
+          "negation": "isn't found in a kitchen",
+          "claim": "\"{answer}\" is ordinarily found in a home kitchen."
+        },
+        {
+          "id": "hangs",
+          "label": "Often hung up",
+          "negation": "isn't usually hung up",
+          "claim": "\"{answer}\" is ordinarily hung up when not in use."
+        },
+        {
+          "id": "drawer",
+          "label": "Often kept in a drawer",
+          "negation": "isn't usually kept in a drawer",
+          "claim": "\"{answer}\" is ordinarily kept in a drawer."
+        }
+      ]
+    },
+    {
+      "id": "L4",
+      "conditions": [
+        {
+          "id": "kitchen",
+          "label": "Found in a kitchen",
+          "negation": "isn't found in a kitchen",
+          "claim": "\"{answer}\" is ordinarily found in a home kitchen."
+        },
+        {
+          "id": "hangs",
+          "label": "Often hung up",
+          "negation": "isn't usually hung up",
+          "claim": "\"{answer}\" is ordinarily hung up when not in use."
+        },
+        {
+          "id": "drawer",
+          "label": "Often kept in a drawer",
+          "negation": "isn't usually kept in a drawer",
+          "claim": "\"{answer}\" is ordinarily kept in a drawer."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        }
+      ]
+    },
+    {
+      "id": "L5",
+      "conditions": [
+        {
+          "id": "kitchen",
+          "label": "Found in a kitchen",
+          "negation": "isn't found in a kitchen",
+          "claim": "\"{answer}\" is ordinarily found in a home kitchen."
+        },
+        {
+          "id": "hangs",
+          "label": "Often hung up",
+          "negation": "isn't usually hung up",
+          "claim": "\"{answer}\" is ordinarily hung up when not in use."
+        },
+        {
+          "id": "drawer",
+          "label": "Often kept in a drawer",
+          "negation": "isn't usually kept in a drawer",
+          "claim": "\"{answer}\" is ordinarily kept in a drawer."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        },
+        {
+          "id": "nonmetal",
+          "label": "Not metal",
+          "negation": "is mostly metal",
+          "claim": "The main body or structure of \"{answer}\" is ordinarily made of something other than metal."
+        }
+      ]
+    },
+    {
+      "id": "L6",
+      "conditions": [
+        {
+          "id": "kitchen",
+          "label": "Found in a kitchen",
+          "negation": "isn't found in a kitchen",
+          "claim": "\"{answer}\" is ordinarily found in a home kitchen."
+        },
+        {
+          "id": "hangs",
+          "label": "Often hung up",
+          "negation": "isn't usually hung up",
+          "claim": "\"{answer}\" is ordinarily hung up when not in use."
+        },
+        {
+          "id": "drawer",
+          "label": "Often kept in a drawer",
+          "negation": "isn't usually kept in a drawer",
+          "claim": "\"{answer}\" is ordinarily kept in a drawer."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        },
+        {
+          "id": "nonmetal",
+          "label": "Not metal",
+          "negation": "is mostly metal",
+          "claim": "The main body or structure of \"{answer}\" is ordinarily made of something other than metal."
+        },
+        {
+          "id": "nonfood",
+          "label": "Not food",
+          "negation": "is food",
+          "claim": "\"{answer}\" is something people do not ordinarily eat."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 7,
+  "difficulty": "easy",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:7-r1-a",
+          "label": "The part of the earth's surface consisting of humus and disintegrated rock",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The part of the earth's surface consisting of humus and disintegrated rock."
+        },
+        {
+          "id": "clue:7-r1-b",
+          "label": "Anything regarded as making something unclean",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Anything regarded as making something unclean."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:7-r2-a",
+          "label": "A liquid used for printing or writing or drawing",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A liquid used for printing or writing or drawing."
+        },
+        {
+          "id": "clue:7-r2-b",
+          "label": "Dark protective fluid ejected into the water by cuttlefish and other cephalopods",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Dark protective fluid ejected into the water by cuttlefish and other cephalopods."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:7-r3-a",
+          "label": "Something left after other parts have been taken away",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Something left after other parts have been taken away."
+        },
+        {
+          "id": "clue:7-r3-b",
+          "label": "Freedom from activity (work or strain or responsibility)",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Freedom from activity (work or strain or responsibility)."
+        }
+      ]
+    }
+  ]
+}

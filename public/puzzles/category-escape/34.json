@@ -1,0 +1,163 @@
+{
+  "game": "category-escape",
+  "n": 34,
+  "difficulty": "easy",
+  "rounds": [
+    {
+      "id": "L1",
+      "conditions": [
+        {
+          "id": "office",
+          "label": "Found in an office",
+          "negation": "isn't found in an office",
+          "claim": "\"{answer}\" is ordinarily found in an office."
+        }
+      ]
+    },
+    {
+      "id": "L2",
+      "conditions": [
+        {
+          "id": "office",
+          "label": "Found in an office",
+          "negation": "isn't found in an office",
+          "claim": "\"{answer}\" is ordinarily found in an office."
+        },
+        {
+          "id": "nonmetal",
+          "label": "Not metal",
+          "negation": "is mostly metal",
+          "claim": "The main body or structure of \"{answer}\" is ordinarily made of something other than metal."
+        }
+      ]
+    },
+    {
+      "id": "L3",
+      "conditions": [
+        {
+          "id": "office",
+          "label": "Found in an office",
+          "negation": "isn't found in an office",
+          "claim": "\"{answer}\" is ordinarily found in an office."
+        },
+        {
+          "id": "nonmetal",
+          "label": "Not metal",
+          "negation": "is mostly metal",
+          "claim": "The main body or structure of \"{answer}\" is ordinarily made of something other than metal."
+        },
+        {
+          "id": "thin",
+          "label": "Thinner than a finger",
+          "negation": "isn't thinner than a finger",
+          "claim": "\"{answer}\" is ordinarily thinner than a finger."
+        }
+      ]
+    },
+    {
+      "id": "L4",
+      "conditions": [
+        {
+          "id": "office",
+          "label": "Found in an office",
+          "negation": "isn't found in an office",
+          "claim": "\"{answer}\" is ordinarily found in an office."
+        },
+        {
+          "id": "nonmetal",
+          "label": "Not metal",
+          "negation": "is mostly metal",
+          "claim": "The main body or structure of \"{answer}\" is ordinarily made of something other than metal."
+        },
+        {
+          "id": "thin",
+          "label": "Thinner than a finger",
+          "negation": "isn't thinner than a finger",
+          "claim": "\"{answer}\" is ordinarily thinner than a finger."
+        },
+        {
+          "id": "pack",
+          "label": "Usually bought in packs",
+          "negation": "isn't usually bought in packs",
+          "claim": "\"{answer}\" is ordinarily bought in a pack of several or many."
+        }
+      ]
+    },
+    {
+      "id": "L5",
+      "conditions": [
+        {
+          "id": "office",
+          "label": "Found in an office",
+          "negation": "isn't found in an office",
+          "claim": "\"{answer}\" is ordinarily found in an office."
+        },
+        {
+          "id": "nonmetal",
+          "label": "Not metal",
+          "negation": "is mostly metal",
+          "claim": "The main body or structure of \"{answer}\" is ordinarily made of something other than metal."
+        },
+        {
+          "id": "thin",
+          "label": "Thinner than a finger",
+          "negation": "isn't thinner than a finger",
+          "claim": "\"{answer}\" is ordinarily thinner than a finger."
+        },
+        {
+          "id": "pack",
+          "label": "Usually bought in packs",
+          "negation": "isn't usually bought in packs",
+          "claim": "\"{answer}\" is ordinarily bought in a pack of several or many."
+        },
+        {
+          "id": "floats",
+          "label": "Floats on water",
+          "negation": "doesn't float on water",
+          "claim": "\"{answer}\" would ordinarily float on water."
+        }
+      ]
+    },
+    {
+      "id": "L6",
+      "conditions": [
+        {
+          "id": "office",
+          "label": "Found in an office",
+          "negation": "isn't found in an office",
+          "claim": "\"{answer}\" is ordinarily found in an office."
+        },
+        {
+          "id": "nonmetal",
+          "label": "Not metal",
+          "negation": "is mostly metal",
+          "claim": "The main body or structure of \"{answer}\" is ordinarily made of something other than metal."
+        },
+        {
+          "id": "thin",
+          "label": "Thinner than a finger",
+          "negation": "isn't thinner than a finger",
+          "claim": "\"{answer}\" is ordinarily thinner than a finger."
+        },
+        {
+          "id": "pack",
+          "label": "Usually bought in packs",
+          "negation": "isn't usually bought in packs",
+          "claim": "\"{answer}\" is ordinarily bought in a pack of several or many."
+        },
+        {
+          "id": "floats",
+          "label": "Floats on water",
+          "negation": "doesn't float on water",
+          "claim": "\"{answer}\" would ordinarily float on water."
+        },
+        {
+          "id": "usedup",
+          "label": "Gets used up",
+          "negation": "doesn't get used up",
+          "claim": "\"{answer}\" ordinarily gets used up or thrown away after a few uses."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 55,
+  "difficulty": "hard",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:55-r1-a",
+          "label": "An upward movement (especially a rhythmical rising and falling)",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: An upward movement (especially a rhythmical rising and falling)."
+        },
+        {
+          "id": "clue:55-r1-b",
+          "label": "Breathing heavily (as after exertion)",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Breathing heavily (as after exertion)."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:55-r2-a",
+          "label": "Breaking of hard tissue such as bone",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Breaking of hard tissue such as bone."
+        },
+        {
+          "id": "clue:55-r2-b",
+          "label": "(geology) a crack in the earth's crust resulting from the displacement of one side with respect to the other",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: (geology) a crack in the earth's crust resulting from the displacement of one side with respect to the other."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:55-r3-a",
+          "label": "Any thick, viscous matter",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Any thick, viscous matter."
+        },
+        {
+          "id": "clue:55-r3-b",
+          "label": "The process of seeping",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The process of seeping."
+        }
+      ]
+    }
+  ]
+}

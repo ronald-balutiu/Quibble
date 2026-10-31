@@ -1,0 +1,163 @@
+{
+  "game": "category-escape",
+  "n": 94,
+  "difficulty": "hard",
+  "rounds": [
+    {
+      "id": "L1",
+      "conditions": [
+        {
+          "id": "kitchen",
+          "label": "Found in a kitchen",
+          "negation": "isn't found in a kitchen",
+          "claim": "\"{answer}\" is ordinarily found in a home kitchen."
+        }
+      ]
+    },
+    {
+      "id": "L2",
+      "conditions": [
+        {
+          "id": "kitchen",
+          "label": "Found in a kitchen",
+          "negation": "isn't found in a kitchen",
+          "claim": "\"{answer}\" is ordinarily found in a home kitchen."
+        },
+        {
+          "id": "pocket",
+          "label": "Fits in a pocket",
+          "negation": "doesn't fit in a pocket",
+          "claim": "\"{answer}\" could ordinarily fit inside a clothing pocket."
+        }
+      ]
+    },
+    {
+      "id": "L3",
+      "conditions": [
+        {
+          "id": "kitchen",
+          "label": "Found in a kitchen",
+          "negation": "isn't found in a kitchen",
+          "claim": "\"{answer}\" is ordinarily found in a home kitchen."
+        },
+        {
+          "id": "pocket",
+          "label": "Fits in a pocket",
+          "negation": "doesn't fit in a pocket",
+          "claim": "\"{answer}\" could ordinarily fit inside a clothing pocket."
+        },
+        {
+          "id": "pack",
+          "label": "Usually bought in packs",
+          "negation": "isn't usually bought in packs",
+          "claim": "\"{answer}\" is ordinarily bought in a pack of several or many."
+        }
+      ]
+    },
+    {
+      "id": "L4",
+      "conditions": [
+        {
+          "id": "kitchen",
+          "label": "Found in a kitchen",
+          "negation": "isn't found in a kitchen",
+          "claim": "\"{answer}\" is ordinarily found in a home kitchen."
+        },
+        {
+          "id": "pocket",
+          "label": "Fits in a pocket",
+          "negation": "doesn't fit in a pocket",
+          "claim": "\"{answer}\" could ordinarily fit inside a clothing pocket."
+        },
+        {
+          "id": "pack",
+          "label": "Usually bought in packs",
+          "negation": "isn't usually bought in packs",
+          "claim": "\"{answer}\" is ordinarily bought in a pack of several or many."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        }
+      ]
+    },
+    {
+      "id": "L5",
+      "conditions": [
+        {
+          "id": "kitchen",
+          "label": "Found in a kitchen",
+          "negation": "isn't found in a kitchen",
+          "claim": "\"{answer}\" is ordinarily found in a home kitchen."
+        },
+        {
+          "id": "pocket",
+          "label": "Fits in a pocket",
+          "negation": "doesn't fit in a pocket",
+          "claim": "\"{answer}\" could ordinarily fit inside a clothing pocket."
+        },
+        {
+          "id": "pack",
+          "label": "Usually bought in packs",
+          "negation": "isn't usually bought in packs",
+          "claim": "\"{answer}\" is ordinarily bought in a pack of several or many."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        },
+        {
+          "id": "floats",
+          "label": "Floats on water",
+          "negation": "doesn't float on water",
+          "claim": "\"{answer}\" would ordinarily float on water."
+        }
+      ]
+    },
+    {
+      "id": "L6",
+      "conditions": [
+        {
+          "id": "kitchen",
+          "label": "Found in a kitchen",
+          "negation": "isn't found in a kitchen",
+          "claim": "\"{answer}\" is ordinarily found in a home kitchen."
+        },
+        {
+          "id": "pocket",
+          "label": "Fits in a pocket",
+          "negation": "doesn't fit in a pocket",
+          "claim": "\"{answer}\" could ordinarily fit inside a clothing pocket."
+        },
+        {
+          "id": "pack",
+          "label": "Usually bought in packs",
+          "negation": "isn't usually bought in packs",
+          "claim": "\"{answer}\" is ordinarily bought in a pack of several or many."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        },
+        {
+          "id": "floats",
+          "label": "Floats on water",
+          "negation": "doesn't float on water",
+          "claim": "\"{answer}\" would ordinarily float on water."
+        },
+        {
+          "id": "folds",
+          "label": "Folds or rolls up",
+          "negation": "doesn't fold or roll up",
+          "claim": "\"{answer}\" can ordinarily be folded or rolled up."
+        }
+      ]
+    }
+  ]
+}

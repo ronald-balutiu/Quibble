@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 19,
+  "difficulty": "easy",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:19-r1-a",
+          "label": "(military) military action or resources protecting a country against potential enemies",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: (military) military action or resources protecting a country against potential enemies."
+        },
+        {
+          "id": "clue:19-r1-b",
+          "label": "(sports) the team that is trying to prevent the other team from scoring",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: (sports) the team that is trying to prevent the other team from scoring."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:19-r2-a",
+          "label": "A person distinguished by exceptional courage and nobility and strength",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A person distinguished by exceptional courage and nobility and strength."
+        },
+        {
+          "id": "clue:19-r2-b",
+          "label": "The principal character in a play or movie or novel or poem",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The principal character in a play or movie or novel or poem."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:19-r3-a",
+          "label": "The process of gradually becoming inferior",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The process of gradually becoming inferior."
+        },
+        {
+          "id": "clue:19-r3-b",
+          "label": "The organic phenomenon of rotting",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The organic phenomenon of rotting."
+        }
+      ]
+    }
+  ]
+}

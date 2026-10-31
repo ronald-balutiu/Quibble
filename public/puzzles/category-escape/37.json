@@ -1,0 +1,163 @@
+{
+  "game": "category-escape",
+  "n": 37,
+  "difficulty": "medium",
+  "rounds": [
+    {
+      "id": "L1",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        }
+      ]
+    },
+    {
+      "id": "L2",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "daily",
+          "label": "Used most days",
+          "negation": "isn't used most days",
+          "claim": "Most people ordinarily use \"{answer}\" on most days."
+        }
+      ]
+    },
+    {
+      "id": "L3",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "daily",
+          "label": "Used most days",
+          "negation": "isn't used most days",
+          "claim": "Most people ordinarily use \"{answer}\" on most days."
+        },
+        {
+          "id": "nonmetal",
+          "label": "Not metal",
+          "negation": "is mostly metal",
+          "claim": "The main body or structure of \"{answer}\" is ordinarily made of something other than metal."
+        }
+      ]
+    },
+    {
+      "id": "L4",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "daily",
+          "label": "Used most days",
+          "negation": "isn't used most days",
+          "claim": "Most people ordinarily use \"{answer}\" on most days."
+        },
+        {
+          "id": "nonmetal",
+          "label": "Not metal",
+          "negation": "is mostly metal",
+          "claim": "The main body or structure of \"{answer}\" is ordinarily made of something other than metal."
+        },
+        {
+          "id": "fabric",
+          "label": "Made of fabric",
+          "negation": "isn't made of fabric",
+          "claim": "\"{answer}\" is ordinarily made mostly of cloth or fabric."
+        }
+      ]
+    },
+    {
+      "id": "L5",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "daily",
+          "label": "Used most days",
+          "negation": "isn't used most days",
+          "claim": "Most people ordinarily use \"{answer}\" on most days."
+        },
+        {
+          "id": "nonmetal",
+          "label": "Not metal",
+          "negation": "is mostly metal",
+          "claim": "The main body or structure of \"{answer}\" is ordinarily made of something other than metal."
+        },
+        {
+          "id": "fabric",
+          "label": "Made of fabric",
+          "negation": "isn't made of fabric",
+          "claim": "\"{answer}\" is ordinarily made mostly of cloth or fabric."
+        },
+        {
+          "id": "unpowered",
+          "label": "Not powered",
+          "negation": "is powered",
+          "claim": "\"{answer}\" works without any electricity, battery or engine."
+        }
+      ]
+    },
+    {
+      "id": "L6",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "daily",
+          "label": "Used most days",
+          "negation": "isn't used most days",
+          "claim": "Most people ordinarily use \"{answer}\" on most days."
+        },
+        {
+          "id": "nonmetal",
+          "label": "Not metal",
+          "negation": "is mostly metal",
+          "claim": "The main body or structure of \"{answer}\" is ordinarily made of something other than metal."
+        },
+        {
+          "id": "fabric",
+          "label": "Made of fabric",
+          "negation": "isn't made of fabric",
+          "claim": "\"{answer}\" is ordinarily made mostly of cloth or fabric."
+        },
+        {
+          "id": "unpowered",
+          "label": "Not powered",
+          "negation": "is powered",
+          "claim": "\"{answer}\" works without any electricity, battery or engine."
+        },
+        {
+          "id": "heavy",
+          "label": "Heavier than a bag of sugar",
+          "negation": "is lighter than a bag of sugar",
+          "claim": "\"{answer}\" ordinarily weighs more than 1 kilogram."
+        }
+      ]
+    }
+  ]
+}

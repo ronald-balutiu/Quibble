@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 16,
+  "difficulty": "easy",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:16-r1-a",
+          "label": "A small fragment of something broken off from the whole",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A small fragment of something broken off from the whole."
+        },
+        {
+          "id": "clue:16-r1-b",
+          "label": "Worthless material that is to be disposed of",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Worthless material that is to be disposed of."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:16-r2-a",
+          "label": "Cruel or inhumane treatment",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Cruel or inhumane treatment."
+        },
+        {
+          "id": "clue:16-r2-b",
+          "label": "A rude expression intended to offend or hurt",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A rude expression intended to offend or hurt."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:16-r3-a",
+          "label": "An assembly (including one or more judges) to conduct judicial business",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: An assembly (including one or more judges) to conduct judicial business."
+        },
+        {
+          "id": "clue:16-r3-b",
+          "label": "A specially marked horizontal area within which a game is played",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A specially marked horizontal area within which a game is played."
+        }
+      ]
+    }
+  ]
+}

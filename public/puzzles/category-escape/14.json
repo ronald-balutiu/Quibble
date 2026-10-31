@@ -1,0 +1,163 @@
+{
+  "game": "category-escape",
+  "n": 14,
+  "difficulty": "easy",
+  "rounds": [
+    {
+      "id": "L1",
+      "conditions": [
+        {
+          "id": "kitchen",
+          "label": "Found in a kitchen",
+          "negation": "isn't found in a kitchen",
+          "claim": "\"{answer}\" is ordinarily found in a home kitchen."
+        }
+      ]
+    },
+    {
+      "id": "L2",
+      "conditions": [
+        {
+          "id": "kitchen",
+          "label": "Found in a kitchen",
+          "negation": "isn't found in a kitchen",
+          "claim": "\"{answer}\" is ordinarily found in a home kitchen."
+        },
+        {
+          "id": "nonelec",
+          "label": "Not electronic",
+          "negation": "is electronic",
+          "claim": "\"{answer}\" is free of electronic components."
+        }
+      ]
+    },
+    {
+      "id": "L3",
+      "conditions": [
+        {
+          "id": "kitchen",
+          "label": "Found in a kitchen",
+          "negation": "isn't found in a kitchen",
+          "claim": "\"{answer}\" is ordinarily found in a home kitchen."
+        },
+        {
+          "id": "nonelec",
+          "label": "Not electronic",
+          "negation": "is electronic",
+          "claim": "\"{answer}\" is free of electronic components."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        }
+      ]
+    },
+    {
+      "id": "L4",
+      "conditions": [
+        {
+          "id": "kitchen",
+          "label": "Found in a kitchen",
+          "negation": "isn't found in a kitchen",
+          "claim": "\"{answer}\" is ordinarily found in a home kitchen."
+        },
+        {
+          "id": "nonelec",
+          "label": "Not electronic",
+          "negation": "is electronic",
+          "claim": "\"{answer}\" is free of electronic components."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        },
+        {
+          "id": "soft",
+          "label": "Soft to the touch",
+          "negation": "isn't soft",
+          "claim": "\"{answer}\" is ordinarily soft to the touch."
+        }
+      ]
+    },
+    {
+      "id": "L5",
+      "conditions": [
+        {
+          "id": "kitchen",
+          "label": "Found in a kitchen",
+          "negation": "isn't found in a kitchen",
+          "claim": "\"{answer}\" is ordinarily found in a home kitchen."
+        },
+        {
+          "id": "nonelec",
+          "label": "Not electronic",
+          "negation": "is electronic",
+          "claim": "\"{answer}\" is free of electronic components."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        },
+        {
+          "id": "soft",
+          "label": "Soft to the touch",
+          "negation": "isn't soft",
+          "claim": "\"{answer}\" is ordinarily soft to the touch."
+        },
+        {
+          "id": "nonfood",
+          "label": "Not food",
+          "negation": "is food",
+          "claim": "\"{answer}\" is something people do not ordinarily eat."
+        }
+      ]
+    },
+    {
+      "id": "L6",
+      "conditions": [
+        {
+          "id": "kitchen",
+          "label": "Found in a kitchen",
+          "negation": "isn't found in a kitchen",
+          "claim": "\"{answer}\" is ordinarily found in a home kitchen."
+        },
+        {
+          "id": "nonelec",
+          "label": "Not electronic",
+          "negation": "is electronic",
+          "claim": "\"{answer}\" is free of electronic components."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        },
+        {
+          "id": "soft",
+          "label": "Soft to the touch",
+          "negation": "isn't soft",
+          "claim": "\"{answer}\" is ordinarily soft to the touch."
+        },
+        {
+          "id": "nonfood",
+          "label": "Not food",
+          "negation": "is food",
+          "claim": "\"{answer}\" is something people do not ordinarily eat."
+        },
+        {
+          "id": "pack",
+          "label": "Usually bought in packs",
+          "negation": "isn't usually bought in packs",
+          "claim": "\"{answer}\" is ordinarily bought in a pack of several or many."
+        }
+      ]
+    }
+  ]
+}

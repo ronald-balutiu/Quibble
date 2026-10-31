@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 27,
+  "difficulty": "medium",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:27-r1-a",
+          "label": "A humorous anecdote or remark intended to provoke laughter",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A humorous anecdote or remark intended to provoke laughter."
+        },
+        {
+          "id": "clue:27-r1-b",
+          "label": "Restraint put into a person's mouth to prevent speaking or shouting",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Restraint put into a person's mouth to prevent speaking or shouting."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:27-r2-a",
+          "label": "The soft tissue of the body of a vertebrate: mainly muscle tissue and fat",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The soft tissue of the body of a vertebrate: mainly muscle tissue and fat."
+        },
+        {
+          "id": "clue:27-r2-b",
+          "label": "A soft moist part of a fruit",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A soft moist part of a fruit."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:27-r3-a",
+          "label": "A line of text serving to indicate what the passage below it is about",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A line of text serving to indicate what the passage below it is about."
+        },
+        {
+          "id": "clue:27-r3-b",
+          "label": "Horizontal beam used as a finishing piece over a door or window",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Horizontal beam used as a finishing piece over a door or window."
+        }
+      ]
+    }
+  ]
+}

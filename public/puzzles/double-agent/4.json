@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 4,
+  "difficulty": "easy",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:4-r1-a",
+          "label": "A lump or mass of hard consolidated mineral matter",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A lump or mass of hard consolidated mineral matter."
+        },
+        {
+          "id": "clue:4-r1-b",
+          "label": "Building material consisting of a piece of rock hewn in a definite shape for a special purpose",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Building material consisting of a piece of rock hewn in a definite shape for a special purpose."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:4-r2-a",
+          "label": "A reproduction of a written record (e.g. of a legal or school record)",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A reproduction of a written record (e.g. of a legal or school record)."
+        },
+        {
+          "id": "clue:4-r2-b",
+          "label": "A thing made to be similar or identical to another thing",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A thing made to be similar or identical to another thing."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:4-r3-a",
+          "label": "A loud utterance; often in protest or opposition",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A loud utterance; often in protest or opposition."
+        },
+        {
+          "id": "clue:4-r3-b",
+          "label": "Utter in a loud voice; talk in a loud voice (usually denoting characteristic manner of speaking)",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Utter in a loud voice; talk in a loud voice (usually denoting characteristic manner of speaking)."
+        }
+      ]
+    }
+  ]
+}

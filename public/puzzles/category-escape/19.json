@@ -1,0 +1,163 @@
+{
+  "game": "category-escape",
+  "n": 19,
+  "difficulty": "easy",
+  "rounds": [
+    {
+      "id": "L1",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        }
+      ]
+    },
+    {
+      "id": "L2",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        }
+      ]
+    },
+    {
+      "id": "L3",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        },
+        {
+          "id": "bendy",
+          "label": "Bends easily",
+          "negation": "doesn't bend easily",
+          "claim": "\"{answer}\" can ordinarily be bent or folded by hand without breaking."
+        }
+      ]
+    },
+    {
+      "id": "L4",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        },
+        {
+          "id": "bendy",
+          "label": "Bends easily",
+          "negation": "doesn't bend easily",
+          "claim": "\"{answer}\" can ordinarily be bent or folded by hand without breaking."
+        },
+        {
+          "id": "folds",
+          "label": "Folds or rolls up",
+          "negation": "doesn't fold or roll up",
+          "claim": "\"{answer}\" can ordinarily be folded or rolled up."
+        }
+      ]
+    },
+    {
+      "id": "L5",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        },
+        {
+          "id": "bendy",
+          "label": "Bends easily",
+          "negation": "doesn't bend easily",
+          "claim": "\"{answer}\" can ordinarily be bent or folded by hand without breaking."
+        },
+        {
+          "id": "folds",
+          "label": "Folds or rolls up",
+          "negation": "doesn't fold or roll up",
+          "claim": "\"{answer}\" can ordinarily be folded or rolled up."
+        },
+        {
+          "id": "drawer",
+          "label": "Often kept in a drawer",
+          "negation": "isn't usually kept in a drawer",
+          "claim": "\"{answer}\" is ordinarily kept in a drawer."
+        }
+      ]
+    },
+    {
+      "id": "L6",
+      "conditions": [
+        {
+          "id": "bedroom",
+          "label": "Found in a bedroom",
+          "negation": "isn't found in a bedroom",
+          "claim": "\"{answer}\" is ordinarily found in a bedroom."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        },
+        {
+          "id": "bendy",
+          "label": "Bends easily",
+          "negation": "doesn't bend easily",
+          "claim": "\"{answer}\" can ordinarily be bent or folded by hand without breaking."
+        },
+        {
+          "id": "folds",
+          "label": "Folds or rolls up",
+          "negation": "doesn't fold or roll up",
+          "claim": "\"{answer}\" can ordinarily be folded or rolled up."
+        },
+        {
+          "id": "drawer",
+          "label": "Often kept in a drawer",
+          "negation": "isn't usually kept in a drawer",
+          "claim": "\"{answer}\" is ordinarily kept in a drawer."
+        },
+        {
+          "id": "unpowered",
+          "label": "Not powered",
+          "negation": "is powered",
+          "claim": "\"{answer}\" works without any electricity, battery or engine."
+        }
+      ]
+    }
+  ]
+}

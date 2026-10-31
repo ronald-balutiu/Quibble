@@ -1,0 +1,163 @@
+{
+  "game": "category-escape",
+  "n": 92,
+  "difficulty": "hard",
+  "rounds": [
+    {
+      "id": "L1",
+      "conditions": [
+        {
+          "id": "kitchen",
+          "label": "Found in a kitchen",
+          "negation": "isn't found in a kitchen",
+          "claim": "\"{answer}\" is ordinarily found in a home kitchen."
+        }
+      ]
+    },
+    {
+      "id": "L2",
+      "conditions": [
+        {
+          "id": "kitchen",
+          "label": "Found in a kitchen",
+          "negation": "isn't found in a kitchen",
+          "claim": "\"{answer}\" is ordinarily found in a home kitchen."
+        },
+        {
+          "id": "container",
+          "label": "Holds other things",
+          "negation": "doesn't hold other things",
+          "claim": "\"{answer}\" is ordinarily used to hold or store other objects."
+        }
+      ]
+    },
+    {
+      "id": "L3",
+      "conditions": [
+        {
+          "id": "kitchen",
+          "label": "Found in a kitchen",
+          "negation": "isn't found in a kitchen",
+          "claim": "\"{answer}\" is ordinarily found in a home kitchen."
+        },
+        {
+          "id": "container",
+          "label": "Holds other things",
+          "negation": "doesn't hold other things",
+          "claim": "\"{answer}\" is ordinarily used to hold or store other objects."
+        },
+        {
+          "id": "nonelec",
+          "label": "Not electronic",
+          "negation": "is electronic",
+          "claim": "\"{answer}\" is free of electronic components."
+        }
+      ]
+    },
+    {
+      "id": "L4",
+      "conditions": [
+        {
+          "id": "kitchen",
+          "label": "Found in a kitchen",
+          "negation": "isn't found in a kitchen",
+          "claim": "\"{answer}\" is ordinarily found in a home kitchen."
+        },
+        {
+          "id": "container",
+          "label": "Holds other things",
+          "negation": "doesn't hold other things",
+          "claim": "\"{answer}\" is ordinarily used to hold or store other objects."
+        },
+        {
+          "id": "nonelec",
+          "label": "Not electronic",
+          "negation": "is electronic",
+          "claim": "\"{answer}\" is free of electronic components."
+        },
+        {
+          "id": "nonmetal",
+          "label": "Not metal",
+          "negation": "is mostly metal",
+          "claim": "The main body or structure of \"{answer}\" is ordinarily made of something other than metal."
+        }
+      ]
+    },
+    {
+      "id": "L5",
+      "conditions": [
+        {
+          "id": "kitchen",
+          "label": "Found in a kitchen",
+          "negation": "isn't found in a kitchen",
+          "claim": "\"{answer}\" is ordinarily found in a home kitchen."
+        },
+        {
+          "id": "container",
+          "label": "Holds other things",
+          "negation": "doesn't hold other things",
+          "claim": "\"{answer}\" is ordinarily used to hold or store other objects."
+        },
+        {
+          "id": "nonelec",
+          "label": "Not electronic",
+          "negation": "is electronic",
+          "claim": "\"{answer}\" is free of electronic components."
+        },
+        {
+          "id": "nonmetal",
+          "label": "Not metal",
+          "negation": "is mostly metal",
+          "claim": "The main body or structure of \"{answer}\" is ordinarily made of something other than metal."
+        },
+        {
+          "id": "plastic",
+          "label": "Mostly plastic",
+          "negation": "isn't mostly plastic",
+          "claim": "The main body of \"{answer}\" is ordinarily made of plastic."
+        }
+      ]
+    },
+    {
+      "id": "L6",
+      "conditions": [
+        {
+          "id": "kitchen",
+          "label": "Found in a kitchen",
+          "negation": "isn't found in a kitchen",
+          "claim": "\"{answer}\" is ordinarily found in a home kitchen."
+        },
+        {
+          "id": "container",
+          "label": "Holds other things",
+          "negation": "doesn't hold other things",
+          "claim": "\"{answer}\" is ordinarily used to hold or store other objects."
+        },
+        {
+          "id": "nonelec",
+          "label": "Not electronic",
+          "negation": "is electronic",
+          "claim": "\"{answer}\" is free of electronic components."
+        },
+        {
+          "id": "nonmetal",
+          "label": "Not metal",
+          "negation": "is mostly metal",
+          "claim": "The main body or structure of \"{answer}\" is ordinarily made of something other than metal."
+        },
+        {
+          "id": "plastic",
+          "label": "Mostly plastic",
+          "negation": "isn't mostly plastic",
+          "claim": "The main body of \"{answer}\" is ordinarily made of plastic."
+        },
+        {
+          "id": "opens",
+          "label": "Opens and closes",
+          "negation": "doesn't open and close",
+          "claim": "\"{answer}\" ordinarily opens and closes."
+        }
+      ]
+    }
+  ]
+}

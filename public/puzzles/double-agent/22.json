@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 22,
+  "difficulty": "medium",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:22-r1-a",
+          "label": "Any division of quantity accepted as a standard of measurement or exchange",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Any division of quantity accepted as a standard of measurement or exchange."
+        },
+        {
+          "id": "clue:22-r1-b",
+          "label": "An individual or group or structure or other entity regarded as a structural or functional constituent of a whole",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: An individual or group or structure or other entity regarded as a structural or functional constituent of a whole."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:22-r2-a",
+          "label": "Something (especially a game) that is played again",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Something (especially a game) that is played again."
+        },
+        {
+          "id": "clue:22-r2-b",
+          "label": "The immediate rebroadcast of some action (especially sports action) that has been recorded on videotape",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The immediate rebroadcast of some action (especially sports action) that has been recorded on videotape."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:22-r3-a",
+          "label": "(botany) a plant that completes its entire life cycle within the space of a year",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: (botany) a plant that completes its entire life cycle within the space of a year."
+        },
+        {
+          "id": "clue:22-r3-b",
+          "label": "A reference book that is published regularly once every year",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A reference book that is published regularly once every year."
+        }
+      ]
+    }
+  ]
+}

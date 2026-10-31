@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 11,
+  "difficulty": "easy",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:11-r1-a",
+          "label": "The subject matter of a conversation or discussion",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The subject matter of a conversation or discussion."
+        },
+        {
+          "id": "clue:11-r1-b",
+          "label": "A unifying idea that is a recurrent element in literary or artistic work",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A unifying idea that is a recurrent element in literary or artistic work."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:11-r2-a",
+          "label": "Something considered choice to eat",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Something considered choice to eat."
+        },
+        {
+          "id": "clue:11-r2-b",
+          "label": "An occurrence that causes special pleasure or delight",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: An occurrence that causes special pleasure or delight."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:11-r3-a",
+          "label": "Limbless scaly elongate reptile; some are venomous",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Limbless scaly elongate reptile; some are venomous."
+        },
+        {
+          "id": "clue:11-r3-b",
+          "label": "A deceitful or treacherous person",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A deceitful or treacherous person."
+        }
+      ]
+    }
+  ]
+}

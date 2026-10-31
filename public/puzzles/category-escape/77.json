@@ -1,0 +1,163 @@
+{
+  "game": "category-escape",
+  "n": 77,
+  "difficulty": "hard",
+  "rounds": [
+    {
+      "id": "L1",
+      "conditions": [
+        {
+          "id": "office",
+          "label": "Found in an office",
+          "negation": "isn't found in an office",
+          "claim": "\"{answer}\" is ordinarily found in an office."
+        }
+      ]
+    },
+    {
+      "id": "L2",
+      "conditions": [
+        {
+          "id": "office",
+          "label": "Found in an office",
+          "negation": "isn't found in an office",
+          "claim": "\"{answer}\" is ordinarily found in an office."
+        },
+        {
+          "id": "pack",
+          "label": "Usually bought in packs",
+          "negation": "isn't usually bought in packs",
+          "claim": "\"{answer}\" is ordinarily bought in a pack of several or many."
+        }
+      ]
+    },
+    {
+      "id": "L3",
+      "conditions": [
+        {
+          "id": "office",
+          "label": "Found in an office",
+          "negation": "isn't found in an office",
+          "claim": "\"{answer}\" is ordinarily found in an office."
+        },
+        {
+          "id": "pack",
+          "label": "Usually bought in packs",
+          "negation": "isn't usually bought in packs",
+          "claim": "\"{answer}\" is ordinarily bought in a pack of several or many."
+        },
+        {
+          "id": "thin",
+          "label": "Thinner than a finger",
+          "negation": "isn't thinner than a finger",
+          "claim": "\"{answer}\" is ordinarily thinner than a finger."
+        }
+      ]
+    },
+    {
+      "id": "L4",
+      "conditions": [
+        {
+          "id": "office",
+          "label": "Found in an office",
+          "negation": "isn't found in an office",
+          "claim": "\"{answer}\" is ordinarily found in an office."
+        },
+        {
+          "id": "pack",
+          "label": "Usually bought in packs",
+          "negation": "isn't usually bought in packs",
+          "claim": "\"{answer}\" is ordinarily bought in a pack of several or many."
+        },
+        {
+          "id": "thin",
+          "label": "Thinner than a finger",
+          "negation": "isn't thinner than a finger",
+          "claim": "\"{answer}\" is ordinarily thinner than a finger."
+        },
+        {
+          "id": "floats",
+          "label": "Floats on water",
+          "negation": "doesn't float on water",
+          "claim": "\"{answer}\" would ordinarily float on water."
+        }
+      ]
+    },
+    {
+      "id": "L5",
+      "conditions": [
+        {
+          "id": "office",
+          "label": "Found in an office",
+          "negation": "isn't found in an office",
+          "claim": "\"{answer}\" is ordinarily found in an office."
+        },
+        {
+          "id": "pack",
+          "label": "Usually bought in packs",
+          "negation": "isn't usually bought in packs",
+          "claim": "\"{answer}\" is ordinarily bought in a pack of several or many."
+        },
+        {
+          "id": "thin",
+          "label": "Thinner than a finger",
+          "negation": "isn't thinner than a finger",
+          "claim": "\"{answer}\" is ordinarily thinner than a finger."
+        },
+        {
+          "id": "floats",
+          "label": "Floats on water",
+          "negation": "doesn't float on water",
+          "claim": "\"{answer}\" would ordinarily float on water."
+        },
+        {
+          "id": "write",
+          "label": "Used to write or draw",
+          "negation": "isn't used to write or draw",
+          "claim": "\"{answer}\" is ordinarily used to write or draw."
+        }
+      ]
+    },
+    {
+      "id": "L6",
+      "conditions": [
+        {
+          "id": "office",
+          "label": "Found in an office",
+          "negation": "isn't found in an office",
+          "claim": "\"{answer}\" is ordinarily found in an office."
+        },
+        {
+          "id": "pack",
+          "label": "Usually bought in packs",
+          "negation": "isn't usually bought in packs",
+          "claim": "\"{answer}\" is ordinarily bought in a pack of several or many."
+        },
+        {
+          "id": "thin",
+          "label": "Thinner than a finger",
+          "negation": "isn't thinner than a finger",
+          "claim": "\"{answer}\" is ordinarily thinner than a finger."
+        },
+        {
+          "id": "floats",
+          "label": "Floats on water",
+          "negation": "doesn't float on water",
+          "claim": "\"{answer}\" would ordinarily float on water."
+        },
+        {
+          "id": "write",
+          "label": "Used to write or draw",
+          "negation": "isn't used to write or draw",
+          "claim": "\"{answer}\" is ordinarily used to write or draw."
+        },
+        {
+          "id": "usedup",
+          "label": "Gets used up",
+          "negation": "doesn't get used up",
+          "claim": "\"{answer}\" ordinarily gets used up or thrown away after a few uses."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 8,
+  "difficulty": "easy",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:8-r1-a",
+          "label": "A device for creating a current of air by movement of a surface or surfaces",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A device for creating a current of air by movement of a surface or surfaces."
+        },
+        {
+          "id": "clue:8-r1-b",
+          "label": "An enthusiastic devotee of sports",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: An enthusiastic devotee of sports."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:8-r2-a",
+          "label": "A violent weather condition with winds 64-72 knots (11 on the Beaufort scale) and precipitation and thunder and lightning",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A violent weather condition with winds 64-72 knots (11 on the Beaufort scale) and precipitation and thunder and lightning."
+        },
+        {
+          "id": "clue:8-r2-b",
+          "label": "A violent commotion or disturbance",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A violent commotion or disturbance."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:8-r3-a",
+          "label": "Control consisting of a mechanical or electrical or electronic device for making or breaking or changing the connections in a circuit",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Control consisting of a mechanical or electrical or electronic device for making or breaking or changing the connections in a circuit."
+        },
+        {
+          "id": "clue:8-r3-b",
+          "label": "An event in which one thing is substituted for another",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: An event in which one thing is substituted for another."
+        }
+      ]
+    }
+  ]
+}

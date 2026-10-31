@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 38,
+  "difficulty": "medium",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:38-r1-a",
+          "label": "Reverse the winding or twisting of",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Reverse the winding or twisting of."
+        },
+        {
+          "id": "clue:38-r1-b",
+          "label": "Become less tense, rest, or take one's ease",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Become less tense, rest, or take one's ease."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:38-r2-a",
+          "label": "A lightweight cord",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A lightweight cord."
+        },
+        {
+          "id": "clue:38-r2-b",
+          "label": "Spin, wind, or twist together",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Spin, wind, or twist together."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:38-r3-a",
+          "label": "(baseball) the slight elevation on which the pitcher stands",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: (baseball) the slight elevation on which the pitcher stands."
+        },
+        {
+          "id": "clue:38-r3-b",
+          "label": "A small natural hill",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A small natural hill."
+        }
+      ]
+    }
+  ]
+}

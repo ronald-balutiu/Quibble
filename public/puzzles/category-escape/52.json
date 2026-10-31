@@ -1,0 +1,163 @@
+{
+  "game": "category-escape",
+  "n": 52,
+  "difficulty": "medium",
+  "rounds": [
+    {
+      "id": "L1",
+      "conditions": [
+        {
+          "id": "garage",
+          "label": "Found in a garage or shed",
+          "negation": "isn't found in a garage or shed",
+          "claim": "\"{answer}\" is ordinarily found in a garage or shed."
+        }
+      ]
+    },
+    {
+      "id": "L2",
+      "conditions": [
+        {
+          "id": "garage",
+          "label": "Found in a garage or shed",
+          "negation": "isn't found in a garage or shed",
+          "claim": "\"{answer}\" is ordinarily found in a garage or shed."
+        },
+        {
+          "id": "unpowered",
+          "label": "Not powered",
+          "negation": "is powered",
+          "claim": "\"{answer}\" works without any electricity, battery or engine."
+        }
+      ]
+    },
+    {
+      "id": "L3",
+      "conditions": [
+        {
+          "id": "garage",
+          "label": "Found in a garage or shed",
+          "negation": "isn't found in a garage or shed",
+          "claim": "\"{answer}\" is ordinarily found in a garage or shed."
+        },
+        {
+          "id": "unpowered",
+          "label": "Not powered",
+          "negation": "is powered",
+          "claim": "\"{answer}\" works without any electricity, battery or engine."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        }
+      ]
+    },
+    {
+      "id": "L4",
+      "conditions": [
+        {
+          "id": "garage",
+          "label": "Found in a garage or shed",
+          "negation": "isn't found in a garage or shed",
+          "claim": "\"{answer}\" is ordinarily found in a garage or shed."
+        },
+        {
+          "id": "unpowered",
+          "label": "Not powered",
+          "negation": "is powered",
+          "claim": "\"{answer}\" works without any electricity, battery or engine."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        },
+        {
+          "id": "outdoor",
+          "label": "Usually kept outdoors",
+          "negation": "isn't usually kept outdoors",
+          "claim": "\"{answer}\" is ordinarily kept outdoors."
+        }
+      ]
+    },
+    {
+      "id": "L5",
+      "conditions": [
+        {
+          "id": "garage",
+          "label": "Found in a garage or shed",
+          "negation": "isn't found in a garage or shed",
+          "claim": "\"{answer}\" is ordinarily found in a garage or shed."
+        },
+        {
+          "id": "unpowered",
+          "label": "Not powered",
+          "negation": "is powered",
+          "claim": "\"{answer}\" works without any electricity, battery or engine."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        },
+        {
+          "id": "outdoor",
+          "label": "Usually kept outdoors",
+          "negation": "isn't usually kept outdoors",
+          "claim": "\"{answer}\" is ordinarily kept outdoors."
+        },
+        {
+          "id": "handle",
+          "label": "Has a handle",
+          "negation": "has no handle",
+          "claim": "\"{answer}\" ordinarily has a handle you hold it by."
+        }
+      ]
+    },
+    {
+      "id": "L6",
+      "conditions": [
+        {
+          "id": "garage",
+          "label": "Found in a garage or shed",
+          "negation": "isn't found in a garage or shed",
+          "claim": "\"{answer}\" is ordinarily found in a garage or shed."
+        },
+        {
+          "id": "unpowered",
+          "label": "Not powered",
+          "negation": "is powered",
+          "claim": "\"{answer}\" works without any electricity, battery or engine."
+        },
+        {
+          "id": "cheap",
+          "label": "Usually costs under $10",
+          "negation": "usually costs more than $10",
+          "claim": "\"{answer}\" can ordinarily be bought new for less than 10 US dollars."
+        },
+        {
+          "id": "outdoor",
+          "label": "Usually kept outdoors",
+          "negation": "isn't usually kept outdoors",
+          "claim": "\"{answer}\" is ordinarily kept outdoors."
+        },
+        {
+          "id": "handle",
+          "label": "Has a handle",
+          "negation": "has no handle",
+          "claim": "\"{answer}\" ordinarily has a handle you hold it by."
+        },
+        {
+          "id": "twohands",
+          "label": "Used with both hands",
+          "negation": "isn't used with both hands",
+          "claim": "People ordinarily use both hands to use \"{answer}\"."
+        }
+      ]
+    }
+  ]
+}

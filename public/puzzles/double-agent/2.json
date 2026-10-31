@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 2,
+  "difficulty": "easy",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:2-r1-a",
+          "label": "Either extremity of something that has length",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Either extremity of something that has length."
+        },
+        {
+          "id": "clue:2-r1-b",
+          "label": "The final stage or concluding parts of an event or occurrence",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The final stage or concluding parts of an event or occurrence."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:2-r2-a",
+          "label": "Material in the top layer of the surface of the earth in which plants can grow (especially with reference to its quality or use)",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Material in the top layer of the surface of the earth in which plants can grow (especially with reference to its quality or use)."
+        },
+        {
+          "id": "clue:2-r2-b",
+          "label": "Territory over which rule or control is exercised",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Territory over which rule or control is exercised."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:2-r3-a",
+          "label": "The tangible substance that goes into the makeup of a physical object",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The tangible substance that goes into the makeup of a physical object."
+        },
+        {
+          "id": "clue:2-r3-b",
+          "label": "Miscellaneous unspecified objects",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Miscellaneous unspecified objects."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 20,
+  "difficulty": "medium",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:20-r1-a",
+          "label": "A particular course of action intended to achieve a result",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A particular course of action intended to achieve a result."
+        },
+        {
+          "id": "clue:20-r1-b",
+          "label": "(psychology) the performance of some composite cognitive activity; an operation that affects mental contents",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: (psychology) the performance of some composite cognitive activity; an operation that affects mental contents."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:20-r2-a",
+          "label": "All the people living at the same time or of approximately the same age",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: All the people living at the same time or of approximately the same age."
+        },
+        {
+          "id": "clue:20-r2-b",
+          "label": "A stage of technological development or innovation",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A stage of technological development or innovation."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:20-r3-a",
+          "label": "How something is done or how it happens",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: How something is done or how it happens."
+        },
+        {
+          "id": "clue:20-r3-b",
+          "label": "A particular functioning condition or arrangement",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A particular functioning condition or arrangement."
+        }
+      ]
+    }
+  ]
+}

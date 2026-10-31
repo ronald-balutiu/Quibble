@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 50,
+  "difficulty": "hard",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:50-r1-a",
+          "label": "Mixture of ground animal feeds",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Mixture of ground animal feeds."
+        },
+        {
+          "id": "clue:50-r1-b",
+          "label": "To compress with violence, out of natural shape or condition",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: To compress with violence, out of natural shape or condition."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:50-r2-a",
+          "label": "Paper with a crinkled texture; usually colored and used for decorations",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Paper with a crinkled texture; usually colored and used for decorations."
+        },
+        {
+          "id": "clue:50-r2-b",
+          "label": "Small very thin pancake",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Small very thin pancake."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:50-r3-a",
+          "label": "Joint consisting of a line formed by joining two pieces",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Joint consisting of a line formed by joining two pieces."
+        },
+        {
+          "id": "clue:50-r3-b",
+          "label": "A slight depression or fold in the smoothness of a surface",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A slight depression or fold in the smoothness of a surface."
+        }
+      ]
+    }
+  ]
+}

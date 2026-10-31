@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 24,
+  "difficulty": "medium",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:24-r1-a",
+          "label": "(electronics) a sharp transient wave in the normal electrical state (or a series of such transients)",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: (electronics) a sharp transient wave in the normal electrical state (or a series of such transients)."
+        },
+        {
+          "id": "clue:24-r1-b",
+          "label": "The rate at which the heart beats; usually measured to obtain a quick evaluation of a person's health",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The rate at which the heart beats; usually measured to obtain a quick evaluation of a person's health."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:24-r2-a",
+          "label": "Profane or obscene expression usually of surprise or anger",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Profane or obscene expression usually of surprise or anger."
+        },
+        {
+          "id": "clue:24-r2-b",
+          "label": "Something causing misery or death",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Something causing misery or death."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:24-r3-a",
+          "label": "An opinion formed by judging something",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: An opinion formed by judging something."
+        },
+        {
+          "id": "clue:24-r3-b",
+          "label": "The act of judging or assessing a person or situation or event",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The act of judging or assessing a person or situation or event."
+        }
+      ]
+    }
+  ]
+}

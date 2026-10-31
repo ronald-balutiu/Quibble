@@ -1,0 +1,163 @@
+{
+  "game": "category-escape",
+  "n": 61,
+  "difficulty": "medium",
+  "rounds": [
+    {
+      "id": "L1",
+      "conditions": [
+        {
+          "id": "garage",
+          "label": "Found in a garage or shed",
+          "negation": "isn't found in a garage or shed",
+          "claim": "\"{answer}\" is ordinarily found in a garage or shed."
+        }
+      ]
+    },
+    {
+      "id": "L2",
+      "conditions": [
+        {
+          "id": "garage",
+          "label": "Found in a garage or shed",
+          "negation": "isn't found in a garage or shed",
+          "claim": "\"{answer}\" is ordinarily found in a garage or shed."
+        },
+        {
+          "id": "twohands",
+          "label": "Used with both hands",
+          "negation": "isn't used with both hands",
+          "claim": "People ordinarily use both hands to use \"{answer}\"."
+        }
+      ]
+    },
+    {
+      "id": "L3",
+      "conditions": [
+        {
+          "id": "garage",
+          "label": "Found in a garage or shed",
+          "negation": "isn't found in a garage or shed",
+          "claim": "\"{answer}\" is ordinarily found in a garage or shed."
+        },
+        {
+          "id": "twohands",
+          "label": "Used with both hands",
+          "negation": "isn't used with both hands",
+          "claim": "People ordinarily use both hands to use \"{answer}\"."
+        },
+        {
+          "id": "handle",
+          "label": "Has a handle",
+          "negation": "has no handle",
+          "claim": "\"{answer}\" ordinarily has a handle you hold it by."
+        }
+      ]
+    },
+    {
+      "id": "L4",
+      "conditions": [
+        {
+          "id": "garage",
+          "label": "Found in a garage or shed",
+          "negation": "isn't found in a garage or shed",
+          "claim": "\"{answer}\" is ordinarily found in a garage or shed."
+        },
+        {
+          "id": "twohands",
+          "label": "Used with both hands",
+          "negation": "isn't used with both hands",
+          "claim": "People ordinarily use both hands to use \"{answer}\"."
+        },
+        {
+          "id": "handle",
+          "label": "Has a handle",
+          "negation": "has no handle",
+          "claim": "\"{answer}\" ordinarily has a handle you hold it by."
+        },
+        {
+          "id": "hangs",
+          "label": "Often hung up",
+          "negation": "isn't usually hung up",
+          "claim": "\"{answer}\" is ordinarily hung up when not in use."
+        }
+      ]
+    },
+    {
+      "id": "L5",
+      "conditions": [
+        {
+          "id": "garage",
+          "label": "Found in a garage or shed",
+          "negation": "isn't found in a garage or shed",
+          "claim": "\"{answer}\" is ordinarily found in a garage or shed."
+        },
+        {
+          "id": "twohands",
+          "label": "Used with both hands",
+          "negation": "isn't used with both hands",
+          "claim": "People ordinarily use both hands to use \"{answer}\"."
+        },
+        {
+          "id": "handle",
+          "label": "Has a handle",
+          "negation": "has no handle",
+          "claim": "\"{answer}\" ordinarily has a handle you hold it by."
+        },
+        {
+          "id": "hangs",
+          "label": "Often hung up",
+          "negation": "isn't usually hung up",
+          "claim": "\"{answer}\" is ordinarily hung up when not in use."
+        },
+        {
+          "id": "liftable",
+          "label": "Can be lifted with one hand",
+          "negation": "can't be lifted with one hand",
+          "claim": "An adult can ordinarily lift \"{answer}\" with one hand."
+        }
+      ]
+    },
+    {
+      "id": "L6",
+      "conditions": [
+        {
+          "id": "garage",
+          "label": "Found in a garage or shed",
+          "negation": "isn't found in a garage or shed",
+          "claim": "\"{answer}\" is ordinarily found in a garage or shed."
+        },
+        {
+          "id": "twohands",
+          "label": "Used with both hands",
+          "negation": "isn't used with both hands",
+          "claim": "People ordinarily use both hands to use \"{answer}\"."
+        },
+        {
+          "id": "handle",
+          "label": "Has a handle",
+          "negation": "has no handle",
+          "claim": "\"{answer}\" ordinarily has a handle you hold it by."
+        },
+        {
+          "id": "hangs",
+          "label": "Often hung up",
+          "negation": "isn't usually hung up",
+          "claim": "\"{answer}\" is ordinarily hung up when not in use."
+        },
+        {
+          "id": "liftable",
+          "label": "Can be lifted with one hand",
+          "negation": "can't be lifted with one hand",
+          "claim": "An adult can ordinarily lift \"{answer}\" with one hand."
+        },
+        {
+          "id": "moving",
+          "label": "Has moving parts",
+          "negation": "has no moving parts",
+          "claim": "\"{answer}\" ordinarily has moving parts."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "game": "double-agent",
+  "n": 44,
+  "difficulty": "hard",
+  "rounds": [
+    {
+      "id": "r1",
+      "conditions": [
+        {
+          "id": "clue:44-r1-a",
+          "label": "An official report (usually sent in haste)",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: An official report (usually sent in haste)."
+        },
+        {
+          "id": "clue:44-r1-b",
+          "label": "The act of sending off something",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The act of sending off something."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "conditions": [
+        {
+          "id": "clue:44-r2-a",
+          "label": "Informal terms for a meal",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: Informal terms for a meal."
+        },
+        {
+          "id": "clue:44-r2-b",
+          "label": "A soft thick wormlike larva of certain beetles and other insects",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A soft thick wormlike larva of certain beetles and other insects."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "conditions": [
+        {
+          "id": "clue:44-r3-a",
+          "label": "The act of grasping",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: The act of grasping."
+        },
+        {
+          "id": "clue:44-r3-b",
+          "label": "A tense critical situation",
+          "negation": "doesn't mean that",
+          "claim": "The word \"{answer}\" can ordinarily mean: A tense critical situation."
+        }
+      ]
+    }
+  ]
+}

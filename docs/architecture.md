@@ -157,6 +157,9 @@ them.
   it.
 - The device gate, `gate.ts`, offers the judge only to desktop browsers with a WebGPU
   adapter.
+- `src/components/DeviceSetup/` is the setup sheet: the offer (S3), then the
+  download (S4), whose rings, percentage and readout follow the worker's byte count.
+  A download that stops or fails deletes anything it kept.
 
 ## Python reference
 

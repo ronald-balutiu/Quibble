@@ -44,6 +44,33 @@
   fill: var(--text);
 }
 
+/* Progress (S4, 5.3): each ring draws over its third of --progress. */
+.ring-mark__outline {
+  fill: none;
+  stroke: var(--line);
+  stroke-dasharray: 2 5;
+}
+
+.ring-mark--progress .ring-mark__ring {
+  stroke-dasharray: 1;
+}
+
+.ring-mark--progress .ring-mark__ring--oddly {
+  stroke-dashoffset: calc(1 - clamp(0, var(--progress) * 3, 1));
+}
+
+.ring-mark--progress .ring-mark__ring--escape {
+  stroke-dashoffset: calc(1 - clamp(0, var(--progress) * 3 - 1, 1));
+}
+
+.ring-mark--progress .ring-mark__ring--agent {
+  stroke-dashoffset: calc(1 - clamp(0, var(--progress) * 3 - 2, 1));
+}
+
+.ring-mark__point--waiting {
+  fill: var(--dim);
+}
+
 .ring-mark__pulse {
   fill: none;
   stroke: var(--text);

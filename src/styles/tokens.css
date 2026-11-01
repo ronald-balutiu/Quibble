@@ -92,6 +92,7 @@
   /* Lines, focus, and shape. */
   --border-width: 1px;
   --accent-line-width: 2px;
+  --progress-bar-height: 3px; /* S4 download bar (5.3) */
   --focus-width: 2px;
   --focus-offset: 2px;
   --radius-square: 0px;

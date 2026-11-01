@@ -118,14 +118,14 @@ export function ScoreAxes({ conditions, scores, threshold, model, column, mark =
 }
 
 // G3: the rejected verdict, with "Try again" and "Count it anyway".
-export function RejectedPanel({ sentence, onTryAgain, onCountAnyway }: { sentence: string, onTryAgain: () => void, onCountAnyway: () => void }) {
+export function RejectedPanel({ sentence, disabled = false, onTryAgain, onCountAnyway }: { sentence: string, disabled?: boolean, onTryAgain: () => void, onCountAnyway: () => void }) {
   return (
     <div className="verdict verdict--rejected">
       <p className="telemetry verdict__label">{en['verdict.label.rejected']}</p>
       <p className="verdict__sentence">{sentence}</p>
       <div className="actions">
-        <button type="button" className="pill" onClick={onTryAgain}>{en['game.tryAgain']}</button>
-        <button type="button" className="pill pill--quiet" onClick={onCountAnyway}>{en['game.countAnyway']}</button>
+        <button type="button" className="pill" onClick={onTryAgain} disabled={disabled}>{en['game.tryAgain']}</button>
+        <button type="button" className="pill pill--quiet" onClick={onCountAnyway} disabled={disabled}>{en['game.countAnyway']}</button>
       </div>
     </div>
   )
@@ -161,13 +161,13 @@ export function NotJudgedPanel({ ui, onRetry, onEdit }: { ui: Ui, onRetry: () =>
 }
 
 // The answer field and its Judge button (G1–G3).
-// `waiting`: the on-device judge is still on the last guess, so the next can be typed but not sent.
-export function AnswerForm({ label, placeholder, answer, maxLength, judging, waiting = false, input, onType, onSubmit, invalid }: {
-  label: string, placeholder: string, answer: string, maxLength: number, judging: boolean, waiting?: boolean, input: RefObject<HTMLInputElement | null>
+// `judging` locks and greys the field until both judges are back (3.7).
+export function AnswerForm({ label, placeholder, answer, maxLength, judging, input, onType, onSubmit, invalid }: {
+  label: string, placeholder: string, answer: string, maxLength: number, judging: boolean, input: RefObject<HTMLInputElement | null>
   onType: (value: string) => void, onSubmit: () => void, invalid?: boolean
 }) {
   return (
-    <form className={invalid ? 'answer answer--invalid' : 'answer'} onSubmit={(event) => { event.preventDefault(); if (!judging && !waiting) onSubmit() }}>
+    <form className={invalid ? 'answer answer--invalid' : 'answer'} onSubmit={(event) => { event.preventDefault(); if (!judging) onSubmit() }}>
       <label htmlFor="answer" className="telemetry">{label}</label>
       <input
         ref={input} id="answer" value={answer} autoComplete="off"
@@ -175,8 +175,8 @@ export function AnswerForm({ label, placeholder, answer, maxLength, judging, wai
         disabled={judging} aria-describedby="answer-note" aria-invalid={invalid}
         onChange={(event) => { onType(event.target.value) }}
       />
-      <button type="submit" className="answer__judge" disabled={!answer.trim() || judging || waiting}>
-        {judging || waiting ? en['game.judging'] : en['game.judge']}
+      <button type="submit" className="answer__judge" disabled={!answer.trim() || judging}>
+        {judging ? en['game.judging'] : en['game.judge']}
       </button>
     </form>
   )

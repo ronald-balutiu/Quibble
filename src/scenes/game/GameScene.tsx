@@ -96,14 +96,16 @@ function Game({ puzzle, variant }: { puzzle: Puzzle, variant: RoundGame }) {
   const score = totalScore(run)
 
   const roundIndex = run.current
+  // Nothing moves on until both judges are back, including a device-only Retry (3.7).
+  const busy = ui.kind === 'judging' || column.run?.kind === 'scanning'
   useEffect(() => { saveRun(game, n, run, score) }, [game, n, run, score])
   // The field is disabled while judging; give it focus back so the next guess can be typed (5.5 G3).
   // After a rejection the old answer is selected, so typing the next guess replaces it.
   useEffect(() => {
-    if (ui.kind === 'judging') return
+    if (busy) return
     input.current?.focus()
     if (ui.kind === 'rejected') input.current?.select()
-  }, [roundIndex, ui.kind])
+  }, [roundIndex, ui.kind, busy])
 
   function nextRound() {
     column.clear()
@@ -124,10 +126,8 @@ function Game({ puzzle, variant }: { puzzle: Puzzle, variant: RoundGame }) {
     setUi({ kind: 'judging' })
     const result = await judgeGuess({
       game, n, roundId: puzzle.rounds[run.current]?.id ?? '', text, normalized, attempt: attempt.current, model, conditions, turnstile: turnstile.current,
-    }, column.follow())
+    }, { onDevice: column.follow(), onCloud: (cloud, ms) => { setScores(cloud); column.judged(ms) } })
     if ('ui' in result) { setUi(result.ui); return }
-    column.judged(result.modelMs)
-    setScores(result.scores)
     dispatch({ type: 'judged', guess: result.guess })
     setUi(result.guess.pass ? { kind: 'input' } : { kind: 'rejected', guess: result.guess })
   }
@@ -185,7 +185,7 @@ function Game({ puzzle, variant }: { puzzle: Puzzle, variant: RoundGame }) {
                       )}
                   <AnswerForm
                     label={en[variant.label]} placeholder={en[`game.placeholder.${game}`]} answer={answer} maxLength={config.input.maxCharacters}
-                    judging={ui.kind === 'judging'} waiting={column.run?.kind === 'scanning'} input={input} onType={type} onSubmit={() => { void judge(answer) }}
+                    judging={busy} input={input} onType={type} onSubmit={() => { void judge(answer) }}
                   />
                   <p id="answer-note" className="telemetry">
                     {ui.kind === 'input' && ui.notice ? en[ui.notice === 'input.tooLong' ? variant.tooLong : ui.notice] : format('game.counter', { count: [...answer].length, max: 'maxLetters' in config.input ? config.input.maxLetters : config.input.maxCharacters })}
@@ -194,6 +194,7 @@ function Game({ puzzle, variant }: { puzzle: Puzzle, variant: RoundGame }) {
                     {ui.kind === 'rejected' && (
                       <RejectedPanel
                         sentence={(agent ? agentSentence(ui.guess, conditions) : rejectedSentence(ui.guess, conditions)) + (split ? en['verdict.judgesDisagree'] : '')}
+                        disabled={busy}
                         onTryAgain={() => { dispatch({ type: 'moveOn' }); setUi({ kind: 'input' }); setAnswer(''); input.current?.focus() }}
                         onCountAnyway={() => {
                           markOverruled(game, n, puzzle.rounds[run.current]?.id ?? '', ui.guess.answer)
@@ -203,7 +204,7 @@ function Game({ puzzle, variant }: { puzzle: Puzzle, variant: RoundGame }) {
                     )}
                     <NotJudgedPanel ui={ui} onRetry={() => { void judge(answer) }} onEdit={() => { setUi({ kind: 'input' }); input.current?.focus() }} />
                   </div>
-                  <button type="button" className="pill pill--quiet game-skip" onClick={() => { dispatch({ type: 'skip' }) }} disabled={ui.kind === 'judging'}>{en['game.skip']}</button>
+                  <button type="button" className="pill pill--quiet game-skip" onClick={() => { dispatch({ type: 'skip' }) }} disabled={busy}>{en['game.skip']}</button>
                 </section>
                 {agent
                   ? (

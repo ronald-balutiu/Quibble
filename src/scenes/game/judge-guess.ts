@@ -54,11 +54,22 @@ export function toComparison(turn: JudgeTurn, cloud: JudgeSuccess, cloudMs: numb
   }
 }
 
+export interface JudgeWatchers {
+  // The referee's scores, drawn as soon as they arrive (5.5 G2).
+  onCloud?: (scores: Record<string, number | undefined>, modelMs: number) => void
+  // The on-device run: scanning, then its scores or a timeout.
+  onDevice?: (run: DeviceRun) => void
+  device?: DeviceJudge
+}
+
+const scoresOf = (result: JudgeSuccess) => Object.fromEntries(Object.entries(result.conditions).map(([id, { p }]) => [id, p]))
+
 // The verdict for a guess that passed the local checks: a reducer guess with its
-// scores, or the panel to show instead. No outcome here ever costs a strike.
-// `onDevice` follows the on-device run, which may finish after the referee.
+// scores, or the panel to show instead. No outcome here ever costs a strike. It
+// resolves only once both judges have answered or timed out (3.7), so the screen
+// moves on with everything back; the cloud's scores are drawn before that.
 export async function judgeGuess(
-  turn: JudgeTurn, onDevice: (run: DeviceRun) => void = () => undefined, device: DeviceJudge = deviceJudge,
+  turn: JudgeTurn, { onCloud = () => undefined, onDevice = () => undefined, device = deviceJudge }: JudgeWatchers = {},
 ): Promise<{ guess: Guess, scores: Record<string, number | undefined>, modelMs: number } | { ui: Ui }> {
   const { turnstile } = turn
   const started = performance.now()
@@ -70,15 +81,14 @@ export async function judgeGuess(
     () => (turnstile ? renewSession(turnstile) : Promise.resolve('error')),
   )
   const cloudMs = performance.now() - started
-  const follow = (run: Promise<ScoreResult>) => {
-    void run.then((result) => {
+  const follow = (run: Promise<ScoreResult>): Promise<void> =>
+    run.then((result) => {
       if (result.kind !== 'scored') {
         // Only the device column says so; its Retry scores the same answer again (5.5 G7).
-        onDevice({ kind: result.kind, retry: () => { onDevice({ kind: 'scanning', started: performance.now() }); follow(device.score(turn.normalized, claims)) } })
+        onDevice({ kind: result.kind, retry: () => { onDevice({ kind: 'scanning', started: performance.now() }); void follow(device.score(turn.normalized, claims)) } })
         return
       }
       if (outcome.kind !== 'judged') { onDevice({ kind: 'scored', scores: result.scores, ms: result.ms }); return }
-      // Recorded even if the player has moved on (5.5 G2).
       const record = toComparison(turn, outcome.result, cloudMs, result, Date.now())
       saveComparison(record)
       const verdicts = Object.values(record.conditions)
@@ -87,12 +97,12 @@ export async function judgeGuess(
         agreed: verdicts.filter(({ cloudPass, devicePass }) => cloudPass === devicePass).length, compared: verdicts.length,
       })
     })
-  }
-  if (deviceRun) follow(deviceRun)
+  if (outcome.kind === 'judged') onCloud(scoresOf(outcome.result), outcome.result.modelMs)
+  if (deviceRun) await follow(deviceRun)
   switch (outcome.kind) {
     case 'judged': return {
       guess: toGuess(turn.normalized, outcome.result, turn.conditions, turn.model),
-      scores: Object.fromEntries(Object.entries(outcome.result.conditions).map(([id, { p }]) => [id, p])),
+      scores: scoresOf(outcome.result),
       modelMs: outcome.result.modelMs,
     }
     case 'busy': return { ui: { kind: 'notJudged', message: 'cloud.busy', retryAfter: outcome.retryAfter } }

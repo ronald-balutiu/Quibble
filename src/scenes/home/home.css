@@ -41,11 +41,6 @@
   margin-top: var(--space-6);
 }
 
-.welcome-text-link {
-  color: var(--muted);
-  font-size: var(--type-body);
-}
-
 .welcome-section {
   padding-block: var(--space-8);
   border-top: var(--border-width) solid var(--line);

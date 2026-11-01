@@ -24,7 +24,6 @@ export function HomeScene() {
           <p className="welcome-lede">{en['welcome.lede']}</p>
           <div className="welcome-actions">
             <Link className="pill control-link" to="/play">{en['welcome.choose']}</Link>
-            <a className="control-link welcome-text-link" href="#games">{en['welcome.learn']}</a>
           </div>
         </section>
         <div className="welcome-mark"><RingMark /></div>
@@ -75,8 +74,7 @@ export function HomeScene() {
         <div><h2>{en['welcome.ready']}</h2><p>{en['welcome.ready.body']}</p></div>
         <Link className="pill control-link" to="/play">{en['welcome.choose']}</Link>
       </section>
-      <JudgesCompare />
-      <footer className="scene-footer telemetry"><span>{en['welcome.footer']}</span><span>{en['footer.copyright']}</span></footer>
+      <JudgesCompare collapsible />
     </main>
   )
 }

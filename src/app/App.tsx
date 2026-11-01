@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router'
 import { SiteHeader } from '@/components/SiteHeader/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter/SiteFooter'
 import { GameScene } from '@/scenes/game/GameScene'
 import { HomeScene } from '@/scenes/home/HomeScene'
 import { LibraryScene } from '@/scenes/library/LibraryScene'
@@ -18,6 +19,7 @@ export function App() {
         <Route path="/about" element={<AboutScene />} />
         <Route path="*" element={<NotFoundScene />} />
       </Routes>
+      <SiteFooter />
     </>
   )
 }

@@ -1,9 +1,30 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test } from '@playwright/test'
 
+test('Home keeps the comparison introduction visible and its results expandable', async ({ page }) => {
+  await page.goto('/?home=1')
+  const compare = page.getByRole('region', { name: 'How the judges compare' })
+  await expect(compare.getByRole('heading', { name: 'How the judges compare' })).toBeVisible()
+  await expect(compare.getByText(/We tested these models/u)).toBeVisible()
+  const disclosure = compare.locator('.compare__disclosure')
+  const summary = compare.getByText('See the results', { exact: true })
+  await expect(disclosure).not.toHaveAttribute('open')
+  await expect(compare.locator('.compare__content')).toBeHidden()
+  await summary.focus()
+  await summary.press('Enter')
+  await expect(compare.getByRole('table', { name: 'Detailed answer-key results' })).toBeVisible()
+  await compare.getByRole('combobox').selectOption('gemma-4')
+  await summary.click()
+  await expect(compare.locator('.compare__content')).toBeHidden()
+  await summary.click()
+  await expect(compare.getByRole('combobox')).toHaveValue('gemma-4')
+  await expect(compare.locator('.compare__summary')).toContainText('110 of 118 answers')
+})
+
 test('keeps headline accuracy visible and every test measure reachable', async ({ page }) => {
   await page.goto('/?home=1')
   const compare = page.getByRole('region', { name: 'How the judges compare' })
+  await compare.getByText('See the results', { exact: true }).click()
   const comparisonHeading = await compare.getByRole('heading', { name: 'How the judges compare' }).boundingBox()
   const gamesHeading = await page.getByRole('heading', { name: 'Three ways to play' }).boundingBox()
   expect(comparisonHeading!.x).toBe(gamesHeading!.x)
@@ -30,6 +51,7 @@ test('keeps headline accuracy visible and every test measure reachable', async (
 test('follows the initial judge choice but previews another model without changing it', async ({ page }) => {
   await page.goto('/?home=1')
   const compare = page.getByRole('region', { name: 'How the judges compare' })
+  await compare.getByText('See the results', { exact: true }).click()
   await page.getByRole('radio', { name: /^Gemma 4/u }).check()
   await expect(compare.getByRole('combobox')).toHaveValue('gemma-4')
   await expect(compare.locator('.compare__summary')).toContainText('110 of 118 answers')
@@ -57,6 +79,7 @@ test('personal comparisons use saved data and preserve agreement, strictness, ov
   })
   await page.goto('/?home=1')
   const compare = page.getByRole('region', { name: 'How the judges compare' })
+  await compare.getByText('See the results', { exact: true }).click()
   await compare.getByRole('button', { name: 'Your games', exact: true }).click()
   await expect(compare).toContainText('4 guesses · saved in this browser')
   await expect(compare).toContainText('50.0%')
@@ -73,6 +96,7 @@ test('empty personal history and unavailable test results remain usable', async 
   await page.route('**/eval/results.json', (route) => route.fulfill({ status: 503, body: '' }))
   await page.goto('/?home=1')
   const compare = page.getByRole('region', { name: 'How the judges compare' })
+  await compare.getByText('See the results', { exact: true }).click()
   await expect(compare).toContainText("Couldn't load the answer-key results.")
   await compare.getByRole('button', { name: 'Your games', exact: true }).click()
   await expect(compare.getByRole('heading', { name: 'No comparisons yet.' })).toBeVisible()
@@ -86,6 +110,7 @@ test('the comparison fits at 320px and exposes loading while results arrive', as
   await page.route('**/eval/results.json', async (route) => { await ready; await route.continue() })
   await page.goto('/?home=1', { waitUntil: 'domcontentloaded' })
   const compare = page.getByRole('region', { name: 'How the judges compare' })
+  await compare.getByText('See the results', { exact: true }).click()
   await expect(compare.getByRole('status')).toHaveText('Loading test results…')
   release()
   await expect(compare.locator('.compare__summary')).toContainText('81.4%')

@@ -15,7 +15,7 @@ export function DeviceJudgeCard() {
   const percent = Math.floor(progress * 100)
 
   return (
-    <section className="local-model" aria-labelledby="local-model-title">
+    <section className="judge-card local-model" aria-labelledby="local-model-title">
       <h3 id="local-model-title">{en['welcome.device.title']}</h3>
       {!supported
         ? <p>{en['model.unsupported']}</p>

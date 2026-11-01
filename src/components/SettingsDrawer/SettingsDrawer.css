@@ -104,14 +104,31 @@
   border-bottom: var(--border-width) solid var(--line);
 }
 
-.drawer__group > legend,
 .drawer__group > h3 {
-  float: left;
   margin: var(--space-0);
   padding: var(--space-0);
   font-size: var(--type-body-large);
   font-weight: var(--weight-medium);
   color: var(--text);
+}
+
+.drawer__group--last {
+  border-bottom: none;
+}
+
+/* The section owns spacing above the fieldset; the legend stays in normal flow. */
+.drawer__referee {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.drawer__referee legend {
+  margin-bottom: var(--space-3);
+  padding: 0;
+  font-size: var(--type-body-large);
+  font-weight: var(--weight-medium);
 }
 
 .drawer .cloud-models legend {
@@ -199,16 +216,9 @@
   color: var(--text);
 }
 
-.drawer__footer {
-  display: flex;
+.drawer__privacy {
   flex-shrink: 0;
-  flex-wrap: wrap;
-  gap: var(--space-1) var(--space-4);
-  justify-content: space-between;
-  align-items: center;
-  padding: var(--space-4) var(--content-pad);
-  border-top: var(--border-width) solid var(--line);
-  color: var(--muted);
+  padding: 0 var(--content-pad) var(--space-6);
   font-size: var(--type-body);
 }
 
@@ -228,6 +238,6 @@
   }
 }
 
-.drawer__footer a {
+.drawer__privacy a {
   color: var(--text);
 }

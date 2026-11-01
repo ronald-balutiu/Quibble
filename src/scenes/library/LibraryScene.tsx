@@ -1,13 +1,13 @@
-import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router'
 import { gameConfigs, gameIds, type GameId } from '@shared/games'
 import { usePageMeta } from '@/app/use-page-meta'
 import { DeviceJudgeCard } from '@/components/JudgeSetup/DeviceJudgeCard'
+import { CloudModelChoice } from '@/components/JudgeSetup/CloudModelChoice'
 import { en, format } from '@/copy/en'
 import { maxScore } from '@/games/rounds/reducer'
 import { usePuzzleIndex } from '@/lib/use-puzzle-index'
 import { hasProgressActivity, loadProgress, resetPuzzle } from '@/lib/storage/progress'
-import { loadCloudModel, subscribeCloudModel } from '@/lib/storage/settings'
 import '../scenes.css'
 
 type Status = 'unplayed' | 'open' | 'solved' | 'perfect'
@@ -38,7 +38,6 @@ export function LibraryScene() {
   const game = gameIds.find((id) => id === params.get('game')) ?? 'oddly-specific'
   const index = usePuzzleIndex()
   const [open, setOpen] = useState<number | undefined>()
-  const model = useSyncExternalStore(subscribeCloudModel, loadCloudModel)
   const [filter, setFilter] = useState<Filter>('all')
   const navigate = useNavigate()
 
@@ -112,11 +111,10 @@ export function LibraryScene() {
         </ol>
       </section>
       <div className="library-setup">
-        <p className="telemetry">{format('library.cloudStatus', { model: en[`judgeChoice.${model}`] })}</p>
+        <section className="judge-card cloud-judge" aria-label={en['welcome.cloud.title']}><CloudModelChoice /></section>
         <DeviceJudgeCard />
       </div>
       </div>
-      <footer className="scene-footer telemetry"><span>{en['footer.copyright']}</span></footer>
       {open !== undefined && <PuzzleSheet game={game} n={open} onClose={() => { setOpen(undefined) }} />}
     </main>
   )

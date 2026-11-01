@@ -47,10 +47,8 @@ export function AboutScene() {
       <section className="about__section" aria-labelledby="about-credits">
         <h2 id="about-credits" className="telemetry">{en['about.credits']}</h2>
         <p>{en['about.credits.body']} <a href="https://github.com/ronald-balutiu/Quibble">{en['about.source']}</a></p>
+        <p className="about__build telemetry">{format('about.build', { puzzles, build: (results?.builds.length ?? 0) + 1 })}</p>
       </section>
-      <footer className="scene-footer telemetry">
-        <span>{format('about.footer', { puzzles, build: (results?.builds.length ?? 0) + 1 })}</span>
-      </footer>
     </main>
   )
 }

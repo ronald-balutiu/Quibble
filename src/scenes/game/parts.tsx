@@ -1,11 +1,12 @@
-import type { CSSProperties, ReactNode, RefObject } from 'react'
+import { useEffect, useState, type CSSProperties, type ReactNode, type RefObject } from 'react'
 import { Link } from 'react-router'
 import type { GameId } from '@shared/games'
 import type { CloudModel } from '@shared/schemas/judge'
 import type { PuzzleCondition } from '@shared/schemas/puzzle'
 import { en, format } from '@/copy/en'
 import type { Ui } from './judge-guess'
-import { letterFor } from './verdict'
+import type { DeviceColumn } from './use-device-column'
+import { devicePasses, letterFor } from './verdict'
 
 // The components every game screen shares (5.5 G1–G7, 5.6): the header, strike
 // dots, score axes, the answer field, and the rejected, not-judged and resting panels.
@@ -32,31 +33,86 @@ export function StrikeDots({ used, max }: { used: number, max: number }) {
   )
 }
 
+// Seconds since the on-device run started, while its column scans (5.5 G2).
+function Elapsed({ since }: { since: number }) {
+  const [now, setNow] = useState(() => performance.now())
+  useEffect(() => {
+    const timer = setInterval(() => { setNow(performance.now()) }, 100)
+    return () => { clearInterval(timer) }
+  }, [])
+  return <>{format('judges.device.thinking', { s: (Math.max(0, now - since) / 1000).toFixed(1) })}</>
+}
+
+// The judge status line (5.5 G1–G3): "● Cloud … ○ Device …". On a capable device,
+// "Device • off" opens the setup sheet (S3).
+export function JudgesStatus({ model, column }: { model: CloudModel, column: DeviceColumn }) {
+  const { status, supported, run, modelMs } = column
+  const scanning = run?.kind === 'scanning'
+  const cloud = modelMs === undefined
+    ? format('game.cloudStatus', { model: en[`judgeChoice.${model}`] })
+    : format(scanning ? 'judges.cloud.decided' : 'judges.cloud', { ms: modelMs })
+  let device: ReactNode = null
+  if (run?.kind === 'scanning') device = <Elapsed since={run.started} />
+  else if (run?.kind === 'scored') device = format('judges.device.ms', { ms: run.ms })
+  else if (run) device = en['judges.device.noAnswer']
+  else if (status !== 'off') device = en[`judges.device.${status}`]
+  else if (supported) device = <button type="button" className="judges__turn-on" onClick={column.openSetup}>{en['judges.device.off']}</button>
+  return (
+    <span className="judges">
+      <span>{cloud}</span>
+      {device !== null && <span>{device}</span>}
+    </span>
+  )
+}
+
 // One score axis per condition; `mark` names each one (a letter, or a level code).
-export function ScoreAxes({ conditions, scores, threshold, model, mark = letterFor, title }: {
+// The cloud judge (referee) is a dot; the on-device judge is a ring, with a scanning
+// line until it answers. Its verdict is shown, never scored (3.7).
+export function ScoreAxes({ conditions, scores, threshold, model, column, mark = letterFor, title }: {
   conditions: readonly PuzzleCondition[], scores: Record<string, number | undefined>, threshold: number, model: CloudModel
-  mark?: (index: number) => string, title?: string
+  column?: DeviceColumn | undefined, mark?: (index: number) => string, title?: string
 }) {
+  const run = column?.run
+  const device = run?.kind === 'scored' ? run.scores : {}
+  const tally = column?.tally
   return (
     <section className="axes" aria-label={en['game.verdicts']}>
+      {title !== undefined && <p className="telemetry">{title}</p>}
       <p className="telemetry axes__head">
-        <span>{title ?? format('game.cloudStatus', { model: en[`judgeChoice.${model}`] })}</span>
+        {column ? <JudgesStatus model={model} column={column} /> : <span>{format('game.cloudStatus', { model: en[`judgeChoice.${model}`] })}</span>}
         <span>{en['game.pYes']}</span>
       </p>
       {conditions.map((condition, i) => {
         const p = scores[condition.id]
+        const d = device[condition.id]
         return (
           <div key={condition.id} className="axis">
             <span className="axis__letter">{mark(i)}</span>
-            {/* eslint-disable-next-line react/forbid-dom-props -- the threshold and score positions are runtime values; CSS owns the styling. */}
-            <span className="axis__track" style={{ '--threshold': threshold, '--p': p ?? 0 } as CSSProperties}>
+            <span
+              className={run?.kind === 'scanning' ? 'axis__track axis__track--scanning' : 'axis__track'}
+              // eslint-disable-next-line react/forbid-dom-props -- the threshold and score positions are runtime values; CSS owns the styling.
+              style={{ '--threshold': threshold, '--p': p ?? 0, '--d': d ?? 0 } as CSSProperties}
+            >
               <span className="axis__tick" />
+              {d !== undefined && <span className={devicePasses(d) ? 'axis__ring' : 'axis__ring axis__ring--fail'} />}
               {p !== undefined && <span className={p >= threshold ? 'axis__dot' : 'axis__dot axis__dot--fail'} />}
             </span>
-            <span className="axis__value">{p === undefined ? '' : p.toFixed(2)}</span>
+            <span className="axis__value">
+              {p === undefined ? '' : p.toFixed(2)}
+              {d !== undefined && <span className="axis__device">{format('judges.deviceScore', { p: d.toFixed(2) })}</span>}
+            </span>
           </div>
         )
       })}
+      {run?.kind === 'timeout' || run?.kind === 'error'
+        ? <p className="telemetry axes__note">{en['judge.device.timeout']} <button type="button" className="link-button" onClick={run.retry}>{en['action.retry']}</button></p>
+        : null}
+      {tally && (
+        <p className="telemetry axes__foot">
+          <span>{tally.compared > 0 ? format('judges.agreed', tally) : ''}</span>
+          <span>{format('judges.threshold', { threshold: threshold.toFixed(2) })}</span>
+        </p>
+      )}
     </section>
   )
 }
@@ -105,12 +161,13 @@ export function NotJudgedPanel({ ui, onRetry, onEdit }: { ui: Ui, onRetry: () =>
 }
 
 // The answer field and its Judge button (G1–G3).
-export function AnswerForm({ label, placeholder, answer, maxLength, judging, input, onType, onSubmit, invalid }: {
-  label: string, placeholder: string, answer: string, maxLength: number, judging: boolean, input: RefObject<HTMLInputElement | null>
+// `waiting`: the on-device judge is still on the last guess, so the next can be typed but not sent.
+export function AnswerForm({ label, placeholder, answer, maxLength, judging, waiting = false, input, onType, onSubmit, invalid }: {
+  label: string, placeholder: string, answer: string, maxLength: number, judging: boolean, waiting?: boolean, input: RefObject<HTMLInputElement | null>
   onType: (value: string) => void, onSubmit: () => void, invalid?: boolean
 }) {
   return (
-    <form className={invalid ? 'answer answer--invalid' : 'answer'} onSubmit={(event) => { event.preventDefault(); if (!judging) onSubmit() }}>
+    <form className={invalid ? 'answer answer--invalid' : 'answer'} onSubmit={(event) => { event.preventDefault(); if (!judging && !waiting) onSubmit() }}>
       <label htmlFor="answer" className="telemetry">{label}</label>
       <input
         ref={input} id="answer" value={answer} autoComplete="off"
@@ -118,8 +175,8 @@ export function AnswerForm({ label, placeholder, answer, maxLength, judging, inp
         disabled={judging} aria-describedby="answer-note" aria-invalid={invalid}
         onChange={(event) => { onType(event.target.value) }}
       />
-      <button type="submit" className="answer__judge" disabled={!answer.trim() || judging}>
-        {judging ? en['game.judging'] : en['game.judge']}
+      <button type="submit" className="answer__judge" disabled={!answer.trim() || judging || waiting}>
+        {judging || waiting ? en['game.judging'] : en['game.judge']}
       </button>
     </form>
   )

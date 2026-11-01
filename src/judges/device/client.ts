@@ -8,7 +8,9 @@ export const DEVICE_TIMEOUT_MS = 10_000
 
 export type LoadProgress = { kind: 'download', received: number, total: number } | { kind: 'warming' }
 export type LoadResult = { kind: 'ready' } | { kind: 'failed', reason: DeviceFailure } | { kind: 'cancelled' }
-export type ScoreResult = { kind: 'scored', scores: Record<string, number>, ms: number } | { kind: 'timeout' } | { kind: 'error' }
+// `warm` is false for the first guess after a load, which includes WebGPU's start-up work.
+export type ScoreResult = { kind: 'scored', scores: Record<string, number>, ms: number, warm: boolean } | { kind: 'timeout' } | { kind: 'error' }
+export type DeviceStatus = 'off' | 'loading' | 'ready'
 
 interface WorkerLike {
   postMessage: (message: ToWorker) => void
@@ -19,6 +21,9 @@ interface WorkerLike {
 
 export interface DeviceJudge {
   readonly ready: boolean
+  readonly status: DeviceStatus
+  // Called whenever the status changes, for React's useSyncExternalStore.
+  subscribe: (listener: () => void) => () => void
   load: (onProgress: (progress: LoadProgress) => void) => Promise<LoadResult>
   cancel: () => void
   score: (answer: string, claims: DeviceClaim[], timeoutMs?: number) => Promise<ScoreResult>
@@ -32,18 +37,22 @@ export function createDeviceJudge(spawn: () => WorkerLike, now = () => performan
   let removing: (() => void) | undefined
   const scoring = new Map<number, (result: ScoreResult) => void>()
   let nextId = 0
+  let warm = false
+  const listeners = new Set<() => void>()
+  const notify = () => { for (const listener of listeners) listener() }
 
   function settleLoad(result: LoadResult) {
     ready = result.kind === 'ready'
+    warm = false
     loading?.resolve(result)
     loading = undefined
+    notify()
   }
 
   // A crashed worker (out of memory, GPU loss) ends every pending call with a clear result.
   function crash() {
     worker?.terminate()
     worker = undefined
-    ready = false
     settleLoad({ kind: 'failed', reason: 'start' })
     for (const resolve of scoring.values()) resolve({ kind: 'error' })
     scoring.clear()
@@ -60,7 +69,8 @@ export function createDeviceJudge(spawn: () => WorkerLike, now = () => performan
       case 'scored': case 'scoreFailed': {
         const resolve = scoring.get(message.id)
         scoring.delete(message.id)
-        resolve?.(message.type === 'scored' ? { kind: 'scored', scores: message.scores, ms: 0 } : { kind: 'error' })
+        resolve?.(message.type === 'scored' ? { kind: 'scored', scores: message.scores, ms: 0, warm } : { kind: 'error' })
+        if (message.type === 'scored') warm = true
         return
       }
       case 'deleted': removing?.(); return
@@ -77,6 +87,11 @@ export function createDeviceJudge(spawn: () => WorkerLike, now = () => performan
 
   return {
     get ready() { return ready },
+    get status() { return ready ? 'ready' : loading ? 'loading' : 'off' },
+    subscribe(listener) {
+      listeners.add(listener)
+      return () => { listeners.delete(listener) }
+    },
 
     load(onProgress) {
       if (ready) return Promise.resolve({ kind: 'ready' })
@@ -84,6 +99,7 @@ export function createDeviceJudge(spawn: () => WorkerLike, now = () => performan
       return new Promise((resolve) => {
         loading = { resolve, onProgress }
         connect().postMessage({ type: 'load' })
+        notify()
       })
     },
 
@@ -111,6 +127,7 @@ export function createDeviceJudge(spawn: () => WorkerLike, now = () => performan
     // Turning the judge off: stops any download and frees the model's memory.
     remove() {
       ready = false
+      notify()
       if (!worker) return Promise.resolve()
       return new Promise((resolve) => {
         removing = () => { removing = undefined; resolve() }

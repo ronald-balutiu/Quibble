@@ -157,6 +157,14 @@ them.
   adapter.
 - `src/components/DeviceSetup/` is the setup sheet: the offer (S3), then the
   download (S4), whose rings, percentage and readout follow the worker's byte count.
+- During a guess, `src/scenes/game/judge-guess.ts` starts the on-device run next to
+  the cloud request. The cloud judge is the referee: its verdict applies as soon as it
+  arrives, and the device's result is drawn when it lands but never scores. A guess
+  both judges answered is saved by `src/lib/storage/comparisons.ts` for "Your games"
+  (at most 2,000 records and 500 KB, each kept 90 days).
+- `src/scenes/game/use-device-column.ts` gives each game screen the judge's status,
+  the latest run and the puzzle's "agreed n / m". "Device • off" opens the setup
+  sheet on a capable device.
 
 ## Python reference
 

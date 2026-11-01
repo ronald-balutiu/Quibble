@@ -101,6 +101,7 @@
   --t-scene: 250ms; --t-state: 150ms; --t-sheet: 200ms;
   /* Ring mark motion (5.3): three orbit speeds, shuffled across the arcs, and the centre pulse. */
   --t-orbit-a: 7s; --t-orbit-b: 10s; --t-orbit-c: 13s; --t-pulse: 2.4s;
+  --t-scan: 1.2s; /* the on-device column's scanning line while it thinks (5.5 G2) */
   --mark-max: 300px;
   --mark-max-wide: 420px;
   --guess-map-phone-height: 180px; /* Double Agent's two-circle diagram above the field (D1 phone) */

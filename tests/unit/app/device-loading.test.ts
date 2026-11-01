@@ -82,12 +82,30 @@ describe('device judge client', () => {
     return { worker, judge }
   }
 
-  test('loads with progress, then scores a guess', async () => {
+  test('loads with progress, then scores a guess; only the first guess is a cold run', async () => {
     const { worker, judge } = await readyJudge()
     expect(worker.sent[0]).toEqual({ type: 'load' })
     const scoring = judge.score('pocket knife', [{ id: 'pocket', claim: '{answer} fits in a pocket' }])
     worker.reply({ type: 'scored', id: 1, scores: { pocket: 0.9 } })
-    expect(await scoring).toMatchObject({ kind: 'scored', scores: { pocket: 0.9 } })
+    expect(await scoring).toMatchObject({ kind: 'scored', scores: { pocket: 0.9 }, warm: false })
+    const again = judge.score('pocket knife', [])
+    worker.reply({ type: 'scored', id: 2, scores: {} })
+    expect(await again).toMatchObject({ warm: true })
+  })
+
+  test('reports off, loading and ready to subscribers', async () => {
+    const worker = new FakeWorker()
+    const judge = createDeviceJudge(() => worker)
+    const seen: string[] = []
+    judge.subscribe(() => seen.push(judge.status))
+    expect(judge.status).toBe('off')
+    const loading = judge.load(() => undefined)
+    worker.reply({ type: 'ready' })
+    await loading
+    const removing = judge.remove()
+    worker.reply({ type: 'deleted' })
+    await removing
+    expect(seen).toEqual(['loading', 'ready', 'off'])
   })
 
   test('a guess over 10 seconds times out, and its late result is ignored', async () => {

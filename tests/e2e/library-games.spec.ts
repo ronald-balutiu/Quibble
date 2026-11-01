@@ -19,8 +19,8 @@ test('Category Escape progress reads in levels, and 6/6 is perfect', async ({ pa
   await page.goto('/play?game=category-escape')
 
   await expect(page.getByRole('link', { name: 'Continue #001 · level 3' })).toBeVisible()
-  await expect(page.getByRole('button', { name: 'Puzzle 2, easy, perfect' })).toBeVisible()
-  await page.getByRole('button', { name: 'Puzzle 1, easy, in progress' }).click()
+  await expect(page.getByRole('button', { name: /^002.*, easy, perfect$/u })).toBeVisible()
+  await page.getByRole('button', { name: /^001.*, easy, in progress$/u }).click()
   await expect(page.getByRole('button', { name: 'Resume level 3' })).toBeVisible()
 })
 
@@ -30,7 +30,7 @@ for (const game of ['oddly-specific', 'category-escape', 'double-agent'] as cons
   test(`${game} #001 opens from the Library`, async ({ page }) => {
     const puzzle = JSON.parse(readFileSync(`public/puzzles/${game}/1.json`, 'utf8')) as { rounds: { conditions: { label: string }[] }[] }
     await page.goto(`/play?game=${game}`)
-    await page.getByRole('button', { name: /^Puzzle 1, / }).click()
+    await page.getByRole('button', { name: /^001/u }).click()
     await page.getByRole('button', { name: 'Play', exact: true }).click()
     await expect(page).toHaveURL(`/play/${game}/1`)
     await expect(page.getByText(puzzle.rounds[0]?.conditions[0]?.label ?? '', { exact: true }).first()).toBeVisible()

@@ -211,7 +211,7 @@
 }
 
 .device-ticks__tick--todo {
-  color: var(--dim);
+  color: var(--muted);
 }
 
 .device-sheet__footer {

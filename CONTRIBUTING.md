@@ -15,6 +15,8 @@ configuration, and the Git and pull request workflow.
 | `npm run typecheck` | Typecheck the browser, Worker, and Node environments separately. |
 | `npm run ts -- path/to/script.ts` | Run a Node TypeScript script through `tsx`, with `@shared/*` aliases resolved. |
 | `npm run eval -- --judge <names> --note "<what changed>"` | Score judges on the answer-key development set and append the run to `eval/history.json`. Cloud judges spend Workers AI allowance. |
+| `npm run eval:publish` | Rebuild `public/eval/results.json` (the app's answer-key numbers) from `eval/history.json` and `eval/device-measurements.json`. Calls no models. |
+| `npm run ts -- scripts/social-image.ts` | Re-render the share image (`public/og.png`) and favicon from the ring mark. |
 | `npm run lint` | Run ESLint and Stylelint. |
 | `npm run lint:js` | Run ESLint only. |
 | `npm run lint:css` | Run Stylelint only. |

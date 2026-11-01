@@ -133,12 +133,26 @@
   flex-direction: column;
 }
 
+/* "Delete everything" sits in a coral box (5.5 L3). */
+.drawer__row--danger {
+  padding: var(--space-3);
+  border: var(--border-width) solid var(--fail);
+}
+
+.pill.pill--danger {
+  border-color: var(--fail);
+  color: var(--fail);
+}
+
 .drawer__name {
   font-size: var(--type-body-large);
   color: var(--text);
 }
 
 .drawer__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: var(--space-4) var(--content-pad);
   border-top: var(--border-width) solid var(--line);
 }
@@ -149,4 +163,8 @@
     max-width: var(--drawer-width);
     margin: var(--space-0) var(--space-0) var(--space-0) auto;
   }
+}
+
+.drawer__footer a {
+  color: var(--text);
 }

@@ -5,12 +5,29 @@ Three word games with open-ended answers. Two AI judges decide each answer.
 The project brings together Oddly Specific, Category Escape, and Double Agent,
 with a cloud judge and an optional on-device judge.
 
-**Status:** the development foundation is ready. The planned URLs show placeholders;
-gameplay, judging, storage, and puzzle generation are still to be implemented.
+Live at [quibble.ronaldbalutiu.com](https://quibble.ronaldbalutiu.com).
+
+- **Oddly Specific:** name one thing that fits three conditions.
+- **Category Escape:** stay in a category as each level adds a rule.
+- **Double Agent:** find one word with two meanings.
+
+Every answer is judged condition by condition. The cloud judge is Clef-flash, or
+Gemma 4 if the player chooses it, on Cloudflare Workers AI. The optional on-device
+judge is Qwen3.5-0.8B running in the browser on WebGPU. Players can overrule a
+rejection, and "How the judges compare" sets the judges' agreement on the player's
+own games beside their accuracy on a hand-checked answer-key test.
+
+**Status:** complete. 256 puzzles (100 Oddly Specific, 100 Category Escape and 56
+Double Agent), generated offline within the Workers AI free tier. On the held-out
+answer-key test, run once, Gemma 4 judged 93% of whole guesses right and Clef-flash
+81%; see the [about page](https://quibble.ronaldbalutiu.com/about) for the full
+results and their limits.
 
 ## Stack
 
-React 19, TypeScript, Vite, React Router, plain CSS, and Cloudflare Workers.
+React 19, TypeScript, Vite, React Router, plain CSS, and Cloudflare Workers with
+Workers AI. The on-device judge runs on ONNX Runtime Web (WebGPU) in a Web Worker.
+Node scripts generate the puzzles and evaluate the judges at build time.
 
 ## Getting started
 

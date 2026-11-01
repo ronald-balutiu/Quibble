@@ -519,3 +519,20 @@
     border-top: var(--border-width) solid var(--line);
   }
 }
+
+/* G6: where the two judges split on this run's guesses. */
+.splits {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.splits h2 {
+  margin: var(--space-0);
+  font-weight: var(--weight-regular);
+}
+
+.splits p {
+  margin: var(--space-0);
+  color: var(--text);
+}

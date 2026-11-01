@@ -27,7 +27,7 @@ test('planned routes match on direct loads and refreshes', async ({ page }) => {
     ['/', 'home'],
     ['/play', 'library'],
     ['/play/oddly-specific/1', 'game'],
-    ['/about', 'not-found'], // P1 is built in a later phase
+    ['/about', 'about'],
     ['/not-a-route', 'not-found'],
   ] as const
 
@@ -71,7 +71,7 @@ test('crawlers find every puzzle, and each page names itself', async ({ page, re
   const sitemap = await (await request.get('/sitemap.xml')).text()
   const index = JSON.parse(readFileSync('public/puzzles/index.json', 'utf8')) as Record<string, unknown[]>
   const puzzles = Object.values(index).reduce((sum, list) => sum + list.length, 0)
-  expect(sitemap.match(/<loc>/gu)).toHaveLength(puzzles + 2)
+  expect(sitemap.match(/<loc>/gu)).toHaveLength(puzzles + 3)
   expect(sitemap).toContain('<loc>https://quibble.ronaldbalutiu.com/play/double-agent/1</loc>')
 
   await page.goto('/play/category-escape/7')

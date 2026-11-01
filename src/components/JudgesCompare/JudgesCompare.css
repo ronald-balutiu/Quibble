@@ -1,0 +1,216 @@
+/* H1 / H3 / G6: "How the judges compare". Cloud is a dot, the device a ring (5.2). */
+.compare {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding: var(--space-8) var(--content-pad);
+  border-top: var(--border-width) solid var(--line);
+}
+
+.compare__head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.compare__title {
+  margin: var(--space-0);
+  font-size: var(--type-panel);
+  font-weight: var(--weight-light);
+  letter-spacing: var(--tracking-panel);
+}
+
+.compare__legend {
+  display: flex;
+  gap: var(--space-4);
+  color: var(--text);
+}
+
+.compare p {
+  margin: var(--space-0);
+}
+
+.compare dl,
+.compare dd {
+  margin: var(--space-0);
+}
+
+.compare__summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.compare__stat dd {
+  font-size: var(--type-panel-large);
+  font-weight: var(--weight-light);
+  letter-spacing: var(--tracking-panel);
+}
+
+.compare__marker {
+  display: inline-block;
+  width: var(--strike-size);
+  height: var(--strike-size);
+  margin-right: var(--space-2);
+  border-radius: var(--radius-circle);
+}
+
+.compare__marker--dot {
+  background: var(--text);
+}
+
+.compare__marker--ring {
+  border: var(--accent-line-width) solid var(--text);
+}
+
+.compare__marker--thin {
+  border: var(--border-width) solid var(--text);
+}
+
+.compare__halves {
+  display: grid;
+  gap: var(--space-8);
+}
+
+.compare__half {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  color: var(--muted);
+}
+
+.compare__half h3 {
+  margin: var(--space-0);
+  font-weight: var(--weight-regular);
+}
+
+.compare__rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.compare__row {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr) auto;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.compare__label {
+  display: flex;
+  flex-direction: column;
+  color: var(--text);
+}
+
+.compare__bars {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.compare__bar {
+  position: relative;
+  height: var(--space-3);
+  background-image: linear-gradient(var(--line-strong), var(--line-strong));
+  background-position: center;
+  background-size: 100% var(--border-width);
+  background-repeat: no-repeat;
+}
+
+.compare__fill {
+  position: absolute;
+  top: 50%;
+  left: var(--space-0);
+  width: 100%;
+  height: var(--border-width);
+  background: var(--text);
+  translate: 0 -50%;
+  scale: var(--v) 1;
+  transform-origin: left;
+}
+
+/* A full-width layer moved by the value, so its left edge is the mark. */
+.compare__mark {
+  position: absolute;
+  inset: 0;
+  translate: calc(var(--v) * 100%) 0;
+}
+
+.compare__mark::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: var(--judge-marker-size);
+  height: var(--judge-marker-size);
+  border-radius: var(--radius-circle);
+  background: var(--text);
+  translate: -50% -50%;
+}
+
+.compare__bar--device .compare__mark::before {
+  border: var(--accent-line-width) solid var(--text);
+  background: var(--ground);
+}
+
+.compare__values {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-mono);
+  font-size: var(--type-label-large);
+  color: var(--text);
+  text-align: right;
+}
+
+.compare__foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-4);
+}
+
+.compare__cells {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.compare__cells dd {
+  display: flex;
+  flex-direction: column;
+  font-size: var(--type-panel);
+  font-weight: var(--weight-light);
+  color: var(--text);
+}
+
+.compare__cells dd span {
+  font-size: var(--type-body);
+  color: var(--muted);
+}
+
+.compare__speed {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  align-items: baseline;
+  color: var(--text);
+}
+
+.compare__toggle {
+  align-self: flex-start;
+  padding: var(--space-0);
+  border: none;
+  background: none;
+  color: var(--text);
+  text-decoration: underline;
+  text-underline-offset: var(--space-1);
+  cursor: pointer;
+}
+
+@media (min-width: 1024px) {
+  .compare__halves {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-14);
+  }
+}

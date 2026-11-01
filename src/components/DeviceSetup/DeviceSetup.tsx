@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
+import { Link } from 'react-router'
 import { en, format } from '@/copy/en'
 import { deviceJudge, type DeviceJudge, type LoadProgress } from '@/judges/device/client'
 import type { DeviceFailure } from '@/judges/device/protocol'
@@ -128,7 +129,7 @@ function Offer({ onDownload, onClose }: { onDownload: () => void, onClose: () =>
         <button type="button" className="pill pill--wide" onClick={onDownload}>{en['device.download']}</button>
         <button type="button" className="pill pill--quiet" onClick={onClose}>{en['device.notNow']}</button>
       </div>
-      <p className="device-sheet__source">{en['device.source']}</p>
+      <p className="device-sheet__source">{en['device.source']} <Link to="/about#privacy">{en['about.privacy']}</Link></p>
     </>
   )
 }

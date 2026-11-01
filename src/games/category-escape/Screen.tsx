@@ -6,6 +6,7 @@ import { isValidAnswer, normalizeAnswer } from '@shared/normalize'
 import type { CloudModel, Reveal } from '@shared/schemas/judge'
 import type { Puzzle, PuzzleCondition } from '@shared/schemas/puzzle'
 import { DeviceSetup } from '@/components/DeviceSetup/DeviceSetup'
+import { JudgesCompare } from '@/components/JudgesCompare/JudgesCompare'
 import { en, format } from '@/copy/en'
 import type { RunState } from '@/games/oddly-specific/reducer'
 import { fetchReveal } from '@/lib/api'
@@ -280,6 +281,7 @@ function RunOver({ run, puzzle, best, onRestart }: { run: RunState, puzzle: Puzz
           <button type="button" className="pill pill--quiet" onClick={() => { void navigator.clipboard.writeText(share).then(() => { setCopied(true); setTimeout(() => { setCopied(false) }, 2000) }) }}>{en['results.copy']}</button>
         </div>
         <p role="status" className="telemetry">{copied ? en['toast.copied'] : ''}</p>
+        <JudgesCompare />
       </section>
       {wrong.length > 0 && (
         <aside className="escape-side">

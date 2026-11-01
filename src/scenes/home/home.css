@@ -1,0 +1,219 @@
+.app-frame.welcome {
+  gap: 0;
+  padding-bottom: 0;
+}
+
+.welcome-brand {
+  font-size: var(--type-panel);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-panel);
+}
+
+.welcome-nav {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  font-size: var(--type-body);
+}
+
+.welcome-nav .settings-open {
+  margin-left: 0;
+}
+
+.welcome-top {
+  display: grid;
+  gap: var(--space-6);
+  padding-block: var(--space-8);
+}
+
+.welcome-hero h1 {
+  margin-block: var(--space-3) var(--space-5);
+  font-size: var(--type-welcome);
+  letter-spacing: var(--tracking-home);
+}
+
+.welcome-hero > p:first-child {
+  margin: 0;
+}
+
+.welcome-lede {
+  max-width: var(--welcome-lede-max);
+  margin-bottom: 0;
+  font-size: var(--type-body-large);
+}
+
+.welcome-mark {
+  grid-row: 1;
+}
+
+.welcome-mark .ring-mark {
+  max-width: var(--welcome-mark-phone);
+}
+
+.welcome-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+  margin-top: var(--space-6);
+}
+
+.welcome-text-link {
+  color: var(--muted);
+  font-size: var(--type-body);
+}
+
+.welcome-section {
+  padding-block: var(--space-8);
+  border-top: var(--border-width) solid var(--line);
+}
+
+.welcome-section h2 {
+  margin: 0 0 var(--space-6);
+  font-size: var(--type-welcome-section);
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--tracking-panel);
+}
+
+.welcome-section h3 {
+  margin: 0 0 var(--space-3);
+  font-size: var(--type-body-large);
+  font-weight: var(--weight-medium);
+}
+
+.welcome-games {
+  display: grid;
+  gap: var(--space-8);
+}
+
+.welcome-game {
+  display: grid;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.welcome-game > p,
+.welcome-game h3 {
+  margin: 0;
+}
+
+.welcome-game h3 {
+  font-size: var(--type-welcome-card);
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--tracking-panel);
+}
+
+.welcome-game__label {
+  color: var(--accent);
+}
+
+.welcome-example {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-left: var(--accent-line-width) solid var(--accent);
+  background: var(--surface-2);
+}
+
+.welcome-example ol {
+  margin: 0;
+  padding-left: var(--space-5);
+  color: var(--muted);
+}
+
+.welcome-example p {
+  margin: auto 0 0;
+  color: var(--text);
+}
+
+.welcome-scores {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.welcome-points {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-3);
+  padding: 0;
+  list-style: none;
+}
+
+.welcome-points li {
+  padding: var(--space-2) var(--space-3);
+  background: var(--grid);
+}
+
+.welcome-scores p {
+  margin: 0;
+}
+
+.welcome-detail {
+  margin-top: var(--space-5);
+  padding-top: var(--space-3);
+  border-top: var(--border-width) solid var(--line);
+}
+
+.welcome-detail summary {
+  padding-block: var(--space-2);
+  cursor: pointer;
+}
+
+.welcome-detail p {
+  max-width: var(--welcome-detail-max);
+  margin: var(--space-2) 0 0;
+}
+
+.welcome-detail a {
+  color: var(--text);
+}
+
+.welcome-finish {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+  justify-content: space-between;
+  align-items: center;
+}
+
+.welcome-finish h2 {
+  margin-bottom: var(--space-2);
+}
+
+.welcome-finish p {
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .welcome-top {
+    grid-template-columns: 1.2fr 1fr;
+    align-items: center;
+    padding-block: var(--space-12);
+  }
+
+  .welcome-mark {
+    grid-row: auto;
+  }
+
+  .welcome-mark .ring-mark {
+    max-width: var(--welcome-mark-wide);
+  }
+
+  /* Shared rows grow together when copy wraps or the player enlarges text. */
+  .welcome-games {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: auto auto auto 1fr;
+    gap: var(--space-3) var(--space-6);
+  }
+
+  .welcome-game {
+    grid-row: span 4;
+    grid-template-rows: subgrid;
+  }
+
+  .welcome-scores {
+    grid-template-columns: 1.25fr 1fr;
+  }
+}

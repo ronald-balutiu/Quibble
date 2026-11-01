@@ -21,7 +21,7 @@ export function AboutScene() {
   return (
     <main className="app-frame scene about" data-scene="about">
       <header className="scene-header scene-header--cells">
-        <Link className="telemetry scene-header__name control-link" to="/">{en['app.name']}</Link>
+        <Link className="telemetry scene-header__name control-link" to="/?home=1">{en['app.name']}</Link>
         <span className="telemetry scene-header__end">{en['nav.about']}</span>
         <Link className="telemetry scene-header__link control-link" to="/play">{en['about.play']}</Link>
         <SettingsButton />

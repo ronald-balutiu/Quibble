@@ -1,10 +1,12 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 import { oddlySpecificConfig } from '@shared/games/oddly-specific'
 import { runReducer, startRun } from '@/games/rounds/reducer'
-import { isStorageAvailable, loadProgress, resetPuzzle, saveRun } from '@/lib/storage/progress'
+import { hasPlayed, isStorageAvailable, loadProgress, resetPuzzle, saveRun } from '@/lib/storage/progress'
 
 class MemoryStorage {
   data = new Map<string, string>()
+  get length() { return this.data.size }
+  key(i: number) { return [...this.data.keys()][i] ?? null }
   getItem(k: string) { return this.data.get(k) ?? null }
   setItem(k: string, v: string) { this.data.set(k, v) }
   removeItem(k: string) { this.data.delete(k) }
@@ -19,6 +21,31 @@ beforeEach(() => {
 })
 
 describe('progress storage', () => {
+  test('opening an untouched puzzle does not count as playing', () => {
+    saveRun('oddly-specific', 1, startRun(oddlySpecificConfig), 0)
+    expect(hasPlayed()).toBe(false)
+  })
+
+  test('judged guesses, skipped rounds and a zero-point completed run count as playing', () => {
+    const start = startRun(oddlySpecificConfig)
+    saveRun('oddly-specific', 1, reduce(start, { type: 'judged', guess: { answer: 'a', pass: false, failed: ['a'], closeCall: false } }), 0)
+    expect(hasPlayed()).toBe(true)
+    resetPuzzle('oddly-specific', 1)
+    saveRun('oddly-specific', 1, reduce(start, { type: 'skip' }), 0)
+    expect(hasPlayed()).toBe(true)
+    saveRun('oddly-specific', 1, { ...start, finished: true }, 0)
+    expect(hasPlayed()).toBe(true)
+  })
+
+  test('invalid progress does not hide the welcome or mask another valid puzzle', () => {
+    store.setItem('quibble:progress:oddly-specific:1', '{broken')
+    store.setItem('quibble:progress:oddly-specific:2', JSON.stringify({ run: { version: 0 } }))
+    expect(hasPlayed()).toBe(false)
+    store.setItem('quibble:progress:category-escape:1', JSON.stringify({ best: 0 }))
+    expect(hasPlayed()).toBe(true)
+    resetPuzzle('category-escape', 1)
+    expect(hasPlayed()).toBe(false)
+  })
   test('saves and restores an in-progress run', () => {
     const run = reduce(startRun(oddlySpecificConfig), { type: 'judged', guess: { answer: 'a', pass: true, failed: [], closeCall: false } })
     expect(saveRun('oddly-specific', 3, run, 3)).toBe(true)
@@ -53,5 +80,6 @@ describe('progress storage', () => {
     expect(loadProgress('oddly-specific', 3)).toEqual({})
     expect(saveRun('oddly-specific', 3, startRun(oddlySpecificConfig), 0)).toBe(false)
     expect(resetPuzzle('oddly-specific', 3)).toBe(false)
+    expect(hasPlayed()).toBe(false)
   })
 })

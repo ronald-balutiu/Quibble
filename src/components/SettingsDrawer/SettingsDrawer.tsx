@@ -8,6 +8,7 @@ import { deleteEverything } from '@/lib/storage/everything'
 import { clearGameData, progressSummary } from '@/lib/storage/progress'
 import { loadReferee, saveReferee } from '@/lib/storage/settings'
 import { DeviceSetup } from '../DeviceSetup/DeviceSetup'
+import { CloudModelChoice } from '../JudgeSetup/CloudModelChoice'
 import { DEVICE_TOTAL_BYTES, megabytes } from '../DeviceSetup/progress'
 import './SettingsDrawer.css'
 
@@ -72,6 +73,7 @@ function SettingsDrawer({ onClose }: { onClose: () => void }) {
         </button>
       </header>
       <div className="drawer__body">
+        <div className="drawer__group"><CloudModelChoice /></div>
         <fieldset className="drawer__group">
           <legend className="telemetry">{en['settings.referee']}</legend>
           <div className="drawer__choices">

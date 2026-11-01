@@ -6,22 +6,45 @@ import { cloudModels, defaultCloudModel, type CloudModel } from '@shared/schemas
 const CLOUD_MODEL = 'quibble:settings:cloudModel'
 const TIPS = 'quibble:settings:tipsSeen'
 const REFEREE = 'quibble:settings:referee'
+const cloudListeners = new Set<() => void>()
+let memoryCloudModel: CloudModel | undefined
+
+export function refreshCloudModel(): void {
+  memoryCloudModel = undefined
+  for (const listener of cloudListeners) listener()
+}
+
+export function subscribeCloudModel(listener: () => void): () => void {
+  cloudListeners.add(listener)
+  const changed = (event: StorageEvent) => {
+    if (event.key === CLOUD_MODEL || event.key === null) { memoryCloudModel = undefined; listener() }
+  }
+  globalThis.addEventListener('storage', changed)
+  return () => {
+    cloudListeners.delete(listener)
+    globalThis.removeEventListener('storage', changed)
+  }
+}
 
 export function loadCloudModel(): CloudModel {
+  if (memoryCloudModel) return memoryCloudModel
   try {
     const value = globalThis.localStorage.getItem(CLOUD_MODEL)
     return cloudModels.find((model) => model === value) ?? defaultCloudModel
   } catch {
-    return defaultCloudModel
+    return memoryCloudModel ?? defaultCloudModel
   }
 }
 
 export function saveCloudModel(model: CloudModel): void {
   try {
     globalThis.localStorage.setItem(CLOUD_MODEL, model)
+    memoryCloudModel = undefined
   } catch {
+    memoryCloudModel = model
     // Storage is off; the choice lasts for this page only.
   }
+  for (const listener of cloudListeners) listener()
 }
 
 // The first-round tip shows once per game (D-30).

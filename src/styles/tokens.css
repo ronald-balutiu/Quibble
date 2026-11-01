@@ -50,6 +50,11 @@
   --welcome-mark-wide: 350px;
   --welcome-lede-max: 385px;
   --welcome-detail-max: 700px;
+  --compare-max: 736px;
+  --compare-model-width: 140px;
+  --type-compare-heading: 24px;
+  --type-compare-question: 19px;
+  --type-compare-value: 36px;
 
   --leading-home: 0.92;
   --leading-score: 0.9;
@@ -64,6 +69,7 @@
   --tracking-label: 0.08em;
   --tracking-label-tight: 0.06em;
   --tracking-label-wide: 0.12em;
+  --tracking-normal: 0em;
 
   /* Shared spacing scale. Add approved values here, never in components. */
   --space-0: 0px;
@@ -138,6 +144,8 @@
     --type-label: 10px;
     --type-label-large: 12px;
     --type-welcome: 64px;
+    --type-compare-heading: 28px;
+    --type-compare-value: 44px;
     --leading-score: 0.85;
     --leading-condition: 1.05;
     --leading-body: 1.5;

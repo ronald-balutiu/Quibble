@@ -57,8 +57,9 @@ test.describe('axe-core on every screen (0.2)', () => {
     await page.goto('/')
     await expect(page.getByRole('heading', { level: 1, name: 'Make your case.' })).toBeVisible()
     await expectAccessible(page, 'H2')
-    await page.getByRole('button', { name: 'Open ↓' }).click()
-    await expect(page.getByRole('button', { name: 'Close ↑' })).toBeVisible()
+    await page.getByRole('button', { name: 'Hide detailed comparison' }).click()
+    await page.getByRole('button', { name: 'Show the full comparison' }).click()
+    await expect(page.getByRole('table', { name: 'Detailed answer-key results' })).toBeVisible()
     await expectAccessible(page, 'H3')
 
     await seed(page, { 'quibble:progress:oddly-specific:2': JSON.stringify({ best: 9 }) })

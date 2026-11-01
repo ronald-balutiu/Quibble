@@ -1,0 +1,19 @@
+[
+  {
+    "machine": "Apple M5 Pro (darwin)",
+    "browser": "Chrome 156.0.8078.48",
+    "measuredAt": "2026-11-01",
+    "coldLoadSeconds": 8.2,
+    "firstGuessMs": 161,
+    "warmGuessMedianMs": 109,
+    "warmGuessP95Ms": 116,
+    "guesses": 20,
+    "browserMemoryMb": {
+      "before": 977,
+      "peak": 3669,
+      "warm": 3153
+    },
+    "cancelMs": 3,
+    "turnOffMs": 1
+  }
+]

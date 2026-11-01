@@ -22,6 +22,7 @@ configuration, and the Git and pull request workflow.
 | `npm test` | Run the Vitest unit tests. |
 | `npm run test:watch` | Run Vitest in watch mode. |
 | `npm run test:e2e` | Build, serve a production preview, and run Playwright at desktop and phone sizes. |
+| `npm run test:device` | Local only: run the real on-device model in Google Chrome on WebGPU, check it against the Python reference, and record its speed and memory in `eval/device-measurements.json`. Downloads about 570 MB from Hugging Face. |
 | `npm run check:assets` | Check built client assets against Cloudflare's per-file size limit. |
 | `npm run check:bundle` | Validate the built Worker with a Wrangler deployment dry run. |
 | `npm run check-puzzles` | Check the puzzle files and Worker library against the library guarantees. |
@@ -48,7 +49,12 @@ against Node types. Pure Worker logic can run in Vitest's Node environment. Test
 that need real Cloudflare bindings require the Workers runtime integration.
 
 Browser tests live in `tests/e2e/` and run against a production preview. Add a
-Playwright test that reaches each new screen or state. Install Chromium once:
+Playwright test that reaches each new screen or state. The on-device judge's tests
+(`tests/e2e/device.spec.ts`) swap the built worker for a stub, since CI's browser has
+no WebGPU. The real model runs only in `tests/device/` through `npm run test:device`:
+run it when the model, the worker or the scoring adapter changes, with
+`DEVICE_NAME="…"` to name the machine, and commit the updated measurements and
+`tests/fixtures/verdict/browser-webgpu.json`. Install Chromium once:
 
 ```sh
 npx playwright install chromium

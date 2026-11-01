@@ -1,0 +1,85 @@
+{
+  "runtime": "onnxruntime-web 1.31.1 (WebGPU, q4)",
+  "results": [
+    {
+      "id": "pocket-knife",
+      "p": 0.8865271399038961
+    },
+    {
+      "id": "pocket-refrigerator",
+      "p": 0.760531393778105
+    },
+    {
+      "id": "pocket-umbrella",
+      "p": 0.8774238099705088
+    },
+    {
+      "id": "pocket-coin",
+      "p": 0.6847701738982619
+    },
+    {
+      "id": "metal-spoon",
+      "p": 0.7861165379469084
+    },
+    {
+      "id": "metal-pillow",
+      "p": 0.5031890843045724
+    },
+    {
+      "id": "metal-bicycle",
+      "p": 0.8596569474257386
+    },
+    {
+      "id": "kitchen-whisk",
+      "p": 0.9430562501608605
+    },
+    {
+      "id": "kitchen-lawnmower",
+      "p": 0.6240695073425463
+    },
+    {
+      "id": "electricity-toaster",
+      "p": 0.779835448999269
+    },
+    {
+      "id": "electricity-broom",
+      "p": 0.6020095197242019
+    },
+    {
+      "id": "electricity-clock",
+      "p": 0.6845410324681752
+    },
+    {
+      "id": "edible-banana",
+      "p": 0.9720868929838358
+    },
+    {
+      "id": "edible-stapler",
+      "p": 0.3668241653504033
+    },
+    {
+      "id": "clue-charge-court",
+      "p": 0.7710960371220267
+    },
+    {
+      "id": "clue-charge-battery",
+      "p": 0.5931954624747883
+    },
+    {
+      "id": "clue-bank-river",
+      "p": 0.7897108659681931
+    },
+    {
+      "id": "clue-bank-fruit",
+      "p": 0.17230972925918145
+    },
+    {
+      "id": "clue-bat-animal",
+      "p": 0.712952129674092
+    },
+    {
+      "id": "clue-pitch-tar",
+      "p": 0.8317122859491497
+    }
+  ]
+}

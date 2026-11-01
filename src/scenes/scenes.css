@@ -98,6 +98,49 @@
   justify-content: space-between;
 }
 
+.home-game {
+  position: relative;
+}
+
+/* A returning player's progress: a thin white line along the cell's top (H1). */
+.home-game__progress {
+  position: absolute;
+  top: var(--space-0);
+  left: var(--space-0);
+  width: 100%;
+  height: var(--accent-line-width);
+  background: var(--text);
+  scale: var(--solved) 1;
+  transform-origin: left;
+}
+
+.home-play__line {
+  flex-basis: 100%;
+  margin: var(--space-0);
+}
+
+.home-play {
+  flex-wrap: wrap;
+}
+
+.home-hero__lede--desktop {
+  display: none;
+}
+
+.scene-header__link {
+  margin-left: auto;
+  color: var(--text);
+}
+
+.scene-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  justify-content: space-between;
+  padding: var(--space-5) var(--content-pad);
+  border-top: var(--border-width) solid var(--line);
+}
+
 .home-game__name {
   font-size: var(--type-panel);
   font-weight: var(--weight-light);
@@ -309,6 +352,14 @@
 }
 
 @media (min-width: 1024px) {
+  .home-hero__lede--phone {
+    display: none;
+  }
+
+  .home-hero__lede--desktop {
+    display: inline;
+  }
+
   .home-top {
     grid-template-areas: 'hero mark' 'play mark';
     grid-template-columns: 1fr 1fr;

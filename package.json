@@ -15,6 +15,7 @@
     "typecheck": "tsc -b",
     "ts": "tsx --tsconfig tsconfig.node.json",
     "eval": "tsx --tsconfig tsconfig.node.json eval/run.ts",
+    "eval:publish": "tsx --tsconfig tsconfig.node.json eval/publish.ts",
     "lint": "npm run lint:js && npm run lint:css",
     "lint:js": "eslint . --max-warnings 0",
     "lint:css": "stylelint \"src/**/*.css\" --max-warnings 0",

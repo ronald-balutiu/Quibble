@@ -1,6 +1,6 @@
 import type { PuzzleCondition } from '@shared/schemas/puzzle'
 import { format } from '@/copy/en'
-import type { Guess } from '@/games/oddly-specific/reducer'
+import type { Guess } from '@/games/rounds/reducer'
 import { letterFor, rejectedSentence } from '@/scenes/game/verdict'
 
 // "battery fits B, not A." when exactly one meaning fits; otherwise the usual sentence.

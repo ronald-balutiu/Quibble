@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import type { GameId } from '@shared/games'
-import type { RunState } from '@/games/oddly-specific/reducer'
+import type { RunState } from '@/games/rounds/reducer'
 
 // Progress per puzzle (plan 3.8): the best score and one in-progress run. Every
 // call is wrapped, so the game still plays when storage is blocked or full.

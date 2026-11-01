@@ -1,11 +1,9 @@
-import { useEffect, useState } from 'react'
 import { Link } from 'react-router'
-import type { PuzzleIndex } from '@shared/schemas/puzzle'
 import { usePageMeta } from '@/app/use-page-meta'
 import { SettingsButton } from '@/components/SettingsDrawer/SettingsDrawer'
 import { en, format } from '@/copy/en'
 import { useEvalResults } from '@/lib/eval-results'
-import { loadPuzzleIndex } from '@/lib/puzzles'
+import { usePuzzleIndex } from '@/lib/use-puzzle-index'
 import './scenes.css'
 
 const percent = (value: number | undefined) => format('compare.percent', { p: Math.round((value ?? 0) * 100) })
@@ -15,8 +13,7 @@ const percent = (value: number | undefined) => format('compare.percent', { p: Ma
 export function AboutScene() {
   usePageMeta(en['meta.title.about'])
   const results = useEvalResults()
-  const [index, setIndex] = useState<PuzzleIndex | undefined>()
-  useEffect(() => { void loadPuzzleIndex().then(setIndex) }, [])
+  const index = usePuzzleIndex()
   const judges = results?.test.judges
   const device = results?.devices[0]
   const puzzles = Object.values(index ?? {}).reduce((sum, list) => sum + list.length, 0)

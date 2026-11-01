@@ -1,7 +1,7 @@
 import type { GameId } from '@shared/games'
 import type { CloudModel, JudgeSuccess } from '@shared/schemas/judge'
 import type { PuzzleCondition } from '@shared/schemas/puzzle'
-import type { Guess } from '@/games/oddly-specific/reducer'
+import type { Guess } from '@/games/rounds/reducer'
 import { judgeOnCloud, type CloudMessage } from '@/judges/attempt'
 import { deviceJudge, type DeviceJudge, type ScoreResult } from '@/judges/device/client'
 import { saveComparison, type Comparison } from '@/lib/storage/comparisons'
@@ -18,6 +18,7 @@ export type Ui =
   | { kind: 'rejected', guess: Guess }
   | { kind: 'notJudged', message: CloudMessage | 'cloud.busy' | 'judge.device.timeout', retryAfter?: number }
   | { kind: 'resting', resetAt: string }
+  | { kind: 'reused', level: number }
 
 export interface JudgeTurn {
   game: GameId

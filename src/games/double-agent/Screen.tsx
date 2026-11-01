@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react'
 import type { Reveal } from '@shared/schemas/judge'
 import type { Puzzle, PuzzleCondition } from '@shared/schemas/puzzle'
 import { en, format } from '@/copy/en'
-import type { Guess, RunState } from '@/games/oddly-specific/reducer'
+import type { Guess, RunState } from '@/games/rounds/reducer'
 import { fetchReveal } from '@/lib/api'
 import { letterFor } from '@/scenes/game/verdict'
 import './agent.css'
 
 // Double Agent's parts of the round screen (5.5 D1, D2). The rest is Oddly
-// Specific's round, round end and results (G1–G6), shared in GameScene.
+// Specific's round, round end and results (G1–G6), shared in games/rounds/.
 
 // Meanings A and B as headlines (D1).
 export function Clues({ conditions }: { conditions: readonly PuzzleCondition[] }) {

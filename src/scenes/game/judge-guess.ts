@@ -6,7 +6,7 @@ import { judgeOnCloud, type CloudMessage } from '@/judges/attempt'
 import { deviceJudge, type DeviceJudge, type ScoreResult } from '@/judges/device/client'
 import { saveComparison, type Comparison } from '@/lib/storage/comparisons'
 import { renewSession } from '@/lib/turnstile'
-import { devicePasses, toGuess } from './verdict'
+import { devicePasses, toDeviceGuess, toGuess } from './verdict'
 
 // One guess, shared by every game screen, and the game screen's UI state. The
 // cloud judge is the referee (D-07); when the on-device judge is on it scores the
@@ -16,7 +16,7 @@ export type Ui =
   | { kind: 'input', notice?: 'input.empty' | 'input.tooLong' | 'input.repeat' }
   | { kind: 'judging' }
   | { kind: 'rejected', guess: Guess }
-  | { kind: 'notJudged', message: CloudMessage | 'cloud.busy', retryAfter?: number }
+  | { kind: 'notJudged', message: CloudMessage | 'cloud.busy' | 'judge.device.timeout', retryAfter?: number }
   | { kind: 'resting', resetAt: string }
 
 export interface JudgeTurn {
@@ -36,7 +36,9 @@ export interface JudgeTurn {
 export type DeviceRun =
   | { kind: 'scanning', started: number }
   | { kind: 'scored', scores: Record<string, number>, ms: number, agreed?: number, compared?: number }
-  | { kind: 'timeout' | 'error', retry: () => void }
+  // `retry` re-runs only the device; absent when the device was deciding, since then
+  // the whole guess is retried (G7).
+  | { kind: 'timeout' | 'error', retry?: () => void }
 
 // The comparison record for a guess both judges answered (3.8).
 export function toComparison(turn: JudgeTurn, cloud: JudgeSuccess, cloudMs: number, device: { scores: Record<string, number>, ms: number, warm: boolean }, at: number): Comparison {
@@ -64,13 +66,19 @@ export interface JudgeWatchers {
 
 const scoresOf = (result: JudgeSuccess) => Object.fromEntries(Object.entries(result.conditions).map(([id, { p }]) => [id, p]))
 
+// Which judge decided a guess, and when the cloud is resting, until when (S1, S2).
+export interface Decision { decidedBy: 'cloud' | 'device', restingUntil?: string }
+export type GuessOutcome = ({ guess: Guess, scores: Record<string, number | undefined> } & Decision) | { ui: Ui, restingUntil?: string }
+
 // The verdict for a guess that passed the local checks: a reducer guess with its
 // scores, or the panel to show instead. No outcome here ever costs a strike. It
-// resolves only once both judges have answered or timed out (3.7), so the screen
-// moves on with everything back; the cloud's scores are drawn before that.
+// resolves only once both judges have answered or timed out (3.7, D-83), so the
+// screen moves on with everything back; the cloud's scores are drawn before that.
+// When the cloud is out of usage (busy or resting), the on-device judge decides if
+// it's on; its verdict isn't compared with anything (3.7, S1).
 export async function judgeGuess(
   turn: JudgeTurn, { onCloud = () => undefined, onDevice = () => undefined, device = deviceJudge }: JudgeWatchers = {},
-): Promise<{ guess: Guess, scores: Record<string, number | undefined>, modelMs: number } | { ui: Ui }> {
+): Promise<GuessOutcome> {
   const { turnstile } = turn
   const started = performance.now()
   const claims = turn.conditions.map(({ id, claim }) => ({ id, claim }))
@@ -81,11 +89,15 @@ export async function judgeGuess(
     () => (turnstile ? renewSession(turnstile) : Promise.resolve('error')),
   )
   const cloudMs = performance.now() - started
+  const cloudOut = outcome.kind === 'busy' || outcome.kind === 'resting'
+  const restingUntil = outcome.kind === 'resting' ? outcome.resetAt : undefined
+  let deviceResult: ScoreResult | undefined
   const follow = (run: Promise<ScoreResult>): Promise<void> =>
     run.then((result) => {
+      deviceResult = result
       if (result.kind !== 'scored') {
         // Only the device column says so; its Retry scores the same answer again (5.5 G7).
-        onDevice({ kind: result.kind, retry: () => { onDevice({ kind: 'scanning', started: performance.now() }); void follow(device.score(turn.normalized, claims)) } })
+        onDevice(cloudOut ? { kind: result.kind } : { kind: result.kind, retry: () => { onDevice({ kind: 'scanning', started: performance.now() }); void follow(device.score(turn.normalized, claims)) } })
         return
       }
       if (outcome.kind !== 'judged') { onDevice({ kind: 'scored', scores: result.scores, ms: result.ms }); return }
@@ -99,14 +111,20 @@ export async function judgeGuess(
     })
   if (outcome.kind === 'judged') onCloud(scoresOf(outcome.result), outcome.result.modelMs)
   if (deviceRun) await follow(deviceRun)
+  const resting = restingUntil === undefined ? {} : { restingUntil }
+  if (cloudOut && deviceResult) {
+    return deviceResult.kind === 'scored'
+      ? { guess: toDeviceGuess(turn.normalized, deviceResult.scores, turn.conditions), scores: {}, decidedBy: 'device', ...resting }
+      : { ui: { kind: 'notJudged', message: 'judge.device.timeout' }, ...resting }
+  }
   switch (outcome.kind) {
     case 'judged': return {
       guess: toGuess(turn.normalized, outcome.result, turn.conditions, turn.model),
       scores: scoresOf(outcome.result),
-      modelMs: outcome.result.modelMs,
+      decidedBy: 'cloud',
     }
     case 'busy': return { ui: { kind: 'notJudged', message: 'cloud.busy', retryAfter: outcome.retryAfter } }
-    case 'resting': return { ui: { kind: 'resting', resetAt: outcome.resetAt } }
+    case 'resting': return { ui: { kind: 'resting', resetAt: outcome.resetAt }, ...resting }
     case 'invalid': return { ui: { kind: 'input', notice: 'input.tooLong' } }
     case 'error': return { ui: { kind: 'notJudged', message: outcome.message } }
   }

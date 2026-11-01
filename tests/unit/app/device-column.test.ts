@@ -97,7 +97,7 @@ describe('both judges on one guess (3.7)', () => {
     await vi.waitFor(() => { expect(events).toEqual(['scanning', 'cloud 41']) })
     expect(done).toBe(false)
     finish({ kind: 'scored', scores: { pocket: 0.9, secure: 0.8 }, ms: 120, warm: false })
-    expect(await judging).toMatchObject({ guess: { pass: false, failed: ['secure'] }, modelMs: 41 })
+    expect(await judging).toMatchObject({ guess: { pass: false, failed: ['secure'] }, decidedBy: 'cloud' })
     expect(events).toEqual(['scanning', 'cloud 41', 'device 1/2'])
     expect(loadComparisons()).toHaveLength(1)
   })
@@ -110,7 +110,7 @@ describe('both judges on one guess (3.7)', () => {
     expect(runs.at(-1)?.kind).toBe('timeout')
     expect(loadComparisons()).toEqual([])
     const last = runs.at(-1)
-    if (last?.kind === 'timeout') last.retry()
+    if (last?.kind === 'timeout') last.retry?.()
     await vi.waitFor(() => { expect(runs.at(-1)).toMatchObject({ kind: 'scored', agreed: 2, compared: 2 }) })
     expect(device.score).toHaveBeenLastCalledWith('carabiner', [{ id: 'pocket', claim: '{answer} fits in a pocket' }, { id: 'secure', claim: '{answer} can secure something' }])
   })
@@ -121,6 +121,43 @@ describe('both judges on one guess (3.7)', () => {
     await judgeGuess(turn, { onDevice: (run) => runs.push(run), device: off })
     expect(off.score).not.toHaveBeenCalled()
     expect(runs).toEqual([])
+  })
+
+  const outOfUsage = (status: number, body: object) => {
+    vi.stubGlobal('fetch', vi.fn(() => Promise.resolve(new Response(JSON.stringify({ attempt: 1, ...body }), { status }))))
+  }
+
+  test('cloud resting, device on: the device decides at its own threshold, with nothing recorded (S1)', async () => {
+    outOfUsage(503, { error: 'resting', resetAt: '2026-11-02T00:00:00.000Z' })
+    const runs: DeviceRun[] = []
+    const result = await judgeGuess(turn, { onDevice: (run) => runs.push(run), device: fakeDevice([{ kind: 'scored', scores: { pocket: 0.9, secure: 0.65 }, ms: 80, warm: true }]) })
+    expect(result).toEqual({
+      guess: { answer: 'carabiner', pass: false, failed: ['secure'], closeCall: true },
+      scores: {}, decidedBy: 'device', restingUntil: '2026-11-02T00:00:00.000Z',
+    })
+    expect(runs.at(-1)).toEqual({ kind: 'scored', scores: { pocket: 0.9, secure: 0.65 }, ms: 80 })
+    expect(loadComparisons()).toEqual([])
+  })
+
+  test('cloud busy, device on: the device decides this guess', async () => {
+    outOfUsage(429, { error: 'busy', retryAfter: 30 })
+    const result = await judgeGuess(turn, { device: fakeDevice([{ kind: 'scored', scores: { pocket: 0.9, secure: 0.95 }, ms: 80, warm: true }]) })
+    expect(result).toMatchObject({ guess: { pass: true }, decidedBy: 'device' })
+    expect(result).not.toHaveProperty('restingUntil')
+  })
+
+  test('a deciding device that times out leaves the guess unjudged, with Retry for the whole guess (G7)', async () => {
+    outOfUsage(503, { error: 'resting', resetAt: '2026-11-02T00:00:00.000Z' })
+    const runs: DeviceRun[] = []
+    const result = await judgeGuess(turn, { onDevice: (run) => runs.push(run), device: fakeDevice([{ kind: 'timeout' }]) })
+    expect(result).toEqual({ ui: { kind: 'notJudged', message: 'judge.device.timeout' }, restingUntil: '2026-11-02T00:00:00.000Z' })
+    expect(runs.at(-1)).toEqual({ kind: 'timeout' })
+  })
+
+  test('cloud resting, device off: not judged, with the reset time for the strip (S2)', async () => {
+    outOfUsage(503, { error: 'resting', resetAt: '2026-11-02T00:00:00.000Z' })
+    const result = await judgeGuess(turn, { device: { ready: false } as unknown as DeviceJudge })
+    expect(result).toEqual({ ui: { kind: 'resting', resetAt: '2026-11-02T00:00:00.000Z' }, restingUntil: '2026-11-02T00:00:00.000Z' })
   })
 
   test('the judges split when any condition gets a different verdict', () => {

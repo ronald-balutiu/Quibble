@@ -160,7 +160,11 @@ them.
 - During a guess, `src/scenes/game/judge-guess.ts` starts the on-device run next to
   the cloud request. The cloud judge is the referee; the device's result is shown but
   never scores. The cloud's scores are drawn as they arrive, but the guess moves on
-  only once both judges are back, and the screen stays locked until then. A guess
+  only once both judges are back, and the screen stays locked until then.
+  When the cloud is out of usage (busy or resting) and the on-device judge is on, the
+  device decides that guess with its own threshold, and nothing is compared (S1).
+  With it off, a resting cloud shows S2, which offers the setup sheet on a capable
+  device. A guess
   both judges answered is saved by `src/lib/storage/comparisons.ts` for "Your games"
   (at most 2,000 records and 500 KB, each kept 90 days).
 - `src/scenes/game/use-device-column.ts` gives each game screen the judge's status,

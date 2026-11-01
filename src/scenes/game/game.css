@@ -387,6 +387,28 @@
   display: none;
 }
 
+/* S1 / S2: the cloud is resting (5.5). */
+.cloud-strip {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-bottom: var(--border-width) solid var(--line);
+}
+
+.cloud-strip p {
+  margin: var(--space-0);
+  padding: var(--space-3) var(--content-pad);
+  color: var(--text);
+}
+
+.cloud-strip p + p {
+  border-left: var(--border-width) solid var(--line);
+}
+
+.cloud-strip span {
+  display: block;
+  color: var(--muted);
+}
+
 .axis__value {
   width: var(--space-10);
   text-align: right;

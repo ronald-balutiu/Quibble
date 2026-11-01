@@ -21,9 +21,9 @@ import { markOverruled } from '@/lib/storage/comparisons'
 import { isStorageAvailable, loadProgress, saveRun } from '@/lib/storage/progress'
 import { loadCloudModel, markTipSeen, tipSeen } from '@/lib/storage/settings'
 import { judgeGuess, type Ui } from './judge-guess'
-import { AnswerForm, GameHeader, NotJudgedPanel, RejectedPanel, ScoreAxes, StrikeDots } from './parts'
+import { AnswerForm, CloudStrip, GameHeader, NotJudgedPanel, RejectedPanel, ScoreAxes, StrikeDots } from './parts'
 import { useDeviceColumn, type DeviceColumn } from './use-device-column'
-import { judgesSplit, letterFor, rejectedSentence } from './verdict'
+import { judgesSplit, letterFor, rejectedSentence, verdictNote } from './verdict'
 import './game.css'
 
 // What differs between the two round-based games: Oddly Specific (G1–G6) and
@@ -124,9 +124,11 @@ function Game({ puzzle, variant }: { puzzle: Puzzle, variant: RoundGame }) {
 
     attempt.current += 1
     setUi({ kind: 'judging' })
+    setScores({})
     const result = await judgeGuess({
       game, n, roundId: puzzle.rounds[run.current]?.id ?? '', text, normalized, attempt: attempt.current, model, conditions, turnstile: turnstile.current,
     }, { onDevice: column.follow(), onCloud: (cloud, ms) => { setScores(cloud); column.judged(ms) } })
+    column.settled(result)
     if ('ui' in result) { setUi(result.ui); return }
     dispatch({ type: 'judged', guess: result.guess })
     setUi(result.guess.pass ? { kind: 'input' } : { kind: 'rejected', guess: result.guess })
@@ -147,10 +149,13 @@ function Game({ puzzle, variant }: { puzzle: Puzzle, variant: RoundGame }) {
   )
 
   const split = ui.kind === 'rejected' ? judgesSplit(column.run, ui.guess.failed, conditions) : undefined
+  // When the device decided (S1), its own threshold is the one on the axes.
+  const threshold = column.decidedBy === 'device' ? judgeConfig.passThreshold.device : judgeConfig.passThreshold[model]
   return (
     <main data-scene="game" className="app-frame game-frame" data-game={game}>
       {header}
       {column.setupOpen && <DeviceSetup onClose={column.closeSetup} />}
+      <CloudStrip column={column} />
       {!storageOn && <p className="strip" role="status">{en['storage.off']}</p>}
       <div ref={turnstile} className="turnstile" />
       {run.finished
@@ -193,7 +198,7 @@ function Game({ puzzle, variant }: { puzzle: Puzzle, variant: RoundGame }) {
                   <div aria-live="polite">
                     {ui.kind === 'rejected' && (
                       <RejectedPanel
-                        sentence={(agent ? agentSentence(ui.guess, conditions) : rejectedSentence(ui.guess, conditions)) + (split ? en['verdict.judgesDisagree'] : '')}
+                        sentence={(agent ? agentSentence(ui.guess, conditions) : rejectedSentence(ui.guess, conditions)) + verdictNote(column, split)}
                         disabled={busy}
                         onTryAgain={() => { dispatch({ type: 'moveOn' }); setUi({ kind: 'input' }); setAnswer(''); input.current?.focus() }}
                         onCountAnyway={() => {
@@ -202,7 +207,7 @@ function Game({ puzzle, variant }: { puzzle: Puzzle, variant: RoundGame }) {
                         }}
                       />
                     )}
-                    <NotJudgedPanel ui={ui} onRetry={() => { void judge(answer) }} onEdit={() => { setUi({ kind: 'input' }); input.current?.focus() }} />
+                    <NotJudgedPanel ui={ui} onRetry={() => { void judge(answer) }} onEdit={() => { setUi({ kind: 'input' }); input.current?.focus() }} onAddDevice={column.canAdd ? column.openSetup : undefined} />
                   </div>
                   <button type="button" className="pill pill--quiet game-skip" onClick={() => { dispatch({ type: 'skip' }) }} disabled={busy}>{en['game.skip']}</button>
                 </section>
@@ -210,10 +215,10 @@ function Game({ puzzle, variant }: { puzzle: Puzzle, variant: RoundGame }) {
                   ? (
                       <aside className="game-side">
                         <GuessMap className="guess-map--side" guesses={round.guesses} conditions={conditions} />
-                        <ScoreAxes conditions={conditions} scores={scores} threshold={judgeConfig.passThreshold[model]} model={model} column={column} />
+                        <ScoreAxes conditions={conditions} scores={scores} threshold={threshold} model={model} column={column} />
                       </aside>
                     )
-                  : <ScoreAxes conditions={conditions} scores={scores} threshold={judgeConfig.passThreshold[model]} model={model} column={column} />}
+                  : <ScoreAxes conditions={conditions} scores={scores} threshold={threshold} model={model} column={column} />}
               </div>
             )}
     </main>
@@ -249,7 +254,7 @@ function RoundEnd({ run, puzzle, alsoFits, column, onNext }: { run: RunState, pu
         <>
           <p className="telemetry round-end__label">{round.overruled ? en['verdict.overruled'] : format('verdict.label.accepted', { points: round.points })}</p>
           <h1 className="round-end__answer">{winning?.answer}</h1>
-          <p>{format('verdict.accepted', { n: round.strikes + 1 }) + (split === undefined ? '' : en[split ? 'verdict.judgesDisagreed' : 'verdict.judgesAgreed'])}</p>
+          <p>{format('verdict.accepted', { n: round.strikes + 1 }) + (column.decidedBy === 'device' ? en['verdict.notCompared'] : split === undefined ? '' : en[split ? 'verdict.judgesDisagreed' : 'verdict.judgesAgreed'])}</p>
         </>
       ) : (
         <>

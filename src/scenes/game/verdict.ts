@@ -11,14 +11,11 @@ export const letterFor = (index: number) => String.fromCharCode(65 + index)
 
 export const devicePasses = (p: number) => passes(p, judgeConfig.passThreshold.device)
 
-// Whether the on-device judge split from the referee on a judged guess, once both
-// answered (5.7); undefined while it hasn't, or when it's off.
-export function judgesSplit(run: DeviceRun | undefined, failed: readonly string[], conditions: readonly PuzzleCondition[]): boolean | undefined {
-  if (run?.kind !== 'scored' || run.compared === undefined) return undefined
-  return conditions.some(({ id }) => {
-    const d = run.scores[id]
-    return d !== undefined && devicePasses(d) === failed.includes(id)
-  })
+// Whether the two judges split on a judged guess, once both answered (5.7);
+// undefined while the device hasn't, or when the guess wasn't compared.
+export function judgesSplit(run: DeviceRun | undefined): boolean | undefined {
+  if (run?.kind !== 'scored' || run.compared === undefined || run.agreed === undefined) return undefined
+  return run.agreed < run.compared
 }
 
 export function toGuess(answer: string, result: JudgeSuccess, conditions: readonly PuzzleCondition[], model: CloudModel): Guess {
@@ -59,9 +56,10 @@ export function rejectedSentence(guess: Guess, conditions: readonly PuzzleCondit
   return guess.closeCall ? sentence + format('verdict.closeCall') : sentence
 }
 
-// What the rejected sentence adds about the judges (5.7): a device-only verdict
-// isn't compared (S1); otherwise whether they split.
-export function verdictNote(column: { decidedBy?: 'cloud' | 'device' | undefined }, split: boolean | undefined): string {
-  if (column.decidedBy === 'device') return en['verdict.notCompared']
+// What the rejected sentence adds about the judges (5.7): a device verdict without
+// the cloud's isn't compared (S1); otherwise whether they split.
+export function verdictNote(column: { decidedBy?: 'cloud' | 'device' | undefined, run?: DeviceRun | undefined }): string {
+  const split = judgesSplit(column.run)
+  if (column.decidedBy === 'device' && split === undefined) return en['verdict.notCompared']
   return split ? en['verdict.judgesDisagree'] : ''
 }

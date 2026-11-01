@@ -5,6 +5,7 @@ import { cloudModels, defaultCloudModel, type CloudModel } from '@shared/schemas
 
 const CLOUD_MODEL = 'quibble:settings:cloudModel'
 const TIPS = 'quibble:settings:tipsSeen'
+const REFEREE = 'quibble:settings:referee'
 
 export function loadCloudModel(): CloudModel {
   try {
@@ -39,5 +40,23 @@ export function markTipSeen(game: string): void {
     globalThis.localStorage.setItem(TIPS, [...seen].join(','))
   } catch {
     // Storage is off; the tip may show again next visit.
+  }
+}
+
+// Which judge decides (L3): the cloud unless the player picked the on-device judge.
+// It only applies while that judge is on.
+export function loadReferee(): 'cloud' | 'device' {
+  try {
+    return globalThis.localStorage.getItem(REFEREE) === 'device' ? 'device' : 'cloud'
+  } catch {
+    return 'cloud'
+  }
+}
+
+export function saveReferee(referee: 'cloud' | 'device'): void {
+  try {
+    globalThis.localStorage.setItem(REFEREE, referee)
+  } catch {
+    // Storage is off; the choice lasts for this page only.
   }
 }

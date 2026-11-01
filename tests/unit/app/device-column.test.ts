@@ -161,9 +161,40 @@ describe('both judges on one guess (3.7)', () => {
   })
 
   test('the judges split when any condition gets a different verdict', () => {
-    const scored = (scores: Record<string, number>): DeviceRun => ({ kind: 'scored', scores, ms: 1, agreed: 0, compared: 2 })
-    expect(judgesSplit(scored({ pocket: 0.9, secure: 0.1 }), ['secure'], conditions)).toBe(false)
-    expect(judgesSplit(scored({ pocket: 0.9, secure: 0.8 }), ['secure'], conditions)).toBe(true)
-    expect(judgesSplit({ kind: 'scanning', started: 0 }, ['secure'], conditions)).toBeUndefined()
+    expect(judgesSplit({ kind: 'scored', scores: {}, ms: 1, agreed: 2, compared: 2 })).toBe(false)
+    expect(judgesSplit({ kind: 'scored', scores: {}, ms: 1, agreed: 1, compared: 2 })).toBe(true)
+    expect(judgesSplit({ kind: 'scored', scores: {}, ms: 1 })).toBeUndefined()
+    expect(judgesSplit({ kind: 'scanning', started: 0 })).toBeUndefined()
+  })
+
+  test('with the device as referee, its verdict scores and the cloud is shown; both are recorded', async () => {
+    const runs: DeviceRun[] = []
+    const result = await judgeGuess(turn, { referee: 'device', onDevice: (run) => runs.push(run), device: fakeDevice([{ kind: 'scored', scores: { pocket: 0.9, secure: 0.8 }, ms: 120, warm: true }]) })
+    expect(result).toEqual({
+      // 0.8 is within 0.15 of the device's 0.7 threshold.
+      guess: { answer: 'carabiner', pass: true, failed: [], closeCall: true },
+      scores: { pocket: 0.97, secure: 0.3 }, decidedBy: 'device',
+    })
+    expect(loadComparisons()[0]?.referee).toBe('device')
+    expect(runs.at(-1)).toMatchObject({ agreed: 1, compared: 2 })
+  })
+
+  test('device referee: a cloud failure only marks the cloud column, and the device decides', async () => {
+    vi.stubGlobal('fetch', vi.fn(() => Promise.resolve(new Response(JSON.stringify({ attempt: 1, error: 'unavailable' }), { status: 502 }))))
+    const result = await judgeGuess(turn, { referee: 'device', device: fakeDevice([{ kind: 'scored', scores: { pocket: 0.9, secure: 0.8 }, ms: 120, warm: true }]) })
+    expect(result).toMatchObject({ guess: { pass: true }, decidedBy: 'device', cloudMessage: 'judge.cloud.unreachable' })
+  })
+
+  test('device referee timing out: not judged, the cloud shown but not scored, and Retry for the whole guess (G7)', async () => {
+    const runs: DeviceRun[] = []
+    const result = await judgeGuess(turn, { referee: 'device', onDevice: (run) => runs.push(run), device: fakeDevice([{ kind: 'timeout' }]) })
+    expect(result).toEqual({ ui: { kind: 'notJudged', message: 'judge.device.timeout' }, notScored: 'cloud' })
+    expect(runs.at(-1)).toEqual({ kind: 'timeout' })
+  })
+
+  test('cloud referee failing while the device answered: the device is shown but not scored', async () => {
+    vi.stubGlobal('fetch', vi.fn(() => Promise.resolve(new Response(JSON.stringify({ attempt: 1, error: 'unavailable' }), { status: 502 }))))
+    const result = await judgeGuess(turn, { device: fakeDevice([{ kind: 'scored', scores: { pocket: 0.9, secure: 0.8 }, ms: 120, warm: true }]) })
+    expect(result).toEqual({ ui: { kind: 'notJudged', message: 'judge.cloud.unreachable' }, notScored: 'device' })
   })
 })

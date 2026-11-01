@@ -3,6 +3,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router'
 import { gameConfigs, gameIds, type GameId } from '@shared/games'
 import { cloudModels, type CloudModel } from '@shared/schemas/judge'
 import type { PuzzleIndex } from '@shared/schemas/puzzle'
+import { SettingsButton } from '@/components/SettingsDrawer/SettingsDrawer'
 import { en, format } from '@/copy/en'
 import { maxScore } from '@/games/oddly-specific/reducer'
 import { loadPuzzleIndex } from '@/lib/puzzles'
@@ -58,6 +59,7 @@ export function LibraryScene() {
         </Link>
         <span className="telemetry scene-header__name">{en['library.title']}</span>
         <span className="telemetry scene-header__end">{format('library.solved', { solved, total: puzzles.length })}</span>
+        <SettingsButton />
       </header>
       {/* Phone: rows, grid, actions, judge choice. Desktop (L1): a sidebar beside the grid. */}
       <div className="library-layout">

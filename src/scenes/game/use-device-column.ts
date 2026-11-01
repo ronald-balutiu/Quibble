@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import { useDeviceStatus, useDeviceSupported } from '@/judges/device/use-device'
-import type { DeviceRun, GuessOutcome } from './judge-guess'
+import type { CloudMessage } from '@/judges/attempt'
+import type { DeviceRun, GuessOutcome, Referee } from './judge-guess'
 
 // The judges panel's on-device column for a game screen (5.5 G1–G3, S1, S2): the
 // judge's status, the latest guess's run and which judge decided it, whether the
@@ -13,13 +14,16 @@ export function useDeviceColumn() {
   const [modelMs, setModelMs] = useState<number | undefined>()
   const [tally, setTally] = useState({ agreed: 0, compared: 0 })
   const [setupOpen, setSetupOpen] = useState(false)
-  const [decidedBy, setDecidedBy] = useState<'cloud' | 'device' | undefined>()
+  const [decidedBy, setDecidedBy] = useState<Referee | undefined>()
+  // The cloud failed while the device refereed; or the guess wasn't judged but this judge answered.
+  const [cloudMessage, setCloudMessage] = useState<CloudMessage | undefined>()
+  const [notScored, setNotScored] = useState<Referee | undefined>()
   // The S1 / S2 strip stays until a guess gets the cloud's answer again.
   const [restingUntil, setRestingUntil] = useState<string | undefined>()
   const latest = useRef(0)
 
   return {
-    status, supported, run, modelMs, tally, setupOpen, decidedBy, restingUntil,
+    status, supported, run, modelMs, tally, setupOpen, decidedBy, restingUntil, cloudMessage, notScored,
     // The capable device's way in when the judge is off: S3.
     canAdd: supported && status === 'off',
     // Starts a guess; the returned callback follows its on-device run. A late result
@@ -29,6 +33,8 @@ export function useDeviceColumn() {
       setRun(undefined)
       setModelMs(undefined)
       setDecidedBy(undefined)
+      setCloudMessage(undefined)
+      setNotScored(undefined)
       return (next: DeviceRun) => {
         const { agreed, compared } = next.kind === 'scored' ? next : { agreed: undefined, compared: undefined }
         if (agreed !== undefined && compared !== undefined) setTally((t) => ({ agreed: t.agreed + agreed, compared: t.compared + compared }))
@@ -38,6 +44,8 @@ export function useDeviceColumn() {
     judged: (ms: number) => { setModelMs(ms) },
     settled: (outcome: GuessOutcome) => {
       if ('decidedBy' in outcome) setDecidedBy(outcome.decidedBy)
+      setCloudMessage('cloudMessage' in outcome ? outcome.cloudMessage : undefined)
+      setNotScored('notScored' in outcome ? outcome.notScored : undefined)
       if (outcome.restingUntil !== undefined) setRestingUntil(outcome.restingUntil)
       else if ('decidedBy' in outcome && outcome.decidedBy === 'cloud') setRestingUntil(undefined)
     },
@@ -46,6 +54,8 @@ export function useDeviceColumn() {
       setRun(undefined)
       setModelMs(undefined)
       setDecidedBy(undefined)
+      setCloudMessage(undefined)
+      setNotScored(undefined)
     },
     openSetup: () => { setSetupOpen(true) },
     closeSetup: () => { setSetupOpen(false) },

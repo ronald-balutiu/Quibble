@@ -50,9 +50,11 @@ export function JudgesStatus({ model, column }: { model: CloudModel, column: Dev
   const { status, supported, run, modelMs } = column
   const scanning = run?.kind === 'scanning'
   const cloudOut = column.decidedBy === 'device' || (column.restingUntil !== undefined && modelMs === undefined)
-  const cloud = cloudOut
+  const cloud = cloudOut && column.cloudMessage === undefined
     ? null
-    : modelMs === undefined
+    : column.cloudMessage !== undefined
+      ? en['judges.cloud.noAnswer']
+      : modelMs === undefined
       ? format('game.cloudStatus', { model: en[`judgeChoice.${model}`] })
       : format(scanning ? 'judges.cloud.decided' : 'judges.cloud', { ms: modelMs })
   let device: ReactNode = null
@@ -111,6 +113,8 @@ export function ScoreAxes({ conditions, scores, threshold, model, column, mark =
       {(run?.kind === 'timeout' || run?.kind === 'error') && run.retry
         ? <p className="telemetry axes__note">{en['judge.device.timeout']} <button type="button" className="link-button" onClick={run.retry}>{en['action.retry']}</button></p>
         : null}
+      {column?.cloudMessage !== undefined && <p className="telemetry axes__note">{en[column.cloudMessage]}</p>}
+      {column?.notScored !== undefined && <p className="telemetry axes__note">{en[`judges.notScored.${column.notScored}`]}</p>}
       {tally && (
         <p className="telemetry axes__foot">
           <span>{tally.compared > 0 ? format('judges.agreed', tally) : ''}</span>

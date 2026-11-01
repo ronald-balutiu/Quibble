@@ -84,22 +84,30 @@ describe('both judges on one guess (3.7)', () => {
     return { ready: true, score: vi.fn(() => Promise.resolve(results.shift() ?? { kind: 'error' })) } as unknown as DeviceJudge
   }
 
-  test('the cloud decides; the device result lands after, and the guess is recorded', async () => {
-    const runs: DeviceRun[] = []
-    const result = await judgeGuess(turn, (run) => runs.push(run), fakeDevice([{ kind: 'scored', scores: { pocket: 0.9, secure: 0.8 }, ms: 120, warm: false }]))
-    expect(result).toMatchObject({ guess: { pass: false, failed: ['secure'] }, modelMs: 41 })
-    await vi.waitFor(() => { expect(runs.at(-1)?.kind).toBe('scored') })
-    expect(runs[0]?.kind).toBe('scanning')
-    expect(runs.at(-1)).toMatchObject({ agreed: 1, compared: 2, ms: 120 })
+  test('the cloud scores land first, but the guess resolves only once the device is back', async () => {
+    const events: string[] = []
+    let finish: (result: ScoreResult) => void = () => undefined
+    const device = { ready: true, score: vi.fn(() => new Promise<ScoreResult>((resolve) => { finish = resolve })) } as unknown as DeviceJudge
+    let done = false
+    const judging = judgeGuess(turn, {
+      device,
+      onCloud: (_scores, ms) => events.push(`cloud ${String(ms)}`),
+      onDevice: (run) => events.push(run.kind === 'scored' ? `device ${String(run.agreed)}/${String(run.compared)}` : run.kind),
+    }).then((result) => { done = true; return result })
+    await vi.waitFor(() => { expect(events).toEqual(['scanning', 'cloud 41']) })
+    expect(done).toBe(false)
+    finish({ kind: 'scored', scores: { pocket: 0.9, secure: 0.8 }, ms: 120, warm: false })
+    expect(await judging).toMatchObject({ guess: { pass: false, failed: ['secure'] }, modelMs: 41 })
+    expect(events).toEqual(['scanning', 'cloud 41', 'device 1/2'])
     expect(loadComparisons()).toHaveLength(1)
   })
 
   test('a device timeout only marks its column, and Retry scores the same answer again', async () => {
     const runs: DeviceRun[] = []
     const device = fakeDevice([{ kind: 'timeout' }, { kind: 'scored', scores: { pocket: 0.9, secure: 0.1 }, ms: 90, warm: true }])
-    const result = await judgeGuess(turn, (run) => runs.push(run), device)
+    const result = await judgeGuess(turn, { onDevice: (run) => runs.push(run), device })
     expect(result).toMatchObject({ guess: { pass: false } })
-    await vi.waitFor(() => { expect(runs.at(-1)?.kind).toBe('timeout') })
+    expect(runs.at(-1)?.kind).toBe('timeout')
     expect(loadComparisons()).toEqual([])
     const last = runs.at(-1)
     if (last?.kind === 'timeout') last.retry()
@@ -110,7 +118,7 @@ describe('both judges on one guess (3.7)', () => {
   test('with the judge off, nothing runs on the device', async () => {
     const runs: DeviceRun[] = []
     const off = { ready: false, score: vi.fn() } as unknown as DeviceJudge
-    await judgeGuess(turn, (run) => runs.push(run), off)
+    await judgeGuess(turn, { onDevice: (run) => runs.push(run), device: off })
     expect(off.score).not.toHaveBeenCalled()
     expect(runs).toEqual([])
   })

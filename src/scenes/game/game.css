@@ -157,6 +157,15 @@
   font-size: var(--type-input);
 }
 
+/* Locked while the judges work (3.7): the field and its frame grey out. */
+.answer:has(input:disabled) {
+  border-color: var(--line-strong);
+}
+
+.answer input:disabled {
+  color: var(--muted);
+}
+
 .answer__judge {
   padding: 0 var(--space-4);
   border: none;

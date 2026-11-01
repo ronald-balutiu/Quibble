@@ -158,8 +158,9 @@ them.
 - `src/components/DeviceSetup/` is the setup sheet: the offer (S3), then the
   download (S4), whose rings, percentage and readout follow the worker's byte count.
 - During a guess, `src/scenes/game/judge-guess.ts` starts the on-device run next to
-  the cloud request. The cloud judge is the referee: its verdict applies as soon as it
-  arrives, and the device's result is drawn when it lands but never scores. A guess
+  the cloud request. The cloud judge is the referee; the device's result is shown but
+  never scores. The cloud's scores are drawn as they arrive, but the guess moves on
+  only once both judges are back, and the screen stays locked until then. A guess
   both judges answered is saved by `src/lib/storage/comparisons.ts` for "Your games"
   (at most 2,000 records and 500 KB, each kept 90 days).
 - `src/scenes/game/use-device-column.ts` gives each game screen the judge's status,

@@ -61,12 +61,14 @@ export function EscapeGame({ puzzle }: { puzzle: Puzzle }) {
   const conditions = puzzle.rounds[run.current]?.conditions ?? []
   const level = run.current
   const over = run.finished
+  // Nothing moves on until both judges are back, including a device-only Retry (3.7).
+  const busy = ui.kind === 'judging' || column.run?.kind === 'scanning'
   useEffect(() => { saveRun(game, n, run, cleared) }, [game, n, run, cleared])
   useEffect(() => {
-    if (ui.kind === 'judging' || over) return
+    if (busy || over) return
     input.current?.focus()
     if (ui.kind === 'rejected') input.current?.select()
-  }, [level, over, ui.kind])
+  }, [level, over, ui.kind, busy])
 
   async function judge(text: string) {
     const normalized = normalizeAnswer(text, game)
@@ -80,10 +82,11 @@ export function EscapeGame({ puzzle }: { puzzle: Puzzle }) {
     attempt.current += 1
     setUi({ kind: 'judging' })
     const roundId = puzzle.rounds[run.current]?.id ?? ''
-    const result = await judgeGuess({ game, n, roundId, text, normalized, attempt: attempt.current, model, conditions, turnstile: turnstile.current }, column.follow())
+    const result = await judgeGuess({ game, n, roundId, text, normalized, attempt: attempt.current, model, conditions, turnstile: turnstile.current }, {
+      onDevice: column.follow(),
+      onCloud: (cloud, ms) => { setScores(cloud); setLast({ answer: normalized, level: run.current, pass: false }); column.judged(ms) },
+    })
     if ('ui' in result) { setUi(result.ui); return }
-    column.judged(result.modelMs)
-    setScores(result.scores)
     setLast({ answer: normalized, level: run.current, pass: result.guess.pass })
     dispatch({ type: 'judged', guess: result.guess })
     if (result.guess.pass) {
@@ -167,13 +170,14 @@ export function EscapeGame({ puzzle }: { puzzle: Puzzle }) {
                 </ol>
                 <AnswerForm
                   label={levelCode(run.current)} placeholder={en['game.placeholder.category-escape']} answer={answer} maxLength={config.input.maxCharacters}
-                  judging={ui.kind === 'judging'} waiting={column.run?.kind === 'scanning'} input={input} onType={type} onSubmit={() => { void judge(answer) }} invalid={ui.kind === 'reused'}
+                  judging={busy} input={input} onType={type} onSubmit={() => { void judge(answer) }} invalid={ui.kind === 'reused'}
                 />
                 <p id="answer-note" className={ui.kind === 'reused' ? 'telemetry answer-note--fail' : 'telemetry'} aria-live="polite">{note}</p>
                 <div aria-live="polite">
                   {ui.kind === 'rejected' && (
                     <RejectedPanel
                       sentence={rejectedSentence(ui.guess, conditions, levelCode) + (judgesSplit(column.run, ui.guess.failed, conditions) ? en['verdict.judgesDisagree'] : '')}
+                      disabled={busy}
                       onTryAgain={() => { dispatch({ type: 'moveOn' }); setUi({ kind: 'input' }); setAnswer(''); input.current?.focus() }}
                       onCountAnyway={countAnyway}
                     />
@@ -181,7 +185,7 @@ export function EscapeGame({ puzzle }: { puzzle: Puzzle }) {
                   <NotJudgedPanel ui={ui.kind === 'reused' ? { kind: 'input' } : ui} onRetry={() => { void judge(answer) }} onEdit={() => { setUi({ kind: 'input' }); input.current?.focus() }} />
                 </div>
                 <div className="escape-footer">
-                  <button type="button" className="pill pill--quiet" onClick={() => { dispatch({ type: 'giveUp' }) }} disabled={ui.kind === 'judging'}>{en['escape.giveUp']}</button>
+                  <button type="button" className="pill pill--quiet" onClick={() => { dispatch({ type: 'giveUp' }) }} disabled={busy}>{en['escape.giveUp']}</button>
                   <span className="escape-footer__hint">{en['escape.hint']}</span>
                 </div>
               </section>

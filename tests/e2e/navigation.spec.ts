@@ -1,23 +1,27 @@
 import { expect, test } from '@playwright/test'
 
-test('Home’s footer is shared by every page and fits a narrow phone', async ({ page }) => {
-  for (const path of ['/?home=1', '/play', '/about', '/play/oddly-specific/1', '/play/category-escape/1', '/play/double-agent/1', '/play/not-a-game/1', '/not-a-page']) {
-    await page.goto(path)
-    const footer = page.getByRole('contentinfo')
-    await expect(footer).toHaveCount(1)
-    await expect(footer).toContainText('Words. Rules. Room to argue.')
-    await expect(footer).toContainText('© 2026 Ronald Balutiu. All rights reserved.')
-    await expect(page.getByRole('main').locator('footer')).toHaveCount(0)
-    const main = await page.getByRole('main').boundingBox()
-    const box = await footer.boundingBox()
-    expect(box!.y).toBeCloseTo(main!.y + main!.height, 0)
-    expect(box!.x).toBe(main!.x)
-    expect(box!.width).toBe(main!.width)
+test('Home’s footer aligns with every page at phone and wide desktop sizes', async ({ page, isMobile }) => {
+  for (const width of isMobile ? [320] : [1280, 1600, 1920]) {
+    await page.setViewportSize({ width, height: 900 })
+    for (const path of ['/', '/play', '/about', '/play/oddly-specific/1', '/play/category-escape/1', '/play/double-agent/1', '/play/not-a-game/1', '/not-a-page']) {
+      await page.goto(path)
+      const footer = page.getByRole('contentinfo')
+      await expect(footer).toHaveCount(1)
+      await expect(footer).toContainText('Words. Rules. Room to argue.')
+      await expect(footer).toContainText('© 2026 Ronald Balutiu. All rights reserved.')
+      await expect(page.getByRole('main')).not.toHaveAttribute('aria-busy', 'true')
+      await expect(page.getByRole('main').locator('footer')).toHaveCount(0)
+      const main = await page.getByRole('main').boundingBox()
+      const header = await page.getByRole('banner').boundingBox()
+      const box = await footer.boundingBox()
+      expect(box!.y).toBeCloseTo(main!.y + main!.height, 0)
+      expect(box!.x).toBe(main!.x)
+      expect(box!.x).toBe(header!.x)
+      expect(box!.width).toBe(main!.width)
+      expect(box!.x + box!.width).toBeLessThanOrEqual(width)
+      expect(await page.evaluate<number>('document.documentElement.scrollWidth')).toBeLessThanOrEqual(width)
+    }
   }
-  await page.setViewportSize({ width: 320, height: 800 })
-  expect(await page.evaluate<number>('document.documentElement.scrollWidth')).toBeLessThanOrEqual(320)
-  const footer = await page.getByRole('contentinfo').boundingBox()
-  expect(footer!.x + footer!.width).toBeLessThanOrEqual(320)
 })
 
 test('every page has the same navigation outside its content frame', async ({ page }) => {
@@ -65,10 +69,10 @@ test('game navigation returns to its Library tab and preserves a played round', 
   await page.reload()
   await expect(page.getByText('Skipped', { exact: true })).toBeVisible()
   await nav.getByRole('link', { name: 'Home', exact: true }).click()
-  await expect(page).toHaveURL('/?home=1')
+  await expect(page).toHaveURL('/')
   await expect(page.getByRole('heading', { name: 'Make your case.' })).toBeVisible()
   await page.getByRole('link', { name: 'Quibble home', exact: true }).click()
-  await expect(page).toHaveURL('/?home=1')
+  await expect(page).toHaveURL('/')
 })
 
 test('Privacy closes Settings on navigation, including when already on About', async ({ page }) => {

@@ -1,4 +1,4 @@
-import { Link, Navigate, useSearchParams } from 'react-router'
+import { Link } from 'react-router'
 import { gameIds } from '@shared/games'
 import { usePageMeta } from '@/app/use-page-meta'
 import { CloudModelChoice } from '@/components/JudgeSetup/CloudModelChoice'
@@ -6,14 +6,11 @@ import { DeviceJudgeCard } from '@/components/JudgeSetup/DeviceJudgeCard'
 import { JudgesCompare } from '@/components/JudgesCompare/JudgesCompare'
 import { RingMark } from '@/components/RingMark/RingMark'
 import { en } from '@/copy/en'
-import { hasPlayed } from '@/lib/storage/progress'
 import '../scenes.css'
 import './home.css'
 
 export function HomeScene() {
   usePageMeta(en['meta.title.home'])
-  const [params] = useSearchParams()
-  if (!params.has('home') && hasPlayed()) return <Navigate to="/play" replace />
 
   return (
     <main className="app-frame scene welcome" data-scene="home">

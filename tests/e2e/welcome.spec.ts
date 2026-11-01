@@ -24,19 +24,24 @@ test('first visit explains the games, then opens an unplayed tile directly', asy
   await expect(page.getByRole('heading', { name: 'Make your case.' })).toBeVisible()
 })
 
-test('returning visits skip welcome, but Home opens and refreshes normally', async ({ page }) => {
+test('returning visits always open Home, including refreshes and navigation', async ({ page }) => {
   await page.addInitScript(() => {
     localStorage.setItem('quibble:progress:oddly-specific:1', JSON.stringify({ best: 0 }))
   })
   await page.goto('/')
-  await expect(page).toHaveURL('/play')
-  await page.getByRole('link', { name: 'Home', exact: true }).click()
-  await expect(page).toHaveURL('/?home=1')
+  await expect(page).toHaveURL('/')
   await expect(page.getByRole('heading', { name: 'Make your case.' })).toBeVisible()
   await page.reload()
+  await expect(page).toHaveURL('/')
   await expect(page.getByRole('heading', { name: 'Make your case.' })).toBeVisible()
   await page.getByRole('link', { name: 'Choose a puzzle →' }).first().click()
   await expect(page).toHaveURL('/play')
+  await page.getByRole('link', { name: 'Home', exact: true }).click()
+  await expect(page).toHaveURL('/')
+  await expect(page.getByRole('heading', { name: 'Make your case.' })).toBeVisible()
+  await page.getByRole('navigation', { name: 'Main', exact: true }).getByRole('link', { name: 'Library', exact: true }).click()
+  await page.getByRole('link', { name: 'Quibble home', exact: true }).click()
+  await expect(page).toHaveURL('/')
 })
 
 test('the initial cloud choice is available in Library settings and survives refresh', async ({ page }) => {

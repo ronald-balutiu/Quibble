@@ -65,8 +65,7 @@ test.describe('axe-core on every screen (0.2)', () => {
 
     await seed(page, { 'quibble:progress:oddly-specific:2': JSON.stringify({ best: 9 }) })
     await page.goto('/')
-    await expect(page).toHaveURL('/play')
-    await page.getByRole('link', { name: 'Home', exact: true }).click()
+    await expect(page).toHaveURL('/')
     await expect(page.getByRole('heading', { name: 'Make your case.' })).toBeVisible()
     await expectAccessible(page, 'H1')
 

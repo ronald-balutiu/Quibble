@@ -21,9 +21,9 @@ export function SiteHeader() {
 
   return (
     <header className="site-header">
-      <NavLink className="site-header__brand control-link" to="/?home=1" aria-label={en['nav.brand']}>{en['app.name']}</NavLink>
+      <NavLink className="site-header__brand control-link" to="/" aria-label={en['nav.brand']}>{en['app.name']}</NavLink>
       <nav className="site-header__nav" aria-label={en['nav.main']}>
-        <NavLink className="control-link" to="/?home=1" end>{en['nav.home']}</NavLink>
+        <NavLink className="control-link" to="/" end>{en['nav.home']}</NavLink>
         <NavLink className="control-link" to={library}>{en['nav.library']}</NavLink>
         <NavLink className="control-link" to="/about">{en['nav.about']}</NavLink>
       </nav>

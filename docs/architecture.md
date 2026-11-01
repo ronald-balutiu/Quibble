@@ -76,10 +76,9 @@ share the first-round tip, result navigation/copy feedback and retryable reveals
 `lib/use-puzzle-index.ts` owns the puzzle-index loading lifecycle across scenes.
 
 `scenes/home/HomeScene.tsx` is the welcome page: game examples, scoring and initial
-judge setup. An ordinary visit to `/` opens the Library for a returning player;
-`/?home=1` explicitly opens Home. Returning status is derived from existing valid
-progress with actual play activity, rather than a separate onboarding flag.
-Opening an untouched puzzle alone does not count. The Library keeps its numbered
+judge setup. `/` always opens Home, including for players with saved progress.
+Home and the Quibble brand link to `/`; the Library is reached through its link or
+“Choose a puzzle.” The Library keeps its numbered
 grid, starts unplayed tiles directly, and retains replay/reset controls for saved
 puzzles. Its first-puzzle prompt changes after any game has a completed puzzle
 (with a saved best score, including zero); unfinished games keep the resume prompt.
@@ -134,11 +133,13 @@ with the route tree in `src/app/App.tsx` and `BrowserRouter` mounted in
 `src/main.tsx`. `components/SiteHeader/` sits above the routes, outside each scene's
 frame. Home, Library, About and Settings stay in the same order on every page,
 including game results and loading/error states. The Library link preserves the
-current game type; Home uses the explicit welcome URL. Active links mark the
+current game type; Home uses `/`. Active links mark the
 current section. Navigation remounts the settings control to close any open drawer.
 Game headers contain puzzle progress and strikes rather than site navigation.
 `components/SiteFooter/` follows the routes and shares Home’s tagline/copyright
-layout across every page, including game results and error/loading states. About’s
+layout across every page, including game results and error/loading states. Its
+layout and typography are self-contained so shared text utilities cannot override
+centering when the viewport exceeds the content width. About’s
 build information stays in its Credits section.
 Navigation opens the top of a page or its linked section (such as Privacy).
 Clearing progress from Settings during a game returns to that game's Library,

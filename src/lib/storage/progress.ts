@@ -21,7 +21,7 @@ const progressSchema = z.strictObject({
 })
 export type Progress = z.infer<typeof progressSchema>
 
-// Opening a puzzle writes an untouched run. It is not a returning-player signal.
+// An untouched run should not show a Continue action in the Library.
 export function hasProgressActivity({ best, run }: Progress): boolean {
   return best !== undefined || (run?.rounds.some((r) => r.guesses.length > 0 || r.status !== 'playing') ?? false)
 }
@@ -87,22 +87,6 @@ export function resetPuzzle(game: GameId, n: number): boolean {
 
 const PREFIX = 'quibble:progress:'
 const progressKeys = (store: Storage) => Array.from({ length: store.length }, (_, i) => store.key(i)).filter((k): k is string => k?.startsWith(PREFIX) ?? false)
-
-export function hasPlayed(): boolean {
-  try {
-    const store = globalThis.localStorage
-    return progressKeys(store).some((k) => {
-      try {
-        const parsed = progressSchema.safeParse(JSON.parse(store.getItem(k) ?? 'null'))
-        return parsed.success && hasProgressActivity(parsed.data)
-      } catch {
-        return false
-      }
-    })
-  } catch {
-    return false
-  }
-}
 
 // L3 "Your data": how many puzzles have saved progress, and how many runs are open.
 export function progressSummary(): { puzzles: number, open: number } {

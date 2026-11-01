@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 import { oddlySpecificConfig } from '@shared/games/oddly-specific'
-import { runReducer, startRun } from '@/games/oddly-specific/reducer'
+import { runReducer, startRun } from '@/games/rounds/reducer'
 import { isStorageAvailable, loadProgress, resetPuzzle, saveRun } from '@/lib/storage/progress'
 
 class MemoryStorage {

@@ -2,7 +2,7 @@
 // It keeps the round-based run shape, one round per level, so saved progress
 // stays in the frozen format (D-73): a level's strikes are the wrong guesses made
 // on it, a cleared level scores 1 point, and Give up marks the level 'skipped'.
-import type { Guess, RoundState, RunState } from '@/games/oddly-specific/reducer'
+import { freshRound, previousGuess, type Guess, type RoundState, type RunState } from '@/games/rounds/reducer'
 
 export interface EscapeConfig {
   levels: number
@@ -18,10 +18,8 @@ export type EscapeAction =
 
 export type EscapeEnd = 'escaped' | 'over' | 'gaveUp'
 
-const freshLevel = (): RoundState => ({ status: 'playing', guesses: [], strikes: 0, pending: false, overruled: false, points: 0 })
-
 export function startEscape(config: EscapeConfig): RunState {
-  return { current: 0, rounds: Array.from({ length: config.levels }, freshLevel), finished: false }
+  return { current: 0, rounds: Array.from({ length: config.levels }, freshRound), finished: false }
 }
 
 export const strikesUsed = (state: RunState) => state.rounds.reduce((total, level) => total + level.strikes, 0)
@@ -31,11 +29,6 @@ export const levelsCleared = (state: RunState) => state.rounds.filter((level) =>
 export function usedOn(state: RunState, answer: string): number | undefined {
   const index = state.rounds.findIndex((level) => level.status === 'solved' && level.guesses.at(-1)?.answer === answer)
   return index === -1 ? undefined : index
-}
-
-// An answer already judged on this level shows its earlier verdict again, free.
-export function previousGuess(state: RunState, answer: string): Guess | undefined {
-  return state.rounds[state.current]?.guesses.find((guess) => guess.answer === answer)
 }
 
 function update(state: RunState, change: (level: RoundState) => RoundState, end = false): RunState {

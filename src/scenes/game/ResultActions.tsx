@@ -41,7 +41,7 @@ export function ResultActions({ puzzle, share, restart, focusPrimary = false }: 
         {next && <Link className="pill control-link" to={`/play/${puzzle.game}/${String(next.n)}`}>{format('results.next', { n: String(next.n).padStart(3, '0'), difficulty: en[`difficulty.${next.difficulty}`] })}</Link>}
         {restart && <button type="button" className={next ? 'pill pill--quiet' : 'pill'} onClick={restart.onClick}>{restart.label}</button>}
         <button type="button" className="pill pill--quiet" onClick={() => { void copy() }}>{en['results.copy']}</button>
-        {!restart && <Link className="pill pill--quiet control-link" to="/play">{en['nav.library']}</Link>}
+        {!restart && <Link className="pill pill--quiet control-link" to={`/play?game=${puzzle.game}`}>{en['nav.library']}</Link>}
       </div>
       <p role="status" className="telemetry">{copied ? en['toast.copied'] : ''}</p>
     </>

@@ -22,17 +22,6 @@
   padding-inline: var(--space-3);
 }
 
-.game-header__back {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: var(--target-min);
-  min-height: var(--target-min);
-  border-right: var(--border-width) solid var(--line);
-  color: var(--text);
-  text-decoration: none;
-}
-
 .game-header__code {
   flex: 1;
   color: var(--accent);

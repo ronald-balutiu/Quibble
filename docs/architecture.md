@@ -125,7 +125,16 @@ and `tsx`.
 
 The app uses [React Router in declarative mode](https://reactrouter.com/start/modes),
 with the route tree in `src/app/App.tsx` and `BrowserRouter` mounted in
-`src/main.tsx`.
+`src/main.tsx`. `components/SiteHeader/` sits above the routes, outside each scene's
+frame. Home, Library, About and Settings stay in the same order on every page,
+including game results and loading/error states. The Library link preserves the
+current game type; Home uses the explicit welcome URL. Active links mark the
+current section. Navigation remounts the settings control to close any open drawer.
+Game headers contain puzzle progress and strikes rather than site navigation.
+Navigation opens the top of a page or its linked section (such as Privacy).
+Clearing progress from Settings during a game returns to that game's Library,
+unmounting the active run so it cannot save deleted progress again. Cloud model
+changes apply to the next guess; existing verdict axes retain their original model.
 
 [`wrangler.jsonc`](../wrangler.jsonc) sends only `/api/*` to the Worker; all other
 requests are served from static assets, with the single-page app fallback for direct
@@ -217,8 +226,8 @@ them.
 - The referee is a setting, saved by `src/lib/storage/settings.ts` and read at the
   start of each guess. With the on-device judge as referee, its verdict scores and the
   cloud's is shown; if the cloud fails, only its column says so.
-- `src/components/SettingsDrawer/` is the settings drawer (L3), opened from the Home
-  and Library headers: the referee choice and the on-device judge's Turn on / Turn off.
+- `src/components/SettingsDrawer/` is the settings drawer (L3), opened from the shared
+  site header: the referee choice and the on-device judge's Turn on / Turn off.
 - `src/scenes/game/use-device-column.ts` gives each game screen the judge's status,
   the latest run and the puzzle's "agreed n / m". "Device • off" opens the setup
   sheet on a capable device.

@@ -42,7 +42,7 @@ test('the initial cloud choice is available in Library settings and survives ref
   await page.goto('/')
   await page.getByRole('radio', { name: /^Gemma 4/u }).check()
   await page.getByRole('link', { name: 'Choose a puzzle →' }).first().click()
-  await page.getByRole('button', { name: 'Your data', exact: true }).click()
+  await page.getByRole('button', { name: 'Settings', exact: true }).click()
   const drawer = page.getByRole('dialog', { name: 'Settings' })
   await expect(drawer.getByRole('radio', { name: /^Gemma 4/u })).toBeChecked()
   await drawer.getByRole('radio', { name: /^Clef-flash/u }).check()

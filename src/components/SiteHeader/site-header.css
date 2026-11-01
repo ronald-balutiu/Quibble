@@ -1,0 +1,49 @@
+.site-header {
+  display: grid;
+  grid-template-areas: 'brand settings' 'nav nav';
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: var(--space-1) var(--space-6);
+  max-width: var(--frame-max);
+  margin: 0 auto var(--space-4);
+}
+
+.site-header a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.site-header .site-header__brand {
+  grid-area: brand;
+  justify-self: start;
+  color: var(--text);
+  font-size: var(--type-welcome-section);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-panel);
+}
+
+.site-header__nav {
+  display: flex;
+  grid-area: nav;
+  gap: var(--space-6);
+  align-items: center;
+}
+
+.site-header__nav a[aria-current='page'],
+.site-header a:hover {
+  color: var(--text);
+  text-decoration: underline;
+  text-underline-offset: var(--space-2);
+}
+
+.site-header > .settings-open {
+  grid-area: settings;
+}
+
+@media (min-width: 768px) {
+  .site-header {
+    grid-template-areas: 'brand nav settings';
+    grid-template-columns: 1fr auto auto;
+    margin-bottom: var(--space-6);
+  }
+}

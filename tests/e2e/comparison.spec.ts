@@ -4,6 +4,9 @@ import { expect, test } from '@playwright/test'
 test('keeps headline accuracy visible and every test measure reachable', async ({ page }) => {
   await page.goto('/?home=1')
   const compare = page.getByRole('region', { name: 'How the judges compare' })
+  const comparisonHeading = await compare.getByRole('heading', { name: 'How the judges compare' }).boundingBox()
+  const gamesHeading = await page.getByRole('heading', { name: 'Three ways to play' }).boundingBox()
+  expect(comparisonHeading!.x).toBe(gamesHeading!.x)
   await expect(compare).toContainText('where they tend to be too strict or too lenient')
   await expect(compare.locator('.compare__summary')).toContainText('81.4%')
   await expect(compare.locator('.compare__summary')).toContainText('96 of 118 answers')

@@ -3,23 +3,6 @@
   padding-bottom: 0;
 }
 
-.welcome-brand {
-  font-size: var(--type-panel);
-  font-weight: var(--weight-medium);
-  letter-spacing: var(--tracking-panel);
-}
-
-.welcome-nav {
-  display: flex;
-  gap: var(--space-3);
-  align-items: center;
-  font-size: var(--type-body);
-}
-
-.welcome-nav .settings-open {
-  margin-left: 0;
-}
-
 .welcome-top {
   display: grid;
   gap: var(--space-6);

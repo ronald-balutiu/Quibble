@@ -2,7 +2,6 @@ import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router'
 import { gameConfigs, gameIds, type GameId } from '@shared/games'
 import { usePageMeta } from '@/app/use-page-meta'
-import { SettingsButton } from '@/components/SettingsDrawer/SettingsDrawer'
 import { DeviceJudgeCard } from '@/components/JudgeSetup/DeviceJudgeCard'
 import { en, format } from '@/copy/en'
 import { maxScore } from '@/games/rounds/reducer'
@@ -53,12 +52,10 @@ export function LibraryScene() {
 
   return (
     <main className="app-frame scene" data-scene="library">
-      <header className="scene-header scene-header--cells">
-        <span className="telemetry scene-header__name">{en['library.title']}</span>
-        <span className="telemetry scene-header__end library-header__count">{format('library.solved', { solved, total: puzzles.length })}</span>
-        <Link className="library-home control-link" to="/?home=1">{en['nav.home']}</Link>
-        <SettingsButton />
-      </header>
+      <div className="library-heading">
+        <p className="telemetry">{en['library.title']}</p>
+        <p className="telemetry">{format('library.solved', { solved, total: puzzles.length })}</p>
+      </div>
       {/* Phone: rows, grid, actions, judge choice. Desktop (L1): a sidebar beside the grid. */}
       <div className="library-layout">
       <nav className="game-rows" aria-label={en['home.games']}>

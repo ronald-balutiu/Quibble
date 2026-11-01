@@ -71,7 +71,7 @@ export const en = {
   'welcome.device.download': 'Download · about {mb} MB',
   'welcome.device.visit': 'Desktop + WebGPU required. Uses memory for this visit only. You’ll download it again next visit.',
   'welcome.device.ready': 'Qwen3.5-0.8B is ready for this visit.',
-  'welcome.device.referee': 'Both judges will check your answers. Choose which one decides in Your data.',
+  'welcome.device.referee': 'Both judges will check your answers. Choose which one decides in Settings.',
   'welcome.device.background': 'You can choose a puzzle while this runs.',
   'welcome.device.failed': 'The local judge couldn’t load. Try again, or keep playing with the cloud judge.',
   'welcome.device.cancelling': 'Stopping the download…',
@@ -87,6 +87,7 @@ export const en = {
   'nav.about': 'About',
   'nav.library': 'Library',
   'nav.home': 'Home',
+  'nav.brand': 'Quibble home',
   'nav.backToLibrary': 'Back to library',
 
   // Games
@@ -194,7 +195,7 @@ export const en = {
   'library.start.note': 'A good place to start.',
   'library.continue.note': 'Pick up where you left off.',
   'library.shuffle': 'Shuffle unplayed ↗',
-  'library.cloudStatus': 'Cloud judge: {model} · change in Your data',
+  'library.cloudStatus': 'Cloud judge: {model} · change in Settings',
   'library.tile': ', {difficulty}, {status}',
   'library.status.unplayed': 'not played',
   'library.status.open': 'in progress',
@@ -378,7 +379,7 @@ export const en = {
   'action.ok': 'OK',
 
   // Settings drawer (L3)
-  'settings.open': 'Your data',
+  'settings.open': 'Settings',
   'settings.title': 'Settings',
   'settings.referee': 'Referee • who decides',
   'settings.referee.cloud': '● Cloud',
@@ -449,15 +450,14 @@ export const en = {
 
   // About (P1)
   'about.title': 'Two judges, one question: does it fit?',
-  'about.play': 'Play →',
   'about.what': 'What this is',
   'about.what.body': "Quibble has three word games where any answer that fits counts, even if it isn't the one I had in mind. AI judges check your guesses, and you can overrule them. I built it as a portfolio project. It's free to play, with no ads or accounts. One Cloudflare Worker handles the site, API and AI calls within the free tier.",
   'about.how': 'How judging works',
-  'about.how.body': 'Clef-flash on Cloudflare Workers AI gives each condition a yes or no. You can switch to Gemma 4 in the Library. If you turn on the on-device judge, Qwen3.5-0.8B checks the same guesses in your browser using WebGPU. Every puzzle was generated ahead of time and checked by two models. The scores you see come straight from the judges.',
+  'about.how.body': 'Clef-flash on Cloudflare Workers AI gives each condition a yes or no. You can switch to Gemma 4 in Settings. If you turn on the on-device judge, Qwen3.5-0.8B checks the same guesses in your browser using WebGPU. Every puzzle was generated ahead of time and checked by two models. The scores you see come straight from the judges.',
   'about.how.results': 'I tested the final setup once against an answer key of {cases} guesses. None were used to tune the judges. Gemma 4 got {gemma} of whole guesses right, above the 85% target, and accepted {gemmaFa} of wrong answers. The faster default, Clef-flash, got {clef} right, below the target, and accepted {clefFa} of wrong answers. The on-device judge got {device} right.',
   'about.how.device': 'In {browser} on {machine}, the on-device judge takes {load} seconds to load and about {warm} ms to check a three-condition guess.',
   'about.privacy': 'Privacy',
-  'about.privacy.body': 'Your answers go to Cloudflare Workers AI to be judged. Progress and judge history stay in this browser; delete them any time in Your data. The site uses a short-lived session cookie and Turnstile to check for bots. There are no tracking cookies. Cloudflare Web Analytics counts visits without cookies. The on-device model downloads from Hugging Face, which sees your IP address. Nothing about you is kept on our server.',
+  'about.privacy.body': 'Your answers go to Cloudflare Workers AI to be judged. Progress and judge history stay in this browser; delete them any time in Settings. The site uses a short-lived session cookie and Turnstile to check for bots. There are no tracking cookies. Cloudflare Web Analytics counts visits without cookies. The on-device model downloads from Hugging Face, which sees your IP address. Nothing about you is kept on our server.',
   'about.credits': 'Credits',
   'about.credits.body': 'Clef-flash and Gemma 4 on Cloudflare Workers AI · Qwen3.5-0.8B (Apache 2.0) through onnx-community and ONNX Runtime Web (MIT) · Open English WordNet (CC BY 4.0) · Geist fonts (SIL OFL). Built by Ronald Balutiu.',
   'about.source': 'Source on GitHub',

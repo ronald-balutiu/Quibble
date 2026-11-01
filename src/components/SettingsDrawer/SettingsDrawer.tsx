@@ -12,15 +12,15 @@ import { CloudModelChoice } from '../JudgeSetup/CloudModelChoice'
 import { DEVICE_TOTAL_BYTES, megabytes } from '../DeviceSetup/progress'
 import './SettingsDrawer.css'
 
-// L3, opened from the site header on Home and Library (5.5): the referee, the
+// L3, opened from the shared site header: the referee, the
 // on-device judge, and the player's data in this browser (1.8).
 
-export function SettingsButton() {
+export function SettingsButton({ onProgressCleared }: { onProgressCleared: () => void }) {
   const [open, setOpen] = useState(false)
   return (
     <>
-      <button type="button" className="settings-open telemetry" onClick={() => { setOpen(true) }}>{en['settings.open']}</button>
-      {open && <SettingsDrawer onClose={() => { setOpen(false) }} />}
+      <button type="button" className="settings-open" aria-haspopup="dialog" onClick={() => { setOpen(true) }}>{en['settings.open']}</button>
+      {open && <SettingsDrawer onClose={() => { setOpen(false) }} onProgressCleared={onProgressCleared} />}
     </>
   )
 }
@@ -48,7 +48,7 @@ function ConfirmButton({ label, danger = false, onConfirm }: { label: string, da
   )
 }
 
-function SettingsDrawer({ onClose }: { onClose: () => void }) {
+function SettingsDrawer({ onClose, onProgressCleared }: { onClose: () => void, onProgressCleared: () => void }) {
   const dialog = useRef<HTMLDialogElement>(null)
   const status = useDeviceStatus()
   const supported = useDeviceSupported()
@@ -111,7 +111,7 @@ function SettingsDrawer({ onClose }: { onClose: () => void }) {
               <span className="drawer__name">{en['settings.data.progress']}</span>
               <span>{format('settings.data.progressDetails', { ...progress, runs: en[progress.open === 1 ? 'settings.data.run' : 'settings.data.runs'] })}</span>
             </span>
-            <ConfirmButton label={en['settings.data.clearProgress']} onConfirm={() => { clearGameData(); setProgress(progressSummary()) }} />
+            <ConfirmButton label={en['settings.data.clearProgress']} onConfirm={() => { clearGameData(); setProgress(progressSummary()); onProgressCleared() }} />
           </div>
           <div className="drawer__row">
             <span>
@@ -133,6 +133,7 @@ function SettingsDrawer({ onClose }: { onClose: () => void }) {
                 setReferee('cloud')
                 setProgress(progressSummary())
                 setHistory(0)
+                onProgressCleared()
               }}
             />
           </div>

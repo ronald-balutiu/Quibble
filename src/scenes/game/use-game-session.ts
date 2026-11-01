@@ -1,9 +1,10 @@
-import { useEffect, useRef, useState, type Dispatch } from 'react'
+import { useEffect, useRef, useState, useSyncExternalStore, type Dispatch } from 'react'
+import type { CloudModel } from '@shared/schemas/judge'
 import type { Puzzle } from '@shared/schemas/puzzle'
 import { totalScore, type RunAction, type RunState } from '@/games/rounds/reducer'
 import { markOverruled } from '@/lib/storage/comparisons'
 import { isStorageAvailable, loadProgress, saveRun } from '@/lib/storage/progress'
-import { loadCloudModel, loadReferee } from '@/lib/storage/settings'
+import { loadCloudModel, loadReferee, subscribeCloudModel } from '@/lib/storage/settings'
 import { checkAnswer } from './check-answer'
 import { judgeGuess, type Ui } from './judge-guess'
 import { useDeviceColumn } from './use-device-column'
@@ -23,7 +24,10 @@ export function useGameSession(puzzle: Puzzle, run: RunState, dispatch: Dispatch
   const [answer, setAnswer] = useState('')
   const [scores, setScores] = useState<Record<string, number | undefined>>({})
   const [last, setLast] = useState<LastGuess | undefined>()
-  const [model] = useState(loadCloudModel)
+  const selectedModel = useSyncExternalStore(subscribeCloudModel, loadCloudModel)
+  // Keep the last verdict's axes tied to its model when Settings changes mid-game.
+  const [attemptModel, setAttemptModel] = useState<CloudModel>()
+  const model = attemptModel ?? selectedModel
   const [storageOn] = useState(isStorageAvailable)
   const [best, setBest] = useState(() => loadProgress(game, n).best)
   const attempt = useRef(0)
@@ -51,6 +55,8 @@ export function useGameSession(puzzle: Puzzle, run: RunState, dispatch: Dispatch
       return
     }
     const { normalized } = checked
+    const model = selectedModel
+    setAttemptModel(model)
     attempt.current += 1
     setUi({ kind: 'judging' })
     setScores({})
@@ -102,6 +108,7 @@ export function useGameSession(puzzle: Puzzle, run: RunState, dispatch: Dispatch
 
   function reset() {
     column.clear()
+    setAttemptModel(undefined)
     setBest(loadProgress(game, n).best)
     setScores({})
     setLast(undefined)

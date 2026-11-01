@@ -1,5 +1,5 @@
 /* Doubled class: base.css loads after scene styles and sets the frame padding.
-   Sections pad themselves, so headers and rows can run edge to edge. */
+   Sections pad themselves, so rows can run edge to edge. */
 .app-frame.scene {
   display: flex;
   flex-direction: column;
@@ -11,33 +11,23 @@
   padding-inline: var(--content-pad);
 }
 
-.scene-header {
+.library-heading {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
   justify-content: space-between;
+  align-items: center;
   min-height: var(--header-height);
+  padding-block: var(--space-2);
   border-bottom: var(--border-width) solid var(--line);
 }
 
-.scene-header a {
-  color: var(--text);
-}
-
-.scene-header--cells {
-  padding-inline: var(--space-4);
-}
-
-.scene-header__name {
-  color: var(--text);
+.library-heading p {
+  margin: 0;
 }
 
 .pill--wide {
   flex: 1;
-}
-
-.scene-header__link {
-  margin-left: auto;
-  color: var(--text);
 }
 
 .scene-footer {
@@ -47,10 +37,6 @@
   justify-content: space-between;
   padding: var(--space-5) var(--content-pad);
   border-top: var(--border-width) solid var(--line);
-}
-
-.scene-header__end {
-  margin-left: auto;
 }
 
 .scene > .library-layout {
@@ -161,15 +147,6 @@
   margin: 0;
 }
 
-.library-home {
-  margin-left: auto;
-  font-size: var(--type-body);
-}
-
-.library-header__count {
-  display: none;
-}
-
 .library-shuffle {
   margin-left: auto;
   font-size: var(--type-body);
@@ -245,13 +222,6 @@
 }
 
 @media (min-width: 1024px) {
-  .library-header__count {
-    display: inline;
-  }
-
-  .library-home {
-    margin-left: var(--space-4);
-  }
   .tiles {
     grid-template-columns: repeat(10, 1fr);
   }

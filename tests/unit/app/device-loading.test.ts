@@ -1,10 +1,9 @@
-import { beforeEach, describe, expect, test, vi } from 'vitest'
+import { describe, expect, test, vi } from 'vitest'
 import { createDeviceJudge } from '@/judges/device/client'
-import { DownloadError, loadFile, MODEL_CACHE, readInto } from '@/judges/device/download'
+import { DownloadError, loadFile, readInto } from '@/judges/device/download'
 import { deviceSupported } from '@/judges/device/gate'
 import type { FromWorker, ToWorker } from '@/judges/device/protocol'
 import { deviceFileUrl } from '@/judges/device/verdict'
-import { cleanUpStaleModel, keptSince, markKeptModelUsed, STALE_AFTER_MS } from '@/lib/storage/device'
 
 const file = { path: 'tokenizer_config.json', bytes: 6 } as never
 const body = (...chunks: number[][]) => new Response(new ReadableStream({
@@ -13,19 +12,6 @@ const body = (...chunks: number[][]) => new Response(new ReadableStream({
     controller.close()
   },
 }))
-
-// A Cache API with one cache, enough for the model store.
-class MemoryCaches {
-  entries = new Map<string, Uint8Array>()
-  deleted: string[] = []
-  open() {
-    return Promise.resolve({
-      match: (url: string) => Promise.resolve(this.entries.has(url) ? new Response(this.entries.get(url) as BodyInit) : undefined),
-      put: async (url: string, response: Response) => { this.entries.set(url, new Uint8Array(await response.arrayBuffer())) },
-    })
-  }
-  delete(name: string) { this.deleted.push(name); return Promise.resolve(true) }
-}
 
 describe('model download', () => {
   test('fills one buffer and reports every chunk', async () => {
@@ -48,77 +34,16 @@ describe('model download', () => {
     await expect(reading).rejects.toMatchObject({ name: 'AbortError' })
   })
 
-  test('"This visit only" fetches with no-store and caches nothing', async () => {
-    const caches = new MemoryCaches()
+  test('fetches with no-store, so the browser keeps no copy', async () => {
     const fetch = vi.fn(() => Promise.resolve(body([1, 2, 3, 4, 5, 6])))
-    const result = await loadFile(file, { keep: false, signal: new AbortController().signal, onBytes: () => undefined, stillWanted: () => true, fetch, caches: caches as never })
-    expect(result.cached).toBe(false)
+    const bytes = await loadFile(file, { signal: new AbortController().signal, onBytes: () => undefined, fetch })
+    expect([...bytes]).toEqual([1, 2, 3, 4, 5, 6])
     expect(fetch).toHaveBeenCalledWith(deviceFileUrl('tokenizer_config.json'), expect.objectContaining({ cache: 'no-store' }))
-    expect(caches.entries.size).toBe(0)
-  })
-
-  test('"Keep on this device" stores the file, and the next load is a cache hit', async () => {
-    const caches = new MemoryCaches()
-    const options = { keep: true, signal: new AbortController().signal, onBytes: () => undefined, stillWanted: () => true, caches: caches as never }
-    const fetch = vi.fn(() => Promise.resolve(body([1, 2, 3, 4, 5, 6])))
-    expect((await loadFile(file, { ...options, fetch })).cached).toBe(false)
-    const again = await loadFile(file, { ...options, fetch })
-    expect(again.cached).toBe(true)
-    expect([...again.bytes]).toEqual([1, 2, 3, 4, 5, 6])
-    expect(fetch).toHaveBeenCalledTimes(1)
-  })
-
-  test('a kept file is stored in parts, with the part count written last', async () => {
-    const caches = new MemoryCaches()
-    const options = { keep: true, signal: new AbortController().signal, onBytes: () => undefined, stillWanted: () => true, caches: caches as never, partBytes: 4 }
-    await loadFile(file, { ...options, fetch: () => Promise.resolve(body([1, 2, 3, 4, 5, 6])) })
-    const url = deviceFileUrl('tokenizer_config.json')
-    expect([...caches.entries.keys()]).toEqual([`${url}?part=0`, `${url}?part=1`, `${url}?parts`])
-    const again = await loadFile(file, { ...options, fetch: () => Promise.reject(new Error('offline')) })
-    expect([...again.bytes]).toEqual([1, 2, 3, 4, 5, 6])
-  })
-
-  test('a half-written kept file is a miss, and its progress is taken back', async () => {
-    const caches = new MemoryCaches()
-    const url = deviceFileUrl('tokenizer_config.json')
-    caches.entries.set(`${url}?part=0`, new Uint8Array([9, 9, 9, 9]))
-    caches.entries.set(`${url}?parts`, new TextEncoder().encode('2'))
-    let progress = 0
-    const result = await loadFile(file, {
-      keep: true, signal: new AbortController().signal, onBytes: (n) => { progress += n }, stillWanted: () => true,
-      caches: caches as never, partBytes: 4, fetch: () => Promise.resolve(body([1, 2, 3, 4, 5, 6])),
-    })
-    expect(result).toMatchObject({ cached: false })
-    expect([...result.bytes]).toEqual([1, 2, 3, 4, 5, 6])
-    expect(progress).toBe(6)
-  })
-
-  test('a download that finishes after a delete does not refill the cache', async () => {
-    const caches = new MemoryCaches()
-    const fetch = () => Promise.resolve(body([1, 2, 3, 4, 5, 6]))
-    await loadFile(file, { keep: true, signal: new AbortController().signal, onBytes: () => undefined, stillWanted: () => false, fetch, caches: caches as never })
-    expect(caches.entries.size).toBe(0)
   })
 
   test('a failed request is a network error', async () => {
     const fetch = () => Promise.resolve(new Response('nope', { status: 503 }))
-    await expect(loadFile(file, { keep: false, signal: new AbortController().signal, onBytes: () => undefined, stillWanted: () => true, fetch })).rejects.toEqual(new DownloadError('network'))
-  })
-})
-
-describe('kept model cleanup (14 days)', () => {
-  beforeEach(() => {
-    const data = new Map<string, string>()
-    vi.stubGlobal('localStorage', { getItem: (k: string) => data.get(k) ?? null, setItem: (k: string, v: string) => data.set(k, v), removeItem: (k: string) => data.delete(k) })
-  })
-
-  test('keeps a model used within 14 days, and deletes an older or untracked one', async () => {
-    const caches = new MemoryCaches()
-    markKeptModelUsed(1_000)
-    expect(await cleanUpStaleModel(1_000 + STALE_AFTER_MS - 1, caches as never)).toBe(false)
-    expect(await cleanUpStaleModel(1_000 + STALE_AFTER_MS, caches as never)).toBe(true)
-    expect(caches.deleted).toEqual([MODEL_CACHE])
-    expect(keptSince()).toBeUndefined()
+    await expect(loadFile(file, { signal: new AbortController().signal, onBytes: () => undefined, fetch })).rejects.toEqual(new DownloadError('network'))
   })
 })
 
@@ -148,18 +73,18 @@ describe('device judge client', () => {
     const worker = new FakeWorker()
     const judge = createDeviceJudge(() => worker)
     const progress: unknown[] = []
-    const loading = judge.load(true, (p) => progress.push(p))
+    const loading = judge.load((p) => progress.push(p))
     worker.reply({ type: 'progress', received: 10, total: 100 })
     worker.reply({ type: 'warming' })
-    worker.reply({ type: 'ready', cached: true })
-    expect(await loading).toEqual({ kind: 'ready', cached: true })
+    worker.reply({ type: 'ready' })
+    expect(await loading).toEqual({ kind: 'ready' })
     expect(progress).toEqual([{ kind: 'download', received: 10, total: 100 }, { kind: 'warming' }])
     return { worker, judge }
   }
 
   test('loads with progress, then scores a guess', async () => {
     const { worker, judge } = await readyJudge()
-    expect(worker.sent[0]).toEqual({ type: 'load', keep: true })
+    expect(worker.sent[0]).toEqual({ type: 'load' })
     const scoring = judge.score('pocket knife', [{ id: 'pocket', claim: '{answer} fits in a pocket' }])
     worker.reply({ type: 'scored', id: 1, scores: { pocket: 0.9 } })
     expect(await scoring).toMatchObject({ kind: 'scored', scores: { pocket: 0.9 } })
@@ -178,7 +103,7 @@ describe('device judge client', () => {
   test('a crashed worker ends the load with model.start.failed', async () => {
     const worker = new FakeWorker()
     const judge = createDeviceJudge(() => worker)
-    const loading = judge.load(false, () => undefined)
+    const loading = judge.load(() => undefined)
     worker.onerror?.(new Event('error'))
     expect(await loading).toEqual({ kind: 'failed', reason: 'start' })
     expect(worker.terminated).toBe(true)

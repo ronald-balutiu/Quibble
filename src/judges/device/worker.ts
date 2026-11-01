@@ -2,7 +2,7 @@
 import { Tokenizer } from '@huggingface/tokenizers'
 import * as ort from 'onnxruntime-web/webgpu'
 import { deviceSupported } from './gate'
-import { DownloadError, loadFile, MODEL_CACHE } from './download'
+import { DownloadError, loadFile } from './download'
 import type { DeviceClaim, FromWorker, ToWorker } from './protocol'
 import { deviceFiles, scoreClaim, tensorFactory } from './verdict'
 
@@ -20,7 +20,7 @@ const post = (message: FromWorker) => { self.postMessage(message) }
 let session: ort.InferenceSession | undefined
 let tokenizer: Tokenizer | undefined
 let controller: AbortController | undefined
-// Bumped on delete, so a download still in flight never writes the cache again.
+// Bumped on delete, so a session that finishes starting afterwards is thrown away.
 let generation = 0
 const makeTensor = tensorFactory(ort.Tensor)
 
@@ -33,8 +33,8 @@ async function loadRuntime(signal: AbortSignal): Promise<void> {
   ort.env.wasm.numThreads = 1 // no cross-origin isolation, so no threads
 }
 
-async function load(keep: boolean): Promise<void> {
-  if (session) { post({ type: 'ready', cached: false }); return }
+async function load(): Promise<void> {
+  if (session) { post({ type: 'ready' }); return }
   if (!(await deviceSupported(self.navigator))) { post({ type: 'failed', reason: 'unsupported' }); return }
   controller = new AbortController()
   const { signal } = controller
@@ -54,15 +54,9 @@ async function load(keep: boolean): Promise<void> {
   try {
     await loadRuntime(signal)
     const bytes: Uint8Array[] = []
-    let cached = true
     for (const file of deviceFiles) {
-      const result = await loadFile(file, {
-        keep, signal, stillWanted: () => generation === mine,
-        onBytes: (count) => { received += count; report(false) },
-      })
+      bytes.push(await loadFile(file, { signal, onBytes: (count) => { received += count; report(false) } }))
       report(true)
-      bytes.push(result.bytes)
-      cached &&= result.cached
     }
     post({ type: 'warming' })
     const [config, vocabulary, graph, weights] = bytes
@@ -78,7 +72,14 @@ async function load(keep: boolean): Promise<void> {
       post({ type: 'failed', reason: 'start' })
       return
     }
-    post({ type: 'ready', cached })
+    if (generation !== mine) {
+      await session.release().catch(() => undefined)
+      session = undefined
+      tokenizer = undefined
+      post({ type: 'cancelled' })
+      return
+    }
+    post({ type: 'ready' })
   } catch (error) {
     if (signal.aborted) post({ type: 'cancelled' })
     else post({ type: 'failed', reason: error instanceof DownloadError ? error.reason : 'start' })
@@ -108,14 +109,13 @@ async function remove(): Promise<void> {
   await session?.release().catch(() => undefined)
   session = undefined
   tokenizer = undefined
-  await caches.delete(MODEL_CACHE).catch(() => false)
   post({ type: 'deleted' })
 }
 
 self.onmessage = (event: MessageEvent<ToWorker>) => {
   const message = event.data
   switch (message.type) {
-    case 'load': void load(message.keep); return
+    case 'load': void load(); return
     case 'cancel': controller?.abort(); return
     case 'score': score(message.id, message.answer, message.claims); return
     case 'delete': void remove(); return

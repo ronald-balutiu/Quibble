@@ -1,4 +1,3 @@
-import { MODEL_CACHE } from './download'
 import type { DeviceClaim, DeviceFailure, FromWorker, ToWorker } from './protocol'
 
 // The game's handle on the on-device judge (3.6, 3.7). The model lives in one Web
@@ -8,7 +7,7 @@ import type { DeviceClaim, DeviceFailure, FromWorker, ToWorker } from './protoco
 export const DEVICE_TIMEOUT_MS = 10_000
 
 export type LoadProgress = { kind: 'download', received: number, total: number } | { kind: 'warming' }
-export type LoadResult = { kind: 'ready', cached: boolean } | { kind: 'failed', reason: DeviceFailure } | { kind: 'cancelled' }
+export type LoadResult = { kind: 'ready' } | { kind: 'failed', reason: DeviceFailure } | { kind: 'cancelled' }
 export type ScoreResult = { kind: 'scored', scores: Record<string, number>, ms: number } | { kind: 'timeout' } | { kind: 'error' }
 
 interface WorkerLike {
@@ -20,7 +19,7 @@ interface WorkerLike {
 
 export interface DeviceJudge {
   readonly ready: boolean
-  load: (keep: boolean, onProgress: (progress: LoadProgress) => void) => Promise<LoadResult>
+  load: (onProgress: (progress: LoadProgress) => void) => Promise<LoadResult>
   cancel: () => void
   score: (answer: string, claims: DeviceClaim[], timeoutMs?: number) => Promise<ScoreResult>
   remove: () => Promise<void>
@@ -55,7 +54,7 @@ export function createDeviceJudge(spawn: () => WorkerLike, now = () => performan
     switch (message.type) {
       case 'progress': loading?.onProgress({ kind: 'download', received: message.received, total: message.total }); return
       case 'warming': loading?.onProgress({ kind: 'warming' }); return
-      case 'ready': settleLoad({ kind: 'ready', cached: message.cached }); return
+      case 'ready': settleLoad({ kind: 'ready' }); return
       case 'failed': settleLoad({ kind: 'failed', reason: message.reason }); return
       case 'cancelled': settleLoad({ kind: 'cancelled' }); return
       case 'scored': case 'scoreFailed': {
@@ -79,12 +78,12 @@ export function createDeviceJudge(spawn: () => WorkerLike, now = () => performan
   return {
     get ready() { return ready },
 
-    load(keep, onProgress) {
-      if (ready) return Promise.resolve({ kind: 'ready', cached: false })
+    load(onProgress) {
+      if (ready) return Promise.resolve({ kind: 'ready' })
       loading?.resolve({ kind: 'cancelled' })
       return new Promise((resolve) => {
         loading = { resolve, onProgress }
-        connect().postMessage({ type: 'load', keep })
+        connect().postMessage({ type: 'load' })
       })
     },
 
@@ -109,10 +108,10 @@ export function createDeviceJudge(spawn: () => WorkerLike, now = () => performan
       })
     },
 
-    // Turning the judge off or "Delete model": also clears a model kept on an earlier visit.
+    // Turning the judge off: stops any download and frees the model's memory.
     remove() {
       ready = false
-      if (!worker) return globalThis.caches?.delete(MODEL_CACHE).then(() => undefined, () => undefined) ?? Promise.resolve()
+      if (!worker) return Promise.resolve()
       return new Promise((resolve) => {
         removing = () => { removing = undefined; resolve() }
         worker?.postMessage({ type: 'delete' })

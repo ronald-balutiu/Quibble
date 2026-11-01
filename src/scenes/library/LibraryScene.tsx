@@ -91,12 +91,11 @@ export function LibraryScene() {
         <ol className="tiles">
           {shown.map(({ n, difficulty, status, best }) => (
             <li key={n}>
-              <button
-                type="button" className={`tile tile--${status}`} onClick={() => { setOpen(n) }}
-                aria-label={format('library.tile', { n, difficulty: en[`difficulty.${difficulty}`], status: format(`library.status.${status}`, { best: best ?? 0, max: maxFor(game) }) })}
-              >
+              {/* The name starts with the visible number, so speech input can say it (WCAG 2.5.3). */}
+              <button type="button" className={`tile tile--${status}`} onClick={() => { setOpen(n) }}>
                 <span className="tile__n">{String(n).padStart(3, '0')}</span>
                 <span className="tile__score">{status === 'open' ? en['library.openMark'] : status === 'perfect' ? en['library.perfectMark'] : best}</span>
+                <span className="visually-hidden">{format('library.tile', { difficulty: en[`difficulty.${difficulty}`], status: format(`library.status.${status}`, { best: best ?? 0, max: maxFor(game) }) })}</span>
               </button>
             </li>
           ))}

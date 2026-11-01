@@ -103,7 +103,7 @@ export const en = {
   'library.perfectMark': '★',
   'library.solved': '{solved} / {total} solved',
   'library.counts': 'Easy → hard · {solved} solved • {open} open • {perfect} perfect',
-  'library.tile': 'Puzzle {n}, {difficulty}, {status}',
+  'library.tile': ', {difficulty}, {status}',
   'library.status.unplayed': 'not played',
   'library.status.open': 'in progress',
   'library.status.solved': 'best {best} of {max}',

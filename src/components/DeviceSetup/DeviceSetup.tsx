@@ -2,7 +2,6 @@ import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { en, format } from '@/copy/en'
 import { deviceJudge, type DeviceJudge, type LoadProgress } from '@/judges/device/client'
 import type { DeviceFailure } from '@/judges/device/protocol'
-import { forgetKeptModel, markKeptModelUsed } from '@/lib/storage/device'
 import { RingMark } from '../RingMark/RingMark'
 import {
   DEVICE_TOTAL_BYTES, fraction, megabytes, ringsDrawn, secondsLeft, tickState, TICKS, type ByteSample,
@@ -35,7 +34,6 @@ function timeLeft(seconds: number | undefined): string {
 export function DeviceSetup({ onClose, judge = deviceJudge }: { onClose: (on: boolean) => void, judge?: DeviceJudge }) {
   const dialog = useRef<HTMLDialogElement>(null)
   const [step, setStep] = useState<Step>({ kind: 'offer' })
-  const [keep, setKeep] = useState(false)
   const loading = useRef(false)
   const cancelled = useRef(false)
   const live = useRef(true)
@@ -54,7 +52,7 @@ export function DeviceSetup({ onClose, judge = deviceJudge }: { onClose: (on: bo
     loading.current = true
     cancelled.current = false
     setStep({ kind: 'download', received: 0, total: DEVICE_TOTAL_BYTES, left: undefined })
-    // The worker reports every chunk; the view catches up once per frame.
+    // The view catches up with the worker's reports once per frame.
     let first: ByteSample | undefined
     let latest: LoadProgress | undefined
     let frame = 0
@@ -65,21 +63,16 @@ export function DeviceSetup({ onClose, judge = deviceJudge }: { onClose: (on: bo
       first ??= sample
       setStep({ kind: 'download', received: latest.received, total: latest.total, left: secondsLeft(first, sample, latest.total) })
     }
-    const result = await judge.load(keep, (progress) => {
+    const result = await judge.load((progress) => {
       latest = progress
       if (progress.kind === 'warming') { cancelAnimationFrame(frame); setStep({ kind: 'warming' }); return }
       frame ||= requestAnimationFrame(show)
     })
     cancelAnimationFrame(frame)
     loading.current = false
-    // Cancel while the session starts can't stop it, so a late "ready" still counts as cancelled.
+    // Cancel while the session starts can't stop it, so a late "ready" is undone.
     const ready = result.kind === 'ready' && !cancelled.current
-    if (ready) {
-      if (keep) markKeptModelUsed()
-    } else {
-      // Nothing was saved: a stopped download leaves no model behind.
-      if (keep || result.kind === 'ready') { forgetKeptModel(); void judge.remove() }
-    }
+    if (result.kind === 'ready' && cancelled.current) void judge.remove()
     if (!live.current) return
     if (ready) onClose(true)
     else if (result.kind === 'failed') setStep({ kind: 'failed', reason: result.reason })
@@ -101,13 +94,13 @@ export function DeviceSetup({ onClose, judge = deviceJudge }: { onClose: (on: bo
       onCancel={(event) => { event.preventDefault(); cancel() }}
     >
       {step.kind === 'offer'
-        ? <Offer keep={keep} onKeep={setKeep} onDownload={() => { void download() }} onClose={cancel} />
+        ? <Offer onDownload={() => { void download() }} onClose={cancel} />
         : <Install step={step} onCancel={cancel} onRetry={() => { void download() }} onClose={() => { onClose(false) }} />}
     </dialog>
   )
 }
 
-function Offer({ keep, onKeep, onDownload, onClose }: { keep: boolean, onKeep: (keep: boolean) => void, onDownload: () => void, onClose: () => void }) {
+function Offer({ onDownload, onClose }: { onDownload: () => void, onClose: () => void }) {
   const facts = [
     [en['device.fact.size'], format('device.megabytes', { mb: megabytes(DEVICE_TOTAL_BYTES) })],
     [en['device.fact.model'], en['device.model']],
@@ -130,17 +123,7 @@ function Offer({ keep, onKeep, onDownload, onClose }: { keep: boolean, onKeep: (
           <div key={label}><dt>{label}</dt><dd>{value}</dd></div>
         ))}
       </dl>
-      <fieldset className="device-keep">
-        <legend className="device-keep__legend">{en['device.storage']}</legend>
-        <label>
-          <input type="radio" name="device-keep" checked={!keep} onChange={() => { onKeep(false) }} />
-          <span><span className="device-keep__name">{en['device.keep.visit']}</span>{en['device.keep.visit.note']}</span>
-        </label>
-        <label>
-          <input type="radio" name="device-keep" checked={keep} onChange={() => { onKeep(true) }} />
-          <span><span className="device-keep__name">{en['device.keep.kept']}</span>{en['device.keep.kept.note']}</span>
-        </label>
-      </fieldset>
+      <p className="device-sheet__note">{en['device.visitOnly']}</p>
       <div className="device-sheet__actions">
         <button type="button" className="pill pill--wide" onClick={onDownload}>{en['device.download']}</button>
         <button type="button" className="pill pill--quiet" onClick={onClose}>{en['device.notNow']}</button>

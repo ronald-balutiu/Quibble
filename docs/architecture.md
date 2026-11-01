@@ -148,10 +148,8 @@ them.
 
 - The model files download from Hugging Face at a pinned revision (`verdict.ts`),
   each into one buffer of its exact size (`download.ts`).
-- "Keep on this device" also stores them in the Cache API, in 64 MB parts, because
-  Chrome rejects a single 551 MB entry. A file counts as kept only once its part
-  count is written. `src/lib/storage/device.ts` deletes a kept model that has gone
-  unused for 14 days.
+- The model is kept in memory for the current visit only. Files are fetched with
+  `no-store` and never written to the Cache API, so closing the tab removes them.
 - onnxruntime-web's WebGPU runtime is larger than the 25 MiB static asset limit.
   `vite.config.ts` ships it gzipped as `/ort/runtime.wasm.gz`, and the worker unpacks
   it.
@@ -159,7 +157,6 @@ them.
   adapter.
 - `src/components/DeviceSetup/` is the setup sheet: the offer (S3), then the
   download (S4), whose rings, percentage and readout follow the worker's byte count.
-  A download that stops or fails deletes anything it kept.
 
 ## Python reference
 

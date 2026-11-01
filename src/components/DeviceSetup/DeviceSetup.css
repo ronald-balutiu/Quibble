@@ -106,44 +106,9 @@
   color: var(--text);
 }
 
-.device-keep {
+.device-sheet__note {
   margin: var(--space-0);
-  padding: var(--space-2) var(--content-pad) var(--space-0);
-  border: none;
-}
-
-.device-keep__legend {
-  position: absolute;
-  width: var(--border-width);
-  height: var(--border-width);
-  overflow: hidden;
-  clip-path: inset(50%);
-}
-
-.device-keep label {
-  display: flex;
-  gap: var(--space-3);
-  align-items: flex-start;
-  padding-block: var(--space-3);
-  color: var(--muted);
-  cursor: pointer;
-}
-
-.device-keep label + label {
-  border-top: var(--border-width) solid var(--line-soft);
-}
-
-.device-keep input {
-  min-width: var(--space-4);
-  min-height: var(--space-4);
-  margin: var(--space-1) var(--space-0) var(--space-0);
-  accent-color: var(--text);
-}
-
-.device-keep__name {
-  display: block;
-  font-size: var(--type-body-large);
-  color: var(--text);
+  padding: var(--space-4) var(--content-pad) var(--space-0);
 }
 
 .device-sheet__actions {

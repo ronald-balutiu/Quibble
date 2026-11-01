@@ -9,7 +9,7 @@ test('the settings drawer opens from the header and shows the unsupported device
   await expect(drawer).toBeVisible()
   await expect(drawer.getByRole('radio', { name: '● Cloud' })).toBeChecked()
   await expect(drawer.getByRole('radio', { name: '○ On-device' })).toBeDisabled()
-  await expect(drawer.getByText('Needs a desktop browser with WebGPU or enough memory.')).toBeVisible()
+  await expect(drawer.getByText('The on-device judge needs a desktop browser with WebGPU and enough memory.')).toBeVisible()
   await expect(drawer.getByRole('button', { name: 'Turn on' })).toHaveCount(0)
   await drawer.getByRole('button', { name: 'Close' }).click()
   await expect(drawer).toBeHidden()
@@ -39,7 +39,7 @@ test('"Your data" counts what is saved, and each clear asks once more in place',
   await page.goto('/play')
   await page.getByRole('button', { name: 'Your data' }).click()
   const drawer = page.getByRole('dialog', { name: 'Settings' })
-  await expect(drawer.getByText('2 puzzles · best scores and 1 open run')).toBeVisible()
+  await expect(drawer.getByText('2 puzzles · best scores and 1 unfinished run')).toBeVisible()
   await expect(drawer.getByText('0 comparisons · last 90 days')).toBeVisible()
 
   const clear = drawer.getByRole('button', { name: 'Clear game data' })
@@ -47,7 +47,7 @@ test('"Your data" counts what is saved, and each clear asks once more in place',
   await expect(drawer.getByRole('button', { name: 'Press again to delete' })).toBeVisible()
   await drawer.getByRole('button', { name: 'Press again to delete' }).click()
   await expect(drawer.getByRole('button', { name: 'Deleted' })).toBeDisabled()
-  await expect(drawer.getByText('0 puzzles · best scores and 0 open runs')).toBeVisible()
+  await expect(drawer.getByText('0 puzzles · best scores and 0 unfinished runs')).toBeVisible()
 
   await drawer.getByRole('button', { name: 'Delete…' }).click()
   await drawer.getByRole('button', { name: 'Press again to delete' }).click()

@@ -15,7 +15,7 @@ Every answer is judged condition by condition. The cloud judge is Clef-flash, or
 Gemma 4 if the player chooses it, on Cloudflare Workers AI. The optional on-device
 judge is Qwen3.5-0.8B running in the browser on WebGPU. Players can overrule a
 rejection, and "How the judges compare" sets the judges' agreement on the player's
-own games beside their accuracy on a hand-checked answer-key test.
+own games beside their accuracy on an answer-key test.
 
 **Status:** complete. 256 puzzles (100 Oddly Specific, 100 Category Escape and 56
 Double Agent), generated offline within the Workers AI free tier. On the held-out

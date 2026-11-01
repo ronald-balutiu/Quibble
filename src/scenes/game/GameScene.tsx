@@ -19,7 +19,7 @@ import { fetchReveal } from '@/lib/api'
 import { loadPuzzle, loadPuzzleIndex } from '@/lib/puzzles'
 import { markOverruled } from '@/lib/storage/comparisons'
 import { isStorageAvailable, loadProgress, saveRun } from '@/lib/storage/progress'
-import { loadCloudModel, markTipSeen, tipSeen } from '@/lib/storage/settings'
+import { loadCloudModel, loadReferee, markTipSeen, tipSeen } from '@/lib/storage/settings'
 import { judgeGuess, type Ui } from './judge-guess'
 import { AnswerForm, CloudStrip, GameHeader, NotJudgedPanel, RejectedPanel, ScoreAxes, StrikeDots } from './parts'
 import { useDeviceColumn, type DeviceColumn } from './use-device-column'
@@ -127,7 +127,7 @@ function Game({ puzzle, variant }: { puzzle: Puzzle, variant: RoundGame }) {
     setScores({})
     const result = await judgeGuess({
       game, n, roundId: puzzle.rounds[run.current]?.id ?? '', text, normalized, attempt: attempt.current, model, conditions, turnstile: turnstile.current,
-    }, { onDevice: column.follow(), onCloud: (cloud, ms) => { setScores(cloud); column.judged(ms) } })
+    }, { referee: loadReferee(), onDevice: column.follow(), onCloud: (cloud, ms) => { setScores(cloud); column.judged(ms) } })
     column.settled(result)
     if ('ui' in result) { setUi(result.ui); return }
     dispatch({ type: 'judged', guess: result.guess })
@@ -148,7 +148,6 @@ function Game({ puzzle, variant }: { puzzle: Puzzle, variant: RoundGame }) {
     </GameHeader>
   )
 
-  const split = ui.kind === 'rejected' ? judgesSplit(column.run, ui.guess.failed, conditions) : undefined
   // When the device decided (S1), its own threshold is the one on the axes.
   const threshold = column.decidedBy === 'device' ? judgeConfig.passThreshold.device : judgeConfig.passThreshold[model]
   return (
@@ -198,7 +197,7 @@ function Game({ puzzle, variant }: { puzzle: Puzzle, variant: RoundGame }) {
                   <div aria-live="polite">
                     {ui.kind === 'rejected' && (
                       <RejectedPanel
-                        sentence={(agent ? agentSentence(ui.guess, conditions) : rejectedSentence(ui.guess, conditions)) + verdictNote(column, split)}
+                        sentence={(agent ? agentSentence(ui.guess, conditions) : rejectedSentence(ui.guess, conditions)) + verdictNote(column)}
                         disabled={busy}
                         onTryAgain={() => { dispatch({ type: 'moveOn' }); setUi({ kind: 'input' }); setAnswer(''); input.current?.focus() }}
                         onCountAnyway={() => {
@@ -245,7 +244,7 @@ function RoundEnd({ run, puzzle, alsoFits, column, onNext }: { run: RunState, pu
   const solved = round.status === 'solved'
   const winning = round.guesses.at(-1)
   // The on-device run belongs to the last judged guess, so the sentence can say whether the judges agreed.
-  const split = winning ? judgesSplit(column.run, winning.failed, conditions) : undefined
+  const split = judgesSplit(column.run)
   const loadReveal = () => { setReveal(undefined); void fetchReveal(puzzle.game, puzzle.n, puzzle.rounds[run.current]?.id ?? '').then((value) => { setReveal(value ?? null) }) }
 
   return (
@@ -254,7 +253,7 @@ function RoundEnd({ run, puzzle, alsoFits, column, onNext }: { run: RunState, pu
         <>
           <p className="telemetry round-end__label">{round.overruled ? en['verdict.overruled'] : format('verdict.label.accepted', { points: round.points })}</p>
           <h1 className="round-end__answer">{winning?.answer}</h1>
-          <p>{format('verdict.accepted', { n: round.strikes + 1 }) + (column.decidedBy === 'device' ? en['verdict.notCompared'] : split === undefined ? '' : en[split ? 'verdict.judgesDisagreed' : 'verdict.judgesAgreed'])}</p>
+          <p>{format('verdict.accepted', { n: round.strikes + 1 }) + (split === undefined ? (column.decidedBy === 'device' ? en['verdict.notCompared'] : '') : en[split ? 'verdict.judgesDisagreed' : 'verdict.judgesAgreed'])}</p>
         </>
       ) : (
         <>

@@ -6,6 +6,7 @@ import { en, format } from '@/copy/en'
 import { loadPuzzleIndex } from '@/lib/puzzles'
 import { loadProgress } from '@/lib/storage/progress'
 import { RingMark } from '@/components/RingMark/RingMark'
+import { SettingsButton } from '@/components/SettingsDrawer/SettingsDrawer'
 import '../scenes.css'
 
 // H1 / H2: the pitch, one primary action, the three games. H3 (the judge
@@ -21,6 +22,7 @@ export function HomeScene() {
     <main className="app-frame scene" data-scene="home">
       <header className="scene-header scene-header--cells">
         <span className="telemetry scene-header__name">{en['app.name']}</span>
+        <SettingsButton />
       </header>
       {/* Phone: text, mark, then play. Desktop (H1): text and play beside a larger mark. */}
       <div className="home-top">

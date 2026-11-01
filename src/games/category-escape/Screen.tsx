@@ -12,11 +12,11 @@ import { fetchReveal } from '@/lib/api'
 import { loadPuzzleIndex } from '@/lib/puzzles'
 import { markOverruled } from '@/lib/storage/comparisons'
 import { isStorageAvailable, loadProgress, saveRun } from '@/lib/storage/progress'
-import { loadCloudModel, markTipSeen, tipSeen } from '@/lib/storage/settings'
+import { loadCloudModel, loadReferee, markTipSeen, tipSeen } from '@/lib/storage/settings'
 import { judgeGuess, type Ui } from '@/scenes/game/judge-guess'
 import { AnswerForm, CloudStrip, GameHeader, JudgesStatus, NotJudgedPanel, RejectedPanel, ScoreAxes, StrikeDots } from '@/scenes/game/parts'
 import { useDeviceColumn } from '@/scenes/game/use-device-column'
-import { judgesSplit, rejectedSentence, verdictNote } from '@/scenes/game/verdict'
+import { rejectedSentence, verdictNote } from '@/scenes/game/verdict'
 import {
   escapeEnd, escapeReducer, escapeShareGrid, levelsCleared, previousGuess, startEscape, strikesUsed, usedOn,
 } from './reducer'
@@ -84,6 +84,7 @@ export function EscapeGame({ puzzle }: { puzzle: Puzzle }) {
     setScores({})
     const roundId = puzzle.rounds[run.current]?.id ?? ''
     const result = await judgeGuess({ game, n, roundId, text, normalized, attempt: attempt.current, model, conditions, turnstile: turnstile.current }, {
+      referee: loadReferee(),
       onDevice: column.follow(),
       onCloud: (cloud, ms) => { setScores(cloud); setLast({ answer: normalized, level: run.current, pass: false }); column.judged(ms) },
     })
@@ -179,7 +180,7 @@ export function EscapeGame({ puzzle }: { puzzle: Puzzle }) {
                 <div aria-live="polite">
                   {ui.kind === 'rejected' && (
                     <RejectedPanel
-                      sentence={rejectedSentence(ui.guess, conditions, levelCode) + verdictNote(column, judgesSplit(column.run, ui.guess.failed, conditions))}
+                      sentence={rejectedSentence(ui.guess, conditions, levelCode) + verdictNote(column)}
                       disabled={busy}
                       onTryAgain={() => { dispatch({ type: 'moveOn' }); setUi({ kind: 'input' }); setAnswer(''); input.current?.focus() }}
                       onCountAnyway={countAnyway}

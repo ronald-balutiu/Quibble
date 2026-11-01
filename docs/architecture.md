@@ -167,6 +167,11 @@ them.
   device. A guess
   both judges answered is saved by `src/lib/storage/comparisons.ts` for "Your games"
   (at most 2,000 records and 500 KB, each kept 90 days).
+- The referee is a setting, saved by `src/lib/storage/settings.ts` and read at the
+  start of each guess. With the on-device judge as referee, its verdict scores and the
+  cloud's is shown; if the cloud fails, only its column says so.
+- `src/components/SettingsDrawer/` is the settings drawer (L3), opened from the Home
+  and Library headers: the referee choice and the on-device judge's Turn on / Turn off.
 - `src/scenes/game/use-device-column.ts` gives each game screen the judge's status,
   the latest run and the puzzle's "agreed n / m". "Device • off" opens the setup
   sheet on a capable device.

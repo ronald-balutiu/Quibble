@@ -1,0 +1,152 @@
+/* L3: a right-hand drawer on desktop, a full-height sheet on phone (5.6). */
+.settings-open {
+  margin-left: var(--space-4);
+  padding: var(--space-0);
+  border: none;
+  background: none;
+  color: var(--text);
+  text-decoration: underline;
+  text-underline-offset: var(--space-1);
+  cursor: pointer;
+}
+
+.drawer[open] {
+  display: flex;
+  flex-direction: column;
+  width: auto;
+  max-width: none;
+  height: auto;
+  max-height: none;
+  margin: var(--frame-pad);
+  padding: var(--space-0);
+  border: var(--border-width) solid var(--line-strong);
+  background: var(--ground);
+  color: var(--text);
+}
+
+.drawer::backdrop {
+  background: var(--ground);
+  opacity: 0.8;
+}
+
+.drawer__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: var(--border-width) solid var(--line);
+}
+
+.drawer__title {
+  margin: var(--space-0);
+  padding-inline: var(--content-pad);
+  font: inherit;
+  color: var(--text);
+}
+
+.drawer__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-left: var(--border-width) solid var(--line);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.drawer__close path {
+  fill: none;
+  stroke: currentcolor;
+  stroke-linecap: round;
+}
+
+.drawer__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.drawer__group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin: var(--space-0);
+  padding: var(--space-6) var(--content-pad);
+  border: none;
+  border-bottom: var(--border-width) solid var(--line);
+}
+
+.drawer__group legend,
+.drawer__group h3 {
+  float: left;
+  margin: var(--space-0);
+  padding: var(--space-0);
+  font-weight: var(--weight-regular);
+}
+
+.drawer__group p {
+  margin: var(--space-0);
+}
+
+.drawer__choices {
+  display: flex;
+  gap: var(--space-6);
+}
+
+.drawer__choice {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  min-height: var(--target-min);
+  font-size: var(--type-body-large);
+  cursor: pointer;
+}
+
+/* The label is the 44 px target, so the radio itself can stay small. */
+.drawer__choice input {
+  min-width: var(--space-4);
+  min-height: var(--space-4);
+  margin: var(--space-0);
+  accent-color: var(--text);
+}
+
+.drawer__row .pill {
+  white-space: nowrap;
+}
+
+.drawer__choice:has(input:disabled) {
+  color: var(--dim);
+  cursor: default;
+}
+
+.drawer__row {
+  display: flex;
+  gap: var(--space-4);
+  justify-content: space-between;
+  align-items: center;
+  color: var(--muted);
+}
+
+.drawer__row > span {
+  display: flex;
+  flex-direction: column;
+}
+
+.drawer__name {
+  font-size: var(--type-body-large);
+  color: var(--text);
+}
+
+.drawer__footer {
+  padding: var(--space-4) var(--content-pad);
+  border-top: var(--border-width) solid var(--line);
+}
+
+@media (min-width: 1024px) {
+  .drawer[open] {
+    width: 100%;
+    max-width: var(--drawer-width);
+    margin: var(--space-0) var(--space-0) var(--space-0) auto;
+  }
+}

@@ -92,6 +92,9 @@ export const en = {
   'judges.device.thinking': '○ Device {s} s…',
   'judges.device.ms': '○ Device {ms} ms',
   'judges.device.noAnswer': "○ Device • didn't answer",
+  'judges.cloud.noAnswer': "● Cloud • didn't answer",
+  'judges.notScored.cloud': 'Cloud verdict • shown, not scored',
+  'judges.notScored.device': 'Device verdict • shown, not scored',
   'judges.deviceScore': '○ {p}',
   'judges.agreed': 'This puzzle: agreed {agreed} / {compared}',
   'judges.threshold': 'Threshold {threshold}',
@@ -217,6 +220,23 @@ export const en = {
   'model.unsupported': 'Needs a desktop browser with WebGPU or enough memory.',
   'action.cancel': 'Cancel',
   'action.ok': 'OK',
+
+  // Settings drawer (L3)
+  'settings.open': 'Your data',
+  'settings.title': 'Settings',
+  'settings.referee': 'Referee • who decides',
+  'settings.referee.cloud': '● Cloud',
+  'settings.referee.device': '○ On-device',
+  'settings.referee.note': 'Applies from your next guess. The other judge still shows its verdict.',
+  'settings.device': 'On-device judge',
+  'settings.device.off': 'Off',
+  'settings.device.loading': 'Loading',
+  'settings.device.ready': 'On • this visit',
+  'settings.device.offDetails': '{model} · {mb} MB · downloads each visit',
+  'settings.device.onDetails': '{model} · {mb} MB · WebGPU Q4',
+  'settings.device.turnOn': 'Turn on',
+  'settings.device.turnOff': 'Turn off',
+  'settings.footer': 'No accounts • no tracking',
 
   // On-device judge setup (S3) and download (S4)
   'device.setup.eyebrow': 'Second judge • setup',

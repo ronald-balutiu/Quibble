@@ -4,6 +4,12 @@
 export const en = {
   'app.name': 'Quibble',
 
+  // Page titles (document.title), for tabs and search results
+  'meta.title.home': 'Quibble · Three word games judged by AI',
+  'meta.title.library': 'Library · Quibble',
+  'meta.title.game': '{game} #{n} · Quibble',
+  'meta.title.notFound': 'Not found · Quibble',
+
   // Home (H1, H2)
   'home.eyebrow': 'Three word games / two AI judges',
   'home.title': 'Make your case.',

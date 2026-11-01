@@ -103,6 +103,11 @@ requests are served from static assets, with the single-page app fallback for di
 loads and refreshes. Unknown API paths return a JSON 404. After a build, Wrangler
 uses the generated deployment configuration under `dist/`.
 
+For search engines, `public/robots.txt` points to `/sitemap.xml`, which
+`vite.config.ts` builds from the puzzle index (Home, the Library and every puzzle).
+Each scene sets its title and canonical URL through `src/app/use-page-meta.ts`, and
+the not-found scene asks not to be indexed, since the fallback serves it with a 200.
+
 `public/_headers` sets the content security policy on every page and static asset,
 including the on-device judge's worker script, which takes its policy from its own
 response. Scripts are self-hosted apart from Turnstile (`challenges.cloudflare.com`)

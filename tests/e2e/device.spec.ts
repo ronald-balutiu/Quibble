@@ -155,7 +155,7 @@ test.describe('the on-device judge (stubbed worker)', () => {
   test('the settings drawer turns the judge on and off, and sets the referee', async ({ page }) => {
     await setUp(page, 'ready')
     await page.goto('/play')
-    await page.getByRole('button', { name: 'Your data' }).click()
+    await page.getByRole('button', { name: 'Settings' }).click()
     const drawer = page.getByRole('dialog', { name: 'Settings' })
     await expect(drawer.getByRole('radio', { name: '○ On-device' })).toBeDisabled()
     await drawer.getByRole('button', { name: 'Turn on' }).click()

@@ -1,6 +1,4 @@
-import { Link } from 'react-router'
 import { usePageMeta } from '@/app/use-page-meta'
-import { SettingsButton } from '@/components/SettingsDrawer/SettingsDrawer'
 import { en, format } from '@/copy/en'
 import { useEvalResults } from '@/lib/eval-results'
 import { usePuzzleIndex } from '@/lib/use-puzzle-index'
@@ -20,12 +18,6 @@ export function AboutScene() {
 
   return (
     <main className="app-frame scene about" data-scene="about">
-      <header className="scene-header scene-header--cells">
-        <Link className="telemetry scene-header__name control-link" to="/?home=1">{en['app.name']}</Link>
-        <span className="telemetry scene-header__end">{en['nav.about']}</span>
-        <Link className="telemetry scene-header__link control-link" to="/play">{en['about.play']}</Link>
-        <SettingsButton />
-      </header>
       <h1 className="about__title">{en['about.title']}</h1>
       <section className="about__section" aria-labelledby="about-what">
         <h2 id="about-what" className="telemetry">{en['about.what']}</h2>

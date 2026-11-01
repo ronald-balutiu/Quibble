@@ -5,7 +5,6 @@ import { CloudModelChoice } from '@/components/JudgeSetup/CloudModelChoice'
 import { DeviceJudgeCard } from '@/components/JudgeSetup/DeviceJudgeCard'
 import { JudgesCompare } from '@/components/JudgesCompare/JudgesCompare'
 import { RingMark } from '@/components/RingMark/RingMark'
-import { SettingsButton } from '@/components/SettingsDrawer/SettingsDrawer'
 import { en } from '@/copy/en'
 import { hasPlayed } from '@/lib/storage/progress'
 import '../scenes.css'
@@ -18,14 +17,6 @@ export function HomeScene() {
 
   return (
     <main className="app-frame scene welcome" data-scene="home">
-      <header className="scene-header">
-        <span className="welcome-brand">{en['app.name']}</span>
-        <nav className="welcome-nav" aria-label={en['nav.main']}>
-          <Link className="control-link" to="/play">{en['nav.library']}</Link>
-          <Link className="control-link" to="/about">{en['nav.about']}</Link>
-          <SettingsButton />
-        </nav>
-      </header>
       <div className="welcome-top">
         <section className="welcome-hero">
           <p className="telemetry">{en['welcome.eyebrow']}</p>

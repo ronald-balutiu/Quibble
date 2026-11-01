@@ -76,7 +76,7 @@ test.describe('axe-core on every screen (0.2)', () => {
     await expect(page.getByRole('dialog')).toBeVisible()
     await expectAccessible(page, 'L2')
     await page.keyboard.press('Escape')
-    await page.getByRole('button', { name: 'Your data' }).click()
+    await page.getByRole('button', { name: 'Settings' }).click()
     await expect(page.getByRole('dialog', { name: 'Settings' })).toBeVisible()
     await expectAccessible(page, 'L3')
 

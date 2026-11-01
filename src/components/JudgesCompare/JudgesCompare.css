@@ -10,7 +10,7 @@
 .compare > * {
   width: 100%;
   max-width: var(--compare-max);
-  margin-inline: auto;
+  margin-inline: 0;
 }
 
 .compare h2,

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router'
 import { en, format } from '@/copy/en'
 import { deviceJudge } from '@/judges/device/client'
 import { useDeviceStatus, useDeviceSupported } from '@/judges/device/use-device'
@@ -136,7 +137,10 @@ function SettingsDrawer({ onClose }: { onClose: () => void }) {
           <p>{en['settings.data.note']}</p>
         </section>
       </div>
-      <footer className="drawer__footer telemetry">{en['settings.footer']}</footer>
+      <footer className="drawer__footer telemetry">
+        <span>{en['settings.footer']}</span>
+        <Link className="control-link" to="/about#privacy">{en['nav.privacy']}</Link>
+      </footer>
       {setup && <DeviceSetup onClose={() => { setSetup(false) }} />}
     </dialog>
   )

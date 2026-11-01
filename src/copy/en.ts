@@ -8,6 +8,7 @@ export const en = {
   'meta.title.home': 'Quibble · Three word games judged by AI',
   'meta.title.library': 'Library · Quibble',
   'meta.title.game': '{game} #{n} · Quibble',
+  'meta.title.about': 'About · Quibble',
   'meta.title.notFound': 'Not found · Quibble',
 
   // Home (H1, H2)
@@ -353,6 +354,23 @@ export const en = {
   'judgeChoice.clef-flash.note': 'Faster, less accurate.',
   'judgeChoice.gemma-4': 'Gemma 4',
   'judgeChoice.gemma-4.note': 'Slower, more accurate.',
+
+  // About (P1)
+  'about.title': 'Two judges, one question: does it fit?',
+  'about.play': 'Play →',
+  'about.what': 'What this is',
+  'about.what.body': 'Three word games where any answer that fits counts, not just the one we thought of. AI judges decide, and you can overrule them. A portfolio project: no ads, no accounts, no cost to play. One Cloudflare Worker serves the site, the API and the AI calls, inside the free tier.',
+  'about.how': 'How judging works',
+  'about.how.body': "Each condition gets a yes or no from a model on Cloudflare Workers AI: Clef-flash by default, or Gemma 4 if you pick it in the Library. Turn on the on-device judge and Qwen3.5-0.8B answers too, in your browser on WebGPU. Every puzzle was generated offline and checked by two models; the scores you see are the models' real outputs.",
+  'about.how.results': 'On a held-out answer-key test of {cases} hand-checked guesses, run once on the final setup, Gemma 4 judged {gemma} of whole guesses right with {gemmaFa} false accepts, meeting the 85% target. Clef-flash, the faster default, got {clef} with {clefFa} false accepts, short of it. The on-device judge got {device}.',
+  'about.how.device': 'On {machine} in {browser}, the on-device judge loads in {load} s and judges a three-condition guess in about {warm} ms.',
+  'about.privacy': 'Privacy',
+  'about.privacy.body': "Your answers go to Cloudflare Workers AI to be judged. Progress and judge history stay in this browser; delete them any time in Your data. There's one short-lived session cookie and Turnstile's bot check, and no tracking cookies. Cloudflare Web Analytics counts visits without cookies. Downloading the on-device model contacts Hugging Face, which sees your IP. Nothing about you is kept on our server.",
+  'about.credits': 'Credits',
+  'about.credits.body': 'Clef-flash and Gemma 4 on Cloudflare Workers AI · Qwen3.5-0.8B (Apache 2.0) through onnx-community and ONNX Runtime Web (MIT) · Open English WordNet (CC BY 4.0) · Geist type (SIL OFL). Built by Ronald Balutiu.',
+  'about.source': 'Source on GitHub',
+  'about.footer': 'Library v1 • {puzzles} puzzles • answer-key build {build}',
+  'nav.privacy': 'Privacy →',
 
   // Not found (P2)
   'notFound.title': 'Nothing here.',

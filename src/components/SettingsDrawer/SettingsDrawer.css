@@ -150,6 +150,9 @@
 }
 
 .drawer__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: var(--space-4) var(--content-pad);
   border-top: var(--border-width) solid var(--line);
 }
@@ -160,4 +163,8 @@
     max-width: var(--drawer-width);
     margin: var(--space-0) var(--space-0) var(--space-0) auto;
   }
+}
+
+.drawer__footer a {
+  color: var(--text);
 }

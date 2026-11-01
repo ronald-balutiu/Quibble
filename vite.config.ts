@@ -46,7 +46,7 @@ function sitemap(): Plugin {
     applyToEnvironment: (environment) => environment.name === 'client',
     generateBundle() {
       const index = JSON.parse(readFileSync(fileURLToPath(new URL('./public/puzzles/index.json', import.meta.url)), 'utf8')) as Record<string, { n: number }[]>
-      const paths = ['/', '/play', ...Object.entries(index).flatMap(([game, puzzles]) => puzzles.map(({ n }) => `/play/${game}/${String(n)}`))]
+      const paths = ['/', '/play', '/about', ...Object.entries(index).flatMap(([game, puzzles]) => puzzles.map(({ n }) => `/play/${game}/${String(n)}`))]
       const urls = paths.map((path) => `  <url><loc>${SITE}${path}</loc></url>`).join('\n')
       this.emitFile({ type: 'asset', fileName: 'sitemap.xml', source: `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n` })
     },

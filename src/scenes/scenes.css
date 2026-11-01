@@ -418,3 +418,34 @@
     font-size: var(--type-body);
   }
 }
+
+/* P1: the case study, one readable column. */
+.about__title {
+  max-width: var(--sheet-width);
+  margin: var(--space-0);
+  padding: var(--space-10) var(--content-pad) var(--space-6);
+  font-size: var(--type-panel-large);
+}
+
+.about__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-6) var(--content-pad);
+  border-top: var(--border-width) solid var(--line);
+}
+
+.about__section h2 {
+  margin: var(--space-0);
+  font-weight: var(--weight-regular);
+}
+
+.about__section p {
+  max-width: var(--sheet-width);
+  margin: var(--space-0);
+  font-size: var(--type-body-large);
+}
+
+.about__section a {
+  color: var(--text);
+}

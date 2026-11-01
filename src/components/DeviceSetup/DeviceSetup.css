@@ -1,0 +1,295 @@
+/* S3 and S4: neutral colours even inside a game (5.5). Phone: S3 is a bottom
+   sheet and S4 fills the screen; desktop: a centred sheet (5.6). */
+.sheet.device-sheet {
+  width: auto;
+  max-height: none;
+  margin: auto var(--frame-pad) var(--frame-pad);
+  padding: var(--space-0);
+}
+
+.device-sheet[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.device-sheet--install[open] {
+  height: auto;
+  margin-block-start: var(--frame-pad);
+}
+
+.device-sheet__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: var(--border-width) solid var(--line);
+}
+
+.device-sheet__header > span:first-child {
+  padding-inline: var(--frame-pad);
+}
+
+.device-sheet__header--install {
+  padding: var(--space-3) var(--frame-pad);
+}
+
+.device-sheet__name {
+  margin: var(--space-0);
+  font: inherit;
+  color: var(--text);
+}
+
+.device-sheet__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-left: var(--border-width) solid var(--line);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.device-sheet__close path {
+  fill: none;
+  stroke: currentcolor;
+  stroke-linecap: round;
+}
+
+.device-sheet__intro {
+  padding: var(--space-6) var(--content-pad) var(--space-0);
+}
+
+.device-sheet__title {
+  margin: var(--space-0) var(--space-0) var(--space-4);
+  font-size: var(--type-panel-large);
+  font-weight: var(--weight-light);
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-panel);
+}
+
+.device-sheet__intro p {
+  margin: var(--space-0);
+  font-size: var(--type-body-large);
+}
+
+.device-facts,
+.device-readout {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: var(--space-5) var(--space-0) var(--space-0);
+  border-block: var(--border-width) solid var(--line);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+}
+
+.device-facts > div,
+.device-readout > div {
+  padding: var(--space-3) var(--frame-pad);
+}
+
+.device-facts > div + div {
+  border-left: var(--border-width) solid var(--line);
+}
+
+.device-facts dt,
+.device-readout dt {
+  font-size: var(--type-label);
+  letter-spacing: var(--tracking-label);
+  color: var(--muted);
+}
+
+.device-facts dd,
+.device-readout dd {
+  margin: var(--space-1) var(--space-0) var(--space-0);
+  font-size: var(--type-label-large);
+  letter-spacing: var(--tracking-label-tight);
+  color: var(--text);
+}
+
+.device-keep {
+  margin: var(--space-0);
+  padding: var(--space-2) var(--content-pad) var(--space-0);
+  border: none;
+}
+
+.device-keep__legend {
+  position: absolute;
+  width: var(--border-width);
+  height: var(--border-width);
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+.device-keep label {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  padding-block: var(--space-3);
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.device-keep label + label {
+  border-top: var(--border-width) solid var(--line-soft);
+}
+
+.device-keep input {
+  min-width: var(--space-4);
+  min-height: var(--space-4);
+  margin: var(--space-1) var(--space-0) var(--space-0);
+  accent-color: var(--text);
+}
+
+.device-keep__name {
+  display: block;
+  font-size: var(--type-body-large);
+  color: var(--text);
+}
+
+.device-sheet__actions {
+  display: flex;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--content-pad) var(--space-4);
+}
+
+.device-sheet__source {
+  margin: var(--space-0);
+  padding: var(--space-0) var(--content-pad) var(--space-4);
+}
+
+/* S4 */
+.device-install {
+  position: relative;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8) var(--frame-pad);
+}
+
+.device-install__rings {
+  position: absolute;
+  top: var(--frame-pad);
+  left: var(--frame-pad);
+}
+
+.device-install__percent {
+  position: absolute;
+  right: var(--frame-pad);
+  bottom: var(--frame-pad);
+  margin: var(--space-0);
+  font-size: var(--type-answer);
+  font-weight: var(--weight-light);
+  line-height: var(--leading-score);
+  letter-spacing: var(--tracking-answer);
+  color: var(--text);
+}
+
+.device-install__percent span {
+  font-size: var(--type-panel);
+  color: var(--muted);
+}
+
+.device-readout {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: var(--space-0);
+  border-bottom: none;
+}
+
+.device-readout > div:nth-child(even) {
+  border-left: var(--border-width) solid var(--line);
+}
+
+.device-readout > div:nth-child(n + 3) {
+  border-top: var(--border-width) solid var(--line);
+}
+
+.device-ticks {
+  padding: var(--space-3) var(--frame-pad) var(--space-1);
+  border-top: var(--border-width) solid var(--line);
+}
+
+.device-ticks__bar {
+  position: relative;
+  height: var(--border-width);
+  background: var(--line);
+}
+
+.device-ticks__bar::after {
+  position: absolute;
+  top: 50%;
+  left: var(--space-0);
+  width: 100%;
+  height: var(--progress-bar-height);
+  translate: 0 -50%;
+  scale: var(--progress) 1;
+  transform-origin: left;
+  background: var(--text);
+  content: '';
+}
+
+.device-ticks__labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  letter-spacing: var(--tracking-label-tight);
+}
+
+.device-ticks__tick--done {
+  color: var(--text);
+}
+
+.device-ticks__tick--current {
+  color: var(--fail);
+}
+
+.device-ticks__tick--todo {
+  color: var(--dim);
+}
+
+.device-sheet__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-1) var(--frame-pad) var(--space-2);
+}
+
+.telemetry.device-sheet__status--failed {
+  font-family: var(--font-sans);
+  font-size: var(--type-body);
+  letter-spacing: var(--space-0);
+  text-transform: none;
+  color: var(--fail);
+}
+
+.device-sheet__controls {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.device-sheet__link {
+  padding: var(--space-0) var(--space-1);
+  border: none;
+  background: none;
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: var(--type-label-large);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: var(--space-1);
+  cursor: pointer;
+}
+
+@media (min-width: 1024px) {
+  .sheet.device-sheet,
+  .device-sheet--install[open] {
+    width: 100%;
+    height: fit-content;
+    max-height: 100%;
+    margin: auto;
+  }
+}

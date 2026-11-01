@@ -12,6 +12,7 @@ import { deviceFiles, scoreClaim, tensorFactory } from './verdict'
 // The WebGPU runtime is too big for a static asset (25 MiB), so the build ships it
 // gzipped (vite.config.ts) and it is unpacked here.
 const RUNTIME_PATH = '/ort/runtime.wasm.gz' // emitted by ortRuntime() in vite.config.ts
+const PROGRESS_MS = 50
 
 declare const self: DedicatedWorkerGlobalScope
 const post = (message: FromWorker) => { self.postMessage(message) }
@@ -40,7 +41,16 @@ async function load(keep: boolean): Promise<void> {
   const mine = generation
   const total = deviceFiles.reduce((sum, file) => sum + file.bytes, 0)
   let received = 0
-  post({ type: 'progress', received, total })
+  // Network chunks arrive far faster than the page draws them, so progress goes out
+  // every 50 ms and once per file.
+  let reported = 0
+  const report = (force: boolean) => {
+    const now = performance.now()
+    if (!force && now - reported < PROGRESS_MS) return
+    reported = now
+    post({ type: 'progress', received, total })
+  }
+  report(true)
   try {
     await loadRuntime(signal)
     const bytes: Uint8Array[] = []
@@ -48,8 +58,9 @@ async function load(keep: boolean): Promise<void> {
     for (const file of deviceFiles) {
       const result = await loadFile(file, {
         keep, signal, stillWanted: () => generation === mine,
-        onBytes: (count) => { received += count; post({ type: 'progress', received, total }) },
+        onBytes: (count) => { received += count; report(false) },
       })
+      report(true)
       bytes.push(result.bytes)
       cached &&= result.cached
     }

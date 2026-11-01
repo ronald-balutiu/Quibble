@@ -14,9 +14,9 @@ import { markOverruled } from '@/lib/storage/comparisons'
 import { isStorageAvailable, loadProgress, saveRun } from '@/lib/storage/progress'
 import { loadCloudModel, markTipSeen, tipSeen } from '@/lib/storage/settings'
 import { judgeGuess, type Ui } from '@/scenes/game/judge-guess'
-import { AnswerForm, GameHeader, JudgesStatus, NotJudgedPanel, RejectedPanel, ScoreAxes, StrikeDots } from '@/scenes/game/parts'
+import { AnswerForm, CloudStrip, GameHeader, JudgesStatus, NotJudgedPanel, RejectedPanel, ScoreAxes, StrikeDots } from '@/scenes/game/parts'
 import { useDeviceColumn } from '@/scenes/game/use-device-column'
-import { judgesSplit, rejectedSentence } from '@/scenes/game/verdict'
+import { judgesSplit, rejectedSentence, verdictNote } from '@/scenes/game/verdict'
 import {
   escapeEnd, escapeReducer, escapeShareGrid, levelsCleared, previousGuess, startEscape, strikesUsed, usedOn,
 } from './reducer'
@@ -81,11 +81,13 @@ export function EscapeGame({ puzzle }: { puzzle: Puzzle }) {
 
     attempt.current += 1
     setUi({ kind: 'judging' })
+    setScores({})
     const roundId = puzzle.rounds[run.current]?.id ?? ''
     const result = await judgeGuess({ game, n, roundId, text, normalized, attempt: attempt.current, model, conditions, turnstile: turnstile.current }, {
       onDevice: column.follow(),
       onCloud: (cloud, ms) => { setScores(cloud); setLast({ answer: normalized, level: run.current, pass: false }); column.judged(ms) },
     })
+    column.settled(result)
     if ('ui' in result) { setUi(result.ui); return }
     setLast({ answer: normalized, level: run.current, pass: result.guess.pass })
     dispatch({ type: 'judged', guess: result.guess })
@@ -138,6 +140,7 @@ export function EscapeGame({ puzzle }: { puzzle: Puzzle }) {
         <StrikeDots used={strikesUsed(run)} max={config.maxWrongGuessesPerRun} />
       </GameHeader>
       {column.setupOpen && <DeviceSetup onClose={column.closeSetup} />}
+      <CloudStrip column={column} />
       {!storageOn && <p className="strip" role="status">{en['storage.off']}</p>}
       <div ref={turnstile} className="turnstile" />
       {run.finished
@@ -176,13 +179,13 @@ export function EscapeGame({ puzzle }: { puzzle: Puzzle }) {
                 <div aria-live="polite">
                   {ui.kind === 'rejected' && (
                     <RejectedPanel
-                      sentence={rejectedSentence(ui.guess, conditions, levelCode) + (judgesSplit(column.run, ui.guess.failed, conditions) ? en['verdict.judgesDisagree'] : '')}
+                      sentence={rejectedSentence(ui.guess, conditions, levelCode) + verdictNote(column, judgesSplit(column.run, ui.guess.failed, conditions))}
                       disabled={busy}
                       onTryAgain={() => { dispatch({ type: 'moveOn' }); setUi({ kind: 'input' }); setAnswer(''); input.current?.focus() }}
                       onCountAnyway={countAnyway}
                     />
                   )}
-                  <NotJudgedPanel ui={ui.kind === 'reused' ? { kind: 'input' } : ui} onRetry={() => { void judge(answer) }} onEdit={() => { setUi({ kind: 'input' }); input.current?.focus() }} />
+                  <NotJudgedPanel ui={ui.kind === 'reused' ? { kind: 'input' } : ui} onRetry={() => { void judge(answer) }} onEdit={() => { setUi({ kind: 'input' }); input.current?.focus() }} onAddDevice={column.canAdd ? column.openSetup : undefined} />
                 </div>
                 <div className="escape-footer">
                   <button type="button" className="pill pill--quiet" onClick={() => { dispatch({ type: 'giveUp' }) }} disabled={busy}>{en['escape.giveUp']}</button>
@@ -201,7 +204,8 @@ export function EscapeGame({ puzzle }: { puzzle: Puzzle }) {
                 {last
                   ? (
                       <ScoreAxes
-                        conditions={puzzle.rounds[last.level]?.conditions ?? []} scores={scores} threshold={judgeConfig.passThreshold[model]} model={model}
+                        conditions={puzzle.rounds[last.level]?.conditions ?? []} scores={scores} model={model}
+                        threshold={column.decidedBy === 'device' ? judgeConfig.passThreshold.device : judgeConfig.passThreshold[model]}
                         column={column} mark={levelCode} title={format('escape.lastVerdict', { answer: last.answer, level: levelCode(last.level) })}
                       />
                     )

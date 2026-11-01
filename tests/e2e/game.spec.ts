@@ -117,6 +117,11 @@ test.describe('a guess the cloud judge could not decide (G7, S2)', () => {
     await guess(page, 'anything')
     await expect(page.getByText(/^The cloud judge is resting until /u)).toBeVisible()
     await expect(page.getByRole('link', { name: 'Back to library' }).last()).toBeVisible()
+    // S2: the strip under the header, with the on-device judge off.
+    const strip = page.getByRole('status', { name: 'The judges' })
+    await expect(strip).toContainText('○ Cloud • resting')
+    await expect(strip).toContainText('○ Device • off')
+    await expect(page.getByRole('img', { name: '0 of 3 wrong guesses used' })).toBeVisible()
   })
 
   test('shows a timeout after 10 seconds', async ({ page }) => {

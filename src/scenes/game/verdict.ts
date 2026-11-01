@@ -1,7 +1,7 @@
 import { isCloseCall, judgeConfig, passes } from '@shared/config'
 import type { CloudModel, JudgeSuccess } from '@shared/schemas/judge'
 import type { PuzzleCondition } from '@shared/schemas/puzzle'
-import { format } from '@/copy/en'
+import { en, format } from '@/copy/en'
 import type { Guess } from '@/games/oddly-specific/reducer'
 import type { DeviceRun } from './judge-guess'
 
@@ -22,8 +22,19 @@ export function judgesSplit(run: DeviceRun | undefined, failed: readonly string[
 }
 
 export function toGuess(answer: string, result: JudgeSuccess, conditions: readonly PuzzleCondition[], model: CloudModel): Guess {
-  const threshold = judgeConfig.passThreshold[model]
-  const scores = conditions.map(({ id }) => ({ id, ...result.conditions[id] }))
+  return decide(answer, conditions.map(({ id }) => ({ id, ...result.conditions[id] })), judgeConfig.passThreshold[model])
+}
+
+// When the cloud is out of usage, the on-device judge decides with its own threshold (3.7, S1).
+export function toDeviceGuess(answer: string, scores: Record<string, number>, conditions: readonly PuzzleCondition[]): Guess {
+  const threshold = judgeConfig.passThreshold.device
+  return decide(answer, conditions.map(({ id }) => {
+    const p = scores[id] ?? 0
+    return { id, p, pass: passes(p, threshold) }
+  }), threshold)
+}
+
+function decide(answer: string, scores: { id: string, p?: number, pass?: boolean }[], threshold: number): Guess {
   const failed = scores.filter(({ pass }) => pass === false).map(({ id }) => id)
   // The deciding score: the lowest for a pass, or the failing score nearest the threshold.
   const deciding = failed.length === 0
@@ -46,4 +57,11 @@ export function rejectedSentence(guess: Guess, conditions: readonly PuzzleCondit
         conditions: failed.map((condition) => mark(conditions.indexOf(condition))).join(' and '),
       })
   return guess.closeCall ? sentence + format('verdict.closeCall') : sentence
+}
+
+// What the rejected sentence adds about the judges (5.7): a device-only verdict
+// isn't compared (S1); otherwise whether they split.
+export function verdictNote(column: { decidedBy?: 'cloud' | 'device' | undefined }, split: boolean | undefined): string {
+  if (column.decidedBy === 'device') return en['verdict.notCompared']
+  return split ? en['verdict.judgesDisagree'] : ''
 }

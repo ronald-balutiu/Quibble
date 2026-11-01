@@ -45,7 +45,8 @@ test('pages and the worker script are served with the content security policy', 
   page.on('console', (message) => { if (message.text().includes('Content Security Policy')) violations.push(message.text()) })
   const response = await page.goto('/play/oddly-specific/1')
   const policy = response?.headers()['content-security-policy'] ?? ''
-  expect(policy).toContain("script-src 'self' 'wasm-unsafe-eval' https://challenges.cloudflare.com")
+  // Turnstile, and Cloudflare Web Analytics' beacon (D-69).
+  expect(policy).toContain("script-src 'self' 'wasm-unsafe-eval' https://challenges.cloudflare.com https://static.cloudflareinsights.com;")
   expect(policy).toContain('connect-src \'self\' https://huggingface.co https://*.hf.co')
   expect(policy).toContain("frame-ancestors 'none'")
   // The worker's file name is hashed, so read it from the app's bundle.

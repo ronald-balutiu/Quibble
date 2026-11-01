@@ -49,6 +49,12 @@ export function LibraryScene() {
   const unplayed = statuses.filter(({ status }) => status === 'unplayed')
   const shown = statuses.filter((entry) => filter === 'all' || (filter === 'unplayed' ? entry.status === 'unplayed' : entry.difficulty === filter))
   const starter = unplayed[0]
+  const summaries = gameIds.map((id) => ({
+    id,
+    count: index?.[id]?.length ?? 0,
+    done: (index?.[id] ?? []).filter(({ n }) => loadProgress(id, n).best !== undefined).length,
+  }))
+  const hasCompleted = summaries.some(({ done }) => done > 0)
 
   return (
     <main className="app-frame scene" data-scene="library">
@@ -59,24 +65,20 @@ export function LibraryScene() {
       {/* Phone: rows, grid, actions, judge choice. Desktop (L1): a sidebar beside the grid. */}
       <div className="library-layout">
       <nav className="game-rows" aria-label={en['home.games']}>
-        {gameIds.map((id) => {
-          const count = index?.[id]?.length ?? 0
-          const done = (index?.[id] ?? []).filter(({ n }) => loadProgress(id, n).best !== undefined).length
-          return (
+        {summaries.map(({ id, count, done }) => (
             <button key={id} type="button" className="game-row" data-game={id} aria-current={id === game ? 'page' : undefined} onClick={() => { setParams({ game: id }) }}>
               <span className="telemetry">{en[`game.code.${id}`]}</span>
               <span className="game-row__name">{en[`game.name.${id}`]}</span>
               <span className="muted game-row__tagline">{en[`game.tagline.${id}`]}</span>
               <span className="telemetry">{count === 0 ? en['library.new'] : format('library.progress', { solved: String(done).padStart(3, '0'), total: String(count).padStart(3, '0') })}</span>
             </button>
-          )
-        })}
+        ))}
       </nav>
       <section className="library" data-game={game}>
         <h1 className="library__title">{en[`game.name.${game}`]}</h1>
         {(continuing || starter) && (
           <div className="library-start">
-            <p>{en[continuing ? 'library.continue.note' : 'library.start.note']}</p>
+            <p>{en[continuing ? 'library.continue.note' : hasCompleted ? 'library.next.note' : 'library.start.note']}</p>
             {continuing
               ? <Link className="pill control-link" to={`/play/${game}/${String(continuing.n)}`}>{progressText(game, 'library.continue', { n: String(continuing.n).padStart(3, '0'), round: continuing.round ?? 1 })}</Link>
               : starter && <Link className="pill control-link" to={`/play/${game}/${String(starter.n)}`}>{format('library.start', { n: String(starter.n).padStart(3, '0'), difficulty: en[`difficulty.${starter.difficulty}`] })}</Link>}

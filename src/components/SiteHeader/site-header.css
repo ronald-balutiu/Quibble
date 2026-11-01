@@ -8,7 +8,8 @@
   margin: 0 auto var(--space-4);
 }
 
-.site-header a {
+.site-header > a,
+.site-header__nav a {
   color: var(--muted);
   text-decoration: none;
 }
@@ -30,7 +31,8 @@
 }
 
 .site-header__nav a[aria-current='page'],
-.site-header a:hover {
+.site-header > a:hover,
+.site-header__nav a:hover {
   color: var(--text);
   text-decoration: underline;
   text-underline-offset: var(--space-2);

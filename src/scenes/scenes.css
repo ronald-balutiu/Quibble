@@ -68,6 +68,12 @@
   font-size: var(--type-panel-large);
   font-weight: var(--weight-light);
   letter-spacing: var(--tracking-panel);
+  color: var(--accent);
+}
+
+.library-start p,
+.library > .telemetry {
+  color: var(--accent);
 }
 
 .filters {
@@ -122,9 +128,14 @@
 }
 
 .game-row[aria-current='page'] {
-  border-left-color: var(--text);
+  border-left-color: var(--accent);
   background: var(--grid);
-  color: var(--text);
+  color: var(--accent);
+}
+
+.game-row[aria-current='page'] > .telemetry,
+.game-row[aria-current='page'] > .game-row__tagline {
+  color: inherit;
 }
 
 .game-row__name {

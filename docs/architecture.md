@@ -81,7 +81,9 @@ judge setup. An ordinary visit to `/` opens the Library for a returning player;
 progress with actual play activity, rather than a separate onboarding flag.
 Opening an untouched puzzle alone does not count. The Library keeps its numbered
 grid, starts unplayed tiles directly, and retains replay/reset controls for saved
-puzzles.
+puzzles. Its first-puzzle prompt changes after any game has a completed puzzle
+(with a saved best score, including zero); unfinished games keep the resume prompt.
+The selected sidebar row and its supporting text use that game’s accent.
 
 `components/JudgesCompare/` is shared by Home and the results screens. Its source
 buttons separate published answer-key accuracy from agreement in saved games.

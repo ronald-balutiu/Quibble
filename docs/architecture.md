@@ -83,6 +83,15 @@ Opening an untouched puzzle alone does not count. The Library keeps its numbered
 grid, starts unplayed tiles directly, and retains replay/reset controls for saved
 puzzles.
 
+`components/JudgesCompare/` is shared by Home and the results screens. Its source
+buttons separate published answer-key accuracy from agreement in saved games.
+The answer-key view keeps whole-answer accuracy and sample counts visible above
+an expandable table, with development history and test methods below. Its model
+selector previews published results without changing the playing judge; until a
+preview is selected, it follows the saved cloud choice. `ComparisonTable` shares
+the named columns across both sources. All figures come from the existing
+published evaluation and saved comparison helpers; the component runs no models.
+
 ## Runtime boundaries and shared contracts
 
 ESLint enforces these import rules:

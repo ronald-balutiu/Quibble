@@ -22,6 +22,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
+    "test:device": "playwright test -c playwright.device.config.ts",
     "check:assets": "node scripts/check-assets.mjs",
     "check:bundle": "wrangler deploy --dry-run",
     "check-puzzles": "tsx --tsconfig tsconfig.node.json factory/check-puzzles.ts",

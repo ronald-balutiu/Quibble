@@ -11,6 +11,7 @@
     "factory/**/*.ts",
     "eval/**/*.ts",
     "tests/e2e/**/*.ts",
+    "tests/device/**/*.ts",
     "tests/fixtures/node/**/*.ts",
     "tests/unit/shared/**/*.ts",
     "tests/unit/tooling/**/*.ts",

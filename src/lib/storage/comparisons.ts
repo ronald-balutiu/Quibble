@@ -82,3 +82,12 @@ export function markOverruled(game: Comparison['game'], n: number, round: string
     // Nothing to mark.
   }
 }
+
+// "Clear history" in L3 "Your data".
+export function clearComparisons(): void {
+  try {
+    globalThis.localStorage.removeItem(KEY)
+  } catch {
+    // Nothing to clear.
+  }
+}

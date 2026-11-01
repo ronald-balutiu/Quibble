@@ -79,3 +79,27 @@ export function resetPuzzle(game: GameId, n: number): boolean {
     return false
   }
 }
+
+const PREFIX = 'quibble:progress:'
+const progressKeys = (store: Storage) => Array.from({ length: store.length }, (_, i) => store.key(i)).filter((k): k is string => k?.startsWith(PREFIX) ?? false)
+
+// L3 "Your data": how many puzzles have saved progress, and how many runs are open.
+export function progressSummary(): { puzzles: number, open: number } {
+  try {
+    const store = globalThis.localStorage
+    const saved = progressKeys(store).map((k) => progressSchema.safeParse(JSON.parse(store.getItem(k) ?? 'null')))
+    return { puzzles: saved.length, open: saved.filter((p) => p.success && p.data.run !== undefined).length }
+  } catch {
+    return { puzzles: 0, open: 0 }
+  }
+}
+
+// "Clear game data": every puzzle's best score and open run.
+export function clearGameData(): void {
+  try {
+    const store = globalThis.localStorage
+    for (const k of progressKeys(store)) store.removeItem(k)
+  } catch {
+    // Nothing to clear.
+  }
+}

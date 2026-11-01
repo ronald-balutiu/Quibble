@@ -4,17 +4,17 @@ import { gameIds, type GameId } from '@shared/games'
 import type { PuzzleIndex } from '@shared/schemas/puzzle'
 import { usePageMeta } from '@/app/use-page-meta'
 import { en, format } from '@/copy/en'
-import { loadPuzzleIndex } from '@/lib/puzzles'
+import { usePuzzleIndex } from '@/lib/use-puzzle-index'
 import { JudgesCompare } from '@/components/JudgesCompare/JudgesCompare'
 import { RingMark } from '@/components/RingMark/RingMark'
 import { SettingsButton } from '@/components/SettingsDrawer/SettingsDrawer'
-import { totalScore } from '@/games/oddly-specific/reducer'
+import { totalScore } from '@/games/rounds/reducer'
 import { loadProgress } from '@/lib/storage/progress'
 import '../scenes.css'
 
 // The primary action (5.5 H1, H2): continue an open run, else the next unplayed
 // puzzle in a game already played, else Play for a first visit.
-function primaryAction(index: PuzzleIndex | undefined) {
+function primaryAction(index: PuzzleIndex | null | undefined) {
   const puzzles = gameIds.flatMap((game) => (index?.[game] ?? []).map(({ n }) => ({ game, n, progress: loadProgress(game, n) })))
   const open = puzzles.find(({ progress }) => progress.run !== undefined)
   if (open?.progress.run) {
@@ -32,16 +32,15 @@ function primaryAction(index: PuzzleIndex | undefined) {
   return { to: '/play', label: en['home.play'] }
 }
 
-const solvedIn = (index: PuzzleIndex | undefined, game: GameId) => (index?.[game] ?? []).filter(({ n }) => loadProgress(game, n).best !== undefined).length
+const solvedIn = (index: PuzzleIndex | null | undefined, game: GameId) => (index?.[game] ?? []).filter(({ n }) => loadProgress(game, n).best !== undefined).length
 
 // H1 / H2: the pitch, one primary action, the three games, and "How the judges
 // compare" (H3), collapsed.
 export function HomeScene() {
   usePageMeta(en['meta.title.home'])
-  const [index, setIndex] = useState<PuzzleIndex | undefined>()
+  const index = usePuzzleIndex()
   const [healthy, setHealthy] = useState<boolean | undefined>()
   useEffect(() => {
-    void loadPuzzleIndex().then(setIndex)
     void fetch('/api/health').then((response) => { setHealthy(response.ok) }, () => { setHealthy(false) })
   }, [])
 

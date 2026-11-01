@@ -2,12 +2,11 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router'
 import { gameConfigs, gameIds, type GameId } from '@shared/games'
 import { cloudModels, type CloudModel } from '@shared/schemas/judge'
-import type { PuzzleIndex } from '@shared/schemas/puzzle'
 import { usePageMeta } from '@/app/use-page-meta'
 import { SettingsButton } from '@/components/SettingsDrawer/SettingsDrawer'
 import { en, format } from '@/copy/en'
-import { maxScore } from '@/games/oddly-specific/reducer'
-import { loadPuzzleIndex } from '@/lib/puzzles'
+import { maxScore } from '@/games/rounds/reducer'
+import { usePuzzleIndex } from '@/lib/use-puzzle-index'
 import { loadProgress, resetPuzzle } from '@/lib/storage/progress'
 import { loadCloudModel, saveCloudModel } from '@/lib/storage/settings'
 import '../scenes.css'
@@ -38,13 +37,11 @@ export function LibraryScene() {
   usePageMeta(en['meta.title.library'])
   const [params, setParams] = useSearchParams()
   const game = gameIds.find((id) => id === params.get('game')) ?? 'oddly-specific'
-  const [index, setIndex] = useState<PuzzleIndex | null | undefined>(undefined)
+  const index = usePuzzleIndex()
   const [open, setOpen] = useState<number | undefined>()
   const [model, setModel] = useState<CloudModel>(loadCloudModel)
   const [filter, setFilter] = useState<Filter>('all')
   const navigate = useNavigate()
-
-  useEffect(() => { void loadPuzzleIndex().then((value) => { setIndex(value ?? null) }) }, [])
 
   const puzzles = index?.[game] ?? []
   const statuses = puzzles.map((entry) => ({ ...entry, ...statusOf(game, entry.n) }))

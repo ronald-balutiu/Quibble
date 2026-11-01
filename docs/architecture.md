@@ -30,7 +30,9 @@ cannot be mixed by accident.
 src/
   app/                 App entry and route tree
   scenes/              Top-level screens: home, library, and the shared game scene
-  games/<game>/        Each game's pure reducer and screen
+  games/rounds/        Shared round reducer, play, round-end and results screens
+  games/category-escape/  Level reducer, play and run-over screens
+  games/double-agent/  Clues, guess map and round-word list
   judges/              Judge coordination; device/ holds the on-device judge
   components/          Shared UI components
   copy/en.ts           All visible and accessible text
@@ -61,7 +63,17 @@ docs/                  Project documentation
 plan/                  Local build plan and design mocks; ignored by Git
 ```
 
-The game folders are `oddly-specific`, `category-escape`, and `double-agent`.
+Oddly Specific and Double Agent use `games/rounds/`; their configurations select
+the input rules and game-specific UI. Category Escape has its own reducer for
+immediate level progression and strikes across a run. Both reducers use the same
+run shape, preserving the saved-progress format.
+
+`scenes/game/GameScene.tsx` owns route validation and puzzle loading, with a fresh
+loading state for each route. Game screens use `scenes/game/use-game-session.ts`
+for local answer checks, judge coordination, form state, focus and progress saving;
+reducers own scoring and progression. `GameTip`, `ResultActions` and `use-reveal`
+share the first-round tip, result navigation/copy feedback and retryable reveals.
+`lib/use-puzzle-index.ts` owns the puzzle-index loading lifecycle across scenes.
 
 ## Runtime boundaries and shared contracts
 

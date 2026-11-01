@@ -39,7 +39,7 @@ export type RunAction =
   | { type: 'skip' }
   | { type: 'nextRound' }
 
-const freshRound = (): RoundState => ({ status: 'playing', guesses: [], strikes: 0, pending: false, overruled: false, points: 0 })
+export const freshRound = (): RoundState => ({ status: 'playing', guesses: [], strikes: 0, pending: false, overruled: false, points: 0 })
 
 export function startRun(config: RoundsConfig): RunState {
   return { current: 0, rounds: Array.from({ length: config.rounds }, freshRound), finished: false }

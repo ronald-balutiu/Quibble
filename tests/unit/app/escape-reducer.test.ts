@@ -1,8 +1,10 @@
 import { describe, expect, test } from 'vitest'
 import { categoryEscapeConfig } from '@shared/games/category-escape'
 import {
-  escapeEnd, escapeReducer, escapeShareGrid, levelsCleared, previousGuess, startEscape, strikesUsed, usedOn, type EscapeAction,
+  escapeEnd, escapeReducer, escapeShareGrid, levelsCleared, startEscape, strikesUsed, usedOn, type EscapeAction,
 } from '@/games/category-escape/reducer'
+
+import { previousGuess } from '@/games/rounds/reducer'
 
 const reduce = escapeReducer(categoryEscapeConfig)
 const play = (...actions: EscapeAction[]) => actions.reduce(reduce, startEscape(categoryEscapeConfig))

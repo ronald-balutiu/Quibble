@@ -66,16 +66,16 @@ function SettingsDrawer({ onClose, onProgressCleared }: { onClose: () => void, o
 
   return (
     <dialog ref={dialog} className="drawer" aria-labelledby="drawer-title" onClose={onClose}>
-      <header className="drawer__header telemetry">
+      <header className="drawer__header">
         <h2 id="drawer-title" className="drawer__title">{en['settings.title']}</h2>
         <button type="button" className="drawer__close" aria-label={en['sheet.close']} onClick={() => { dialog.current?.close() }}>
-          <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" strokeWidth="1.6" /></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" strokeWidth="2" /></svg>
         </button>
       </header>
       <div className="drawer__body">
         <div className="drawer__group"><CloudModelChoice /></div>
         <fieldset className="drawer__group">
-          <legend className="telemetry">{en['settings.referee']}</legend>
+          <legend>{en['settings.referee']}</legend>
           <div className="drawer__choices">
             {(['cloud', 'device'] as const).map((option) => (
               <label key={option} className="drawer__choice">
@@ -90,7 +90,7 @@ function SettingsDrawer({ onClose, onProgressCleared }: { onClose: () => void, o
           <p>{en['settings.referee.note']}</p>
         </fieldset>
         <section className="drawer__group" aria-labelledby="drawer-device">
-          <h3 id="drawer-device" className="telemetry">{en['settings.device']}</h3>
+          <h3 id="drawer-device">{en['settings.device']}</h3>
           {supported
             ? (
                 <div className="drawer__row">
@@ -105,7 +105,7 @@ function SettingsDrawer({ onClose, onProgressCleared }: { onClose: () => void, o
             : <p>{en['model.unsupported']}</p>}
         </section>
         <section className="drawer__group" aria-labelledby="drawer-data">
-          <h3 id="drawer-data" className="telemetry">{en['settings.data']}</h3>
+          <h3 id="drawer-data">{en['settings.data']}</h3>
           <div className="drawer__row">
             <span>
               <span className="drawer__name">{en['settings.data.progress']}</span>
@@ -140,7 +140,7 @@ function SettingsDrawer({ onClose, onProgressCleared }: { onClose: () => void, o
           <p>{en['settings.data.note']}</p>
         </section>
       </div>
-      <footer className="drawer__footer telemetry">
+      <footer className="drawer__footer">
         <span>{en['settings.footer']}</span>
         <Link className="control-link" to="/about#privacy">{en['nav.privacy']}</Link>
       </footer>

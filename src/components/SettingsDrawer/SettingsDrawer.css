@@ -16,12 +16,14 @@
 .drawer[open] {
   display: flex;
   flex-direction: column;
+  inset: var(--frame-pad);
   width: auto;
   max-width: none;
   height: auto;
   max-height: none;
-  margin: var(--frame-pad);
+  margin: 0;
   padding: var(--space-0);
+  overflow: hidden;
   border: var(--border-width) solid var(--line-strong);
   background: var(--ground);
   color: var(--text);
@@ -34,27 +36,45 @@
 
 .drawer__header {
   display: flex;
+  flex-shrink: 0;
   justify-content: space-between;
   align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--content-pad);
   border-bottom: var(--border-width) solid var(--line);
 }
 
 .drawer__title {
   margin: var(--space-0);
-  padding-inline: var(--content-pad);
-  font: inherit;
+  font-size: var(--type-dialog-title);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-heading);
   color: var(--text);
 }
 
 .drawer__close {
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  border: none;
-  border-left: var(--border-width) solid var(--line);
+  width: var(--target-min);
+  height: var(--target-min);
+  padding: 0;
+  border: var(--border-width) solid var(--line-strong);
+  border-radius: var(--radius-circle);
   background: transparent;
   color: var(--text);
   cursor: pointer;
+}
+
+.drawer__close:hover {
+  border-color: var(--text);
+  background: var(--grid);
+}
+
+.drawer__close svg {
+  width: var(--space-6);
+  height: var(--space-6);
 }
 
 .drawer__close path {
@@ -67,25 +87,37 @@
   display: flex;
   flex: 1;
   flex-direction: column;
+  min-height: 0;
   overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .drawer__group {
   display: flex;
+  flex-shrink: 0;
   flex-direction: column;
   gap: var(--space-3);
+  min-width: 0;
   margin: var(--space-0);
   padding: var(--space-6) var(--content-pad);
   border: none;
   border-bottom: var(--border-width) solid var(--line);
 }
 
-.drawer__group legend,
-.drawer__group h3 {
+.drawer__group > legend,
+.drawer__group > h3 {
   float: left;
   margin: var(--space-0);
   padding: var(--space-0);
-  font-weight: var(--weight-regular);
+  font-size: var(--type-body-large);
+  font-weight: var(--weight-medium);
+  color: var(--text);
+}
+
+.drawer .cloud-models legend {
+  font-size: var(--type-body-large);
+  font-weight: var(--weight-medium);
+  color: var(--text);
 }
 
 .drawer__group p {
@@ -93,8 +125,9 @@
 }
 
 .drawer__choices {
-  display: flex;
-  gap: var(--space-6);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2);
 }
 
 .drawer__choice {
@@ -102,8 +135,15 @@
   gap: var(--space-2);
   align-items: center;
   min-height: var(--target-min);
+  padding: var(--space-2) var(--space-3);
+  border: var(--border-width) solid var(--line-strong);
   font-size: var(--type-body-large);
   cursor: pointer;
+}
+
+.drawer__choice:has(input:checked) {
+  border-color: var(--muted);
+  background: var(--grid);
 }
 
 /* The label is the 44 px target, so the radio itself can stay small. */
@@ -116,24 +156,31 @@
 
 .drawer__row .pill {
   white-space: nowrap;
+  justify-self: start;
+  max-width: 100%;
 }
 
 .drawer__choice:has(input:disabled) {
-  color: var(--dim);
+  color: var(--muted);
   cursor: default;
 }
 
 .drawer__row {
-  display: flex;
-  gap: var(--space-4);
-  justify-content: space-between;
-  align-items: center;
+  display: grid;
+  gap: var(--space-3);
+  padding-block: var(--space-3);
   color: var(--muted);
 }
 
 .drawer__row > span {
   display: flex;
   flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.drawer__row + .drawer__row:not(.drawer__row--danger) {
+  border-top: var(--border-width) solid var(--line);
 }
 
 /* "Delete everything" sits in a coral box (5.5 L3). */
@@ -154,17 +201,30 @@
 
 .drawer__footer {
   display: flex;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-4);
   justify-content: space-between;
   align-items: center;
   padding: var(--space-4) var(--content-pad);
   border-top: var(--border-width) solid var(--line);
+  color: var(--muted);
+  font-size: var(--type-body);
+}
+
+@media (min-width: 480px) {
+  .drawer__row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--space-4);
+    align-items: center;
+  }
 }
 
 @media (min-width: 1024px) {
   .drawer[open] {
+    inset: 0 0 0 auto;
     width: 100%;
     max-width: var(--drawer-width);
-    margin: var(--space-0) var(--space-0) var(--space-0) auto;
   }
 }
 

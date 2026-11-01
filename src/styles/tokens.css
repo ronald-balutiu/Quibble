@@ -36,6 +36,7 @@
   --type-panel: 22px;
   --type-panel-large: 32px;
   --type-verdict: 20px;
+  --type-dialog-title: 22px;
   --type-input: 18px;
   --type-body: 13px;
   --type-body-large: 15px;
@@ -137,6 +138,7 @@
     --type-panel: 36px;
     --type-panel-large: 48px;
     --type-verdict: 26px;
+    --type-dialog-title: 24px;
     --type-input: 22px;
     --type-body: 15px;
     --type-body-large: 17px;

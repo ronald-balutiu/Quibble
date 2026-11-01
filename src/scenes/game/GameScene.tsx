@@ -7,6 +7,7 @@ import { oddlySpecificConfig } from '@shared/games/oddly-specific'
 import { isValidAnswer, normalizeAnswer } from '@shared/normalize'
 import type { CloudModel, Reveal } from '@shared/schemas/judge'
 import type { Puzzle } from '@shared/schemas/puzzle'
+import { DeviceSetup } from '@/components/DeviceSetup/DeviceSetup'
 import { en, format, type CopyKey } from '@/copy/en'
 import { EscapeGame } from '@/games/category-escape/Screen'
 import { Clues, GuessMap, RoundWords } from '@/games/double-agent/Screen'
@@ -16,11 +17,13 @@ import {
 } from '@/games/oddly-specific/reducer'
 import { fetchReveal } from '@/lib/api'
 import { loadPuzzle, loadPuzzleIndex } from '@/lib/puzzles'
+import { markOverruled } from '@/lib/storage/comparisons'
 import { isStorageAvailable, loadProgress, saveRun } from '@/lib/storage/progress'
 import { loadCloudModel, markTipSeen, tipSeen } from '@/lib/storage/settings'
 import { judgeGuess, type Ui } from './judge-guess'
 import { AnswerForm, GameHeader, NotJudgedPanel, RejectedPanel, ScoreAxes, StrikeDots } from './parts'
-import { letterFor, rejectedSentence } from './verdict'
+import { useDeviceColumn, type DeviceColumn } from './use-device-column'
+import { judgesSplit, letterFor, rejectedSentence } from './verdict'
 import './game.css'
 
 // What differs between the two round-based games: Oddly Specific (G1–G6) and
@@ -85,6 +88,7 @@ function Game({ puzzle, variant }: { puzzle: Puzzle, variant: RoundGame }) {
   const attempt = useRef(0)
   const turnstile = useRef<HTMLDivElement>(null)
   const input = useRef<HTMLInputElement>(null)
+  const column = useDeviceColumn()
 
   const round = run.rounds[run.current]
   const conditions = puzzle.rounds[run.current]?.conditions ?? []
@@ -102,6 +106,7 @@ function Game({ puzzle, variant }: { puzzle: Puzzle, variant: RoundGame }) {
   }, [roundIndex, ui.kind])
 
   function nextRound() {
+    column.clear()
     setScores({})
     setAnswer('')
     setUi({ kind: 'input' })
@@ -113,14 +118,15 @@ function Game({ puzzle, variant }: { puzzle: Puzzle, variant: RoundGame }) {
     if (!normalized) { setUi({ kind: 'input', notice: 'input.empty' }); return }
     if (!isValidAnswer(normalized, game)) { setUi({ kind: 'input', notice: 'input.tooLong' }); return }
     const earlier = previousGuess(run, normalized)
-    if (earlier) { setUi(earlier.pass ? { kind: 'input', notice: 'input.repeat' } : { kind: 'rejected', guess: earlier }); return }
+    if (earlier) { column.clear(); setUi(earlier.pass ? { kind: 'input', notice: 'input.repeat' } : { kind: 'rejected', guess: earlier }); return }
 
     attempt.current += 1
     setUi({ kind: 'judging' })
     const result = await judgeGuess({
       game, n, roundId: puzzle.rounds[run.current]?.id ?? '', text, normalized, attempt: attempt.current, model, conditions, turnstile: turnstile.current,
-    })
+    }, column.follow())
     if ('ui' in result) { setUi(result.ui); return }
+    column.judged(result.modelMs)
     setScores(result.scores)
     dispatch({ type: 'judged', guess: result.guess })
     setUi(result.guess.pass ? { kind: 'input' } : { kind: 'rejected', guess: result.guess })
@@ -140,15 +146,17 @@ function Game({ puzzle, variant }: { puzzle: Puzzle, variant: RoundGame }) {
     </GameHeader>
   )
 
+  const split = ui.kind === 'rejected' ? judgesSplit(column.run, ui.guess.failed, conditions) : undefined
   return (
     <main data-scene="game" className="app-frame game-frame" data-game={game}>
       {header}
+      {column.setupOpen && <DeviceSetup onClose={column.closeSetup} />}
       {!storageOn && <p className="strip" role="status">{en['storage.off']}</p>}
       <div ref={turnstile} className="turnstile" />
       {run.finished
         ? <Results run={run} puzzle={puzzle} best={best} config={variant.config} />
         : roundOver
-          ? <RoundEnd run={run} puzzle={puzzle} alsoFits={variant.alsoFits} onNext={nextRound} />
+          ? <RoundEnd run={run} puzzle={puzzle} alsoFits={variant.alsoFits} column={column} onNext={nextRound} />
           : (
               <div className="game-body">
                 <section className="game-main" aria-label={en['game.conditions']}>
@@ -177,7 +185,7 @@ function Game({ puzzle, variant }: { puzzle: Puzzle, variant: RoundGame }) {
                       )}
                   <AnswerForm
                     label={en[variant.label]} placeholder={en[`game.placeholder.${game}`]} answer={answer} maxLength={config.input.maxCharacters}
-                    judging={ui.kind === 'judging'} input={input} onType={type} onSubmit={() => { void judge(answer) }}
+                    judging={ui.kind === 'judging'} waiting={column.run?.kind === 'scanning'} input={input} onType={type} onSubmit={() => { void judge(answer) }}
                   />
                   <p id="answer-note" className="telemetry">
                     {ui.kind === 'input' && ui.notice ? en[ui.notice === 'input.tooLong' ? variant.tooLong : ui.notice] : format('game.counter', { count: [...answer].length, max: 'maxLetters' in config.input ? config.input.maxLetters : config.input.maxCharacters })}
@@ -185,9 +193,12 @@ function Game({ puzzle, variant }: { puzzle: Puzzle, variant: RoundGame }) {
                   <div aria-live="polite">
                     {ui.kind === 'rejected' && (
                       <RejectedPanel
-                        sentence={agent ? agentSentence(ui.guess, conditions) : rejectedSentence(ui.guess, conditions)}
+                        sentence={(agent ? agentSentence(ui.guess, conditions) : rejectedSentence(ui.guess, conditions)) + (split ? en['verdict.judgesDisagree'] : '')}
                         onTryAgain={() => { dispatch({ type: 'moveOn' }); setUi({ kind: 'input' }); setAnswer(''); input.current?.focus() }}
-                        onCountAnyway={() => { dispatch({ type: 'countAnyway' }) }}
+                        onCountAnyway={() => {
+                          markOverruled(game, n, puzzle.rounds[run.current]?.id ?? '', ui.guess.answer)
+                          dispatch({ type: 'countAnyway' })
+                        }}
                       />
                     )}
                     <NotJudgedPanel ui={ui} onRetry={() => { void judge(answer) }} onEdit={() => { setUi({ kind: 'input' }); input.current?.focus() }} />
@@ -198,17 +209,17 @@ function Game({ puzzle, variant }: { puzzle: Puzzle, variant: RoundGame }) {
                   ? (
                       <aside className="game-side">
                         <GuessMap className="guess-map--side" guesses={round.guesses} conditions={conditions} />
-                        <ScoreAxes conditions={conditions} scores={scores} threshold={judgeConfig.passThreshold[model]} model={model} />
+                        <ScoreAxes conditions={conditions} scores={scores} threshold={judgeConfig.passThreshold[model]} model={model} column={column} />
                       </aside>
                     )
-                  : <ScoreAxes conditions={conditions} scores={scores} threshold={judgeConfig.passThreshold[model]} model={model} />}
+                  : <ScoreAxes conditions={conditions} scores={scores} threshold={judgeConfig.passThreshold[model]} model={model} column={column} />}
               </div>
             )}
     </main>
   )
 }
 
-function RoundEnd({ run, puzzle, alsoFits, onNext }: { run: RunState, puzzle: Puzzle, alsoFits: CopyKey, onNext: () => void }) {
+function RoundEnd({ run, puzzle, alsoFits, column, onNext }: { run: RunState, puzzle: Puzzle, alsoFits: CopyKey, column: DeviceColumn, onNext: () => void }) {
   const round = run.rounds[run.current]
   const conditions = puzzle.rounds[run.current]?.conditions ?? []
   const [reveal, setReveal] = useState<Reveal | null | undefined>(undefined)
@@ -227,6 +238,8 @@ function RoundEnd({ run, puzzle, alsoFits, onNext }: { run: RunState, puzzle: Pu
   if (!round) return null
   const solved = round.status === 'solved'
   const winning = round.guesses.at(-1)
+  // The on-device run belongs to the last judged guess, so the sentence can say whether the judges agreed.
+  const split = winning ? judgesSplit(column.run, winning.failed, conditions) : undefined
   const loadReveal = () => { setReveal(undefined); void fetchReveal(puzzle.game, puzzle.n, puzzle.rounds[run.current]?.id ?? '').then((value) => { setReveal(value ?? null) }) }
 
   return (
@@ -235,7 +248,7 @@ function RoundEnd({ run, puzzle, alsoFits, onNext }: { run: RunState, puzzle: Pu
         <>
           <p className="telemetry round-end__label">{round.overruled ? en['verdict.overruled'] : format('verdict.label.accepted', { points: round.points })}</p>
           <h1 className="round-end__answer">{winning?.answer}</h1>
-          <p>{format('verdict.accepted', { n: round.strikes + 1 })}</p>
+          <p>{format('verdict.accepted', { n: round.strikes + 1 }) + (split === undefined ? '' : en[split ? 'verdict.judgesDisagreed' : 'verdict.judgesAgreed'])}</p>
         </>
       ) : (
         <>

@@ -5,15 +5,18 @@ import { categoryEscapeConfig } from '@shared/games/category-escape'
 import { isValidAnswer, normalizeAnswer } from '@shared/normalize'
 import type { CloudModel, Reveal } from '@shared/schemas/judge'
 import type { Puzzle, PuzzleCondition } from '@shared/schemas/puzzle'
+import { DeviceSetup } from '@/components/DeviceSetup/DeviceSetup'
 import { en, format } from '@/copy/en'
 import type { RunState } from '@/games/oddly-specific/reducer'
 import { fetchReveal } from '@/lib/api'
 import { loadPuzzleIndex } from '@/lib/puzzles'
+import { markOverruled } from '@/lib/storage/comparisons'
 import { isStorageAvailable, loadProgress, saveRun } from '@/lib/storage/progress'
 import { loadCloudModel, markTipSeen, tipSeen } from '@/lib/storage/settings'
 import { judgeGuess, type Ui } from '@/scenes/game/judge-guess'
-import { AnswerForm, GameHeader, NotJudgedPanel, RejectedPanel, ScoreAxes, StrikeDots } from '@/scenes/game/parts'
-import { rejectedSentence } from '@/scenes/game/verdict'
+import { AnswerForm, GameHeader, JudgesStatus, NotJudgedPanel, RejectedPanel, ScoreAxes, StrikeDots } from '@/scenes/game/parts'
+import { useDeviceColumn } from '@/scenes/game/use-device-column'
+import { judgesSplit, rejectedSentence } from '@/scenes/game/verdict'
 import {
   escapeEnd, escapeReducer, escapeShareGrid, levelsCleared, previousGuess, startEscape, strikesUsed, usedOn,
 } from './reducer'
@@ -52,6 +55,7 @@ export function EscapeGame({ puzzle }: { puzzle: Puzzle }) {
   const attempt = useRef(0)
   const turnstile = useRef<HTMLDivElement>(null)
   const input = useRef<HTMLInputElement>(null)
+  const column = useDeviceColumn()
 
   const cleared = levelsCleared(run)
   const conditions = puzzle.rounds[run.current]?.conditions ?? []
@@ -71,13 +75,14 @@ export function EscapeGame({ puzzle }: { puzzle: Puzzle }) {
     const used = usedOn(run, normalized)
     if (used !== undefined) { setUi({ kind: 'reused', level: used }); return }
     const earlier = previousGuess(run, normalized)
-    if (earlier) { setUi({ kind: 'rejected', guess: earlier }); return }
+    if (earlier) { column.clear(); setUi({ kind: 'rejected', guess: earlier }); return }
 
     attempt.current += 1
     setUi({ kind: 'judging' })
     const roundId = puzzle.rounds[run.current]?.id ?? ''
-    const result = await judgeGuess({ game, n, roundId, text, normalized, attempt: attempt.current, model, conditions, turnstile: turnstile.current })
+    const result = await judgeGuess({ game, n, roundId, text, normalized, attempt: attempt.current, model, conditions, turnstile: turnstile.current }, column.follow())
     if ('ui' in result) { setUi(result.ui); return }
+    column.judged(result.modelMs)
     setScores(result.scores)
     setLast({ answer: normalized, level: run.current, pass: result.guess.pass })
     dispatch({ type: 'judged', guess: result.guess })
@@ -97,13 +102,17 @@ export function EscapeGame({ puzzle }: { puzzle: Puzzle }) {
   }
 
   function countAnyway() {
-    if (ui.kind === 'rejected') setLast({ answer: ui.guess.answer, level: run.current, pass: true, overruled: true })
+    if (ui.kind === 'rejected') {
+      markOverruled(game, n, puzzle.rounds[run.current]?.id ?? '', ui.guess.answer)
+      setLast({ answer: ui.guess.answer, level: run.current, pass: true, overruled: true })
+    }
     dispatch({ type: 'countAnyway' })
     setAnswer('')
     setUi({ kind: 'input' })
   }
 
   function restart() {
+    column.clear()
     setBest(loadProgress(game, n).best)
     setScores({})
     setLast(undefined)
@@ -125,6 +134,7 @@ export function EscapeGame({ puzzle }: { puzzle: Puzzle }) {
       <GameHeader game={game} n={n} status={run.finished ? en['escape.runOver'] : format('escape.cleared', { n: cleared })} statusClass={run.finished ? undefined : 'game-header__status--wide'}>
         <StrikeDots used={strikesUsed(run)} max={config.maxWrongGuessesPerRun} />
       </GameHeader>
+      {column.setupOpen && <DeviceSetup onClose={column.closeSetup} />}
       {!storageOn && <p className="strip" role="status">{en['storage.off']}</p>}
       <div ref={turnstile} className="turnstile" />
       {run.finished
@@ -157,13 +167,13 @@ export function EscapeGame({ puzzle }: { puzzle: Puzzle }) {
                 </ol>
                 <AnswerForm
                   label={levelCode(run.current)} placeholder={en['game.placeholder.category-escape']} answer={answer} maxLength={config.input.maxCharacters}
-                  judging={ui.kind === 'judging'} input={input} onType={type} onSubmit={() => { void judge(answer) }} invalid={ui.kind === 'reused'}
+                  judging={ui.kind === 'judging'} waiting={column.run?.kind === 'scanning'} input={input} onType={type} onSubmit={() => { void judge(answer) }} invalid={ui.kind === 'reused'}
                 />
                 <p id="answer-note" className={ui.kind === 'reused' ? 'telemetry answer-note--fail' : 'telemetry'} aria-live="polite">{note}</p>
                 <div aria-live="polite">
                   {ui.kind === 'rejected' && (
                     <RejectedPanel
-                      sentence={rejectedSentence(ui.guess, conditions, levelCode)}
+                      sentence={rejectedSentence(ui.guess, conditions, levelCode) + (judgesSplit(column.run, ui.guess.failed, conditions) ? en['verdict.judgesDisagree'] : '')}
                       onTryAgain={() => { dispatch({ type: 'moveOn' }); setUi({ kind: 'input' }); setAnswer(''); input.current?.focus() }}
                       onCountAnyway={countAnyway}
                     />
@@ -184,12 +194,14 @@ export function EscapeGame({ puzzle }: { puzzle: Puzzle }) {
                       : null))}
                   </ul>
                 </div>
-                {last && (
-                  <ScoreAxes
-                    conditions={puzzle.rounds[last.level]?.conditions ?? []} scores={scores} threshold={judgeConfig.passThreshold[model]} model={model}
-                    mark={levelCode} title={format('escape.lastVerdict', { answer: last.answer, level: levelCode(last.level) })}
-                  />
-                )}
+                {last
+                  ? (
+                      <ScoreAxes
+                        conditions={puzzle.rounds[last.level]?.conditions ?? []} scores={scores} threshold={judgeConfig.passThreshold[model]} model={model}
+                        column={column} mark={levelCode} title={format('escape.lastVerdict', { answer: last.answer, level: levelCode(last.level) })}
+                      />
+                    )
+                  : <p className="telemetry"><JudgesStatus model={model} column={column} /></p>}
               </aside>
             </div>
           )}

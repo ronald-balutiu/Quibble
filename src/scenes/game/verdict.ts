@@ -3,10 +3,23 @@ import type { CloudModel, JudgeSuccess } from '@shared/schemas/judge'
 import type { PuzzleCondition } from '@shared/schemas/puzzle'
 import { format } from '@/copy/en'
 import type { Guess } from '@/games/oddly-specific/reducer'
+import type { DeviceRun } from './judge-guess'
 
 // Turns a judge reply into a reducer guess and the verdict sentence (plan 5.7).
 
 export const letterFor = (index: number) => String.fromCharCode(65 + index)
+
+export const devicePasses = (p: number) => passes(p, judgeConfig.passThreshold.device)
+
+// Whether the on-device judge split from the referee on a judged guess, once both
+// answered (5.7); undefined while it hasn't, or when it's off.
+export function judgesSplit(run: DeviceRun | undefined, failed: readonly string[], conditions: readonly PuzzleCondition[]): boolean | undefined {
+  if (run?.kind !== 'scored' || run.compared === undefined) return undefined
+  return conditions.some(({ id }) => {
+    const d = run.scores[id]
+    return d !== undefined && devicePasses(d) === failed.includes(id)
+  })
+}
 
 export function toGuess(answer: string, result: JudgeSuccess, conditions: readonly PuzzleCondition[], model: CloudModel): Guess {
   const threshold = judgeConfig.passThreshold[model]

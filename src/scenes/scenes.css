@@ -31,100 +31,8 @@
   color: var(--text);
 }
 
-.home-top {
-  display: grid;
-  grid-template-areas: 'hero' 'mark' 'play';
-  gap: var(--space-8);
-}
-
-.home-hero {
-  grid-area: hero;
-}
-
-.home-mark {
-  grid-area: mark;
-}
-
-.home-play {
-  display: flex;
-  gap: var(--space-3);
-  grid-area: play;
-}
-
-.home-play__library {
-  display: none;
-}
-
 .pill--wide {
   flex: 1;
-}
-
-.home-hero {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--space-4);
-}
-
-.home-hero__lede {
-  font-size: var(--type-body-large);
-}
-
-.home-hero__title {
-  margin: 0;
-  font-size: var(--type-home);
-  font-weight: var(--weight-light);
-  line-height: var(--leading-home);
-  letter-spacing: var(--tracking-home);
-}
-
-.scene > .home-games {
-  display: grid;
-  padding-inline: 0;
-}
-
-.home-game {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-  padding: var(--space-4) var(--content-pad);
-  border-top: var(--border-width) solid var(--line);
-  color: var(--text);
-  text-decoration: none;
-}
-
-.home-game__meta {
-  display: flex;
-  justify-content: space-between;
-}
-
-.home-game {
-  position: relative;
-}
-
-/* A returning player's progress: a thin white line along the cell's top (H1). */
-.home-game__progress {
-  position: absolute;
-  top: var(--space-0);
-  left: var(--space-0);
-  width: 100%;
-  height: var(--accent-line-width);
-  background: var(--text);
-  scale: var(--solved) 1;
-  transform-origin: left;
-}
-
-.home-play__line {
-  flex-basis: 100%;
-  margin: var(--space-0);
-}
-
-.home-play {
-  flex-wrap: wrap;
-}
-
-.home-hero__lede--desktop {
-  display: none;
 }
 
 .scene-header__link {
@@ -141,19 +49,13 @@
   border-top: var(--border-width) solid var(--line);
 }
 
-.home-game__name {
-  font-size: var(--type-panel);
-  font-weight: var(--weight-light);
-  letter-spacing: var(--tracking-panel);
-}
-
 .scene-header__end {
   margin-left: auto;
 }
 
 .scene > .library-layout {
   display: grid;
-  grid-template-areas: 'rows' 'grid' 'actions' 'judge';
+  grid-template-areas: 'rows' 'grid' 'judge';
   gap: var(--space-8);
   padding-inline: 0;
 }
@@ -171,17 +73,11 @@
   grid-area: grid;
 }
 
-.library-layout > .library-actions {
-  grid-area: actions;
-}
-
-.library-layout > .judge-choice {
+.library-layout > .library-setup {
   grid-area: judge;
-  margin-inline: var(--content-pad);
 }
 
 .library__title {
-  display: none;
   margin: 0;
   font-size: var(--type-panel-large);
   font-weight: var(--weight-light);
@@ -192,6 +88,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-2);
+  align-items: center;
 }
 
 .filter {
@@ -250,14 +147,32 @@
   letter-spacing: var(--tracking-panel);
 }
 
-.library-actions {
+.library-start {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--space-3);
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4);
+  background: var(--grid);
 }
 
-.pill--icon {
-  width: var(--button-height);
-  padding: 0;
+.library-start p {
+  margin: 0;
+}
+
+.library-home {
+  margin-left: auto;
+  font-size: var(--type-body);
+}
+
+.library-header__count {
+  display: none;
+}
+
+.library-shuffle {
+  margin-left: auto;
+  font-size: var(--type-body);
 }
 
 .library {
@@ -315,28 +230,6 @@
   font-weight: var(--weight-bold);
 }
 
-.judge-choice {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-  margin: 0;
-  padding: var(--space-4);
-  border: var(--border-width) solid var(--line);
-}
-
-.judge-choice__option input {
-  min-width: 0;
-  min-height: 0;
-}
-
-.judge-choice__option {
-  display: flex;
-  min-height: var(--target-min);
-  flex-wrap: wrap;
-  gap: var(--space-2);
-  align-items: center;
-}
-
 .sheet {
   width: 100%;
   max-width: var(--sheet-width);
@@ -352,48 +245,21 @@
 }
 
 @media (min-width: 1024px) {
-  .home-hero__lede--phone {
-    display: none;
-  }
-
-  .home-hero__lede--desktop {
+  .library-header__count {
     display: inline;
   }
 
-  .home-top {
-    grid-template-areas: 'hero mark' 'play mark';
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
+  .library-home {
+    margin-left: var(--space-4);
   }
-
-  .home-play {
-    align-self: start;
-  }
-
-  .home-play .pill--wide {
-    flex: none;
-  }
-
-  .home-play__library {
-    display: inline-flex;
-  }
-
-  .home-mark .ring-mark {
-    max-width: var(--mark-max-wide);
-  }
-
-  .scene > .home-games {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
   .tiles {
     grid-template-columns: repeat(10, 1fr);
   }
 
   .scene > .library-layout {
-    grid-template-areas: 'rows grid' 'actions grid' 'judge grid';
+    grid-template-areas: 'rows grid' 'judge grid';
     grid-template-columns: minmax(var(--panel-min), var(--panel-max)) 1fr;
-    grid-template-rows: auto auto 1fr;
+    grid-template-rows: auto 1fr;
     align-items: start;
   }
 

@@ -75,6 +75,14 @@ reducers own scoring and progression. `GameTip`, `ResultActions` and `use-reveal
 share the first-round tip, result navigation/copy feedback and retryable reveals.
 `lib/use-puzzle-index.ts` owns the puzzle-index loading lifecycle across scenes.
 
+`scenes/home/HomeScene.tsx` is the welcome page: game examples, scoring and initial
+judge setup. An ordinary visit to `/` opens the Library for a returning player;
+`/?home=1` explicitly opens Home. Returning status is derived from existing valid
+progress with actual play activity, rather than a separate onboarding flag.
+Opening an untouched puzzle alone does not count. The Library keeps its numbered
+grid, starts unplayed tiles directly, and retains replay/reset controls for saved
+puzzles.
+
 ## Runtime boundaries and shared contracts
 
 ESLint enforces these import rules:
@@ -181,6 +189,12 @@ them.
   adapter.
 - `src/components/DeviceSetup/` is the setup sheet: the offer (S3), then the
   download (S4), whose rings, percentage and readout follow the worker's byte count.
+- `src/components/JudgeSetup/` shares the cloud model picker and inline local
+  setup between Home, the Library and settings. `background-download.ts` owns a
+  download started from Home/Library for the current visit, so navigation does not
+  cancel it. Progress, warming, cancellation and failures stay visible in the
+  Library; the in-game modal retains its own cancellation on dismissal. Both use
+  the same device client and avoid starting another load while it is loading.
 - During a guess, `src/scenes/game/judge-guess.ts` starts the on-device run next to
   the cloud request. The cloud judge is the referee; the device's result is shown but
   never scores. The cloud's scores are drawn as they arrive, but the guess moves on

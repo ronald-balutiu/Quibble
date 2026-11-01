@@ -43,6 +43,13 @@
   --type-home-cta: 15px;
   --type-label: 9px;
   --type-label-large: 11px;
+  --type-welcome: 44px;
+  --type-welcome-section: 24px;
+  --type-welcome-card: 19px;
+  --welcome-mark-phone: 150px;
+  --welcome-mark-wide: 350px;
+  --welcome-lede-max: 385px;
+  --welcome-detail-max: 700px;
 
   --leading-home: 0.92;
   --leading-score: 0.9;
@@ -130,6 +137,7 @@
     --type-home-cta: 16px;
     --type-label: 10px;
     --type-label-large: 12px;
+    --type-welcome: 64px;
     --leading-score: 0.85;
     --leading-condition: 1.05;
     --leading-body: 1.5;

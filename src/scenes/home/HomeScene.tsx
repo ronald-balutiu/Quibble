@@ -1,101 +1,91 @@
-import { useEffect, useState, type CSSProperties } from 'react'
-import { Link } from 'react-router'
-import { gameIds, type GameId } from '@shared/games'
-import type { PuzzleIndex } from '@shared/schemas/puzzle'
+import { Link, Navigate, useSearchParams } from 'react-router'
+import { gameIds } from '@shared/games'
 import { usePageMeta } from '@/app/use-page-meta'
-import { en, format } from '@/copy/en'
-import { usePuzzleIndex } from '@/lib/use-puzzle-index'
+import { CloudModelChoice } from '@/components/JudgeSetup/CloudModelChoice'
+import { DeviceJudgeCard } from '@/components/JudgeSetup/DeviceJudgeCard'
 import { JudgesCompare } from '@/components/JudgesCompare/JudgesCompare'
 import { RingMark } from '@/components/RingMark/RingMark'
 import { SettingsButton } from '@/components/SettingsDrawer/SettingsDrawer'
-import { totalScore } from '@/games/rounds/reducer'
-import { loadProgress } from '@/lib/storage/progress'
+import { en } from '@/copy/en'
+import { hasPlayed } from '@/lib/storage/progress'
 import '../scenes.css'
+import './home.css'
 
-// The primary action (5.5 H1, H2): continue an open run, else the next unplayed
-// puzzle in a game already played, else Play for a first visit.
-function primaryAction(index: PuzzleIndex | null | undefined) {
-  const puzzles = gameIds.flatMap((game) => (index?.[game] ?? []).map(({ n }) => ({ game, n, progress: loadProgress(game, n) })))
-  const open = puzzles.find(({ progress }) => progress.run !== undefined)
-  if (open?.progress.run) {
-    const { run } = open.progress
-    const escape = open.game === 'category-escape'
-    return {
-      to: `/play/${open.game}/${String(open.n)}`,
-      label: format('home.continue', { n: String(open.n).padStart(3, '0'), game: en[`game.name.${open.game}`] }),
-      line: format(escape ? 'home.continueLine.level' : 'home.continueLine', { round: run.current + 1, total: run.rounds.length, points: totalScore(run) }),
-    }
-  }
-  const played = gameIds.find((game) => puzzles.some((p) => p.game === game && p.progress.best !== undefined))
-  const next = played && puzzles.find((p) => p.game === played && p.progress.best === undefined)
-  if (next) return { to: `/play/${next.game}/${String(next.n)}`, label: format('home.next', { game: en[`game.name.${next.game}`], n: String(next.n).padStart(3, '0') }) }
-  return { to: '/play', label: en['home.play'] }
-}
-
-const solvedIn = (index: PuzzleIndex | null | undefined, game: GameId) => (index?.[game] ?? []).filter(({ n }) => loadProgress(game, n).best !== undefined).length
-
-// H1 / H2: the pitch, one primary action, the three games, and "How the judges
-// compare" (H3), collapsed.
 export function HomeScene() {
   usePageMeta(en['meta.title.home'])
-  const index = usePuzzleIndex()
-  const [healthy, setHealthy] = useState<boolean | undefined>()
-  useEffect(() => {
-    void fetch('/api/health').then((response) => { setHealthy(response.ok) }, () => { setHealthy(false) })
-  }, [])
-
-  const action = primaryAction(index)
+  const [params] = useSearchParams()
+  if (!params.has('home') && hasPlayed()) return <Navigate to="/play" replace />
 
   return (
-    <main className="app-frame scene" data-scene="home">
-      <header className="scene-header scene-header--cells">
-        <span className="telemetry scene-header__name">{en['app.name']}</span>
-        <Link className="telemetry scene-header__link control-link" to="/about">{en['nav.about']}</Link>
-        <SettingsButton />
+    <main className="app-frame scene welcome" data-scene="home">
+      <header className="scene-header">
+        <span className="welcome-brand">{en['app.name']}</span>
+        <nav className="welcome-nav" aria-label={en['nav.main']}>
+          <Link className="control-link" to="/play">{en['nav.library']}</Link>
+          <Link className="control-link" to="/about">{en['nav.about']}</Link>
+          <SettingsButton />
+        </nav>
       </header>
-      {/* Phone: text, mark, then play. Desktop (H1): text and play beside a larger mark. */}
-      <div className="home-top">
-        <section className="home-hero">
-          <p className="telemetry">{en['home.eyebrow']}</p>
-          <h1 className="home-hero__title">{en['home.title']}</h1>
-          <p className="home-hero__lede">
-            <span className="home-hero__lede--phone">{en['home.lede']}</span>
-            <span className="home-hero__lede--desktop">{en['home.lede.desktop']}</span>
-          </p>
+      <div className="welcome-top">
+        <section className="welcome-hero">
+          <p className="telemetry">{en['welcome.eyebrow']}</p>
+          <h1>{en['home.title']}</h1>
+          <p className="welcome-lede">{en['welcome.lede']}</p>
+          <div className="welcome-actions">
+            <Link className="pill control-link" to="/play">{en['welcome.choose']}</Link>
+            <a className="control-link welcome-text-link" href="#games">{en['welcome.learn']}</a>
+          </div>
         </section>
-        <div className="home-mark"><RingMark /></div>
-        <section className="home-play">
-          <Link className="pill pill--wide control-link" to={action.to}>{action.label}</Link>
-          <Link className="pill pill--quiet control-link home-play__library" to="/play">{en['nav.library']}</Link>
-          {action.line && <p className="telemetry home-play__line">{action.line}</p>}
-        </section>
+        <div className="welcome-mark"><RingMark /></div>
       </div>
-      <section className="home-games" aria-label={en['home.games']}>
-        {gameIds.map((game) => {
-          const total = index?.[game]?.length ?? 0
-          const solved = solvedIn(index, game)
-          return (
-            <Link key={game} className="home-game" to={`/play?game=${game}`}>
-              <span className="telemetry home-game__meta">
-                <span>{en[`game.code.${game}`]}</span>
-                {/* A first visit shows the library size; a returning player, progress (H1, H2). */}
-                <span>{solved > 0 ? format('home.solved', { solved: String(solved).padStart(3, '0'), total }) : format('home.puzzles', { count: total })}</span>
-              </span>
-              <span className="home-game__name">{en[`game.name.${game}`]}</span>
-              <span className="muted">{en[`game.tagline.${game}`]}</span>
-              {solved > 0 && (
-                // eslint-disable-next-line react/forbid-dom-props -- the line's length is the player's progress.
-                <span className="home-game__progress" style={{ '--solved': solved / total } as CSSProperties} aria-hidden="true" />
-              )}
-            </Link>
-          )
-        })}
+      <section className="welcome-section" id="games" aria-labelledby="welcome-games">
+        <h2 id="welcome-games">{en['welcome.games']}</h2>
+        <div className="welcome-games">
+          {gameIds.map((game) => (
+            <article className="welcome-game" data-game={game} key={game}>
+              <p className="telemetry welcome-game__label">{en[`game.name.${game}`]}</p>
+              <h3>{en[`welcome.${game}.title`]}</h3>
+              <p>{en[`welcome.${game}.body`]}</p>
+              <div className="welcome-example">
+                <ol>
+                  <li>{en[`welcome.${game}.example.1`]}</li>
+                  <li>{en[`welcome.${game}.example.2`]}</li>
+                  {game !== 'double-agent' && <li>{en[`welcome.${game}.example.3`]}</li>}
+                </ol>
+                <p>{en[`welcome.${game}.answer`]}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+      <section className="welcome-section" aria-labelledby="welcome-scoring">
+        <h2 id="welcome-scoring">{en['welcome.scoring']}</h2>
+        <div className="welcome-scores">
+          <div>
+            <h3>{en['welcome.scoring.rounds']}</h3>
+            <ol className="welcome-points">
+              <li>{en['welcome.scoring.first']}</li>
+              <li>{en['welcome.scoring.second']}</li>
+              <li>{en['welcome.scoring.third']}</li>
+            </ol>
+            <p>{en['welcome.scoring.rounds.body']}</p>
+          </div>
+          <div><h3>{en['game.name.category-escape']}</h3><p>{en['welcome.scoring.escape.body']}</p></div>
+        </div>
+        <details className="welcome-detail"><summary>{en['welcome.overrule']}</summary><p>{en['welcome.overrule.body']}</p></details>
+      </section>
+      <section className="welcome-section" aria-labelledby="welcome-judges">
+        <h2 id="welcome-judges">{en['welcome.judges']}</h2>
+        <p>{en['welcome.judges.body']}</p>
+        <div className="judge-setup"><CloudModelChoice /><DeviceJudgeCard /></div>
+        <details className="welcome-detail"><summary>{en['welcome.privacy']}</summary><p>{en['welcome.privacy.body']} <Link to="/about#privacy">{en['nav.privacy']}</Link></p></details>
+      </section>
+      <section className="welcome-section welcome-finish">
+        <div><h2>{en['welcome.ready']}</h2><p>{en['welcome.ready.body']}</p></div>
+        <Link className="pill control-link" to="/play">{en['welcome.choose']}</Link>
       </section>
       <JudgesCompare />
-      <footer className="scene-footer telemetry">
-        <span>{en['home.footer']}</span>
-        {healthy !== undefined && <span>{en[healthy ? 'home.status.ok' : 'home.status.down']}</span>}
-      </footer>
+      <footer className="scene-footer telemetry"><span>{en['welcome.footer']}</span><span>{en['footer.copyright']}</span></footer>
     </main>
   )
 }

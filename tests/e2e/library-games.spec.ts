@@ -31,7 +31,6 @@ for (const game of ['oddly-specific', 'category-escape', 'double-agent'] as cons
     const puzzle = JSON.parse(readFileSync(`public/puzzles/${game}/1.json`, 'utf8')) as { rounds: { conditions: { label: string }[] }[] }
     await page.goto(`/play?game=${game}`)
     await page.getByRole('button', { name: /^001/u }).click()
-    await page.getByRole('button', { name: 'Play', exact: true }).click()
     await expect(page).toHaveURL(`/play/${game}/1`)
     await expect(page.getByText(puzzle.rounds[0]?.conditions[0]?.label ?? '', { exact: true }).first()).toBeVisible()
     await expect(page.getByRole('textbox')).toBeFocused()

@@ -12,7 +12,7 @@ test('the about page tells the story with the real results, and Privacy links re
   await expect(page.getByText(/^Library v1 • 256 puzzles • answer-key build \d+$/u)).toBeVisible()
   await expect(page.getByRole('link', { name: 'Library', exact: true })).toHaveAttribute('href', '/play')
 
-  // The settings drawer's footer links to the privacy section.
+  // The settings drawer's Privacy link leads to the privacy section.
   await page.goto('/play')
   await page.getByRole('button', { name: 'Settings' }).click()
   await page.getByRole('link', { name: 'Privacy →' }).click()

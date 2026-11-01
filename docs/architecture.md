@@ -83,12 +83,16 @@ Opening an untouched puzzle alone does not count. The Library keeps its numbered
 grid, starts unplayed tiles directly, and retains replay/reset controls for saved
 puzzles. Its first-puzzle prompt changes after any game has a completed puzzle
 (with a saved best score, including zero); unfinished games keep the resume prompt.
-The selected sidebar row and its supporting text use that game’s accent.
+The selected sidebar row and its supporting text use that game’s accent. Cloud
+and local setup share a card style in the Library; the cloud picker uses the same
+saved choice as Home and Settings.
 
 `components/JudgesCompare/` is shared by Home and the results screens. Its source
 buttons separate published answer-key accuracy from agreement in saved games.
 The answer-key view keeps whole-answer accuracy and sample counts visible above
-an expandable table, with development history and test methods below. Its model
+an expandable table, with development history and test methods below. On Home,
+the introduction stays visible while a native disclosure holds the results, closed
+by default; results screens show the comparison directly. Its model
 selector previews published results without changing the playing judge; until a
 preview is selected, it follows the saved cloud choice. `ComparisonTable` shares
 the named columns across both sources. All figures come from the existing
@@ -133,10 +137,16 @@ including game results and loading/error states. The Library link preserves the
 current game type; Home uses the explicit welcome URL. Active links mark the
 current section. Navigation remounts the settings control to close any open drawer.
 Game headers contain puzzle progress and strikes rather than site navigation.
+`components/SiteFooter/` follows the routes and shares Home’s tagline/copyright
+layout across every page, including game results and error/loading states. About’s
+build information stays in its Credits section.
 Navigation opens the top of a page or its linked section (such as Privacy).
 Clearing progress from Settings during a game returns to that game's Library,
 unmounting the active run so it cannot save deleted progress again. Cloud model
 changes apply to the next guess; existing verdict axes retain their original model.
+Settings keeps its close button above a scrolling body, with Privacy at the end of
+that body. A padded section around the referee fieldset keeps its legend spaced
+consistently from the preceding divider.
 
 [`wrangler.jsonc`](../wrangler.jsonc) sends only `/api/*` to the Worker; all other
 requests are served from static assets, with the single-page app fallback for direct

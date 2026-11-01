@@ -10,7 +10,7 @@ import './JudgesCompare.css'
 
 // Shared on Home and every results screen. Previewing another test model never
 // changes the playing judge. Until then, follow the saved cloud choice live.
-export function JudgesCompare() {
+export function JudgesCompare({ collapsible = false }: { collapsible?: boolean }) {
   const [view, setView] = useState<'test' | 'games'>('test')
   const [preview, setPreview] = useState<CloudModel>()
   const chosen = useSyncExternalStore(subscribeCloudModel, loadCloudModel)
@@ -20,12 +20,8 @@ export function JudgesCompare() {
   const device = results?.test.judges.device
   const id = useId()
 
-  return (
-    <section className="compare" aria-labelledby={`${id}-title`}>
-      <header className="compare__head">
-        <h2 id={`${id}-title`}>{en['compare.title']}</h2>
-        <p>{en['compare.intro']}</p>
-      </header>
+  const content = (
+    <div className="compare__content">
       <div className="compare__sources" role="group" aria-label={en['compare.source']}>
         {(['test', 'games'] as const).map((source) => (
           <button type="button" key={source} aria-pressed={view === source} aria-controls={`${id}-panel`} onClick={() => { setView(source) }}>{en[`compare.source.${source}`]}</button>
@@ -49,6 +45,18 @@ export function JudgesCompare() {
                 : <p role="status">{en[results === undefined ? 'compare.loading' : 'compare.unavailable']}</p>}
             </>}
       </div>
+    </div>
+  )
+
+  return (
+    <section className="compare" aria-labelledby={`${id}-title`}>
+      <header className="compare__head">
+        <h2 id={`${id}-title`}>{en['compare.title']}</h2>
+        <p>{en['compare.intro']}</p>
+      </header>
+      {collapsible
+        ? <details className="compare__disclosure"><summary>{en['compare.expand']}</summary>{content}</details>
+        : content}
     </section>
   )
 }

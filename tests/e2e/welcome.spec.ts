@@ -3,6 +3,7 @@ import { expect, test } from '@playwright/test'
 test('first visit explains the games, then opens an unplayed tile directly', async ({ page }) => {
   await page.goto('/')
   await expect(page.getByRole('heading', { name: 'Three ways to play' })).toBeVisible()
+  await expect(page.getByRole('link', { name: 'See how it works ↓' })).toHaveCount(0)
   await expect(page.locator('.welcome-game')).toHaveCount(3)
   await expect(page.getByText('No timer. Take your time.')).toHaveCount(0)
   await expect(page.getByText(/up to \d+ points/u)).toHaveCount(0)

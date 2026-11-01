@@ -74,9 +74,10 @@ function SettingsDrawer({ onClose, onProgressCleared }: { onClose: () => void, o
       </header>
       <div className="drawer__body">
         <div className="drawer__group"><CloudModelChoice /></div>
-        <fieldset className="drawer__group">
-          <legend>{en['settings.referee']}</legend>
-          <div className="drawer__choices">
+        <section className="drawer__group">
+          <fieldset className="drawer__referee" aria-describedby="referee-note">
+            <legend>{en['settings.referee']}</legend>
+            <div className="drawer__choices">
             {(['cloud', 'device'] as const).map((option) => (
               <label key={option} className="drawer__choice">
                 <input
@@ -86,9 +87,10 @@ function SettingsDrawer({ onClose, onProgressCleared }: { onClose: () => void, o
                 <span>{en[`settings.referee.${option}`]}</span>
               </label>
             ))}
-          </div>
-          <p>{en['settings.referee.note']}</p>
-        </fieldset>
+            </div>
+          </fieldset>
+          <p id="referee-note">{en['settings.referee.note']}</p>
+        </section>
         <section className="drawer__group" aria-labelledby="drawer-device">
           <h3 id="drawer-device">{en['settings.device']}</h3>
           {supported
@@ -104,7 +106,7 @@ function SettingsDrawer({ onClose, onProgressCleared }: { onClose: () => void, o
               )
             : <p>{en['model.unsupported']}</p>}
         </section>
-        <section className="drawer__group" aria-labelledby="drawer-data">
+        <section className="drawer__group drawer__group--last" aria-labelledby="drawer-data">
           <h3 id="drawer-data">{en['settings.data']}</h3>
           <div className="drawer__row">
             <span>
@@ -139,11 +141,10 @@ function SettingsDrawer({ onClose, onProgressCleared }: { onClose: () => void, o
           </div>
           <p>{en['settings.data.note']}</p>
         </section>
+        <div className="drawer__privacy">
+          <Link className="control-link" to="/about#privacy">{en['nav.privacy']}</Link>
+        </div>
       </div>
-      <footer className="drawer__footer">
-        <span>{en['settings.footer']}</span>
-        <Link className="control-link" to="/about#privacy">{en['nav.privacy']}</Link>
-      </footer>
       {setup && <DeviceSetup onClose={() => { setSetup(false) }} />}
     </dialog>
   )

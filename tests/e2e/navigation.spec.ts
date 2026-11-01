@@ -1,5 +1,25 @@
 import { expect, test } from '@playwright/test'
 
+test('Home’s footer is shared by every page and fits a narrow phone', async ({ page }) => {
+  for (const path of ['/?home=1', '/play', '/about', '/play/oddly-specific/1', '/play/category-escape/1', '/play/double-agent/1', '/play/not-a-game/1', '/not-a-page']) {
+    await page.goto(path)
+    const footer = page.getByRole('contentinfo')
+    await expect(footer).toHaveCount(1)
+    await expect(footer).toContainText('Words. Rules. Room to argue.')
+    await expect(footer).toContainText('© 2026 Ronald Balutiu. All rights reserved.')
+    await expect(page.getByRole('main').locator('footer')).toHaveCount(0)
+    const main = await page.getByRole('main').boundingBox()
+    const box = await footer.boundingBox()
+    expect(box!.y).toBeCloseTo(main!.y + main!.height, 0)
+    expect(box!.x).toBe(main!.x)
+    expect(box!.width).toBe(main!.width)
+  }
+  await page.setViewportSize({ width: 320, height: 800 })
+  expect(await page.evaluate<number>('document.documentElement.scrollWidth')).toBeLessThanOrEqual(320)
+  const footer = await page.getByRole('contentinfo').boundingBox()
+  expect(footer!.x + footer!.width).toBeLessThanOrEqual(320)
+})
+
 test('every page has the same navigation outside its content frame', async ({ page }) => {
   for (const [path, active] of [
     ['/?home=1', 'Home'],
@@ -68,6 +88,7 @@ test('navigation remains available while a puzzle loads', async ({ page }) => {
   await page.route('**/puzzles/category-escape/1.json', async (route) => { await ready; await route.continue() })
   await page.goto('/play/category-escape/1', { waitUntil: 'domcontentloaded' })
   await expect(page.getByRole('main')).toHaveAttribute('aria-busy', 'true')
+  await expect(page.getByRole('contentinfo')).toContainText('Words. Rules. Room to argue.')
   await page.getByRole('navigation', { name: 'Main', exact: true }).getByRole('link', { name: 'Library' }).click()
   release()
   await expect(page).toHaveURL('/play?game=category-escape')

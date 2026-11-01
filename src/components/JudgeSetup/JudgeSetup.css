@@ -55,9 +55,15 @@
   font-size: var(--type-body);
 }
 
-.local-model {
+.judge-card {
   padding: var(--space-5);
   border: var(--border-width) solid var(--line-strong);
+}
+
+.cloud-judge .cloud-models legend {
+  color: var(--text);
+  font-size: var(--type-body-large);
+  font-weight: var(--weight-medium);
 }
 
 .local-model h3 {

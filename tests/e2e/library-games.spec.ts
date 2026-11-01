@@ -7,6 +7,19 @@ import { readFileSync } from 'node:fs'
 const level = { status: 'playing', guesses: [], strikes: 0, pending: false, overruled: false, points: 0 }
 const cleared = { ...level, status: 'solved', guesses: [{ answer: 'a', pass: true, failed: [], closeCall: false }], points: 1 }
 
+test('Library cloud and local judges share a card style and cloud choice persists', async ({ page }) => {
+  await page.goto('/play')
+  const cloud = page.getByRole('region', { name: 'Choose your cloud judge', exact: true })
+  await expect(cloud).toHaveCSS('border-top-width', '1px')
+  const localPadding = await page.evaluate<string>('getComputedStyle(document.querySelector(".local-model")).paddingTop')
+  await expect(cloud).toHaveCSS('padding-top', localPadding)
+  await cloud.getByRole('radio', { name: 'Gemma 4', exact: true }).check()
+  await page.reload()
+  await expect(cloud.getByRole('radio', { name: 'Gemma 4', exact: true })).toBeChecked()
+  await page.getByRole('button', { name: 'Settings', exact: true }).click()
+  await expect(page.getByRole('dialog', { name: 'Settings' }).getByRole('radio', { name: 'Gemma 4', exact: true })).toBeChecked()
+})
+
 test('a completed puzzle changes the prompt across games, including a zero score', async ({ page }) => {
   await page.goto('/play')
   await expect(page.getByText('A good place to start.', { exact: true })).toBeVisible()

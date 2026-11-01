@@ -37,3 +37,24 @@ test('planned routes match on direct loads and refreshes', async ({ page }) => {
     await expect(page.getByRole('main')).toHaveAttribute('data-scene', scene)
   }
 })
+
+// 3.11: every page and the on-device judge's worker script carry the policy, and a
+// game loads under it without violations.
+test('pages and the worker script are served with the content security policy', async ({ page, request }) => {
+  const violations: string[] = []
+  page.on('console', (message) => { if (message.text().includes('Content Security Policy')) violations.push(message.text()) })
+  const response = await page.goto('/play/oddly-specific/1')
+  const policy = response?.headers()['content-security-policy'] ?? ''
+  expect(policy).toContain("script-src 'self' 'wasm-unsafe-eval' https://challenges.cloudflare.com")
+  expect(policy).toContain('connect-src \'self\' https://huggingface.co https://*.hf.co')
+  expect(policy).toContain("frame-ancestors 'none'")
+  // The worker's file name is hashed, so read it from the app's bundle.
+  const bundle = await page.evaluate(() => performance.getEntriesByType('resource').map(({ name }) => name).find((name) => /\/assets\/index-.*\.js$/u.test(name)))
+  expect(bundle).toBeDefined()
+  const script = await request.get(String(bundle))
+  const workerPath = /worker-[\w-]+\.js/u.exec(await script.text())?.[0]
+  expect(workerPath).toBeDefined()
+  expect((await request.get(`/assets/${String(workerPath)}`)).headers()['content-security-policy']).toBe(policy)
+  await expect(page.getByRole('textbox')).toBeVisible()
+  expect(violations).toEqual([])
+})

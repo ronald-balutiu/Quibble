@@ -3,6 +3,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router'
 import { gameConfigs, gameIds, type GameId } from '@shared/games'
 import { cloudModels, type CloudModel } from '@shared/schemas/judge'
 import type { PuzzleIndex } from '@shared/schemas/puzzle'
+import { usePageMeta } from '@/app/use-page-meta'
 import { SettingsButton } from '@/components/SettingsDrawer/SettingsDrawer'
 import { en, format } from '@/copy/en'
 import { maxScore } from '@/games/oddly-specific/reducer'
@@ -34,6 +35,7 @@ function statusOf(game: GameId, n: number): { status: Status, best?: number, rou
 }
 
 export function LibraryScene() {
+  usePageMeta(en['meta.title.library'])
   const [params, setParams] = useSearchParams()
   const game = gameIds.find((id) => id === params.get('game')) ?? 'oddly-specific'
   const [index, setIndex] = useState<PuzzleIndex | null | undefined>(undefined)

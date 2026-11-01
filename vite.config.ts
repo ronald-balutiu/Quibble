@@ -37,8 +37,24 @@ function dropRawOrtRuntime(): Plugin {
   }
 }
 
+// For search engines (robots.txt points here): Home, the Library and every puzzle,
+// listed from the built puzzle index.
+const SITE = 'https://quibble.ronaldbalutiu.com'
+function sitemap(): Plugin {
+  return {
+    name: 'quibble:sitemap',
+    applyToEnvironment: (environment) => environment.name === 'client',
+    generateBundle() {
+      const index = JSON.parse(readFileSync(fileURLToPath(new URL('./public/puzzles/index.json', import.meta.url)), 'utf8')) as Record<string, { n: number }[]>
+      const paths = ['/', '/play', ...Object.entries(index).flatMap(([game, puzzles]) => puzzles.map(({ n }) => `/play/${game}/${String(n)}`))]
+      const urls = paths.map((path) => `  <url><loc>${SITE}${path}</loc></url>`).join('\n')
+      this.emitFile({ type: 'asset', fileName: 'sitemap.xml', source: `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n` })
+    },
+  }
+}
+
 export default defineConfig({
-  plugins: [react(), cloudflare({ viteEnvironment: { name: 'worker' } }), ortRuntime()],
+  plugins: [react(), cloudflare({ viteEnvironment: { name: 'worker' } }), ortRuntime(), sitemap()],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

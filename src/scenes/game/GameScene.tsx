@@ -7,6 +7,7 @@ import { oddlySpecificConfig } from '@shared/games/oddly-specific'
 import { isValidAnswer, normalizeAnswer } from '@shared/normalize'
 import type { CloudModel, Reveal } from '@shared/schemas/judge'
 import type { Puzzle } from '@shared/schemas/puzzle'
+import { usePageMeta } from '@/app/use-page-meta'
 import { DeviceSetup } from '@/components/DeviceSetup/DeviceSetup'
 import { en, format, type CopyKey } from '@/copy/en'
 import { EscapeGame } from '@/games/category-escape/Screen'
@@ -54,6 +55,11 @@ export function GameScene() {
   const n = Number(params.n)
   const playable = game !== undefined && PLAYABLE.includes(game) && Number.isInteger(n)
   const [puzzle, setPuzzle] = useState<Puzzle | null | undefined>(undefined)
+  // A path that names no puzzle is a not-found page for search engines.
+  usePageMeta(
+    game && playable ? format('meta.title.game', { game: en[`game.name.${game}`], n: String(n).padStart(3, '0') }) : en['meta.title.notFound'],
+    { indexable: playable && puzzle !== null },
+  )
 
   useEffect(() => {
     if (!playable) return

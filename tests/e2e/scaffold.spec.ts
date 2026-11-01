@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test'
+import { readFileSync } from 'node:fs'
 
 test('the React entry point and local Worker load together', async ({ page, request }) => {
   const errors: string[] = []
@@ -8,7 +9,7 @@ test('the React entry point and local Worker load together', async ({ page, requ
   })
 
   await page.goto('/')
-  await expect(page).toHaveTitle('Quibble')
+  await expect(page).toHaveTitle('Quibble · Three word games judged by AI')
   await expect(page.getByRole('heading', { name: 'Make your case.', level: 1 })).toBeVisible()
   const health = await request.get('/api/health')
   expect(health.status()).toBe(200)
@@ -58,4 +59,27 @@ test('pages and the worker script are served with the content security policy', 
   expect((await request.get(`/assets/${String(workerPath)}`)).headers()['content-security-policy']).toBe(policy)
   await expect(page.getByRole('textbox')).toBeVisible()
   expect(violations).toEqual([])
+})
+
+// Search engines: robots.txt points to the sitemap, which lists Home, the Library and
+// every puzzle; each page has its own title and canonical URL, and unknown paths ask
+// not to be indexed (the single-page fallback serves them with a 200).
+test('crawlers find every puzzle, and each page names itself', async ({ page, request }) => {
+  const robots = await (await request.get('/robots.txt')).text()
+  expect(robots).toContain('Sitemap: https://quibble.ronaldbalutiu.com/sitemap.xml')
+  expect(robots).toContain('Disallow: /api/')
+  const sitemap = await (await request.get('/sitemap.xml')).text()
+  const index = JSON.parse(readFileSync('public/puzzles/index.json', 'utf8')) as Record<string, unknown[]>
+  const puzzles = Object.values(index).reduce((sum, list) => sum + list.length, 0)
+  expect(sitemap.match(/<loc>/gu)).toHaveLength(puzzles + 2)
+  expect(sitemap).toContain('<loc>https://quibble.ronaldbalutiu.com/play/double-agent/1</loc>')
+
+  await page.goto('/play/category-escape/7')
+  await expect(page).toHaveTitle('Category Escape #007 · Quibble')
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://quibble.ronaldbalutiu.com/play/category-escape/7')
+  await expect(page.locator('meta[name="robots"]')).toHaveCount(0)
+
+  await page.goto('/no-such-page')
+  await expect(page).toHaveTitle('Not found · Quibble')
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex')
 })

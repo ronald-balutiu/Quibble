@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router'
 import { gameIds } from '@shared/games'
 import type { PuzzleIndex } from '@shared/schemas/puzzle'
+import { usePageMeta } from '@/app/use-page-meta'
 import { en, format } from '@/copy/en'
 import { loadPuzzleIndex } from '@/lib/puzzles'
 import { loadProgress } from '@/lib/storage/progress'
@@ -12,6 +13,7 @@ import '../scenes.css'
 // H1 / H2: the pitch, one primary action, the three games. H3 (the judge
 // comparison) stays hidden until results.json exists (Phase 2 scope).
 export function HomeScene() {
+  usePageMeta(en['meta.title.home'])
   const [index, setIndex] = useState<PuzzleIndex | undefined>()
   useEffect(() => { void loadPuzzleIndex().then(setIndex) }, [])
 

@@ -1,0 +1,6 @@
+# Every page may be crawled; the API is not for crawlers.
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://quibble.ronaldbalutiu.com/sitemap.xml

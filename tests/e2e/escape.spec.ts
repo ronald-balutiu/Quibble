@@ -80,18 +80,21 @@ test('a whole Category Escape run can be played with the keyboard alone', async 
   for (const index of [0, 3]) {
     const row = levels.nth(index)
     // Status text uses the same semantic color as its solved/missed indicator.
-    const indicatorColor = await page.evaluate<string>(`getComputedStyle(document.querySelectorAll('.run-review__round')[${index}]).borderLeftColor`)
+    const indicatorColor = await page.evaluate<string>(`getComputedStyle(document.querySelectorAll('.run-review__mark')[${index}]).color`)
     await expect(row.locator('.run-review__status')).toHaveCSS('color', indicatorColor)
   }
-  await levels.nth(2).locator('summary').click()
+  await levels.nth(2).locator(':scope > summary').click()
   await expect(levels.nth(2)).toContainText('kettle')
-  const overruled = levels.nth(2).getByRole('region', { name: 'Your guesses', exact: true })
-  await expect(overruled).toContainText('Counted by you')
-  await expect(overruled.locator('.run-review__misses')).toContainText('Rules rejected by the judge')
-  await expect(overruled.locator('.run-review__misses li')).toHaveText(['Not powered'])
-  await levels.nth(5).locator('summary').click()
+  const rejectedRule = levels.nth(2).getByRole('list', { name: 'The rules', exact: true }).getByRole('listitem').filter({ hasText: 'Not powered' })
+  await expect(rejectedRule.getByRole('img', { name: 'Judge rejected this rule', exact: true })).toBeVisible()
+  await levels.nth(2).locator('.run-review__history > summary').click()
+  const overruled = levels.nth(2).getByRole('table', { name: 'Judge verdicts for your guesses, by rule' })
+  await expect(overruled.getByText('Counted by you', { exact: true })).toBeVisible()
+  await expect(overruled.getByRole('img', { name: 'Judge rejected this rule', exact: true })).toHaveCount(1)
+  await levels.nth(5).locator(':scope > summary').click()
   await expect(levels.nth(5)).toContainText('Not reached')
-  await expect(levels.nth(5)).toContainText('You didn’t reach this level.')
+  await levels.nth(5).locator('.run-review__history > summary').click()
+  await expect(levels.nth(5).getByText('You didn’t reach this level.', { exact: true })).toBeVisible()
   await expect(levels.nth(5)).toContainText('cork stopper')
 
   // Try again starts a fresh run; clearing all six levels escapes.
@@ -106,6 +109,11 @@ test('a whole Category Escape run can be played with the keyboard alone', async 
   await typeGuess(page, 'good six')
   await expect(page.getByText('ESCAPED • 6/6')).toBeVisible()
   await expect(page.getByText('NEW BEST • PREVIOUS 3')).toBeVisible()
+  await levels.nth(5).locator(':scope > summary').click()
+  await levels.nth(5).locator('.run-review__history > summary').click()
+  const finalGuess = levels.nth(5).getByRole('row', { name: /good six/u })
+  await expect(finalGuess.getByRole('img', { name: 'Judge accepted this rule', exact: true })).toHaveCount(6)
+  expect(await page.evaluate<number>('document.documentElement.scrollWidth')).toBeLessThanOrEqual(page.viewportSize()!.width)
 
   // Give up ends a run at the levels cleared.
   await tabToButton(page, 'Play again')

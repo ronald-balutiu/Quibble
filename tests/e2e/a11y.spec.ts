@@ -103,6 +103,11 @@ test.describe('axe-core on every screen (0.2)', () => {
       await page.goto(`/play/${game}/1`)
       await expect(page.getByRole('button', { name: 'Copy result' })).toBeVisible()
       await expectAccessible(page, screen)
+      const last = page.getByRole('region', { name: 'Your game' }).locator('.run-review__round').last()
+      await last.locator(':scope > summary').click()
+      await last.locator('.run-review__history > summary').click()
+      await expect(last.getByRole('table', { name: 'Judge verdicts for your guesses, by rule' })).toBeVisible()
+      await expectAccessible(page, `${screen} expanded review`)
     }
     await page.goto('/play/oddly-specific/2')
     await submitGuess(page, 'anything')

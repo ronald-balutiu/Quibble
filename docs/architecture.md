@@ -109,14 +109,17 @@ completed tiles show a green check while retaining their best score/perfect mark
 
 `scenes/game/ResultSummary` puts the score, best-score note, share grid and next-game actions first on every results screen. Detailed statistics and Category Escape’s example path use native disclosures. `scenes/game/RunReview` gives all three results screens expandable round/level
 details: conditions, actual guesses and their accepted/rejected/overruled status,
-and example answers. Each expanded review separates numbered rules, individual
-guess cards with verdicts and rejected rules, and example-answer chips. Rules and
-guesses sit side by side on desktop and stack on phones. Solved/overruled statuses
+and example answers. A single warm neutral surface groups the recap; flat rows
+show the answer, status and points. Native named disclosures keep at most one
+round open. Each opens with the player's counted answer (or a revealed example)
+and lettered rules. Guess history and other examples sit behind a second
+disclosure, using a compact per-rule matrix rather than repeated rule text.
+Overruled guesses retain the judge's rejected-rule marks. Solved/overruled statuses
 use green, misses use red, and skipped/unreached statuses remain grey. Unreached
-Category Escape levels stay distinct from misses.
-It uses the current run without changing persistence. Examples load through
-`use-reveal` only when a detail is first opened, stay available when re-opened, and
-support retry on failure. Category Escape also retains its full example path.
+Category Escape levels stay distinct from misses. The review uses the current run
+without changing persistence. Examples load through `use-reveal` only when a round
+is first opened, stay available after switching rounds, and support retry on
+failure. Category Escape also retains its full example path.
 
 `components/JudgesCompare/` is shared by Home and the results screens. Its source
 buttons separate published answer-key accuracy from agreement in saved games.

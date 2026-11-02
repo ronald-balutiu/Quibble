@@ -109,7 +109,11 @@ completed tiles show a green check while retaining their best score/perfect mark
 
 `scenes/game/ResultSummary` puts the score, best-score note, share grid and next-game actions first on every results screen. Detailed statistics and Category Escape’s example path use native disclosures. `scenes/game/RunReview` gives all three results screens expandable round/level
 details: conditions, actual guesses and their accepted/rejected/overruled status,
-and example answers. Unreached Category Escape levels stay distinct from misses.
+and example answers. Each expanded review separates numbered rules, individual
+guess cards with verdicts and rejected rules, and example-answer chips. Rules and
+guesses sit side by side on desktop and stack on phones. Solved/overruled statuses
+use green, misses use red, and skipped/unreached statuses remain grey. Unreached
+Category Escape levels stay distinct from misses.
 It uses the current run without changing persistence. Examples load through
 `use-reveal` only when a detail is first opened, stay available when re-opened, and
 support retry on failure. Category Escape also retains its full example path.

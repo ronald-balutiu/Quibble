@@ -361,7 +361,7 @@ export const en = {
   'review.guess.accepted': 'Accepted',
   'review.guess.rejected': 'Rejected by the judge',
   'review.guess.overruled': 'Counted by you',
-  'review.failed': 'The judge marked these rules as a miss: {rules}',
+  'review.missedRules': 'Rules rejected by the judge',
   'review.examples': 'Example answers',
   'review.loading': 'Loading example answers…',
   'results.newBest': 'NEW BEST • PREVIOUS {n}',

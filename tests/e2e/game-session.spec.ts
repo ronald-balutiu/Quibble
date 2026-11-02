@@ -45,6 +45,8 @@ test('result details load examples on demand, support keyboard opening and retry
   await expect(page.getByRole('table', { name: 'Detailed answer-key results' })).toBeVisible()
   const first = review.locator('.run-review__round').first()
   await expect(first).not.toHaveAttribute('open')
+  const mutedColor = await page.evaluate<string>('getComputedStyle(document.querySelector(".result-summary .telemetry")).color')
+  await expect(first.locator('.run-review__status')).toHaveCSS('color', mutedColor)
   expect(calls).toBe(0)
   await first.locator('summary').focus()
   await page.keyboard.press('Enter')
@@ -54,6 +56,22 @@ test('result details load examples on demand, support keyboard opening and retry
   await expect(first).toContainText('spoon')
   await expect(first).toContainText('fork')
   expect(calls).toBe(2)
+  const rules = first.getByRole('region', { name: 'The rules', exact: true })
+  const guesses = first.getByRole('region', { name: 'Your guesses', exact: true })
+  const examples = first.getByRole('region', { name: 'Example answers', exact: true })
+  await expect(rules.getByRole('listitem')).toHaveCount(puzzle.rounds[0]?.conditions.length ?? 0)
+  await expect(guesses).toContainText('No guesses here.')
+  await expect(examples.getByRole('listitem')).toHaveText(['spoon', 'fork'])
+  const rulesBox = (await rules.boundingBox())!
+  const guessesBox = (await guesses.boundingBox())!
+  const examplesBox = (await examples.boundingBox())!
+  if (isMobile) expect(guessesBox.y).toBeGreaterThanOrEqual(rulesBox.y + rulesBox.height)
+  else {
+    expect(guessesBox.y).toBe(rulesBox.y)
+    expect(guessesBox.x).toBeGreaterThanOrEqual(rulesBox.x + rulesBox.width)
+  }
+  expect(examplesBox.y).toBeGreaterThanOrEqual(guessesBox.y + guessesBox.height)
+  expect(await page.evaluate<number>('document.documentElement.scrollWidth')).toBeLessThanOrEqual(page.viewportSize()!.width)
   await first.locator('summary').click()
   await first.locator('summary').click()
   await expect(first.getByText('spoon', { exact: true })).toBeVisible()

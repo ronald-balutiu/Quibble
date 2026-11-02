@@ -185,6 +185,14 @@ and deployment dry run on every pull request and every push to `main`. Its
 demand from the workflow's **Run workflow** button, and their failure reports are
 kept for seven days. Newer pushes cancel outdated runs.
 
+Cloudflare Workers Builds is reserved for the production branch. Keep **Builds
+for non-production branches** off under **Quibble → Settings → Build → Branch
+control** in the Cloudflare dashboard. GitHub Actions validates pull requests;
+feature branches do not deploy Worker Previews. The production-only Wrangler
+configuration has no `previews` block, and the production bindings must not be
+copied into a Preview just to satisfy a branch build. See Cloudflare's
+[branch control documentation](https://developers.cloudflare.com/workers/ci-cd/builds/build-branches/).
+
 When new checks are added to `npm run check`, add them to the workflow too.
 
 ## Configuration reference

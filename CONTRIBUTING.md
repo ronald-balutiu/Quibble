@@ -251,8 +251,12 @@ real files.
 `@typescript/typescript6` package for tools such as typescript-eslint, which still
 need the compiler API that TypeScript 7 does not expose. This follows the
 [TypeScript migration guidance](https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/#running-side-by-side-with-typescript-6.0); remove the dual installation when those tools support the new API.
-The Node runtime baseline remains Node 24 (`.nvmrc` and CI); updated Node type
-definitions do not change the runtime requirement.
+The Node runtime baseline is Node 26, matching the Node 26 type definitions.
+`.nvmrc` selects the latest Node 26 release for local nvm use, GitHub Actions and
+Cloudflare Workers Builds (unless its `NODE_VERSION` environment variable overrides
+it). Node powers development and builds; the deployed API runs on Cloudflare
+Workers, and gameplay runs in the browser. A Node upgrade alone does not establish
+a player-facing performance improvement.
 
 ### Dependency overrides
 

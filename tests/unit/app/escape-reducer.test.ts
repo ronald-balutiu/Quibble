@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vitest'
 import { categoryEscapeConfig } from '@shared/games/category-escape'
 import {
-  escapeEnd, escapeReducer, escapeShareGrid, levelsCleared, startEscape, strikesUsed, usedOn, type EscapeAction,
+  escapeEnd, escapeReducer, escapeShareGrid, levelsCleared, onLastTry, startEscape, strikesUsed, usedOn, type EscapeAction,
 } from '@/games/category-escape/reducer'
 
 import { previousGuess } from '@/games/rounds/reducer'
@@ -25,6 +25,13 @@ describe('Category Escape run', () => {
     expect(usedOn(state, 'apple')).toBe(0)
     expect(reduce(state, pass('apple'))).toBe(state)
     expect(reduce(state, fail('apple'))).toBe(state)
+  })
+
+  test('the run\'s third pending miss is the last try, wherever its levels fell', () => {
+    const third = play(pass('apple'), fail('a'), moveOn, fail('b'), moveOn, fail('c'))
+    expect(onLastTry(categoryEscapeConfig, play(pass('apple'), fail('a'), moveOn, fail('b')))).toBe(false)
+    expect(onLastTry(categoryEscapeConfig, third)).toBe(true)
+    expect(reduce(third, moveOn).finished).toBe(true)
   })
 
   test('strikes count across the whole run, and only when the player moves on', () => {

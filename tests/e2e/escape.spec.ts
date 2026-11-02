@@ -64,7 +64,10 @@ test('a whole Category Escape run can be played with the keyboard alone', async 
   await typeGuess(page, 'rolling pin')
   await expect(page.getByRole('img', { name: '2 of 3 wrong guesses used' })).toBeVisible()
   await expect(page.getByText('VERDICT • REJECTED')).toBeVisible()
-  await page.keyboard.type('x')
+  // The third miss leaves no try: the field locks and "End run" takes focus.
+  await expect(page.getByRole('textbox')).toBeDisabled()
+  await expect(page.getByRole('button', { name: 'End run' })).toBeFocused()
+  await page.keyboard.press('Enter')
   await expect(page.getByText('RUN OVER • 3 WRONG GUESSES')).toBeVisible()
   await expect(page.getByText('/6 cleared')).toBeVisible()
   await expect(page.getByRole('link', { name: /^Next puzzle #002/u })).toBeFocused()

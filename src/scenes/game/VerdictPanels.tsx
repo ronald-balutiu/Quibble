@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import { Link } from 'react-router'
 import { en, format } from '@/copy/en'
 import type { Ui } from './judge-guess'
@@ -6,13 +7,20 @@ import { restTime } from './verdict'
 // The verdict panels under the answer field (5.5 G3, G7, S2).
 
 // G3: the rejected verdict, with "Try again" and "Count it anyway".
-export function RejectedPanel({ sentence, disabled = false, onTryAgain, onCountAnyway }: { sentence: string, disabled?: boolean, onTryAgain: () => void, onCountAnyway: () => void }) {
+// On the last allowed miss, `endLabel` replaces "Try again": there is no try left,
+// and that button, which takes focus, ends the round or run.
+export function RejectedPanel({ sentence, disabled = false, endLabel, onTryAgain, onCountAnyway }: {
+  sentence: string, disabled?: boolean, endLabel?: string | undefined, onTryAgain: () => void, onCountAnyway: () => void
+}) {
+  const primary = useRef<HTMLButtonElement>(null)
+  const ending = endLabel !== undefined
+  useEffect(() => { if (ending && !disabled) primary.current?.focus() }, [ending, disabled])
   return (
     <div className="verdict verdict--rejected">
       <p className="telemetry verdict__label">{en['verdict.label.rejected']}</p>
       <p className="verdict__sentence">{sentence}</p>
       <div className="actions">
-        <button type="button" className="pill" onClick={onTryAgain} disabled={disabled}>{en['game.tryAgain']}</button>
+        <button ref={primary} type="button" className="pill" onClick={onTryAgain} disabled={disabled}>{endLabel ?? en['game.tryAgain']}</button>
         <button type="button" className="pill pill--quiet" onClick={onCountAnyway} disabled={disabled}>{en['game.countAnyway']}</button>
       </div>
     </div>

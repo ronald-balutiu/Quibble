@@ -268,6 +268,8 @@ export const en = {
   'judges.agreed': 'This puzzle: agreed {agreed} / {compared}',
   'judges.threshold': 'Threshold {threshold}',
   'game.tryAgain': 'Try again',
+  'game.endRound': 'End round',
+  'escape.endRun': 'End run',
   'game.countAnyway': 'Count it anyway',
   'game.nextRound': 'Round {n} of {total}',
   'game.seeResults': 'See results',

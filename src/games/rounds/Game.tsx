@@ -15,7 +15,7 @@ import { CloudStrip, ScoreAxes } from '@/scenes/game/JudgesPanel'
 import { NotJudgedPanel, RejectedPanel } from '@/scenes/game/VerdictPanels'
 import { useGameSession } from '@/scenes/game/use-game-session'
 import { letterFor, rejectedSentence, verdictNote } from '@/scenes/game/verdict'
-import { runReducer, startRun, totalScore } from './reducer'
+import { onLastTry, runReducer, startRun, totalScore } from './reducer'
 import { RoundEnd } from './RoundEnd'
 import { Results } from './Results'
 
@@ -46,6 +46,8 @@ export function RoundGame({ puzzle }: { puzzle: Puzzle }) {
   const agent = game === 'double-agent'
   const [run, dispatch] = useReducer(variant.reduce, undefined, () => loadProgress(game, n).run ?? startRun(variant.config))
   const { ui, answer, scores, model, storageOn, best, turnstile, input, column, busy, judge, type, edit, tryAgain, countAnyway, reset } = useGameSession(puzzle, run, dispatch)
+  // The third miss: no try left, so the round ends from the panel, not by typing.
+  const lastTry = ui.kind === 'rejected' && onLastTry(config, run)
   const round = run.rounds[run.current]
   const conditions = puzzle.rounds[run.current]?.conditions ?? []
   const roundOver = round !== undefined && round.status !== 'playing'
@@ -99,7 +101,7 @@ export function RoundGame({ puzzle }: { puzzle: Puzzle }) {
                       )}
                   <AnswerForm
                     label={en[variant.label]} placeholder={en[`game.placeholder.${game}`]} answer={answer} maxLength={config.input.maxCharacters}
-                    judging={busy} input={input} onType={type} onSubmit={() => { void judge() }}
+                    judging={busy} locked={lastTry} input={input} onType={type} onSubmit={() => { void judge() }}
                   />
                   <p id="answer-note" className="telemetry">
                     {ui.kind === 'input' && ui.notice ? en[ui.notice === 'input.tooLong' ? variant.tooLong : ui.notice] : format('game.counter', { count: [...answer].length, max: 'maxLetters' in config.input ? config.input.maxLetters : config.input.maxCharacters })}
@@ -109,6 +111,7 @@ export function RoundGame({ puzzle }: { puzzle: Puzzle }) {
                       <RejectedPanel
                         sentence={(agent ? agentSentence(ui.guess, conditions) : rejectedSentence(ui.guess, conditions)) + verdictNote(column)}
                         disabled={busy}
+                        endLabel={lastTry ? en['game.endRound'] : undefined}
                         onTryAgain={tryAgain}
                         onCountAnyway={countAnyway}
                       />

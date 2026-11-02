@@ -100,6 +100,13 @@ export function runReducer(config: RoundsConfig) {
   }
 }
 
+// The pending rejection is the round's last allowed miss: moving on ends the round,
+// so the screen offers "End round" rather than another try.
+export function onLastTry(config: RoundsConfig, state: RunState): boolean {
+  const round = state.rounds[state.current]
+  return round?.pending === true && round.strikes + 1 >= config.maxWrongGuessesPerRound
+}
+
 export const totalScore = (state: RunState) => state.rounds.reduce((total, round) => total + round.points, 0)
 export const maxScore = (config: RoundsConfig) => config.rounds * (config.pointsByGuess[0] ?? 0)
 

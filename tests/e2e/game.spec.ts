@@ -46,13 +46,18 @@ test('a whole Oddly Specific puzzle can be played with the keyboard alone', asyn
   await expect(page.getByText('Skipped')).toBeVisible()
   await page.keyboard.press('Enter')
 
-  // G5 (lost): three rejections; the third strike lands on moving on.
+  // G5 (lost): three rejections. After the third there's no try left, so the field
+  // locks and "End round" takes focus in place of "Try again".
   for (const attempt of ['bad a', 'bad b', 'bad c']) {
     await expect(answer).toBeFocused()
     await typeGuess(page, attempt)
     await expect(page.getByText('VERDICT • REJECTED')).toBeVisible()
   }
-  await page.keyboard.type('x')
+  await expect(answer).toBeDisabled()
+  await expect(page.getByRole('button', { name: 'Try again' })).toHaveCount(0)
+  await expect(page.getByRole('button', { name: 'Count it anyway' })).toBeEnabled()
+  await expect(page.getByRole('button', { name: 'End round' })).toBeFocused()
+  await page.keyboard.press('Enter')
   await expect(page.getByText('ROUND 4 • NO POINTS')).toBeVisible()
   await expect(page.getByText('Your guesses')).toBeVisible()
   await page.keyboard.press('Enter')

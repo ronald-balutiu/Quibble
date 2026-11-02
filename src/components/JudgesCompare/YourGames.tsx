@@ -1,11 +1,15 @@
+import { useMemo, useSyncExternalStore } from 'react'
 import { en, format } from '@/copy/en'
-import { loadComparisons } from '@/lib/storage/comparisons'
+import { comparisonChanges, loadComparisons } from '@/lib/storage/comparisons'
 import { yourGames } from '@/lib/your-games'
 import { ComparisonTable } from './ComparisonTable'
 import { milliseconds, percent } from './format'
 
 export function YourGames() {
-  const mine = yourGames(loadComparisons())
+  const revision = useSyncExternalStore(comparisonChanges.subscribe, comparisonChanges.snapshot)
+  // Parsing and aggregation only repeat when the stored history changes.
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- the revision invalidates derived storage data after local or cross-tab changes.
+  const mine = useMemo(() => yourGames(loadComparisons()), [revision])
   if (mine.guesses === 0) return (
     <div className="compare__empty">
       <h3 className="compare__question">{en['compare.empty']}</h3>

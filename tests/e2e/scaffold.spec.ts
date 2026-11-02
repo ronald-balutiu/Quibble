@@ -50,11 +50,12 @@ test('pages and the worker script are served with the content security policy', 
   expect(policy).toContain("script-src 'self' 'wasm-unsafe-eval' https://challenges.cloudflare.com https://static.cloudflareinsights.com;")
   expect(policy).toContain('connect-src \'self\' https://huggingface.co https://*.hf.co')
   expect(policy).toContain("frame-ancestors 'none'")
-  // The worker's file name is hashed, so read it from the app's bundle.
-  const bundle = await page.evaluate(() => performance.getEntriesByType('resource').map(({ name }) => name).find((name) => /\/assets\/index-.*\.js$/u.test(name)))
-  expect(bundle).toBeDefined()
-  const script = await request.get(String(bundle))
-  const workerPath = /worker-[\w-]+\.js/u.exec(await script.text())?.[0]
+  // The on-device client may live in a deferred dependency. Inspect the scripts
+  // actually loaded for gameplay rather than assuming a single application file.
+  await expect(page.getByRole('textbox')).toBeVisible()
+  const bundles = await page.evaluate(() => performance.getEntriesByType('resource').map(({ name }) => name).filter((name) => /\/assets\/.*\.js$/u.test(name)))
+  const scripts = await Promise.all(bundles.map(async (url) => (await request.get(url)).text()))
+  const workerPath = /worker-[\w-]+\.js/u.exec(scripts.join('\n'))?.[0]
   expect(workerPath).toBeDefined()
   expect((await request.get(`/assets/${String(workerPath)}`)).headers()['content-security-policy']).toBe(policy)
   await expect(page.getByRole('textbox')).toBeVisible()

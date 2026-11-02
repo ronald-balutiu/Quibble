@@ -1,53 +1,16 @@
-import { useId, useState, useSyncExternalStore } from 'react'
-import { cloudModels, type CloudModel } from '@shared/schemas/judge'
-import { en, format } from '@/copy/en'
-import { useEvalResults } from '@/lib/eval-results'
-import { loadCloudModel, subscribeCloudModel } from '@/lib/storage/settings'
-import { AnswerKey } from './AnswerKey'
-import { YourGames } from './YourGames'
-import { dateLabel } from './format'
+import { lazy, useId, useState } from 'react'
+import { AsyncBoundary } from '@/components/AsyncBoundary/AsyncBoundary'
+import { en } from '@/copy/en'
 import './JudgesCompare.css'
 
-// Shared on Home and every results screen. Previewing another test model never
-// changes the playing judge. Until then, follow the saved cloud choice live.
+const ComparisonContent = lazy(() => import('./ComparisonContent').then((module) => ({ default: module.ComparisonContent })))
+
+// Defer the data and detailed UI until first opened. Keep it mounted afterward
+// so collapsing the section preserves the chosen source and model preview.
 export function JudgesCompare({ collapsible = false }: { collapsible?: boolean }) {
-  const [view, setView] = useState<'test' | 'games'>('test')
-  const [preview, setPreview] = useState<CloudModel>()
-  const chosen = useSyncExternalStore(subscribeCloudModel, loadCloudModel)
-  const model = preview ?? chosen
-  const results = useEvalResults()
-  const cloud = results?.test.judges[model]
-  const device = results?.test.judges.device
   const id = useId()
-
-  const content = (
-    <div className="compare__content">
-      <div className="compare__sources" role="group" aria-label={en['compare.source']}>
-        {(['test', 'games'] as const).map((source) => (
-          <button type="button" key={source} aria-pressed={view === source} aria-controls={`${id}-panel`} onClick={() => { setView(source) }}>{en[`compare.source.${source}`]}</button>
-        ))}
-      </div>
-      <div id={`${id}-panel`}>
-        {view === 'games'
-          ? <YourGames />
-          : <>
-              <div className="compare__toolbar">
-                {results && <p className="compare__meta">{format('compare.testMeta', { n: results.test.cases, date: dateLabel(results.test.date) })}</p>}
-                <label className="compare__model" htmlFor={`${id}-model`}>
-                  {en['compare.model']}
-                  <select id={`${id}-model`} value={model} onChange={(event) => { const next = cloudModels.find((m) => m === event.target.value); if (next) setPreview(next) }}>
-                    {cloudModels.map((m) => <option key={m} value={m}>{en[`judgeChoice.${m}`]}</option>)}
-                  </select>
-                </label>
-              </div>
-              {results && cloud && device
-                ? <AnswerKey results={results} cloud={cloud} device={device} model={model} />
-                : <p role="status">{en[results === undefined ? 'compare.loading' : 'compare.unavailable']}</p>}
-            </>}
-      </div>
-    </div>
-  )
-
+  const [opened, setOpened] = useState(false)
+  const content = <AsyncBoundary loading={en['compare.loading']}><ComparisonContent /></AsyncBoundary>
   return (
     <section className="compare" aria-labelledby={`${id}-title`}>
       <header className="compare__head">
@@ -55,7 +18,7 @@ export function JudgesCompare({ collapsible = false }: { collapsible?: boolean }
         <p>{en['compare.intro']}</p>
       </header>
       {collapsible
-        ? <details className="compare__disclosure"><summary>{en['compare.expand']}</summary>{content}</details>
+        ? <details className="compare__disclosure" onToggle={(event) => { if (event.currentTarget.open) setOpened(true) }}><summary>{en['compare.expand']}</summary>{opened && content}</details>
         : content}
     </section>
   )

@@ -1,53 +1,33 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router'
-import { gameConfigs, gameIds, type GameId } from '@shared/games'
+import { gameIds, type GameId } from '@shared/games'
 import { usePageMeta } from '@/app/use-page-meta'
 import { DeviceJudgeCard } from '@/components/JudgeSetup/DeviceJudgeCard'
 import { CloudModelChoice } from '@/components/JudgeSetup/CloudModelChoice'
 import { en, format } from '@/copy/en'
-import { maxScore } from '@/games/rounds/reducer'
 import { usePuzzleIndex } from '@/lib/use-puzzle-index'
-import { hasProgressActivity, loadProgress, resetPuzzle } from '@/lib/storage/progress'
+import { progressChanges, resetPuzzle } from '@/lib/storage/progress'
+import { libraryEntries, maxFor, progressText, type statusOf } from './library-model'
 import { GameRules } from './GameRules'
 import '../scenes.css'
 
-type Status = 'unplayed' | 'open' | 'solved' | 'perfect'
 const FILTERS = ['all', 'easy', 'hard', 'unplayed'] as const
 type Filter = (typeof FILTERS)[number]
-
-// A perfect score: 15/15 or 9/9 points, or 6/6 levels for Category Escape (5.5 L1).
-function maxFor(game: GameId): number {
-  const config = gameConfigs[game]
-  return 'levels' in config ? config.levels : maxScore(config)
-}
-
-// Category Escape counts levels where the other games count rounds (D-78).
-function progressText(game: GameId, key: 'library.continue' | 'sheet.resume', values: Record<string, string | number>): string {
-  return format(game === 'category-escape' ? `${key}.level` : key, values)
-}
-
-function statusOf(game: GameId, n: number): { status: Status, best?: number, round?: number, progress?: { done: number, total: number } } {
-  const { best, run } = loadProgress(game, n)
-  if (run && !run.finished && hasProgressActivity({ run })) return {
-    status: 'open', round: run.current + 1,
-    progress: { done: run.rounds.filter(({ status }) => status !== 'playing').length, total: run.rounds.length },
-    ...(best === undefined ? {} : { best }),
-  }
-  if (best === undefined) return { status: 'unplayed' }
-  return { status: best === maxFor(game) ? 'perfect' : 'solved', best }
-}
 
 export function LibraryScene() {
   usePageMeta(en['meta.title.library'])
   const [params, setParams] = useSearchParams()
   const game = gameIds.find((id) => id === params.get('game')) ?? 'oddly-specific'
-  const index = usePuzzleIndex()
+  const { data: index, retry } = usePuzzleIndex()
+  const revision = useSyncExternalStore(progressChanges.subscribe, progressChanges.snapshot)
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- the revision invalidates derived storage data after local or cross-tab changes.
+  const entries = useMemo(() => index ? libraryEntries(index) : undefined, [index, revision])
   const [open, setOpen] = useState<number | undefined>()
   const [filter, setFilter] = useState<Filter>('all')
   const navigate = useNavigate()
 
   const puzzles = index?.[game] ?? []
-  const statuses = puzzles.map((entry) => ({ ...entry, ...statusOf(game, entry.n) }))
+  const statuses = entries?.[game] ?? []
   const solved = statuses.filter(({ status }) => status === 'solved' || status === 'perfect').length
   const continuing = statuses.find(({ status }) => status === 'open')
   const unplayed = statuses.filter(({ status }) => status === 'unplayed')
@@ -56,7 +36,7 @@ export function LibraryScene() {
   const summaries = gameIds.map((id) => ({
     id,
     count: index?.[id]?.length ?? 0,
-    done: (index?.[id] ?? []).filter(({ n }) => loadProgress(id, n).best !== undefined).length,
+    done: (entries?.[id] ?? []).filter(({ best }) => best !== undefined).length,
   }))
   const hasCompleted = summaries.some(({ done }) => done > 0)
 
@@ -106,7 +86,9 @@ export function LibraryScene() {
           }}>{en['library.shuffle']}</button>}
         </div>
         <p className="telemetry">{format('library.counts', { solved, open: statuses.filter(({ status }) => status === 'open').length, perfect: statuses.filter(({ status }) => status === 'perfect').length })}</p>
-        {index !== undefined && puzzles.length === 0 && <p>{en['library.empty']}</p>}
+        {index === undefined && <p role="status">{en['library.loading']}</p>}
+        {index === null && <div><p role="status">{en['library.unavailable']}</p><button type="button" className="pill pill--quiet" onClick={retry}>{en['action.retry']}</button></div>}
+        {index && puzzles.length === 0 && <p>{en['library.empty']}</p>}
         <ol className="tiles">
           {shown.map(({ n, difficulty, status, best, progress }) => (
             <li key={n}>
@@ -133,14 +115,14 @@ export function LibraryScene() {
         </section>
       </section>
       </div>
-      {open !== undefined && <PuzzleSheet game={game} n={open} onClose={() => { setOpen(undefined) }} />}
+      {open !== undefined && <PuzzleSheet game={game} n={open} saved={statuses.find(({ n }) => n === open)} onClose={() => { setOpen(undefined) }} />}
     </main>
   )
 }
 
 // L2: play, resume, replay or reset one puzzle. Reset asks once more in place (D-28).
-function PuzzleSheet({ game, n, onClose }: { game: GameId, n: number, onClose: () => void }) {
-  const { status, round } = statusOf(game, n)
+function PuzzleSheet({ game, n, saved, onClose }: { game: GameId, n: number, saved: ReturnType<typeof statusOf> | undefined, onClose: () => void }) {
+  const { status = 'unplayed', round } = saved ?? {}
   const [confirming, setConfirming] = useState(false)
   const timer = useRef<ReturnType<typeof setTimeout>>(undefined)
   const dialog = useRef<HTMLDialogElement>(null)

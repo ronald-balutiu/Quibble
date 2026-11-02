@@ -1,4 +1,4 @@
-/* Doubled class: base.css loads after scene styles and sets the frame border. */
+/* Doubled class overrides the shared frame border. */
 .app-frame.game-frame {
   display: flex;
   flex-direction: column;
@@ -27,14 +27,6 @@
   color: var(--accent);
 }
 
-.telemetry {
-  margin: 0;
-  font-family: var(--font-mono);
-  font-size: var(--type-label);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--muted);
-}
 
 .strikes {
   display: flex;
@@ -172,43 +164,14 @@
   color: var(--muted);
 }
 
-.pill {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: var(--button-height);
-  padding: 0 var(--space-5);
-  border: var(--border-width) solid var(--text);
-  border-radius: var(--radius-pill);
-  background: var(--text);
-  color: var(--ground);
-  font-size: var(--type-button);
-  font-weight: var(--weight-medium);
-  text-decoration: none;
-  cursor: pointer;
-}
 
-.pill--quiet {
-  border-color: var(--line-strong);
-  background: transparent;
-  color: var(--text);
-}
 
-.pill:disabled {
-  opacity: 0.5;
-  cursor: default;
-}
+
 
 .game-skip {
   align-self: flex-start;
 }
 
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-3);
-  align-items: center;
-}
 
 .verdict {
   display: flex;
@@ -436,18 +399,7 @@
   font-size: var(--type-body-large);
 }
 
-.muted {
-  color: var(--muted);
-}
 
-.link-button {
-  padding: 0;
-  border: none;
-  background: none;
-  color: var(--text);
-  text-decoration: underline;
-  cursor: pointer;
-}
 
 .results__score {
   margin: 0;

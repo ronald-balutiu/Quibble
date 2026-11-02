@@ -4,6 +4,7 @@ import { defaultCloudModel, judgeRequestSchema, type JudgeError, type JudgeSucce
 import { json, type Env } from './env'
 import { judgeWithClef, judgeWithGemma, type JudgeQuestion } from './judge'
 import { findRound, type Library } from './library'
+import { readBody } from './read-body'
 import { readSession } from './session'
 
 // POST /api/judge (plan 3.4, D-72). Order: body size → session → schema and IDs →
@@ -26,15 +27,15 @@ export function nextUtcMidnight(now = new Date()): string {
 }
 
 export async function handleJudge(request: Request, env: Env, library: Library): Promise<Response> {
-  const text = await request.text()
-  if (new TextEncoder().encode(text).byteLength > MAX_BODY_BYTES) return error('invalid', undefined, {}, 413)
+  const bodyText = await readBody(request, MAX_BODY_BYTES)
+  if (!bodyText.ok) return error('invalid', undefined, {}, bodyText.status)
 
   const sid = await readSession(request, env.SESSION_KEY)
   if (!sid) return error('session', undefined)
 
   let body: unknown
   try {
-    body = JSON.parse(text)
+    body = JSON.parse(bodyText.text)
   } catch {
     return error('invalid', undefined)
   }

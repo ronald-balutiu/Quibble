@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { readBody } from './read-body'
 import { json, type Env } from './env'
 
 // POST /api/session (plan 3.4, 3.11): verifies a Turnstile token, then sets an
@@ -70,9 +71,11 @@ export async function readSession(request: Request, secret: string, now = Date.n
 }
 
 export async function handleSession(request: Request, env: Env): Promise<Response> {
+  const bodyText = await readBody(request, 4096)
+  if (!bodyText.ok) return json({ error: 'invalid' }, bodyText.status)
   let body: unknown
   try {
-    body = await request.json()
+    body = JSON.parse(bodyText.text)
   } catch {
     return json({ error: 'invalid' }, 400)
   }

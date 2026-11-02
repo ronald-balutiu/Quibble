@@ -8,6 +8,7 @@ import { en, format } from '@/copy/en'
 import { maxScore } from '@/games/rounds/reducer'
 import { usePuzzleIndex } from '@/lib/use-puzzle-index'
 import { hasProgressActivity, loadProgress, resetPuzzle } from '@/lib/storage/progress'
+import { GameRules } from './GameRules'
 import '../scenes.css'
 
 type Status = 'unplayed' | 'open' | 'solved' | 'perfect'
@@ -25,9 +26,13 @@ function progressText(game: GameId, key: 'library.continue' | 'sheet.resume', va
   return format(game === 'category-escape' ? `${key}.level` : key, values)
 }
 
-function statusOf(game: GameId, n: number): { status: Status, best?: number, round?: number } {
+function statusOf(game: GameId, n: number): { status: Status, best?: number, round?: number, progress?: { done: number, total: number } } {
   const { best, run } = loadProgress(game, n)
-  if (run && hasProgressActivity({ run })) return { status: 'open', round: run.current + 1, ...(best === undefined ? {} : { best }) }
+  if (run && !run.finished && hasProgressActivity({ run })) return {
+    status: 'open', round: run.current + 1,
+    progress: { done: run.rounds.filter(({ status }) => status !== 'playing').length, total: run.rounds.length },
+    ...(best === undefined ? {} : { best }),
+  }
   if (best === undefined) return { status: 'unplayed' }
   return { status: best === maxFor(game) ? 'perfect' : 'solved', best }
 }
@@ -61,7 +66,7 @@ export function LibraryScene() {
         <p className="telemetry">{en['library.title']}</p>
         <p className="telemetry">{format('library.solved', { solved, total: puzzles.length })}</p>
       </div>
-      {/* Phone: rows, grid, actions, judge choice. Desktop (L1): a sidebar beside the grid. */}
+      {/* Phone: game rows and judge choice above the selector. Desktop: sidebar beside it. */}
       <div className="library-layout">
       <nav className="game-rows" aria-label={en['home.games']}>
         {summaries.map(({ id, count, done }) => (
@@ -73,6 +78,10 @@ export function LibraryScene() {
             </button>
         ))}
       </nav>
+      <div className="library-setup">
+        <section className="judge-card cloud-judge" aria-label={en['welcome.cloud.title']}><CloudModelChoice /></section>
+        <DeviceJudgeCard />
+      </div>
       <section className="library" data-game={game}>
         <h1 className="library__title">{en[`game.name.${game}`]}</h1>
         {(continuing || starter) && (
@@ -83,6 +92,10 @@ export function LibraryScene() {
               : starter && <Link className="pill control-link" to={`/play/${game}/${String(starter.n)}`}>{format('library.start', { n: String(starter.n).padStart(3, '0'), difficulty: en[`difficulty.${starter.difficulty}`] })}</Link>}
           </div>
         )}
+        <GameRules game={game} key={game} />
+        <section className="library-puzzles" aria-labelledby="library-grid-title">
+        <h2 id="library-grid-title">{en['library.gridTitle']}</h2>
+        <p className="library-mobile-hint">{en['library.mobileHint']}</p>
         <div className="filters" role="group" aria-label={en['library.filters']}>
           {FILTERS.map((option) => (
             <button key={option} type="button" className="filter" aria-pressed={filter === option} onClick={() => { setFilter(option) }}>{en[`library.filter.${option}`]}</button>
@@ -95,25 +108,30 @@ export function LibraryScene() {
         <p className="telemetry">{format('library.counts', { solved, open: statuses.filter(({ status }) => status === 'open').length, perfect: statuses.filter(({ status }) => status === 'perfect').length })}</p>
         {index !== undefined && puzzles.length === 0 && <p>{en['library.empty']}</p>}
         <ol className="tiles">
-          {shown.map(({ n, difficulty, status, best }) => (
+          {shown.map(({ n, difficulty, status, best, progress }) => (
             <li key={n}>
               {/* The name starts with the visible number, so speech input can say it (WCAG 2.5.3). */}
               <button type="button" className={`tile tile--${status}`} onClick={() => {
                 if (status === 'unplayed') void navigate(`/play/${game}/${String(n)}`)
                 else setOpen(n)
               }}>
-                <span className="tile__n">{String(n).padStart(3, '0')}</span>
-                <span className="tile__score">{status === 'open' ? en['library.openMark'] : status === 'perfect' ? en['library.perfectMark'] : best}</span>
+                <span className="tile__top">
+                  <span className="tile__n">{String(n).padStart(3, '0')}</span>
+                  {(status === 'solved' || status === 'perfect') && <span className="tile__check" aria-hidden="true">{en['library.completedMark']}</span>}
+                </span>
+                {progress
+                  ? <>
+                      <progress className="tile__progress" value={progress.done} max={progress.total} aria-hidden="true" />
+                      <span className="visually-hidden">{format(game === 'category-escape' ? 'library.levelProgress' : 'library.roundProgress', progress)}</span>
+                    </>
+                  : <span className="tile__score">{status === 'perfect' ? en['library.perfectMark'] : best}</span>}
                 <span className="visually-hidden">{format('library.tile', { difficulty: en[`difficulty.${difficulty}`], status: format(`library.status.${status}`, { best: best ?? 0, max: maxFor(game) }) })}</span>
               </button>
             </li>
           ))}
         </ol>
+        </section>
       </section>
-      <div className="library-setup">
-        <section className="judge-card cloud-judge" aria-label={en['welcome.cloud.title']}><CloudModelChoice /></section>
-        <DeviceJudgeCard />
-      </div>
       </div>
       {open !== undefined && <PuzzleSheet game={game} n={open} onClose={() => { setOpen(undefined) }} />}
     </main>

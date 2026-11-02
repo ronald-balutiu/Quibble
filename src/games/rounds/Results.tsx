@@ -2,10 +2,10 @@ import { useState } from 'react'
 import type { Puzzle } from '@shared/schemas/puzzle'
 import { JudgesCompare } from '@/components/JudgesCompare/JudgesCompare'
 import { en, format } from '@/copy/en'
-import { RoundWords } from '@/games/double-agent/Screen'
 import { loadComparisons } from '@/lib/storage/comparisons'
 import { puzzleComparisons } from '@/lib/your-games'
 import { ResultActions } from '@/scenes/game/ResultActions'
+import { RunReview } from '@/scenes/game/RunReview'
 import { maxScore, shareGrid, totalScore, type RoundsConfig, type RunState } from './reducer'
 
 export function Results({ run, puzzle, best, config }: { run: RunState, puzzle: Puzzle, best: number | undefined, config: RoundsConfig }) {
@@ -29,7 +29,6 @@ export function Results({ run, puzzle, best, config }: { run: RunState, puzzle: 
       <p className="telemetry">{bestLabel}</p>
       <p className="results__score">{format('results.score', { score, max })}</p>
       <p className="results__tiles" aria-label={grid.text}>{grid.tiles}</p>
-      {puzzle.game === 'double-agent' && <RoundWords run={run} puzzle={puzzle} />}
       <dl className="facts">
         <dt>{en['results.guesses']}</dt><dd>{guesses}</dd>
         <dt>{en['results.overruled']}</dt><dd>{run.rounds.filter((round) => round.overruled).length}</dd>
@@ -47,6 +46,7 @@ export function Results({ run, puzzle, best, config }: { run: RunState, puzzle: 
           ))}
         </section>
       )}
+      <RunReview puzzle={puzzle} run={run} />
       <ResultActions puzzle={puzzle} share={share} />
       <JudgesCompare />
     </section>

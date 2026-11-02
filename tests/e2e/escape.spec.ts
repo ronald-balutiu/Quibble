@@ -23,7 +23,11 @@ async function mockApi(page: Page) {
       },
     })
   })
-  await page.route('**/api/reveal/**', (route) => route.fulfill({ json: { example: 'apple', also: [], path } }))
+  await page.route('**/api/reveal/**', (route) => {
+    const id = route.request().url().split('/').at(-1)
+    const i = puzzle.rounds.findIndex((round) => round.id === id)
+    return route.fulfill({ json: { example: path[i] ?? 'apple', also: [], path } })
+  })
 }
 
 async function guess(page: Page, answer: string) {
@@ -91,10 +95,22 @@ test('a whole Category Escape run can be played with the keyboard alone', async 
   await expect(page.getByRole('cell', { name: 'cork stopper' })).toBeVisible()
   await expect(page.getByText('Your 3 wrong guesses')).toBeVisible()
   await expect(page.getByText('L-02 • is food')).toBeVisible()
+  await expect(page.getByRole('link', { name: /^Next puzzle #002/u })).toBeFocused()
+
+  const review = page.getByRole('region', { name: 'What you got. What you missed.' })
+  const levels = review.locator('.run-review__round')
+  await expect(levels).toHaveCount(6)
+  await levels.nth(2).locator('summary').click()
+  await expect(levels.nth(2)).toContainText('kettle')
+  await expect(levels.nth(2).locator('.run-review__guesses')).toContainText('Counted by you')
+  await levels.nth(5).locator('summary').click()
+  await expect(levels.nth(5)).toContainText('Not reached')
+  await expect(levels.nth(5)).toContainText('You didn’t reach this level.')
+  await expect(levels.nth(5)).toContainText('cork stopper')
 
   // Try again starts a fresh run; clearing all six levels escapes.
   // The next puzzle is the primary action; Try again is one Tab away.
-  await expect(page.getByRole('link', { name: /^Next puzzle #002/u })).toBeFocused()
+  await page.getByRole('link', { name: /^Next puzzle #002/u }).focus()
   await tabTo(page, 'Try #001 again')
   await expect(page.getByRole('img', { name: '0 of 3 wrong guesses used' })).toBeVisible()
   for (const [i, thing] of ['one', 'two', 'three', 'four', 'five'].entries()) {

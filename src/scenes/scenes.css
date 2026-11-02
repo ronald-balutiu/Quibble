@@ -32,7 +32,7 @@
 
 .scene > .library-layout {
   display: grid;
-  grid-template-areas: 'rows' 'grid' 'judge';
+  grid-template-areas: 'rows' 'judge' 'grid';
   gap: var(--space-8);
   padding-inline: 0;
 }
@@ -66,7 +66,7 @@
 }
 
 .library-start p,
-.library > .telemetry {
+.library-puzzles > .telemetry {
   color: var(--accent);
 }
 
@@ -163,6 +163,59 @@
   gap: var(--space-4);
 }
 
+.library-puzzles {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+.library-puzzles h2 {
+  margin: 0;
+  font-size: var(--type-welcome-section);
+  font-weight: var(--weight-regular);
+}
+
+.library-mobile-hint {
+  margin: 0;
+  color: var(--muted);
+}
+
+.library-rules {
+  border-block: var(--border-width) solid var(--line);
+}
+
+.library-rules summary {
+  min-height: var(--target-min);
+  padding-block: var(--space-3);
+  cursor: pointer;
+}
+
+.library-rules__body {
+  display: grid;
+  gap: var(--space-3);
+  padding-bottom: var(--space-4);
+}
+
+.library-rules__body h2,
+.library-rules__body p {
+  margin: 0;
+}
+
+.library-rules__body h2 {
+  font-size: var(--type-body-large);
+  font-weight: var(--weight-medium);
+}
+
+.library-rules__points {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
 .tiles {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -201,6 +254,39 @@
   align-self: flex-end;
 }
 
+.tile__top {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-1);
+  width: 100%;
+}
+
+.tile__check {
+  color: var(--success);
+}
+
+.tile__progress {
+  display: block;
+  width: 100%;
+  height: var(--progress-bar-height);
+  border: none;
+  background: var(--line-strong);
+  color: var(--accent);
+  accent-color: var(--accent);
+}
+
+.tile__progress::-webkit-progress-bar {
+  background: var(--line-strong);
+}
+
+.tile__progress::-webkit-progress-value {
+  background: var(--accent);
+}
+
+.tile__progress::-moz-progress-bar {
+  background: var(--accent);
+}
+
 .tile--solved,
 .tile--perfect {
   background: var(--surface-2);
@@ -227,6 +313,9 @@
 }
 
 @media (min-width: 1024px) {
+  .library-mobile-hint {
+    display: none;
+  }
   .tiles {
     grid-template-columns: repeat(10, 1fr);
   }

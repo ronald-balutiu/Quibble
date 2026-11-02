@@ -1,6 +1,7 @@
 import { Link } from 'react-router'
 import { gameIds } from '@shared/games'
 import { usePageMeta } from '@/app/use-page-meta'
+import { GameExample } from '@/components/GameExample/GameExample'
 import { JudgesCompare } from '@/components/JudgesCompare/JudgesCompare'
 import { RingMark } from '@/components/RingMark/RingMark'
 import { en } from '@/copy/en'
@@ -31,14 +32,7 @@ export function HomeScene() {
               <p className="telemetry welcome-game__label">{en[`game.name.${game}`]}</p>
               <h3>{en[`welcome.${game}.title`]}</h3>
               <p>{en[`welcome.${game}.body`]}</p>
-              <div className="welcome-example">
-                <ol>
-                  <li>{en[`welcome.${game}.example.1`]}</li>
-                  <li>{en[`welcome.${game}.example.2`]}</li>
-                  {game !== 'double-agent' && <li>{en[`welcome.${game}.example.3`]}</li>}
-                </ol>
-                <p>{en[`welcome.${game}.answer`]}</p>
-              </div>
+              <GameExample game={game} />
             </article>
           ))}
         </div>

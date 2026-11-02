@@ -1,9 +1,6 @@
-import { useEffect, useState } from 'react'
-import type { Reveal } from '@shared/schemas/judge'
-import type { Puzzle, PuzzleCondition } from '@shared/schemas/puzzle'
+import type { PuzzleCondition } from '@shared/schemas/puzzle'
 import { en, format } from '@/copy/en'
-import type { Guess, RunState } from '@/games/rounds/reducer'
-import { fetchReveal } from '@/lib/api'
+import type { Guess } from '@/games/rounds/reducer'
 import { letterFor } from '@/scenes/game/verdict'
 import './agent.css'
 
@@ -71,44 +68,5 @@ export function GuessMap({ guesses, conditions, className }: { guesses: readonly
         ))}
       </svg>
     </figure>
-  )
-}
-
-// D2: each round's word (yours, or the intended one if lost), both clues and its points.
-export function RoundWords({ run, puzzle }: { run: RunState, puzzle: Puzzle }) {
-  const [reveals, setReveals] = useState<Record<string, Reveal | undefined>>({})
-  useEffect(() => {
-    let live = true
-    for (const [i, round] of run.rounds.entries()) {
-      const id = puzzle.rounds[i]?.id
-      if (round.status === 'solved' || !id) continue
-      void fetchReveal(puzzle.game, puzzle.n, id).then((value) => { if (live) setReveals((all) => ({ ...all, [id]: value })) })
-    }
-    return () => { live = false }
-  }, [run, puzzle])
-
-  return (
-    <ul className="round-words">
-      {run.rounds.map((round, i) => {
-        const id = puzzle.rounds[i]?.id ?? ''
-        const solved = round.status === 'solved'
-        const word = solved ? round.guesses.at(-1)?.answer : reveals[id]?.example
-        const lastGuess = round.guesses.at(-1)?.answer
-        const clues = (puzzle.rounds[i]?.conditions ?? []).map(({ label }) => label).join(' · ')
-        return (
-          <li key={id} className="round-words__row">
-            <span className="telemetry">{format('agent.round', { n: i + 1 })}</span>
-            <span className="round-words__word">{word ?? en['escape.none']}</span>
-            <span className={solved ? 'telemetry round-words__points' : 'telemetry round-words__points round-words__points--none'}>
-              {round.points > 0 ? format('agent.points', { points: round.points }) : '0'}
-            </span>
-            <span className="round-words__clues">
-              {clues}
-              {!solved && lastGuess && format('agent.youGuessed', { word: lastGuess })}
-            </span>
-          </li>
-        )
-      })}
-    </ul>
   )
 }

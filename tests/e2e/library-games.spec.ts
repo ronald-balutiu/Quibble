@@ -1,11 +1,76 @@
 import { expect, test } from '@playwright/test'
 import { readFileSync } from 'node:fs'
+import AxeBuilder from '@axe-core/playwright'
 
 // The Library with Category Escape listed (it doesn't ship until Phase 4 closes,
 // D-76, so the index is mocked): progress counts levels (D-78), and 6/6 is perfect.
 
 const level = { status: 'playing', guesses: [], strikes: 0, pending: false, overruled: false, points: 0 }
 const cleared = { ...level, status: 'solved', guesses: [{ answer: 'a', pass: true, failed: [], closeCall: false }], points: 1 }
+
+test('each game has keyboard-accessible rules and a quick example above the filters', async ({ page }) => {
+  await page.goto('/play')
+  const rules = page.locator('.library-rules')
+  const examples = ['safety pin', 'All earlier rules still apply.', 'bank']
+  for (const [i, game] of ['oddly-specific', 'category-escape', 'double-agent'].entries()) {
+    await page.getByRole('navigation', { name: 'Games', exact: true }).locator(`[data-game="${game}"]`).click()
+    await expect(rules).not.toHaveAttribute('open')
+    await rules.locator('summary').focus()
+    await page.keyboard.press('Enter')
+    await expect(rules.locator('.game-example')).toContainText(examples[i] ?? '')
+    await expect(rules).toContainText(game === 'category-escape' ? 'One point for each level' : '3 points · first try')
+    const prompt = await page.locator('.library-start').boundingBox()
+    const disclosure = await rules.boundingBox()
+    const filters = await page.getByRole('group', { name: 'Show', exact: true }).boundingBox()
+    expect(disclosure!.y).toBeGreaterThanOrEqual(prompt!.y + prompt!.height)
+    expect(filters!.y).toBeGreaterThanOrEqual(disclosure!.y + disclosure!.height)
+  }
+  await expect(page.getByRole('heading', { name: 'Game Selector', exact: true })).toBeVisible()
+  expect((await new AxeBuilder({ page }).analyze()).violations.filter((v) => v.impact === 'serious' || v.impact === 'critical')).toEqual([])
+})
+
+test('judge cards sit above the selector on mobile, with a mobile-only tap hint', async ({ page, isMobile }) => {
+  await page.goto('/play')
+  const hint = page.getByText('Tap any tile to play that game.', { exact: true })
+  if (isMobile) {
+    await page.setViewportSize({ width: 320, height: 800 })
+    await expect(hint).toBeVisible()
+    const cards = await page.locator('.library-setup').boundingBox()
+    const selector = await page.getByRole('heading', { name: 'Game Selector', exact: true }).boundingBox()
+    expect(cards!.y + cards!.height).toBeLessThan(selector!.y)
+    expect(await page.evaluate<number>('document.documentElement.scrollWidth')).toBe(320)
+  } else {
+    await expect(hint).toBeHidden()
+    const cards = await page.locator('.library-setup').boundingBox()
+    const grid = await page.locator('.library').boundingBox()
+    expect(cards!.x + cards!.width).toBeLessThanOrEqual(grid!.x)
+  }
+})
+
+test('only active tiles show progress; completed and perfect tiles have a green check', async ({ page }) => {
+  await page.addInitScript(({ empty, done }) => {
+    localStorage.setItem('quibble:progress:oddly-specific:1', JSON.stringify({ run: { current: 1, rounds: [done, empty, empty, empty, empty], finished: false } }))
+    localStorage.setItem('quibble:progress:oddly-specific:2', JSON.stringify({ best: 0 }))
+    localStorage.setItem('quibble:progress:oddly-specific:3', JSON.stringify({ best: 15 }))
+    localStorage.setItem('quibble:progress:oddly-specific:4', JSON.stringify({ run: { current: 0, rounds: [empty, empty, empty, empty, empty], finished: false } }))
+  }, { empty: level, done: cleared })
+  await page.goto('/play')
+  const tiles = page.locator('.tiles .tile')
+  await expect(tiles.nth(0).locator('progress')).toHaveAttribute('value', '1')
+  await expect(tiles.nth(0).locator('progress')).toHaveAttribute('max', '5')
+  await expect(tiles.nth(0)).toHaveAccessibleName(/1 of 5 rounds finished/u)
+  for (const i of [1, 2]) {
+    await expect(tiles.nth(i).locator('progress')).toHaveCount(0)
+    await expect(tiles.nth(i).locator('.tile__check')).toHaveText('✓')
+    await expect(tiles.nth(i).locator('.tile__check')).toHaveCSS('color', 'rgb(155, 205, 171)')
+  }
+  for (const i of [3, 4]) {
+    await expect(tiles.nth(i)).toHaveClass('tile tile--unplayed')
+    await expect(tiles.nth(i).locator('progress, .tile__check')).toHaveCount(0)
+  }
+  await tiles.nth(0).click()
+  await expect(page.getByRole('button', { name: 'Resume round 2', exact: true })).toBeVisible()
+})
 
 test('Library cloud and local judges share a card style and cloud choice persists', async ({ page }) => {
   await page.goto('/play')
@@ -83,6 +148,8 @@ test('Category Escape progress reads in levels, and 6/6 is perfect', async ({ pa
   await page.goto('/play?game=category-escape')
 
   await expect(page.getByRole('link', { name: 'Continue #001 · level 3' })).toBeVisible()
+  await expect(page.locator('.tile--open progress')).toHaveAttribute('value', '2')
+  await expect(page.locator('.tile--open progress')).toHaveAttribute('max', '6')
   await expect(page.getByRole('button', { name: /^002.*, easy, perfect$/u })).toBeVisible()
   await page.getByRole('button', { name: /^001.*, easy, in progress$/u }).click()
   await expect(page.getByRole('button', { name: 'Resume level 3' })).toBeVisible()

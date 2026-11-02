@@ -4,6 +4,7 @@ import { gameIds } from '../../shared/games'
 import { oddlySpecificConfig } from '../../shared/games/oddly-specific'
 import { puzzleSchema } from '../../shared/schemas/puzzle'
 import { runReducer, startRun } from '../../src/games/rounds/reducer'
+import AxeBuilder from '@axe-core/playwright'
 
 // Start at the final round's reveal to exercise the real results-to-puzzle
 // navigation, without calling either model.
@@ -20,6 +21,33 @@ async function openResults(page: Page) {
   await page.getByRole('button', { name: 'See results' }).click()
   await expect(page.getByText('0/15', { exact: true })).toBeVisible()
 }
+
+test('result details load examples on demand, support keyboard opening and retry failures', async ({ page }) => {
+  await openResults(page)
+  const puzzle = puzzleSchema.parse(JSON.parse(readFileSync('public/puzzles/oddly-specific/1.json', 'utf8')))
+  let calls = 0
+  await page.route(`**/api/reveal/oddly-specific/1/${puzzle.rounds[0]?.id ?? ''}`, (route) => {
+    calls += 1
+    return route.fulfill(calls === 1 ? { status: 503, body: '' } : { json: { example: 'spoon', also: ['fork'] } })
+  })
+  const review = page.getByRole('region', { name: 'What you got. What you missed.' })
+  const first = review.locator('.run-review__round').first()
+  await expect(first).not.toHaveAttribute('open')
+  expect(calls).toBe(0)
+  await first.locator('summary').focus()
+  await page.keyboard.press('Enter')
+  await expect(first).toHaveAttribute('open')
+  await expect(first).toContainText("Couldn't load the other answers.")
+  await first.getByRole('button', { name: 'Retry', exact: true }).click()
+  await expect(first).toContainText('spoon')
+  await expect(first).toContainText('fork')
+  expect(calls).toBe(2)
+  await first.locator('summary').click()
+  await first.locator('summary').click()
+  await expect(first.getByText('spoon', { exact: true })).toBeVisible()
+  expect(calls).toBe(2)
+  expect((await new AxeBuilder({ page }).analyze()).violations.filter((v) => v.impact === 'serious' || v.impact === 'critical')).toEqual([])
+})
 
 for (const missing of [false, true]) {
   test(`next puzzle has its own loading and ${missing ? 'not-found' : 'game'} state`, async ({ page }) => {

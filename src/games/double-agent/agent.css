@@ -74,41 +74,6 @@
   gap: var(--space-6);
 }
 
-/* D2: each round's word, its points and both clues. */
-.round-words {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  border-top: var(--border-width) solid var(--line);
-}
-
-.round-words__row {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  gap: var(--space-1) var(--space-3);
-  align-items: baseline;
-  padding: var(--space-3) 0;
-  border-bottom: var(--border-width) solid var(--line);
-}
-
-.round-words__word {
-  font-size: var(--type-panel);
-  font-weight: var(--weight-light);
-}
-
-.telemetry.round-words__points {
-  color: var(--accent);
-}
-
-.telemetry.round-words__points--none {
-  color: var(--muted);
-}
-
-.round-words__clues {
-  grid-column: 2 / -1;
-  color: var(--muted);
-}
-
 @media (max-width: 1023px) {
   .guess-map--side,
   .clues__eyebrow {

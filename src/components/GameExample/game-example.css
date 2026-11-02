@@ -1,0 +1,19 @@
+.game-example {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-left: var(--accent-line-width) solid var(--accent);
+  background: var(--surface-2);
+}
+
+.game-example ol {
+  margin: 0;
+  padding-left: var(--space-5);
+  color: var(--muted);
+}
+
+.game-example p {
+  margin: auto 0 0;
+  color: var(--text);
+}

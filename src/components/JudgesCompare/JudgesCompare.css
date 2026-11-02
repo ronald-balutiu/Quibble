@@ -160,6 +160,56 @@
   font-size: var(--type-body);
 }
 
+/* The judge's marker before its name: a dot for the cloud, a ring for the local judge. */
+.compare__summary dt > span,
+.compare-table thead strong {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.judge-marker {
+  flex: none;
+  width: var(--judge-marker-size);
+  height: var(--judge-marker-size);
+}
+
+.judge-marker circle,
+.judge-bar__marker {
+  stroke: var(--text);
+}
+
+.judge-marker--cloud circle,
+.judge-bar--cloud .judge-bar__marker {
+  fill: var(--text);
+}
+
+.judge-marker--device circle,
+.judge-bar--device .judge-bar__marker {
+  fill: var(--ground);
+}
+
+/* Drawn past its box, so a marker at 0 or 100% isn't cut in half. */
+.judge-bar {
+  display: block;
+  width: 100%;
+  height: var(--judge-bar-height);
+  margin-top: var(--space-2);
+  overflow: visible;
+}
+
+.judge-bar__track {
+  stroke: var(--line-strong);
+}
+
+.judge-bar__value {
+  stroke: var(--text);
+}
+
+.judge-bar--device .judge-bar__value {
+  stroke: var(--muted);
+}
+
 .compare__summary strong {
   display: block;
   margin-top: var(--space-1);
@@ -228,8 +278,15 @@
 }
 
 .compare-table th:first-child {
-  width: 48%;
+  width: 40%;
   padding-left: 0;
+  text-align: left;
+}
+
+/* Values sit over the start of their bars, which read from the left. */
+.compare-table thead th:not(:first-child),
+.compare-table td {
+  padding-left: var(--space-5);
   text-align: left;
 }
 
@@ -244,14 +301,42 @@
   font-size: var(--type-body);
 }
 
-.compare-table thead strong {
+.compare-table thead span {
   display: block;
+  margin-bottom: var(--space-1);
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.compare-table thead strong {
   color: var(--text);
   font-weight: var(--weight-medium);
 }
 
 .compare-table tbody th {
   font-size: var(--type-body);
+}
+
+.compare-table .compare-table__group th {
+  padding-top: var(--space-6);
+  padding-bottom: var(--space-2);
+  border-bottom-color: var(--line-strong);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: var(--type-label-large);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+/* Where one judge did better, it keeps full weight and the other steps back. */
+.compare-table .compare-table__better {
+  font-weight: var(--weight-medium);
+}
+
+.compare-table tr:has(.compare-table__better) td:not(.compare-table__better) {
+  color: var(--muted);
 }
 
 .compare-table td {

@@ -26,6 +26,7 @@ export default defineConfig({
     command: 'npm run build && npm run preview',
     url: 'http://127.0.0.1:4173/api/health',
     reuseExistingServer: false,
+    env: { QUIBBLE_REMOTE_BINDINGS: 'false' },
     timeout: 120_000,
   },
 })

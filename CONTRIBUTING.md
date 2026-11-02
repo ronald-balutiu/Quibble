@@ -173,17 +173,28 @@ the scripts' token never replaces your Wrangler login, and sets
 `CLOUDFLARE_LOAD_DEV_VARS_FROM_DOT_ENV=false`, so the dev server never loads the
 file. Keep both when editing `.env`.
 
-`npm run deploy` builds, checks assets, and publishes through Wrangler with your
-authenticated Cloudflare account. Coding agents must get confirmation before
-deploying; see [agent safety](AGENTS.md#safety).
+Merging to `main` deploys. Cloudflare Workers Builds is connected to this
+repository: on every push to `main` it runs `npm run build`, then
+`npm run check:assets && npx wrangler deploy`, and reports a check on the commit.
+Other branches don't build, since a preview Worker would share production's Workers
+AI allowance and secrets, and Turnstile only accepts the production hostname.
+Because only pull requests that pass `release-ci` and `e2e` reach `main`, nothing
+untested goes live; merge only work that is ready to.
+
+`npm run deploy` still builds, checks assets, and publishes through Wrangler with
+your authenticated Cloudflare account, for a manual deploy. Coding agents must get
+confirmation before running it; see [agent safety](AGENTS.md#safety).
 
 ## Continuous integration
 
 [GitHub Actions](.github/workflows/ci.yml) runs the build, unit tests, asset check,
-and deployment dry run on every pull request and every push to `main`. Its
-`release-ci` check is required by `main`'s branch protection. Browser tests run on
-demand from the workflow's **Run workflow** button, and their failure reports are
-kept for seven days. Newer pushes cancel outdated runs.
+and deployment dry run on every pull request and every push to `main` (`release-ci`),
+then the Playwright browser and accessibility tests (`e2e`). Both checks are
+required by `main`'s ruleset. Browser test failure reports are kept for seven days.
+Newer pushes cancel outdated runs. The local-only `npm run test:device` never runs
+in CI. Playwright starts its preview server with `QUIBBLE_REMOTE_BINDINGS=false`,
+so the Workers AI binding stays local and no Cloudflare login is needed; the tests
+mock every model call.
 
 Cloudflare Workers Builds is reserved for the production branch. Keep **Builds
 for non-production branches** off under **Quibble → Settings → Build → Branch

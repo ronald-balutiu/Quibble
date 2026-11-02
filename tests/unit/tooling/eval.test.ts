@@ -3,6 +3,7 @@ import { existsSync, readFileSync } from 'node:fs'
 import type { AnswerKeyCase } from '@shared/schemas/answer-key'
 import { evalHistorySchema } from '@shared/schemas/eval-history'
 import { cohensKappa, computeMetrics, thresholdSweep, type CaseResult } from '../../../eval/metrics'
+import { buildResults } from '../../../eval/results'
 
 function guess(id: string, expected: ('yes' | 'no' | 'unsure')[]): AnswerKeyCase {
   return {
@@ -65,4 +66,21 @@ describe('answer-key metrics', () => {
 test('eval/history.json matches its schema', () => {
   if (!existsSync('eval/history.json')) return
   expect(() => evalHistorySchema.parse(JSON.parse(readFileSync('eval/history.json', 'utf8')))).not.toThrow()
+})
+
+describe('the published answer-key results (public/eval/results.json)', () => {
+  const history = evalHistorySchema.parse(JSON.parse(readFileSync('eval/history.json', 'utf8')))
+  const devices = JSON.parse(readFileSync('eval/device-measurements.json', 'utf8')) as unknown
+
+  test('match what npm run eval:publish builds from the history and measurements', () => {
+    const published = JSON.parse(readFileSync('public/eval/results.json', 'utf8')) as unknown
+    expect(published).toEqual(buildResults(history, devices))
+  })
+
+  test('come from exactly one test-set run, on one case set', () => {
+    const tests = history.filter((run) => run.split === 'test')
+    expect(new Set(tests.map((run) => run.caseSetHash)).size).toBe(1)
+    expect(new Set(tests.map((run) => run.judge)).size).toBe(tests.length)
+    expect(() => buildResults(history.filter((run) => run.split === 'dev'), devices)).toThrow('Expected one test-set run')
+  })
 })

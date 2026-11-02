@@ -3,6 +3,7 @@ import { fileURLToPath, URL } from 'node:url'
 import { gzipSync } from 'node:zlib'
 import type { OutputAsset, OutputChunk } from 'rolldown'
 import type { Plugin } from 'vite'
+import { SITE_ORIGIN } from '../shared/site.ts'
 import { en, format, puzzleNumber } from '../src/copy/en.ts'
 
 // Build plugins for vite.config.ts: the on-device judge's runtime, the sitemap, and
@@ -44,7 +45,6 @@ export function dropRawOrtRuntime(): Plugin {
 
 // For search engines (robots.txt points here): Home, the Library and every puzzle,
 // listed from the built puzzle index.
-const SITE = 'https://quibble.ronaldbalutiu.com'
 export function sitemap(): Plugin {
   return {
     name: 'quibble:sitemap',
@@ -52,7 +52,7 @@ export function sitemap(): Plugin {
     generateBundle() {
       const index = JSON.parse(readFileSync(fromRoot('public/puzzles/index.json'), 'utf8')) as Record<string, { n: number }[]>
       const paths = ['/', '/play', '/about', ...Object.entries(index).flatMap(([game, puzzles]) => puzzles.map(({ n }) => `/play/${game}/${String(n)}`))]
-      const urls = paths.map((path) => `  <url><loc>${SITE}${path}</loc></url>`).join('\n')
+      const urls = paths.map((path) => `  <url><loc>${SITE_ORIGIN}${path}</loc></url>`).join('\n')
       this.emitFile({ type: 'asset', fileName: 'sitemap.xml', source: `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n` })
     },
   }
@@ -109,7 +109,7 @@ export function routePages(): Plugin {
       const fonts = Object.keys(bundle).filter((name) => FONTS.some((pattern) => pattern.test(name)))
         .map((name) => link(`rel="preload" href="/${name}" as="font" type="font/woff2" crossorigin`)).join('')
       const base = String(html.source).replace(/ *<\/head>/u, `${fonts}  </head>`)
-      html.source = base.replace(/ *<\/head>/u, `${link(`rel="canonical" href="${SITE}/"`)}  </head>`)
+      html.source = base.replace(/ *<\/head>/u, `${link(`rel="canonical" href="${SITE_ORIGIN}/"`)}  </head>`)
       this.emitFile({ type: 'asset', fileName: '404.html', source: base })
 
       for (const page of routePageList()) {
@@ -118,7 +118,7 @@ export function routePages(): Plugin {
         const files = scene ? [...closure(scene)].filter((name) => !loaded.has(name)) : []
         const css = files.flatMap((name) => [...((bundle[name] as Chunk).viteMetadata?.importedCss ?? [])])
         const head = [
-          link(`rel="canonical" href="${SITE}${page.path}"`),
+          link(`rel="canonical" href="${SITE_ORIGIN}${page.path}"`),
           ...css.map((name) => link(`rel="stylesheet" crossorigin href="/${name}"`)),
           ...files.map((name) => link(`rel="modulepreload" crossorigin href="/${name}"`)),
           page.data ? link(`rel="preload" href="${page.data}" as="fetch" crossorigin`) : '',
@@ -128,7 +128,7 @@ export function routePages(): Plugin {
           .replace(/(<meta name="description" content=")[^"]*/u, `$1${escapeHtml(page.description)}`)
           .replace(/(<meta property="og:title" content=")[^"]*/u, `$1${escapeHtml(page.title)}`)
           .replace(/(<meta property="og:description" content=")[^"]*/u, `$1${escapeHtml(page.description)}`)
-          .replace(/(<meta property="og:url" content=")[^"]*/u, `$1${SITE}${page.path}`)
+          .replace(/(<meta property="og:url" content=")[^"]*/u, `$1${SITE_ORIGIN}${page.path}`)
           .replace(/ *<\/head>/u, `${head}  </head>`)
         this.emitFile({ type: 'asset', fileName: `${page.path.slice(1)}.html`, source })
       }

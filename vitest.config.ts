@@ -21,5 +21,17 @@ export default defineConfig({
     restoreMocks: true,
     unstubEnvs: true,
     unstubGlobals: true,
+    // npm run test:coverage, run by CI: the logic modules (plain .ts), not React
+    // components, which the Playwright suite covers. Excluded are files that only run
+    // in a real browser or with the real model: the on-device worker (npm run
+    // test:device and tests/e2e/device.spec.ts) and the Turnstile loader (the live
+    // site). The thresholds sit just under today's numbers, so coverage can't slide.
+    coverage: {
+      provider: 'v8',
+      include: ['src/**/*.ts', 'shared/**/*.ts', 'worker/**/*.ts', 'eval/results.ts'],
+      exclude: ['src/judges/device/worker.ts', 'src/lib/turnstile.ts', 'src/prerender.tsx', '**/*.d.ts'],
+      reporter: ['text-summary'],
+      thresholds: { lines: 85, statements: 82, functions: 84, branches: 75 },
+    },
   },
 })

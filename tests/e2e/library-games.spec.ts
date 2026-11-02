@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test'
+import { seedStorage } from './support'
 import { readFileSync } from 'node:fs'
 import AxeBuilder from '@axe-core/playwright'
 
@@ -65,12 +66,12 @@ test('judge cards sit above the selector on mobile, with a mobile-only tap hint'
 })
 
 test('only active tiles show progress; completed and perfect tiles have a green check', async ({ page }) => {
-  await page.addInitScript(({ empty, done }) => {
-    localStorage.setItem('quibble:progress:oddly-specific:1', JSON.stringify({ run: { current: 1, rounds: [done, empty, empty, empty, empty], finished: false } }))
-    localStorage.setItem('quibble:progress:oddly-specific:2', JSON.stringify({ best: 0 }))
-    localStorage.setItem('quibble:progress:oddly-specific:3', JSON.stringify({ best: 15 }))
-    localStorage.setItem('quibble:progress:oddly-specific:4', JSON.stringify({ run: { current: 0, rounds: [empty, empty, empty, empty, empty], finished: false } }))
-  }, { empty: level, done: cleared })
+  await seedStorage(page, {
+    'quibble:progress:oddly-specific:1': JSON.stringify({ run: { current: 1, rounds: [cleared, level, level, level, level], finished: false } }),
+    'quibble:progress:oddly-specific:2': JSON.stringify({ best: 0 }),
+    'quibble:progress:oddly-specific:3': JSON.stringify({ best: 15 }),
+    'quibble:progress:oddly-specific:4': JSON.stringify({ run: { current: 0, rounds: [level, level, level, level, level], finished: false } }),
+  }, { everyLoad: true })
   await page.goto('/play')
   const tiles = page.locator('.tiles .tile')
   await expect(tiles.nth(0).locator('progress')).toHaveAttribute('value', '1')
@@ -155,13 +156,10 @@ test('the selected game colors its sidebar, description and supporting text', as
 
 test('Category Escape progress reads in levels, and 6/6 is perfect', async ({ page }) => {
   await page.route('**/puzzles/index.json', (route) => route.fulfill({ json: { 'category-escape': [{ n: 1, difficulty: 'easy' }, { n: 2, difficulty: 'easy' }] } }))
-  await page.addInitScript(({ open, perfect }) => {
-    localStorage.setItem('quibble:progress:category-escape:1', open)
-    localStorage.setItem('quibble:progress:category-escape:2', perfect)
-  }, {
-    open: JSON.stringify({ run: { current: 2, rounds: [cleared, cleared, level, level, level, level], finished: false } }),
-    perfect: JSON.stringify({ best: 6 }),
-  })
+  await seedStorage(page, {
+    'quibble:progress:category-escape:1': JSON.stringify({ run: { current: 2, rounds: [cleared, cleared, level, level, level, level], finished: false } }),
+    'quibble:progress:category-escape:2': JSON.stringify({ best: 6 }),
+  }, { everyLoad: true })
   await page.goto('/play?game=category-escape')
 
   await expect(page.getByRole('link', { name: 'Continue #001 · level 3' })).toBeVisible()

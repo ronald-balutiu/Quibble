@@ -2,19 +2,8 @@ import { beforeEach, describe, expect, test, vi } from 'vitest'
 import { clearComparisons } from '@/lib/storage/comparisons'
 import { deleteEverything } from '@/lib/storage/everything'
 import { clearGameData, progressSummary } from '@/lib/storage/progress'
+import { installStorage } from './support/storage'
 
-// A Storage with key() and length, which the clears walk.
-function memoryStorage(entries: Record<string, string>) {
-  const data = new Map(Object.entries(entries))
-  vi.stubGlobal('localStorage', {
-    get length() { return data.size },
-    key: (i: number) => [...data.keys()][i] ?? null,
-    getItem: (k: string) => data.get(k) ?? null,
-    setItem: (k: string, v: string) => data.set(k, v),
-    removeItem: (k: string) => data.delete(k),
-  })
-  return data
-}
 
 const run = JSON.stringify({ run: { current: 0, rounds: [], finished: false } })
 const best = JSON.stringify({ best: 9 })
@@ -22,7 +11,7 @@ const best = JSON.stringify({ best: 9 })
 describe('L3 "Your data" (1.8)', () => {
   let data: Map<string, string>
   beforeEach(() => {
-    data = memoryStorage({
+    data = installStorage({
       'quibble:progress:oddly-specific:1': best,
       'quibble:progress:double-agent:2': run,
       'quibble:comparisons': '[]',
@@ -59,7 +48,7 @@ describe('L3 "Your data" (1.8)', () => {
 })
 
 test('one corrupt progress record does not hide valid progress in the summary', () => {
-  memoryStorage({
+  installStorage({
     'quibble:progress:oddly-specific:1': '{broken',
     'quibble:progress:oddly-specific:2': '{"best":-1}',
     'quibble:progress:oddly-specific:3': best,

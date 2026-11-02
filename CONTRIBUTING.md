@@ -245,12 +245,25 @@ the reason here, and remove the override once upstream no longer needs it.
   version installed.
 - `miniflare` → `undici`: keeps Miniflare on a patched `undici` release until the
   Cloudflare tooling pins it.
+- `eslint`, `@eslint/config-array`, `@typescript-eslint/typescript-estree` and
+  `eslint-plugin-jsx-a11y-x` → `minimatch` `^11.0.3`: every minimatch release
+  below 11.0.1 has a denial-of-service advisory (GHSA-g3hv-75wg-m249) with no
+  patched 3.x or 10.x, so Dependabot can't update these lint tools' copies itself.
+  They import minimatch by name, which 11 keeps. `eslint-plugin-react` is left on
+  minimatch 3.1.5: it calls 3.x's default export, which 11 removed. That copy runs
+  only at lint time on patterns from our own ESLint config, so its Dependabot alert
+  is dismissed as a tolerable risk; drop these overrides once the plugins move to
+  minimatch 11.
 
 ## Git workflow
 
 `main` is protected by GitHub branch rules. Changes reach it only through a pull
-request from another branch, every commit must be signed, and the `release-ci`
-check must pass before merging.
+request from another branch, every commit must be signed, and the `release-ci` and
+`e2e` checks must pass before merging. A pull request must also be up to date with
+`main`: if another one merges first, the pull request shows "behind" and waits, even
+with auto-merge on. Update it with `gh pr update-branch <number>` (or **Update
+branch** on GitHub); the checks run again, and it merges once they pass. Merging
+deploys (see [Secrets and deployment](#secrets-and-deployment)).
 
 - Keep changes focused and reviewable.
 - Do not commit directly to `main`. When starting new work:

@@ -68,6 +68,8 @@ test('every page has the same navigation outside its content frame', async ({ pa
     await expect(nav.getByRole('link')).toHaveText(['Home', 'Library', 'About'])
     await expect(header.getByRole('button', { name: 'Settings', exact: true })).toBeVisible()
     await expect(page.getByRole('main').locator('.site-header')).toHaveCount(0)
+    await expect(page.getByRole('main')).toBeVisible()
+    await expect(page.getByRole('main')).not.toHaveAttribute('aria-busy', 'true')
     const headerBox = await header.boundingBox()
     const mainBox = await page.getByRole('main').boundingBox()
     expect(headerBox).not.toBeNull()

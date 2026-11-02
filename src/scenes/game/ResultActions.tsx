@@ -13,7 +13,7 @@ interface ResultActionsProps {
 
 // The next puzzle and share feedback behave the same in every results screen.
 export function ResultActions({ puzzle, share, restart, focusPrimary = false }: ResultActionsProps) {
-  const index = usePuzzleIndex()
+  const { data: index } = usePuzzleIndex()
   const next = index?.[puzzle.game]?.find((entry) => entry.n > puzzle.n)
   const [copied, setCopied] = useState(false)
   const actions = useRef<HTMLDivElement>(null)

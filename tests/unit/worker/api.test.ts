@@ -71,6 +71,13 @@ describe('POST /api/session', () => {
     expect((await session('token')).status).toBe(200)
   })
 
+  test('rejects an oversized body before calling Turnstile', async () => {
+    const fetch = vi.fn()
+    vi.stubGlobal('fetch', fetch)
+    expect((await session('x'.repeat(5000))).status).toBe(413)
+    expect(fetch).not.toHaveBeenCalled()
+  })
+
   test('rejects a missing token without calling Turnstile', async () => {
     const fetch = vi.fn()
     vi.stubGlobal('fetch', fetch)
@@ -142,6 +149,15 @@ describe('POST /api/judge', () => {
     expect(result.status).toBe(status)
     expect(result.body.error).toBe(code)
     expect(e.run).not.toHaveBeenCalled()
+  })
+
+  test('preserves body-size and session precedence without calling the model', async () => {
+    const e = env()
+    expect((await judge('not json', e, { Cookie: '' })).status).toBe(401)
+    expect((await judge('x'.repeat(2049), e, { Cookie: '' })).status).toBe(413)
+    expect((await judge('not json', e)).status).toBe(400)
+    expect(e.run).not.toHaveBeenCalled()
+    expect(e.limit).not.toHaveBeenCalled()
   })
 
   test('returns busy with retryAfter when the per-minute limit is hit', async () => {

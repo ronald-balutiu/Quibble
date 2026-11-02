@@ -37,13 +37,14 @@ src/
   components/          Shared UI components
   copy/en.ts           All visible and accessible text
   lib/                 API and sharing helpers; storage/ owns browser storage
-  styles/              Design tokens, fonts, and base styles
+  styles/              Design tokens, fonts, base styles, and shared utilities
 shared/
   games/<game>.ts      Each game's rules and input limits
   schemas/             Zod schemas, types, and normalization
 worker/
   index.ts             Worker entry and route table
   session.ts, judge-route.ts, reveal.ts   API routes
+  read-body.ts         Byte-limited streaming request reader
   judge.ts             Cloud model calls; read-answers.ts reads their replies
   library/             Server-only source data, bundled into the Worker
 public/
@@ -113,6 +114,58 @@ selector previews published results without changing the playing judge; until a
 preview is selected, it follows the saved cloud choice. `ComparisonTable` shares
 the named columns across both sources. All figures come from the existing
 published evaluation and saved comparison helpers; the component runs no models.
+
+## Loading, storage, and performance
+
+Home and the shared navigation load immediately. Library, gameplay and About are
+separate lazy route modules. `components/AsyncBoundary/` supplies a loading status,
+a page landmark for route loading, and reload feedback when a chunk fails. The
+route boundary resets on pathname changes, while Library query changes retain the
+mounted scene and its scroll/filter state. Section anchors also scroll when a lazy
+scene mounts.
+
+Settings opens its native dialog shell immediately, with Close available while
+`SettingsContents` loads. Home's comparison mounts `ComparisonContent` only after
+its disclosure first opens; closing it retains the source and model preview.
+Neither its detailed code nor its published data is requested for a closed section.
+Shared pills, actions and text utilities live in `styles/utilities.css`, loaded at
+the app entry rather than relying on gameplay CSS arriving first.
+
+`lib/cached-loader.ts` shares concurrent static-data requests and retains successful
+puzzle-index and evaluation data for the page visit. Failures are evicted.
+`lib/use-resource.ts` owns loading/error/retry state and ignores late replies after
+unmount or a new attempt. Library and the comparison provide explicit data retries;
+failed code downloads use Reload because the module loader retains their rejection.
+
+`lib/storage/signal.ts` exposes a stable revision to `useSyncExternalStore`, with
+one matching storage-event listener while subscribed. Progress and comparison
+helpers notify after local writes; other tabs' storage changes invalidate the same
+revision. Library derives all game entries once per index/revision through
+`library/library-model.ts`, sharing progress between tiles and summaries. Filters,
+tabs and puzzle sheets reuse it. Saved-game comparisons similarly retain their
+parsed aggregate until history changes. Clearing data updates mounted views.
+Corrupt progress records are skipped individually in Settings' summary. Storage
+keys and record formats remain unchanged.
+
+Measurements from the 2026-11-01 review, against baseline `13eb2c8`:
+
+| Measure | Before | After |
+| --- | ---: | ---: |
+| Initial Home JavaScript, including static dependencies | 465,082 bytes | 296,095 bytes |
+| Same JavaScript compressed with Node 26.12.1 gzip, level 6 | 139,275 bytes | 94,219 bytes |
+| Initial CSS, Vite build output | 49.84 kB | 30.22 kB |
+| Progress reads when Library first loads its 256 entries | 356 | 256 |
+| Additional progress reads for filter/tab/sheet renders without a write | 356 per selected 100-puzzle render, plus sheet read | 0 |
+| Evaluation requests before opening Home's comparison | 1 | 0 |
+
+JavaScript totals include both the entry and its statically imported shared chunk,
+not just the smaller entry file. Gzip uses the same compressor for the deployed
+baseline asset and the local build; these are compressed artifact sizes, not
+observed CDN transfer sizes. Browser regression tests verify deferred requests,
+data retries, storage read counts and updates. The previous storage counts follow
+from the baseline's per-render reads. No performance tracer was available, so this
+review does not establish Core Web Vitals or device CPU timings. The model runtime,
+weights and game rules were not changed or evaluated.
 
 ## Runtime boundaries and shared contracts
 
@@ -201,6 +254,14 @@ The Worker's routes, with request and reply schemas in `shared/schemas/judge.ts`
 | `POST /api/judge` | `worker/judge-route.ts` | Checks the session and input, applies the per-session rate limit, then asks the player's cloud model (Clef-flash or Gemma 4, via `worker/judge.ts`). |
 | `GET /api/reveal/:game/:n/:roundId` | `worker/reveal.ts` | The round's example and up to two more known answers. |
 
+`worker/read-body.ts` counts raw bytes while streaming untrusted bodies, including
+requests without Content-Length. Judge input is limited to 2,048 bytes; session
+input to 4,096 bytes. Oversized streams are cancelled and return 413 before a model
+or Turnstile call. Read failures return 400. Judge validation retains its body-size
+→ session → schema/IDs → normalization → usage-limit → model order. This uses the
+[Workers Streams API](https://developers.cloudflare.com/workers/runtime-apis/streams/)
+to enforce limits before buffering the complete request.
+
 Model replies are read by `worker/read-answers.ts`, which rejects anything that
 isn't the exact recorded shape. The bundled library, `worker/library/library.json`,
 is validated by `worker/library.ts` on first use.
@@ -208,7 +269,8 @@ is validated by `worker/library.ts` on first use.
 ## Styling
 
 `src/styles/tokens.css` holds every design value, `fonts.css` imports the
-self-hosted fonts, and `base.css` sets global styles. See
+self-hosted fonts, `base.css` sets global styles, and `utilities.css` holds
+shared control and text classes. See
 [styling and design tokens](../CONTRIBUTING.md#styling-and-design-tokens) for the
 rules.
 

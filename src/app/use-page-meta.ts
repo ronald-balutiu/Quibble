@@ -11,13 +11,15 @@ function headElement(selector: string, create: () => HTMLElement): HTMLElement {
 }
 
 export function usePageMeta(title: string, { indexable = true }: { indexable?: boolean } = {}) {
-  const { pathname } = useLocation()
+  const { pathname, hash } = useLocation()
   useEffect(() => {
+    // A lazy scene can mount after the shared header's navigation effect.
+    if (hash) document.getElementById(hash.slice(1))?.scrollIntoView()
     document.title = title
     const canonical = headElement('link[rel="canonical"]', () => Object.assign(document.createElement('link'), { rel: 'canonical' }))
     canonical.setAttribute('href', `${ORIGIN}${pathname}`)
     const robots = document.head.querySelector('meta[name="robots"]')
     if (indexable) robots?.remove()
     else headElement('meta[name="robots"]', () => Object.assign(document.createElement('meta'), { name: 'robots' })).setAttribute('content', 'noindex')
-  }, [title, pathname, indexable])
+  }, [title, pathname, hash, indexable])
 }

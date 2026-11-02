@@ -1,3 +1,5 @@
+import { progressChanges } from './progress'
+import { comparisonChanges } from './comparisons'
 import { refreshCloudModel } from './settings'
 
 // "Delete everything" in L3 "Your data" (1.8): progress, judge history and settings,
@@ -11,4 +13,6 @@ export function deleteEverything(): void {
     // Storage is off: there is nothing saved to delete.
   }
   refreshCloudModel()
+  progressChanges.notify()
+  comparisonChanges.notify()
 }

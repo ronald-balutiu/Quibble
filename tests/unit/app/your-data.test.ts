@@ -57,3 +57,13 @@ describe('L3 "Your data" (1.8)', () => {
     expect(progressSummary()).toEqual({ puzzles: 0, open: 0 })
   })
 })
+
+test('one corrupt progress record does not hide valid progress in the summary', () => {
+  memoryStorage({
+    'quibble:progress:oddly-specific:1': '{broken',
+    'quibble:progress:oddly-specific:2': '{"best":-1}',
+    'quibble:progress:oddly-specific:3': best,
+    'quibble:progress:double-agent:1': run,
+  })
+  expect(progressSummary()).toEqual({ puzzles: 2, open: 1 })
+})

@@ -77,9 +77,18 @@ test('a whole Category Escape run can be played with the keyboard alone', async 
   const review = page.getByRole('region', { name: 'Your game' })
   const levels = review.locator('.run-review__round')
   await expect(levels).toHaveCount(6)
+  for (const index of [0, 3]) {
+    const row = levels.nth(index)
+    // Status text uses the same semantic color as its solved/missed indicator.
+    const indicatorColor = await page.evaluate<string>(`getComputedStyle(document.querySelectorAll('.run-review__round')[${index}]).borderLeftColor`)
+    await expect(row.locator('.run-review__status')).toHaveCSS('color', indicatorColor)
+  }
   await levels.nth(2).locator('summary').click()
   await expect(levels.nth(2)).toContainText('kettle')
-  await expect(levels.nth(2).locator('.run-review__guesses')).toContainText('Counted by you')
+  const overruled = levels.nth(2).getByRole('region', { name: 'Your guesses', exact: true })
+  await expect(overruled).toContainText('Counted by you')
+  await expect(overruled.locator('.run-review__misses')).toContainText('Rules rejected by the judge')
+  await expect(overruled.locator('.run-review__misses li')).toHaveText(['Not powered'])
   await levels.nth(5).locator('summary').click()
   await expect(levels.nth(5)).toContainText('Not reached')
   await expect(levels.nth(5)).toContainText('You didn’t reach this level.')

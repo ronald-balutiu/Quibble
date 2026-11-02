@@ -57,8 +57,13 @@
   color: var(--muted);
 }
 
-.run-review__status--solved {
+.run-review__round[data-status='solved'] .run-review__status,
+.run-review__round[data-status='overruled'] .run-review__status {
   color: var(--success);
+}
+
+.run-review__round[data-status='lost'] .run-review__status {
+  color: var(--fail);
 }
 
 .run-review__answer {
@@ -72,10 +77,37 @@
 
 .run-review__body {
   display: grid;
-  gap: var(--space-3);
-  padding: var(--space-3) var(--space-4) var(--space-6);
+  gap: var(--space-6);
+  padding: var(--space-4) var(--space-4) var(--space-6);
+  border-top: var(--border-width) solid var(--line);
   background: var(--surface-2);
   overflow-wrap: anywhere;
+}
+
+.run-review__section {
+  display: grid;
+  align-content: start;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.run-review__section--examples {
+  grid-column: 1 / -1;
+  padding-top: var(--space-4);
+  border-top: var(--border-width) solid var(--line);
+}
+
+.run-review__section .also {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.run-review__section .also li {
+  padding: var(--space-2) var(--space-3);
+  border: var(--border-width) solid var(--line-strong);
+  border-radius: var(--radius-pill);
+  background: var(--ground);
 }
 
 .run-review__body h3,
@@ -84,29 +116,82 @@
 }
 
 .run-review__body h3 {
-  font-size: var(--type-body-large);
-  font-weight: var(--weight-medium);
+  font-family: var(--font-mono);
+  font-size: var(--type-label-large);
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--tracking-label-tight);
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
 .run-review__rules,
 .run-review__guesses {
+  display: grid;
+  gap: var(--space-3);
   margin: 0;
   padding-left: var(--space-5);
 }
 
-.run-review__guesses li {
-  padding-bottom: var(--space-3);
+.run-review__rules > li,
+.run-review__guess {
+  padding: var(--space-3);
+  border: var(--border-width) solid var(--line);
+  background: var(--ground);
 }
 
-.run-review__guesses strong {
-  margin-right: var(--space-3);
+.run-review__rules > li::marker,
+.run-review__guess::marker {
+  font-family: var(--font-mono);
+  font-size: var(--type-label-large);
+  color: var(--muted);
+}
+
+.run-review__guess-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-2) var(--space-3);
+}
+
+.run-review__guess strong {
   font-weight: var(--weight-medium);
 }
 
-.run-review__guesses span,
-.run-review__guesses p {
-  color: var(--muted);
+.run-review__verdict {
+  font-family: var(--font-mono);
+  font-size: var(--type-label-large);
+  color: var(--success);
+}
+
+.run-review__guess[data-status='rejected'] .run-review__verdict {
+  color: var(--fail);
+}
+
+.run-review__misses {
+  display: grid;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: var(--border-width) solid var(--line);
+}
+
+.run-review__misses ul {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding-left: var(--space-4);
   font-size: var(--type-body);
+}
+
+.run-review__misses li::marker {
+  color: var(--fail);
+}
+
+@media (min-width: 768px) {
+  .run-review__body {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .run-review__mark {

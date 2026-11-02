@@ -63,3 +63,6 @@ export function verdictNote(column: { decidedBy?: 'cloud' | 'device' | undefined
   if (column.decidedBy === 'device' && split === undefined) return en['verdict.notCompared']
   return split ? en['verdict.judgesDisagree'] : ''
 }
+
+// When the resting cloud judge is back, in the player's own time format (5.7).
+export const restTime = (resetAt: string) => new Date(resetAt).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })

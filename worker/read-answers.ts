@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from '@shared/schemas/zod'
 
 // Reads a Clef or Clef-flash System One response (the shape recorded in
 // tests/fixtures/clef/). Each noul score is the probability the answer is "yes".

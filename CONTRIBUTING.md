@@ -10,7 +10,7 @@ configuration, and the Git and pull request workflow.
 | Command | Purpose |
 | --- | --- |
 | `npm run dev` | Run the app and the Worker together with hot reload. |
-| `npm run build` | Lint, typecheck, then build the client and Worker into `dist/`. Stops at the first failure. |
+| `npm run build` | Lint, typecheck, build the client and Worker into `dist/`, then prerender every route page (`npm run prerender`). Stops at the first failure. |
 | `npm run preview` | Serve the production build locally. Build first. |
 | `npm run typecheck` | Typecheck the browser, Worker, and Node environments separately. |
 | `npm run ts -- path/to/script.ts` | Run a Node TypeScript script through `tsx`, with `@shared/*` aliases resolved. |
@@ -25,6 +25,7 @@ configuration, and the Git and pull request workflow.
 | `npm run test:watch` | Run Vitest in watch mode. |
 | `npm run test:e2e` | Build, serve a production preview, and run Playwright at desktop and phone sizes. |
 | `npm run test:device` | Local only: run the real on-device model in Google Chrome on WebGPU, check it against the Python reference, and record its speed and memory in `eval/device-measurements.json`. Downloads about 570 MB from Hugging Face. |
+| `npm run lighthouse` | Run Lighthouse three times on Home, the Library, a game and About against the last build (`npm run build` first), served as Cloudflare would, and fail below the thresholds in `lighthouserc.cjs`. |
 | `npm run check:assets` | Check built client assets against Cloudflare's per-file size limit. |
 | `npm run check:bundle` | Validate the built Worker with a Wrangler deployment dry run. |
 | `npm run check-puzzles` | Check the puzzle files and Worker library against the library guarantees. |
@@ -192,7 +193,7 @@ and deployment dry run on every pull request and every push to `main` (`release-
 and, alongside it, the Playwright browser and accessibility tests (`e2e`), with the
 Chromium download cached per lockfile. Both checks are
 required by `main`'s ruleset. Browser test failure reports are kept for seven days.
-Newer pushes cancel outdated runs. The local-only `npm run test:device` never runs
+A third job, `lighthouse`, runs `npm run lighthouse` and keeps the reports for seven days. Newer pushes cancel outdated runs. The local-only `npm run test:device` never runs
 in CI. Playwright starts its preview server with `QUIBBLE_REMOTE_BINDINGS=false`,
 so the Workers AI binding stays local and no Cloudflare login is needed; the tests
 mock every model call.
@@ -219,7 +220,9 @@ through the same required checks, and merging them deploys.
 | `package-lock.json` | Exact dependency versions for `npm ci`. Commit it with dependency changes. |
 | `.nvmrc` | Node version for `nvm use` and CI. |
 | `index.html` | Browser entry point where React mounts. |
-| `vite.config.ts` | React and Cloudflare plugins, import aliases, dev and preview ports, and files the dev server refuses to serve. |
+| `vite.config.ts` | React and Cloudflare plugins, import aliases, dev and preview ports, the React chunk, and files the dev server refuses to serve. |
+| `scripts/vite-plugins.ts` | Build plugins: the on-device judge's runtime, the sitemap, and one HTML page per route. |
+| `lighthouserc.cjs` | Lighthouse CI: pages, runs and score thresholds. |
 | `wrangler.jsonc` | Worker entry point, compatibility date, custom domain, bindings, and static asset routing. |
 | `tsconfig.json` | Builds the three TypeScript environments with `tsc -b`. |
 | `tsconfig.base.json` | Shared strict compiler options and import aliases. |

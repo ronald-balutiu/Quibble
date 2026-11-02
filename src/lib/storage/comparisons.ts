@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from '@shared/schemas/zod'
 import { storageSignal } from './signal'
 import { gameIds } from '@shared/games'
 import { cloudModels } from '@shared/schemas/judge'

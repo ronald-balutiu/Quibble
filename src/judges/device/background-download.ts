@@ -6,11 +6,12 @@ type DownloadState =
   | LoadProgress
   | { kind: 'cancelling' }
   | { kind: 'failed', reason: DeviceFailure }
+const IDLE: DownloadState = { kind: 'idle' }
 
 // A Library download belongs to the visit, so route changes do not cancel it.
 // The existing in-game setup sheet still owns and cancels its own load.
 export function createBackgroundDownload(judge: DeviceJudge) {
-  let state: DownloadState = { kind: 'idle' }
+  let state: DownloadState = IDLE
   let active = false
   let cancelled = false
   const listeners = new Set<() => void>()
@@ -21,6 +22,7 @@ export function createBackgroundDownload(judge: DeviceJudge) {
 
   return {
     getSnapshot: () => state,
+    getServerSnapshot: (): DownloadState => IDLE,
     subscribe: (listener: () => void) => {
       listeners.add(listener)
       return () => { listeners.delete(listener) }

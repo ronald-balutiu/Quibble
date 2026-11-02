@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from './zod'
 
 // One entry per `npm run eval` run, appended to eval/history.json (plan 3.10).
 

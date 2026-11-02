@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from './zod'
 import { gameIds } from '../games'
 
 // Answer-key cases (plan 3.10): whole guesses with a hand-checked verdict per

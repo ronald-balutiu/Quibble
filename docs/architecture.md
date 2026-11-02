@@ -224,14 +224,26 @@ that body. A padded section around the referee fieldset keeps its legend spaced
 consistently from the preceding divider.
 
 [`wrangler.jsonc`](../wrangler.jsonc) sends only `/api/*` to the Worker; all other
-requests are served from static assets, with the single-page app fallback for direct
-loads and refreshes. Unknown API paths return a JSON 404. After a build, Wrangler
-uses the generated deployment configuration under `dist/`.
+requests are served from static assets. Unknown API paths return a JSON 404. After a
+build, Wrangler uses the generated deployment configuration under `dist/`.
 
-For search engines, `public/robots.txt` points to `/sitemap.xml`, which
-`vite.config.ts` builds from the puzzle index (Home, the Library and every puzzle).
-Each scene sets its title and canonical URL through `src/app/use-page-meta.ts`, and
-the not-found scene asks not to be indexed, since the fallback serves it with a 200.
+Every route has its own prerendered page. The build plugins in
+[`scripts/vite-plugins.ts`](../scripts/vite-plugins.ts) emit one HTML file per route
+(`index.html`, `play.html`, `about.html`, `play/<game>/<n>.html`), which Cloudflare
+serves for its path. Each names its title, description and canonical URL, and asks
+for its screen's chunks, stylesheet, puzzle data and fonts at once.
+[`scripts/prerender.ts`](../scripts/prerender.ts) then renders each route's first
+screen into its file through `src/prerender.tsx`, and `src/main.tsx` hydrates it, so
+text and layout paint before any script runs. Data and saved progress still load
+after hydration: anything the HTML can't know reads it once `useHydrated()` is true
+or through a `useSyncExternalStore` server snapshot, so hydration matches the HTML.
+Unknown paths get `404.html`, the same shell with nothing prerendered and a 404
+status; the app renders whatever the path is.
+
+For search engines, `public/robots.txt` points to `/sitemap.xml`, also built from the
+puzzle index (Home, the Library, About and every puzzle). Scenes keep their title and
+canonical URL current during client navigation through `src/app/use-page-meta.ts`,
+and the not-found scene asks not to be indexed.
 
 `public/_headers` sets the content security policy on every page and static asset,
 including the on-device judge's worker script, which takes its policy from its own

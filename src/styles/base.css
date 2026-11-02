@@ -32,6 +32,12 @@ body {
   padding: var(--content-pad);
 }
 
+/* While a page's code or data loads, it holds a full screen of height, so the
+   footer stays below the fold instead of jumping down when the page appears. */
+.app-frame[aria-busy='true'] {
+  min-height: 100svh;
+}
+
 h1 {
   margin-block: var(--space-0) var(--space-4);
   font-size: var(--type-panel-large);

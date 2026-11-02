@@ -1,4 +1,4 @@
-import { useState, type CSSProperties } from 'react'
+import { useSyncExternalStore, type CSSProperties } from 'react'
 import { en } from '@/copy/en'
 import './RingMark.css'
 
@@ -12,8 +12,10 @@ const RINGS = [
 ] as const
 const SPEEDS = ['--t-orbit-a', '--t-orbit-b', '--t-orbit-c'] as const
 
-// Each time the mark appears, every arc starts at a random point and takes one of
-// the three preset speeds, shuffled.
+// On each page load, every arc starts at a random point and takes one of the three
+// preset speeds, shuffled. Prerendered HTML and hydration use fixed orbits, so they
+// match; React then switches to the page's random ones.
+const FIXED_ORBITS = RINGS.map((ring, i) => ({ ...ring, speed: SPEEDS[i] ?? SPEEDS[0], start: i / RINGS.length }))
 function randomOrbits() {
   const speeds = [...SPEEDS]
   for (let i = speeds.length - 1; i > 0; i--) {
@@ -23,10 +25,14 @@ function randomOrbits() {
   return RINGS.map((ring, i) => ({ ...ring, speed: speeds[i] ?? SPEEDS[0], start: Math.random() }))
 }
 
+let orbitsForPage: ReturnType<typeof randomOrbits> | undefined
+const pageOrbits = () => (orbitsForPage ??= randomOrbits())
+const neverChanges = () => () => undefined
+
 // The progress variant (S4) draws each ring over a third of the download, from
 // `progress` (0–1), over dotted outlines. The centre point lights up at 100%.
 export function RingMark({ progress, label = en['mark.label'] }: { progress?: number, label?: string }) {
-  const [orbits] = useState(randomOrbits)
+  const orbits = useSyncExternalStore(neverChanges, pageOrbits, () => FIXED_ORBITS)
   const drawing = progress !== undefined
   const complete = !drawing || progress >= 1
   return (
@@ -44,7 +50,9 @@ export function RingMark({ progress, label = en['mark.label'] }: { progress?: nu
       <circle className="ring-mark__ring ring-mark__ring--agent" cx="64" cy="44" r="110" strokeWidth="1.5" pathLength={1} transform="rotate(30 64 44)" />
       {orbits.map(({ cx, cy, reverse, speed, start }) => (
         <circle
-          key={`${String(cx)},${String(cy)}`} className={reverse ? 'ring-mark__orbit ring-mark__orbit--reverse' : 'ring-mark__orbit'}
+          // Keyed by its start, so the switch from the prerendered orbits recreates each
+          // arc and React sets all of its custom properties (the HTML's are stripped).
+          key={`${String(cx)},${String(cy)},${String(start)}`} className={reverse ? 'ring-mark__orbit ring-mark__orbit--reverse' : 'ring-mark__orbit'}
           cx={cx} cy={cy} r="114" strokeWidth="2"
           // eslint-disable-next-line react/forbid-dom-props -- the start angle and speed are picked at runtime; CSS owns the styling.
           style={{ '--orbit-start': start, '--orbit-duration': `var(${speed})` } as CSSProperties}

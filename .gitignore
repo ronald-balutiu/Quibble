@@ -36,3 +36,4 @@ factory/wordnet/
 
 # Factory spot-check page (regenerate with factory/preview.ts)
 /factory/preview.html
+.lighthouseci/

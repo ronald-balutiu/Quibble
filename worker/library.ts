@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from '@shared/schemas/zod'
 import { gameIds, type GameId } from '@shared/games'
 
 // The server-only library bundled into the Worker (plan 3.2): per puzzle, each

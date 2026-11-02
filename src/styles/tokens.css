@@ -15,6 +15,7 @@
   --game-escape: oklch(0.84 0.10 240);  /* #8CD4FF sky    */
   --game-agent:  oklch(0.84 0.10 340);  /* #F7B1DF orchid */
   --fail:        oklch(0.80 0.08 30);   /* #EDAB9F soft coral: fail and strikes only */
+  --success:     #9BCDAB;               /* completed puzzle checks */
   --accent: var(--text);                /* neutral outside games */
 
   /* type */

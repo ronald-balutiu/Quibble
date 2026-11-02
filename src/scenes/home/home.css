@@ -85,26 +85,6 @@
   color: var(--accent);
 }
 
-.welcome-example {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-  padding: var(--space-4);
-  border-left: var(--accent-line-width) solid var(--accent);
-  background: var(--surface-2);
-}
-
-.welcome-example ol {
-  margin: 0;
-  padding-left: var(--space-5);
-  color: var(--muted);
-}
-
-.welcome-example p {
-  margin: auto 0 0;
-  color: var(--text);
-}
-
 .welcome-scores {
   display: grid;
   gap: var(--space-6);

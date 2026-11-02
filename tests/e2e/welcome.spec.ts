@@ -69,7 +69,7 @@ test('welcome cards align on desktop and stay within a narrow phone', async ({ p
   if (!isMobile) {
     const cards = await Promise.all((await page.locator('.welcome-game').all()).map(async (el) => {
       const heading = await el.locator('h3').boundingBox()
-      const example = await el.locator('.welcome-example').boundingBox()
+      const example = await el.locator('.game-example').boundingBox()
       return { heading: heading?.y, example: example?.y, bottom: example && example.y + example.height }
     }))
     expect(new Set(cards.map((c) => c.heading)).size).toBe(1)

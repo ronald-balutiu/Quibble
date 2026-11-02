@@ -80,12 +80,19 @@ test('a whole Double Agent puzzle can be played with the keyboard alone', async 
   await expect(page.getByRole('heading', { name: 'bat' })).toBeVisible()
   await page.keyboard.press('Enter')
 
-  // D2: the score out of 9, and each round's word with its clues and points.
+  // D2: each round opens into its clues, guesses and example word.
   await expect(page.getByText('5/9')).toBeVisible()
-  const rows = page.getByRole('listitem').filter({ hasText: /^RD/u })
+  const review = page.getByRole('region', { name: 'What you got. What you missed.' })
+  const rows = review.locator('.run-review__round')
   await expect(rows).toHaveCount(3)
   await expect(rows.nth(0)).toContainText('charge')
-  await expect(rows.nth(0)).toContainText('+2')
+  await expect(rows.nth(0)).toContainText('2 pts')
+  await rows.nth(0).locator('summary').click()
+  await expect(rows.nth(0)).toContainText('Stored electrical energy')
+  await expect(rows.nth(0)).toContainText('battery')
+  await expect(rows.nth(0)).toContainText('Rejected by the judge')
+  await rows.nth(2).locator('summary').click()
   await expect(rows.nth(2)).toContainText('bat')
-  await expect(rows.nth(2)).toContainText('you guessed "stick"')
+  await expect(rows.nth(2)).toContainText('stick')
+  await expect(rows.nth(2)).toContainText('Skipped')
 })

@@ -1,0 +1,111 @@
+.run-review {
+  min-width: 0;
+}
+
+.run-review > h2 {
+  margin: 0;
+  font-size: var(--type-welcome-section);
+  font-weight: var(--weight-regular);
+}
+
+.run-review > p {
+  margin: var(--space-2) 0 var(--space-4);
+  color: var(--muted);
+}
+
+.run-review__rounds {
+  margin: 0;
+  padding: 0;
+  border-top: var(--border-width) solid var(--line);
+  list-style: none;
+}
+
+.run-review__round {
+  border-bottom: var(--border-width) solid var(--line);
+}
+
+.run-review__round summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+  align-items: baseline;
+  min-height: var(--target-min);
+  padding-block: var(--space-3);
+  cursor: pointer;
+}
+
+.run-review__round summary::before {
+  content: '+';
+  color: var(--muted);
+}
+
+.run-review__round[open] summary::before {
+  content: '−';
+}
+
+.run-review__round summary::-webkit-details-marker {
+  display: none;
+}
+
+.run-review__label,
+.run-review__status,
+.run-review__points {
+  font-family: var(--font-mono);
+  font-size: var(--type-label-large);
+}
+
+.run-review__status {
+  color: var(--muted);
+}
+
+.run-review__status--solved {
+  color: var(--success);
+}
+
+.run-review__answer {
+  overflow-wrap: anywhere;
+}
+
+.run-review__points {
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+.run-review__body {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4) var(--space-6);
+  background: var(--surface-2);
+  overflow-wrap: anywhere;
+}
+
+.run-review__body h3,
+.run-review__body p {
+  margin: 0;
+}
+
+.run-review__body h3 {
+  font-size: var(--type-body-large);
+  font-weight: var(--weight-medium);
+}
+
+.run-review__rules,
+.run-review__guesses {
+  margin: 0;
+  padding-left: var(--space-5);
+}
+
+.run-review__guesses li {
+  padding-bottom: var(--space-3);
+}
+
+.run-review__guesses strong {
+  margin-right: var(--space-3);
+  font-weight: var(--weight-medium);
+}
+
+.run-review__guesses span,
+.run-review__guesses p {
+  color: var(--muted);
+  font-size: var(--type-body);
+}

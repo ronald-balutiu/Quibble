@@ -4,6 +4,7 @@ import { JudgesCompare } from '@/components/JudgesCompare/JudgesCompare'
 import { en, format } from '@/copy/en'
 import type { RunState } from '@/games/rounds/reducer'
 import { ResultActions } from '@/scenes/game/ResultActions'
+import { RunReview } from '@/scenes/game/RunReview'
 import { useReveal } from '@/scenes/game/use-reveal'
 import { levelCode, ruleText } from './labels'
 import { escapeEnd, escapeShareGrid, levelsCleared } from './reducer'
@@ -49,6 +50,7 @@ export function RunOver({ run, puzzle, best, onRestart }: { run: RunState, puzzl
           </table>
           {path === null && <p>{en['reveal.failed']} <button type="button" className="link-button" onClick={loadPath}>{en['action.retry']}</button></p>}
         </div>
+        <RunReview puzzle={puzzle} run={run} />
         <ResultActions puzzle={puzzle} share={share} restart={{ label: format('escape.tryAgain', { n: code }), onClick: onRestart }} focusPrimary />
         <JudgesCompare />
       </section>

@@ -85,7 +85,19 @@ puzzles. Its first-puzzle prompt changes after any game has a completed puzzle
 (with a saved best score, including zero); unfinished games keep the resume prompt.
 The selected sidebar row and its supporting text use that game’s accent. Cloud
 and local setup share a card style in the Library; the cloud picker uses the same
-saved choice as Settings.
+saved choice as Settings. On mobile these cards precede the Game Selector and its
+tap-to-play hint; desktop keeps them in the sidebar. `library/GameRules` places a
+native rules disclosure above the filters. Its worked examples use
+`components/GameExample/`, also used by Home. Only active puzzle tiles show a
+progress bar, based on finished rounds or cleared levels in the current saved run;
+completed tiles show a green check while retaining their best score/perfect mark.
+
+`scenes/game/RunReview` gives all three results screens expandable round/level
+details: conditions, actual guesses and their accepted/rejected/overruled status,
+and example answers. Unreached Category Escape levels stay distinct from misses.
+It uses the current run without changing persistence. Examples load through
+`use-reveal` only when a detail is first opened, stay available when re-opened, and
+support retry on failure. Category Escape also retains its full example path.
 
 `components/JudgesCompare/` is shared by Home and the results screens. Its source
 buttons separate published answer-key accuracy from agreement in saved games.

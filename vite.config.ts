@@ -54,7 +54,9 @@ function sitemap(): Plugin {
 }
 
 export default defineConfig({
-  plugins: [react(), cloudflare({ viteEnvironment: { name: 'worker' } }), ortRuntime(), sitemap()],
+  // Browser tests mock every model call, so their preview server runs without remote
+  // bindings and needs no Cloudflare login (CI has none).
+  plugins: [react(), cloudflare({ viteEnvironment: { name: 'worker' }, remoteBindings: process.env.QUIBBLE_REMOTE_BINDINGS !== 'false' }), ortRuntime(), sitemap()],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

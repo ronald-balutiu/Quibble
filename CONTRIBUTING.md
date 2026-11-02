@@ -192,7 +192,9 @@ and deployment dry run on every pull request and every push to `main` (`release-
 then the Playwright browser and accessibility tests (`e2e`). Both checks are
 required by `main`'s ruleset. Browser test failure reports are kept for seven days.
 Newer pushes cancel outdated runs. The local-only `npm run test:device` never runs
-in CI.
+in CI. Playwright starts its preview server with `QUIBBLE_REMOTE_BINDINGS=false`,
+so the Workers AI binding stays local and no Cloudflare login is needed; the tests
+mock every model call.
 
 When new checks are added to `npm run check`, add them to the workflow too.
 

@@ -199,7 +199,11 @@
 .run-review__alternatives .also {
   flex-direction: row;
   flex-wrap: wrap;
-  gap: var(--space-3);
+  gap: var(--space-1);
+}
+
+.run-review__alternatives .also > li:not(:last-child)::after {
+  content: ',';
 }
 
 @media (min-width: 768px) {

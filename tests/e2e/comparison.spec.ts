@@ -5,7 +5,12 @@ test('Home keeps the comparison introduction visible and its results expandable'
   await page.goto('/?home=1')
   const compare = page.getByRole('region', { name: 'How the judges compare' })
   await expect(compare.getByRole('heading', { name: 'How the judges compare' })).toBeVisible()
-  await expect(compare.getByText(/We tested these models/u)).toBeVisible()
+  // Before it opens, the section says what its two halves measure, named as their tabs are.
+  await expect(compare.getByText('Two AI judges, measured two ways: against an answer key, and against you.')).toBeVisible()
+  await expect(compare.getByRole('listitem')).toHaveText([
+    /^Answer-key test\s*How often each judge made the right call/u,
+    /^Your games\s*Where the judges split on your guesses, and which one you overrule/u,
+  ])
   const disclosure = compare.locator('.compare__disclosure')
   const summary = compare.getByText('See the results', { exact: true })
   await expect(disclosure).not.toHaveAttribute('open')
@@ -28,7 +33,7 @@ test('keeps headline accuracy visible and every test measure reachable', async (
   const comparisonHeading = await compare.getByRole('heading', { name: 'How the judges compare' }).boundingBox()
   const gamesHeading = await page.getByRole('heading', { name: 'Three ways to play' }).boundingBox()
   expect(comparisonHeading!.x).toBe(gamesHeading!.x)
-  await expect(compare).toContainText('where they tend to be too strict or too lenient')
+  await expect(compare).toContainText('whether it leans too strict or too lenient')
   await expect(compare.locator('.compare__summary')).toContainText('81.4%')
   await expect(compare.locator('.compare__summary')).toContainText('96 of 118 answers')
   const table = compare.getByRole('table', { name: 'Detailed answer-key results' })

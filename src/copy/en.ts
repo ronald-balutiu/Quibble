@@ -80,6 +80,7 @@ export const en = {
   'welcome.scoring.escape.misses': 'Three misses in the run',
   'welcome.scoring.escape.over': 'Run over',
   'welcome.overrule': 'Judge wrong? Choose “Count it anyway” and keep your try.',
+  'welcome.alignment': 'Play with both judges on, and over time you’ll see which one sees it your way.',
   'welcome.cloud.title': 'Choose your cloud judge',
   'welcome.cloud.clef-flash': 'Quicker answers. Misses more edge cases.',
   'welcome.cloud.gemma-4': 'More reliable. Takes a little longer.',
@@ -121,7 +122,9 @@ export const en = {
 
   // How the judges compare (owner-approved comparison refresh).
   'compare.title': 'How the judges compare',
-  'compare.intro': 'We tested these models to see how well they judge answers—and where they tend to be too strict or too lenient.',
+  'compare.intro': 'Two AI judges, measured two ways: against an answer key, and against you.',
+  'compare.way.test': 'How often each judge made the right call on guesses with a known answer, and whether it leans too strict or too lenient.',
+  'compare.way.games': 'Where the judges split on your guesses, and which one you overrule. It grows as you play with both on.',
   'compare.expand': 'See the results',
   'compare.source': 'Comparison source',
   'compare.source.test': 'Answer-key test',
@@ -187,7 +190,7 @@ export const en = {
   'compare.yourSpeed.note': 'Median on this device · warm guesses only.',
   'compare.history.note': 'Local judge: WebGPU Q4. History stays in this browser; changing the test model doesn’t change these saved comparisons.',
   'compare.empty': 'No comparisons yet.',
-  'compare.empty.body': 'Once both judges have checked the same guess, you’ll see how often they agreed here.',
+  'compare.empty.body': 'Once both judges have checked the same guess, you’ll see where they split and which one you overrule.',
   'compare.empty.how': 'How to start comparing',
   'compare.empty.setup': 'Turn on the local judge from the Library or Settings, then play a puzzle. The answer-key test is available even if you haven’t played yet.',
   'compare.loading': 'Loading test results…',

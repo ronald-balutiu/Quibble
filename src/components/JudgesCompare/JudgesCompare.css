@@ -33,6 +33,36 @@
   font-size: var(--type-body-large);
 }
 
+.compare__ways {
+  display: grid;
+  gap: var(--space-4);
+  margin: var(--space-5) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.compare__ways li {
+  display: grid;
+  gap: var(--space-1);
+  padding-left: var(--space-4);
+  border-left: var(--border-width) solid var(--line-strong);
+}
+
+.compare__ways strong {
+  font-weight: var(--weight-medium);
+}
+
+.compare__ways span {
+  color: var(--muted);
+}
+
+@media (min-width: 768px) {
+  .compare__ways {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-6);
+  }
+}
+
 .compare__content {
   display: flex;
   flex-direction: column;

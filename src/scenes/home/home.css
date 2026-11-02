@@ -150,10 +150,21 @@
 }
 
 .welcome-overrule {
-  margin: var(--space-6) 0 0;
+  display: grid;
+  gap: var(--space-1);
+  margin-top: var(--space-6);
   padding-top: var(--space-4);
   border-top: var(--border-width) solid var(--line);
   color: var(--muted);
+}
+
+.welcome-overrule p {
+  margin: 0;
+}
+
+/* The overrule is the rule; the alignment line is what it adds up to. */
+.welcome-overrule p:first-child {
+  color: var(--text);
 }
 
 @media (min-width: 768px) {

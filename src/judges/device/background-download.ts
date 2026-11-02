@@ -7,7 +7,7 @@ export type DownloadState =
   | { kind: 'cancelling' }
   | { kind: 'failed', reason: DeviceFailure }
 
-// A Home download belongs to the visit, so route changes do not cancel it.
+// A Library download belongs to the visit, so route changes do not cancel it.
 // The existing in-game setup sheet still owns and cancels its own load.
 export function createBackgroundDownload(judge: DeviceJudge) {
   let state: DownloadState = { kind: 'idle' }

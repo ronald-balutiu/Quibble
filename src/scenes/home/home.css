@@ -144,26 +144,6 @@
   margin: var(--space-2) 0 0;
 }
 
-.welcome-detail a {
-  color: var(--text);
-}
-
-.welcome-finish {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-5);
-  justify-content: space-between;
-  align-items: center;
-}
-
-.welcome-finish h2 {
-  margin-bottom: var(--space-2);
-}
-
-.welcome-finish p {
-  margin: 0;
-}
-
 @media (min-width: 768px) {
   .welcome-top {
     grid-template-columns: 1.2fr 1fr;

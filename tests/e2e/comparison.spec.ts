@@ -52,7 +52,10 @@ test('follows the initial judge choice but previews another model without changi
   await page.goto('/?home=1')
   const compare = page.getByRole('region', { name: 'How the judges compare' })
   await compare.getByText('See the results', { exact: true }).click()
-  await page.getByRole('radio', { name: /^Gemma 4/u }).check()
+  await page.getByRole('button', { name: 'Settings', exact: true }).click()
+  const drawer = page.getByRole('dialog', { name: 'Settings' })
+  await drawer.getByRole('radio', { name: /^Gemma 4/u }).check()
+  await drawer.getByRole('button', { name: 'Close', exact: true }).click()
   await expect(compare.getByRole('combobox')).toHaveValue('gemma-4')
   await expect(compare.locator('.compare__summary')).toContainText('110 of 118 answers')
   await compare.getByRole('combobox').selectOption('clef-flash')
@@ -101,7 +104,7 @@ test('empty personal history and unavailable test results remain usable', async 
   await compare.getByRole('button', { name: 'Your games', exact: true }).click()
   await expect(compare.getByRole('heading', { name: 'No comparisons yet.' })).toBeVisible()
   await compare.getByText('How to start comparing', { exact: true }).click()
-  await expect(compare).toContainText('Turn on the local judge from Home or the Library')
+  await expect(compare).toContainText('Turn on the local judge from the Library or Settings')
 })
 
 test('the comparison fits at 320px and exposes loading while results arrive', async ({ page }) => {

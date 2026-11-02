@@ -1,8 +1,6 @@
 import { Link } from 'react-router'
 import { gameIds } from '@shared/games'
 import { usePageMeta } from '@/app/use-page-meta'
-import { CloudModelChoice } from '@/components/JudgeSetup/CloudModelChoice'
-import { DeviceJudgeCard } from '@/components/JudgeSetup/DeviceJudgeCard'
 import { JudgesCompare } from '@/components/JudgesCompare/JudgesCompare'
 import { RingMark } from '@/components/RingMark/RingMark'
 import { en } from '@/copy/en'
@@ -60,16 +58,6 @@ export function HomeScene() {
           <div><h3>{en['game.name.category-escape']}</h3><p>{en['welcome.scoring.escape.body']}</p></div>
         </div>
         <details className="welcome-detail"><summary>{en['welcome.overrule']}</summary><p>{en['welcome.overrule.body']}</p></details>
-      </section>
-      <section className="welcome-section" aria-labelledby="welcome-judges">
-        <h2 id="welcome-judges">{en['welcome.judges']}</h2>
-        <p>{en['welcome.judges.body']}</p>
-        <div className="judge-setup"><CloudModelChoice /><DeviceJudgeCard /></div>
-        <details className="welcome-detail"><summary>{en['welcome.privacy']}</summary><p>{en['welcome.privacy.body']} <Link to="/about#privacy">{en['nav.privacy']}</Link></p></details>
-      </section>
-      <section className="welcome-section welcome-finish">
-        <div><h2>{en['welcome.ready']}</h2><p>{en['welcome.ready.body']}</p></div>
-        <Link className="pill control-link" to="/play">{en['welcome.choose']}</Link>
       </section>
       <JudgesCompare collapsible />
     </main>

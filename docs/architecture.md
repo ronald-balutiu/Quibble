@@ -87,8 +87,9 @@ share the first-round tip, result navigation/copy feedback and retryable reveals
 `lib/use-puzzle-index.ts` owns the puzzle-index loading lifecycle across scenes.
 
 `scenes/home/HomeScene.tsx` is the welcome page: a hero action, game examples,
-scoring and an expandable judge comparison. Judge setup stays in the Library and
-Settings. `/` always opens Home, including for players with saved progress.
+scoring and an expandable judge comparison. `HowScoring.tsx` shows scoring as
+example rounds built from the game configs: decorative ✓/✗ tiles beside text rows
+that say the same. Judge setup stays in the Library and Settings. `/` always opens Home, including for players with saved progress.
 Home and the Quibble brand link to `/`; the Library is reached through its link or
 “Choose a puzzle.” The Library keeps its numbered
 grid, starts unplayed tiles directly, and retains replay/reset controls for saved

@@ -90,38 +90,70 @@
   gap: var(--space-6);
 }
 
-.welcome-points {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2);
-  margin: 0 0 var(--space-3);
+/* Each row: the example guesses, what they are, and what they score. Rows share
+   columns, so the tiles, labels and points line up down the list. On a phone the
+   points sit under the label, beside the tiles. */
+.score-examples {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: var(--space-4);
+  margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.welcome-points li {
-  padding: var(--space-2) var(--space-3);
-  background: var(--grid);
+.score-examples li {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+  align-items: center;
 }
 
-.welcome-scores p {
-  margin: 0;
+.score-examples .score-tiles {
+  grid-row: span 2;
 }
 
-.welcome-detail {
-  margin-top: var(--space-5);
-  padding-top: var(--space-3);
+.score-examples__value {
+  grid-column: 2;
+  color: var(--muted);
+}
+
+.score-examples__value strong {
+  color: var(--text);
+  font-weight: var(--weight-medium);
+}
+
+.score-tiles {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.score-tile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--score-tile-size);
+  height: var(--score-tile-size);
+  border: var(--border-width) solid var(--line-strong);
+  font-family: var(--font-mono);
+  font-size: var(--type-label-large);
+}
+
+.score-tile--pass {
+  border-color: var(--success);
+  color: var(--success);
+}
+
+.score-tile--miss {
+  border-color: var(--fail);
+  color: var(--fail);
+}
+
+.welcome-overrule {
+  margin: var(--space-6) 0 0;
+  padding-top: var(--space-4);
   border-top: var(--border-width) solid var(--line);
-}
-
-.welcome-detail summary {
-  padding-block: var(--space-2);
-  cursor: pointer;
-}
-
-.welcome-detail p {
-  max-width: var(--welcome-detail-max);
-  margin: var(--space-2) 0 0;
+  color: var(--muted);
 }
 
 @media (min-width: 768px) {
@@ -152,6 +184,21 @@
   }
 
   .welcome-scores {
-    grid-template-columns: 1.25fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-6) var(--space-12);
+  }
+
+  .score-examples {
+    grid-template-columns: max-content minmax(0, max-content) max-content;
+    gap: var(--space-3) var(--space-6);
+  }
+
+  .score-examples .score-tiles {
+    grid-row: auto;
+  }
+
+  .score-examples__value {
+    grid-column: auto;
+    text-align: right;
   }
 }

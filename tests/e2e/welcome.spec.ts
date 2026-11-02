@@ -8,7 +8,37 @@ test('first visit explains the games, then opens an unplayed tile directly', asy
   await expect(page.locator('.welcome-game')).toHaveCount(3)
   await expect(page.getByText('No timer. Take your time.')).toHaveCount(0)
   await expect(page.getByText(/up to \d+ points/u)).toHaveCount(0)
-  await expect(page.getByRole('heading', { name: 'How scoring works' })).toBeVisible()
+  // Scoring is shown as example rounds; the tiles are decorative, so the rows read as text.
+  await expect(page.getByRole('region', { name: 'How scoring works' })).toMatchAriaSnapshot(`
+    - region "How scoring works":
+      - heading "How scoring works" [level=2]
+      - heading "Oddly Specific & Double Agent" [level=3]
+      - list:
+        - listitem:
+          - text: First try
+          - strong: "3"
+          - text: points
+        - listitem:
+          - text: Second try
+          - strong: "2"
+          - text: points
+        - listitem:
+          - text: Third try
+          - strong: "1"
+          - text: point
+        - listitem:
+          - text: Round over
+          - strong: "0"
+          - text: points
+      - heading "Category Escape" [level=3]
+      - list:
+        - listitem:
+          - text: Each level cleared
+          - strong: "1"
+          - text: point
+        - listitem: Three misses in the run Run over
+      - paragraph: Judge wrong? Choose “Count it anyway” and keep your try.
+  `)
   await expect(page.getByRole('heading', { name: 'How the judges compare' })).toBeVisible()
   await expect(page.getByRole('heading', { name: 'Pick your judges' })).toHaveCount(0)
   await expect(page.getByRole('heading', { name: 'Ready to try one?' })).toHaveCount(0)

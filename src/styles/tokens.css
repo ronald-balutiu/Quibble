@@ -53,7 +53,7 @@
   --welcome-mark-phone: 150px;
   --welcome-mark-wide: 350px;
   --welcome-lede-max: 385px;
-  --welcome-detail-max: 700px;
+  --score-tile-size: 22px; /* Home's example guesses in How scoring works */
   --rules-column-min: 260px;
   --compare-max: 736px;
   --review-max: 736px;

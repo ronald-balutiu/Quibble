@@ -75,8 +75,9 @@ reducers own scoring and progression. `GameTip`, `ResultActions` and `use-reveal
 share the first-round tip, result navigation/copy feedback and retryable reveals.
 `lib/use-puzzle-index.ts` owns the puzzle-index loading lifecycle across scenes.
 
-`scenes/home/HomeScene.tsx` is the welcome page: game examples, scoring and initial
-judge setup. `/` always opens Home, including for players with saved progress.
+`scenes/home/HomeScene.tsx` is the welcome page: a hero action, game examples,
+scoring and an expandable judge comparison. Judge setup stays in the Library and
+Settings. `/` always opens Home, including for players with saved progress.
 Home and the Quibble brand link to `/`; the Library is reached through its link or
 “Choose a puzzle.” The Library keeps its numbered
 grid, starts unplayed tiles directly, and retains replay/reset controls for saved
@@ -84,7 +85,7 @@ puzzles. Its first-puzzle prompt changes after any game has a completed puzzle
 (with a saved best score, including zero); unfinished games keep the resume prompt.
 The selected sidebar row and its supporting text use that game’s accent. Cloud
 and local setup share a card style in the Library; the cloud picker uses the same
-saved choice as Home and Settings.
+saved choice as Settings.
 
 `components/JudgesCompare/` is shared by Home and the results screens. Its source
 buttons separate published answer-key accuracy from agreement in saved games.
@@ -220,10 +221,10 @@ them.
   adapter.
 - `src/components/DeviceSetup/` is the setup sheet: the offer (S3), then the
   download (S4), whose rings, percentage and readout follow the worker's byte count.
-- `src/components/JudgeSetup/` shares the cloud model picker and inline local
-  setup between Home, the Library and settings. `background-download.ts` owns a
-  download started from Home/Library for the current visit, so navigation does not
-  cancel it. Progress, warming, cancellation and failures stay visible in the
+- `src/components/JudgeSetup/` provides the Library's cloud model picker and inline
+  local setup. The cloud choice is shared with Settings. `background-download.ts`
+  owns a download started from the Library for the current visit, so navigation
+  does not cancel it. Progress, warming, cancellation and failures stay visible in the
   Library; the in-game modal retains its own cancellation on dismissal. Both use
   the same device client and avoid starting another load while it is loading.
 - During a guess, `src/scenes/game/judge-guess.ts` starts the on-device run next to

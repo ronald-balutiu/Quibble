@@ -1,8 +1,3 @@
-.judge-setup {
-  display: grid;
-  gap: var(--space-6);
-}
-
 .cloud-models {
   display: flex;
   flex-direction: column;
@@ -107,11 +102,4 @@
 
 .local-model__progress::-webkit-progress-value {
   background: var(--text);
-}
-
-@media (min-width: 768px) {
-  .judge-setup {
-    grid-template-columns: 1fr 1fr;
-    align-items: start;
-  }
 }

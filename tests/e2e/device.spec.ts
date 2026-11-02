@@ -105,21 +105,24 @@ test.describe('the on-device judge (stubbed worker)', () => {
     await expect(page.getByRole('button', { name: '○ Device • off' })).toBeVisible()
   })
 
-  test('a Home download continues into the Library and can be cancelled there', async ({ page }) => {
+  test('a Library download survives a visit to Home and can be cancelled on return', async ({ page }) => {
     await setUp(page, 'hang')
-    await page.goto('/')
+    await page.goto('/play')
     await page.getByRole('button', { name: /^Download · about/u }).click()
     await expect(page.getByText('40% downloaded')).toBeVisible()
+    await page.getByRole('link', { name: 'Home', exact: true }).click()
+    await expect(page.getByRole('heading', { name: 'Make your case.' })).toBeVisible()
     await page.getByRole('link', { name: 'Choose a puzzle →' }).first().click()
     await expect(page.getByText('40% downloaded')).toBeVisible()
     await page.getByRole('button', { name: 'Cancel download', exact: true }).click()
     await expect(page.getByRole('button', { name: /^Download · about/u })).toBeVisible()
   })
 
-  test('a Home download becomes ready in the Library and is gone after a reload', async ({ page }) => {
+  test('a Library download becomes ready across navigation and is gone after a reload', async ({ page }) => {
     await setUp(page, 'ready')
-    await page.goto('/')
+    await page.goto('/play')
     await page.getByRole('button', { name: /^Download · about/u }).click()
+    await page.getByRole('link', { name: 'Home', exact: true }).click()
     await page.getByRole('link', { name: 'Choose a puzzle →' }).first().click()
     await expect(page.getByText('Qwen3.5-0.8B is ready for this visit.')).toBeVisible()
     await page.reload()

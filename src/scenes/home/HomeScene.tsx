@@ -6,6 +6,7 @@ import { JudgesCompare } from '@/components/JudgesCompare/JudgesCompare'
 import { RingMark } from '@/components/RingMark/RingMark'
 import { en } from '@/copy/en'
 import '../scenes.css'
+import { HowScoring } from './HowScoring'
 import './home.css'
 
 export function HomeScene() {
@@ -37,22 +38,7 @@ export function HomeScene() {
           ))}
         </div>
       </section>
-      <section className="welcome-section" aria-labelledby="welcome-scoring">
-        <h2 id="welcome-scoring">{en['welcome.scoring']}</h2>
-        <div className="welcome-scores">
-          <div>
-            <h3>{en['welcome.scoring.rounds']}</h3>
-            <ol className="welcome-points">
-              <li>{en['welcome.scoring.first']}</li>
-              <li>{en['welcome.scoring.second']}</li>
-              <li>{en['welcome.scoring.third']}</li>
-            </ol>
-            <p>{en['welcome.scoring.rounds.body']}</p>
-          </div>
-          <div><h3>{en['game.name.category-escape']}</h3><p>{en['welcome.scoring.escape.body']}</p></div>
-        </div>
-        <details className="welcome-detail"><summary>{en['welcome.overrule']}</summary><p>{en['welcome.overrule.body']}</p></details>
-      </section>
+      <HowScoring />
       <JudgesCompare collapsible />
     </main>
   )

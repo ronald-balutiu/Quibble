@@ -63,7 +63,10 @@ export function HowScoring() {
           </ul>
         </div>
       </div>
-      <p className="welcome-overrule">{en['welcome.overrule']}</p>
+      <div className="welcome-overrule">
+        <p>{en['welcome.overrule']}</p>
+        <p>{en['welcome.alignment']}</p>
+      </div>
     </section>
   )
 }

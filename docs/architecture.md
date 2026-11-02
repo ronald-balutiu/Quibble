@@ -127,8 +127,9 @@ failure. Category Escape also retains its full example path.
 buttons separate published answer-key accuracy from agreement in saved games.
 The answer-key view keeps whole-answer accuracy and sample counts visible above
 an expandable table, with development history and test methods below. On Home,
-the introduction stays visible while a native disclosure holds the results, closed
-by default; results screens also keep the comparison collapsed behind “Compare the judges,” with the introduction omitted. Its model
+the introduction stays visible, naming both halves the way their source buttons do
+(measured against an answer key, and against you), while a native disclosure holds
+the results, closed by default; results screens also keep the comparison collapsed behind “Compare the judges,” with the introduction omitted. Its model
 selector previews published results without changing the playing judge; until a
 preview is selected, it follows the saved cloud choice. `ComparisonTable` shares
 the named columns across both sources. All figures come from the existing

@@ -38,6 +38,7 @@ test('first visit explains the games, then opens an unplayed tile directly', asy
           - text: point
         - listitem: Three misses in the run Run over
       - paragraph: Judge wrong? Choose “Count it anyway” and keep your try.
+      - paragraph: Play with both judges on, and over time you’ll see which one sees it your way.
   `)
   await expect(page.getByRole('heading', { name: 'How the judges compare' })).toBeVisible()
   await expect(page.getByRole('heading', { name: 'Pick your judges' })).toHaveCount(0)

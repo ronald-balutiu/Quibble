@@ -16,6 +16,12 @@ export function JudgesCompare({ collapsible = false, compact = false }: { collap
       <header className="compare__head" hidden={compact}>
         <h2 id={`${id}-title`}>{en['compare.title']}</h2>
         <p>{en['compare.intro']}</p>
+        {/* The two halves, named as their tabs are, so the player knows what's inside before opening it. */}
+        <ul className="compare__ways">
+          {(['test', 'games'] as const).map((source) => (
+            <li key={source}><strong>{en[`compare.source.${source}`]}</strong><span>{en[`compare.way.${source}`]}</span></li>
+          ))}
+        </ul>
       </header>
       {collapsible
         ? <details className="compare__disclosure" onToggle={(event) => { if (event.currentTarget.open) setOpened(true) }}><summary>{en[compact ? 'results.compare' : 'compare.expand']}</summary>{opened && content}</details>

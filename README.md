@@ -31,7 +31,7 @@ Node scripts generate the puzzles and evaluate the judges at build time.
 
 ## Getting started
 
-Use Node.js 24 or newer and npm. With nvm:
+Use Node.js 26 LTS and npm. With nvm:
 
 ```sh
 nvm use

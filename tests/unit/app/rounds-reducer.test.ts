@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vitest'
 import { oddlySpecificConfig } from '@shared/games/oddly-specific'
 import {
-  maxScore, previousGuess, runReducer, shareGrid, startRun, totalScore, type Guess, type RunAction, type RunState,
+  maxScore, onLastTry, previousGuess, runReducer, shareGrid, startRun, totalScore, type Guess, type RunAction, type RunState,
 } from '@/games/rounds/reducer'
 
 const reduce = runReducer(oddlySpecificConfig)
@@ -21,6 +21,17 @@ describe('Oddly Specific rounds', () => {
     const rejected = play(fail('a'))
     expect(round(rejected)).toMatchObject({ pending: true, strikes: 0 })
     expect(round(reduce(rejected, { type: 'moveOn' }))).toMatchObject({ pending: false, strikes: 1 })
+  })
+
+  test('only the third pending rejection is the last try, and moving on from it loses the round', () => {
+    const third = play(fail('a'), { type: 'moveOn' }, fail('b'), { type: 'moveOn' }, fail('c'))
+    expect(onLastTry(oddlySpecificConfig, play(fail('a')))).toBe(false)
+    expect(onLastTry(oddlySpecificConfig, play(fail('a'), { type: 'moveOn' }, fail('b')))).toBe(false)
+    expect(onLastTry(oddlySpecificConfig, third)).toBe(true)
+    expect(round(reduce(third, { type: 'moveOn' }))).toMatchObject({ status: 'lost', strikes: 3, points: 0 })
+    // "Count it anyway" on the last try still scores the third guess's point.
+    expect(round(reduce(third, { type: 'countAnyway' }))).toMatchObject({ status: 'solved', overruled: true, points: 1 })
+    expect(onLastTry(oddlySpecificConfig, play())).toBe(false)
   })
 
   test('a new guess is ignored until the pending rejection is moved on', () => {

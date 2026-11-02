@@ -13,7 +13,7 @@ import { NotJudgedPanel, RejectedPanel } from '@/scenes/game/VerdictPanels'
 import { useGameSession } from '@/scenes/game/use-game-session'
 import { rejectedSentence, verdictNote } from '@/scenes/game/verdict'
 import { levelCode, ruleOf, ruleText } from './labels'
-import { escapeReducer, levelsCleared, startEscape, strikesUsed } from './reducer'
+import { escapeReducer, levelsCleared, onLastTry, startEscape, strikesUsed } from './reducer'
 import { RunOver } from './RunOver'
 import './escape.css'
 
@@ -24,6 +24,8 @@ export function EscapeGame({ puzzle }: { puzzle: Puzzle }) {
   const { game, n } = puzzle
   const [run, dispatch] = useReducer(reduce, undefined, () => loadProgress(game, n).run ?? startEscape(config))
   const { ui, answer, scores, last, model, storageOn, best, turnstile, input, column, busy, judge, type, edit, tryAgain, countAnyway, reset } = useGameSession(puzzle, run, dispatch)
+  // The run's third miss: no try left, so it ends from the panel, not by typing.
+  const lastTry = ui.kind === 'rejected' && onLastTry(config, run)
   const cleared = levelsCleared(run)
   const conditions = puzzle.rounds[run.current]?.conditions ?? []
 
@@ -74,7 +76,7 @@ export function EscapeGame({ puzzle }: { puzzle: Puzzle }) {
                 </ol>
                 <AnswerForm
                   label={levelCode(run.current)} placeholder={en['game.placeholder.category-escape']} answer={answer} maxLength={config.input.maxCharacters}
-                  judging={busy} input={input} onType={type} onSubmit={() => { void judge() }} invalid={ui.kind === 'reused'}
+                  judging={busy} locked={lastTry} input={input} onType={type} onSubmit={() => { void judge() }} invalid={ui.kind === 'reused'}
                 />
                 <p id="answer-note" className={ui.kind === 'reused' ? 'telemetry answer-note--fail' : 'telemetry'} aria-live="polite">{note}</p>
                 <div aria-live="polite">
@@ -82,6 +84,7 @@ export function EscapeGame({ puzzle }: { puzzle: Puzzle }) {
                     <RejectedPanel
                       sentence={rejectedSentence(ui.guess, conditions, levelCode) + verdictNote(column)}
                       disabled={busy}
+                      endLabel={lastTry ? en['escape.endRun'] : undefined}
                       onTryAgain={tryAgain}
                       onCountAnyway={countAnyway}
                     />

@@ -23,6 +23,10 @@ export function startEscape(config: EscapeConfig): RunState {
 }
 
 export const strikesUsed = (state: RunState) => state.rounds.reduce((total, level) => total + level.strikes, 0)
+
+// The pending rejection is the run's last allowed miss: moving on ends the run.
+export const onLastTry = (config: EscapeConfig, state: RunState) =>
+  state.rounds[state.current]?.pending === true && strikesUsed(state) + 1 >= config.maxWrongGuessesPerRun
 export const levelsCleared = (state: RunState) => state.rounds.filter((level) => level.status === 'solved').length
 
 // The level an answer cleared, if it was already used; reusing it is a local rule, never a strike.

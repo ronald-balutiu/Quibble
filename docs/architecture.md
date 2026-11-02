@@ -238,7 +238,9 @@ text and layout paint before any script runs. Data and saved progress still load
 after hydration: anything the HTML can't know reads it once `useHydrated()` is true
 or through a `useSyncExternalStore` server snapshot, so hydration matches the HTML.
 Unknown paths get `404.html`, the same shell with nothing prerendered and a 404
-status; the app renders whatever the path is.
+status; the app renders whatever the path is. The not-found screen groups its status,
+message and content-width Library action in one padded section, reusing shared
+text and action styles.
 
 For search engines, `public/robots.txt` points to `/sitemap.xml`, also built from the
 puzzle index (Home, the Library, About and every puzzle). Scenes keep their title and

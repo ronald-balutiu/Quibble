@@ -244,6 +244,16 @@ through the same required checks, and merging them deploys.
 Empty folders are kept with `.gitkeep` files. Delete a folder's marker once it holds
 real files.
 
+### TypeScript compiler and tooling
+
+`@typescript/native` aliases TypeScript 7 for the `tsc` command used by
+`npm run typecheck`. The `typescript` dependency aliases the official
+`@typescript/typescript6` package for tools such as typescript-eslint, which still
+need the compiler API that TypeScript 7 does not expose. This follows the
+[TypeScript migration guidance](https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/#running-side-by-side-with-typescript-6.0); remove the dual installation when those tools support the new API.
+The Node runtime baseline remains Node 24 (`.nvmrc` and CI); updated Node type
+definitions do not change the runtime requirement.
+
 ### Dependency overrides
 
 Each entry in `overrides` in `package.json` works around an upstream issue. Record
@@ -289,6 +299,8 @@ deploys (see [Secrets and deployment](#secrets-and-deployment)).
 
 ## Pull requests
 
+- Enable squash auto-merge on ready-to-ship pull requests after local verification;
+  keep them current with `main` and let the required checks gate the merge.
 - Title the pull request as a Conventional Commit, for example
   `feat(worker): add judge route`.
 - In the description, summarize the change and list the checks that ran, plus any

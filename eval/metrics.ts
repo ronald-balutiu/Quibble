@@ -11,9 +11,9 @@ export interface CaseResult {
   neurons?: number
 }
 
-export interface Interval { value: number, low: number, high: number, n: number }
+interface Interval { value: number, low: number, high: number, n: number }
 
-export interface Metrics {
+interface Metrics {
   conditions: { n: number, accuracy: Interval, falseAccepts: number, falseRejects: number, brier: number }
   guesses: { n: number, accuracy: Interval, falseAcceptRate: Interval, falseRejectRate: Interval }
   reliability: { bin: number, n: number, meanP: number | null, observed: number | null }[] // null for an empty bin
@@ -130,7 +130,7 @@ export function computeMetrics(cases: readonly AnswerKeyCase[], results: Readonl
 }
 
 // Cohen's κ between two judges' pass/fail decisions on every condition (agreement, not correctness).
-export interface JudgedRun { results: ReadonlyMap<string, CaseResult>, threshold: number }
+interface JudgedRun { results: ReadonlyMap<string, CaseResult>, threshold: number }
 
 export function cohensKappa(cases: readonly AnswerKeyCase[], a: JudgedRun, b: JudgedRun): number {
   const decide = (run: JudgedRun, caseId: string, id: string) => passes(run.results.get(caseId)?.scores[id] ?? Number.NaN, run.threshold)

@@ -6,7 +6,7 @@ import { restRunner } from './workers-ai'
 // clef holds re-checks made before D-68; gemma holds re-checks and confirmations since.
 export interface Cell { flash: number, clef?: number, gemma?: number }
 export type Matrix = Record<string, Record<string, Cell>>
-export type Truth = 'yes' | 'no' | 'unknown'
+type Truth = 'yes' | 'no' | 'unknown'
 
 // Clef-flash scores clear yes cases at 0.6–0.8, so 0.6 is its yes bar (D-68).
 const UNCERTAIN = { low: 0.2, high: 0.6 }

@@ -32,8 +32,7 @@ export const judgeSuccessSchema = z.strictObject({
 })
 export type JudgeSuccess = z.infer<typeof judgeSuccessSchema>
 
-export const judgeErrorCodes = ['invalid', 'unknown', 'session', 'busy', 'resting', 'unavailable'] as const
-export type JudgeErrorCode = (typeof judgeErrorCodes)[number]
+const judgeErrorCodes = ['invalid', 'unknown', 'session', 'busy', 'resting', 'unavailable'] as const
 
 export const judgeErrorSchema = z.strictObject({
   attempt: z.int().min(0).optional(),

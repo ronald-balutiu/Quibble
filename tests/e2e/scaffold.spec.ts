@@ -57,7 +57,11 @@ test('pages and the worker script are served with the content security policy', 
   const scripts = await Promise.all(bundles.map(async (url) => (await request.get(url)).text()))
   const workerPath = /worker-[\w-]+\.js/u.exec(scripts.join('\n'))?.[0]
   expect(workerPath).toBeDefined()
-  expect((await request.get(`/assets/${String(workerPath)}`)).headers()['content-security-policy']).toBe(policy)
+  const workerScript = await request.get(`/assets/${String(workerPath)}`)
+  expect(workerScript.headers()['content-security-policy']).toBe(policy)
+  // Fingerprinted assets are cached for a year; pages still revalidate.
+  expect(workerScript.headers()['cache-control']).toBe('public, max-age=31536000, immutable')
+  expect(response?.headers()['cache-control']).not.toContain('immutable')
   await expect(page.getByRole('textbox')).toBeVisible()
   expect(violations).toEqual([])
 })

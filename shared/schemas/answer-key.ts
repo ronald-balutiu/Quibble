@@ -5,13 +5,12 @@ import { gameIds } from '../games'
 // condition. Thing conditions refer to factory/conditions.json; Double Agent
 // clues carry their own text.
 
-export const caseKinds = [
+const caseKinds = [
   'clear', 'one-fail', 'multi-fail', 'ambiguous', 'borderline',
   'polysemy', 'misspelling', 'gibberish', 'instruction',
 ] as const
 
-export const expectedLabels = ['yes', 'no', 'unsure'] as const
-export type ExpectedLabel = (typeof expectedLabels)[number]
+const expectedLabels = ['yes', 'no', 'unsure'] as const
 
 const caseCondition = z.strictObject({
   id: z.string().regex(/^(?:[a-z]+|clue:[a-z'-]+#\d)$/u),
@@ -19,7 +18,7 @@ const caseCondition = z.strictObject({
   expected: z.enum(expectedLabels),
 })
 
-export const answerKeyCaseSchema = z.strictObject({
+const answerKeyCaseSchema = z.strictObject({
   id: z.string().regex(/^[a-z]{2}-\d{2}-\d+$/u),
   game: z.enum(gameIds),
   group: z.string().regex(/^[a-z]{2}-\d{2}$/u),

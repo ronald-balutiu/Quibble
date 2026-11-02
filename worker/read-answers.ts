@@ -14,7 +14,7 @@ const responseSchema = z.object({
   usage: z.object({ input_tokens: z.int().min(0) }).optional(),
 })
 
-export type ReadAnswersResult =
+type ReadAnswersResult =
   | { ok: true, scores: Record<string, number>, inputTokens?: number }
   | { ok: false }
 

@@ -1,7 +1,7 @@
 import { deviceJudge, type DeviceJudge, type LoadProgress } from './client'
 import type { DeviceFailure } from './protocol'
 
-export type DownloadState =
+type DownloadState =
   | { kind: 'idle' }
   | LoadProgress
   | { kind: 'cancelling' }

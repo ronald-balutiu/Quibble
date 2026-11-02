@@ -12,8 +12,6 @@ export const judgeConfig = {
   closeCallMargin: 0.15,
 } as const
 
-export type JudgeModel = keyof typeof judgeConfig.passThreshold
-
 export function passes(p: number, threshold: number): boolean {
   return p >= threshold
 }

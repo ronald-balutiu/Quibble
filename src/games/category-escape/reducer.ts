@@ -4,7 +4,7 @@
 // on it, a cleared level scores 1 point, and Give up marks the level 'skipped'.
 import { freshRound, previousGuess, type Guess, type RoundState, type RunState } from '@/games/rounds/reducer'
 
-export interface EscapeConfig {
+interface EscapeConfig {
   levels: number
   maxWrongGuessesPerRun: number
 }
@@ -16,7 +16,7 @@ export type EscapeAction =
   | { type: 'giveUp' }
   | { type: 'restart' }
 
-export type EscapeEnd = 'escaped' | 'over' | 'gaveUp'
+type EscapeEnd = 'escaped' | 'over' | 'gaveUp'
 
 export function startEscape(config: EscapeConfig): RunState {
   return { current: 0, rounds: Array.from({ length: config.levels }, freshRound), finished: false }

@@ -52,7 +52,7 @@ export async function readInto(response: Response, size: number, onBytes: (bytes
   return buffer
 }
 
-export interface LoadOptions {
+interface LoadOptions {
   signal: AbortSignal
   onBytes: (bytes: number) => void
   fetch?: typeof fetch

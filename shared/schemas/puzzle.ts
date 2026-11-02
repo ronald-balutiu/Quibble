@@ -6,7 +6,7 @@ import { gameIds } from '../games'
 
 export const difficulties = ['easy', 'medium', 'hard'] as const
 
-export const puzzleConditionSchema = z.strictObject({
+const puzzleConditionSchema = z.strictObject({
   id: z.string().min(1),
   label: z.string().min(1),
   // "doesn't fit in a pocket": the rejected sentence reads "It {negation}." (5.7).

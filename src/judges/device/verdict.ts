@@ -28,7 +28,7 @@ const NO_TOKENS = [2083, 2665] // "no", "No"
 
 // Builds tensors with the runtime's Tensor class: onnxruntime-web in the browser,
 // onnxruntime-node in Node.
-export interface TensorData { int64: BigInt64Array, float16: Uint16Array, float32: Float32Array }
+interface TensorData { int64: BigInt64Array, float16: Uint16Array, float32: Float32Array }
 export type TensorFactory = <T extends keyof TensorData>(type: T, data: TensorData[T], dims: number[]) => Tensor
 
 export function tensorFactory(TensorClass: typeof Tensor): TensorFactory {

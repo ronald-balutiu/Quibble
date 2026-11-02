@@ -28,7 +28,9 @@ cannot be mixed by accident.
 
 ```text
 src/
-  app/                 App entry and route tree
+  main.tsx             Client entry: hydrates a prerendered page, or renders 404.html
+  prerender.tsx        Build-time rendering of each route's first screen
+  app/                 Route tree and page metadata
   scenes/              Top-level screens: home, library, and the shared game scene
   games/rounds/        Shared round reducer, play, round-end and results screens
   games/category-escape/  Level reducer, play and run-over screens
@@ -40,7 +42,8 @@ src/
   styles/              Design tokens, fonts, base styles, and shared utilities
 shared/
   games/<game>.ts      Each game's rules and input limits
-  schemas/             Zod schemas, types, and normalization
+  schemas/             Zod schemas and types; zod.ts configures Zod for every import
+  site.ts              The site's public origin, for canonical URLs and the sitemap
 worker/
   index.ts             Worker entry and route table
   session.ts, judge-route.ts, reveal.ts   API routes
@@ -54,11 +57,18 @@ factory/
   generators/          Puzzle generation scripts
   reports/             Generation yield and spot-check reports
 eval/
+  run.ts, metrics.ts   The answer-key test (npm run eval) and its metrics
+  results.ts           Builds public/eval/results.json (npm run eval:publish)
   verdict/             Python reference for the on-device judge
-scripts/               Build verification utilities
+scripts/
+  vite-plugins.ts      Build plugins: the device runtime, sitemap, route pages
+  prerender.ts         Fills each route page with its first screen after vite build
+  lighthouse-server.ts The build behind a compressing proxy, for npm run lighthouse
+                       Plus asset checks and one-off generators
 tests/
   unit/                Unit tests, one folder per runtime
-  e2e/                 Playwright browser tests
+  e2e/                 Playwright browser tests; support.ts holds shared setup
+  device/              The real on-device model in Chrome (npm run test:device)
   fixtures/            Recorded responses and reference data for tests
 docs/                  Project documentation
 plan/                  Local build plan and design mocks; ignored by Git
@@ -184,7 +194,9 @@ Within those boundaries:
 - Reducers in `src/games/` are pure: no React and no I/O.
 - Shared code stays independent of React and of platform-specific APIs.
 - Every API body, puzzle file, and model response is validated with the shared Zod
-  schemas.
+  schemas. Zod is imported only through `shared/schemas/zod.ts`, which turns off its
+  `eval`-based compiler, since the content security policy and Workers both forbid
+  `eval` (a tooling test enforces the import).
 - A player's answer is passed to a model as data in its state, never as part of its
   instructions.
 
@@ -344,6 +356,15 @@ them.
 - `src/scenes/game/use-device-column.ts` gives each game screen the judge's status,
   the latest run and the puzzle's "agreed n / m". "Device • off" opens the setup
   sheet on a capable device.
+
+## Answer-key results
+
+`npm run eval` scores the judges on the answer key and appends each run to
+`eval/history.json`; the held-out test split has run once, on the final setup.
+`npm run eval:publish` turns the history and `eval/device-measurements.json` into
+`public/eval/results.json` through the pure `eval/results.ts`, which the app shows
+in "How the judges compare" and on About. A tooling test fails if the committed file
+no longer matches what its sources build.
 
 ## Python reference
 

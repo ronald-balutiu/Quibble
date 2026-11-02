@@ -13,6 +13,8 @@ export function storageSignal(matches: (key: string) => boolean) {
   }
   return {
     snapshot: () => revision,
+    // Prerendered pages and hydration start from no local changes.
+    serverSnapshot: () => 0,
     notify,
     subscribe: (listener: () => void) => {
       if (listeners.size === 0) globalThis.addEventListener?.('storage', onStorage)

@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from './zod'
 import { gameIds } from '../games'
 
 // Player-facing puzzle files, served statically (plan 3.2):

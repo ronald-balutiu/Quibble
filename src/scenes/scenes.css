@@ -317,7 +317,9 @@
   background: transparent;
   color: var(--dim);
   font-family: var(--font-mono);
-  font-size: var(--type-label-large);
+  /* Body size, not a label size: 100 tiles are most of the page's text on a phone,
+     and text under 12px fails Lighthouse's legibility check. */
+  font-size: var(--type-body);
   cursor: pointer;
 }
 

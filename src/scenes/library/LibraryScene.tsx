@@ -4,9 +4,10 @@ import { gameIds, type GameId } from '@shared/games'
 import { usePageMeta } from '@/app/use-page-meta'
 import { DeviceJudgeCard } from '@/components/JudgeSetup/DeviceJudgeCard'
 import { CloudModelChoice } from '@/components/JudgeSetup/CloudModelChoice'
-import { en, format } from '@/copy/en'
+import { en, format, puzzleNumber } from '@/copy/en'
 import { usePuzzleIndex } from '@/lib/use-puzzle-index'
 import { progressChanges, resetPuzzle } from '@/lib/storage/progress'
+import { useHydrated } from '@/lib/use-hydrated'
 import { libraryEntries, maxFor, progressText, type statusOf } from './library-model'
 import { GameRules } from './GameRules'
 import '../scenes.css'
@@ -17,9 +18,11 @@ type Filter = (typeof FILTERS)[number]
 export function LibraryScene() {
   usePageMeta(en['meta.title.library'])
   const [params, setParams] = useSearchParams()
-  const game = gameIds.find((id) => id === params.get('game')) ?? 'oddly-specific'
+  // The prerendered Library shows the default game; ?game applies once hydrated.
+  const hydrated = useHydrated()
+  const game = (hydrated ? gameIds.find((id) => id === params.get('game')) : undefined) ?? 'oddly-specific'
   const { data: index, retry } = usePuzzleIndex()
-  const revision = useSyncExternalStore(progressChanges.subscribe, progressChanges.snapshot)
+  const revision = useSyncExternalStore(progressChanges.subscribe, progressChanges.snapshot, progressChanges.serverSnapshot)
   // eslint-disable-next-line react-hooks/exhaustive-deps -- the revision invalidates derived storage data after local or cross-tab changes.
   const entries = useMemo(() => index ? libraryEntries(index) : undefined, [index, revision])
   const [open, setOpen] = useState<number | undefined>()
@@ -54,7 +57,7 @@ export function LibraryScene() {
               <span className="telemetry">{en[`game.code.${id}`]}</span>
               <span className="game-row__name">{en[`game.name.${id}`]}</span>
               <span className="muted game-row__tagline">{en[`game.tagline.${id}`]}</span>
-              <span className="telemetry">{count === 0 ? en['library.new'] : format('library.progress', { solved: String(done).padStart(3, '0'), total: String(count).padStart(3, '0') })}</span>
+              <span className="telemetry">{count === 0 ? en['library.new'] : format('library.progress', { solved: puzzleNumber(done), total: puzzleNumber(count) })}</span>
             </button>
         ))}
       </nav>
@@ -68,8 +71,8 @@ export function LibraryScene() {
           <div className="library-start">
             <p>{en[continuing ? 'library.continue.note' : hasCompleted ? 'library.next.note' : 'library.start.note']}</p>
             {continuing
-              ? <Link className="pill control-link" to={`/play/${game}/${String(continuing.n)}`}>{progressText(game, 'library.continue', { n: String(continuing.n).padStart(3, '0'), round: continuing.round ?? 1 })}</Link>
-              : starter && <Link className="pill control-link" to={`/play/${game}/${String(starter.n)}`}>{format('library.start', { n: String(starter.n).padStart(3, '0'), difficulty: en[`difficulty.${starter.difficulty}`] })}</Link>}
+              ? <Link className="pill control-link" to={`/play/${game}/${String(continuing.n)}`}>{progressText(game, 'library.continue', { n: puzzleNumber(continuing.n), round: continuing.round ?? 1 })}</Link>
+              : starter && <Link className="pill control-link" to={`/play/${game}/${String(starter.n)}`}>{format('library.start', { n: puzzleNumber(starter.n), difficulty: en[`difficulty.${starter.difficulty}`] })}</Link>}
           </div>
         )}
         <GameRules game={game} key={game} />
@@ -98,7 +101,7 @@ export function LibraryScene() {
                 else setOpen(n)
               }}>
                 <span className="tile__top">
-                  <span className="tile__n">{String(n).padStart(3, '0')}</span>
+                  <span className="tile__n">{puzzleNumber(n)}</span>
                   {(status === 'solved' || status === 'perfect') && <span className="tile__check" aria-hidden="true">{en['library.completedMark']}</span>}
                 </span>
                 {progress
@@ -145,7 +148,7 @@ function PuzzleSheet({ game, n, saved, onClose }: { game: GameId, n: number, sav
 
   return (
     <dialog ref={dialog} className="sheet" onClose={onClose} aria-labelledby="sheet-title">
-      <h2 id="sheet-title">{format('game.header', { code: en[`game.code.${game}`], n: String(n).padStart(3, '0') })}</h2>
+      <h2 id="sheet-title">{format('game.header', { code: en[`game.code.${game}`], n: puzzleNumber(n) })}</h2>
       <div className="actions">
         <button type="button" className="pill" onClick={() => { void navigate(`/play/${game}/${String(n)}`) }}>
           {status === 'open' ? progressText(game, 'sheet.resume', { round: round ?? 1 }) : en['sheet.play']}

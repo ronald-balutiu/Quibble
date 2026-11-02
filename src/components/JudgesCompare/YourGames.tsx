@@ -6,7 +6,7 @@ import { ComparisonTable } from './ComparisonTable'
 import { milliseconds, percent } from './format'
 
 export function YourGames() {
-  const revision = useSyncExternalStore(comparisonChanges.subscribe, comparisonChanges.snapshot)
+  const revision = useSyncExternalStore(comparisonChanges.subscribe, comparisonChanges.snapshot, comparisonChanges.serverSnapshot)
   // Parsing and aggregation only repeat when the stored history changes.
   // eslint-disable-next-line react-hooks/exhaustive-deps -- the revision invalidates derived storage data after local or cross-tab changes.
   const mine = useMemo(() => yourGames(loadComparisons()), [revision])

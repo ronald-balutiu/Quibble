@@ -1,7 +1,7 @@
 import type { Puzzle } from '@shared/schemas/puzzle'
 import { categoryEscapeConfig as config } from '@shared/games/category-escape'
 import { JudgesCompare } from '@/components/JudgesCompare/JudgesCompare'
-import { en, format } from '@/copy/en'
+import { en, format, puzzleNumber } from '@/copy/en'
 import type { RunState } from '@/games/rounds/reducer'
 import { ResultActions } from '@/scenes/game/ResultActions'
 import { RunReview } from '@/scenes/game/RunReview'
@@ -16,7 +16,7 @@ export function RunOver({ run, puzzle, best, onRestart }: { run: RunState, puzzl
   const lastId = puzzle.rounds.at(-1)?.id ?? ''
   const { reveal, reload: loadPath } = useReveal(puzzle, lastId)
   const path = reveal === undefined ? undefined : reveal?.path ?? null
-  const code = String(puzzle.n).padStart(3, '0')
+  const code = puzzleNumber(puzzle.n)
 
   const bestLabel = best === undefined ? en['results.firstPlay'] : score > best ? format('results.newBest', { n: best }) : format('results.best', { n: best })
   const share = `${format('results.share', { game: en[`game.name.${puzzle.game}`], n: puzzle.n, tiles: grid.tiles, score, max: config.levels })}\n${grid.text}`

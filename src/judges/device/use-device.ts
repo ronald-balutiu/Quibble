@@ -4,7 +4,7 @@ import { deviceSupported } from './gate'
 
 // React's view of the tab's on-device judge: off, loading or ready.
 export function useDeviceStatus(judge: DeviceJudge = deviceJudge): DeviceStatus {
-  return useSyncExternalStore(judge.subscribe, () => judge.status)
+  return useSyncExternalStore(judge.subscribe, () => judge.status, () => 'off')
 }
 
 // Whether this device is offered the judge at all (D-07, D-56). Checked once per tab.

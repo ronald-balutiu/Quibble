@@ -10,6 +10,9 @@ export const en = {
   'meta.title.game': '{game} #{n} · Quibble',
   'meta.title.about': 'About · Quibble',
   'meta.title.notFound': 'Not found · Quibble',
+  'meta.description.library': 'Pick a puzzle: 100 Oddly Specific, 100 Category Escape and 56 Double Agent, easy to hard. Any answer that fits counts, and AI judges decide.',
+  'meta.description.about': 'How Quibble works: two AI judges, a held-out answer-key test, an on-device model in your browser, and what happens to your data.',
+  'meta.description.game': '{game} #{n} on Quibble. {tagline} Any answer that fits counts, and AI judges decide whether it does.',
 
   // Home (H1, H2)
   'home.eyebrow': 'Three word games / two AI judges',
@@ -507,6 +510,9 @@ export const en = {
 } as const
 
 export type CopyKey = keyof typeof en
+
+// Puzzle numbers always show three digits: #001 to #100 (5.5).
+export const puzzleNumber = (n: number) => String(n).padStart(3, '0')
 
 export function format(key: CopyKey, values: Record<string, string | number> = {}): string {
   return en[key].replace(/\{(\w+)\}/gu, (match, name: string) => (name in values ? String(values[name]) : match))

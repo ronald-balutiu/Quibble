@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from './zod'
 
 // public/eval/results.json (plan 3.10): the answer-key numbers the app shows in
 // "How the judges compare" and on /about, built by eval/publish.ts from

@@ -1,8 +1,8 @@
-import { useId, useState, useSyncExternalStore } from 'react'
+import { useId, useState } from 'react'
 import { cloudModels, type CloudModel } from '@shared/schemas/judge'
 import { en, format } from '@/copy/en'
 import { useEvalResults } from '@/lib/eval-results'
-import { loadCloudModel, subscribeCloudModel } from '@/lib/storage/settings'
+import { useCloudModel } from '@/lib/use-cloud-model'
 import { AnswerKey } from './AnswerKey'
 import { YourGames } from './YourGames'
 import { dateLabel } from './format'
@@ -10,7 +10,7 @@ import { dateLabel } from './format'
 export function ComparisonContent() {
   const [view, setView] = useState<'test' | 'games'>('test')
   const [preview, setPreview] = useState<CloudModel>()
-  const chosen = useSyncExternalStore(subscribeCloudModel, loadCloudModel)
+  const chosen = useCloudModel()
   const model = preview ?? chosen
   const { data: results, retry } = useEvalResults()
   const cloud = results?.test.judges[model]

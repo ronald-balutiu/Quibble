@@ -9,7 +9,7 @@ import './JudgeSetup.css'
 export function DeviceJudgeCard() {
   const supported = useDeviceSupported()
   const status = useDeviceStatus()
-  const download = useSyncExternalStore(backgroundDownload.subscribe, backgroundDownload.getSnapshot)
+  const download = useSyncExternalStore(backgroundDownload.subscribe, backgroundDownload.getSnapshot, backgroundDownload.getServerSnapshot)
   const loading = status === 'loading' || download.kind === 'download' || download.kind === 'warming' || download.kind === 'cancelling'
   const progress = download.kind === 'download' ? fraction(download.received, download.total || DEVICE_TOTAL_BYTES) : download.kind === 'warming' ? 1 : 0
   const percent = Math.floor(progress * 100)

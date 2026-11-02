@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router'
 import { gameIds, type GameId } from '@shared/games'
 import type { Puzzle } from '@shared/schemas/puzzle'
 import { usePageMeta } from '@/app/use-page-meta'
-import { en, format } from '@/copy/en'
+import { en, format, puzzleNumber } from '@/copy/en'
 import { EscapeGame } from '@/games/category-escape/Screen'
 import { RoundGame } from '@/games/rounds/Game'
 import { loadPuzzle } from '@/lib/puzzles'
@@ -21,7 +21,7 @@ function PuzzleRoute({ game, n, playable }: { game: GameId | undefined, n: numbe
   const [puzzle, setPuzzle] = useState<Puzzle | null | undefined>(undefined)
   // A path that names no puzzle is a not-found page for search engines.
   usePageMeta(
-    game && playable ? format('meta.title.game', { game: en[`game.name.${game}`], n: String(n).padStart(3, '0') }) : en['meta.title.notFound'],
+    game && playable ? format('meta.title.game', { game: en[`game.name.${game}`], n: puzzleNumber(n) }) : en['meta.title.notFound'],
     { indexable: playable && puzzle !== null },
   )
 

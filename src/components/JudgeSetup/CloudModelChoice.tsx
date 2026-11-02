@@ -1,12 +1,13 @@
-import { useId, useSyncExternalStore } from 'react'
+import { useId } from 'react'
 import { cloudModels } from '@shared/schemas/judge'
 import { en } from '@/copy/en'
-import { loadCloudModel, saveCloudModel, subscribeCloudModel } from '@/lib/storage/settings'
+import { saveCloudModel } from '@/lib/storage/settings'
+import { useCloudModel } from '@/lib/use-cloud-model'
 import './JudgeSetup.css'
 
 export function CloudModelChoice() {
   const name = useId()
-  const model = useSyncExternalStore(subscribeCloudModel, loadCloudModel)
+  const model = useCloudModel()
   return (
     <fieldset className="cloud-models">
       <legend>{en['welcome.cloud.title']}</legend>

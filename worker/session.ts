@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from '@shared/schemas/zod'
 import { readBody } from './read-body'
 import { json, type Env } from './env'
 

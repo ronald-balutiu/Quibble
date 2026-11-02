@@ -1,34 +1,12 @@
-import { useEffect, useState, type CSSProperties, type ReactNode, type RefObject } from 'react'
-import { Link } from 'react-router'
-import type { GameId } from '@shared/games'
+import { useEffect, useState, type CSSProperties, type ReactNode } from 'react'
 import type { CloudModel } from '@shared/schemas/judge'
 import type { PuzzleCondition } from '@shared/schemas/puzzle'
 import { en, format } from '@/copy/en'
-import type { Ui } from './judge-guess'
 import type { DeviceColumn } from './use-device-column'
-import { devicePasses, letterFor } from './verdict'
+import { devicePasses, letterFor, restTime } from './verdict'
 
-// The components every game screen shares (5.5 G1–G7, 5.6): the header, strike
-// dots, score axes, the answer field, and the rejected, not-judged and resting panels.
-
-// `statusClass` lets a screen hide its status on phone, where its mock has none.
-export function GameHeader({ game, n, status, statusClass, children }: { game: GameId, n: number, status: string, statusClass?: string | undefined, children: ReactNode }) {
-  return (
-    <header className="game-header">
-      <span className="game-header__code">{format('game.header', { code: en[`game.code.${game}`], n: String(n).padStart(3, '0') })}</span>
-      <span className={statusClass ? `telemetry ${statusClass}` : 'telemetry'}>{status}</span>
-      {children}
-    </header>
-  )
-}
-
-export function StrikeDots({ used, max }: { used: number, max: number }) {
-  return (
-    <span className="strikes" role="img" aria-label={format('game.strikes', { used, max })}>
-      {Array.from({ length: max }, (_, i) => <span key={i} className={i < used ? 'strikes__dot strikes__dot--used' : 'strikes__dot'} />)}
-    </span>
-  )
-}
+// The judges panel (5.5 G1–G3, S1): each judge's status, one score axis per
+// condition, and the strip shown while the cloud rests.
 
 // Seconds since the on-device run started, while its column scans (5.5 G2).
 function Elapsed({ since }: { since: number }) {
@@ -122,22 +100,6 @@ export function ScoreAxes({ conditions, scores, threshold, model, column, mark =
   )
 }
 
-// G3: the rejected verdict, with "Try again" and "Count it anyway".
-export function RejectedPanel({ sentence, disabled = false, onTryAgain, onCountAnyway }: { sentence: string, disabled?: boolean, onTryAgain: () => void, onCountAnyway: () => void }) {
-  return (
-    <div className="verdict verdict--rejected">
-      <p className="telemetry verdict__label">{en['verdict.label.rejected']}</p>
-      <p className="verdict__sentence">{sentence}</p>
-      <div className="actions">
-        <button type="button" className="pill" onClick={onTryAgain} disabled={disabled}>{en['game.tryAgain']}</button>
-        <button type="button" className="pill pill--quiet" onClick={onCountAnyway} disabled={disabled}>{en['game.countAnyway']}</button>
-      </div>
-    </div>
-  )
-}
-
-const restTime = (resetAt: string) => new Date(resetAt).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })
-
 // S1 and S2: while the cloud is resting, a two-cell strip under the header says
 // so, and whether the on-device judge is deciding instead.
 export function CloudStrip({ column }: { column: DeviceColumn }) {
@@ -151,60 +113,5 @@ export function CloudStrip({ column }: { column: DeviceColumn }) {
         <span>{en[deciding ? 'cloud.resting.deciding' : 'cloud.resting.notSetUp']}</span>
       </p>
     </div>
-  )
-}
-
-// G7 and S2: the guess wasn't judged, so it costs nothing. `onAddDevice` offers
-// the on-device judge (S3) on a capable device while the cloud rests.
-export function NotJudgedPanel({ ui, onRetry, onEdit, onAddDevice }: { ui: Ui, onRetry: () => void, onEdit: () => void, onAddDevice?: (() => void) | undefined }) {
-  if (ui.kind === 'notJudged') {
-    return (
-      <div className="verdict">
-        <p className="telemetry verdict__label">{en['notJudged.label']}</p>
-        <p className="verdict__sentence">{ui.message === 'cloud.busy' ? format('cloud.busy', { s: ui.retryAfter ?? 60 }) : en[ui.message]}</p>
-        <div className="actions">
-          {ui.message === 'session.botcheck'
-            ? <button type="button" className="pill" onClick={() => { window.location.reload() }}>{en['action.reload']}</button>
-            : <button type="button" className="pill" onClick={onRetry}>{en['action.retry']}</button>}
-          <button type="button" className="pill pill--quiet" onClick={onEdit}>{en['action.editAnswer']}</button>
-        </div>
-      </div>
-    )
-  }
-  if (ui.kind === 'resting') {
-    return (
-      <div className="verdict">
-        <p className="telemetry verdict__label">{en['notJudged.label']}</p>
-        <p className="verdict__sentence">{format('cloud.resting.headline', { time: restTime(ui.resetAt) })}</p>
-        <p>{onAddDevice ? `${en['cloud.resting.body']} ${en['cloud.resting.deviceOffer']}` : en['cloud.resting.body']}</p>
-        <div className="actions">
-          {onAddDevice && <button type="button" className="pill" onClick={onAddDevice}>{en['device.add']}</button>}
-          <Link className={onAddDevice ? 'pill pill--quiet control-link' : 'pill control-link'} to="/play">{en['nav.backToLibrary']}</Link>
-        </div>
-      </div>
-    )
-  }
-  return null
-}
-
-// The answer field and its Judge button (G1–G3).
-// `judging` locks and greys the field until both judges are back (3.7).
-export function AnswerForm({ label, placeholder, answer, maxLength, judging, input, onType, onSubmit, invalid }: {
-  label: string, placeholder: string, answer: string, maxLength: number, judging: boolean, input: RefObject<HTMLInputElement | null>
-  onType: (value: string) => void, onSubmit: () => void, invalid?: boolean
-}) {
-  return (
-    <form className={invalid ? 'answer answer--invalid' : 'answer'} onSubmit={(event) => { event.preventDefault(); if (!judging) onSubmit() }}>
-      <label htmlFor="answer" className="telemetry">{label}</label>
-      <input
-        ref={input} id="answer" value={answer} autoComplete="off"
-        maxLength={maxLength} placeholder={placeholder}
-        disabled={judging} aria-describedby="answer-note" aria-invalid={invalid}
-        onChange={(event) => { onType(event.target.value) }}
-      />
-      <button type="submit" className="answer__judge" disabled={!answer.trim() || judging}>
-        {judging ? en['game.judging'] : en['game.judge']}
-      </button>
-    </form>
   )
 }

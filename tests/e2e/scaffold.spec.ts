@@ -88,3 +88,26 @@ test('crawlers find every puzzle, and each page names itself', async ({ page, re
   await expect(page).toHaveTitle('Not found · Quibble')
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex')
 })
+
+// Each route has its own prerendered page (scripts/vite-plugins.ts, scripts/prerender.ts):
+// its title, canonical URL and first screen are in the HTML before any script runs,
+// and an unknown path gets a real 404.
+test('route pages arrive prerendered, and unknown paths are a 404', async ({ request }) => {
+  const pages = [
+    ['/', 'Quibble · Three word games judged by AI', 'Make your case.'],
+    ['/play', 'Library · Quibble', 'Oddly Specific'],
+    ['/about', 'About · Quibble', 'Two judges, one question: does it fit?'],
+    ['/play/category-escape/7', 'Category Escape #007 · Quibble', 'class="site-header"'],
+  ] as const
+  for (const [path, title, content] of pages) {
+    const response = await request.get(path)
+    expect(response.status(), path).toBe(200)
+    const html = await response.text()
+    expect(html, path).toContain(`<title>${title}</title>`)
+    expect(html, path).toContain(`<link rel="canonical" href="https://quibble.ronaldbalutiu.com${path === '/' ? '/' : path}" />`)
+    expect(html.slice(html.indexOf('<div id="root">')), path).toContain(content)
+  }
+  const missing = await request.get('/no-such-page')
+  expect(missing.status()).toBe(404)
+  expect(await missing.text()).toContain('<div id="root"></div>')
+})

@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from '@shared/schemas/zod'
 import { storageSignal } from './signal'
 import type { GameId } from '@shared/games'
 import type { RunState } from '@/games/rounds/reducer'

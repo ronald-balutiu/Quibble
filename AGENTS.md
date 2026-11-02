@@ -54,7 +54,8 @@ phase's checklist passes, unless a decision in the plan's decision log allows it
 - Ask for explicit confirmation before:
   - schema or persistence changes, destructive refactors, or irreversible data
     operations;
-  - deploying;
+  - deploying by hand with `npm run deploy`. Merging to `main` also deploys
+    (Cloudflare Workers Builds), so merge only work that is ready to go live;
   - running factory or eval scripts, which spend the Workers AI daily allowance.
 
 ## Git and pull requests

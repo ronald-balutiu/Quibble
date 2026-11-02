@@ -505,6 +505,7 @@ export const en = {
   'nav.privacy': 'Privacy →',
 
   // Not found (P2)
+  'notFound.code': '404',
   'notFound.title': 'Nothing here.',
   'notFound.body': "This page doesn't exist. The puzzles are in the library.",
 } as const

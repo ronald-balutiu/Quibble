@@ -22,7 +22,7 @@ test('the React entry point and local Worker load together', async ({ page, requ
   expect(errors).toEqual([])
 })
 
-test('planned routes match on direct loads and refreshes', async ({ page }) => {
+test('planned routes match on direct loads and refreshes, with a usable 404 recovery', async ({ page, isMobile }) => {
   const routes = [
     ['/', 'home'],
     ['/play', 'library'],
@@ -37,6 +37,27 @@ test('planned routes match on direct loads and refreshes', async ({ page }) => {
     await page.reload()
     await expect(page.getByRole('main')).toHaveAttribute('data-scene', scene)
   }
+  // The last route is the 404. Other tests own its HTTP status, metadata,
+  // accessibility and shared header/footer; keep only its layout and recovery here.
+  if (isMobile) await page.setViewportSize({ width: 320, height: 800 })
+  const main = page.getByRole('main')
+  const heading = await main.getByRole('heading', { level: 1 }).boundingBox()
+  const frame = await main.boundingBox()
+  const message = await main.getByText("This page doesn't exist. The puzzles are in the library.", { exact: true }).boundingBox()
+  const library = main.getByRole('link', { name: 'Library', exact: true })
+  const action = await library.boundingBox()
+  expect(heading!.y - frame!.y).toBeGreaterThan(24)
+  expect(message!.y).toBeGreaterThan(heading!.y + heading!.height)
+  expect(action!.y).toBeGreaterThan(message!.y + message!.height)
+  expect(action!.x).toBe(heading!.x)
+  expect(action!.width).toBeLessThan(frame!.width * 0.75)
+  expect(action!.height).toBeGreaterThanOrEqual(44)
+  expect(await page.evaluate<number>('document.documentElement.scrollWidth')).toBeLessThanOrEqual(page.viewportSize()!.width)
+  await library.focus()
+  await page.keyboard.press('Enter')
+  await expect(page).toHaveURL('/play')
+  await expect(page.getByRole('heading', { name: 'Game Selector', exact: true })).toBeVisible()
+
 })
 
 // 3.11: every page and the on-device judge's worker script carry the policy, and a

@@ -18,12 +18,29 @@ test('each game has keyboard-accessible rules and a quick example above the filt
     await rules.locator('summary').focus()
     await page.keyboard.press('Enter')
     await expect(rules.locator('.game-example')).toContainText(examples[i] ?? '')
-    await expect(rules).toContainText(game === 'category-escape' ? 'One point for each level' : '3 points · first try')
+    const example = rules.locator('.game-example--worked')
+    const scoring = rules.getByRole('region', { name: 'Scoring', exact: true })
+    await expect(example.locator('figcaption')).toHaveText('Quick example')
+    if (game === 'category-escape') {
+      await expect(example.locator('.game-example__step-answer')).toHaveText(['apple', 'toaster', 'wooden spoon'])
+      await expect(scoring).toContainText('1 point')
+      await expect(scoring).toContainText('For the whole run')
+    } else {
+      await expect(example.locator('.game-example__result strong')).toHaveText(game === 'oddly-specific' ? 'safety pin' : 'bank')
+      await expect(scoring.locator('dd strong')).toHaveText(['3', '2', '1'])
+      await expect(scoring).toContainText('Three wrong guesses end the round.')
+    }
+    const board = await example.boundingBox()
+    const score = await scoring.boundingBox()
+    const width = page.viewportSize()?.width ?? 0
+    if (width >= 1024) expect(score!.x).toBeGreaterThanOrEqual(board!.x + board!.width)
+    else expect(score!.y).toBeGreaterThanOrEqual(board!.y + board!.height)
     const prompt = await page.locator('.library-start').boundingBox()
     const disclosure = await rules.boundingBox()
     const filters = await page.getByRole('group', { name: 'Show', exact: true }).boundingBox()
     expect(disclosure!.y).toBeGreaterThanOrEqual(prompt!.y + prompt!.height)
     expect(filters!.y).toBeGreaterThanOrEqual(disclosure!.y + disclosure!.height)
+    expect(await page.evaluate<number>('document.documentElement.scrollWidth')).toBeLessThanOrEqual(width)
   }
   await expect(page.getByRole('heading', { name: 'Game Selector', exact: true })).toBeVisible()
   expect((await new AxeBuilder({ page }).analyze()).violations.filter((v) => v.impact === 'serious' || v.impact === 'critical')).toEqual([])

@@ -322,7 +322,7 @@ export const en = {
   'escape.none': '—',
   'escape.wrongGuesses': 'Your {n} wrong guesses',
   'escape.wrong': '{level} • {rule}',
-  'escape.tryAgain': 'Try #{n} again',
+  'escape.tryAgain': 'Play again',
 
   // Double Agent (D1, D2)
   'agent.eyebrow': 'ONE WORD • TWO MEANINGS',
@@ -337,8 +337,14 @@ export const en = {
   'agent.where.none': 'neither',
   'agent.where.both': 'the overlap',
 
+  'results.summary': 'Your result',
+  'results.details': 'Run details',
+  'results.path': 'Example path',
+  'results.compare': 'Compare the judges',
+  'review.mark.solved': '✓',
+  'review.mark.other': '·',
   'results.score': '{score}/{max}',
-  'review.title': 'What you got. What you missed.',
+  'review.title': 'Your game',
   'review.hint.rounds': 'Open a round to see your guesses and example answers.',
   'review.hint.levels': 'Open a level to see its rules, your guesses and example answers.',
   'review.round': 'Round {n}',

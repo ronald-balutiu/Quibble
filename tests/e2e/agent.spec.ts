@@ -66,7 +66,7 @@ test('a whole Double Agent puzzle can be played with the keyboard alone', async 
 
   // D2: each round opens into its clues, guesses and example word.
   await expect(page.getByText('5/9')).toBeVisible()
-  const review = page.getByRole('region', { name: 'What you got. What you missed.' })
+  const review = page.getByRole('region', { name: 'Your game' })
   const rows = review.locator('.run-review__round')
   await expect(rows).toHaveCount(3)
   await expect(rows.nth(0)).toContainText('charge')

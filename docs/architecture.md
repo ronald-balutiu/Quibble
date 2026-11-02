@@ -107,7 +107,7 @@ Scoring values come from the shared game config. Only active puzzle tiles show a
 progress bar, based on finished rounds or cleared levels in the current saved run;
 completed tiles show a green check while retaining their best score/perfect mark.
 
-`scenes/game/RunReview` gives all three results screens expandable round/level
+`scenes/game/ResultSummary` puts the score, best-score note, share grid and next-game actions first on every results screen. Detailed statistics and Category Escape’s example path use native disclosures. `scenes/game/RunReview` gives all three results screens expandable round/level
 details: conditions, actual guesses and their accepted/rejected/overruled status,
 and example answers. Unreached Category Escape levels stay distinct from misses.
 It uses the current run without changing persistence. Examples load through
@@ -119,7 +119,7 @@ buttons separate published answer-key accuracy from agreement in saved games.
 The answer-key view keeps whole-answer accuracy and sample counts visible above
 an expandable table, with development history and test methods below. On Home,
 the introduction stays visible while a native disclosure holds the results, closed
-by default; results screens show the comparison directly. Its model
+by default; results screens also keep the comparison collapsed behind “Compare the judges,” with the introduction omitted. Its model
 selector previews published results without changing the playing judge; until a
 preview is selected, it follows the saved cloud choice. `ComparisonTable` shares
 the named columns across both sources. All figures come from the existing

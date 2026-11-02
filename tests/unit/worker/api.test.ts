@@ -91,7 +91,10 @@ describe('session cookies', () => {
     const valid = await cookie()
     const request = (value: string) => new Request('https://x', { headers: { Cookie: value } })
     expect(await readSession(request(valid), SESSION_KEY)).toBeDefined()
-    expect(await readSession(request(`${valid.slice(0, -2)}xx`), SESSION_KEY)).toBeUndefined()
+    // Change significant signature bits; base64's trailing padding bits can decode unchanged.
+    const signatureStart = valid.lastIndexOf('.') + 1
+    const tampered = `${valid.slice(0, signatureStart)}${valid[signatureStart] === 'A' ? 'B' : 'A'}${valid.slice(signatureStart + 1)}`
+    expect(await readSession(request(tampered), SESSION_KEY)).toBeUndefined()
     expect(await readSession(request(valid), 'other-key')).toBeUndefined()
     expect(await readSession(request(await cookie(Math.floor(Date.now() / 1000) - 1)), SESSION_KEY)).toBeUndefined()
   })

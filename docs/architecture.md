@@ -113,7 +113,8 @@ and example answers. A single warm neutral surface groups the recap; flat rows
 show the answer, status and points. Native named disclosures keep at most one
 round open. Each opens with the player's counted answer (or a revealed example)
 and lettered rules. Guess history and other examples sit behind a second
-disclosure, using a compact per-rule matrix rather than repeated rule text.
+disclosure, using a compact per-rule matrix rather than repeated rule text. Other
+answers are comma-separated.
 Overruled guesses retain the judge's rejected-rule marks. Solved/overruled statuses
 use green, misses use red, and skipped/unreached statuses remain grey. Unreached
 Category Escape levels stay distinct from misses. The review uses the current run

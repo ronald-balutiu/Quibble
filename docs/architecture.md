@@ -126,7 +126,11 @@ failure. Category Escape also retains its full example path.
 `components/JudgesCompare/` is shared by Home and the results screens. Its source
 buttons separate published answer-key accuracy from agreement in saved games.
 The answer-key view keeps whole-answer accuracy and sample counts visible above
-an expandable table, with development history and test methods below. On Home,
+an expandable table, with development history and test methods below. Both views'
+tables (`ComparisonTable.tsx`) group their measures and draw each value as a bar
+ending in the judge's marker, a dot for the cloud and a ring for the local judge.
+The bars are decorative SVG; the cell text, including which judge did better,
+carries the numbers. On Home,
 the introduction stays visible, naming both halves the way their source buttons do
 (measured against an answer key, and against you), while a native disclosure holds
 the results, closed by default; results screens also keep the comparison collapsed behind “Compare the judges,” with the introduction omitted. Its model

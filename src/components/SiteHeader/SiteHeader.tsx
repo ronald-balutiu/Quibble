@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { matchPath, NavLink, useLocation, useNavigate } from 'react-router'
 import { gameIds } from '@shared/games'
 import { en } from '@/copy/en'
@@ -8,6 +8,7 @@ import './site-header.css'
 // Site navigation stays outside the scene frame, including loading and error states.
 export function SiteHeader() {
   const location = useLocation()
+  const previousLocation = useRef(location)
   const navigate = useNavigate()
   const puzzle = matchPath('/play/:game/:n', location.pathname)
   const selected = location.pathname === '/play' ? new URLSearchParams(location.search).get('game') : puzzle?.params.game
@@ -15,9 +16,13 @@ export function SiteHeader() {
   const library = game ? `/play?game=${game}` : '/play'
 
   useEffect(() => {
+    const previous = previousLocation.current
+    previousLocation.current = location
+    // Library query changes select a game within the same page.
+    if (previous.pathname === '/play' && location.pathname === '/play' && previous.search !== location.search && previous.hash === location.hash) return
     if (location.hash) document.getElementById(location.hash.slice(1))?.scrollIntoView()
     else window.scrollTo(0, 0)
-  }, [location.key, location.hash])
+  }, [location])
 
   return (
     <header className="site-header">

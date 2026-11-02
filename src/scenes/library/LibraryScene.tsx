@@ -70,7 +70,7 @@ export function LibraryScene() {
       <div className="library-layout">
       <nav className="game-rows" aria-label={en['home.games']}>
         {summaries.map(({ id, count, done }) => (
-            <button key={id} type="button" className="game-row" data-game={id} aria-current={id === game ? 'page' : undefined} onClick={() => { setParams({ game: id }) }}>
+            <button key={id} type="button" className="game-row" data-game={id} aria-current={id === game ? 'page' : undefined} onClick={() => { if (id !== game) setParams({ game: id }) }}>
               <span className="telemetry">{en[`game.code.${id}`]}</span>
               <span className="game-row__name">{en[`game.name.${id}`]}</span>
               <span className="muted game-row__tagline">{en[`game.tagline.${id}`]}</span>

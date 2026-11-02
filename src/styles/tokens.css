@@ -2,6 +2,7 @@
   /* neutrals (warm) */
   --ground: #0C0B0A;      /* page background */
   --grid: #161412;        /* graph-paper lines; active row / tile background */
+  --surface-review: #191613; /* warm neutral results review */
   --surface-2: #12100E;   /* solved tile background */
   --line: #2B2724;        /* frame, dividers */
   --line-soft: #22201D;   /* list separators inside a panel, chart guides */
@@ -35,6 +36,7 @@
   --type-condition: 28px;
   --type-category: 28px;
   --type-panel: 22px;
+  --type-review-answer: 32px;
   --type-panel-large: 32px;
   --type-verdict: 20px;
   --type-dialog-title: 22px;
@@ -54,6 +56,7 @@
   --welcome-detail-max: 700px;
   --rules-column-min: 260px;
   --compare-max: 736px;
+  --review-max: 736px;
   --compare-model-width: 140px;
   --type-compare-heading: 24px;
   --type-compare-question: 19px;

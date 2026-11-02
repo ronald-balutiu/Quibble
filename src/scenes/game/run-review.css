@@ -1,5 +1,7 @@
 .run-review {
   min-width: 0;
+  padding: var(--space-4);
+  background: var(--surface-review);
 }
 
 .run-review > h2 {
@@ -9,205 +11,207 @@
 }
 
 .run-review__rounds {
-  margin: 0;
+  margin: var(--space-4) 0 0;
   padding: 0;
-  margin-top: var(--space-4);
-  display: grid;
-  gap: var(--space-2);
   list-style: none;
 }
 
 .run-review__round {
-  border: var(--border-width) solid var(--line);
-  overflow: hidden;
+  border-bottom: var(--border-width) solid var(--line);
 }
 
-.run-review__round summary {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2) var(--space-3);
-  align-items: baseline;
+.run-review__round > summary {
+  display: grid;
+  grid-template-columns: var(--space-5) max-content minmax(0, 1fr) max-content var(--space-4);
+  gap: var(--space-2);
+  align-items: center;
   min-height: var(--target-min);
-  padding: var(--space-3);
+  padding-block: var(--space-4);
   cursor: pointer;
 }
 
-.run-review__round summary::before {
+.run-review__round > summary::after {
   content: '+';
-  order: 1;
+  text-align: center;
   color: var(--muted);
 }
 
-.run-review__round[open] summary::before {
+.run-review__round[open] > summary::after {
   content: '−';
 }
 
-.run-review__round summary::-webkit-details-marker {
+.run-review__round > summary::-webkit-details-marker {
   display: none;
 }
 
 .run-review__label,
 .run-review__status,
-.run-review__points {
+.run-review__points,
+.run-review__rule-code {
   font-family: var(--font-mono);
   font-size: var(--type-label-large);
 }
 
-.run-review__status {
+.run-review__status,
+.run-review__mark,
+.run-review__rule-code {
   color: var(--muted);
 }
 
 .run-review__round[data-status='solved'] .run-review__status,
-.run-review__round[data-status='overruled'] .run-review__status {
+.run-review__round[data-status='overruled'] .run-review__status,
+.run-review__round[data-status='solved'] .run-review__mark,
+.run-review__round[data-status='overruled'] .run-review__mark {
   color: var(--success);
 }
 
-.run-review__round[data-status='lost'] .run-review__status {
+.run-review__round[data-status='lost'] .run-review__status,
+.run-review__round[data-status='lost'] .run-review__mark {
   color: var(--fail);
 }
 
-.run-review__answer {
+.run-review__outcome {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-1) var(--space-3);
+  min-width: 0;
+}
+
+.run-review__answer,
+.run-review__body {
   overflow-wrap: anywhere;
 }
 
 .run-review__points {
-  margin-left: auto;
   white-space: nowrap;
 }
 
 .run-review__body {
   display: grid;
-  gap: var(--space-6);
-  padding: var(--space-4) var(--space-4) var(--space-6);
-  border-top: var(--border-width) solid var(--line);
-  background: var(--surface-2);
-  overflow-wrap: anywhere;
-}
-
-.run-review__section {
-  display: grid;
-  align-content: start;
-  gap: var(--space-3);
-  min-width: 0;
-}
-
-.run-review__section--examples {
-  grid-column: 1 / -1;
-  padding-top: var(--space-4);
-  border-top: var(--border-width) solid var(--line);
-}
-
-.run-review__section .also {
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: var(--space-2);
-}
-
-.run-review__section .also li {
-  padding: var(--space-2) var(--space-3);
-  border: var(--border-width) solid var(--line-strong);
-  border-radius: var(--radius-pill);
-  background: var(--ground);
+  gap: var(--space-4);
+  max-width: var(--review-max);
+  padding-block: var(--space-4) var(--space-6);
 }
 
 .run-review__body h3,
+.run-review__body h4,
 .run-review__body p {
   margin: 0;
 }
 
-.run-review__body h3 {
-  font-family: var(--font-mono);
+.run-review__body .telemetry {
   font-size: var(--type-label-large);
   font-weight: var(--weight-regular);
-  letter-spacing: var(--tracking-label-tight);
-  text-transform: uppercase;
-  color: var(--muted);
 }
 
-.run-review__rules,
-.run-review__guesses {
+.run-review__body .run-review__solution-word {
+  margin: var(--space-1) 0 var(--space-4);
+  font-size: var(--type-review-answer);
+  color: var(--text);
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--tracking-panel);
+}
+
+.run-review__rules {
   display: grid;
   gap: var(--space-3);
-  margin: 0;
-  padding-left: var(--space-5);
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  list-style: none;
 }
 
-.run-review__rules > li,
-.run-review__guess {
-  padding: var(--space-3);
-  border: var(--border-width) solid var(--line);
-  background: var(--ground);
+.run-review__rules li {
+  display: grid;
+  grid-template-columns: var(--space-5) minmax(0, 1fr) var(--space-5);
+  gap: var(--space-3);
+  align-items: baseline;
 }
 
-.run-review__rules > li::marker,
-.run-review__guess::marker {
+.run-review__match {
+  color: var(--success);
+}
+
+.run-review__match--fail {
+  color: var(--fail);
+}
+
+.run-review__history > summary {
+  min-height: var(--target-min);
+  padding-block: var(--space-3);
+  font-size: var(--type-body);
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.run-review__history-body {
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+.run-review__guesses {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.run-review__guesses th,
+.run-review__guesses td {
+  padding: var(--space-3) var(--space-1);
+  border-bottom: var(--border-width) solid var(--line);
+  text-align: center;
+  font-weight: var(--weight-regular);
+}
+
+.run-review__guesses thead th {
   font-family: var(--font-mono);
   font-size: var(--type-label-large);
   color: var(--muted);
 }
 
-.run-review__guess-head {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: var(--space-2) var(--space-3);
+.run-review__guesses th:first-child {
+  width: 40%;
+  padding-left: 0;
+  text-align: left;
 }
 
-.run-review__guess strong {
-  font-weight: var(--weight-medium);
-}
-
-.run-review__verdict {
-  font-family: var(--font-mono);
+.run-review__override {
+  display: block;
+  margin-top: var(--space-1);
   font-size: var(--type-label-large);
   color: var(--success);
 }
 
-.run-review__guess[data-status='rejected'] .run-review__verdict {
-  color: var(--fail);
+.run-review__key {
+  display: flex;
+  gap: var(--space-4);
+  font-size: var(--type-label-large);
+  color: var(--muted);
 }
 
-.run-review__misses {
+.run-review__alternatives {
   display: grid;
   gap: var(--space-2);
   margin-top: var(--space-3);
-  padding-top: var(--space-3);
-  border-top: var(--border-width) solid var(--line);
 }
 
-.run-review__misses ul {
-  display: grid;
-  gap: var(--space-2);
-  margin: 0;
-  padding-left: var(--space-4);
-  font-size: var(--type-body);
-}
-
-.run-review__misses li::marker {
-  color: var(--fail);
+.run-review__alternatives .also {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--space-3);
 }
 
 @media (min-width: 768px) {
-  .run-review__body {
-    grid-template-columns: 1fr 1fr;
+  .run-review {
+    padding: var(--space-6);
   }
-}
 
-.run-review__mark {
-  color: var(--muted);
-}
+  .run-review__round > summary {
+    gap: var(--space-3);
+  }
 
-.run-review__round[data-status='solved'],
-.run-review__round[data-status='overruled'] {
-  border-left: var(--accent-line-width) solid var(--success);
-}
-
-.run-review__round[data-status='lost'] {
-  border-left: var(--accent-line-width) solid var(--fail);
-}
-
-.run-review__round[data-status='solved'] .run-review__mark,
-.run-review__round[data-status='overruled'] .run-review__mark {
-  color: var(--success);
+  .run-review__body {
+    margin-left: var(--space-8);
+  }
 }

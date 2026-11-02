@@ -87,8 +87,12 @@ The selected sidebar row and its supporting text use that game’s accent. Cloud
 and local setup share a card style in the Library; the cloud picker uses the same
 saved choice as Settings. On mobile these cards precede the Game Selector and its
 tap-to-play hint; desktop keeps them in the sidebar. `library/GameRules` places a
-native rules disclosure above the filters. Its worked examples use
-`components/GameExample/`, also used by Home. Only active puzzle tiles show a
+native rules disclosure above the filters, with its own bordered panel. A worked
+example and scoring cards sit side by side when space allows and stack on phones.
+`components/GameExample/` shares structured example copy with Home, where the
+compact list presentation stays unchanged. The Library's worked view shows rules
+leading to one answer, or successive rule/answer steps for Category Escape.
+Scoring values come from the shared game config. Only active puzzle tiles show a
 progress bar, based on finished rounds or cleared levels in the current saved run;
 completed tiles show a green check while retaining their best score/perfect mark.
 

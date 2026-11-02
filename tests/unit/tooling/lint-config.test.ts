@@ -1,5 +1,9 @@
 import { ESLint } from 'eslint'
-import { expect, test } from 'vitest'
+import { expect, test, vi } from 'vitest'
+
+// Each test lints real files with the project's ESLint, type-aware rules included,
+// which takes seconds, more under coverage in CI than the default 5 s limit.
+vi.setConfig({ testTimeout: 30_000 })
 
 const eslint = new ESLint()
 

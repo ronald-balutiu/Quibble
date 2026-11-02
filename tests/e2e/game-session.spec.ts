@@ -23,15 +23,26 @@ async function openResults(page: Page) {
   await expect(page.getByText('0/15', { exact: true })).toBeVisible()
 }
 
-test('result details load examples on demand, support keyboard opening and retry failures', async ({ page }) => {
+test('result details load examples on demand, support keyboard opening and retry failures', async ({ page, isMobile }) => {
   await openResults(page)
+  if (isMobile) await page.setViewportSize({ width: 320, height: 800 })
+  expect(await page.evaluate<number>('document.documentElement.scrollWidth')).toBeLessThanOrEqual(page.viewportSize()!.width)
   const puzzle = puzzleSchema.parse(JSON.parse(readFileSync('public/puzzles/oddly-specific/1.json', 'utf8')))
   let calls = 0
   await page.route(`**/api/reveal/oddly-specific/1/${puzzle.rounds[0]?.id ?? ''}`, (route) => {
     calls += 1
     return route.fulfill(calls === 1 ? { status: 503, body: '' } : { json: { example: 'spoon', also: ['fork'] } })
   })
-  const review = page.getByRole('region', { name: 'What you got. What you missed.' })
+  await expect(page.locator('.result-details')).not.toHaveAttribute('open')
+  await expect(page.getByRole('table', { name: 'Detailed answer-key results' })).toHaveCount(0)
+  const primary = await page.getByRole('link', { name: /^Next puzzle/u }).boundingBox()
+  const review = page.getByRole('region', { name: 'Your game' })
+  const reviewBox = await review.boundingBox()
+  expect(primary!.y).toBeLessThan(reviewBox!.y)
+  await page.getByText('Run details', { exact: true }).click()
+  await expect(page.getByText('Guesses', { exact: true })).toBeVisible()
+  await page.getByText('Compare the judges', { exact: true }).click()
+  await expect(page.getByRole('table', { name: 'Detailed answer-key results' })).toBeVisible()
   const first = review.locator('.run-review__round').first()
   await expect(first).not.toHaveAttribute('open')
   expect(calls).toBe(0)

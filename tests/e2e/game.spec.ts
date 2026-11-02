@@ -64,7 +64,7 @@ test('a whole Oddly Specific puzzle can be played with the keyboard alone', asyn
   await expect(page.getByText('FIRST PLAY')).toBeVisible()
   await expect(page.getByText('8/15')).toBeVisible()
   await expect(page.getByLabel('✓ 2 ✗ ✗ ✓')).toBeVisible()
-  const review = page.getByRole('region', { name: 'What you got. What you missed.' })
+  const review = page.getByRole('region', { name: 'Your game' })
   const rounds = review.locator('.run-review__round')
   await expect(rounds).toHaveCount(5)
   await rounds.nth(1).locator('summary').click()

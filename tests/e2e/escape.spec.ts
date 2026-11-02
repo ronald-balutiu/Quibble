@@ -67,12 +67,14 @@ test('a whole Category Escape run can be played with the keyboard alone', async 
   await page.keyboard.type('x')
   await expect(page.getByText('RUN OVER • 3 WRONG GUESSES')).toBeVisible()
   await expect(page.getByText('/6 cleared')).toBeVisible()
+  await expect(page.getByRole('link', { name: /^Next puzzle #002/u })).toBeFocused()
+  await page.getByText('Example path', { exact: true }).click()
   await expect(page.getByRole('cell', { name: 'cork stopper' })).toBeVisible()
+  await page.getByText('Run details', { exact: true }).click()
   await expect(page.getByText('Your 3 wrong guesses')).toBeVisible()
   await expect(page.getByText('L-02 • is food')).toBeVisible()
-  await expect(page.getByRole('link', { name: /^Next puzzle #002/u })).toBeFocused()
 
-  const review = page.getByRole('region', { name: 'What you got. What you missed.' })
+  const review = page.getByRole('region', { name: 'Your game' })
   const levels = review.locator('.run-review__round')
   await expect(levels).toHaveCount(6)
   await levels.nth(2).locator('summary').click()
@@ -86,7 +88,7 @@ test('a whole Category Escape run can be played with the keyboard alone', async 
   // Try again starts a fresh run; clearing all six levels escapes.
   // The next puzzle is the primary action; Try again is one Tab away.
   await page.getByRole('link', { name: /^Next puzzle #002/u }).focus()
-  await tabToButton(page, 'Try #001 again')
+  await tabToButton(page, 'Play again')
   await expect(page.getByRole('img', { name: '0 of 3 wrong guesses used' })).toBeVisible()
   for (const [i, thing] of ['one', 'two', 'three', 'four', 'five'].entries()) {
     await typeGuess(page, `good ${thing}`)
@@ -97,7 +99,7 @@ test('a whole Category Escape run can be played with the keyboard alone', async 
   await expect(page.getByText('NEW BEST • PREVIOUS 3')).toBeVisible()
 
   // Give up ends a run at the levels cleared.
-  await tabToButton(page, 'Try #001 again')
+  await tabToButton(page, 'Play again')
   await typeGuess(page, 'good first')
   await expect(answer).toBeFocused()
   await tabToButton(page, 'Give up')

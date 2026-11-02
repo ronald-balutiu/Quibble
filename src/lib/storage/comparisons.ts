@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { storageSignal } from './signal'
 import { gameIds } from '@shared/games'
 import { cloudModels } from '@shared/schemas/judge'
 
@@ -8,6 +9,7 @@ import { cloudModels } from '@shared/schemas/judge'
 // still plays when storage is blocked or full.
 
 const KEY = 'quibble:comparisons'
+export const comparisonChanges = storageSignal((key) => key === KEY)
 export const COMPARISON_LIMITS = { records: 2_000, bytes: 500_000, days: 90 } as const
 const DAY_MS = 24 * 60 * 60 * 1000
 
@@ -52,6 +54,7 @@ function write(records: Comparison[], now: number): void {
     json = JSON.stringify(fresh)
   }
   globalThis.localStorage.setItem(KEY, json)
+  comparisonChanges.notify()
 }
 
 export function loadComparisons(now = Date.now()): Comparison[] {
@@ -87,6 +90,7 @@ export function markOverruled(game: Comparison['game'], n: number, round: string
 export function clearComparisons(): void {
   try {
     globalThis.localStorage.removeItem(KEY)
+    comparisonChanges.notify()
   } catch {
     // Nothing to clear.
   }

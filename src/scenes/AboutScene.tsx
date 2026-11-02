@@ -10,8 +10,8 @@ const percent = (value: number | undefined) => format('compare.percent', { p: Ma
 // the answer-key results and on-device speed, privacy (1.8) and credits.
 export function AboutScene() {
   usePageMeta(en['meta.title.about'])
-  const results = useEvalResults()
-  const index = usePuzzleIndex()
+  const { data: results } = useEvalResults()
+  const { data: index } = usePuzzleIndex()
   const judges = results?.test.judges
   const device = results?.devices[0]
   const puzzles = Object.values(index ?? {}).reduce((sum, list) => sum + list.length, 0)

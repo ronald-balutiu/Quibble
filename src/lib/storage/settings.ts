@@ -19,10 +19,11 @@ export function subscribeCloudModel(listener: () => void): () => void {
   const changed = (event: StorageEvent) => {
     if (event.key === CLOUD_MODEL || event.key === null) { memoryCloudModel = undefined; listener() }
   }
-  globalThis.addEventListener('storage', changed)
+  // Optional, as in signal.ts: there's no window outside a browser.
+  globalThis.addEventListener?.('storage', changed)
   return () => {
     cloudListeners.delete(listener)
-    globalThis.removeEventListener('storage', changed)
+    globalThis.removeEventListener?.('storage', changed)
   }
 }
 

@@ -1,22 +1,17 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
-import { readFileSync } from 'node:fs'
+import { allConditions, mockJudge, mockReveal, seedStorage, shippedPuzzle, stubDeviceJudge, submitGuess, tipsSeen } from './support'
 
 // The definition of done (0.2) for every screen in 5.5: axe-core reports no serious
 // or critical issues, at both sizes. The API is mocked, so no model is called.
 
-type Rounds = { rounds: { id: string, conditions: { id: string }[] }[] }
-const puzzleOf = (game: string) => JSON.parse(readFileSync(`public/puzzles/${game}/1.json`, 'utf8')) as Rounds
-
 async function mockApi(page: Page, reply: 'pass' | 'fail' | 'unavailable' | 'resting' = 'fail') {
-  await page.route('**/api/judge', async (route) => {
-    const body = route.request().postDataJSON() as { attempt: number, game: string, roundId: string }
-    if (reply === 'unavailable') { await route.fulfill({ status: 502, json: { attempt: body.attempt, error: 'unavailable' } }); return }
-    if (reply === 'resting') { await route.fulfill({ status: 503, json: { attempt: body.attempt, error: 'resting', resetAt: '2099-01-01T00:00:00.000Z' } }); return }
-    const ids = puzzleOf(body.game).rounds.find((round) => round.id === body.roundId)?.conditions.map(({ id }) => id) ?? []
-    await route.fulfill({ json: { attempt: body.attempt, model: 'clef-flash', modelMs: 40, conditions: Object.fromEntries(ids.map((id) => [id, { pass: reply === 'pass', p: reply === 'pass' ? 0.9 : 0.1 }])) } })
+  await mockJudge(page, (request) => {
+    if (reply === 'unavailable') return { status: 502, json: { attempt: request.attempt, error: 'unavailable' } }
+    if (reply === 'resting') return { status: 503, json: { attempt: request.attempt, error: 'resting', resetAt: '2099-01-01T00:00:00.000Z' } }
+    return allConditions(shippedPuzzle(request.game), request, reply === 'pass')
   })
-  await page.route('**/api/reveal/**', (route) => route.fulfill({ json: { example: 'sock', also: ['sweater', 'jeans'] } }))
+  await mockReveal(page)
 }
 
 // A finished run, so a results screen loads directly.
@@ -29,26 +24,12 @@ function finished(rounds: number) {
   })
 }
 
-async function seed(page: Page, entries: Record<string, string>) {
-  await page.addInitScript((values) => {
-    if (sessionStorage.getItem('seeded')) return
-    sessionStorage.setItem('seeded', '1')
-    localStorage.setItem('quibble:settings:tipsSeen', 'oddly-specific,category-escape,double-agent')
-    for (const [key, value] of Object.entries(values)) localStorage.setItem(key, value)
-  }, entries)
-}
+const seed = (page: Page, entries: Record<string, string>) => seedStorage(page, { ...tipsSeen, ...entries })
 
 async function expectAccessible(page: Page, screen: string) {
   const { violations } = await new AxeBuilder({ page }).analyze()
   const serious = violations.filter(({ impact }) => impact === 'serious' || impact === 'critical')
   expect(serious.map(({ id, nodes }) => `${screen}: ${id} (${nodes.map(({ target }) => target.join(' ')).join(', ')})`)).toEqual([])
-}
-
-async function guess(page: Page, answer: string) {
-  const field = page.getByRole('textbox')
-  await expect(field).toBeEnabled()
-  await field.fill(answer)
-  await field.press('Enter')
 }
 
 test.describe('axe-core on every screen (0.2)', () => {
@@ -94,19 +75,19 @@ test.describe('axe-core on every screen (0.2)', () => {
     await page.goto('/play/oddly-specific/1')
     await expect(page.getByRole('textbox')).toBeFocused()
     await expectAccessible(page, 'G1')
-    await guess(page, 'bad one')
+    await submitGuess(page, 'bad one')
     await expect(page.getByText('VERDICT • REJECTED')).toBeVisible()
     await expectAccessible(page, 'G3')
     await page.unroute('**/api/judge')
     await mockApi(page, 'pass')
-    await guess(page, 'good one')
+    await submitGuess(page, 'good one')
     await expect(page.getByText(/^VERDICT • ACCEPTED/u)).toBeVisible()
     await expectAccessible(page, 'G4')
 
     await page.unroute('**/api/judge')
     await mockApi(page, 'unavailable')
     await page.keyboard.press('Enter')
-    await guess(page, 'anything')
+    await submitGuess(page, 'anything')
     await expect(page.getByText('NOT JUDGED • NO STRIKE')).toBeVisible()
     await expectAccessible(page, 'G7')
   })
@@ -115,7 +96,7 @@ test.describe('axe-core on every screen (0.2)', () => {
     await seed(page, {
       'quibble:progress:oddly-specific:1': finished(5),
       'quibble:progress:category-escape:1': finished(6),
-      'quibble:progress:double-agent:1': finished(puzzleOf('double-agent').rounds.length),
+      'quibble:progress:double-agent:1': finished(shippedPuzzle('double-agent').rounds.length),
     })
     await mockApi(page, 'resting')
     for (const [game, screen] of [['oddly-specific', 'G6'], ['category-escape', 'E2'], ['double-agent', 'D2']] as const) {
@@ -124,7 +105,7 @@ test.describe('axe-core on every screen (0.2)', () => {
       await expectAccessible(page, screen)
     }
     await page.goto('/play/oddly-specific/2')
-    await guess(page, 'anything')
+    await submitGuess(page, 'anything')
     await expect(page.getByText(/^The cloud judge is resting until /u)).toBeVisible()
     await expectAccessible(page, 'S2')
   })
@@ -143,22 +124,8 @@ test.describe('axe-core on every screen (0.2)', () => {
   test('the on-device judge: S3, S4 and S1 (stubbed worker)', async ({ page, isMobile }) => {
     test.skip(isMobile, 'The on-device judge is offered on desktop only.')
     await seed(page, {})
-    await page.addInitScript(() => {
-      Object.defineProperty(Navigator.prototype, 'gpu', { get: () => ({ requestAdapter: () => Promise.resolve({}) }) })
-    })
-    // Progress stops at 40% until the test lets it finish.
-    await page.route('**/assets/worker-*.js', (route) => route.fulfill({
-      contentType: 'text/javascript',
-      body: `
-        const total = 570483465
-        self.onmessage = ({ data }) => {
-          if (data.type === 'load') {
-            self.postMessage({ type: 'progress', received: total * 0.4, total })
-            setTimeout(() => { self.postMessage({ type: 'progress', received: total, total }); self.postMessage({ type: 'ready' }) }, 2500)
-          }
-          if (data.type === 'score') self.postMessage({ type: 'scored', id: data.id, scores: Object.fromEntries(data.claims.map((c) => [c.id, 0.9])) })
-        }`,
-    }))
+    // Progress stops at 40% for 2.5 s, long enough to check S4.
+    await stubDeviceJudge(page, { pauseAt: 0.4, resumeAfterMs: 2500 })
     await mockApi(page, 'resting')
     await page.goto('/play/oddly-specific/1')
     await page.getByRole('button', { name: '○ Device • off' }).click()
@@ -170,7 +137,7 @@ test.describe('axe-core on every screen (0.2)', () => {
     await expect(install.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '40')
     await expectAccessible(page, 'S4')
     await expect(install).toBeHidden({ timeout: 10_000 })
-    await guess(page, 'anything')
+    await submitGuess(page, 'anything')
     await expect(page.getByText(/Not counted in the comparison\.$/u)).toBeVisible()
     await expectAccessible(page, 'S1')
   })

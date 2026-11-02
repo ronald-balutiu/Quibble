@@ -23,6 +23,7 @@ configuration, and the Git and pull request workflow.
 | `npm run lint:fix` | Apply available ESLint and Stylelint fixes, then report what remains. |
 | `npm test` | Run the Vitest unit tests. |
 | `npm run test:watch` | Run Vitest in watch mode. |
+| `npm run test:coverage` | Run the unit tests with coverage of the logic modules, failing below the thresholds in `vitest.config.ts`. CI runs this. |
 | `npm run test:e2e` | Build, serve a production preview, and run Playwright at desktop and phone sizes. |
 | `npm run test:device` | Local only: run the real on-device model in Google Chrome on WebGPU, check it against the Python reference, and record its speed and memory in `eval/device-measurements.json`. Downloads about 570 MB from Hugging Face. |
 | `npm run lighthouse` | Run Lighthouse three times on Home, the Library, a game and About against the last build (`npm run build` first), served as Cloudflare would, and fail below the thresholds in `lighthouserc.cjs`. |
@@ -51,7 +52,7 @@ Do not put Worker tests in the shared or tooling folders; they would be checked
 against Node types. Pure Worker logic can run in Vitest's Node environment. Tests
 that need real Cloudflare bindings require the Workers runtime integration.
 
-Browser tests live in `tests/e2e/` and run against a production preview. Add a
+Browser tests live in `tests/e2e/` and run against a production preview. Shared setup (the mocked API, fixture puzzles, storage seeding, guesses and the stubbed on-device judge) lives in `tests/e2e/support.ts`; unit tests share a fake `localStorage` from `tests/unit/app/support/storage.ts`, and hook tests opt into a DOM with `// @vitest-environment happy-dom`. Add a
 Playwright test that reaches each new screen or state. The on-device judge's tests
 (`tests/e2e/device.spec.ts`) swap the built worker for a stub, since CI's browser has
 no WebGPU. The real model runs only in `tests/device/` through `npm run test:device`:

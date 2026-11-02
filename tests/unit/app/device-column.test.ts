@@ -4,6 +4,7 @@ import type { DeviceJudge, ScoreResult } from '@/judges/device/client'
 import { COMPARISON_LIMITS, loadComparisons, markOverruled, saveComparison, type Comparison } from '@/lib/storage/comparisons'
 import { judgeGuess, toComparison, type DeviceRun, type JudgeTurn } from '@/scenes/game/judge-guess'
 import { judgesSplit } from '@/scenes/game/verdict'
+import { installBlockedStorage, installStorage } from './support/storage'
 
 const conditions: PuzzleCondition[] = [
   { id: 'pocket', label: 'Fits in a pocket', negation: "doesn't fit in a pocket", claim: '{answer} fits in a pocket' },
@@ -14,16 +15,11 @@ const turn: JudgeTurn = {
 }
 const cloud = { attempt: 1, model: 'clef-flash' as const, modelMs: 41, conditions: { pocket: { pass: true, p: 0.97 }, secure: { pass: false, p: 0.3 } } }
 
-function memoryStorage() {
-  const data = new Map<string, string>()
-  vi.stubGlobal('localStorage', { getItem: (k: string) => data.get(k) ?? null, setItem: (k: string, v: string) => data.set(k, v), removeItem: (k: string) => data.delete(k) })
-  return data
-}
 
 const record = (at: number, answer = 'carabiner'): Comparison => toComparison({ ...turn, normalized: answer }, cloud, 300, { scores: { pocket: 0.9, secure: 0.8 }, ms: 120, warm: true }, at)
 
 describe('comparison records (3.8)', () => {
-  beforeEach(() => { memoryStorage() })
+  beforeEach(() => { installStorage() })
 
   test('a record holds both scores and verdicts per condition, both latencies and the referee', () => {
     expect(record(5)).toEqual({
@@ -60,7 +56,7 @@ describe('comparison records (3.8)', () => {
   })
 
   test('"Count it anyway" marks the latest matching record, and bad records are dropped', () => {
-    const data = memoryStorage()
+    const data = installStorage()
     data.set('quibble:comparisons', JSON.stringify([{ at: 1, broken: true }]))
     saveComparison(record(2), 2)
     markOverruled('oddly-specific', 1, 'r1', 'carabiner', 2)
@@ -68,7 +64,7 @@ describe('comparison records (3.8)', () => {
   })
 
   test('blocked storage loses the record but never throws', () => {
-    vi.stubGlobal('localStorage', { getItem: () => { throw new Error('denied') }, setItem: () => { throw new Error('denied') } })
+    installBlockedStorage()
     expect(() => { saveComparison(record(1)) }).not.toThrow()
     expect(loadComparisons()).toEqual([])
   })
@@ -76,7 +72,7 @@ describe('comparison records (3.8)', () => {
 
 describe('both judges on one guess (3.7)', () => {
   beforeEach(() => {
-    memoryStorage()
+    installStorage()
     vi.stubGlobal('fetch', vi.fn(() => Promise.resolve(new Response(JSON.stringify(cloud), { status: 200 }))))
   })
 

@@ -1,11 +1,11 @@
 import { expect, test, vi } from 'vitest'
 import { storageSignal } from '@/lib/storage/signal'
-import { progressChanges, resetPuzzle, saveRun } from '@/lib/storage/progress'
+import { clearGameData, progressChanges, resetPuzzle, saveRun } from '@/lib/storage/progress'
 import { comparisonChanges } from '@/lib/storage/comparisons'
-import { clearGameData } from '@/lib/storage/progress'
 import { deleteEverything } from '@/lib/storage/everything'
 import { startRun } from '@/games/rounds/reducer'
 import { oddlySpecificConfig } from '@shared/games/oddly-specific'
+import { installStorage } from './support/storage'
 
 test('uses one cross-tab listener while subscribed, filters storage areas and keys, then cleans up', () => {
   let dispatch!: (event: Partial<StorageEvent>) => void
@@ -36,14 +36,7 @@ test('uses one cross-tab listener while subscribed, filters storage areas and ke
 })
 
 test('successful local progress writes, resets, clears and delete-all invalidate subscribers', () => {
-  const data = new Map<string, string>()
-  vi.stubGlobal('localStorage', {
-    get length() { return data.size },
-    key: (i: number) => [...data.keys()][i] ?? null,
-    getItem: (key: string) => data.get(key) ?? null,
-    setItem: (key: string, value: string) => data.set(key, value),
-    removeItem: (key: string) => data.delete(key),
-  })
+  installStorage()
   const progress = vi.fn()
   const history = vi.fn()
   const off = progressChanges.subscribe(progress)

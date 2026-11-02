@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test'
+import { seedStorage } from './support'
 
 // L3 on a device that can't run the on-device judge (5.5): CI's headless browser has
 // no WebGPU adapter, so it never sees an offer.
@@ -112,13 +113,11 @@ for (const action of ['Clear game data', 'Delete…']) {
 }
 
 test('"Your data" counts what is saved, and each clear asks once more in place', async ({ page }) => {
-  await page.addInitScript(() => {
-    if (sessionStorage.getItem('seeded')) return
-    sessionStorage.setItem('seeded', '1')
-    localStorage.setItem('quibble:progress:oddly-specific:1', JSON.stringify({ best: 9 }))
-    localStorage.setItem('quibble:progress:oddly-specific:2', JSON.stringify({ run: { current: 0, rounds: [], finished: false } }))
-    localStorage.setItem('quibble:comparisons', '[]')
-    localStorage.setItem('quibble:settings:tipsSeen', 'oddly-specific')
+  await seedStorage(page, {
+    'quibble:progress:oddly-specific:1': JSON.stringify({ best: 9 }),
+    'quibble:progress:oddly-specific:2': JSON.stringify({ run: { current: 0, rounds: [], finished: false } }),
+    'quibble:comparisons': '[]',
+    'quibble:settings:tipsSeen': 'oddly-specific',
   })
   await page.goto('/play')
   await page.getByRole('button', { name: 'Settings' }).click()

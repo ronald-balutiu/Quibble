@@ -1,4 +1,5 @@
 import { expect, test, type Page } from '@playwright/test'
+import { seedStorage } from './support'
 import { readFileSync } from 'node:fs'
 import { gameIds } from '../../shared/games'
 import { oddlySpecificConfig } from '../../shared/games/oddly-specific'
@@ -15,7 +16,7 @@ async function openResults(page: Page) {
     run = reduce(run, { type: 'skip' })
     if (i < oddlySpecificConfig.rounds - 1) run = reduce(run, { type: 'nextRound' })
   }
-  await page.addInitScript((saved) => { localStorage.setItem('quibble:progress:oddly-specific:1', JSON.stringify({ run: saved })) }, run)
+  await seedStorage(page, { 'quibble:progress:oddly-specific:1': JSON.stringify({ run }) }, { everyLoad: true })
   await page.route('**/api/reveal/**', (route) => route.fulfill({ json: { example: 'spoon', also: [] } }))
   await page.goto('/play/oddly-specific/1')
   await page.getByRole('button', { name: 'See results' }).click()

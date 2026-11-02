@@ -1,5 +1,32 @@
 import { expect, test } from '@playwright/test'
 
+test('Library game tabs preserve the screen position for mouse and keyboard switches', async ({ page, isMobile }) => {
+  if (isMobile) await page.setViewportSize({ width: 320, height: 900 })
+  await page.goto('/play')
+  await expect(page.locator('.tile')).toHaveCount(100)
+  await page.evaluate<void>('window.scrollTo(0, 120)')
+  const tabs = page.getByRole('navigation', { name: 'Games', exact: true })
+  for (const [i, game] of ['category-escape', 'double-agent', 'oddly-specific'].entries()) {
+    const tab = tabs.locator(`[data-game="${game}"]`)
+    const before = await tab.boundingBox()
+    const scroll = await page.evaluate<number>('window.scrollY')
+    expect(scroll).toBe(120)
+    if (i === 1) {
+      await tab.focus()
+      await page.keyboard.press('Enter')
+    } else await tab.click()
+    await expect(tab).toHaveAttribute('aria-current', 'page')
+    await expect(page).toHaveURL(`/play?game=${game}`)
+    await expect.poll(() => page.evaluate<number>('window.scrollY')).toBe(scroll)
+    expect((await tab.boundingBox())!.y).toBe(before!.y)
+  }
+  // Selecting the current tab again must not reset the scroll or add history.
+  const history = await page.evaluate<number>('window.history.length')
+  await tabs.locator('[aria-current="page"]').click()
+  expect(await page.evaluate<number>('window.history.length')).toBe(history)
+  expect(await page.evaluate<number>('window.scrollY')).toBe(120)
+})
+
 test('Home’s footer aligns with every page at phone and wide desktop sizes', async ({ page, isMobile }) => {
   for (const width of isMobile ? [320] : [1280, 1600, 1920]) {
     await page.setViewportSize({ width, height: 900 })

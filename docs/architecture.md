@@ -159,6 +159,10 @@ layout and typography are self-contained so shared text utilities cannot overrid
 centering when the viewport exceeds the content width. About’s
 build information stays in its Credits section.
 Navigation opens the top of a page or its linked section (such as Privacy).
+Library query changes switch game tabs in place, preserving the current scroll
+position. Clicking the selected game does not create another history entry or
+scroll the page. Same-page navigation links and repeated Privacy links retain
+their normal top/anchor scrolling.
 Clearing progress from Settings during a game returns to that game's Library,
 unmounting the active run so it cannot save deleted progress again. Cloud model
 changes apply to the next guess; existing verdict axes retain their original model.

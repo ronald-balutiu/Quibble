@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test'
+import { seedStorage } from './support'
 
 test('first visit explains the games, then opens an unplayed tile directly', async ({ page }) => {
   await page.goto('/')
@@ -27,9 +28,7 @@ test('first visit explains the games, then opens an unplayed tile directly', asy
 })
 
 test('returning visits always open Home, including refreshes and navigation', async ({ page }) => {
-  await page.addInitScript(() => {
-    localStorage.setItem('quibble:progress:oddly-specific:1', JSON.stringify({ best: 0 }))
-  })
+  await seedStorage(page, { 'quibble:progress:oddly-specific:1': JSON.stringify({ best: 0 }) }, { everyLoad: true })
   await page.goto('/')
   await expect(page).toHaveURL('/')
   await expect(page.getByRole('heading', { name: 'Make your case.' })).toBeVisible()

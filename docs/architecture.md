@@ -260,7 +260,9 @@ or through a `useSyncExternalStore` server snapshot, so hydration matches the HT
 Unknown paths get `404.html`, the same shell with nothing prerendered and a 404
 status; the app renders whatever the path is. The not-found screen groups its status,
 message and content-width Library action in one padded section, reusing shared
-text and action styles.
+text and action styles. Its 404 code puts `components/AsciiMark/` between the two
+4s: the ring mark drawn in characters from a pure frame function (`frame.ts`),
+rewritten in place a few times a second and still under reduced motion.
 
 For search engines, `public/robots.txt` points to `/sitemap.xml`, also built from the
 puzzle index (Home, the Library, About and every puzzle). Scenes keep their title and

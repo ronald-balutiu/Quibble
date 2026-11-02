@@ -4,7 +4,7 @@ import { z } from 'zod'
 
 const interval = z.strictObject({ value: z.number(), low: z.number(), high: z.number(), n: z.int().min(0) })
 
-export const evalRunSchema = z.strictObject({
+const evalRunSchema = z.strictObject({
   date: z.iso.datetime(),
   split: z.enum(['dev', 'test']),
   judge: z.enum(['clef-flash', 'clef', 'gemma-4', 'device']),

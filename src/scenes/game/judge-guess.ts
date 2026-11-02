@@ -61,7 +61,7 @@ export function toComparison(
 
 export type Referee = 'cloud' | 'device'
 
-export interface JudgeWatchers {
+interface JudgeWatchers {
   // Read at the start of each guess, so a settings change applies from the next one (3.7).
   referee?: Referee
   // The referee's scores, drawn as soon as they arrive (5.5 G2).
@@ -77,7 +77,7 @@ const scoresOf = (result: JudgeSuccess) => Object.fromEntries(Object.entries(res
 // `cloudMessage`: the cloud failed while the device refereed, so only its column
 // says so (3.12). `notScored`: the guess wasn't judged, but this judge answered
 // and its verdict is shown, not scored (G7).
-export interface Decision { decidedBy: Referee, restingUntil?: string, cloudMessage?: CloudMessage }
+interface Decision { decidedBy: Referee, restingUntil?: string, cloudMessage?: CloudMessage }
 export type GuessOutcome = ({ guess: Guess, scores: Record<string, number | undefined> } & Decision) | { ui: Ui, restingUntil?: string, notScored?: Referee }
 
 // The verdict for a guess that passed the local checks: a reducer guess with its

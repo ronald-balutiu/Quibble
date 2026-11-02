@@ -3,7 +3,7 @@ import { gameConfigs, type GameId } from './games'
 // Conservative on purpose: it never changes what an answer means. No stemming or
 // singularization ("glasses" stays different from "glass").
 
-export type AliasMap = ReadonlyMap<string, string>
+type AliasMap = ReadonlyMap<string, string>
 
 const surroundingPunctuation = /^[\p{P}\s]+|[\p{P}\s]+$/gu
 const leadingArticle = /^(?:a|an|the)\s+(?=\S)/u

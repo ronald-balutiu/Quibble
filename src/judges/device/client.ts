@@ -4,7 +4,7 @@ import type { DeviceClaim, DeviceFailure, FromWorker, ToWorker } from './protoco
 // Worker per tab; this side starts it lazily, follows a load, and gives each guess
 // its 10-second limit. A result that arrives after its limit is ignored.
 
-export const DEVICE_TIMEOUT_MS = 10_000
+const DEVICE_TIMEOUT_MS = 10_000
 
 export type LoadProgress = { kind: 'download', received: number, total: number } | { kind: 'warming' }
 export type LoadResult = { kind: 'ready' } | { kind: 'failed', reason: DeviceFailure } | { kind: 'cancelled' }

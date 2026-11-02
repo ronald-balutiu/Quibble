@@ -1,0 +1,23 @@
+# Weekly version updates, grouped so each ecosystem sends one pull request.
+# Security updates arrive as they are published. Every update must pass
+# release-ci and e2e like any other pull request, and merging deploys.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      development:
+        dependency-type: development
+        update-types: [minor, patch]
+      production:
+        dependency-type: production
+        update-types: [minor, patch]
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns: ['*']

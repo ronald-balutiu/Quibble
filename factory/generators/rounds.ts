@@ -2,7 +2,7 @@
 // deterministic: the same matrix and seed always produce the same rounds.
 import { truth, type Matrix } from '../matrix'
 
-export interface ConditionInfo { tag: string, category?: boolean }
+interface ConditionInfo { tag: string, category?: boolean }
 export type Conditions = Record<string, ConditionInfo>
 
 const MAX_KNOWN = 8
@@ -38,7 +38,7 @@ export function unconfirmedCells(matrix: Matrix, thing: string, ids: readonly st
   return ids.filter((id) => matrix[thing]?.[id]?.gemma === undefined)
 }
 
-export interface OddlySpecificRound { conditions: string[], solutions: string[] }
+interface OddlySpecificRound { conditions: string[], solutions: string[] }
 
 // Three conditions with different tags, 4–40 solutions, and no redundant condition:
 // each one must rule out something the other two allow.

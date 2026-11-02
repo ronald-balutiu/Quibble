@@ -75,6 +75,20 @@ export default defineConfig({
     port: 4173,
     strictPort: true,
   },
+  environments: {
+    client: {
+      build: {
+        rolldownOptions: {
+          output: {
+            // React and the router change rarely, so their own chunk keeps its hash,
+            // and stays cached for a year (public/_headers), across deploys that
+            // change only app code.
+            codeSplitting: { groups: [{ name: 'react', test: /node_modules[\\/](?:react|react-dom|react-router|scheduler)[\\/]/u }] },
+          },
+        },
+      },
+    },
+  },
   // The on-device judge runs in a lazy-loaded module worker.
   worker: { format: 'es', plugins: () => [dropRawOrtRuntime()] },
 })

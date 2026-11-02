@@ -189,7 +189,8 @@ confirmation before running it; see [agent safety](AGENTS.md#safety).
 
 [GitHub Actions](.github/workflows/ci.yml) runs the build, unit tests, asset check,
 and deployment dry run on every pull request and every push to `main` (`release-ci`),
-then the Playwright browser and accessibility tests (`e2e`). Both checks are
+and, alongside it, the Playwright browser and accessibility tests (`e2e`), with the
+Chromium download cached per lockfile. Both checks are
 required by `main`'s ruleset. Browser test failure reports are kept for seven days.
 Newer pushes cancel outdated runs. The local-only `npm run test:device` never runs
 in CI. Playwright starts its preview server with `QUIBBLE_REMOTE_BINDINGS=false`,
@@ -205,6 +206,10 @@ copied into a Preview just to satisfy a branch build. See Cloudflare's
 [branch control documentation](https://developers.cloudflare.com/workers/ci-cd/builds/build-branches/).
 
 When new checks are added to `npm run check`, add them to the workflow too.
+
+[Dependabot](.github/dependabot.yml) opens one grouped pull request a week for npm
+and GitHub Actions updates, and security updates as they're published. They go
+through the same required checks, and merging them deploys.
 
 ## Configuration reference
 

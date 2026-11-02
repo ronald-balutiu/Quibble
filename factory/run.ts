@@ -50,7 +50,7 @@ const questions = (pending: string[]): JudgeQuestion[] => pending.map((id) => ({
 
 // --- Double Agent -----------------------------------------------------------
 
-export interface AgentCheck {
+interface AgentCheck {
   word: string, clues: [string, string]
   first?: { a: number, b: number, common: number, distinct: number }
   decoys?: [number, number] // decoys that fit each clue

@@ -14,7 +14,7 @@ export const fraction = (received: number, total: number) => total > 0 ? Math.mi
 export const ringsDrawn = (progress: number) => Math.min(3, Math.floor(progress * 3))
 
 // The 0% → 100% strip: ticks passed, the one being filled, and the rest.
-export type TickState = 'done' | 'current' | 'todo'
+type TickState = 'done' | 'current' | 'todo'
 export const TICKS = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100] as const
 export function tickState(tick: number, percent: number): TickState {
   if (percent >= tick && (percent < tick + 10 || tick === 100)) return 'current'

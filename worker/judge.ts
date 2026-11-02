@@ -9,11 +9,11 @@ export interface AiRunner {
 
 export interface JudgeQuestion { id: string, question: string }
 
-export type CloudVerdict =
+type CloudVerdict =
   | { ok: true, scores: Record<string, number>, modelMs: number }
   | { ok: false, error: 'resting' | 'unavailable' }
 
-export interface JudgeOptions {
+interface JudgeOptions {
   model?: ClefModel
   timeoutMs?: number
   retryDelayMs?: number
@@ -73,7 +73,7 @@ export async function judgeWithClef(
 
 // Gemma 4 (D-62): one chat request per condition, sent in parallel, reading P(yes)
 // from the first token's logprobs. The prompt matches the answer-key eval exactly.
-export const GEMMA_MODEL = '@cf/google/gemma-4-26b-a4b-it'
+const GEMMA_MODEL = '@cf/google/gemma-4-26b-a4b-it'
 
 export function gemmaRequest(answer: string, question: string) {
   return {

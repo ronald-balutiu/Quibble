@@ -15,7 +15,7 @@ import { categoryEscapeRun, confirmed, knownAnswers, oddlySpecificRounds, seeded
 import { readJson, truth, writeJson, type Matrix } from './matrix'
 
 interface ConditionEntry { label: string, negation: string, tag: string, question: string, claim: string, category?: boolean }
-export interface AgentWord { word: string, clues: [string, string] }
+interface AgentWord { word: string, clues: [string, string] }
 
 const { values } = parseArgs({ options: { 'max-puzzles': { type: 'string', default: '100' }, games: { type: 'string', default: gameIds.join() } } })
 const MAX_PUZZLES = Number(values['max-puzzles'])

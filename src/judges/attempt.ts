@@ -3,11 +3,11 @@ import { judgeErrorSchema, judgeSuccessSchema, type JudgeRequest, type JudgeSucc
 // One cloud-judged guess (plan 3.7, 3.12), with a hard 10-second limit so nothing
 // arrives after the guess is over. Phase 2 has only the cloud judge.
 
-export const JUDGE_TIMEOUT_MS = 10_000
+const JUDGE_TIMEOUT_MS = 10_000
 
 export type CloudMessage = 'judge.cloud.timeout' | 'judge.cloud.unreachable' | 'net.offline' | 'session.botcheck'
 
-export type CloudOutcome =
+type CloudOutcome =
   | { kind: 'judged', result: JudgeSuccess }
   | { kind: 'busy', retryAfter: number }
   | { kind: 'resting', resetAt: string }
@@ -17,7 +17,7 @@ export type CloudOutcome =
 // Renews the session with a fresh Turnstile token: 'ok', or why it couldn't.
 export type RenewSession = () => Promise<'ok' | 'botcheck' | 'error'>
 
-export interface AttemptDeps {
+interface AttemptDeps {
   fetch?: typeof fetch
   isOnline?: () => boolean
   timeoutMs?: number

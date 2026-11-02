@@ -14,7 +14,7 @@ export interface Guess {
   closeCall: boolean
 }
 
-export type RoundStatus = 'playing' | 'solved' | 'lost' | 'skipped'
+type RoundStatus = 'playing' | 'solved' | 'lost' | 'skipped'
 
 export interface RoundState {
   status: RoundStatus

@@ -239,6 +239,9 @@ response. Scripts are self-hosted apart from Turnstile (`challenges.cloudflare.c
 and Cloudflare Web Analytics' beacon (`static.cloudflareinsights.com`, D-69);
 `'wasm-unsafe-eval'` lets onnxruntime compile its WebAssembly; `connect-src` allows
 the model download from `huggingface.co` and its CDN hosts under `hf.co` (D-57).
+It also lets browsers keep `/assets/*` for a year: those files are fingerprinted, and
+React and the router get their own chunk (`vite.config.ts`), so a deploy that
+changes only app code leaves that chunk cached.
 
 The Worker is served only at `quibble.ronaldbalutiu.com`, as a Workers custom
 domain; `workers.dev` and preview URLs are turned off so the app has a single
@@ -264,7 +267,9 @@ to enforce limits before buffering the complete request.
 
 Model replies are read by `worker/read-answers.ts`, which rejects anything that
 isn't the exact recorded shape. The bundled library, `worker/library/library.json`,
-is validated by `worker/library.ts` on first use.
+is checked before it ships rather than on each cold start: the compiler checks its
+shape against `worker/library.ts`'s type, and `npm run check-puzzles` validates it
+against `librarySchema` in CI, sparing the Worker's 10 ms CPU budget.
 
 ## Styling
 

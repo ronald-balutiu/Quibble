@@ -1,6 +1,6 @@
 import { en } from '@/copy/en'
 
-export interface ComparisonRow {
+interface ComparisonRow {
   label: string
   note: string
   cloud: string

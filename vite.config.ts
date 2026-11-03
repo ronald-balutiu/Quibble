@@ -7,7 +7,16 @@ import { dropRawOrtRuntime, ortRuntime, routePages, sitemap } from './scripts/vi
 export default defineConfig({
   // Browser tests mock every model call, so their preview server runs without remote
   // bindings and needs no Cloudflare login (CI has none).
-  plugins: [react(), cloudflare({ viteEnvironment: { name: 'worker' }, remoteBindings: process.env.QUIBBLE_REMOTE_BINDINGS !== 'false' }), ortRuntime(), sitemap(), routePages()],
+  plugins: [
+    react(),
+    cloudflare({
+      viteEnvironment: { name: 'worker' },
+      remoteBindings: process.env.QUIBBLE_REMOTE_BINDINGS !== 'false',
+    }),
+    ortRuntime(),
+    sitemap(),
+    routePages(),
+  ],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
@@ -34,7 +43,9 @@ export default defineConfig({
             // React and the router change rarely, so their own chunk keeps its hash,
             // and stays cached for a year (public/_headers), across deploys that
             // change only app code.
-            codeSplitting: { groups: [{ name: 'react', test: /node_modules[\\/](?:react|react-dom|react-router|scheduler)[\\/]/u }] },
+            codeSplitting: {
+              groups: [{ name: 'react', test: /node_modules[\\/](?:react|react-dom|react-router|scheduler)[\\/]/u }],
+            },
           },
         },
       },

@@ -21,7 +21,8 @@ export const deviceFiles = [
 export type DeviceFile = (typeof deviceFiles)[number]
 export const DEVICE_TOTAL_BYTES = deviceFiles.reduce((sum, file) => sum + file.bytes, 0)
 
-export const deviceFileUrl = (path: string) => `https://huggingface.co/${deviceModel.repo}/resolve/${deviceModel.revision}/${path}`
+export const deviceFileUrl = (path: string) =>
+  `https://huggingface.co/${deviceModel.repo}/resolve/${deviceModel.revision}/${path}`
 
 const MAX_TOKENS = 512
 const YES_TOKENS = [9405, 9175] // "yes", "Yes"
@@ -29,7 +30,11 @@ const NO_TOKENS = [2083, 2665] // "no", "No"
 
 // Builds tensors with the runtime's Tensor class: onnxruntime-web in the browser,
 // onnxruntime-node in Node.
-interface TensorData { int64: BigInt64Array, float16: Uint16Array, float32: Float32Array }
+interface TensorData {
+  int64: BigInt64Array
+  float16: Uint16Array
+  float32: Float32Array
+}
 export type TensorFactory = <T extends keyof TensorData>(type: T, data: TensorData[T], dims: number[]) => Tensor
 
 export function tensorFactory(TensorClass: typeof Tensor): TensorFactory {
@@ -62,9 +67,10 @@ function emptyState(session: InferenceSession, makeTensor: TensorFactory): Recor
     }
     const dims = input.shape.map((dim) => (dim === 'batch_size' ? 1 : typeof dim === 'string' ? 0 : dim))
     const size = dims.reduce((total, dim) => total * dim, 1)
-    state[input.name] = input.type === 'float16'
-      ? makeTensor('float16', new Uint16Array(size), dims)
-      : makeTensor('float32', new Float32Array(size), dims)
+    state[input.name] =
+      input.type === 'float16'
+        ? makeTensor('float16', new Uint16Array(size), dims)
+        : makeTensor('float32', new Float32Array(size), dims)
   }
   return state
 }

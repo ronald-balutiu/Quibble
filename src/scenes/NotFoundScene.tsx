@@ -17,13 +17,21 @@ export function NotFoundScene() {
       <section className="not-found-content" aria-labelledby="not-found-title">
         <p className="not-found-code">
           <span className="visually-hidden">{en['notFound.code']}</span>
-          <span className="not-found-code__digit" aria-hidden="true">{first}</span>
+          <span className="not-found-code__digit" aria-hidden="true">
+            {first}
+          </span>
           <AsciiMark />
-          <span className="not-found-code__digit" aria-hidden="true">{last}</span>
+          <span className="not-found-code__digit" aria-hidden="true">
+            {last}
+          </span>
         </p>
         <h1 id="not-found-title">{en['notFound.title']}</h1>
         <p>{en['notFound.body']}</p>
-        <div className="actions"><Link className="pill control-link" to={libraryPath()}>{en['nav.library']}</Link></div>
+        <div className="actions">
+          <Link className="pill control-link" to={libraryPath()}>
+            {en['nav.library']}
+          </Link>
+        </div>
       </section>
     </main>
   )

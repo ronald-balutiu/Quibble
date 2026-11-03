@@ -27,7 +27,14 @@ export interface RunState {
   finished: boolean
 }
 
-export const freshRound = (): RoundState => ({ status: 'playing', guesses: [], strikes: 0, pending: false, overruled: false, points: 0 })
+export const freshRound = (): RoundState => ({
+  status: 'playing',
+  guesses: [],
+  strikes: 0,
+  pending: false,
+  overruled: false,
+  points: 0,
+})
 
 export function startRunOf(length: number): RunState {
   return { current: 0, rounds: Array.from({ length }, freshRound), finished: false }
@@ -51,6 +58,6 @@ export const totalScore = (state: RunState) => state.rounds.reduce((total, round
 
 // A share grid from one [tile, text] mark per round: the coloured tiles, and a text
 // form that doesn't rely on colour (plan 1.4).
-export function shareGridOf(marks: readonly (readonly [string, string])[]): { tiles: string, text: string } {
+export function shareGridOf(marks: readonly (readonly [string, string])[]): { tiles: string; text: string } {
   return { tiles: marks.map(([tile]) => tile).join(''), text: marks.map(([, text]) => text).join(' ') }
 }

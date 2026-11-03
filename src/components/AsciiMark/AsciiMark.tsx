@@ -62,7 +62,15 @@ export function AsciiMark() {
   return (
     <div className="ascii-mark" aria-hidden="true">
       {LAYERS.map((name, i) => (
-        <pre key={name} className={`ascii-mark__layer ascii-mark__layer--${name}`} ref={(node) => { layers.current[i] = node }}>{STILL[i]}</pre>
+        <pre
+          key={name}
+          className={`ascii-mark__layer ascii-mark__layer--${name}`}
+          ref={(node) => {
+            layers.current[i] = node
+          }}
+        >
+          {STILL[i]}
+        </pre>
       ))}
     </div>
   )

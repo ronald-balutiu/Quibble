@@ -19,7 +19,12 @@ describe('progress storage', () => {
 
   test('judged guesses, skipped rounds and a zero-point completed run count as activity', () => {
     const start = startRun(oddlySpecificConfig)
-    saveRun('oddly-specific', 1, reduce(start, { type: 'judged', guess: { answer: 'a', pass: false, failed: ['a'], closeCall: false } }), 0)
+    saveRun(
+      'oddly-specific',
+      1,
+      reduce(start, { type: 'judged', guess: { answer: 'a', pass: false, failed: ['a'], closeCall: false } }),
+      0,
+    )
     expect(hasProgressActivity(loadProgress('oddly-specific', 1))).toBe(true)
     resetPuzzle('oddly-specific', 1)
     saveRun('oddly-specific', 1, reduce(start, { type: 'skip' }), 0)
@@ -40,7 +45,10 @@ describe('progress storage', () => {
   })
 
   test('saves and restores an in-progress run', () => {
-    const run = reduce(startRun(oddlySpecificConfig), { type: 'judged', guess: { answer: 'a', pass: true, failed: [], closeCall: false } })
+    const run = reduce(startRun(oddlySpecificConfig), {
+      type: 'judged',
+      guess: { answer: 'a', pass: true, failed: [], closeCall: false },
+    })
     expect(saveRun('oddly-specific', 3, run, 3)).toBe(true)
     expect(loadProgress('oddly-specific', 3)).toEqual({ run })
   })

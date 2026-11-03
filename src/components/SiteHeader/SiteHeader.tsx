@@ -12,7 +12,8 @@ export function SiteHeader() {
   const previousLocation = useRef(location)
   const navigate = useNavigate()
   const puzzle = matchPath('/play/:game/:n', location.pathname)
-  const selected = location.pathname === libraryPath() ? new URLSearchParams(location.search).get('game') : puzzle?.params.game
+  const selected =
+    location.pathname === libraryPath() ? new URLSearchParams(location.search).get('game') : puzzle?.params.game
   const game = gameIds.find((id) => id === selected)
   const library = libraryPath(game)
 
@@ -20,24 +21,41 @@ export function SiteHeader() {
     const previous = previousLocation.current
     previousLocation.current = location
     // Library query changes select a game within the same page.
-    if (previous.pathname === libraryPath() && location.pathname === libraryPath() && previous.search !== location.search && previous.hash === location.hash) return
+    if (
+      previous.pathname === libraryPath() &&
+      location.pathname === libraryPath() &&
+      previous.search !== location.search &&
+      previous.hash === location.hash
+    )
+      return
     if (location.hash) document.getElementById(location.hash.slice(1))?.scrollIntoView()
     else window.scrollTo(0, 0)
   }, [location])
 
   return (
     <header className="site-header">
-      <NavLink className="site-header__brand control-link" to="/" aria-label={en['nav.brand']}>{en['app.name']}</NavLink>
+      <NavLink className="site-header__brand control-link" to="/" aria-label={en['nav.brand']}>
+        {en['app.name']}
+      </NavLink>
       <nav className="site-header__nav" aria-label={en['nav.main']}>
-        <NavLink className="control-link" to="/" end>{en['nav.home']}</NavLink>
-        <NavLink className="control-link" to={library}>{en['nav.library']}</NavLink>
-        <NavLink className="control-link" to="/about">{en['nav.about']}</NavLink>
+        <NavLink className="control-link" to="/" end>
+          {en['nav.home']}
+        </NavLink>
+        <NavLink className="control-link" to={library}>
+          {en['nav.library']}
+        </NavLink>
+        <NavLink className="control-link" to="/about">
+          {en['nav.about']}
+        </NavLink>
       </nav>
       {/* A navigation closes the drawer, including its Privacy link on About. */}
-      <SettingsButton key={location.key} onProgressCleared={() => {
-        // Leave an active run so it cannot save itself again after being deleted.
-        if (puzzle) void navigate(library)
-      }} />
+      <SettingsButton
+        key={location.key}
+        onProgressCleared={() => {
+          // Leave an active run so it cannot save itself again after being deleted.
+          if (puzzle) void navigate(library)
+        }}
+      />
     </header>
   )
 }

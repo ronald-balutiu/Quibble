@@ -10,7 +10,9 @@ test('the settings drawer opens from the header and shows the unsupported device
   await expect(drawer).toBeVisible()
   await expect(drawer.getByRole('radio', { name: 'Cloud', exact: true })).toBeChecked()
   await expect(drawer.getByRole('radio', { name: 'On-device', exact: true })).toBeDisabled()
-  await expect(drawer.getByText('The on-device judge needs a desktop browser with WebGPU and enough memory.')).toBeVisible()
+  await expect(
+    drawer.getByText('The on-device judge needs a desktop browser with WebGPU and enough memory.'),
+  ).toBeVisible()
   await expect(drawer.getByRole('button', { name: 'Turn on' })).toHaveCount(0)
   await drawer.getByRole('button', { name: 'Close' }).click()
   await expect(drawer).toBeHidden()
@@ -60,7 +62,11 @@ test('Settings keeps its close button available and puts Privacy at the bottom',
   await expect(cloud).toBeInViewport()
   const clear = drawer.getByRole('button', { name: 'Clear game data', exact: true })
   await clear.scrollIntoViewIfNeeded()
-  const rowText = await drawer.locator('.drawer__row').filter({ hasText: 'Game progress' }).locator(':scope > span').boundingBox()
+  const rowText = await drawer
+    .locator('.drawer__row')
+    .filter({ hasText: 'Game progress' })
+    .locator(':scope > span')
+    .boundingBox()
   const clearBox = await clear.boundingBox()
   expect(clearBox!.y).toBeGreaterThanOrEqual(rowText!.y + rowText!.height)
   await drawer.getByRole('button', { name: 'Delete…', exact: true }).scrollIntoViewIfNeeded()
@@ -70,7 +76,11 @@ test('Settings keeps its close button available and puts Privacy at the bottom',
   await expect(privacy).toBeInViewport()
   expect((await header.boundingBox())!.y).toBe(before!.y)
   expect(await page.evaluate<number>('document.documentElement.scrollWidth')).toBeLessThanOrEqual(320)
-  expect(await page.evaluate<boolean>('document.querySelector(".drawer").scrollWidth <= document.querySelector(".drawer").clientWidth')).toBe(true)
+  expect(
+    await page.evaluate<boolean>(
+      'document.querySelector(".drawer").scrollWidth <= document.querySelector(".drawer").clientWidth',
+    ),
+  ).toBe(true)
   await close.click()
   await expect(settings).toBeFocused()
 })
@@ -107,7 +117,9 @@ for (const action of ['Clear game data', 'Delete…']) {
     await expect(page.getByRole('dialog')).toHaveCount(0)
     await expect(page.getByRole('link', { name: /^Start #001/u })).toBeVisible()
     await page.reload()
-    expect(await page.evaluate(() => Object.keys(localStorage).filter((k) => k.startsWith('quibble:progress:')))).toEqual([])
+    expect(
+      await page.evaluate(() => Object.keys(localStorage).filter((k) => k.startsWith('quibble:progress:'))),
+    ).toEqual([])
   })
 }
 

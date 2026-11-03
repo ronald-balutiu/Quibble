@@ -80,7 +80,9 @@ test('a whole Double Agent puzzle can be played with the keyboard alone', async 
   await expect(rejected).toBeVisible()
   await expect(rejected.getByRole('img', { name: 'Judge rejected this rule', exact: true })).toHaveCount(1)
   await expect(rejected.getByRole('img', { name: 'Judge accepted this rule', exact: true })).toHaveCount(1)
-  await expect(guesses.getByRole('row', { name: /charge/u }).getByRole('img', { name: 'Judge accepted this rule', exact: true })).toHaveCount(2)
+  await expect(
+    guesses.getByRole('row', { name: /charge/u }).getByRole('img', { name: 'Judge accepted this rule', exact: true }),
+  ).toHaveCount(2)
   await rows.nth(2).locator(':scope > summary').click()
   await expect(rows.nth(2)).toContainText('bat')
   await rows.nth(2).locator('.run-review__history > summary').click()

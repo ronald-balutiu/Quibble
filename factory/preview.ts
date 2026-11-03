@@ -8,32 +8,48 @@ import { puzzleIndexSchema, puzzleSchema } from '@shared/schemas/puzzle'
 import { librarySchema } from '../worker/library'
 import { seeded, shuffled } from './generators/rounds'
 
-const { values } = parseArgs({ options: { 'per-game': { type: 'string', default: '10' }, seed: { type: 'string', default: String(Date.now()) } } })
+const { values } = parseArgs({
+  options: { 'per-game': { type: 'string', default: '10' }, seed: { type: 'string', default: String(Date.now()) } },
+})
 const read = (path: string): unknown => JSON.parse(readFileSync(path, 'utf8'))
 const index = puzzleIndexSchema.parse(read('public/puzzles/index.json'))
 const library = librarySchema.parse(read('worker/library/library.json'))
 const next = seeded(Number(values.seed))
 const escape = (text: string) => text.replace(/[&<>"]/gu, (c) => `&#${String(c.charCodeAt(0))};`)
 
-const sections = Object.entries(index).map(([game, entries]) => {
-  const sample = shuffled(entries, next).slice(0, Number(values['per-game'])).sort((a, b) => a.n - b.n)
-  const puzzles = sample.map(({ n, difficulty }) => {
-    const file = puzzleSchema.parse(read(`public/puzzles/${game}/${String(n)}.json`))
-    const stored = library.puzzles[file.game]?.[String(n)]
-    const rounds = file.rounds.map((round, i) => {
-      const lib = stored?.rounds[round.id]
-      const path = stored?.path?.[i]
-      return `<tr><th>${round.id}</th><td>${round.conditions.map(({ label }) => escape(label)).join('<br>')}</td>`
-        + `<td>${(lib?.known ?? []).map((answer) => (answer === lib?.example ? `<b>${escape(answer)}</b>` : escape(answer))).join(', ')}</td>`
-        + `<td>${path ? escape(path) : ''}</td></tr>`
-    }).join('')
-    return `<article><h3>${escape(game)} ${String(n)} <small>${difficulty}</small></h3>`
-      + `<table><thead><tr><th></th><th>Conditions</th><th>Known (example in bold)</th><th>Path</th></tr></thead><tbody>${rounds}</tbody></table></article>`
-  }).join('')
-  return `<section><h2>${escape(game)} (${String(sample.length)} of ${String(entries.length)})</h2>${puzzles}</section>`
-}).join('')
+const sections = Object.entries(index)
+  .map(([game, entries]) => {
+    const sample = shuffled(entries, next)
+      .slice(0, Number(values['per-game']))
+      .sort((a, b) => a.n - b.n)
+    const puzzles = sample
+      .map(({ n, difficulty }) => {
+        const file = puzzleSchema.parse(read(`public/puzzles/${game}/${String(n)}.json`))
+        const stored = library.puzzles[file.game]?.[String(n)]
+        const rounds = file.rounds
+          .map((round, i) => {
+            const lib = stored?.rounds[round.id]
+            const path = stored?.path?.[i]
+            return (
+              `<tr><th>${round.id}</th><td>${round.conditions.map(({ label }) => escape(label)).join('<br>')}</td>` +
+              `<td>${(lib?.known ?? []).map((answer) => (answer === lib?.example ? `<b>${escape(answer)}</b>` : escape(answer))).join(', ')}</td>` +
+              `<td>${path ? escape(path) : ''}</td></tr>`
+            )
+          })
+          .join('')
+        return (
+          `<article><h3>${escape(game)} ${String(n)} <small>${difficulty}</small></h3>` +
+          `<table><thead><tr><th></th><th>Conditions</th><th>Known (example in bold)</th><th>Path</th></tr></thead><tbody>${rounds}</tbody></table></article>`
+        )
+      })
+      .join('')
+    return `<section><h2>${escape(game)} (${String(sample.length)} of ${String(entries.length)})</h2>${puzzles}</section>`
+  })
+  .join('')
 
-writeFileSync('factory/preview.html', `<!doctype html>
+writeFileSync(
+  'factory/preview.html',
+  `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Puzzle spot-check</title>
 <style>
@@ -46,5 +62,6 @@ small { font-weight: normal; opacity: 0.6; }
 <p>Seed ${escape(values.seed)}. Log any problem in factory/reports/spot-check.md. More than 1 in 10 per game means fixing the cause and drawing a new sample (plan 3.9).</p>
 ${sections}
 </body></html>
-`)
+`,
+)
 console.log(`Wrote factory/preview.html (seed ${values.seed}).`)

@@ -17,11 +17,21 @@ describe('Library progress', () => {
     expect(statusOf('oddly-specific', { best: 15, run })).toEqual({ status: 'perfect', best: 15 })
     run.rounds[0]!.status = 'skipped'
     run.current = 1
-    expect(statusOf('oddly-specific', { best: 15, run })).toEqual({ status: 'open', best: 15, round: 2, progress: { done: 1, total: 5 } })
+    expect(statusOf('oddly-specific', { best: 15, run })).toEqual({
+      status: 'open',
+      best: 15,
+      round: 2,
+      progress: { done: 1, total: 5 },
+    })
   })
 
   test('reads each indexed puzzle once and supplies empty games', () => {
-    const index: PuzzleIndex = { 'oddly-specific': [{ n: 1, difficulty: 'easy' }, { n: 2, difficulty: 'hard' }] }
+    const index: PuzzleIndex = {
+      'oddly-specific': [
+        { n: 1, difficulty: 'easy' },
+        { n: 2, difficulty: 'hard' },
+      ],
+    }
     const load = vi.fn(() => ({ best: 0 }))
     const entries = libraryEntries(index, load)
     expect(load).toHaveBeenCalledTimes(2)

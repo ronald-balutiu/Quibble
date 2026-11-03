@@ -8,4 +8,6 @@ const history = evalHistorySchema.parse(JSON.parse(readFileSync('eval/history.js
 const devices = JSON.parse(readFileSync('eval/device-measurements.json', 'utf8')) as unknown
 const results = buildResults(history, devices)
 writeFileSync('public/eval/results.json', `${JSON.stringify(results, null, 2)}\n`)
-console.log(`public/eval/results.json: ${Object.keys(results.test.judges).join(', ')} on ${String(results.test.cases)} test cases; ${String(results.builds.length)} builds; ${String(results.devices.length)} device(s).`)
+console.log(
+  `public/eval/results.json: ${Object.keys(results.test.judges).join(', ')} on ${String(results.test.cases)} test cases; ${String(results.builds.length)} builds; ${String(results.devices.length)} device(s).`,
+)

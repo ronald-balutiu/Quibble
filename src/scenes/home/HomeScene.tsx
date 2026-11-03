@@ -21,10 +21,14 @@ export function HomeScene() {
           <h1>{en['home.title']}</h1>
           <p className="welcome-lede">{en['welcome.lede']}</p>
           <div className="welcome-actions">
-            <Link className="pill control-link" to={libraryPath()}>{en['welcome.choose']}</Link>
+            <Link className="pill control-link" to={libraryPath()}>
+              {en['welcome.choose']}
+            </Link>
           </div>
         </section>
-        <div className="welcome-mark"><RingMark /></div>
+        <div className="welcome-mark">
+          <RingMark />
+        </div>
       </div>
       <section className="welcome-section" id="games" aria-labelledby="welcome-games">
         <h2 id="welcome-games">{en['welcome.games']}</h2>

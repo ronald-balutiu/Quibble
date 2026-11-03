@@ -5,10 +5,16 @@ import type { JudgeRequest } from '@shared/schemas/judge'
 const request: JudgeRequest = { game: 'oddly-specific', n: 1, roundId: 'r1', answer: 'pocket knife', attempt: 4 }
 const success = { attempt: 4, model: 'clef-flash', modelMs: 200, conditions: { pocket: { pass: true, p: 0.8 } } }
 const ok: RenewSession = () => Promise.resolve('ok')
-const reply = (status: number, body?: unknown) => Promise.resolve(body === undefined ? new Response('nope', { status }) : Response.json(body, { status }))
+const reply = (status: number, body?: unknown) =>
+  Promise.resolve(body === undefined ? new Response('nope', { status }) : Response.json(body, { status }))
 
 function run(fetchImpl: typeof fetch, { renew = ok, online = true, timeoutMs = 1000 } = {}) {
-  return judgeOnCloud(request, renew, { fetch: vi.fn(fetchImpl), isOnline: () => online, timeoutMs, now: () => new Date('2026-10-29T12:00:00Z') })
+  return judgeOnCloud(request, renew, {
+    fetch: vi.fn(fetchImpl),
+    isOnline: () => online,
+    timeoutMs,
+    now: () => new Date('2026-10-29T12:00:00Z'),
+  })
 }
 
 describe('judgeOnCloud', () => {
@@ -17,11 +23,17 @@ describe('judgeOnCloud', () => {
   })
 
   test('treats a reply for another attempt as unreachable', async () => {
-    expect(await run(() => reply(200, { ...success, attempt: 3 }))).toEqual({ kind: 'error', message: 'judge.cloud.unreachable' })
+    expect(await run(() => reply(200, { ...success, attempt: 3 }))).toEqual({
+      kind: 'error',
+      message: 'judge.cloud.unreachable',
+    })
   })
 
   test('renews an expired session once, then resends', async () => {
-    const fetchImpl = vi.fn().mockReturnValueOnce(reply(401, { error: 'session' })).mockReturnValueOnce(reply(200, success))
+    const fetchImpl = vi
+      .fn()
+      .mockReturnValueOnce(reply(401, { error: 'session' }))
+      .mockReturnValueOnce(reply(200, success))
     const renew = vi.fn(ok)
     expect(await judgeOnCloud(request, renew, { fetch: fetchImpl })).toMatchObject({ kind: 'judged' })
     expect(renew).toHaveBeenCalledTimes(1)
@@ -32,12 +44,19 @@ describe('judgeOnCloud', () => {
     ['botcheck', 'session.botcheck'],
     ['error', 'judge.cloud.unreachable'],
   ] as const)('maps a %s renewal to %s', async (renewal, message) => {
-    expect(await run(() => reply(401, { error: 'session' }), { renew: () => Promise.resolve(renewal) })).toEqual({ kind: 'error', message })
+    expect(await run(() => reply(401, { error: 'session' }), { renew: () => Promise.resolve(renewal) })).toEqual({
+      kind: 'error',
+      message,
+    })
   })
 
   test.each([
     [429, { attempt: 4, error: 'busy', retryAfter: 60 }, { kind: 'busy', retryAfter: 60 }],
-    [503, { attempt: 4, error: 'resting', resetAt: '2026-10-30T00:00:00.000Z' }, { kind: 'resting', resetAt: '2026-10-30T00:00:00.000Z' }],
+    [
+      503,
+      { attempt: 4, error: 'resting', resetAt: '2026-10-30T00:00:00.000Z' },
+      { kind: 'resting', resetAt: '2026-10-30T00:00:00.000Z' },
+    ],
     [400, { attempt: 4, error: 'invalid' }, { kind: 'invalid' }],
     [502, { attempt: 4, error: 'unavailable' }, { kind: 'error', message: 'judge.cloud.unreachable' }],
     [500, undefined, { kind: 'error', message: 'judge.cloud.unreachable' }],
@@ -53,11 +72,20 @@ describe('judgeOnCloud', () => {
     const controller = new AbortController()
     const error = new DOMException('aborted', 'TimeoutError')
     const timeout = vi.spyOn(AbortSignal, 'timeout').mockReturnValue(controller.signal)
-    const hang = vi.fn<typeof fetch>((_input, init) => new Promise<Response>((_, reject) => {
-      const signal = init?.signal
-      if (!signal) throw new Error('Fetch must receive the timeout signal')
-      signal.addEventListener('abort', () => { reject(error) }, { once: true })
-    }))
+    const hang = vi.fn<typeof fetch>(
+      (_input, init) =>
+        new Promise<Response>((_, reject) => {
+          const signal = init?.signal
+          if (!signal) throw new Error('Fetch must receive the timeout signal')
+          signal.addEventListener(
+            'abort',
+            () => {
+              reject(error)
+            },
+            { once: true },
+          )
+        }),
+    )
     const judging = run(hang, { timeoutMs: 10 })
     expect(timeout).toHaveBeenCalledExactlyOnceWith(10)
     expect(hang).toHaveBeenCalledExactlyOnceWith('/api/judge', expect.objectContaining({ signal: controller.signal }))

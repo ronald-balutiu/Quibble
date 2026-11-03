@@ -10,7 +10,8 @@ export class DownloadError extends Error {
   }
 }
 
-const aborted = (signal: AbortSignal) => signal.reason instanceof Error ? signal.reason : new DOMException('Cancelled', 'AbortError')
+const aborted = (signal: AbortSignal) =>
+  signal.reason instanceof Error ? signal.reason : new DOMException('Cancelled', 'AbortError')
 
 function allocate(size: number): Uint8Array<ArrayBuffer> {
   try {
@@ -22,11 +23,18 @@ function allocate(size: number): Uint8Array<ArrayBuffer> {
 
 // Reads a body into one preallocated buffer of the file's exact size, reporting
 // each chunk as it lands so the progress view follows the real bytes (5.3).
-export async function readInto(response: Response, size: number, onBytes: (bytes: number) => void, signal: AbortSignal): Promise<Uint8Array<ArrayBuffer>> {
+export async function readInto(
+  response: Response,
+  size: number,
+  onBytes: (bytes: number) => void,
+  signal: AbortSignal,
+): Promise<Uint8Array<ArrayBuffer>> {
   const buffer = allocate(size)
   const reader = response.body?.getReader()
   if (!reader) throw new DownloadError('network')
-  const stop = () => { void reader.cancel().catch(() => undefined) }
+  const stop = () => {
+    void reader.cancel().catch(() => undefined)
+  }
   signal.addEventListener('abort', stop, { once: true })
   let offset = 0
   try {

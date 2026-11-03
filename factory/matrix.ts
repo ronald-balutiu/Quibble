@@ -4,7 +4,11 @@ import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import { restRunner } from './workers-ai'
 
 // clef holds re-checks made before D-68; gemma holds re-checks and confirmations since.
-export interface Cell { flash: number, clef?: number, gemma?: number }
+export interface Cell {
+  flash: number
+  clef?: number
+  gemma?: number
+}
 export type Matrix = Record<string, Record<string, Cell>>
 type Truth = 'yes' | 'no' | 'unknown'
 
@@ -20,24 +24,41 @@ export function truth(cell: Cell | undefined): Truth {
   return 'unknown'
 }
 
-export const isUncertain = (cell: Cell) => cell.flash > UNCERTAIN.low && cell.flash < UNCERTAIN.high
-  && cell.clef === undefined && cell.gemma === undefined
+export const isUncertain = (cell: Cell) =>
+  cell.flash > UNCERTAIN.low && cell.flash < UNCERTAIN.high && cell.clef === undefined && cell.gemma === undefined
 
-export const readJson = <T>(path: string, fallback: T): T => (existsSync(path) ? JSON.parse(readFileSync(path, 'utf8')) as T : fallback)
-export const writeJson = (path: string, value: unknown) => { writeFileSync(path, `${JSON.stringify(value, null, 2)}\n`) }
+export const readJson = <T>(path: string, fallback: T): T =>
+  existsSync(path) ? (JSON.parse(readFileSync(path, 'utf8')) as T) : fallback
+export const writeJson = (path: string, value: unknown) => {
+  writeFileSync(path, `${JSON.stringify(value, null, 2)}\n`)
+}
 
-export interface LedgerEntry { date: string, step: string, model: string, requests: number, neurons: number }
+export interface LedgerEntry {
+  date: string
+  step: string
+  model: string
+  requests: number
+  neurons: number
+}
 
 // Spends Neurons through one REST runner and records the total in the ledger.
 export function budgetedRunner(maxNeurons: number) {
   let spent = 0 // since the last ledger entry
   let total = 0 // this run, for the cap
   let requests = 0
-  const ai = restRunner((neurons) => { spent += neurons; total += neurons; requests += 1 })
+  const ai = restRunner((neurons) => {
+    spent += neurons
+    total += neurons
+    requests += 1
+  })
   return {
     ai,
-    get spent() { return spent },
-    get exhausted() { return total >= maxNeurons },
+    get spent() {
+      return spent
+    },
+    get exhausted() {
+      return total >= maxNeurons
+    },
     record(step: string, model: string) {
       if (requests === 0) return
       const ledger = readJson<LedgerEntry[]>('factory/ledger.json', [])

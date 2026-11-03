@@ -8,10 +8,16 @@ import type { FromWorker, ToWorker } from '../../src/judges/device/protocol'
 // It loads the built worker directly and talks to it over the same protocol as the
 // game (src/judges/device/protocol.ts).
 
-interface ParityCase { id: string, answer: string, claim: string }
+interface ParityCase {
+  id: string
+  answer: string
+  claim: string
+}
 const fixtures = 'tests/fixtures/verdict'
 const cases = JSON.parse(readFileSync(`${fixtures}/cases.json`, 'utf8')) as ParityCase[]
-const reference = JSON.parse(readFileSync(`${fixtures}/python-reference.json`, 'utf8')) as { results: { id: string, p: number }[] }
+const reference = JSON.parse(readFileSync(`${fixtures}/python-reference.json`, 'utf8')) as {
+  results: { id: string; p: number }[]
+}
 const workerFile = readdirSync('dist/client/assets').find((file) => /^worker-.*\.js$/u.test(file))
 
 // The page's Worker, typed here because this project has no DOM types.
@@ -21,79 +27,101 @@ interface PageWorker {
   postMessage: (message: ToWorker) => void
   terminate: () => void
 }
-interface PageGlobals { Worker: new (url: string, options: { type: 'module' }) => PageWorker, judge: PageWorker }
+interface PageGlobals {
+  Worker: new (url: string, options: { type: 'module' }) => PageWorker
+  judge: PageWorker
+}
 
 // Resident memory of the test's Chrome, all processes together: they are the ones
 // started with Playwright's temporary profile. On a Mac, WebGPU buffers count here too.
 function chromeMegabytes(): number {
   const lines = execFileSync('ps', ['-axo', 'rss=,command='], { encoding: 'utf8' }).split('\n')
-  const kb = lines.filter((line) => line.includes('playwright_chromiumdev_profile')).reduce((sum, line) => sum + Number.parseInt(line, 10), 0)
+  const kb = lines
+    .filter((line) => line.includes('playwright_chromiumdev_profile'))
+    .reduce((sum, line) => sum + Number.parseInt(line, 10), 0)
   return Math.round(kb / 1024)
 }
 
 // Starts the worker in the page and returns how long the cold load took.
 async function startJudge(page: Page): Promise<number> {
   await page.goto('/')
-  return page.evaluate(async (url) => {
-    const page = globalThis as unknown as PageGlobals
-    const worker = new page.Worker(url, { type: 'module' })
-    page.judge = worker
-    const started = performance.now()
-    try {
-      await new Promise<void>((resolve, reject) => {
-        worker.onerror = ({ message }) => { reject(new Error(`worker failed: ${message}`)) }
-        worker.onmessage = ({ data }) => {
-          if (data.type === 'ready') resolve()
-          if (data.type === 'failed') reject(new Error(`load failed: ${data.reason}`))
-        }
-        worker.postMessage({ type: 'load' })
-      })
-    } catch (error) {
-      worker.terminate()
-      throw error
-    }
-    return performance.now() - started
-  }, `/assets/${String(workerFile)}`)
+  return page.evaluate(
+    async (url) => {
+      const page = globalThis as unknown as PageGlobals
+      const worker = new page.Worker(url, { type: 'module' })
+      page.judge = worker
+      const started = performance.now()
+      try {
+        await new Promise<void>((resolve, reject) => {
+          worker.onerror = ({ message }) => {
+            reject(new Error(`worker failed: ${message}`))
+          }
+          worker.onmessage = ({ data }) => {
+            if (data.type === 'ready') resolve()
+            if (data.type === 'failed') reject(new Error(`load failed: ${data.reason}`))
+          }
+          worker.postMessage({ type: 'load' })
+        })
+      } catch (error) {
+        worker.terminate()
+        throw error
+      }
+      return performance.now() - started
+    },
+    `/assets/${String(workerFile)}`,
+  )
 }
 
 // Scores claims as one guess and returns the scores and the guess's time in ms.
-function score(page: Page, answer: string, claims: { id: string, claim: string }[]) {
-  return page.evaluate(async ({ answer, claims }) => {
-    const worker = (globalThis as unknown as PageGlobals).judge
-    const started = performance.now()
-    const scores = await new Promise<Record<string, number>>((resolve, reject) => {
-      worker.onerror = ({ message }) => { reject(new Error(`worker failed: ${message}`)) }
-      worker.onmessage = ({ data }) => {
-        if (data.type === 'scored') resolve(data.scores)
-        if (data.type === 'scoreFailed') reject(new Error('score failed'))
-      }
-      worker.postMessage({ type: 'score', id: 1, answer, claims })
-    })
-    return { scores, ms: performance.now() - started }
-  }, { answer, claims })
+function score(page: Page, answer: string, claims: { id: string; claim: string }[]) {
+  return page.evaluate(
+    async ({ answer, claims }) => {
+      const worker = (globalThis as unknown as PageGlobals).judge
+      const started = performance.now()
+      const scores = await new Promise<Record<string, number>>((resolve, reject) => {
+        worker.onerror = ({ message }) => {
+          reject(new Error(`worker failed: ${message}`))
+        }
+        worker.onmessage = ({ data }) => {
+          if (data.type === 'scored') resolve(data.scores)
+          if (data.type === 'scoreFailed') reject(new Error('score failed'))
+        }
+        worker.postMessage({ type: 'score', id: 1, answer, claims })
+      })
+      return { scores, ms: performance.now() - started }
+    },
+    { answer, claims },
+  )
 }
 
 // Starts a second download in a fresh worker and stops it a third of the way in,
 // with Cancel or with turning the judge off; returns how long the stop took.
 function stopMidDownload(page: Page, stop: 'cancel' | 'delete'): Promise<number> {
-  return page.evaluate(async ({ url, stop }) => {
-    const worker = new (globalThis as unknown as PageGlobals).Worker(url, { type: 'module' })
-    let asked = 0
-    try {
-      return await new Promise<number>((resolve, reject) => {
-        worker.onerror = ({ message }) => { reject(new Error(`worker failed: ${message}`)) }
-        worker.onmessage = ({ data }) => {
-          if (data.type === 'progress' && !asked && data.received > data.total / 3) {
-            asked = performance.now()
-            worker.postMessage({ type: stop })
+  return page.evaluate(
+    async ({ url, stop }) => {
+      const worker = new (globalThis as unknown as PageGlobals).Worker(url, { type: 'module' })
+      let asked = 0
+      try {
+        return await new Promise<number>((resolve, reject) => {
+          worker.onerror = ({ message }) => {
+            reject(new Error(`worker failed: ${message}`))
           }
-          if (data.type === (stop === 'cancel' ? 'cancelled' : 'deleted')) resolve(performance.now() - asked)
-          if (data.type === 'ready' || data.type === 'failed') reject(new Error(`not stopped: ${data.type}`))
-        }
-        worker.postMessage({ type: 'load' })
-      })
-    } finally { worker.terminate() }
-  }, { url: `/assets/${String(workerFile)}`, stop })
+          worker.onmessage = ({ data }) => {
+            if (data.type === 'progress' && !asked && data.received > data.total / 3) {
+              asked = performance.now()
+              worker.postMessage({ type: stop })
+            }
+            if (data.type === (stop === 'cancel' ? 'cancelled' : 'deleted')) resolve(performance.now() - asked)
+            if (data.type === 'ready' || data.type === 'failed') reject(new Error(`not stopped: ${data.type}`))
+          }
+          worker.postMessage({ type: 'load' })
+        })
+      } finally {
+        worker.terminate()
+      }
+    },
+    { url: `/assets/${String(workerFile)}`, stop },
+  )
 }
 
 test('WebGPU scores match the Python reference within 0.02, and speed is recorded', async ({ page, browser }) => {
@@ -104,11 +132,13 @@ test('WebGPU scores match the Python reference within 0.02, and speed is recorde
   // Whole guesses of three claims, as in Oddly Specific. The first after the load is
   // the cold run, which includes WebGPU's start-up work.
   const three = cases.slice(0, 3).map(({ id, claim }) => ({ id, claim }))
-  const results: { id: string, p: number }[] = []
+  const results: { id: string; p: number }[] = []
   const warm: number[] = []
   let coldMs: number
   let first: number
-  const sampler = setInterval(() => { peakMb = Math.max(peakMb, chromeMegabytes()) }, 250)
+  const sampler = setInterval(() => {
+    peakMb = Math.max(peakMb, chromeMegabytes())
+  }, 250)
   try {
     coldMs = await startJudge(page)
     first = (await score(page, 'coin', three)).ms
@@ -121,7 +151,9 @@ test('WebGPU scores match the Python reference within 0.02, and speed is recorde
       expect(Math.abs(p - Number(expected)), id).toBeLessThanOrEqual(0.02)
     }
     for (let i = 0; i < 20; i++) warm.push((await score(page, cases[i % cases.length]?.answer ?? 'coin', three)).ms)
-  } finally { clearInterval(sampler) }
+  } finally {
+    clearInterval(sampler)
+  }
   const settledMb = chromeMegabytes()
   peakMb = Math.max(peakMb, settledMb)
   warm.sort((a, b) => a - b)
@@ -145,10 +177,17 @@ test('WebGPU scores match the Python reference within 0.02, and speed is recorde
   }
   const path = 'eval/device-measurements.json'
   let recorded: (typeof device)[] = []
-  try { recorded = JSON.parse(readFileSync(path, 'utf8')) as (typeof device)[] } catch { /* first run */ }
+  try {
+    recorded = JSON.parse(readFileSync(path, 'utf8')) as (typeof device)[]
+  } catch {
+    /* first run */
+  }
   // Publish fixtures only once parity and all measurements have succeeded.
   const runtime = 'onnxruntime-web 1.31.1 (WebGPU, q4)'
   writeFileSync(`${fixtures}/browser-webgpu.json`, `${JSON.stringify({ runtime, results }, null, 2)}\n`)
-  writeFileSync(path, `${JSON.stringify([...recorded.filter((d) => d.machine !== device.machine || d.browser !== device.browser), device], null, 2)}\n`)
+  writeFileSync(
+    path,
+    `${JSON.stringify([...recorded.filter((d) => d.machine !== device.machine || d.browser !== device.browser), device], null, 2)}\n`,
+  )
   console.log(JSON.stringify(device))
 })

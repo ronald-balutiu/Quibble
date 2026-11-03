@@ -7,11 +7,13 @@ export interface AiRunner {
   run(model: string, inputs: unknown, options?: { signal?: AbortSignal }): Promise<unknown>
 }
 
-export interface JudgeQuestion { id: string, question: string }
+export interface JudgeQuestion {
+  id: string
+  question: string
+}
 
 type CloudVerdict =
-  | { ok: true, scores: Record<string, number>, modelMs: number }
-  | { ok: false, error: 'resting' | 'unavailable' }
+  { ok: true; scores: Record<string, number>; modelMs: number } | { ok: false; error: 'resting' | 'unavailable' }
 
 interface JudgeOptions {
   model?: ClefModel
@@ -37,17 +39,26 @@ function errorCode(error: unknown): number | undefined {
 }
 
 export function isDailyAllowance(error: unknown): boolean {
-  return DAILY_ALLOWANCE.has(errorCode(error) ?? 0) || (error instanceof Error && /daily free allocation/iu.test(error.message))
+  return (
+    DAILY_ALLOWANCE.has(errorCode(error) ?? 0) ||
+    (error instanceof Error && /daily free allocation/iu.test(error.message))
+  )
 }
 
 function isTimeout(error: unknown): boolean {
-  return (error instanceof Error && (error.name === 'TimeoutError' || error.name === 'AbortError'))
-    || TIMEOUT_CODES.has(errorCode(error) ?? 0)
+  return (
+    (error instanceof Error && (error.name === 'TimeoutError' || error.name === 'AbortError')) ||
+    TIMEOUT_CODES.has(errorCode(error) ?? 0)
+  )
 }
 
 // Runs one model call, retrying once on a timeout or an uncoded (upstream) failure
 // only; usage, auth and validation errors carry a code and are not retried.
-async function withRetry(call: () => Promise<CloudVerdict>, retryDelayMs: number, sleep: (ms: number) => Promise<void>): Promise<CloudVerdict> {
+async function withRetry(
+  call: () => Promise<CloudVerdict>,
+  retryDelayMs: number,
+  sleep: (ms: number) => Promise<void>,
+): Promise<CloudVerdict> {
   for (let attempt = 0; attempt < 2; attempt++) {
     if (attempt > 0) await sleep(retryDelayMs)
     try {
@@ -72,12 +83,16 @@ export function judgeWithClef(
     questions: Object.fromEntries(questions.map(({ id, question }) => [id, { type: 'noul', instructions: question }])),
   }
   const ids = questions.map(({ id }) => id)
-  return withRetry(async () => {
-    const started = Date.now()
-    const response = await ai.run(`@cf/cloudflare/${model}`, inputs, { signal: AbortSignal.timeout(timeoutMs) })
-    const read = readAnswers(response, model, ids)
-    return read.ok ? { ok: true, scores: read.scores, modelMs: Date.now() - started } : UNAVAILABLE
-  }, retryDelayMs, sleep)
+  return withRetry(
+    async () => {
+      const started = Date.now()
+      const response = await ai.run(`@cf/cloudflare/${model}`, inputs, { signal: AbortSignal.timeout(timeoutMs) })
+      const read = readAnswers(response, model, ids)
+      return read.ok ? { ok: true, scores: read.scores, modelMs: Date.now() - started } : UNAVAILABLE
+    },
+    retryDelayMs,
+    sleep,
+  )
 }
 
 // Gemma 4 (D-62): one chat request per condition, sent in parallel, reading P(yes)
@@ -86,7 +101,9 @@ const GEMMA_MODEL = '@cf/google/gemma-4-26b-a4b-it'
 
 export function gemmaRequest(answer: string, question: string) {
   return {
-    messages: [{ role: 'user', content: `The player answered: "${answer}".\n\n${question}\n\nAnswer with only YES or NO.` }],
+    messages: [
+      { role: 'user', content: `The player answered: "${answer}".\n\n${question}\n\nAnswer with only YES or NO.` },
+    ],
     chat_template_kwargs: { enable_thinking: false },
     temperature: 0,
     max_completion_tokens: 1,
@@ -101,12 +118,22 @@ export function judgeWithGemma(
   questions: readonly JudgeQuestion[],
   { timeoutMs = TIMEOUT_MS, retryDelayMs = RETRY_DELAY_MS, sleep = wait }: Omit<JudgeOptions, 'model'> = {},
 ): Promise<CloudVerdict> {
-  return withRetry(async () => {
-    const started = Date.now()
-    const signal = AbortSignal.timeout(timeoutMs)
-    const replies = await Promise.all(questions.map(({ question }) => ai.run(GEMMA_MODEL, gemmaRequest(answer, question), { signal })))
-    const scores = replies.map(readGemma)
-    if (!scores.every((p): p is number => p !== undefined)) return UNAVAILABLE
-    return { ok: true, scores: Object.fromEntries(questions.map(({ id }, i) => [id, scores[i] ?? 0])), modelMs: Date.now() - started }
-  }, retryDelayMs, sleep)
+  return withRetry(
+    async () => {
+      const started = Date.now()
+      const signal = AbortSignal.timeout(timeoutMs)
+      const replies = await Promise.all(
+        questions.map(({ question }) => ai.run(GEMMA_MODEL, gemmaRequest(answer, question), { signal })),
+      )
+      const scores = replies.map(readGemma)
+      if (!scores.every((p): p is number => p !== undefined)) return UNAVAILABLE
+      return {
+        ok: true,
+        scores: Object.fromEntries(questions.map(({ id }, i) => [id, scores[i] ?? 0])),
+        modelMs: Date.now() - started,
+      }
+    },
+    retryDelayMs,
+    sleep,
+  )
 }

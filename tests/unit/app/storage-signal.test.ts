@@ -9,7 +9,9 @@ import { installStorage, MemoryStorage } from './support/storage'
 
 test('uses one cross-tab listener while subscribed, filters storage areas and keys, then cleans up', () => {
   let dispatch!: (event: Partial<StorageEvent>) => void
-  const add = vi.fn((_type: string, listener: typeof dispatch) => { dispatch = listener })
+  const add = vi.fn((_type: string, listener: typeof dispatch) => {
+    dispatch = listener
+  })
   const remove = vi.fn()
   vi.stubGlobal('addEventListener', add)
   vi.stubGlobal('removeEventListener', remove)

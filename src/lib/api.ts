@@ -8,7 +8,10 @@ export type SessionResult = 'ok' | 'botcheck' | 'error'
 export async function startSession(turnstileToken: string, fetchImpl: typeof fetch = fetch): Promise<SessionResult> {
   try {
     const response = await fetchImpl('/api/session', {
-      method: 'POST', body: JSON.stringify({ turnstileToken }), headers: { 'Content-Type': 'application/json' }, credentials: 'same-origin',
+      method: 'POST',
+      body: JSON.stringify({ turnstileToken }),
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'same-origin',
     })
     if (response.ok) return 'ok'
     return response.status === 401 ? 'botcheck' : 'error'
@@ -17,9 +20,16 @@ export async function startSession(turnstileToken: string, fetchImpl: typeof fet
   }
 }
 
-export async function fetchReveal(game: string, n: number, roundId: string, fetchImpl: typeof fetch = fetch): Promise<Reveal | undefined> {
+export async function fetchReveal(
+  game: string,
+  n: number,
+  roundId: string,
+  fetchImpl: typeof fetch = fetch,
+): Promise<Reveal | undefined> {
   try {
-    const response = await fetchImpl(`/api/reveal/${encodeURIComponent(game)}/${String(n)}/${encodeURIComponent(roundId)}`)
+    const response = await fetchImpl(
+      `/api/reveal/${encodeURIComponent(game)}/${String(n)}/${encodeURIComponent(roundId)}`,
+    )
     if (!response.ok) return undefined
     const parsed = revealSchema.safeParse(await response.json())
     return parsed.success ? parsed.data : undefined

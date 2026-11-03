@@ -9,6 +9,11 @@ test('route paths match the route tree', () => {
 })
 
 test('scoring labels name each try and count points', () => {
-  expect([0, 1, 2, 3].map(tryLabel)).toEqual([en['rules.firstTry'], en['rules.secondTry'], en['rules.thirdTry'], en['rules.thirdTry']])
+  expect([0, 1, 2, 3].map(tryLabel)).toEqual([
+    en['rules.firstTry'],
+    en['rules.secondTry'],
+    en['rules.thirdTry'],
+    en['rules.thirdTry'],
+  ])
   expect([0, 1, 3].map(pointsLabel)).toEqual([en['rules.points'], en['rules.point'], en['rules.points']])
 })

@@ -13,7 +13,8 @@ const fixtures = 'tests/fixtures/clef'
 const playerAnswer = 'pocket knife'
 // The example request from the plan's cloud judge section.
 const questions = {
-  pocket: 'Does the thing ordinarily fit inside a clothing pocket? Judge its everyday meaning; do not imagine unusual situations.',
+  pocket:
+    'Does the thing ordinarily fit inside a clothing pocket? Judge its everyday meaning; do not imagine unusual situations.',
   secure: "Does the thing's ordinary use include fastening or securing something?",
   nonelec: 'Is the thing free of electronic components?',
 }
@@ -37,16 +38,24 @@ async function run(model: string, body: unknown) {
 }
 
 function save(name: string, fixture: object) {
-  writeFileSync(`${fixtures}/${name}.json`, `${JSON.stringify({ recordedAt: new Date().toISOString(), ...fixture }, null, 2)}\n`)
+  writeFileSync(
+    `${fixtures}/${name}.json`,
+    `${JSON.stringify({ recordedAt: new Date().toISOString(), ...fixture }, null, 2)}\n`,
+  )
   console.log(`wrote ${fixtures}/${name}.json`)
 }
 
-for (const [name, selector] of [['clef-flash', 'clef-flash'], ['clef', 'clef']] as const) {
+for (const [name, selector] of [
+  ['clef-flash', 'clef-flash'],
+  ['clef', 'clef'],
+] as const) {
   const model = `@cf/cloudflare/${name}`
   const request = {
     model: selector,
     state: { game: 'word game', playerAnswer },
-    questions: Object.fromEntries(Object.entries(questions).map(([id, instructions]) => [id, { type: 'noul', instructions }])),
+    questions: Object.fromEntries(
+      Object.entries(questions).map(([id, instructions]) => [id, { type: 'noul', instructions }]),
+    ),
   }
   save(`${name}-success`, { model, request, response: await run(model, request) })
 }
@@ -56,10 +65,12 @@ const gemma = '@cf/google/gemma-4-26b-a4b-it'
 const calls = []
 for (const [id, instructions] of Object.entries(questions)) {
   const request = {
-    messages: [{
-      role: 'user',
-      content: `The player answered: "${playerAnswer}".\n\n${instructions}\n\nAnswer with only YES or NO.`,
-    }],
+    messages: [
+      {
+        role: 'user',
+        content: `The player answered: "${playerAnswer}".\n\n${instructions}\n\nAnswer with only YES or NO.`,
+      },
+    ],
     chat_template_kwargs: { enable_thinking: false },
     temperature: 0,
     max_completion_tokens: 1,

@@ -1,15 +1,29 @@
 import { describe, expect, test } from 'vitest'
 import { categoryEscapeConfig } from '@shared/games/category-escape'
 import {
-  escapeEnd, escapeReducer, escapeShareGrid, levelsCleared, onLastTry, startEscape, strikesUsed, usedOn, type EscapeAction,
+  escapeEnd,
+  escapeReducer,
+  escapeShareGrid,
+  levelsCleared,
+  onLastTry,
+  startEscape,
+  strikesUsed,
+  usedOn,
+  type EscapeAction,
 } from '@/games/category-escape/reducer'
 
 import { previousGuess } from '@/games/shared/run'
 
 const reduce = escapeReducer(categoryEscapeConfig)
 const play = (...actions: EscapeAction[]) => actions.reduce(reduce, startEscape(categoryEscapeConfig))
-const pass = (answer: string): EscapeAction => ({ type: 'judged', guess: { answer, pass: true, failed: [], closeCall: false } })
-const fail = (answer: string): EscapeAction => ({ type: 'judged', guess: { answer, pass: false, failed: ['L2'], closeCall: false } })
+const pass = (answer: string): EscapeAction => ({
+  type: 'judged',
+  guess: { answer, pass: true, failed: [], closeCall: false },
+})
+const fail = (answer: string): EscapeAction => ({
+  type: 'judged',
+  guess: { answer, pass: false, failed: ['L2'], closeCall: false },
+})
 const moveOn: EscapeAction = { type: 'moveOn' }
 
 describe('Category Escape run', () => {
@@ -27,7 +41,7 @@ describe('Category Escape run', () => {
     expect(reduce(state, fail('apple'))).toBe(state)
   })
 
-  test('the run\'s third pending miss is the last try, wherever its levels fell', () => {
+  test("the run's third pending miss is the last try, wherever its levels fell", () => {
     const third = play(pass('apple'), fail('a'), moveOn, fail('b'), moveOn, fail('c'))
     expect(onLastTry(categoryEscapeConfig, play(pass('apple'), fail('a'), moveOn, fail('b')))).toBe(false)
     expect(onLastTry(categoryEscapeConfig, third)).toBe(true)
@@ -80,7 +94,18 @@ describe('Category Escape run', () => {
   })
 
   test('builds the share grid with a colour-free text form', () => {
-    const state = play(pass('a'), fail('x'), moveOn, pass('b'), fail('y'), { type: 'countAnyway' }, fail('z'), moveOn, fail('w'), moveOn)
+    const state = play(
+      pass('a'),
+      fail('x'),
+      moveOn,
+      pass('b'),
+      fail('y'),
+      { type: 'countAnyway' },
+      fail('z'),
+      moveOn,
+      fail('w'),
+      moveOn,
+    )
     expect(escapeShareGrid(state)).toEqual({ tiles: '🟩🟨🟦🟥⬛⬛', text: '✓ 2 ✓* ✗ - -' })
   })
 })

@@ -18,7 +18,9 @@ describe('bestNote', () => {
 test('shareText puts the colour-free grid on its own line', () => {
   const text = shareText('category-escape', 7, { tiles: '🟩🟥', text: '✓ ✗' }, 1, 6)
 
-  expect(text).toBe(`${format('results.share', { game: en['game.name.category-escape'], n: 7, tiles: '🟩🟥', score: 1, max: 6 })}\n✓ ✗`)
+  expect(text).toBe(
+    `${format('results.share', { game: en['game.name.category-escape'], n: 7, tiles: '🟩🟥', score: 1, max: 6 })}\n✓ ✗`,
+  )
 })
 
 test('the score axes use the deciding judge’s threshold', () => {

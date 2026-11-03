@@ -22,7 +22,10 @@ export interface Judge {
 
 const models = freeModels
 
-const conditions = JSON.parse(readFileSync('factory/conditions.json', 'utf8')) as Record<string, { question: string, claim: string }>
+const conditions = JSON.parse(readFileSync('factory/conditions.json', 'utf8')) as Record<
+  string,
+  { question: string; claim: string }
+>
 
 function wording(condition: AnswerKeyCase['conditions'][number]) {
   if (condition.clue !== undefined) return { question: clueQuestion(condition.clue), claim: clueClaim(condition.clue) }
@@ -33,9 +36,14 @@ function wording(condition: AnswerKeyCase['conditions'][number]) {
 
 function clefJudge(name: 'clef-flash' | 'clef'): Judge {
   let neurons = 0
-  const ai = restRunner((spent) => { neurons += spent })
+  const ai = restRunner((spent) => {
+    neurons += spent
+  })
   return {
-    name, model: models[name], precision: 'hosted', backend: 'Workers AI REST',
+    name,
+    model: models[name],
+    precision: 'hosted',
+    backend: 'Workers AI REST',
     async score(c) {
       neurons = 0
       const questions = c.conditions.map((condition) => ({ id: condition.id, question: wording(condition).question }))
@@ -52,9 +60,14 @@ function clefJudge(name: 'clef-flash' | 'clef'): Judge {
 
 function gemmaJudge(): Judge {
   let neurons = 0
-  const ai = restRunner((spent) => { neurons += spent })
+  const ai = restRunner((spent) => {
+    neurons += spent
+  })
   return {
-    name: 'gemma-4', model: models['gemma-4'], precision: 'hosted', backend: 'Workers AI REST',
+    name: 'gemma-4',
+    model: models['gemma-4'],
+    precision: 'hosted',
+    backend: 'Workers AI REST',
     async score(c) {
       neurons = 0
       const started = performance.now()
@@ -77,8 +90,10 @@ function gemmaJudge(): Judge {
 async function deviceJudge(): Promise<Judge> {
   const score = await loadDeviceJudge()
   return {
-    name: 'device', model: `${deviceModel.repo}@${deviceModel.revision.slice(0, 8)}`,
-    precision: deviceModel.file.replace(/^onnx\/model_|\.onnx$/gu, ''), backend: nodeRuntime,
+    name: 'device',
+    model: `${deviceModel.repo}@${deviceModel.revision.slice(0, 8)}`,
+    precision: deviceModel.file.replace(/^onnx\/model_|\.onnx$/gu, ''),
+    backend: nodeRuntime,
     async score(c) {
       const started = performance.now()
       const scores: Record<string, number> = {}

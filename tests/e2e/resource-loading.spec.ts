@@ -3,13 +3,24 @@ import { deferred } from '../support/deferred'
 
 test('Home defers comparison data and code until opened, then shares the data with About', async ({ page }) => {
   const requests: string[] = []
-  page.on('request', (request) => { requests.push(request.url()) })
+  page.on('request', (request) => {
+    requests.push(request.url())
+  })
   await page.goto('/')
   await expect(page.getByRole('heading', { name: 'Three ways to play' })).toBeVisible()
-  expect(requests.filter((url) => /\/eval\/results.json|\/puzzles\/index.json|\/assets\/(GameScene|LibraryScene|SettingsContents|ComparisonContent)-/u.test(url))).toEqual([])
+  expect(
+    requests.filter((url) =>
+      /\/eval\/results.json|\/puzzles\/index.json|\/assets\/(GameScene|LibraryScene|SettingsContents|ComparisonContent)-/u.test(
+        url,
+      ),
+    ),
+  ).toEqual([])
   await page.getByText('See the results', { exact: true }).click()
   await expect(page.locator('.compare__summary')).toContainText('81.4%')
-  await page.getByRole('navigation', { name: 'Main', exact: true }).getByRole('link', { name: 'About', exact: true }).click()
+  await page
+    .getByRole('navigation', { name: 'Main', exact: true })
+    .getByRole('link', { name: 'About', exact: true })
+    .click()
   await expect(page.locator('[data-scene="about"]')).toBeVisible()
   await expect.poll(() => requests.filter((url) => url.endsWith('/eval/results.json')).length).toBe(1)
 })
@@ -29,7 +40,10 @@ test('failed static data can be retried without reloading', async ({ page }) => 
   await expect(page.getByText("Couldn't load the games. Try again.")).toBeVisible()
   await page.getByRole('button', { name: 'Retry', exact: true }).click()
   await expect(page.locator('.tile')).toHaveCount(100)
-  await page.getByRole('navigation', { name: 'Main', exact: true }).getByRole('link', { name: 'Home', exact: true }).click()
+  await page
+    .getByRole('navigation', { name: 'Main', exact: true })
+    .getByRole('link', { name: 'Home', exact: true })
+    .click()
   await page.getByText('See the results', { exact: true }).click()
   const compare = page.getByRole('region', { name: 'How the judges compare' })
   await expect(compare.getByText("Couldn't load the answer-key results.")).toBeVisible()
@@ -44,13 +58,19 @@ test('a failed screen chunk leaves navigation and reload available', async ({ pa
   await page.goto('/play')
   await expect(page.getByRole('alert')).toContainText("Couldn't load this part of the page.")
   await expect(page.getByRole('link', { name: 'Reload', exact: true })).toBeVisible()
-  await page.getByRole('navigation', { name: 'Main', exact: true }).getByRole('link', { name: 'Home', exact: true }).click()
+  await page
+    .getByRole('navigation', { name: 'Main', exact: true })
+    .getByRole('link', { name: 'Home', exact: true })
+    .click()
   await expect(page.getByRole('heading', { name: 'Three ways to play' })).toBeVisible()
 })
 
 test('Settings stays closeable while loading, restores focus, and preserves lazy Privacy anchors', async ({ page }) => {
   const ready = deferred()
-  await page.route('**/assets/SettingsContents-*.js', async (route) => { await ready.promise; await route.continue() })
+  await page.route('**/assets/SettingsContents-*.js', async (route) => {
+    await ready.promise
+    await route.continue()
+  })
   const settings = page.getByRole('button', { name: 'Settings', exact: true })
   const drawer = page.getByRole('dialog', { name: 'Settings', exact: true })
   try {
@@ -59,7 +79,9 @@ test('Settings stays closeable while loading, restores focus, and preserves lazy
     await expect(drawer.getByRole('status')).toHaveText('Loading…')
     await drawer.getByRole('button', { name: 'Close', exact: true }).click()
     await expect(settings).toBeFocused()
-  } finally { ready.resolve() }
+  } finally {
+    ready.resolve()
+  }
   await settings.click()
   await drawer.getByRole('link', { name: 'Privacy →', exact: true }).click()
   await expect(page).toHaveURL('/about#privacy')
@@ -101,7 +123,9 @@ test('Library refreshes after another tab changes storage and Settings clears it
   await expect(page.locator('.tile')).toHaveCount(100)
   const other = await context.newPage()
   await other.goto('/')
-  await other.evaluate(() => { localStorage.setItem('quibble:progress:oddly-specific:1', JSON.stringify({ best: 0 })) })
+  await other.evaluate(() => {
+    localStorage.setItem('quibble:progress:oddly-specific:1', JSON.stringify({ best: 0 }))
+  })
   await expect(page.locator('.tile').first()).toHaveClass('tile tile--solved')
   await expect(page.getByText('Ready for another?', { exact: true })).toBeVisible()
   await page.getByRole('button', { name: 'Settings', exact: true }).click()
@@ -116,12 +140,28 @@ test('Library refreshes after another tab changes storage and Settings clears it
 
 test('personal comparison totals refresh when Settings clears history', async ({ page }) => {
   await page.addInitScript(() => {
-    localStorage.setItem('quibble:comparisons', JSON.stringify([{
-      at: Date.now(), game: 'oddly-specific', n: 1, round: 'r1', answer: 'a',
-      conditions: { c1: { cloud: 0.9, cloudPass: true, device: 0.8, devicePass: true } },
-      cloudModel: 'clef-flash', cloudMs: 30, cloudModelMs: 20, deviceMs: 40,
-      backend: 'webgpu', precision: 'q4', warm: true, referee: 'cloud', overruled: false,
-    }]))
+    localStorage.setItem(
+      'quibble:comparisons',
+      JSON.stringify([
+        {
+          at: Date.now(),
+          game: 'oddly-specific',
+          n: 1,
+          round: 'r1',
+          answer: 'a',
+          conditions: { c1: { cloud: 0.9, cloudPass: true, device: 0.8, devicePass: true } },
+          cloudModel: 'clef-flash',
+          cloudMs: 30,
+          cloudModelMs: 20,
+          deviceMs: 40,
+          backend: 'webgpu',
+          precision: 'q4',
+          warm: true,
+          referee: 'cloud',
+          overruled: false,
+        },
+      ]),
+    )
   })
   await page.goto('/')
   const compare = page.getByRole('region', { name: 'How the judges compare' })

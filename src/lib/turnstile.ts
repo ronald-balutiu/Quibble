@@ -10,32 +10,45 @@ const PRODUCTION_SITE_KEY = '0x4AAAAAAFrzEYhfs8G-zzWN'
 const SCRIPT = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
 
 interface TurnstileApi {
-  render(container: HTMLElement, options: {
-    sitekey: string
-    action: string
-    execution: 'execute'
-    appearance: 'interaction-only'
-    callback: (token: string) => void
-    'error-callback': () => void
-  }): string
+  render(
+    container: HTMLElement,
+    options: {
+      sitekey: string
+      action: string
+      execution: 'execute'
+      appearance: 'interaction-only'
+      callback: (token: string) => void
+      'error-callback': () => void
+    },
+  ): string
   execute(widget: string): void
   reset(widget: string): void
 }
 
 declare global {
-  interface Window { turnstile?: TurnstileApi }
+  interface Window {
+    turnstile?: TurnstileApi
+  }
 }
 
 let script: Promise<TurnstileApi | undefined> | undefined
 
 function loadScript(): Promise<TurnstileApi | undefined> {
   script ??= new Promise((resolve) => {
-    if (window.turnstile) { resolve(window.turnstile); return }
+    if (window.turnstile) {
+      resolve(window.turnstile)
+      return
+    }
     const element = document.createElement('script')
     element.src = SCRIPT
     element.async = true
-    element.onload = () => { resolve(window.turnstile) }
-    element.onerror = () => { script = undefined; resolve(undefined) }
+    element.onload = () => {
+      resolve(window.turnstile)
+    }
+    element.onerror = () => {
+      script = undefined
+      resolve(undefined)
+    }
     document.head.append(element)
   })
   return script
@@ -44,19 +57,29 @@ function loadScript(): Promise<TurnstileApi | undefined> {
 function token(container: HTMLElement): Promise<string | undefined> {
   const sitekey = import.meta.env.DEV ? TEST_SITE_KEY : PRODUCTION_SITE_KEY
   if (!sitekey) return Promise.resolve(undefined)
-  return loadScript().then((turnstile) => new Promise((resolve) => {
-    if (!turnstile) { resolve(undefined); return }
-    container.replaceChildren()
-    const widget = turnstile.render(container, {
-      sitekey,
-      action: 'session',
-      execution: 'execute',
-      appearance: 'interaction-only',
-      callback: (value) => { resolve(value) },
-      'error-callback': () => { resolve(undefined) },
-    })
-    turnstile.execute(widget)
-  }))
+  return loadScript().then(
+    (turnstile) =>
+      new Promise((resolve) => {
+        if (!turnstile) {
+          resolve(undefined)
+          return
+        }
+        container.replaceChildren()
+        const widget = turnstile.render(container, {
+          sitekey,
+          action: 'session',
+          execution: 'execute',
+          appearance: 'interaction-only',
+          callback: (value) => {
+            resolve(value)
+          },
+          'error-callback': () => {
+            resolve(undefined)
+          },
+        })
+        turnstile.execute(widget)
+      }),
+  )
 }
 
 // Gets a fresh token from the widget in the container and starts a session.

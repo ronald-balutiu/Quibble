@@ -4,7 +4,6 @@ import { deleteEverything } from '@/lib/storage/everything'
 import { clearGameData, progressSummary } from '@/lib/storage/progress'
 import { installStorage } from './support/storage'
 
-
 const run = JSON.stringify({ run: { current: 0, rounds: [], finished: false } })
 const best = JSON.stringify({ best: 9 })
 
@@ -42,7 +41,11 @@ describe('L3 "Your data" (1.8)', () => {
 
   test('blocked storage never throws', () => {
     vi.stubGlobal('localStorage', undefined)
-    expect(() => { clearGameData(); clearComparisons(); deleteEverything() }).not.toThrow()
+    expect(() => {
+      clearGameData()
+      clearComparisons()
+      deleteEverything()
+    }).not.toThrow()
     expect(progressSummary()).toEqual({ puzzles: 0, open: 0 })
   })
 })

@@ -8,6 +8,12 @@ export function bestNote(score: number, best: number | undefined): string {
   return format(score > best ? 'results.newBest' : 'results.best', { n: best })
 }
 
-export function shareText(game: GameId, n: number, grid: { tiles: string, text: string }, score: number, max: number): string {
+export function shareText(
+  game: GameId,
+  n: number,
+  grid: { tiles: string; text: string },
+  score: number,
+  max: number,
+): string {
   return `${format('results.share', { game: en[`game.name.${game}`], n, tiles: grid.tiles, score, max })}\n${grid.text}`
 }

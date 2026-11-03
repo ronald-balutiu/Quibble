@@ -3,9 +3,13 @@
 
 export const megabytes = (bytes: number) => Math.round(bytes / 1_000_000)
 
-export interface ByteSample { at: number, received: number }
+export interface ByteSample {
+  at: number
+  received: number
+}
 
-export const fraction = (received: number, total: number) => total > 0 ? Math.min(1, Math.max(0, received / total)) : 0
+export const fraction = (received: number, total: number) =>
+  total > 0 ? Math.min(1, Math.max(0, received / total)) : 0
 
 // One ring per third of the download.
 export const ringsDrawn = (progress: number) => Math.min(3, Math.floor(progress * 3))

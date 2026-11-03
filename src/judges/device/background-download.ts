@@ -2,10 +2,7 @@ import { deviceJudge, type DeviceJudge, type LoadProgress } from './client'
 import type { DeviceFailure } from './protocol'
 
 type DownloadState =
-  | { kind: 'idle' }
-  | LoadProgress
-  | { kind: 'cancelling' }
-  | { kind: 'failed', reason: DeviceFailure }
+  { kind: 'idle' } | LoadProgress | { kind: 'cancelling' } | { kind: 'failed'; reason: DeviceFailure }
 const IDLE: DownloadState = { kind: 'idle' }
 
 // A Library download belongs to the visit, so route changes do not cancel it.
@@ -25,7 +22,9 @@ export function createBackgroundDownload(judge: DeviceJudge) {
     getServerSnapshot: (): DownloadState => IDLE,
     subscribe: (listener: () => void) => {
       listeners.add(listener)
-      return () => { listeners.delete(listener) }
+      return () => {
+        listeners.delete(listener)
+      }
     },
     async start() {
       if (active || judge.status !== 'off') return
@@ -33,7 +32,9 @@ export function createBackgroundDownload(judge: DeviceJudge) {
       cancelled = false
       set({ kind: 'download', received: 0, total: 0 })
       try {
-        const result = await judge.load((progress) => { if (!cancelled) set(progress) })
+        const result = await judge.load((progress) => {
+          if (!cancelled) set(progress)
+        })
         // GPU session startup can finish after Cancel. Free that late model too.
         if (cancelled && result.kind === 'ready') await judge.remove()
         set(result.kind === 'failed' && !cancelled ? { kind: 'failed', reason: result.reason } : { kind: 'idle' })

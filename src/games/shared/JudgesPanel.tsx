@@ -16,8 +16,12 @@ const cloudStatus = (model: CloudModel) => format('game.cloudStatus', { model: e
 function Elapsed({ since }: { since: number }) {
   const [now, setNow] = useState(() => performance.now())
   useEffect(() => {
-    const timer = setInterval(() => { setNow(performance.now()) }, 100)
-    return () => { clearInterval(timer) }
+    const timer = setInterval(() => {
+      setNow(performance.now())
+    }, 100)
+    return () => {
+      clearInterval(timer)
+    }
   }, [])
   return <>{format('judges.device.thinking', { s: (Math.max(0, now - since) / 1000).toFixed(1) })}</>
 }
@@ -25,23 +29,29 @@ function Elapsed({ since }: { since: number }) {
 // The judge status line (5.5 G1–G3): "● Cloud … ○ Device …". On a capable device,
 // "Device • off" opens the setup sheet (S3).
 // While the cloud is out and the device decides, only the device is listed (S1).
-export function JudgesStatus({ model, column }: { model: CloudModel, column: DeviceColumn }) {
+export function JudgesStatus({ model, column }: { model: CloudModel; column: DeviceColumn }) {
   const { status, supported, run, modelMs } = column
   const scanning = run?.kind === 'scanning'
   const cloudOut = column.decidedBy === 'device' || (column.restingUntil !== undefined && modelMs === undefined)
-  const cloud = cloudOut && column.cloudMessage === undefined
-    ? null
-    : column.cloudMessage !== undefined
-      ? en['judges.cloud.noAnswer']
-      : modelMs === undefined
-      ? cloudStatus(model)
-      : format(scanning ? 'judges.cloud.decided' : 'judges.cloud', { ms: modelMs })
+  const cloud =
+    cloudOut && column.cloudMessage === undefined
+      ? null
+      : column.cloudMessage !== undefined
+        ? en['judges.cloud.noAnswer']
+        : modelMs === undefined
+          ? cloudStatus(model)
+          : format(scanning ? 'judges.cloud.decided' : 'judges.cloud', { ms: modelMs })
   let device: ReactNode = null
   if (run?.kind === 'scanning') device = <Elapsed since={run.started} />
   else if (run?.kind === 'scored') device = format('judges.device.ms', { ms: run.ms })
   else if (run) device = en['judges.device.noAnswer']
   else if (status !== 'off') device = en[`judges.device.${status}`]
-  else if (supported) device = <button type="button" className="judges__turn-on" onClick={column.openSetup}>{en['judges.device.off']}</button>
+  else if (supported)
+    device = (
+      <button type="button" className="judges__turn-on" onClick={column.openSetup}>
+        {en['judges.device.off']}
+      </button>
+    )
   return (
     <span className="judges">
       {cloud !== null && <span>{cloud}</span>}
@@ -53,9 +63,22 @@ export function JudgesStatus({ model, column }: { model: CloudModel, column: Dev
 // One score axis per condition; `mark` names each one (a letter, or a level code).
 // The cloud judge (referee) is a dot; the on-device judge is a ring, with a scanning
 // line until it answers. Its verdict is shown, never scored (3.7).
-export function ScoreAxes({ conditions, scores, threshold, model, column, mark = letterFor, title }: {
-  conditions: readonly PuzzleCondition[], scores: Record<string, number | undefined>, threshold: number, model: CloudModel
-  column?: DeviceColumn | undefined, mark?: (index: number) => string, title?: string
+export function ScoreAxes({
+  conditions,
+  scores,
+  threshold,
+  model,
+  column,
+  mark = letterFor,
+  title,
+}: {
+  conditions: readonly PuzzleCondition[]
+  scores: Record<string, number | undefined>
+  threshold: number
+  model: CloudModel
+  column?: DeviceColumn | undefined
+  mark?: (index: number) => string
+  title?: string
 }) {
   const run = column?.run
   const device = run?.kind === 'scored' ? run.scores : {}
@@ -84,16 +107,22 @@ export function ScoreAxes({ conditions, scores, threshold, model, column, mark =
             </span>
             <span className="axis__value">
               {p === undefined ? '' : p.toFixed(2)}
-              {d !== undefined && <span className="axis__device">{format('judges.deviceScore', { p: d.toFixed(2) })}</span>}
+              {d !== undefined && (
+                <span className="axis__device">{format('judges.deviceScore', { p: d.toFixed(2) })}</span>
+              )}
             </span>
           </div>
         )
       })}
-      {(run?.kind === 'timeout' || run?.kind === 'error') && run.retry
-        ? <p className="telemetry axes__note">{en['judge.device.timeout']} <RetryLink onClick={run.retry} /></p>
-        : null}
+      {(run?.kind === 'timeout' || run?.kind === 'error') && run.retry ? (
+        <p className="telemetry axes__note">
+          {en['judge.device.timeout']} <RetryLink onClick={run.retry} />
+        </p>
+      ) : null}
       {column?.cloudMessage !== undefined && <p className="telemetry axes__note">{en[column.cloudMessage]}</p>}
-      {column?.notScored !== undefined && <p className="telemetry axes__note">{en[`judges.notScored.${column.notScored}`]}</p>}
+      {column?.notScored !== undefined && (
+        <p className="telemetry axes__note">{en[`judges.notScored.${column.notScored}`]}</p>
+      )}
       {tally && (
         <p className="telemetry axes__foot">
           <span>{tally.compared > 0 ? format('judges.agreed', tally) : ''}</span>
@@ -111,7 +140,10 @@ export function CloudStrip({ column }: { column: DeviceColumn }) {
   const deciding = column.status === 'ready'
   return (
     <div className="cloud-strip telemetry" role="status" aria-label={en['cloud.resting.strip']}>
-      <p>{en['cloud.resting.cloud']}<span>{format('cloud.resting.back', { time: restTime(column.restingUntil) })}</span></p>
+      <p>
+        {en['cloud.resting.cloud']}
+        <span>{format('cloud.resting.back', { time: restTime(column.restingUntil) })}</span>
+      </p>
       <p>
         {en[deciding ? 'cloud.resting.deviceOn' : 'cloud.resting.deviceOff']}
         <span>{en[deciding ? 'cloud.resting.deciding' : 'cloud.resting.notSetUp']}</span>

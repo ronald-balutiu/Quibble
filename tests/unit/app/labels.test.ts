@@ -19,9 +19,16 @@ describe('display formats', () => {
 })
 
 describe('Category Escape labels (E1)', () => {
-  const condition = (id: string, label: string) => ({ id, label, negation: `isn't ${label}`, claim: `{answer} is ${label}` })
+  const condition = (id: string, label: string) => ({
+    id,
+    label,
+    negation: `isn't ${label}`,
+    claim: `{answer} is ${label}`,
+  })
   const puzzle: Puzzle = {
-    game: 'category-escape', n: 1, difficulty: 'easy',
+    game: 'category-escape',
+    n: 1,
+    difficulty: 'easy',
     rounds: [
       { id: 'L1', conditions: [condition('fruit', 'A fruit')] },
       { id: 'L2', conditions: [condition('fruit', 'A fruit'), condition('red', 'Red')] },

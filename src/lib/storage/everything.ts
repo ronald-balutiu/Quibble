@@ -7,7 +7,9 @@ import { refreshCloudModel } from './settings'
 export function deleteEverything(): void {
   try {
     const store = globalThis.localStorage
-    const keys = Array.from({ length: store.length }, (_, i) => store.key(i)).filter((k): k is string => k?.startsWith('quibble:') ?? false)
+    const keys = Array.from({ length: store.length }, (_, i) => store.key(i)).filter(
+      (k): k is string => k?.startsWith('quibble:') ?? false,
+    )
     for (const k of keys) store.removeItem(k)
   } catch {
     // Storage is off: there is nothing saved to delete.

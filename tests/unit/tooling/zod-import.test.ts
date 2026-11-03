@@ -14,7 +14,8 @@ function sources(dir: string): string[] {
 
 describe('Zod is imported through shared/schemas/zod.ts', () => {
   test('no app, Worker or shared file imports zod directly', () => {
-    const direct = ['src', 'shared', 'worker'].flatMap(sources)
+    const direct = ['src', 'shared', 'worker']
+      .flatMap(sources)
       .filter((path) => path !== join('shared', 'schemas', 'zod.ts'))
       .filter((path) => /from ['"]zod(?:\/[\w-]+)?['"]/u.test(readFileSync(path, 'utf8')))
     expect(direct).toEqual([])

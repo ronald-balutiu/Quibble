@@ -13,7 +13,9 @@ async function load<T>(url: string, parse: (value: unknown) => T | undefined): P
   }
 }
 
-export const loadPuzzleIndex = cachedLoader<PuzzleIndex>(() => load('/puzzles/index.json', (value) => puzzleIndexSchema.safeParse(value).data))
+export const loadPuzzleIndex = cachedLoader<PuzzleIndex>(() =>
+  load('/puzzles/index.json', (value) => puzzleIndexSchema.safeParse(value).data),
+)
 
 export function loadPuzzle(game: GameId, n: number): Promise<Puzzle | undefined> {
   return load(`/puzzles/${game}/${String(n)}.json`, (value) => {

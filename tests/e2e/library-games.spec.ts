@@ -6,7 +6,12 @@ import { expectAccessible } from './accessibility'
 // Escape counts cleared levels rather than round-based points.
 
 const level = { status: 'playing', guesses: [], strikes: 0, pending: false, overruled: false, points: 0 }
-const cleared = { ...level, status: 'solved', guesses: [{ answer: 'a', pass: true, failed: [], closeCall: false }], points: 1 }
+const cleared = {
+  ...level,
+  status: 'solved',
+  guesses: [{ answer: 'a', pass: true, failed: [], closeCall: false }],
+  points: 1,
+}
 
 test('each game has keyboard-accessible rules and a quick example above the filters', async ({ page }) => {
   await page.goto('/play')
@@ -26,7 +31,9 @@ test('each game has keyboard-accessible rules and a quick example above the filt
       await expect(scoring).toContainText('1 point')
       await expect(scoring).toContainText('For the whole run')
     } else {
-      await expect(example.locator('.game-example__result strong')).toHaveText(game === 'oddly-specific' ? 'safety pin' : 'bank')
+      await expect(example.locator('.game-example__result strong')).toHaveText(
+        game === 'oddly-specific' ? 'safety pin' : 'bank',
+      )
       await expect(scoring.locator('dd strong')).toHaveText(['3', '2', '1'])
       await expect(scoring).toContainText('Three wrong guesses end the round.')
     }
@@ -65,12 +72,20 @@ test('judge cards sit above the selector on mobile, with a mobile-only tap hint'
 })
 
 test('only active tiles show progress; completed and perfect tiles have a green check', async ({ page }) => {
-  await seedStorage(page, {
-    'quibble:progress:oddly-specific:1': JSON.stringify({ run: { current: 1, rounds: [cleared, level, level, level, level], finished: false } }),
-    'quibble:progress:oddly-specific:2': JSON.stringify({ best: 0 }),
-    'quibble:progress:oddly-specific:3': JSON.stringify({ best: 15 }),
-    'quibble:progress:oddly-specific:4': JSON.stringify({ run: { current: 0, rounds: [level, level, level, level, level], finished: false } }),
-  }, { everyLoad: true })
+  await seedStorage(
+    page,
+    {
+      'quibble:progress:oddly-specific:1': JSON.stringify({
+        run: { current: 1, rounds: [cleared, level, level, level, level], finished: false },
+      }),
+      'quibble:progress:oddly-specific:2': JSON.stringify({ best: 0 }),
+      'quibble:progress:oddly-specific:3': JSON.stringify({ best: 15 }),
+      'quibble:progress:oddly-specific:4': JSON.stringify({
+        run: { current: 0, rounds: [level, level, level, level, level], finished: false },
+      }),
+    },
+    { everyLoad: true },
+  )
   await page.goto('/play')
   const tiles = page.locator('.tiles .tile')
   await expect(tiles.nth(0).locator('progress')).toHaveAttribute('value', '1')
@@ -93,13 +108,17 @@ test('Library cloud and local judges share a card style and cloud choice persist
   await page.goto('/play')
   const cloud = page.getByRole('region', { name: 'Choose your cloud judge', exact: true })
   await expect(cloud).toHaveCSS('border-top-width', '1px')
-  const localPadding = await page.evaluate<string>('getComputedStyle(document.querySelector(".local-model")).paddingTop')
+  const localPadding = await page.evaluate<string>(
+    'getComputedStyle(document.querySelector(".local-model")).paddingTop',
+  )
   await expect(cloud).toHaveCSS('padding-top', localPadding)
   await cloud.getByRole('radio', { name: 'Gemma 4', exact: true }).check()
   await page.reload()
   await expect(cloud.getByRole('radio', { name: 'Gemma 4', exact: true })).toBeChecked()
   await page.getByRole('button', { name: 'Settings', exact: true }).click()
-  await expect(page.getByRole('dialog', { name: 'Settings' }).getByRole('radio', { name: 'Gemma 4', exact: true })).toBeChecked()
+  await expect(
+    page.getByRole('dialog', { name: 'Settings' }).getByRole('radio', { name: 'Gemma 4', exact: true }),
+  ).toBeChecked()
 })
 
 test('a completed puzzle changes the prompt across games, including a zero score', async ({ page }) => {
@@ -108,10 +127,15 @@ test('a completed puzzle changes the prompt across games, including a zero score
   await page.getByRole('link', { name: /^Start #001/u }).click()
   for (let round = 1; round <= 5; round += 1) {
     await page.getByRole('button', { name: 'Skip round', exact: true }).click()
-    await page.getByRole('button', { name: round === 5 ? 'See results' : `Round ${String(round + 1)} of 5`, exact: true }).click()
+    await page
+      .getByRole('button', { name: round === 5 ? 'See results' : `Round ${String(round + 1)} of 5`, exact: true })
+      .click()
   }
   await expect(page.getByText('0/15', { exact: true })).toBeVisible()
-  await page.getByRole('navigation', { name: 'Main', exact: true }).getByRole('link', { name: 'Library', exact: true }).click()
+  await page
+    .getByRole('navigation', { name: 'Main', exact: true })
+    .getByRole('link', { name: 'Library', exact: true })
+    .click()
   await expect(page.getByText('Ready for another?', { exact: true })).toBeVisible()
   await expect(page.getByRole('link', { name: /^Start #002/u })).toBeVisible()
   await page.getByRole('button', { name: /^G-02 Category Escape/u }).click()
@@ -124,7 +148,10 @@ test('a completed puzzle changes the prompt across games, including a zero score
 test('an unfinished puzzle keeps the resume prompt without counting as completed', async ({ page }) => {
   await page.goto('/play/oddly-specific/1')
   await page.getByRole('button', { name: 'Skip round', exact: true }).click()
-  await page.getByRole('navigation', { name: 'Main', exact: true }).getByRole('link', { name: 'Library', exact: true }).click()
+  await page
+    .getByRole('navigation', { name: 'Main', exact: true })
+    .getByRole('link', { name: 'Library', exact: true })
+    .click()
   await expect(page.getByText('Pick up where you left off.', { exact: true })).toBeVisible()
   await expect(page.getByText('Ready for another?', { exact: true })).toHaveCount(0)
   await page.getByRole('button', { name: /^G-02 Category Escape/u }).click()
@@ -139,7 +166,9 @@ test('the selected game colors its sidebar, description and supporting text', as
     const row = rows.locator(`[data-game="${game}"]`)
     await row.click()
     await expect(row).toHaveAttribute('aria-current', 'page')
-    const accent = await page.evaluate<string>('getComputedStyle(document.querySelector(".game-row[aria-current]")).color')
+    const accent = await page.evaluate<string>(
+      'getComputedStyle(document.querySelector(".game-row[aria-current]")).color',
+    )
     colors.add(accent)
     await expect(row).toHaveCSS('border-left-color', accent)
     await expect(row.locator('.game-row__tagline')).toHaveCSS('color', accent)
@@ -154,11 +183,26 @@ test('the selected game colors its sidebar, description and supporting text', as
 })
 
 test('Category Escape progress reads in levels, and 6/6 is perfect', async ({ page }) => {
-  await page.route('**/puzzles/index.json', (route) => route.fulfill({ json: { 'category-escape': [{ n: 1, difficulty: 'easy' }, { n: 2, difficulty: 'easy' }] } }))
-  await seedStorage(page, {
-    'quibble:progress:category-escape:1': JSON.stringify({ run: { current: 2, rounds: [cleared, cleared, level, level, level, level], finished: false } }),
-    'quibble:progress:category-escape:2': JSON.stringify({ best: 6 }),
-  }, { everyLoad: true })
+  await page.route('**/puzzles/index.json', (route) =>
+    route.fulfill({
+      json: {
+        'category-escape': [
+          { n: 1, difficulty: 'easy' },
+          { n: 2, difficulty: 'easy' },
+        ],
+      },
+    }),
+  )
+  await seedStorage(
+    page,
+    {
+      'quibble:progress:category-escape:1': JSON.stringify({
+        run: { current: 2, rounds: [cleared, cleared, level, level, level, level], finished: false },
+      }),
+      'quibble:progress:category-escape:2': JSON.stringify({ best: 6 }),
+    },
+    { everyLoad: true },
+  )
   await page.goto('/play?game=category-escape')
 
   await expect(page.getByRole('link', { name: 'Continue #001 · level 3' })).toBeVisible()

@@ -8,7 +8,7 @@ import { usePuzzleIndex } from '@/lib/use-puzzle-index'
 interface ResultActionsProps {
   puzzle: Puzzle
   share: string
-  restart?: { label: string, onClick: () => void }
+  restart?: { label: string; onClick: () => void }
   focusPrimary?: boolean
 }
 
@@ -20,7 +20,12 @@ export function ResultActions({ puzzle, share, restart, focusPrimary = false }: 
   const actions = useRef<HTMLDivElement>(null)
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
 
-  useEffect(() => () => { clearTimeout(timer.current) }, [])
+  useEffect(
+    () => () => {
+      clearTimeout(timer.current)
+    },
+    [],
+  )
   useEffect(() => {
     if (focusPrimary) actions.current?.querySelector<HTMLElement>('a, button')?.focus()
   }, [focusPrimary, next])
@@ -30,7 +35,9 @@ export function ResultActions({ puzzle, share, restart, focusPrimary = false }: 
       await navigator.clipboard.writeText(share)
       setCopied(true)
       clearTimeout(timer.current)
-      timer.current = setTimeout(() => { setCopied(false) }, 2000)
+      timer.current = setTimeout(() => {
+        setCopied(false)
+      }, 2000)
     } catch {
       // Permission denied or clipboard unavailable: don't announce a successful copy.
     }
@@ -39,12 +46,34 @@ export function ResultActions({ puzzle, share, restart, focusPrimary = false }: 
   return (
     <>
       <div ref={actions} className="actions">
-        {next && <Link className="pill control-link" to={puzzlePath(puzzle.game, next.n)}>{format('results.next', { n: puzzleNumber(next.n), difficulty: en[`difficulty.${next.difficulty}`] })}</Link>}
-        {restart && <button type="button" className={next ? 'pill pill--quiet' : 'pill'} onClick={restart.onClick}>{restart.label}</button>}
-        <button type="button" className="pill pill--quiet" onClick={() => { void copy() }}>{en['results.copy']}</button>
-        {!restart && <Link className="pill pill--quiet control-link" to={libraryPath(puzzle.game)}>{en['nav.library']}</Link>}
+        {next && (
+          <Link className="pill control-link" to={puzzlePath(puzzle.game, next.n)}>
+            {format('results.next', { n: puzzleNumber(next.n), difficulty: en[`difficulty.${next.difficulty}`] })}
+          </Link>
+        )}
+        {restart && (
+          <button type="button" className={next ? 'pill pill--quiet' : 'pill'} onClick={restart.onClick}>
+            {restart.label}
+          </button>
+        )}
+        <button
+          type="button"
+          className="pill pill--quiet"
+          onClick={() => {
+            void copy()
+          }}
+        >
+          {en['results.copy']}
+        </button>
+        {!restart && (
+          <Link className="pill pill--quiet control-link" to={libraryPath(puzzle.game)}>
+            {en['nav.library']}
+          </Link>
+        )}
       </div>
-      <p role="status" className="telemetry">{copied ? en['toast.copied'] : ''}</p>
+      <p role="status" className="telemetry">
+        {copied ? en['toast.copied'] : ''}
+      </p>
     </>
   )
 }

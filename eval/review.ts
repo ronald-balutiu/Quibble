@@ -8,7 +8,10 @@ const port = 5174
 const splits = { dev: 'eval/dev.json', test: 'eval/test.json' } as const
 type Split = keyof typeof splits
 
-const conditions = JSON.parse(readFileSync('factory/conditions.json', 'utf8')) as Record<string, { label: string, question: string }>
+const conditions = JSON.parse(readFileSync('factory/conditions.json', 'utf8')) as Record<
+  string,
+  { label: string; question: string }
+>
 const load = (split: Split) => answerKeySchema.parse(JSON.parse(readFileSync(splits[split], 'utf8')))
 
 const page = String.raw`<!doctype html><meta charset="utf-8"><title>Answer-key review</title>
@@ -62,7 +65,9 @@ fetch('/cases').then((r) => r.json()).then((d) => { data = d; i = Math.max(0, al
 </script>`
 
 createServer((req, res): void => {
-  const send = (status: number, body: string, type = 'text/plain'): void => { res.writeHead(status, { 'Content-Type': type }).end(body) }
+  const send = (status: number, body: string, type = 'text/plain'): void => {
+    res.writeHead(status, { 'Content-Type': type }).end(body)
+  }
   if (req.method === 'GET' && req.url === '/') return send(200, page, 'text/html')
   if (req.method === 'GET' && req.url === '/cases') {
     return send(200, JSON.stringify({ dev: load('dev'), test: load('test'), conditions }), 'application/json')
@@ -70,11 +75,15 @@ createServer((req, res): void => {
   const split = /^\/cases\/(dev|test)$/u.exec(req.url ?? '')?.[1] as Split | undefined
   if (req.method !== 'POST' || !split) return send(404, 'Not found')
   let body = ''
-  req.on('data', (chunk: Buffer) => { body += chunk.toString() })
+  req.on('data', (chunk: Buffer) => {
+    body += chunk.toString()
+  })
   req.on('end', (): void => {
     const parsed = answerKeySchema.safeParse(JSON.parse(body))
     if (!parsed.success) return send(400, parsed.error.message)
     writeFileSync(splits[split], `${JSON.stringify(parsed.data, null, 2)}\n`)
     return send(204, '')
   })
-}).listen(port, '127.0.0.1', () => { console.log(`Review answer-key labels at http://127.0.0.1:${String(port)}`) })
+}).listen(port, '127.0.0.1', () => {
+  console.log(`Review answer-key labels at http://127.0.0.1:${String(port)}`)
+})

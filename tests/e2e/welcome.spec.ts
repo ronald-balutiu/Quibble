@@ -71,7 +71,10 @@ test('returning visits always open Home, including refreshes and navigation', as
   await page.getByRole('link', { name: 'Home', exact: true }).click()
   await expect(page).toHaveURL('/')
   await expect(page.getByRole('heading', { name: 'Make your case.' })).toBeVisible()
-  await page.getByRole('navigation', { name: 'Main', exact: true }).getByRole('link', { name: 'Library', exact: true }).click()
+  await page
+    .getByRole('navigation', { name: 'Main', exact: true })
+    .getByRole('link', { name: 'Library', exact: true })
+    .click()
   await page.getByRole('link', { name: 'Quibble home', exact: true }).click()
   await expect(page).toHaveURL('/')
 })
@@ -97,11 +100,13 @@ test('cloud selection in Home settings carries into the Library and survives ref
 test('welcome cards align on desktop and stay within a narrow phone', async ({ page, isMobile }) => {
   await page.goto('/')
   if (!isMobile) {
-    const cards = await Promise.all((await page.locator('.welcome-game').all()).map(async (el) => {
-      const heading = await el.locator('h3').boundingBox()
-      const example = await el.locator('.game-example').boundingBox()
-      return { heading: heading?.y, example: example?.y, bottom: example && example.y + example.height }
-    }))
+    const cards = await Promise.all(
+      (await page.locator('.welcome-game').all()).map(async (el) => {
+        const heading = await el.locator('h3').boundingBox()
+        const example = await el.locator('.game-example').boundingBox()
+        return { heading: heading?.y, example: example?.y, bottom: example && example.y + example.height }
+      }),
+    )
     expect(new Set(cards.map((c) => c.heading)).size).toBe(1)
     expect(new Set(cards.map((c) => c.example)).size).toBe(1)
     expect(new Set(cards.map((c) => c.bottom)).size).toBe(1)

@@ -2,7 +2,10 @@ import { describe, expect, test, vi } from 'vitest'
 import { judgeWithClef, type AiRunner } from '../../../worker/judge'
 import fixture from '../../fixtures/clef/clef-flash-success.json'
 
-const questions = Object.entries(fixture.request.questions).map(([id, { instructions }]) => ({ id, question: instructions }))
+const questions = Object.entries(fixture.request.questions).map(([id, { instructions }]) => ({
+  id,
+  question: instructions,
+}))
 const recorded = fixture.response.body.result
 const noSleep = () => Promise.resolve()
 

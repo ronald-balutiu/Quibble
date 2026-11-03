@@ -22,7 +22,10 @@ const comparisonSchema = z.strictObject({
   round: z.string(),
   answer: z.string(), // normalized
   // Each condition's two scores and verdicts.
-  conditions: z.record(z.string(), z.strictObject({ cloud: probability, cloudPass: z.boolean(), device: probability, devicePass: z.boolean() })),
+  conditions: z.record(
+    z.string(),
+    z.strictObject({ cloud: probability, cloudPass: z.boolean(), device: probability, devicePass: z.boolean() }),
+  ),
   cloudModel: z.enum(cloudModels),
   cloudMs: z.number().min(0), // end to end in the browser
   cloudModelMs: z.number().min(0), // the server's model call
@@ -48,7 +51,9 @@ function read(): Comparison[] {
 }
 
 function write(records: Comparison[], now: number): void {
-  const fresh = records.filter((record) => now - record.at < COMPARISON_LIMITS.days * DAY_MS).slice(-COMPARISON_LIMITS.records)
+  const fresh = records
+    .filter((record) => now - record.at < COMPARISON_LIMITS.days * DAY_MS)
+    .slice(-COMPARISON_LIMITS.records)
   let json = JSON.stringify(fresh)
   while (fresh.length > 0 && json.length > COMPARISON_LIMITS.bytes) {
     fresh.shift()
@@ -75,7 +80,13 @@ export function saveComparison(record: Comparison, now = Date.now()): void {
 }
 
 // "Count it anyway" on a guess the judges already compared.
-export function markOverruled(game: Comparison['game'], n: number, round: string, answer: string, now = Date.now()): void {
+export function markOverruled(
+  game: Comparison['game'],
+  n: number,
+  round: string,
+  answer: string,
+  now = Date.now(),
+): void {
   try {
     const records = read()
     const record = records.findLast((r) => r.game === game && r.n === n && r.round === round && r.answer === answer)

@@ -1,27 +1,27 @@
 :root {
   /* neutrals (warm) */
-  --ground: #0C0B0A;      /* page background */
-  --grid: #161412;        /* graph-paper lines; active row / tile background */
+  --ground: #0c0b0a; /* page background */
+  --grid: #161412; /* graph-paper lines; active row / tile background */
   --surface-review: #191613; /* warm neutral results review */
-  --surface-2: #12100E;   /* solved tile background */
-  --line: #2B2724;        /* frame, dividers */
-  --line-soft: #22201D;   /* list separators inside a panel, chart guides */
-  --line-strong: #3D3833; /* inputs, secondary button borders, axes */
-  --text: #F3EEE6;        /* main text, primary button fill */
-  --muted: #9C958C;       /* labels, secondary text (min 4.5:1) */
-  --dim: #625C55;         /* wireframes, empty strike dots, large text only */
+  --surface-2: #12100e; /* solved tile background */
+  --line: #2b2724; /* frame, dividers */
+  --line-soft: #22201d; /* list separators inside a panel, chart guides */
+  --line-strong: #3d3833; /* inputs, secondary button borders, axes */
+  --text: #f3eee6; /* main text, primary button fill */
+  --muted: #9c958c; /* labels, secondary text (min 4.5:1) */
+  --dim: #625c55; /* wireframes, empty strike dots, large text only */
 
   /* game accents: lines and marks only, never fills */
-  --game-oddly:  oklch(0.85 0.11 80);   /* #F4C677 honey  */
-  --game-escape: oklch(0.84 0.10 240);  /* #8CD4FF sky    */
-  --game-agent:  oklch(0.84 0.10 340);  /* #F7B1DF orchid */
-  --fail:        oklch(0.80 0.08 30);   /* #EDAB9F soft coral: fail and strikes only */
-  --success:     #9BCDAB;               /* completed puzzle checks */
-  --accent: var(--text);                /* neutral outside games */
+  --game-oddly: oklch(0.85 0.11 80); /* #F4C677 honey  */
+  --game-escape: oklch(0.84 0.1 240); /* #8CD4FF sky    */
+  --game-agent: oklch(0.84 0.1 340); /* #F7B1DF orchid */
+  --fail: oklch(0.8 0.08 30); /* #EDAB9F soft coral: fail and strikes only */
+  --success: #9bcdab; /* completed puzzle checks */
+  --accent: var(--text); /* neutral outside games */
 
   /* type */
-  --font-sans: "Geist", system-ui, sans-serif;
-  --font-mono: "Geist Mono", ui-monospace, monospace;
+  --font-sans: 'Geist', system-ui, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, monospace;
 
   --weight-light: 300;
   --weight-regular: 400;
@@ -94,7 +94,9 @@
   --space-14: 56px;
 
   /* layout */
-  --frame-pad: 14px;  --grid-size: 26px;  --content-pad: 18px;
+  --frame-pad: 14px;
+  --grid-size: 26px;
+  --content-pad: 18px;
   --frame-max: 1240px;
   --header-height: 44px;
   --main-pad-top: var(--space-12);
@@ -119,9 +121,14 @@
   --radius-square: 0px;
   --radius-pill: 999px;
   --radius-circle: 50%;
-  --t-scene: 250ms; --t-state: 150ms; --t-sheet: 200ms;
+  --t-scene: 250ms;
+  --t-state: 150ms;
+  --t-sheet: 200ms;
   /* Ring mark motion (5.3): three orbit speeds, shuffled across the arcs, and the centre pulse. */
-  --t-orbit-a: 7s; --t-orbit-b: 10s; --t-orbit-c: 13s; --t-pulse: 2.4s;
+  --t-orbit-a: 7s;
+  --t-orbit-b: 10s;
+  --t-orbit-c: 13s;
+  --t-pulse: 2.4s;
   --t-scan: 1.2s; /* the on-device column's scanning line while it thinks (5.5 G2) */
   --mark-max: 300px;
   --mark-max-wide: 420px;
@@ -166,9 +173,20 @@
     --tracking-condition: -0.045em;
   }
 }
-[data-game="oddly-specific"]   { --accent: var(--game-oddly); }
-[data-game="category-escape"]  { --accent: var(--game-escape); }
-[data-game="double-agent"]     { --accent: var(--game-agent); }
+[data-game='oddly-specific'] {
+  --accent: var(--game-oddly);
+}
+[data-game='category-escape'] {
+  --accent: var(--game-escape);
+}
+[data-game='double-agent'] {
+  --accent: var(--game-agent);
+}
 @supports not (color: oklch(0 0 0)) {
-  :root { --game-oddly: #F4C677; --game-escape: #8CD4FF; --game-agent: #F7B1DF; --fail: #EDAB9F; }
+  :root {
+    --game-oddly: #f4c677;
+    --game-escape: #8cd4ff;
+    --game-agent: #f7b1df;
+    --fail: #edab9f;
+  }
 }

@@ -1,6 +1,14 @@
 // Round-based play (plan 1.3, 1.4, 5.5 G1–G6), shared by Oddly Specific and Double
 // Agent. Pure: no React, no I/O. The game config supplies the numbers.
-import { previousGuess, shareGridOf, startRunOf, updateCurrent, type Guess, type RoundState, type RunState } from '@/games/shared/run'
+import {
+  previousGuess,
+  shareGridOf,
+  startRunOf,
+  updateCurrent,
+  type Guess,
+  type RoundState,
+  type RunState,
+} from '@/games/shared/run'
 
 export interface RoundsConfig {
   rounds: number
@@ -9,7 +17,7 @@ export interface RoundsConfig {
 }
 
 export type RunAction =
-  | { type: 'judged', guess: Guess }
+  | { type: 'judged'; guess: Guess }
   | { type: 'moveOn' }
   | { type: 'countAnyway' }
   | { type: 'skip' }
@@ -39,12 +47,23 @@ export function runReducer(config: RoundsConfig) {
         if (!round.pending) return state
         return updateCurrent(state, (r) => {
           const strikes = r.strikes + 1
-          return { ...r, pending: false, strikes, status: strikes >= config.maxWrongGuessesPerRound ? 'lost' : 'playing' }
+          return {
+            ...r,
+            pending: false,
+            strikes,
+            status: strikes >= config.maxWrongGuessesPerRound ? 'lost' : 'playing',
+          }
         })
       }
       case 'countAnyway': {
         if (!round.pending) return state
-        return updateCurrent(state, (r) => ({ ...r, pending: false, overruled: true, status: 'solved', points: pointsFor(config, r) }))
+        return updateCurrent(state, (r) => ({
+          ...r,
+          pending: false,
+          overruled: true,
+          status: 'solved',
+          points: pointsFor(config, r),
+        }))
       }
       case 'skip': {
         if (round.status !== 'playing') return state
@@ -70,10 +89,12 @@ export const maxScore = (config: RoundsConfig) => config.rounds * (config.points
 
 // Share-grid tiles (plan 1.4): 🟩 first guess, 🟨 a later guess, 🟦 overruled,
 // 🟥 lost or skipped; with a text form that doesn't rely on colour.
-export function shareGrid(state: RunState): { tiles: string, text: string } {
-  return shareGridOf(state.rounds.map((round) => {
-    if (round.status !== 'solved') return ['🟥', '✗'] as const
-    if (round.overruled) return ['🟦', '✓*'] as const
-    return round.strikes === 0 ? ['🟩', '✓'] as const : ['🟨', String(round.strikes + 1)] as const
-  }))
+export function shareGrid(state: RunState): { tiles: string; text: string } {
+  return shareGridOf(
+    state.rounds.map((round) => {
+      if (round.status !== 'solved') return ['🟥', '✗'] as const
+      if (round.overruled) return ['🟦', '✓*'] as const
+      return round.strikes === 0 ? (['🟩', '✓'] as const) : (['🟨', String(round.strikes + 1)] as const)
+    }),
+  )
 }

@@ -24,7 +24,10 @@ const payloadSchema = z.strictObject({ sid: z.string().regex(/^[0-9a-f]{32}$/u),
 const encoder = new TextEncoder()
 
 function base64url(bytes: Uint8Array): string {
-  return btoa(String.fromCharCode(...bytes)).replace(/\+/gu, '-').replace(/\//gu, '_').replace(/=+$/u, '')
+  return btoa(String.fromCharCode(...bytes))
+    .replace(/\+/gu, '-')
+    .replace(/\//gu, '_')
+    .replace(/=+$/u, '')
 }
 
 function fromBase64url(text: string): Uint8Array<ArrayBuffer> | undefined {
@@ -42,7 +45,10 @@ const keys = new Map<string, Promise<CryptoKey>>()
 function key(secret: string): Promise<CryptoKey> {
   let cached = keys.get(secret)
   if (!cached) {
-    cached = crypto.subtle.importKey('raw', encoder.encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign', 'verify'])
+    cached = crypto.subtle.importKey('raw', encoder.encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, [
+      'sign',
+      'verify',
+    ])
     keys.set(secret, cached)
   }
   return cached
@@ -56,12 +62,16 @@ export async function signSession(secret: string, sid: string, exp: number): Pro
 
 // The session ID from a valid, unexpired cookie, or undefined.
 export async function readSession(request: Request, secret: string, now = Date.now()): Promise<string | undefined> {
-  const value = request.headers.get('Cookie')?.split(/;\s*/u).find((part) => part.startsWith(`${COOKIE}=`))?.slice(COOKIE.length + 1)
+  const value = request.headers
+    .get('Cookie')
+    ?.split(/;\s*/u)
+    .find((part) => part.startsWith(`${COOKIE}=`))
+    ?.slice(COOKIE.length + 1)
   const [payloadText, signatureText] = value?.split('.') ?? []
   const payload = payloadText === undefined ? undefined : fromBase64url(payloadText)
   const signature = signatureText === undefined ? undefined : fromBase64url(signatureText)
   if (!payload || !signature) return undefined
-  if (!await crypto.subtle.verify('HMAC', await key(secret), signature, payload)) return undefined
+  if (!(await crypto.subtle.verify('HMAC', await key(secret), signature, payload))) return undefined
   let parsed: unknown
   try {
     parsed = JSON.parse(new TextDecoder().decode(payload))

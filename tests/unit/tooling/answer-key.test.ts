@@ -19,7 +19,8 @@ describe('answer-key cases', () => {
   })
 
   test('thing conditions exist in factory/conditions.json', () => {
-    const missing = [...dev, ...test_].flatMap((c) => c.conditions)
+    const missing = [...dev, ...test_]
+      .flatMap((c) => c.conditions)
       .filter(({ id }) => !id.startsWith('clue:') && !Object.hasOwn(conditions, id))
     expect(missing).toEqual([])
   })

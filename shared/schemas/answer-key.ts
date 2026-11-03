@@ -6,8 +6,15 @@ import { gameIds } from '../games'
 // clues carry their own text.
 
 const caseKinds = [
-  'clear', 'one-fail', 'multi-fail', 'ambiguous', 'borderline',
-  'polysemy', 'misspelling', 'gibberish', 'instruction',
+  'clear',
+  'one-fail',
+  'multi-fail',
+  'ambiguous',
+  'borderline',
+  'polysemy',
+  'misspelling',
+  'gibberish',
+  'instruction',
 ] as const
 
 const expectedLabels = ['yes', 'no', 'unsure'] as const
@@ -18,19 +25,21 @@ const caseCondition = z.strictObject({
   expected: z.enum(expectedLabels),
 })
 
-const answerKeyCaseSchema = z.strictObject({
-  id: z.string().regex(/^[a-z]{2}-\d{2}-\d+$/u),
-  game: z.enum(gameIds),
-  group: z.string().regex(/^[a-z]{2}-\d{2}$/u),
-  answer: z.string().min(1),
-  kind: z.enum(caseKinds),
-  level: z.int().min(1).optional(),
-  conditions: z.array(caseCondition).min(1),
-  reviewed: z.boolean(),
-}).refine(
-  (c) => c.conditions.every((condition) => condition.id.startsWith('clue:') === (condition.clue !== undefined)),
-  { message: 'Clue conditions, and only clue conditions, carry clue text.' },
-)
+const answerKeyCaseSchema = z
+  .strictObject({
+    id: z.string().regex(/^[a-z]{2}-\d{2}-\d+$/u),
+    game: z.enum(gameIds),
+    group: z.string().regex(/^[a-z]{2}-\d{2}$/u),
+    answer: z.string().min(1),
+    kind: z.enum(caseKinds),
+    level: z.int().min(1).optional(),
+    conditions: z.array(caseCondition).min(1),
+    reviewed: z.boolean(),
+  })
+  .refine(
+    (c) => c.conditions.every((condition) => condition.id.startsWith('clue:') === (condition.clue !== undefined)),
+    { message: 'Clue conditions, and only clue conditions, carry clue text.' },
+  )
 export type AnswerKeyCase = z.infer<typeof answerKeyCaseSchema>
 
 export const answerKeySchema = z.array(answerKeyCaseSchema)

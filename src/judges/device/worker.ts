@@ -15,7 +15,9 @@ const RUNTIME_PATH = '/ort/runtime.wasm.gz' // emitted by ortRuntime() in vite.c
 const PROGRESS_MS = 50
 
 declare const self: DedicatedWorkerGlobalScope
-const post = (message: FromWorker) => { self.postMessage(message) }
+const post = (message: FromWorker) => {
+  self.postMessage(message)
+}
 
 let session: ort.InferenceSession | undefined
 let tokenizer: Tokenizer | undefined
@@ -34,8 +36,14 @@ async function loadRuntime(signal: AbortSignal): Promise<void> {
 }
 
 async function load(): Promise<void> {
-  if (session) { post({ type: 'ready' }); return }
-  if (!(await deviceSupported(self.navigator))) { post({ type: 'failed', reason: 'unsupported' }); return }
+  if (session) {
+    post({ type: 'ready' })
+    return
+  }
+  if (!(await deviceSupported(self.navigator))) {
+    post({ type: 'failed', reason: 'unsupported' })
+    return
+  }
   controller = new AbortController()
   const { signal } = controller
   const mine = generation
@@ -54,7 +62,15 @@ async function load(): Promise<void> {
     await loadRuntime(signal)
     const bytes: Uint8Array[] = []
     for (const file of deviceFiles) {
-      bytes.push(await loadFile(file, { signal, onBytes: (count) => { received += count; report(false) } }))
+      bytes.push(
+        await loadFile(file, {
+          signal,
+          onBytes: (count) => {
+            received += count
+            report(false)
+          },
+        }),
+      )
       report(true)
     }
     post({ type: 'warming' })
@@ -91,10 +107,14 @@ async function load(): Promise<void> {
 let queue = Promise.resolve()
 function score(id: number, answer: string, claims: DeviceClaim[]): void {
   queue = queue.then(async () => {
-    if (!session || !tokenizer) { post({ type: 'scoreFailed', id }); return }
+    if (!session || !tokenizer) {
+      post({ type: 'scoreFailed', id })
+      return
+    }
     try {
       const scores: Record<string, number> = {}
-      for (const { id: claimId, claim } of claims) scores[claimId] = await scoreClaim(session, makeTensor, tokenizer, answer, claim)
+      for (const { id: claimId, claim } of claims)
+        scores[claimId] = await scoreClaim(session, makeTensor, tokenizer, answer, claim)
       post({ type: 'scored', id, scores })
     } catch {
       post({ type: 'scoreFailed', id })
@@ -114,9 +134,17 @@ async function remove(): Promise<void> {
 self.onmessage = (event: MessageEvent<ToWorker>) => {
   const message = event.data
   switch (message.type) {
-    case 'load': void load(); return
-    case 'cancel': controller?.abort(); return
-    case 'score': score(message.id, message.answer, message.claims); return
-    case 'delete': void remove(); return
+    case 'load':
+      void load()
+      return
+    case 'cancel':
+      controller?.abort()
+      return
+    case 'score':
+      score(message.id, message.answer, message.claims)
+      return
+    case 'delete':
+      void remove()
+      return
   }
 }

@@ -9,10 +9,14 @@ const ComparisonContent = lazyNamed(() => import('./ComparisonContent'), 'Compar
 
 // Defer the data and detailed UI until first opened. Keep it mounted afterward
 // so collapsing the section preserves the chosen source and model preview.
-export function JudgesCompare({ collapsible = false, compact = false }: { collapsible?: boolean, compact?: boolean }) {
+export function JudgesCompare({ collapsible = false, compact = false }: { collapsible?: boolean; compact?: boolean }) {
   const id = useId()
   const [opened, setOpened] = useState(false)
-  const content = <AsyncBoundary loading={en['compare.loading']}><ComparisonContent /></AsyncBoundary>
+  const content = (
+    <AsyncBoundary loading={en['compare.loading']}>
+      <ComparisonContent />
+    </AsyncBoundary>
+  )
   return (
     <section className="compare" aria-labelledby={`${id}-title`}>
       <header className="compare__head" hidden={compact}>
@@ -21,13 +25,26 @@ export function JudgesCompare({ collapsible = false, compact = false }: { collap
         {/* The two halves, named as their tabs are, so the player knows what's inside before opening it. */}
         <ul className="compare__ways">
           {compareSources.map((source) => (
-            <li key={source}><strong>{en[`compare.source.${source}`]}</strong><span>{en[`compare.way.${source}`]}</span></li>
+            <li key={source}>
+              <strong>{en[`compare.source.${source}`]}</strong>
+              <span>{en[`compare.way.${source}`]}</span>
+            </li>
           ))}
         </ul>
       </header>
-      {collapsible
-        ? <details className="compare__disclosure" onToggle={(event) => { if (event.currentTarget.open) setOpened(true) }}><summary>{en[compact ? 'results.compare' : 'compare.expand']}</summary>{opened && content}</details>
-        : content}
+      {collapsible ? (
+        <details
+          className="compare__disclosure"
+          onToggle={(event) => {
+            if (event.currentTarget.open) setOpened(true)
+          }}
+        >
+          <summary>{en[compact ? 'results.compare' : 'compare.expand']}</summary>
+          {opened && content}
+        </details>
+      ) : (
+        content
+      )}
     </section>
   )
 }

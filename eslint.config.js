@@ -75,9 +75,18 @@ export default defineConfig(
       'react-refresh/only-export-components': ['error', { allowConstantExport: true }],
       // Structural props (className, route paths, etc.) may remain literals.
       'react/jsx-no-literals': ['error', { noStrings: true, ignoreProps: true }],
-      'react/forbid-dom-props': ['error', {
-        forbid: [{ propName: 'style', message: 'Use CSS classes and design tokens. Dynamic custom properties need a narrowly scoped, documented exception.' }],
-      }],
+      'react/forbid-dom-props': [
+        'error',
+        {
+          forbid: [
+            {
+              propName: 'style',
+              message:
+                'Use CSS classes and design tokens. Dynamic custom properties need a narrowly scoped, documented exception.',
+            },
+          ],
+        },
+      ],
       // A wrapper component must not become another path for inline styles.
       'react/forbid-component-props': ['error', { forbid: ['style'] }],
       'no-restricted-syntax': [
@@ -94,7 +103,8 @@ export default defineConfig(
         // justifiably disables forbid-dom-props/forbid-component-props.
         {
           selector: `${styleAttribute} > Literal, ${styleAttribute} > JSXExpressionContainer > :not(ObjectExpression):not(TSAsExpression):not(TSSatisfiesExpression)`,
-          message: 'A dynamic style exception must use an explicit object of CSS custom properties, not a string or opaque style variable.',
+          message:
+            'A dynamic style exception must use an explicit object of CSS custom properties, not a string or opaque style variable.',
         },
         {
           selector: `${styleAttribute} > JSXExpressionContainer > :matches(TSAsExpression, TSSatisfiesExpression):not([expression.type="ObjectExpression"])`,
@@ -102,18 +112,22 @@ export default defineConfig(
         },
         {
           selector: `${styleAttribute} ObjectExpression > Property:not([key.type="Literal"][key.value=/^--[a-z][a-z0-9-]*$/]), ${styleAttribute} ObjectExpression > SpreadElement`,
-          message: 'Dynamic style exceptions may only set literal CSS custom-property keys (--name); CSS properties and spreads are forbidden.',
+          message:
+            'Dynamic style exceptions may only set literal CSS custom-property keys (--name); CSS properties and spreads are forbidden.',
         },
         {
           selector: `${styleAttribute} ObjectExpression > :matches(Property[value.type="Literal"], Property[value.type="TemplateLiteral"][value.expressions.length=0], Property[value.type="UnaryExpression"][value.argument.type="Literal"])`,
           message: 'Inline custom-property values must be dynamic; put static values in tokens.css.',
         },
       ],
-      'jsx-a11y-x/anchor-is-valid': ['error', {
-        components: ['Link', 'NavLink'],
-        specialLink: ['to'],
-        aspects: ['invalidHref', 'preferButton'],
-      }],
+      'jsx-a11y-x/anchor-is-valid': [
+        'error',
+        {
+          components: ['Link', 'NavLink'],
+          specialLink: ['to'],
+          aspects: ['invalidHref', 'preferButton'],
+        },
+      ],
       'no-restricted-imports': ['error', { patterns: [privateImports] }],
     },
   },
@@ -124,24 +138,39 @@ export default defineConfig(
   {
     files: ['worker/**/*.ts'],
     rules: {
-      'no-restricted-imports': ['error', {
-        patterns: [
-          { group: ['@/*', '**/src/**'], message: 'Import platform-independent code from shared/ instead of the React app.' },
-          { regex: '(^|/)(factory|eval|plan)(/|$)', message: 'The production Worker must not import build-time tools or local planning files.' },
-        ],
-      }],
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['@/*', '**/src/**'],
+              message: 'Import platform-independent code from shared/ instead of the React app.',
+            },
+            {
+              regex: '(^|/)(factory|eval|plan)(/|$)',
+              message: 'The production Worker must not import build-time tools or local planning files.',
+            },
+          ],
+        },
+      ],
     },
   },
   {
     files: ['shared/**/*.ts'],
     rules: {
-      'no-restricted-imports': ['error', {
-        patterns: [
-          privateImports,
-          reactImports,
-          { group: ['@/*', '**/src/**', 'node:*'], message: 'Shared code must stay independent of the app and platform adapters.' },
-        ],
-      }],
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            privateImports,
+            reactImports,
+            {
+              group: ['@/*', '**/src/**', 'node:*'],
+              message: 'Shared code must stay independent of the app and platform adapters.',
+            },
+          ],
+        },
+      ],
     },
   },
   {
@@ -153,25 +182,31 @@ export default defineConfig(
   {
     files: ['src/games/**/reducer.ts', 'src/games/shared/run.ts'],
     rules: {
-      'no-restricted-imports': ['error', {
-        patterns: [
-          privateImports,
-          reactImports,
-          sceneImports,
-          { group: ['node:*'], message: 'Game reducers must stay independent of Node APIs.' },
-        ],
-      }],
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            privateImports,
+            reactImports,
+            sceneImports,
+            { group: ['node:*'], message: 'Game reducers must stay independent of Node APIs.' },
+          ],
+        },
+      ],
     },
   },
   {
     files: ['src/**/*.{ts,tsx}'],
     ignores: ['src/lib/storage/**'],
     rules: {
-      'no-restricted-globals': ['error', {
-        globals: [{ name: 'localStorage', message: 'Use a guarded helper from src/lib/storage/.' }],
-        checkGlobalObject: true,
-        globalObjects: ['window', 'globalThis', 'self'],
-      }],
+      'no-restricted-globals': [
+        'error',
+        {
+          globals: [{ name: 'localStorage', message: 'Use a guarded helper from src/lib/storage/.' }],
+          checkGlobalObject: true,
+          globalObjects: ['window', 'globalThis', 'self'],
+        },
+      ],
     },
   },
 )

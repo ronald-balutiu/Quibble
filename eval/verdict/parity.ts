@@ -5,8 +5,15 @@ import { readFileSync, writeFileSync } from 'node:fs'
 import { deviceModel } from '@/judges/device/verdict'
 import { loadDeviceJudge, nodeRuntime } from './node-runtime'
 
-interface ParityCase { id: string, answer: string, claim: string }
-interface RuntimeResults { runtime: string, results: { id: string, p: number }[] }
+interface ParityCase {
+  id: string
+  answer: string
+  claim: string
+}
+interface RuntimeResults {
+  runtime: string
+  results: { id: string; p: number }[]
+}
 
 const MAX_DELTA = 0.02
 const THRESHOLD = 0.5
@@ -29,11 +36,13 @@ const runtimes = [node, ...process.argv.slice(2).map((path) => readJson(path) as
 const rows = cases.map(({ id }) => {
   const p = reference.results.find((result) => result.id === id)?.p
   if (p === undefined) throw new Error(`No Python reference score for ${id}.`)
-  const deltas = Object.fromEntries(runtimes.map(({ runtime, results }) => {
-    const other = results.find((result) => result.id === id)?.p
-    if (other === undefined) throw new Error(`No ${runtime} score for ${id}.`)
-    return [runtime, Number((other - p).toFixed(6))]
-  }))
+  const deltas = Object.fromEntries(
+    runtimes.map(({ runtime, results }) => {
+      const other = results.find((result) => result.id === id)?.p
+      if (other === undefined) throw new Error(`No ${runtime} score for ${id}.`)
+      return [runtime, Number((other - p).toFixed(6))]
+    }),
+  )
   return { id, python: p, deltas, nearThreshold: Math.abs(p - THRESHOLD) <= 2 * MAX_DELTA }
 })
 const maxDelta = Math.max(...rows.flatMap((row) => Object.values(row.deltas).map(Math.abs)))
@@ -48,4 +57,6 @@ const parity = {
   rows,
 }
 writeFileSync(`${fixtures}/parity.json`, `${JSON.stringify(parity, null, 2)}\n`)
-console.log(`max |ΔP| ${maxDelta.toFixed(6)} across ${runtimes.map(({ runtime }) => runtime).join(', ')}: ${parity.pass ? 'pass' : 'FAIL'}`)
+console.log(
+  `max |ΔP| ${maxDelta.toFixed(6)} across ${runtimes.map(({ runtime }) => runtime).join(', ')}: ${parity.pass ? 'pass' : 'FAIL'}`,
+)

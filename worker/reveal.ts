@@ -15,7 +15,10 @@ export function handleReveal(pathname: string, library: Library): Response {
   const round = findRound(library, game, Number(n), roundId)
   if (!round) return json({ error: 'unknown' }, 404)
 
-  const reveal: Reveal = { example: round.example, also: round.known.filter((answer) => answer !== round.example).slice(0, 2) }
+  const reveal: Reveal = {
+    example: round.example,
+    also: round.known.filter((answer) => answer !== round.example).slice(0, 2),
+  }
   const path = game === 'category-escape' ? findPath(library, game, Number(n)) : undefined
   return json(path ? { ...reveal, path } : reveal, 200, { 'Cache-Control': 'public, max-age=3600' })
 }

@@ -4,6 +4,8 @@ import { useEffect, useRef } from 'react'
 // behind it is inert until it closes.
 export function useModalDialog() {
   const dialog = useRef<HTMLDialogElement>(null)
-  useEffect(() => { dialog.current?.showModal() }, [])
+  useEffect(() => {
+    dialog.current?.showModal()
+  }, [])
   return dialog
 }

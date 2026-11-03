@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { seedStorage } from './support'
+import { mockJudge, seedStorage } from './support'
 
 // L3 on a device that can't run the on-device judge (5.5): CI's headless browser has
 // no WebGPU adapter, so it never sees an offer.
@@ -76,11 +76,10 @@ test('Settings keeps its close button available and puts Privacy at the bottom',
 })
 
 test('changing the cloud judge during a game applies to the next guess', async ({ page }) => {
-  const models: string[] = []
-  await page.route('**/api/judge', async (route) => {
-    const body = route.request().postDataJSON() as { attempt: number, model: string }
-    models.push(body.model)
-    await route.fulfill({ status: 502, json: { attempt: body.attempt, error: 'unavailable' } })
+  const models: (string | undefined)[] = []
+  await mockJudge(page, (request) => {
+    models.push(request.model)
+    return { status: 502, json: { attempt: request.attempt, error: 'unavailable' } }
   })
   await page.goto('/play/oddly-specific/1')
   await page.getByRole('textbox').fill('first guess')

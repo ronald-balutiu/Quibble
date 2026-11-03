@@ -1,10 +1,9 @@
 import { expect, test } from '@playwright/test'
-import { seedStorage } from './support'
-import { readFileSync } from 'node:fs'
+import { seedStorage, shippedPuzzle } from './support'
 import AxeBuilder from '@axe-core/playwright'
 
-// The Library with Category Escape listed (it doesn't ship until Phase 4 closes,
-// D-76, so the index is mocked): progress counts levels (D-78), and 6/6 is perfect.
+// Library fixtures distinguish active, completed and perfect progress; Category
+// Escape counts cleared levels rather than round-based points.
 
 const level = { status: 'playing', guesses: [], strikes: 0, pending: false, overruled: false, points: 0 }
 const cleared = { ...level, status: 'solved', guesses: [{ answer: 'a', pass: true, failed: [], closeCall: false }], points: 1 }
@@ -174,7 +173,7 @@ test('Category Escape progress reads in levels, and 6/6 is perfect', async ({ pa
 // library: each game's first shipped puzzle opens from its tile.
 for (const game of ['oddly-specific', 'category-escape', 'double-agent'] as const) {
   test(`${game} #001 opens from the Library`, async ({ page }) => {
-    const puzzle = JSON.parse(readFileSync(`public/puzzles/${game}/1.json`, 'utf8')) as { rounds: { conditions: { label: string }[] }[] }
+    const puzzle = shippedPuzzle(game)
     await page.goto(`/play?game=${game}`)
     await page.getByRole('button', { name: /^001/u }).click()
     await expect(page).toHaveURL(`/play/${game}/1`)

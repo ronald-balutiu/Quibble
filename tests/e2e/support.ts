@@ -1,30 +1,32 @@
 import { expect, type Page } from '@playwright/test'
 import { readFileSync } from 'node:fs'
+import type { GameId } from '../../shared/games'
+import { defaultCloudModel, judgeRequestSchema, revealSchema, type CloudModel, type JudgeRequest, type JudgeSuccess, type Reveal } from '../../shared/schemas/judge'
+import { puzzleSchema, type Puzzle } from '../../shared/schemas/puzzle'
 
 // Shared setup for the browser tests: a mocked API (no model calls, no Turnstile),
 // fixture puzzles, storage seeding and guesses. Each spec keeps only its own rule
 // for which answers pass.
 
-export interface JudgeRequest { attempt: number, game: string, n: number, roundId: string, answer: string }
-export interface PuzzleFile { rounds: { id: string, conditions: { id: string }[] }[] }
+export type { JudgeRequest } from '../../shared/schemas/judge'
 
-export const readPuzzle = (path: string) => JSON.parse(readFileSync(path, 'utf8')) as PuzzleFile
-export const shippedPuzzle = (game: string, n = 1) => readPuzzle(`public/puzzles/${game}/${String(n)}.json`)
-export const conditionsOf = (puzzle: PuzzleFile, roundId: string) => puzzle.rounds.find((round) => round.id === roundId)?.conditions.map(({ id }) => id) ?? []
+export const readPuzzle = (path: string) => puzzleSchema.parse(JSON.parse(readFileSync(path, 'utf8')))
+export const shippedPuzzle = (game: GameId, n = 1) => readPuzzle(`public/puzzles/${game}/${String(n)}.json`)
+export const conditionsOf = (puzzle: Puzzle, roundId: string) => puzzle.rounds.find((round) => round.id === roundId)?.conditions.map(({ id }) => id) ?? []
 
 // Serves a fixed puzzle file, so a test doesn't depend on the shipped library.
-export async function servePuzzle(page: Page, game: string, n: number, path: string) {
-  const body = readFileSync(path, 'utf8')
-  await page.route(`**/puzzles/${game}/${String(n)}.json`, (route) => route.fulfill({ contentType: 'application/json', body }))
+export async function servePuzzle(page: Page, game: GameId, n: number, path: string) {
+  const puzzle = readPuzzle(path)
+  await page.route(`**/puzzles/${game}/${String(n)}.json`, (route) => route.fulfill({ json: puzzle }))
 }
 
 // A reply for /api/judge: each condition's verdict, an error status, or no reply
 // at all (for the 10-second timeout).
-export type JudgeReply = { passes: Record<string, boolean> } | { status: number, json: unknown } | 'hang'
+export type JudgeReply = { passes: Record<string, boolean>, model?: CloudModel, modelMs?: number } | { status: number, json: unknown } | 'hang'
 
 export async function mockJudge(page: Page, reply: (request: JudgeRequest) => JudgeReply, { delayMs = 0 } = {}) {
   await page.route('**/api/judge', async (route) => {
-    const request = route.request().postDataJSON() as JudgeRequest
+    const request = judgeRequestSchema.parse(route.request().postDataJSON())
     const result = reply(request)
     if (result === 'hang') return
     if (delayMs > 0) await new Promise((resolve) => setTimeout(resolve, delayMs))
@@ -34,19 +36,19 @@ export async function mockJudge(page: Page, reply: (request: JudgeRequest) => Ju
     }
     await route.fulfill({
       json: {
-        attempt: request.attempt, model: 'clef-flash', modelMs: 40,
+        attempt: request.attempt, model: result.model ?? request.model ?? defaultCloudModel, modelMs: result.modelMs ?? 40,
         conditions: Object.fromEntries(Object.entries(result.passes).map(([id, pass]) => [id, pass ? { pass: true, p: 0.9 } : { pass: false, p: 0.1 }])),
-      },
+      } satisfies JudgeSuccess,
     })
   })
 }
 
 // The same verdict for every condition of the round.
-export const allConditions = (puzzle: PuzzleFile, request: JudgeRequest, pass: boolean) =>
+export const allConditions = (puzzle: Puzzle, request: JudgeRequest, pass: boolean) =>
   ({ passes: Object.fromEntries(conditionsOf(puzzle, request.roundId).map((id) => [id, pass])) })
 
-export async function mockReveal(page: Page, reply: (roundId: string) => unknown = () => ({ example: 'sock', also: ['sweater', 'jeans'] })) {
-  await page.route('**/api/reveal/**', (route) => route.fulfill({ json: reply(route.request().url().split('/').at(-1) ?? '') }))
+export async function mockReveal(page: Page, reply: (roundId: string) => Reveal = () => ({ example: 'sock', also: ['sweater', 'jeans'] })) {
+  await page.route('**/api/reveal/**', (route) => route.fulfill({ json: revealSchema.parse(reply(route.request().url().split('/').at(-1) ?? '')) }))
 }
 
 // Seeds localStorage before the page's scripts run. By default only on the first

@@ -1,3 +1,4 @@
+import { puzzleIndexSchema } from '../../shared/schemas/puzzle'
 import { expect, test } from '@playwright/test'
 import { readFileSync } from 'node:fs'
 
@@ -95,7 +96,7 @@ test('crawlers find every puzzle, and each page names itself', async ({ page, re
   expect(robots).toContain('Sitemap: https://quibble.ronaldbalutiu.com/sitemap.xml')
   expect(robots).toContain('Disallow: /api/')
   const sitemap = await (await request.get('/sitemap.xml')).text()
-  const index = JSON.parse(readFileSync('public/puzzles/index.json', 'utf8')) as Record<string, unknown[]>
+  const index = puzzleIndexSchema.parse(JSON.parse(readFileSync('public/puzzles/index.json', 'utf8')))
   const puzzles = Object.values(index).reduce((sum, list) => sum + list.length, 0)
   expect(sitemap.match(/<loc>/gu)).toHaveLength(puzzles + 3)
   expect(sitemap).toContain('<loc>https://quibble.ronaldbalutiu.com/play/double-agent/1</loc>')

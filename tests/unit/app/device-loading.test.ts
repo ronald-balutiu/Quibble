@@ -1,11 +1,11 @@
-import { describe, expect, test, vi } from 'vitest'
+import { afterEach, describe, expect, test, vi } from 'vitest'
 import { createDeviceJudge } from '@/judges/device/client'
 import { DownloadError, loadFile, readInto } from '@/judges/device/download'
 import { deviceSupported } from '@/judges/device/gate'
 import type { FromWorker, ToWorker } from '@/judges/device/protocol'
-import { deviceFileUrl } from '@/judges/device/verdict'
+import { deviceFiles, deviceFileUrl } from '@/judges/device/verdict'
 
-const file = { path: 'tokenizer_config.json', bytes: 6 } as never
+const file = deviceFiles[0]
 const body = (...chunks: number[][]) => new Response(new ReadableStream({
   start(controller) {
     for (const chunk of chunks) controller.enqueue(new Uint8Array(chunk))
@@ -35,9 +35,11 @@ describe('model download', () => {
   })
 
   test('fetches with no-store, so the browser keeps no copy', async () => {
-    const fetch = vi.fn(() => Promise.resolve(body([1, 2, 3, 4, 5, 6])))
+    const contents = new Uint8Array(file.bytes)
+    contents.set([1, 2, 3, 4, 5, 6])
+    const fetch = vi.fn(() => Promise.resolve(body([...contents])))
     const bytes = await loadFile(file, { signal: new AbortController().signal, onBytes: () => undefined, fetch })
-    expect([...bytes]).toEqual([1, 2, 3, 4, 5, 6])
+    expect(bytes).toEqual(contents)
     expect(fetch).toHaveBeenCalledWith(deviceFileUrl('tokenizer_config.json'), expect.objectContaining({ cache: 'no-store' }))
   })
 
@@ -65,10 +67,12 @@ class FakeWorker {
   terminated = false
   postMessage(message: ToWorker) { this.sent.push(message) }
   terminate() { this.terminated = true }
-  reply(message: FromWorker) { this.onmessage?.({ data: message } as MessageEvent<FromWorker>) }
+  reply(message: FromWorker) { this.onmessage?.(new MessageEvent('message', { data: message })) }
 }
 
 describe('device judge client', () => {
+  afterEach(() => { vi.useRealTimers() })
+
   async function readyJudge() {
     const worker = new FakeWorker()
     const judge = createDeviceJudge(() => worker)
@@ -111,11 +115,15 @@ describe('device judge client', () => {
   test('a guess over 10 seconds times out, and its late result is ignored', async () => {
     vi.useFakeTimers()
     const { worker, judge } = await readyJudge()
-    const scoring = judge.score('pocket knife', [])
-    vi.advanceTimersByTime(10_000)
+    const settled = vi.fn()
+    const scoring = judge.score('pocket knife', []).then((result) => { settled(result); return result })
+    await vi.advanceTimersByTimeAsync(9_999)
+    expect(settled).not.toHaveBeenCalled()
+    await vi.advanceTimersByTimeAsync(1)
     expect(await scoring).toEqual({ kind: 'timeout' })
     expect(() => { worker.reply({ type: 'scored', id: 1, scores: {} }) }).not.toThrow()
-    vi.useRealTimers()
+    await Promise.resolve()
+    expect(settled).toHaveBeenCalledExactlyOnceWith({ kind: 'timeout' })
   })
 
   test('a crashed worker ends the load with model.start.failed', async () => {

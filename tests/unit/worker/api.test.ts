@@ -40,7 +40,7 @@ async function judge(body: unknown, e = env(), headers: Record<string, string> =
 
 const guess = { game: 'oddly-specific', n: 1, roundId: 'r1', answer: 'A Pocket Knife!', attempt: 3 }
 
-afterEach(() => { vi.unstubAllGlobals() })
+afterEach(() => { vi.useRealTimers() })
 
 describe('POST /api/session', () => {
   const session = (token: unknown) => route(new Request('https://quibble.example/api/session', { method: 'POST', body: JSON.stringify({ turnstileToken: token }) }), env())
@@ -88,15 +88,17 @@ describe('POST /api/session', () => {
 
 describe('session cookies', () => {
   test('reject tampering, the wrong key and expiry', async () => {
-    const valid = await cookie()
+    const expires = Date.parse('2026-10-29T12:00:00Z')
+    const valid = await cookie(expires / 1000)
     const request = (value: string) => new Request('https://x', { headers: { Cookie: value } })
-    expect(await readSession(request(valid), SESSION_KEY)).toBeDefined()
+    expect(await readSession(request(valid), SESSION_KEY, expires - 1)).toBe('0123456789abcdef0123456789abcdef')
     // Change significant signature bits; base64's trailing padding bits can decode unchanged.
     const signatureStart = valid.lastIndexOf('.') + 1
     const tampered = `${valid.slice(0, signatureStart)}${valid[signatureStart] === 'A' ? 'B' : 'A'}${valid.slice(signatureStart + 1)}`
-    expect(await readSession(request(tampered), SESSION_KEY)).toBeUndefined()
-    expect(await readSession(request(valid), 'other-key')).toBeUndefined()
-    expect(await readSession(request(await cookie(Math.floor(Date.now() / 1000) - 1)), SESSION_KEY)).toBeUndefined()
+    expect(await readSession(request(tampered), SESSION_KEY, expires - 1)).toBeUndefined()
+    expect(await readSession(request(valid), 'other-key', expires - 1)).toBeUndefined()
+    expect(await readSession(request(valid), SESSION_KEY, expires)).toBeUndefined()
+    expect(await readSession(request(valid), SESSION_KEY, expires + 1)).toBeUndefined()
   })
 })
 
@@ -172,10 +174,12 @@ describe('POST /api/judge', () => {
   })
 
   test('returns resting with the next UTC midnight when the daily allowance is used up', async () => {
+    vi.useFakeTimers({ toFake: ['Date'] })
+    vi.setSystemTime(new Date('2026-10-29T23:59:59.999Z'))
     const e = env(() => Promise.reject(Object.assign(new Error('3036: You have used up your daily free allocation.'), { name: 'AiError' })))
     const { status, body } = await judge(guess, e)
     expect(status).toBe(503)
-    expect(body).toMatchObject({ error: 'resting', resetAt: nextUtcMidnight() })
+    expect(body).toMatchObject({ error: 'resting', resetAt: '2026-10-30T00:00:00.000Z' })
   })
 
   test('returns unavailable for an unreadable model reply', async () => {

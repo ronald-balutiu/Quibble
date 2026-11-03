@@ -7,7 +7,7 @@ const success = { attempt: 4, model: 'clef-flash', modelMs: 200, conditions: { p
 const ok: RenewSession = () => Promise.resolve('ok')
 const reply = (status: number, body?: unknown) => Promise.resolve(body === undefined ? new Response('nope', { status }) : Response.json(body, { status }))
 
-function run(fetchImpl: () => Promise<Response>, { renew = ok, online = true, timeoutMs = 1000 } = {}) {
+function run(fetchImpl: typeof fetch, { renew = ok, online = true, timeoutMs = 1000 } = {}) {
   return judgeOnCloud(request, renew, { fetch: vi.fn(fetchImpl), isOnline: () => online, timeoutMs, now: () => new Date('2026-10-29T12:00:00Z') })
 }
 
@@ -50,8 +50,19 @@ describe('judgeOnCloud', () => {
   })
 
   test('times out after the limit', async () => {
-    const hang = () => new Promise<Response>((_, reject) => { setTimeout(() => { reject(new DOMException('aborted', 'TimeoutError')) }, 50) })
-    expect(await run(hang, { timeoutMs: 10 })).toEqual({ kind: 'error', message: 'judge.cloud.timeout' })
+    const controller = new AbortController()
+    const error = new DOMException('aborted', 'TimeoutError')
+    const timeout = vi.spyOn(AbortSignal, 'timeout').mockReturnValue(controller.signal)
+    const hang = vi.fn<typeof fetch>((_input, init) => new Promise<Response>((_, reject) => {
+      const signal = init?.signal
+      if (!signal) throw new Error('Fetch must receive the timeout signal')
+      signal.addEventListener('abort', () => { reject(error) }, { once: true })
+    }))
+    const judging = run(hang, { timeoutMs: 10 })
+    expect(timeout).toHaveBeenCalledExactlyOnceWith(10)
+    expect(hang).toHaveBeenCalledExactlyOnceWith('/api/judge', expect.objectContaining({ signal: controller.signal }))
+    controller.abort(error)
+    expect(await judging).toEqual({ kind: 'error', message: 'judge.cloud.timeout' })
   })
 
   test('distinguishes offline from unreachable on a network failure', async () => {

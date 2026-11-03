@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router'
 import { en, format } from '@/copy/en'
 import { deviceJudge } from '@/judges/device/client'
@@ -7,35 +7,14 @@ import { clearComparisons, loadComparisons } from '@/lib/storage/comparisons'
 import { deleteEverything } from '@/lib/storage/everything'
 import { clearGameData, progressSummary } from '@/lib/storage/progress'
 import { loadReferee, saveReferee } from '@/lib/storage/settings'
+import { DEVICE_TOTAL_BYTES } from '@/judges/device/verdict'
+import { ConfirmButton } from '../ConfirmButton/ConfirmButton'
 import { DeviceSetup } from '../DeviceSetup/DeviceSetup'
 import { CloudModelChoice } from '../JudgeSetup/CloudModelChoice'
-import { DEVICE_TOTAL_BYTES, megabytes } from '../DeviceSetup/progress'
+import { megabytes } from '../DeviceSetup/progress'
 
 // L3, opened from the shared site header: the referee, the
 // on-device judge, and the player's data in this browser (1.8).
-
-// Every clear and delete asks once more in place: "Press again to delete" for 5 s,
-// then "Deleted" (5.7 confirm.again).
-function ConfirmButton({ label, danger = false, onConfirm }: { label: string, danger?: boolean, onConfirm: () => void }) {
-  const [state, setState] = useState<'idle' | 'confirming' | 'done'>('idle')
-  const timer = useRef<ReturnType<typeof setTimeout>>(undefined)
-  useEffect(() => () => { clearTimeout(timer.current) }, [])
-  function press() {
-    if (state === 'idle') {
-      setState('confirming')
-      timer.current = setTimeout(() => { setState('idle') }, 5000)
-      return
-    }
-    clearTimeout(timer.current)
-    onConfirm()
-    setState('done')
-  }
-  return (
-    <button type="button" className={danger ? 'pill pill--quiet pill--danger' : 'pill pill--quiet'} disabled={state === 'done'} onClick={press}>
-      {state === 'idle' ? label : en[state === 'confirming' ? 'confirm.again' : 'confirm.done']}
-    </button>
-  )
-}
 
 export function SettingsContents({ onProgressCleared }: { onProgressCleared: () => void }) {
   const status = useDeviceStatus()

@@ -5,10 +5,10 @@ import { useEvalResults } from '@/lib/eval-results'
 import { useCloudModel } from '@/lib/use-cloud-model'
 import { AnswerKey } from './AnswerKey'
 import { YourGames } from './YourGames'
-import { dateLabel } from './format'
+import { compareSources, dateLabel } from './format'
 
 export function ComparisonContent() {
-  const [view, setView] = useState<'test' | 'games'>('test')
+  const [view, setView] = useState<(typeof compareSources)[number]>('test')
   const [preview, setPreview] = useState<CloudModel>()
   const chosen = useCloudModel()
   const model = preview ?? chosen
@@ -20,7 +20,7 @@ export function ComparisonContent() {
   return (
     <div className="compare__content">
       <div className="compare__sources" role="group" aria-label={en['compare.source']}>
-        {(['test', 'games'] as const).map((source) => (
+        {compareSources.map((source) => (
           <button type="button" key={source} aria-pressed={view === source} aria-controls={`${id}-panel`} onClick={() => { setView(source) }}>{en[`compare.source.${source}`]}</button>
         ))}
       </div>

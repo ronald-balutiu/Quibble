@@ -1,5 +1,6 @@
-import { useSyncExternalStore, type CSSProperties } from 'react'
+import type { CSSProperties } from 'react'
 import { en } from '@/copy/en'
+import { useClientValue } from '@/lib/use-hydrated'
 import './RingMark.css'
 
 // The mark (D-17, 5.3): three intersecting rings, one per game, with a point
@@ -27,12 +28,12 @@ function randomOrbits() {
 
 let orbitsForPage: ReturnType<typeof randomOrbits> | undefined
 const pageOrbits = () => (orbitsForPage ??= randomOrbits())
-const neverChanges = () => () => undefined
+const fixedOrbits = () => FIXED_ORBITS
 
 // The progress variant (S4) draws each ring over a third of the download, from
 // `progress` (0–1), over dotted outlines. The centre point lights up at 100%.
 export function RingMark({ progress, label = en['mark.label'] }: { progress?: number, label?: string }) {
-  const orbits = useSyncExternalStore(neverChanges, pageOrbits, () => FIXED_ORBITS)
+  const orbits = useClientValue(pageOrbits, fixedOrbits)
   const drawing = progress !== undefined
   const complete = !drawing || progress >= 1
   return (

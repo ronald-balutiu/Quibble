@@ -3,7 +3,8 @@ import { en, format } from '@/copy/en'
 import { backgroundDownload } from '@/judges/device/background-download'
 import { deviceJudge } from '@/judges/device/client'
 import { useDeviceStatus, useDeviceSupported } from '@/judges/device/use-device'
-import { DEVICE_TOTAL_BYTES, fraction, megabytes } from '../DeviceSetup/progress'
+import { DEVICE_TOTAL_BYTES } from '@/judges/device/verdict'
+import { fraction, megabytes } from '../DeviceSetup/progress'
 import './JudgeSetup.css'
 
 export function DeviceJudgeCard() {

@@ -1,13 +1,17 @@
-import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react'
+import { useMemo, useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router'
 import { gameIds, type GameId } from '@shared/games'
+import { puzzlePath } from '@/app/paths'
 import { usePageMeta } from '@/app/use-page-meta'
+import { ConfirmButton } from '@/components/ConfirmButton/ConfirmButton'
 import { DeviceJudgeCard } from '@/components/JudgeSetup/DeviceJudgeCard'
 import { CloudModelChoice } from '@/components/JudgeSetup/CloudModelChoice'
 import { en, format, puzzleNumber } from '@/copy/en'
 import { usePuzzleIndex } from '@/lib/use-puzzle-index'
 import { progressChanges, resetPuzzle } from '@/lib/storage/progress'
 import { useHydrated } from '@/lib/use-hydrated'
+import { useModalDialog } from '@/lib/use-modal-dialog'
+import { useStorageRevision } from '@/lib/use-storage-revision'
 import { libraryEntries, maxFor, progressText, type statusOf } from './library-model'
 import { GameRules } from './GameRules'
 import '../scenes.css'
@@ -22,7 +26,7 @@ export function LibraryScene() {
   const hydrated = useHydrated()
   const game = (hydrated ? gameIds.find((id) => id === params.get('game')) : undefined) ?? 'oddly-specific'
   const { data: index, retry } = usePuzzleIndex()
-  const revision = useSyncExternalStore(progressChanges.subscribe, progressChanges.snapshot, progressChanges.serverSnapshot)
+  const revision = useStorageRevision(progressChanges)
   // eslint-disable-next-line react-hooks/exhaustive-deps -- the revision invalidates derived storage data after local or cross-tab changes.
   const entries = useMemo(() => index ? libraryEntries(index) : undefined, [index, revision])
   const [open, setOpen] = useState<number | undefined>()
@@ -71,8 +75,8 @@ export function LibraryScene() {
           <div className="library-start">
             <p>{en[continuing ? 'library.continue.note' : hasCompleted ? 'library.next.note' : 'library.start.note']}</p>
             {continuing
-              ? <Link className="pill control-link" to={`/play/${game}/${String(continuing.n)}`}>{progressText(game, 'library.continue', { n: puzzleNumber(continuing.n), round: continuing.round ?? 1 })}</Link>
-              : starter && <Link className="pill control-link" to={`/play/${game}/${String(starter.n)}`}>{format('library.start', { n: puzzleNumber(starter.n), difficulty: en[`difficulty.${starter.difficulty}`] })}</Link>}
+              ? <Link className="pill control-link" to={puzzlePath(game, continuing.n)}>{progressText(game, 'library.continue', { n: puzzleNumber(continuing.n), round: continuing.round ?? 1 })}</Link>
+              : starter && <Link className="pill control-link" to={puzzlePath(game, starter.n)}>{format('library.start', { n: puzzleNumber(starter.n), difficulty: en[`difficulty.${starter.difficulty}`] })}</Link>}
           </div>
         )}
         <GameRules game={game} key={game} />
@@ -85,7 +89,7 @@ export function LibraryScene() {
           ))}
           {unplayed.length > 0 && <button type="button" className="setup-link library-shuffle" onClick={() => {
             const pick = unplayed[Math.floor(Math.random() * unplayed.length)]
-            if (pick) void navigate(`/play/${game}/${String(pick.n)}`)
+            if (pick) void navigate(puzzlePath(game, pick.n))
           }}>{en['library.shuffle']}</button>}
         </div>
         <p className="telemetry">{format('library.counts', { solved, open: statuses.filter(({ status }) => status === 'open').length, perfect: statuses.filter(({ status }) => status === 'perfect').length })}</p>
@@ -97,7 +101,7 @@ export function LibraryScene() {
             <li key={n}>
               {/* The name starts with the visible number, so speech input can say it (WCAG 2.5.3). */}
               <button type="button" className={`tile tile--${status}`} onClick={() => {
-                if (status === 'unplayed') void navigate(`/play/${game}/${String(n)}`)
+                if (status === 'unplayed') void navigate(puzzlePath(game, n))
                 else setOpen(n)
               }}>
                 <span className="tile__top">
@@ -126,35 +130,18 @@ export function LibraryScene() {
 // L2: play, resume, replay or reset one puzzle. Reset asks once more in place (D-28).
 function PuzzleSheet({ game, n, saved, onClose }: { game: GameId, n: number, saved: ReturnType<typeof statusOf> | undefined, onClose: () => void }) {
   const { status = 'unplayed', round } = saved ?? {}
-  const [confirming, setConfirming] = useState(false)
-  const timer = useRef<ReturnType<typeof setTimeout>>(undefined)
-  const dialog = useRef<HTMLDialogElement>(null)
+  const dialog = useModalDialog()
   const navigate = useNavigate()
-
-  useEffect(() => {
-    dialog.current?.showModal()
-    return () => { clearTimeout(timer.current) }
-  }, [])
-
-  function reset() {
-    if (!confirming) {
-      setConfirming(true)
-      timer.current = setTimeout(() => { setConfirming(false) }, 5000)
-      return
-    }
-    resetPuzzle(game, n)
-    onClose()
-  }
 
   return (
     <dialog ref={dialog} className="sheet" onClose={onClose} aria-labelledby="sheet-title">
       <h2 id="sheet-title">{format('game.header', { code: en[`game.code.${game}`], n: puzzleNumber(n) })}</h2>
       <div className="actions">
-        <button type="button" className="pill" onClick={() => { void navigate(`/play/${game}/${String(n)}`) }}>
+        <button type="button" className="pill" onClick={() => { void navigate(puzzlePath(game, n)) }}>
           {status === 'open' ? progressText(game, 'sheet.resume', { round: round ?? 1 }) : en['sheet.play']}
         </button>
         {status !== 'unplayed' && (
-          <button type="button" className="pill pill--quiet" onClick={reset}>{confirming ? en['confirm.again'] : en['sheet.reset']}</button>
+          <ConfirmButton label={en['sheet.reset']} onConfirm={() => { resetPuzzle(game, n); onClose() }} />
         )}
         <button type="button" className="pill pill--quiet" onClick={onClose}>{en['sheet.close']}</button>
       </div>

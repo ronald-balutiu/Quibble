@@ -4,7 +4,7 @@ import * as ort from 'onnxruntime-web/webgpu'
 import { deviceSupported } from './gate'
 import { DownloadError, loadFile } from './download'
 import type { DeviceClaim, FromWorker, ToWorker } from './protocol'
-import { deviceFiles, scoreClaim, tensorFactory } from './verdict'
+import { DEVICE_TOTAL_BYTES, deviceFiles, scoreClaim, tensorFactory } from './verdict'
 
 // The on-device judge's Web Worker (3.6): downloads the model, starts a WebGPU
 // session and scores one guess at a time, off the main thread.
@@ -39,7 +39,6 @@ async function load(): Promise<void> {
   controller = new AbortController()
   const { signal } = controller
   const mine = generation
-  const total = deviceFiles.reduce((sum, file) => sum + file.bytes, 0)
   let received = 0
   // Network chunks arrive far faster than the page draws them, so progress goes out
   // every 50 ms and once per file.
@@ -48,7 +47,7 @@ async function load(): Promise<void> {
     const now = performance.now()
     if (!force && now - reported < PROGRESS_MS) return
     reported = now
-    post({ type: 'progress', received, total })
+    post({ type: 'progress', received, total: DEVICE_TOTAL_BYTES })
   }
   report(true)
   try {

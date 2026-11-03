@@ -1,9 +1,6 @@
-import { deviceFiles } from '@/judges/device/verdict'
-
 // The S4 readout (5.3): every number comes from the byte count the worker
 // reports, never a timer.
 
-export const DEVICE_TOTAL_BYTES = deviceFiles.reduce((sum, file) => sum + file.bytes, 0)
 export const megabytes = (bytes: number) => Math.round(bytes / 1_000_000)
 
 export interface ByteSample { at: number, received: number }

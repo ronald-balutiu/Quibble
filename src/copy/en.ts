@@ -519,6 +519,11 @@ export const en = {
 
   // About (P1)
   'about.title': 'Two judges, one question: does it fit?',
+// "First try", "Second try", "Third try" for a guess index, and "point" or "points".
+const tryKeys = ['rules.firstTry', 'rules.secondTry', 'rules.thirdTry'] as const
+export const tryLabel = (index: number) => en[tryKeys[Math.min(index, tryKeys.length - 1)] ?? 'rules.thirdTry']
+export const pointsLabel = (count: number) => en[count === 1 ? 'rules.point' : 'rules.points']
+
   'about.what': 'What this is',
   'about.what.body': "Quibble has three word games where any answer that fits counts, even if it isn't the one I had in mind. AI judges check your guesses, and you can overrule them. I built it as a portfolio project. It's free to play, with no ads or accounts. One Cloudflare Worker handles the site, API and AI calls within the free tier.",
   'about.how': 'How judging works',

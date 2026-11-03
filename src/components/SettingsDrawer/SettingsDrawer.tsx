@@ -1,9 +1,11 @@
-import { lazy, useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import { AsyncBoundary } from '@/components/AsyncBoundary/AsyncBoundary'
 import { en } from '@/copy/en'
+import { lazyNamed } from '@/lib/lazy-named'
+import { useModalDialog } from '@/lib/use-modal-dialog'
 import './SettingsDrawer.css'
 
-const SettingsContents = lazy(() => import('./SettingsContents').then((module) => ({ default: module.SettingsContents })))
+const SettingsContents = lazyNamed(() => import('./SettingsContents'), 'SettingsContents')
 
 export function SettingsButton({ onProgressCleared }: { onProgressCleared: () => void }) {
   const [open, setOpen] = useState(false)
@@ -14,8 +16,7 @@ export function SettingsButton({ onProgressCleared }: { onProgressCleared: () =>
 }
 
 function SettingsDialog({ onClose, onProgressCleared }: { onClose: () => void, onProgressCleared: () => void }) {
-  const dialog = useRef<HTMLDialogElement>(null)
-  useEffect(() => { dialog.current?.showModal() }, [])
+  const dialog = useModalDialog()
   return (
     <dialog ref={dialog} className="drawer" aria-labelledby="drawer-title" onClose={onClose}>
       <header className="drawer__header">

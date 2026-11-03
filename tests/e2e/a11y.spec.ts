@@ -2,6 +2,7 @@ import { expect, test, type Page } from '@playwright/test'
 import { expectAccessible } from './accessibility'
 import {
   allConditions,
+  expectMarkDrawn,
   mockJudge,
   mockReveal,
   seedStorage,
@@ -184,15 +185,17 @@ test('reduced motion keeps Home’s ring mark still', async ({ page }) => {
   await page.goto('/')
   const mark = page.getByRole('img', { name: /^Three overlapping rings drawn in letters/u })
   await expect(mark).toBeVisible()
-  const still = await mark.textContent()
+  // It's a canvas, so frames are compared as pixels.
+  await expectMarkDrawn(mark)
+  const still = await mark.screenshot()
   await page.clock.runFor(500)
-  expect(await mark.textContent()).toBe(still)
+  expect(await mark.screenshot()).toEqual(still)
 
   await page.emulateMedia({ reducedMotion: 'no-preference' })
   await expect
     .poll(async () => {
       await page.clock.runFor(100)
-      return mark.textContent()
+      return mark.screenshot()
     })
-    .not.toBe(still)
+    .not.toEqual(still)
 })

@@ -289,7 +289,10 @@ status; the app renders whatever the path is. The not-found screen groups its st
 message and content-width Library action in one padded section, reusing shared
 text and action styles. Its 404 code puts `components/AsciiMark/` between the two
 4s, decorative there: the ring mark drawn in characters from a pure frame function
-(`frame.ts`), rewritten in place a few times a second and still under reduced motion.
+(`frame.ts`), painted onto a canvas (`paint.ts`) a few times a second and still under
+reduced motion. It's a canvas rather than text because its thousands of
+few-pixel characters would be most of the page's text and fail Lighthouse's
+legible-font audit; on Home it carries `mark.label` as an image.
 
 For search engines, `public/robots.txt` points to `/sitemap.xml`, also built from the
 puzzle index (Home, the Library, About and every puzzle). Scenes keep their title and

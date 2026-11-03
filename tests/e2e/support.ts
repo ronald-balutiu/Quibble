@@ -1,4 +1,4 @@
-import { expect, type Page } from '@playwright/test'
+import { expect, type Locator, type Page } from '@playwright/test'
 import { readFileSync } from 'node:fs'
 import type { GameId } from '../../shared/games'
 import {
@@ -162,4 +162,22 @@ export async function stubDeviceJudge(
     }
   `
   await page.route('**/assets/worker-*.js', (route) => route.fulfill({ contentType: 'text/javascript', body: worker }))
+}
+
+// The ring mark is a canvas, blank until the app draws it. This project has no DOM
+// types, so the canvas is typed by the little it's asked for.
+interface MarkCanvas {
+  width: number
+  height: number
+  getContext(
+    type: '2d',
+  ): { getImageData(x: number, y: number, w: number, h: number): { data: ArrayLike<number> } } | null
+}
+export async function expectMarkDrawn(mark: Locator) {
+  const drawn = () =>
+    mark.evaluate((canvas: MarkCanvas) => {
+      const pixels = canvas.getContext('2d')?.getImageData(0, 0, canvas.width, canvas.height).data ?? []
+      return Array.prototype.some.call(pixels, (value: number) => value > 0)
+    })
+  await expect.poll(drawn).toBe(true)
 }

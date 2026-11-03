@@ -32,7 +32,7 @@
 }
 
 .welcome-mark .ascii-mark {
-  font-size: var(--welcome-ascii-cell);
+  width: var(--welcome-ascii-width);
 }
 
 .welcome-actions {
@@ -181,7 +181,7 @@
   }
 
   .welcome-mark .ascii-mark {
-    font-size: var(--welcome-ascii-cell-wide);
+    width: var(--welcome-ascii-width-wide);
   }
 
   /* Shared rows grow together when copy wraps or the player enlarges text. */

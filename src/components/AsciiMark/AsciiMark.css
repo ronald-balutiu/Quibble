@@ -1,33 +1,8 @@
-/* The layers stack in one grid cell, so the rings line up character for character. */
+/* The canvas keeps its drawing's shape: CSS sets the width, and the height follows. */
 .ascii-mark {
-  display: grid;
+  display: block;
   flex: none;
+  width: var(--ascii-mark-width);
+  height: auto;
   font-family: var(--font-mono);
-  font-size: var(--ascii-mark-cell);
-  line-height: var(--leading-ascii);
-  letter-spacing: var(--tracking-normal);
-  user-select: none;
-}
-
-.ascii-mark__layer {
-  grid-area: 1 / 1;
-  margin: 0;
-  font: inherit;
-  white-space: pre;
-}
-
-.ascii-mark__layer--oddly {
-  color: var(--game-oddly);
-}
-
-.ascii-mark__layer--escape {
-  color: var(--game-escape);
-}
-
-.ascii-mark__layer--agent {
-  color: var(--game-agent);
-}
-
-.ascii-mark__layer--point {
-  color: var(--text);
 }

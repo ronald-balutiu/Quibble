@@ -20,6 +20,11 @@ interface JudgeOptions {
   sleep?: (ms: number) => Promise<void>
 }
 
+const TIMEOUT_MS = 4000
+const RETRY_DELAY_MS = 300
+const wait = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms))
+const UNAVAILABLE: CloudVerdict = { ok: false, error: 'unavailable' }
+
 // Workers AI error codes (developers.cloudflare.com/workers-ai/platform/errors/).
 // 3036 is the documented daily-allowance code, but a live response on 2026-10-30
 // returned 4006 ("you have used up your daily free allocation"), so both count (D-58).
@@ -40,11 +45,26 @@ function isTimeout(error: unknown): boolean {
     || TIMEOUT_CODES.has(errorCode(error) ?? 0)
 }
 
-export async function judgeWithClef(
+// Runs one model call, retrying once on a timeout or an uncoded (upstream) failure
+// only; usage, auth and validation errors carry a code and are not retried.
+async function withRetry(call: () => Promise<CloudVerdict>, retryDelayMs: number, sleep: (ms: number) => Promise<void>): Promise<CloudVerdict> {
+  for (let attempt = 0; attempt < 2; attempt++) {
+    if (attempt > 0) await sleep(retryDelayMs)
+    try {
+      return await call()
+    } catch (error) {
+      if (isDailyAllowance(error)) return { ok: false, error: 'resting' }
+      if (!isTimeout(error) && errorCode(error) !== undefined) return UNAVAILABLE
+    }
+  }
+  return UNAVAILABLE
+}
+
+export function judgeWithClef(
   ai: AiRunner,
   answer: string,
   questions: readonly JudgeQuestion[],
-  { model = 'clef-flash', timeoutMs = 4000, retryDelayMs = 300, sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms)) }: JudgeOptions = {},
+  { model = 'clef-flash', timeoutMs = TIMEOUT_MS, retryDelayMs = RETRY_DELAY_MS, sleep = wait }: JudgeOptions = {},
 ): Promise<CloudVerdict> {
   const inputs = {
     model,
@@ -52,23 +72,12 @@ export async function judgeWithClef(
     questions: Object.fromEntries(questions.map(({ id, question }) => [id, { type: 'noul', instructions: question }])),
   }
   const ids = questions.map(({ id }) => id)
-
-  for (let attempt = 0; attempt < 2; attempt++) {
-    if (attempt > 0) await sleep(retryDelayMs)
+  return withRetry(async () => {
     const started = Date.now()
-    try {
-      const response = await ai.run(`@cf/cloudflare/${model}`, inputs, { signal: AbortSignal.timeout(timeoutMs) })
-      const read = readAnswers(response, model, ids)
-      return read.ok ? { ok: true, scores: read.scores, modelMs: Date.now() - started } : { ok: false, error: 'unavailable' }
-    } catch (error) {
-      const code = errorCode(error)
-      if (isDailyAllowance(error)) return { ok: false, error: 'resting' }
-      // Retry once on a timeout or an uncoded (upstream) failure only; usage, auth
-      // and validation errors carry a code and are not retried.
-      if (!isTimeout(error) && code !== undefined) return { ok: false, error: 'unavailable' }
-    }
-  }
-  return { ok: false, error: 'unavailable' }
+    const response = await ai.run(`@cf/cloudflare/${model}`, inputs, { signal: AbortSignal.timeout(timeoutMs) })
+    const read = readAnswers(response, model, ids)
+    return read.ok ? { ok: true, scores: read.scores, modelMs: Date.now() - started } : UNAVAILABLE
+  }, retryDelayMs, sleep)
 }
 
 // Gemma 4 (D-62): one chat request per condition, sent in parallel, reading P(yes)
@@ -86,26 +95,18 @@ export function gemmaRequest(answer: string, question: string) {
   }
 }
 
-export async function judgeWithGemma(
+export function judgeWithGemma(
   ai: AiRunner,
   answer: string,
   questions: readonly JudgeQuestion[],
-  { timeoutMs = 4000, retryDelayMs = 300, sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms)) }: Omit<JudgeOptions, 'model'> = {},
+  { timeoutMs = TIMEOUT_MS, retryDelayMs = RETRY_DELAY_MS, sleep = wait }: Omit<JudgeOptions, 'model'> = {},
 ): Promise<CloudVerdict> {
-  for (let attempt = 0; attempt < 2; attempt++) {
-    if (attempt > 0) await sleep(retryDelayMs)
+  return withRetry(async () => {
     const started = Date.now()
-    try {
-      const signal = AbortSignal.timeout(timeoutMs)
-      const replies = await Promise.all(questions.map(({ question }) => ai.run(GEMMA_MODEL, gemmaRequest(answer, question), { signal })))
-      const scores = replies.map(readGemma)
-      if (!scores.every((p): p is number => p !== undefined)) return { ok: false, error: 'unavailable' }
-      return { ok: true, scores: Object.fromEntries(questions.map(({ id }, i) => [id, scores[i] ?? 0])), modelMs: Date.now() - started }
-    } catch (error) {
-      const code = errorCode(error)
-      if (isDailyAllowance(error)) return { ok: false, error: 'resting' }
-      if (!isTimeout(error) && code !== undefined) return { ok: false, error: 'unavailable' }
-    }
-  }
-  return { ok: false, error: 'unavailable' }
+    const signal = AbortSignal.timeout(timeoutMs)
+    const replies = await Promise.all(questions.map(({ question }) => ai.run(GEMMA_MODEL, gemmaRequest(answer, question), { signal })))
+    const scores = replies.map(readGemma)
+    if (!scores.every((p): p is number => p !== undefined)) return UNAVAILABLE
+    return { ok: true, scores: Object.fromEntries(questions.map(({ id }, i) => [id, scores[i] ?? 0])), modelMs: Date.now() - started }
+  }, retryDelayMs, sleep)
 }

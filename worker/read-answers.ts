@@ -4,12 +4,13 @@ import { z } from '@shared/schemas/zod'
 // tests/fixtures/clef/). Each noul score is the probability the answer is "yes".
 // Anything else is unreadable: it never searches the response for a number.
 
-export type ClefModel = 'clef' | 'clef-flash'
+const clefModels = ['clef', 'clef-flash'] as const
+export type ClefModel = (typeof clefModels)[number]
 
 const noulAnswer = z.strictObject({ type: z.literal('noul'), noul: z.number().min(0).max(1) })
 
 const responseSchema = z.object({
-  model: z.enum(['clef', 'clef-flash']),
+  model: z.enum(clefModels),
   answers: z.record(z.string(), noulAnswer),
   usage: z.object({ input_tokens: z.int().min(0) }).optional(),
 })

@@ -2,7 +2,8 @@ import { z } from './zod'
 
 // One entry per `npm run eval` run, appended to eval/history.json (plan 3.10).
 
-const interval = z.strictObject({ value: z.number(), low: z.number(), high: z.number(), n: z.int().min(0) })
+// A rate with its confidence interval and sample size.
+export const intervalSchema = z.strictObject({ value: z.number(), low: z.number(), high: z.number(), n: z.int().min(0) })
 
 const evalRunSchema = z.strictObject({
   date: z.iso.datetime(),
@@ -18,9 +19,9 @@ const evalRunSchema = z.strictObject({
   note: z.string().min(1),
   metrics: z.strictObject({
     conditions: z.strictObject({
-      n: z.int().min(0), accuracy: interval, falseAccepts: z.int().min(0), falseRejects: z.int().min(0), brier: z.number(),
+      n: z.int().min(0), accuracy: intervalSchema, falseAccepts: z.int().min(0), falseRejects: z.int().min(0), brier: z.number(),
     }),
-    guesses: z.strictObject({ n: z.int().min(0), accuracy: interval, falseAcceptRate: interval, falseRejectRate: interval }),
+    guesses: z.strictObject({ n: z.int().min(0), accuracy: intervalSchema, falseAcceptRate: intervalSchema, falseRejectRate: intervalSchema }),
     reliability: z.array(z.strictObject({ bin: z.int(), n: z.int().min(0), meanP: z.number().nullable(), observed: z.number().nullable() })),
     latencyMs: z.strictObject({ median: z.number(), p95: z.number() }),
     neuronsPerGuess: z.number().min(0).optional(),

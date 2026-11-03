@@ -1,6 +1,8 @@
 import stylelint from 'stylelint'
 import { expect, test } from 'vitest'
 
+const lint = (code: string, codeFilename = 'src/styles/probe.css') => stylelint.lint({ code, codeFilename, configFile: 'stylelint.config.js' })
+
 test.each([
   'color: #fff',
   'background: rgb(12 11 10)',
@@ -22,19 +24,14 @@ test.each([
   'width: 28px',
   '--sneaky-token: 12px',
 ])('CSS lint rejects raw declaration %s', async (declaration) => {
-  const result = await stylelint.lint({
-    code: `.example { ${declaration}; }`,
-    codeFilename: 'src/styles/probe.css',
-    configFile: 'stylelint.config.js',
-  })
+  const result = await lint(`.example { ${declaration}; }`)
 
   expect(result.errored).toBe(true)
   expect(result.results[0]?.warnings.some((warning) => warning.rule === 'declaration-property-value-allowed-list')).toBe(true)
 })
 
 test('token references, structural resets and fluid sizing are allowed', async () => {
-  const result = await stylelint.lint({
-    code: `.example {
+  const result = await lint(`.example {
       color: var(--text);
       background: var(--ground);
       font: inherit;
@@ -44,20 +41,13 @@ test('token references, structural resets and fluid sizing are allowed', async (
       border: var(--border-width) solid var(--line);
       min-width: 0;
       min-height: 100svh;
-    }`,
-    codeFilename: 'src/styles/probe.css',
-    configFile: 'stylelint.config.js',
-  })
+    }`)
 
   expect(result.results[0]?.warnings).toEqual([])
 })
 
 test('raw token definitions are allowed only in the central token file', async () => {
-  const result = await stylelint.lint({
-    code: ':root { --space-1: 4px; --text: #fff; }',
-    codeFilename: 'src/styles/tokens.css',
-    configFile: 'stylelint.config.js',
-  })
+  const result = await lint(':root { --space-1: 4px; --text: #fff; }', 'src/styles/tokens.css')
 
   expect(result.errored).toBe(false)
 })
@@ -90,11 +80,7 @@ test.each([
   'transform: matrix(1, 0, 0, 1, 4, 0)',
   'transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 4, 0, 0, 1)',
 ])('CSS lint rejects untokenized position/grid/motion declaration %s', async (declaration) => {
-  const result = await stylelint.lint({
-    code: `.example { ${declaration}; }`,
-    codeFilename: 'src/styles/probe.css',
-    configFile: 'stylelint.config.js',
-  })
+  const result = await lint(`.example { ${declaration}; }`)
 
   expect(result.errored).toBe(true)
   expect(result.results[0]?.warnings.some((warning) => warning.rule.startsWith('declaration-property-'))).toBe(true)
@@ -120,11 +106,7 @@ test.each([
   'translate: var(--space-1) 0',
   'transform: var(--scene-transform)',
 ])('CSS lint allows tokenized and structural declaration %s', async (declaration) => {
-  const result = await stylelint.lint({
-    code: `.example { ${declaration}; }`,
-    codeFilename: 'src/styles/probe.css',
-    configFile: 'stylelint.config.js',
-  })
+  const result = await lint(`.example { ${declaration}; }`)
 
   expect(result.results[0]?.warnings).toEqual([])
 })

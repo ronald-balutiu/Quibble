@@ -1,6 +1,9 @@
-import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
+import { expectAccessible } from './accessibility'
 import { allConditions, mockJudge, mockReveal, seedStorage, shippedPuzzle, stubDeviceJudge, submitGuess, tipsSeen } from './support'
+import { gameConfigs, type GameId } from '../../shared/games'
+import { escapeReducer, startEscape } from '../../src/games/category-escape/reducer'
+import { runReducer, startRun, type Guess } from '../../src/games/rounds/reducer'
 
 // The definition of done (0.2) for every screen in 5.5: axe-core reports no serious
 // or critical issues, at both sizes. The API is mocked, so no model is called.
@@ -15,22 +18,25 @@ async function mockApi(page: Page, reply: 'pass' | 'fail' | 'unavailable' | 'res
 }
 
 // A finished run, so a results screen loads directly.
-function finished(rounds: number) {
-  return JSON.stringify({
-    run: {
-      current: rounds - 1, finished: true,
-      rounds: Array.from({ length: rounds }, () => ({ status: 'solved', guesses: [{ answer: 'pocket', pass: true, failed: [], closeCall: false }], strikes: 0, pending: false, overruled: false, points: 3 })),
-    },
-  })
+function finished(game: GameId) {
+  const guesses: Guess[] = ['apple', 'fork', 'spoon', 'mug', 'plate', 'bowl'].map((answer) => ({ answer, pass: true, failed: [], closeCall: false }))
+  if (game === 'category-escape') {
+    const config = gameConfigs[game]
+    const reduce = escapeReducer(config)
+    const run = guesses.reduce((state, guess) => reduce(state, { type: 'judged', guess }), startEscape(config))
+    return JSON.stringify({ run })
+  }
+  const config = { ...gameConfigs[game], rounds: shippedPuzzle(game).rounds.length }
+  const reduce = runReducer(config)
+  let run = startRun(config)
+  for (const guess of guesses.slice(0, config.rounds)) {
+    run = reduce(run, { type: 'judged', guess })
+    run = reduce(run, { type: 'nextRound' })
+  }
+  return JSON.stringify({ run })
 }
 
 const seed = (page: Page, entries: Record<string, string>) => seedStorage(page, { ...tipsSeen, ...entries })
-
-async function expectAccessible(page: Page, screen: string) {
-  const { violations } = await new AxeBuilder({ page }).analyze()
-  const serious = violations.filter(({ impact }) => impact === 'serious' || impact === 'critical')
-  expect(serious.map(({ id, nodes }) => `${screen}: ${id} (${nodes.map(({ target }) => target.join(' ')).join(', ')})`)).toEqual([])
-}
 
 test.describe('axe-core on every screen (0.2)', () => {
   test('Home (H1, H2, H3), Library (L1–L3), About (P1) and Not found (P2)', async ({ page }) => {
@@ -94,9 +100,9 @@ test.describe('axe-core on every screen (0.2)', () => {
 
   test('results screens (G6, E2, D2) and the cloud resting with the device off (S2)', async ({ page }) => {
     await seed(page, {
-      'quibble:progress:oddly-specific:1': finished(5),
-      'quibble:progress:category-escape:1': finished(6),
-      'quibble:progress:double-agent:1': finished(shippedPuzzle('double-agent').rounds.length),
+      'quibble:progress:oddly-specific:1': finished('oddly-specific'),
+      'quibble:progress:category-escape:1': finished('category-escape'),
+      'quibble:progress:double-agent:1': finished('double-agent'),
     })
     await mockApi(page, 'resting')
     for (const [game, screen] of [['oddly-specific', 'G6'], ['category-escape', 'E2'], ['double-agent', 'D2']] as const) {

@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest'
-import { doubleAgentConfig, type DoubleAgentRounds } from '@shared/games/double-agent'
+import { doubleAgentConfig } from '@shared/games/double-agent'
 import { agentSentence } from '@/games/double-agent/verdict'
 import { maxScore, runReducer, startRun, totalScore, type Guess, type RunAction } from '@/games/rounds/reducer'
 
@@ -16,7 +16,7 @@ describe('Double Agent', () => {
     expect(agentSentence(guess('table', ['clue:1-r1-a', 'clue:1-r1-b']), clues)).toBe('It misses A and B.')
   })
 
-  test.each([3, 5] as DoubleAgentRounds[])('a run has %i rounds when the config says so', (rounds) => {
+  test.each([3, 5] as const)('a run has %i rounds when the config says so', (rounds) => {
     const config = { ...doubleAgentConfig, rounds }
     const reduce = runReducer(config)
     const pass: RunAction = { type: 'judged', guess: guess('charge', []) }

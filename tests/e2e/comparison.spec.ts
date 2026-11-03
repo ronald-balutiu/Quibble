@@ -1,4 +1,4 @@
-import AxeBuilder from '@axe-core/playwright'
+import { expectAccessible } from './accessibility'
 import { expect, test } from '@playwright/test'
 import { deferred } from '../support/deferred'
 
@@ -58,7 +58,7 @@ test('keeps headline accuracy visible and every test measure reachable', async (
   await expect(compare).toContainText('83.1%')
   await expect(compare).toContainText('86.2%')
   await expect(compare).toContainText('Build 2 vs 1: +3.1 points')
-  expect((await new AxeBuilder({ page }).analyze()).violations.filter((v) => v.impact === 'serious' || v.impact === 'critical')).toEqual([])
+  await expectAccessible(page)
 })
 
 test('follows the initial judge choice but previews another model without changing it', async ({ page }) => {
@@ -106,7 +106,7 @@ test('personal comparisons use saved data and preserve agreement, strictness, ov
   await expect(table.getByRole('row', { name: /You overruled/u }).getByRole('cell')).toHaveText(['1', '1'])
   await expect(table.getByRole('row', { name: /Typical judging time/u }).getByRole('cell')).toHaveText(['40 msBetter', '120 ms'])
   await expect(compare).toContainText('Both judges can agree and still be wrong.')
-  expect((await new AxeBuilder({ page }).analyze()).violations.filter((v) => v.impact === 'serious' || v.impact === 'critical')).toEqual([])
+  await expectAccessible(page)
 })
 
 test('empty personal history and unavailable test results remain usable', async ({ page }) => {

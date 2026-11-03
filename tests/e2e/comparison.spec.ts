@@ -1,5 +1,6 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test } from '@playwright/test'
+import { deferred } from '../support/deferred'
 
 test('Home keeps the comparison introduction visible and its results expandable', async ({ page }) => {
   await page.goto('/?home=1')
@@ -121,14 +122,14 @@ test('empty personal history and unavailable test results remain usable', async 
 })
 
 test('the comparison fits at 320px and exposes loading while results arrive', async ({ page }) => {
-  let release = () => {}
-  const ready = new Promise<void>((resolve) => { release = resolve })
-  await page.route('**/eval/results.json', async (route) => { await ready; await route.continue() })
-  await page.goto('/?home=1', { waitUntil: 'domcontentloaded' })
+  const ready = deferred()
+  await page.route('**/eval/results.json', async (route) => { await ready.promise; await route.continue() })
   const compare = page.getByRole('region', { name: 'How the judges compare' })
-  await compare.getByText('See the results', { exact: true }).click()
-  await expect(compare.getByRole('status')).toHaveText('Loading test results…')
-  release()
+  try {
+    await page.goto('/?home=1', { waitUntil: 'domcontentloaded' })
+    await compare.getByText('See the results', { exact: true }).click()
+    await expect(compare.getByRole('status')).toHaveText('Loading test results…')
+  } finally { ready.resolve() }
   await expect(compare.locator('.compare__summary')).toContainText('81.4%')
   await page.setViewportSize({ width: 320, height: 800 })
   expect(await page.evaluate<number>('document.documentElement.scrollWidth')).toBeLessThanOrEqual(320)

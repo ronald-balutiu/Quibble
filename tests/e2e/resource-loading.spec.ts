@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test'
+import { deferred } from '../support/deferred'
 
 test('Home defers comparison data and code until opened, then shares the data with About', async ({ page }) => {
   const requests: string[] = []
@@ -48,17 +49,17 @@ test('a failed screen chunk leaves navigation and reload available', async ({ pa
 })
 
 test('Settings stays closeable while loading, restores focus, and preserves lazy Privacy anchors', async ({ page }) => {
-  let release = () => {}
-  const ready = new Promise<void>((resolve) => { release = resolve })
-  await page.route('**/assets/SettingsContents-*.js', async (route) => { await ready; await route.continue() })
-  await page.goto('/')
+  const ready = deferred()
+  await page.route('**/assets/SettingsContents-*.js', async (route) => { await ready.promise; await route.continue() })
   const settings = page.getByRole('button', { name: 'Settings', exact: true })
-  await settings.click()
   const drawer = page.getByRole('dialog', { name: 'Settings', exact: true })
-  await expect(drawer.getByRole('status')).toHaveText('Loading…')
-  await drawer.getByRole('button', { name: 'Close', exact: true }).click()
-  await expect(settings).toBeFocused()
-  release()
+  try {
+    await page.goto('/')
+    await settings.click()
+    await expect(drawer.getByRole('status')).toHaveText('Loading…')
+    await drawer.getByRole('button', { name: 'Close', exact: true }).click()
+    await expect(settings).toBeFocused()
+  } finally { ready.resolve() }
   await settings.click()
   await drawer.getByRole('link', { name: 'Privacy →', exact: true }).click()
   await expect(page).toHaveURL('/about#privacy')

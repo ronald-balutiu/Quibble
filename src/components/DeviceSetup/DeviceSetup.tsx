@@ -3,9 +3,11 @@ import { Link } from 'react-router'
 import { en, format } from '@/copy/en'
 import { deviceJudge, type DeviceJudge, type LoadProgress } from '@/judges/device/client'
 import type { DeviceFailure } from '@/judges/device/protocol'
+import { DEVICE_TOTAL_BYTES } from '@/judges/device/verdict'
+import { useModalDialog } from '@/lib/use-modal-dialog'
 import { RingMark } from '../RingMark/RingMark'
 import {
-  DEVICE_TOTAL_BYTES, fraction, megabytes, ringsDrawn, secondsLeft, tickState, TICKS, type ByteSample,
+  fraction, megabytes, ringsDrawn, secondsLeft, tickState, TICKS, type ByteSample,
 } from './progress'
 import './DeviceSetup.css'
 
@@ -33,7 +35,7 @@ function timeLeft(seconds: number | undefined): string {
 }
 
 export function DeviceSetup({ onClose, judge = deviceJudge }: { onClose: (on: boolean) => void, judge?: DeviceJudge }) {
-  const dialog = useRef<HTMLDialogElement>(null)
+  const dialog = useModalDialog()
   const [step, setStep] = useState<Step>({ kind: 'offer' })
   const loading = useRef(false)
   const cancelled = useRef(false)
@@ -41,7 +43,6 @@ export function DeviceSetup({ onClose, judge = deviceJudge }: { onClose: (on: bo
 
   useEffect(() => {
     live.current = true
-    dialog.current?.showModal()
     return () => {
       live.current = false
       // Leaving the page mid-download stops it.

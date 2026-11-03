@@ -1,16 +1,14 @@
-import { lazy } from 'react'
 import { AsyncBoundary } from '@/components/AsyncBoundary/AsyncBoundary'
 import { Route, Routes, useLocation } from 'react-router'
 import { SiteHeader } from '@/components/SiteHeader/SiteHeader'
 import { SiteFooter } from '@/components/SiteFooter/SiteFooter'
+import { lazyNamed } from '@/lib/lazy-named'
 import { HomeScene } from '@/scenes/home/HomeScene'
 import { NotFoundScene } from '@/scenes/NotFoundScene'
 
-const GameScene = lazy(() => import('@/scenes/game/GameScene').then((module) => ({ default: module.GameScene })))
-
-const LibraryScene = lazy(() => import('@/scenes/library/LibraryScene').then((module) => ({ default: module.LibraryScene })))
-
-const AboutScene = lazy(() => import('@/scenes/AboutScene').then((module) => ({ default: module.AboutScene })))
+const GameScene = lazyNamed(() => import('@/scenes/game/GameScene'), 'GameScene')
+const LibraryScene = lazyNamed(() => import('@/scenes/library/LibraryScene'), 'LibraryScene')
+const AboutScene = lazyNamed(() => import('@/scenes/AboutScene'), 'AboutScene')
 
 // The planned routes only (D-37).
 export function App() {

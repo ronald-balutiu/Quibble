@@ -169,6 +169,15 @@ puzzle-index and evaluation data for the page visit. Failures are evicted.
 unmount or a new attempt. Library and the comparison provide explicit data retries;
 failed code downloads use Reload because the module loader retains their rejection.
 
+Small shared pieces keep that behavior in one place. `lib/lazy-named.ts` lazy-loads
+a module's named export: the route scenes, Settings' contents and the comparison.
+`lib/use-modal-dialog.ts` opens the native dialogs (the puzzle sheet, Settings and
+the device setup sheet). `lib/use-storage-revision.ts` gives a storage signal's
+revision to memoized views. `useClientValue` in `lib/use-hydrated.ts` returns a
+server value while hydrating and the page's own value afterwards.
+`components/ConfirmButton/` is the press-again control for every reset and delete.
+`app/paths.ts` builds route paths for links and for the build plugins.
+
 `lib/storage/signal.ts` exposes a stable revision to `useSyncExternalStore`, with
 one matching storage-event listener while subscribed. Progress and comparison
 helpers notify after local writes; other tabs' storage changes invalidate the same

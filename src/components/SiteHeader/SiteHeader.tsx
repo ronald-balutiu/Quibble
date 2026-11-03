@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { matchPath, NavLink, useLocation, useNavigate } from 'react-router'
 import { gameIds } from '@shared/games'
+import { libraryPath } from '@/app/paths'
 import { en } from '@/copy/en'
 import { SettingsButton } from '../SettingsDrawer/SettingsDrawer'
 import './site-header.css'
@@ -13,7 +14,7 @@ export function SiteHeader() {
   const puzzle = matchPath('/play/:game/:n', location.pathname)
   const selected = location.pathname === '/play' ? new URLSearchParams(location.search).get('game') : puzzle?.params.game
   const game = gameIds.find((id) => id === selected)
-  const library = game ? `/play?game=${game}` : '/play'
+  const library = libraryPath(game)
 
   useEffect(() => {
     const previous = previousLocation.current

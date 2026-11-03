@@ -1,9 +1,11 @@
-import { lazy, useId, useState } from 'react'
+import { useId, useState } from 'react'
 import { AsyncBoundary } from '@/components/AsyncBoundary/AsyncBoundary'
 import { en } from '@/copy/en'
+import { lazyNamed } from '@/lib/lazy-named'
+import { compareSources } from './format'
 import './JudgesCompare.css'
 
-const ComparisonContent = lazy(() => import('./ComparisonContent').then((module) => ({ default: module.ComparisonContent })))
+const ComparisonContent = lazyNamed(() => import('./ComparisonContent'), 'ComparisonContent')
 
 // Defer the data and detailed UI until first opened. Keep it mounted afterward
 // so collapsing the section preserves the chosen source and model preview.
@@ -18,7 +20,7 @@ export function JudgesCompare({ collapsible = false, compact = false }: { collap
         <p>{en['compare.intro']}</p>
         {/* The two halves, named as their tabs are, so the player knows what's inside before opening it. */}
         <ul className="compare__ways">
-          {(['test', 'games'] as const).map((source) => (
+          {compareSources.map((source) => (
             <li key={source}><strong>{en[`compare.source.${source}`]}</strong><span>{en[`compare.way.${source}`]}</span></li>
           ))}
         </ul>

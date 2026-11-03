@@ -19,6 +19,7 @@ export const deviceFiles = [
   { path: 'onnx/model_q4.onnx_data', bytes: 550_764_544 },
 ] as const
 export type DeviceFile = (typeof deviceFiles)[number]
+export const DEVICE_TOTAL_BYTES = deviceFiles.reduce((sum, file) => sum + file.bytes, 0)
 
 export const deviceFileUrl = (path: string) => `https://huggingface.co/${deviceModel.repo}/resolve/${deviceModel.revision}/${path}`
 

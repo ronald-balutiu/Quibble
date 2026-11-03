@@ -3,13 +3,22 @@ import { fileURLToPath, URL } from 'node:url'
 import { gzipSync } from 'node:zlib'
 import type { OutputAsset, OutputChunk } from 'rolldown'
 import type { Plugin } from 'vite'
+import { gameIds } from '../shared/games/index.ts'
+import { puzzleIndexSchema } from '../shared/schemas/puzzle.ts'
 import { SITE_ORIGIN } from '../shared/site.ts'
+import { puzzlePath } from '../src/app/paths.ts'
 import { en, format, puzzleNumber } from '../src/copy/en.ts'
 
 // Build plugins for vite.config.ts: the on-device judge's runtime, the sitemap, and
 // one HTML page per route. Each runs in the client build only unless noted.
 
 const fromRoot = (path: string) => fileURLToPath(new URL(`../${path}`, import.meta.url))
+
+// Every puzzle in the built index, checked against its schema.
+function puzzles() {
+  const index = puzzleIndexSchema.parse(JSON.parse(readFileSync(fromRoot('public/puzzles/index.json'), 'utf8')))
+  return gameIds.flatMap((game) => (index[game] ?? []).map(({ n }) => ({ game, n, path: puzzlePath(game, n) })))
+}
 
 // The on-device judge's WebGPU runtime (the asyncify build that onnxruntime-web/webgpu
 // loads, 28.7 MB) is over the 25 MiB static asset limit, so it ships gzipped (7.1 MB)
@@ -50,8 +59,7 @@ export function sitemap(): Plugin {
     name: 'quibble:sitemap',
     applyToEnvironment: (environment) => environment.name === 'client',
     generateBundle() {
-      const index = JSON.parse(readFileSync(fromRoot('public/puzzles/index.json'), 'utf8')) as Record<string, { n: number }[]>
-      const paths = ['/', '/play', '/about', ...Object.entries(index).flatMap(([game, puzzles]) => puzzles.map(({ n }) => `/play/${game}/${String(n)}`))]
+      const paths = ['/', '/play', '/about', ...puzzles().map(({ path }) => path)]
       const urls = paths.map((path) => `  <url><loc>${SITE_ORIGIN}${path}</loc></url>`).join('\n')
       this.emitFile({ type: 'asset', fileName: 'sitemap.xml', source: `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n` })
     },
@@ -72,15 +80,13 @@ const escapeHtml = (text: string) => text.replace(/&/gu, '&amp;').replace(/</gu,
 const FONTS = [/^assets\/geist-latin-300-normal-[\w-]+\.woff2$/u, /^assets\/geist-latin-400-normal-[\w-]+\.woff2$/u, /^assets\/geist-mono-latin-400-normal-[\w-]+\.woff2$/u]
 
 function routePageList(): RoutePage[] {
-  const index = JSON.parse(readFileSync(fromRoot('public/puzzles/index.json'), 'utf8')) as Record<'oddly-specific' | 'category-escape' | 'double-agent', { n: number }[]>
   return [
     { path: '/play', scene: 'src/scenes/library/LibraryScene.tsx', data: '/puzzles/index.json', title: en['meta.title.library'], description: en['meta.description.library'] },
     { path: '/about', scene: 'src/scenes/AboutScene.tsx', title: en['meta.title.about'], description: en['meta.description.about'] },
-    ...Object.entries(index).flatMap(([game, puzzles]) => puzzles.map(({ n }) => {
-      const id = game as keyof typeof index
-      const values = { game: en[`game.name.${id}`], n: puzzleNumber(n), tagline: en[`game.tagline.${id}`] }
-      return { path: `/play/${game}/${String(n)}`, scene: 'src/scenes/game/GameScene.tsx', data: `/puzzles/${game}/${String(n)}.json`, title: format('meta.title.game', values), description: format('meta.description.game', values) }
-    })),
+    ...puzzles().map(({ game, n, path }) => {
+      const values = { game: en[`game.name.${game}`], n: puzzleNumber(n), tagline: en[`game.tagline.${game}`] }
+      return { path, scene: 'src/scenes/game/GameScene.tsx', data: `/puzzles/${game}/${String(n)}.json`, title: format('meta.title.game', values), description: format('meta.description.game', values) }
+    }),
   ]
 }
 

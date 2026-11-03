@@ -1,6 +1,6 @@
 import { gameConfigs, type GameId } from '@shared/games'
 import { GameExample } from '@/components/GameExample/GameExample'
-import { en } from '@/copy/en'
+import { en, pointsLabel, tryLabel } from '@/copy/en'
 
 export function GameRules({ game }: { game: GameId }) {
   const config = gameConfigs[game]
@@ -25,8 +25,8 @@ export function GameRules({ game }: { game: GameId }) {
                   <dl className="rules-scoring__tries">
                     {config.pointsByGuess.map((points, i) => (
                       <div key={points}>
-                        <dt>{en[i === 0 ? 'rules.firstTry' : i === 1 ? 'rules.secondTry' : 'rules.thirdTry']}</dt>
-                        <dd><strong>{points}</strong><span>{en[points === 1 ? 'rules.point' : 'rules.points']}</span></dd>
+                        <dt>{tryLabel(i)}</dt>
+                        <dd><strong>{points}</strong><span>{pointsLabel(points)}</span></dd>
                       </div>
                     ))}
                   </dl>

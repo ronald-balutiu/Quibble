@@ -1,5 +1,6 @@
 import { describe, expect, test } from 'vitest'
-import { DEVICE_TOTAL_BYTES, fraction, megabytes, ringsDrawn, secondsLeft, tickState, TICKS } from '@/components/DeviceSetup/progress'
+import { fraction, megabytes, ringsDrawn, secondsLeft, tickState, TICKS } from '@/components/DeviceSetup/progress'
+import { DEVICE_TOTAL_BYTES } from '@/judges/device/verdict'
 
 describe('S4 download readout (5.3)', () => {
   test('the total is the four model files, about 570 MB', () => {

@@ -21,7 +21,7 @@ export const en = {
   'home.title': 'Make your case.',
   'home.games': 'Games',
   'mark.label':
-    'Three overlapping rings in honey, sky and orchid, one for each condition. A white arc circles each ring, with a pulsing white point in the middle.',
+    'Three overlapping rings drawn in letters, in honey, sky and orchid, one for each condition, slowly turning around a white point in the middle.',
   // Owner-approved welcome flow (local plan: entry-flow-refresh).
   'welcome.eyebrow': 'Three word games. A little wiggle room.',
   'welcome.lede':

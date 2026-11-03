@@ -73,9 +73,9 @@ test.describe('axe-core on every screen (0.2)', () => {
     await expectAccessible(page, 'H1')
 
     await page.goto('/play')
-    await expect(page.getByRole('button', { name: /^002/u })).toBeVisible()
+    await expect(page.getByRole('button', { name: /^2\b/u })).toBeVisible()
     await expectAccessible(page, 'L1')
-    await page.getByRole('button', { name: /^002/u }).click()
+    await page.getByRole('button', { name: /^2\b/u }).click()
     await expect(page.getByRole('dialog')).toBeVisible()
     await expectAccessible(page, 'L2')
     await page.keyboard.press('Escape')
@@ -176,11 +176,23 @@ test.describe('axe-core on every screen (0.2)', () => {
   })
 })
 
-// 0.2: under prefers-reduced-motion the ring mark's orbits and pulse stop.
-test('reduced motion stops the ring mark', async ({ page }) => {
+// 0.2: Home's ring mark, in characters, is a described image that turns, and holds
+// its still frame under prefers-reduced-motion.
+test('reduced motion keeps Home’s ring mark still', async ({ page }) => {
+  await page.clock.install()
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await page.goto('/')
-  const moving = page.locator('.ring-mark__orbit, .ring-mark__pulse')
-  await expect(moving).toHaveCount(4)
-  for (const node of await moving.all()) await expect(node).toHaveCSS('animation-name', 'none')
+  const mark = page.getByRole('img', { name: /^Three overlapping rings drawn in letters/u })
+  await expect(mark).toBeVisible()
+  const still = await mark.textContent()
+  await page.clock.runFor(500)
+  expect(await mark.textContent()).toBe(still)
+
+  await page.emulateMedia({ reducedMotion: 'no-preference' })
+  await expect
+    .poll(async () => {
+      await page.clock.runFor(100)
+      return mark.textContent()
+    })
+    .not.toBe(still)
 })

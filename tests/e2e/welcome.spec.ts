@@ -50,7 +50,9 @@ test('first visit explains the games, then opens an unplayed tile directly', asy
   await page.getByRole('link', { name: 'Choose a puzzle →', exact: true }).first().click()
   await expect(page).toHaveURL('/play')
   await expect(page.getByRole('link', { name: /^Start #001/u })).toBeVisible()
-  await page.getByRole('button', { name: /^001/u }).click()
+  // Tiles show the bare number; the puzzle's own name keeps its leading zeros.
+  await expect(page.locator('.tile__n').first()).toHaveText('1')
+  await page.getByRole('button', { name: /^1\b/u }).click()
   await expect(page).toHaveURL('/play/oddly-specific/1')
   await expect(page.getByRole('textbox')).toBeFocused()
   // A fresh saved run has no activity yet.

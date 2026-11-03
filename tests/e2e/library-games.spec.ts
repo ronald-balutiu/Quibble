@@ -208,8 +208,13 @@ test('Category Escape progress reads in levels, and 6/6 is perfect', async ({ pa
   await expect(page.getByRole('link', { name: 'Continue #001 · level 3' })).toBeVisible()
   await expect(page.locator('.tile--open progress')).toHaveAttribute('value', '2')
   await expect(page.locator('.tile--open progress')).toHaveAttribute('max', '6')
-  await expect(page.getByRole('button', { name: /^002.*, easy, perfect$/u })).toBeVisible()
-  await page.getByRole('button', { name: /^001.*, easy, in progress$/u }).click()
+  await expect(page.getByRole('button', { name: /^2\b.*, easy, perfect$/u })).toBeVisible()
+  // The perfect star takes the game's colour, as its row in the game list does.
+  const accent = await page.evaluate<string>(
+    'getComputedStyle(document.querySelector(".game-row[aria-current] .game-row__tagline")).color',
+  )
+  await expect(page.locator('.tile--perfect .tile__score')).toHaveCSS('color', accent)
+  await page.getByRole('button', { name: /^1\b.*, easy, in progress$/u }).click()
   await expect(page.getByRole('button', { name: 'Resume level 3' })).toBeVisible()
 })
 
@@ -219,7 +224,7 @@ for (const game of ['oddly-specific', 'category-escape', 'double-agent'] as cons
   test(`${game} #001 opens from the Library`, async ({ page }) => {
     const puzzle = shippedPuzzle(game)
     await page.goto(`/play?game=${game}`)
-    await page.getByRole('button', { name: /^001/u }).click()
+    await page.getByRole('button', { name: /^1\b/u }).click()
     await expect(page).toHaveURL(`/play/${game}/1`)
     await expect(page.getByText(puzzle.rounds[0]?.conditions[0]?.label ?? '', { exact: true }).first()).toBeVisible()
     await expect(page.getByRole('textbox')).toBeFocused()

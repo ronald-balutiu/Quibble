@@ -333,11 +333,30 @@
   align-self: flex-end;
 }
 
+/* A perfect score's star takes the game's colour. */
+.tile--perfect .tile__score {
+  color: var(--accent);
+}
+
 .tile__top {
   display: flex;
   justify-content: space-between;
   gap: var(--space-1);
   width: 100%;
+}
+
+/* The number sits in its own box, so it reads apart from the score below it. The
+   text box is trimmed to the digits, so equal padding centres them both ways; the
+   box keeps its own height rather than stretching to the check beside it. */
+.tile__n {
+  display: block;
+  align-self: flex-start;
+  min-width: var(--tile-number-width);
+  text-align: center;
+  padding: var(--space-1);
+  border: var(--border-width) solid var(--line-strong);
+  line-height: var(--leading-heading);
+  text-box: trim-both cap alphabetic;
 }
 
 .tile__check {

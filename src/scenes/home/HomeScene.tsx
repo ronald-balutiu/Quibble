@@ -1,9 +1,9 @@
 import { Link } from 'react-router'
 import { gameIds } from '@shared/games'
 import { usePageMeta } from '@/app/use-page-meta'
+import { AsciiMark } from '@/components/AsciiMark/AsciiMark'
 import { GameExample } from '@/components/GameExample/GameExample'
 import { JudgesCompare } from '@/components/JudgesCompare/JudgesCompare'
-import { RingMark } from '@/components/RingMark/RingMark'
 import { en } from '@/copy/en'
 import { libraryPath } from '@/lib/paths'
 import '../scenes.css'
@@ -27,7 +27,7 @@ export function HomeScene() {
           </div>
         </section>
         <div className="welcome-mark">
-          <RingMark />
+          <AsciiMark label={en['mark.label']} />
         </div>
       </div>
       <section className="welcome-section" id="games" aria-labelledby="welcome-games">

@@ -2,17 +2,18 @@ import { useEffect, useRef } from 'react'
 import { asciiMarkFrame, LAYERS } from './frame'
 import './AsciiMark.css'
 
-// The ring mark in turning characters, for the 404 page. Decorative: the page's own
-// text says what happened. The first frame is the still mark, which is all that
-// shows under reduced motion; otherwise each layer's text is rewritten in place,
-// a few times a second, without React rendering again.
+// The ring mark in turning characters, for Home and the 404 page. With a label it's
+// an image; without one it's decorative, as on the 404, whose own text says what
+// happened. The first frame is the still mark, which is all that shows under reduced
+// motion; otherwise each layer's text is rewritten in place, a few times a second,
+// without React rendering again.
 
 const STILL = asciiMarkFrame(0)
 const FRAME_MS = 1000 / 15
 // A hidden tab stops animation frames; resume where the rings were, not with a jump.
 const MAX_STEP_MS = 100
 
-export function AsciiMark() {
+export function AsciiMark({ label }: { label?: string }) {
   const layers = useRef<(HTMLPreElement | null)[]>([])
 
   useEffect(() => {
@@ -60,7 +61,7 @@ export function AsciiMark() {
   }, [])
 
   return (
-    <div className="ascii-mark" aria-hidden="true">
+    <div className="ascii-mark" {...(label ? { role: 'img', 'aria-label': label } : { 'aria-hidden': true })}>
       {LAYERS.map((name, i) => (
         <pre
           key={name}

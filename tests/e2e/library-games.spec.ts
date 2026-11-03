@@ -100,6 +100,20 @@ test('only active tiles show progress; completed and perfect tiles have a green 
     await expect(tiles.nth(i)).toHaveClass('tile tile--unplayed')
     await expect(tiles.nth(i).locator('progress, .tile__check')).toHaveCount(0)
   }
+  // A completed tile is as wide as the rest and stays square, and every number box is
+  // as wide as 100's, down to the narrowest desktop grid (1024px).
+  for (const width of [undefined, 1024]) {
+    if (width) await page.setViewportSize({ width, height: 800 })
+    const [done, unplayed] = await Promise.all([tiles.nth(1).boundingBox(), tiles.nth(3).boundingBox()])
+    expect(done!.width).toBeCloseTo(unplayed!.width, 1)
+    expect(done!.height).toBeCloseTo(done!.width, 0)
+    const [first, hundredth] = await Promise.all([
+      tiles.nth(0).locator('.tile__n').boundingBox(),
+      tiles.nth(99).locator('.tile__n').boundingBox(),
+    ])
+    expect(first!.width).toBeCloseTo(hundredth!.width, 1)
+    expect(await page.evaluate<number>('document.documentElement.scrollWidth')).toBe(page.viewportSize()!.width)
+  }
   await tiles.nth(0).click()
   await expect(page.getByRole('button', { name: 'Resume round 2', exact: true })).toBeVisible()
 })

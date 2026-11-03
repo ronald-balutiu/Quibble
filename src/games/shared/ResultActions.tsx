@@ -12,7 +12,8 @@ interface ResultActionsProps {
   focusPrimary?: boolean
 }
 
-// The next puzzle and share feedback behave the same in every results screen.
+// The next puzzle, share feedback and the way back to the game's library behave the
+// same in every results screen.
 export function ResultActions({ puzzle, share, restart, focusPrimary = false }: ResultActionsProps) {
   const { data: index } = usePuzzleIndex()
   const next = index?.[puzzle.game]?.find((entry) => entry.n > puzzle.n)
@@ -65,11 +66,9 @@ export function ResultActions({ puzzle, share, restart, focusPrimary = false }: 
         >
           {en['results.copy']}
         </button>
-        {!restart && (
-          <Link className="pill pill--quiet control-link" to={libraryPath(puzzle.game)}>
-            {en['nav.library']}
-          </Link>
-        )}
+        <Link className="pill pill--quiet control-link" to={libraryPath(puzzle.game)}>
+          {en['nav.library']}
+        </Link>
       </div>
       <p role="status" className="telemetry">
         {copied ? en['toast.copied'] : ''}

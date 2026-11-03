@@ -90,7 +90,8 @@ import games, never the reverse, and lint enforces it. Game screens use
 form state, focus and progress saving; reducers own scoring and progression.
 `GameFrame` draws every screen's header, setup sheet, cloud and storage strips and
 Turnstile widget. `GameTip`, `ResultActions`, `results.ts` and `use-reveal` share
-the first-round tip, result navigation/copy feedback, best-score and share text,
+the first-round tip, result navigation (next puzzle, an optional restart, and the
+game's Library in every game)/copy feedback, best-score and share text,
 and retryable reveals.
 `lib/use-puzzle-index.ts` owns the puzzle-index loading lifecycle across scenes.
 
@@ -116,7 +117,10 @@ compact list presentation stays unchanged. The Library's worked view shows rules
 leading to one answer, or successive rule/answer steps for Category Escape.
 Scoring values come from the shared game config. Only active puzzle tiles show a
 progress bar, based on finished rounds or cleared levels in the current saved run;
-completed tiles show a green check while retaining their best score/perfect mark.
+completed tiles show a green check beside their best score/perfect mark, on the
+bottom row so the boxed number keeps the top row to itself. Grid columns are
+`minmax(0, 1fr)`, so no tile's content can widen its column; between 1024px and
+1199px, where the 10-column grid is narrowest, tiles take a tighter inset.
 
 `games/shared/ResultSummary` puts the score, best-score note, share grid and next-game actions first on every results screen. Detailed statistics and Category Escape’s example path use native disclosures. `games/shared/RunReview` gives all three results screens expandable round/level
 details: conditions, actual guesses and their accepted/rejected/overruled status,

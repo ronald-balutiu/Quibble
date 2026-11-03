@@ -76,6 +76,11 @@ test('a whole Category Escape run can be played with the keyboard alone', async 
   await expect(page.getByText('RUN OVER • 3 WRONG GUESSES')).toBeVisible()
   await expect(page.getByText('/6 cleared')).toBeVisible()
   await expect(page.getByRole('link', { name: /^Next puzzle #002/u })).toBeFocused()
+  // As in the other games, the results lead back to this game's library.
+  await expect(page.locator('.actions').getByRole('link', { name: 'Library', exact: true })).toHaveAttribute(
+    'href',
+    '/play?game=category-escape',
+  )
   await page.getByText('Example path', { exact: true }).click()
   await expect(page.getByRole('cell', { name: 'cork stopper' })).toBeVisible()
   await page.getByText('Run details', { exact: true }).click()

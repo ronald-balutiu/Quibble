@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react'
 import { matchPath, NavLink, useLocation, useNavigate } from 'react-router'
 import { gameIds } from '@shared/games'
-import { libraryPath } from '@/app/paths'
 import { en } from '@/copy/en'
+import { libraryPath } from '@/lib/paths'
 import { SettingsButton } from '../SettingsDrawer/SettingsDrawer'
 import './site-header.css'
 
@@ -12,7 +12,7 @@ export function SiteHeader() {
   const previousLocation = useRef(location)
   const navigate = useNavigate()
   const puzzle = matchPath('/play/:game/:n', location.pathname)
-  const selected = location.pathname === '/play' ? new URLSearchParams(location.search).get('game') : puzzle?.params.game
+  const selected = location.pathname === libraryPath() ? new URLSearchParams(location.search).get('game') : puzzle?.params.game
   const game = gameIds.find((id) => id === selected)
   const library = libraryPath(game)
 
@@ -20,7 +20,7 @@ export function SiteHeader() {
     const previous = previousLocation.current
     previousLocation.current = location
     // Library query changes select a game within the same page.
-    if (previous.pathname === '/play' && location.pathname === '/play' && previous.search !== location.search && previous.hash === location.hash) return
+    if (previous.pathname === libraryPath() && location.pathname === libraryPath() && previous.search !== location.search && previous.hash === location.hash) return
     if (location.hash) document.getElementById(location.hash.slice(1))?.scrollIntoView()
     else window.scrollTo(0, 0)
   }, [location])

@@ -6,7 +6,7 @@ import type { Plugin } from 'vite'
 import { gameIds } from '../shared/games/index.ts'
 import { puzzleIndexSchema } from '../shared/schemas/puzzle.ts'
 import { SITE_ORIGIN } from '../shared/site.ts'
-import { puzzlePath } from '../src/app/paths.ts'
+import { libraryPath, puzzlePath } from '../src/lib/paths.ts'
 import { en, format, puzzleNumber } from '../src/copy/en.ts'
 
 // Build plugins for vite.config.ts: the on-device judge's runtime, the sitemap, and
@@ -59,7 +59,7 @@ export function sitemap(): Plugin {
     name: 'quibble:sitemap',
     applyToEnvironment: (environment) => environment.name === 'client',
     generateBundle() {
-      const paths = ['/', '/play', '/about', ...puzzles().map(({ path }) => path)]
+      const paths = ['/', libraryPath(), '/about', ...puzzles().map(({ path }) => path)]
       const urls = paths.map((path) => `  <url><loc>${SITE_ORIGIN}${path}</loc></url>`).join('\n')
       this.emitFile({ type: 'asset', fileName: 'sitemap.xml', source: `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n` })
     },
@@ -81,7 +81,7 @@ const FONTS = [/^assets\/geist-latin-300-normal-[\w-]+\.woff2$/u, /^assets\/geis
 
 function routePageList(): RoutePage[] {
   return [
-    { path: '/play', scene: 'src/scenes/library/LibraryScene.tsx', data: '/puzzles/index.json', title: en['meta.title.library'], description: en['meta.description.library'] },
+    { path: libraryPath(), scene: 'src/scenes/library/LibraryScene.tsx', data: '/puzzles/index.json', title: en['meta.title.library'], description: en['meta.description.library'] },
     { path: '/about', scene: 'src/scenes/AboutScene.tsx', title: en['meta.title.about'], description: en['meta.description.about'] },
     ...puzzles().map(({ game, n, path }) => {
       const values = { game: en[`game.name.${game}`], n: puzzleNumber(n), tagline: en[`game.tagline.${game}`] }

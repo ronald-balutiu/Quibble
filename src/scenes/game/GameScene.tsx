@@ -6,6 +6,7 @@ import { usePageMeta } from '@/app/use-page-meta'
 import { en, format, puzzleNumber } from '@/copy/en'
 import { EscapeGame } from '@/games/category-escape/EscapeGame'
 import { RoundGame } from '@/games/rounds/RoundGame'
+import { libraryPath } from '@/lib/paths'
 import { loadPuzzle } from '@/lib/puzzles'
 import '@/games/shared/game.css'
 
@@ -33,7 +34,7 @@ function PuzzleRoute({ game, n, playable }: { game: GameId | undefined, n: numbe
   }, [playable, game, n])
 
   if (playable && puzzle === undefined) return <main data-scene="game" className="app-frame game-frame" aria-busy="true"><p>{en['game.loading']}</p></main>
-  if (!playable || !puzzle) return <main data-scene="game" className="app-frame game-frame"><p>{en['game.notFound']}</p><Link className="control-link" to="/play">{en['nav.library']}</Link></main>
+  if (!playable || !puzzle) return <main data-scene="game" className="app-frame game-frame"><p>{en['game.notFound']}</p><Link className="control-link" to={libraryPath()}>{en['nav.library']}</Link></main>
   if (puzzle.game === 'category-escape') return <EscapeGame puzzle={puzzle} />
   return <RoundGame puzzle={puzzle} />
 }

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router'
 import type { Puzzle } from '@shared/schemas/puzzle'
 import { en, format, puzzleNumber } from '@/copy/en'
+import { libraryPath, puzzlePath } from '@/lib/paths'
 import { usePuzzleIndex } from '@/lib/use-puzzle-index'
 
 interface ResultActionsProps {
@@ -38,10 +39,10 @@ export function ResultActions({ puzzle, share, restart, focusPrimary = false }: 
   return (
     <>
       <div ref={actions} className="actions">
-        {next && <Link className="pill control-link" to={`/play/${puzzle.game}/${String(next.n)}`}>{format('results.next', { n: puzzleNumber(next.n), difficulty: en[`difficulty.${next.difficulty}`] })}</Link>}
+        {next && <Link className="pill control-link" to={puzzlePath(puzzle.game, next.n)}>{format('results.next', { n: puzzleNumber(next.n), difficulty: en[`difficulty.${next.difficulty}`] })}</Link>}
         {restart && <button type="button" className={next ? 'pill pill--quiet' : 'pill'} onClick={restart.onClick}>{restart.label}</button>}
         <button type="button" className="pill pill--quiet" onClick={() => { void copy() }}>{en['results.copy']}</button>
-        {!restart && <Link className="pill pill--quiet control-link" to={`/play?game=${puzzle.game}`}>{en['nav.library']}</Link>}
+        {!restart && <Link className="pill pill--quiet control-link" to={libraryPath(puzzle.game)}>{en['nav.library']}</Link>}
       </div>
       <p role="status" className="telemetry">{copied ? en['toast.copied'] : ''}</p>
     </>

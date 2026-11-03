@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { Link } from 'react-router'
 import { en, format } from '@/copy/en'
+import { libraryPath } from '@/lib/paths'
 import type { Ui } from './judge-guess'
 import { restTime } from './verdict'
 
@@ -52,7 +53,7 @@ export function NotJudgedPanel({ ui, onRetry, onEdit, onAddDevice }: { ui: Ui, o
         <p>{onAddDevice ? `${en['cloud.resting.body']} ${en['cloud.resting.deviceOffer']}` : en['cloud.resting.body']}</p>
         <div className="actions">
           {onAddDevice && <button type="button" className="pill" onClick={onAddDevice}>{en['device.add']}</button>}
-          <Link className={onAddDevice ? 'pill pill--quiet control-link' : 'pill control-link'} to="/play">{en['nav.backToLibrary']}</Link>
+          <Link className={onAddDevice ? 'pill pill--quiet control-link' : 'pill control-link'} to={libraryPath()}>{en['nav.backToLibrary']}</Link>
         </div>
       </div>
     )

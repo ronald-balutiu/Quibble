@@ -2,6 +2,7 @@ import { Link } from 'react-router'
 import { usePageMeta } from '@/app/use-page-meta'
 import { AsciiMark } from '@/components/AsciiMark/AsciiMark'
 import { en } from '@/copy/en'
+import { libraryPath } from '@/lib/paths'
 import './scenes.css'
 import './not-found.css'
 
@@ -22,7 +23,7 @@ export function NotFoundScene() {
         </p>
         <h1 id="not-found-title">{en['notFound.title']}</h1>
         <p>{en['notFound.body']}</p>
-        <div className="actions"><Link className="pill control-link" to="/play">{en['nav.library']}</Link></div>
+        <div className="actions"><Link className="pill control-link" to={libraryPath()}>{en['nav.library']}</Link></div>
       </section>
     </main>
   )

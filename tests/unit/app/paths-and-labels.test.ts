@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest'
-import { libraryPath, puzzlePath } from '@/app/paths'
+import { libraryPath, puzzlePath } from '@/lib/paths'
 import { en, pointsLabel, tryLabel } from '@/copy/en'
 
 test('route paths match the route tree', () => {

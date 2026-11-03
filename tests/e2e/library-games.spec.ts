@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 import { seedStorage, shippedPuzzle } from './support'
-import AxeBuilder from '@axe-core/playwright'
+import { expectAccessible } from './accessibility'
 
 // Library fixtures distinguish active, completed and perfect progress; Category
 // Escape counts cleared levels rather than round-based points.
@@ -43,7 +43,7 @@ test('each game has keyboard-accessible rules and a quick example above the filt
     expect(await page.evaluate<number>('document.documentElement.scrollWidth')).toBeLessThanOrEqual(width)
   }
   await expect(page.getByRole('heading', { name: 'Game Selector', exact: true })).toBeVisible()
-  expect((await new AxeBuilder({ page }).analyze()).violations.filter((v) => v.impact === 'serious' || v.impact === 'critical')).toEqual([])
+  await expectAccessible(page)
 })
 
 test('judge cards sit above the selector on mobile, with a mobile-only tap hint', async ({ page, isMobile }) => {

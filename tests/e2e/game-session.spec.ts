@@ -1,4 +1,5 @@
 import { expect, test, type Page } from '@playwright/test'
+import { deferred } from '../support/deferred'
 import { allConditions, mockJudge, mockReveal, seedStorage, shippedPuzzle } from './support'
 import { gameIds } from '../../shared/games'
 import { oddlySpecificConfig } from '../../shared/games/oddly-specific'
@@ -78,19 +79,18 @@ test('result details load examples on demand, support keyboard opening and retry
 for (const missing of [false, true]) {
   test(`next puzzle has its own loading and ${missing ? 'not-found' : 'game'} state`, async ({ page }) => {
     const puzzle = shippedPuzzle('oddly-specific', 2)
-    let release = () => undefined as void
-    const ready = new Promise<void>((resolve) => { release = resolve })
+    const ready = deferred()
     await page.route('**/puzzles/oddly-specific/2.json', async (route) => {
-      await ready
+      await ready.promise
       await route.fulfill(missing ? { status: 404, body: '' } : { json: puzzle })
     })
-    await openResults(page)
-    await page.getByRole('link', { name: /^Next puzzle #002/u }).click()
     try {
+      await openResults(page)
+      await page.getByRole('link', { name: /^Next puzzle #002/u }).click()
       await expect(page.getByText('Loading puzzle…', { exact: true })).toBeVisible()
       await expect(page.getByText('0/15', { exact: true })).toHaveCount(0)
     } finally {
-      release()
+      ready.resolve()
     }
     if (missing) {
       await expect(page.getByText("This puzzle doesn't exist.")).toBeVisible()

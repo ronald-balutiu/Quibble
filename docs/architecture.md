@@ -31,10 +31,11 @@ src/
   main.tsx             Client entry: hydrates a prerendered page, or renders 404.html
   prerender.tsx        Build-time rendering of each route's first screen
   app/                 Route tree and page metadata
-  scenes/              Top-level screens: home, library, and the shared game scene
-  games/rounds/        Shared round reducer, play, round-end and results screens
-  games/category-escape/  Level reducer, play and run-over screens
-  games/double-agent/  Clues, guess map and round-word list
+  scenes/              Top-level screens: home, library, about, and the game route
+  games/shared/        Run shape, judging, session hook and UI every game shares
+  games/rounds/        Round reducer, RoundGame, round-end and results screens
+  games/category-escape/  Level reducer, EscapeGame and run-over screens
+  games/double-agent/  Clues, guess map and verdict sentence
   judges/              Judge coordination; device/ holds the on-device judge
   components/          Shared UI components
   copy/en.ts           All visible and accessible text
@@ -78,14 +79,19 @@ plan/                  Local build plan and design mocks; ignored by Git
 
 Oddly Specific and Double Agent use `games/rounds/`; their configurations select
 the input rules and game-specific UI. Category Escape has its own reducer for
-immediate level progression and strikes across a run. Both reducers use the same
-run shape, preserving the saved-progress format.
+immediate level progression and strikes across a run. Both reducers use the run
+shape in `games/shared/run.ts`, preserving the saved-progress format, which
+`lib/storage/progress.ts` checks against that type.
 
 `scenes/game/GameScene.tsx` owns route validation and puzzle loading, with a fresh
-loading state for each route. Game screens use `scenes/game/use-game-session.ts`
-for local answer checks, judge coordination, form state, focus and progress saving;
-reducers own scoring and progression. `GameTip`, `ResultActions` and `use-reveal`
-share the first-round tip, result navigation/copy feedback and retryable reveals.
+loading state for each route; it is the only game code under `scenes/`. Scenes
+import games, never the reverse, and lint enforces it. Game screens use
+`games/shared/use-game-session.ts` for local answer checks, judge coordination,
+form state, focus and progress saving; reducers own scoring and progression.
+`GameFrame` draws every screen's header, setup sheet, cloud and storage strips and
+Turnstile widget. `GameTip`, `ResultActions`, `results.ts` and `use-reveal` share
+the first-round tip, result navigation/copy feedback, best-score and share text,
+and retryable reveals.
 `lib/use-puzzle-index.ts` owns the puzzle-index loading lifecycle across scenes.
 
 `scenes/home/HomeScene.tsx` is the welcome page: a hero action, game examples,
@@ -110,7 +116,7 @@ Scoring values come from the shared game config. Only active puzzle tiles show a
 progress bar, based on finished rounds or cleared levels in the current saved run;
 completed tiles show a green check while retaining their best score/perfect mark.
 
-`scenes/game/ResultSummary` puts the score, best-score note, share grid and next-game actions first on every results screen. Detailed statistics and Category Escape’s example path use native disclosures. `scenes/game/RunReview` gives all three results screens expandable round/level
+`games/shared/ResultSummary` puts the score, best-score note, share grid and next-game actions first on every results screen. Detailed statistics and Category Escape’s example path use native disclosures. `games/shared/RunReview` gives all three results screens expandable round/level
 details: conditions, actual guesses and their accepted/rejected/overruled status,
 and example answers. A single warm neutral surface groups the recap; flat rows
 show the answer, status and points. Native named disclosures keep at most one
@@ -201,7 +207,8 @@ ESLint enforces these import rules:
   plan.
 - Worker and shared code cannot import the React app.
 - Worker code cannot import build-time tools.
-- Game reducers cannot import React or Node APIs.
+- Game reducers and the shared run shape cannot import React or Node APIs.
+- Game code cannot import scenes or the app shell.
 
 Within those boundaries:
 
@@ -358,7 +365,7 @@ them.
   does not cancel it. Progress, warming, cancellation and failures stay visible in the
   Library; the in-game modal retains its own cancellation on dismissal. Both use
   the same device client and avoid starting another load while it is loading.
-- During a guess, `src/scenes/game/judge-guess.ts` starts the on-device run next to
+- During a guess, `src/games/shared/judge-guess.ts` starts the on-device run next to
   the cloud request. The cloud judge is the referee; the device's result is shown but
   never scores. The cloud's scores are drawn as they arrive, but the guess moves on
   only once both judges are back, and the screen stays locked until then.
@@ -373,7 +380,7 @@ them.
   cloud's is shown; if the cloud fails, only its column says so.
 - `src/components/SettingsDrawer/` is the settings drawer (L3), opened from the shared
   site header: the referee choice and the on-device judge's Turn on / Turn off.
-- `src/scenes/game/use-device-column.ts` gives each game screen the judge's status,
+- `src/games/shared/use-device-column.ts` gives each game screen the judge's status,
   the latest run and the puzzle's "agreed n / m". "Device • off" opens the setup
   sheet on a capable device.
 

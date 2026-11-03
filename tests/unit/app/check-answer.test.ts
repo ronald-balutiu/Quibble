@@ -2,8 +2,9 @@ import { describe, expect, test } from 'vitest'
 import { categoryEscapeConfig } from '@shared/games/category-escape'
 import { oddlySpecificConfig } from '@shared/games/oddly-specific'
 import { escapeReducer, startEscape } from '@/games/category-escape/reducer'
-import { runReducer, startRun, type Guess, type RunAction } from '@/games/rounds/reducer'
-import { checkAnswer } from '@/scenes/game/check-answer'
+import { runReducer, startRun, type RunAction } from '@/games/rounds/reducer'
+import type { Guess } from '@/games/shared/run'
+import { checkAnswer } from '@/games/shared/check-answer'
 
 const guess = (answer: string, pass: boolean): Guess => ({ answer, pass, failed: pass ? [] : ['a'], closeCall: false })
 

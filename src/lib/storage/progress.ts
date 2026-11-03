@@ -1,7 +1,7 @@
 import { z } from '@shared/schemas/zod'
 import { storageSignal } from './signal'
 import type { GameId } from '@shared/games'
-import type { RunState } from '@/games/rounds/reducer'
+import type { RunState } from '@/games/shared/run'
 
 // Progress per puzzle (plan 3.8): the best score and one in-progress run. Every
 // call is wrapped, so the game still plays when storage is blocked or full.
@@ -16,9 +16,11 @@ const round = z.strictObject({
   overruled: z.boolean(),
   points: z.int().min(0),
 })
+// Checked against the reducers' run type, so the saved shape can't drift from it.
+const runSchema = z.strictObject({ current: z.int().min(0), rounds: z.array(round), finished: z.boolean() }) satisfies z.ZodType<RunState>
 const progressSchema = z.strictObject({
   best: z.int().min(0).optional(),
-  run: z.strictObject({ current: z.int().min(0), rounds: z.array(round), finished: z.boolean() }).optional(),
+  run: runSchema.optional(),
 })
 export type Progress = z.infer<typeof progressSchema>
 

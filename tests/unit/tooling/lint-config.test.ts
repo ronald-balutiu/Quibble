@@ -31,6 +31,15 @@ test.each(['factory', 'eval'])('the Worker cannot import %s scripts', async (fol
   expect(result?.messages.some((message) => message.ruleId === 'no-restricted-imports')).toBe(true)
 })
 
+test.each([
+  ['src/games/rounds/RoundGame.tsx', "import { GameScene } from '@/scenes/game/GameScene'"],
+  ['src/games/shared/run.ts', "import { useState } from 'react'"],
+])('%s keeps game code below scenes and reducers free of React', async (filePath, source) => {
+  const [result] = await eslint.lintText(source, { filePath })
+
+  expect(result?.messages.some((message) => message.ruleId === 'no-restricted-imports')).toBe(true)
+})
+
 test('copy references and structural JSX props are allowed', async () => {
   const [result] = await eslint.lintText(
     "import { en } from '@/copy/en'; export function Example() { return <p className=\"label\" title={en['home.title']}>{en['home.title']}</p> }",

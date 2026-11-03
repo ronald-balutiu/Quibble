@@ -3,7 +3,8 @@ import { expectAccessible } from './accessibility'
 import { allConditions, mockJudge, mockReveal, seedStorage, shippedPuzzle, stubDeviceJudge, submitGuess, tipsSeen } from './support'
 import { gameConfigs, type GameId } from '../../shared/games'
 import { escapeReducer, startEscape } from '../../src/games/category-escape/reducer'
-import { runReducer, startRun, type Guess } from '../../src/games/rounds/reducer'
+import { runReducer, startRun } from '../../src/games/rounds/reducer'
+import type { Guess } from '../../src/games/shared/run'
 
 // The definition of done (0.2) for every screen in 5.5: axe-core reports no serious
 // or critical issues, at both sizes. The API is mocked, so no model is called.

@@ -1,7 +1,7 @@
 import type { PuzzleCondition } from '@shared/schemas/puzzle'
 import { format } from '@/copy/en'
-import type { Guess } from '@/games/rounds/reducer'
-import { letterFor, rejectedSentence } from '@/scenes/game/verdict'
+import type { Guess } from '@/games/shared/run'
+import { letterFor, rejectedSentence } from '@/games/shared/verdict'
 
 // "battery fits B, not A." when exactly one meaning fits; otherwise the usual sentence.
 export function agentSentence(guess: Guess, conditions: readonly PuzzleCondition[]): string {

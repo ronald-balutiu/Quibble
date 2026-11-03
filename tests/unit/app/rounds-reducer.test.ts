@@ -1,8 +1,7 @@
 import { describe, expect, test } from 'vitest'
 import { oddlySpecificConfig } from '@shared/games/oddly-specific'
-import {
-  maxScore, onLastTry, previousGuess, runReducer, shareGrid, startRun, totalScore, type Guess, type RunAction, type RunState,
-} from '@/games/rounds/reducer'
+import { maxScore, onLastTry, runReducer, shareGrid, startRun, type RunAction } from '@/games/rounds/reducer'
+import { previousGuess, totalScore, type Guess, type RunState } from '@/games/shared/run'
 
 const reduce = runReducer(oddlySpecificConfig)
 const play = (...actions: RunAction[]) => actions.reduce(reduce, startRun(oddlySpecificConfig))

@@ -2,6 +2,7 @@ import { z } from '@shared/schemas/zod'
 import { storageSignal } from './signal'
 import { gameIds } from '@shared/games'
 import { cloudModels } from '@shared/schemas/judge'
+import { referees } from './settings'
 
 // Judge comparisons (plan 3.8): one record per guess both judges answered, kept in
 // this browser only for "Your games". At most 2,000 records and 500 KB, each for
@@ -29,7 +30,7 @@ const comparisonSchema = z.strictObject({
   backend: z.literal('webgpu'),
   precision: z.literal('q4'),
   warm: z.boolean(), // false for the first guess after the model loads
-  referee: z.enum(['cloud', 'device']),
+  referee: z.enum(referees),
   overruled: z.boolean(), // the player's "Count it anyway", kept apart from the judges' verdicts
 })
 export type Comparison = z.infer<typeof comparisonSchema>

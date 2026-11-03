@@ -3,6 +3,10 @@ import { cloudModels, defaultCloudModel, type CloudModel } from '@shared/schemas
 // Small player settings (plan 3.8). Wrapped like all storage: defaults apply when
 // storage is blocked.
 
+// Which judge decides a guess (L3).
+export const referees = ['cloud', 'device'] as const
+export type Referee = (typeof referees)[number]
+
 const CLOUD_MODEL = 'quibble:settings:cloudModel'
 const TIPS = 'quibble:settings:tipsSeen'
 const REFEREE = 'quibble:settings:referee'
@@ -69,7 +73,7 @@ export function markTipSeen(game: string): void {
 
 // Which judge decides (L3): the cloud unless the player picked the on-device judge.
 // It only applies while that judge is on.
-export function loadReferee(): 'cloud' | 'device' {
+export function loadReferee(): Referee {
   try {
     return globalThis.localStorage.getItem(REFEREE) === 'device' ? 'device' : 'cloud'
   } catch {
@@ -77,7 +81,7 @@ export function loadReferee(): 'cloud' | 'device' {
   }
 }
 
-export function saveReferee(referee: 'cloud' | 'device'): void {
+export function saveReferee(referee: Referee): void {
   try {
     globalThis.localStorage.setItem(REFEREE, referee)
   } catch {

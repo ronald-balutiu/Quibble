@@ -1,8 +1,8 @@
 import type { GameId } from '@shared/games'
 import { isValidAnswer, normalizeAnswer } from '@shared/normalize'
 import { usedOn } from '@/games/category-escape/reducer'
-import { previousGuess, type RunState } from '@/games/rounds/reducer'
 import type { Ui } from './judge-guess'
+import { previousGuess, type RunState } from './run'
 
 // Local checks never call a judge or cost a strike. An earlier verdict is shown
 // again; Category Escape also prevents reusing an answer that cleared a level.

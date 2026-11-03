@@ -10,18 +10,39 @@ import gemma from '../../fixtures/clef/gemma-4-success.json'
 const SESSION_KEY = 'test-session-key'
 const library: Library = {
   puzzles: {
-    'oddly-specific': { 1: { rounds: { r1: { conditions: ['pocket', 'secure', 'nonelec'], known: ['safety pin', 'paper clip', 'zip tie'], example: 'safety pin' } } } },
-    'category-escape': { 2: { rounds: { L1: { conditions: ['kitchen'], known: ['apple'], example: 'apple' } }, path: ['apple', 'toaster'] } },
+    'oddly-specific': {
+      1: {
+        rounds: {
+          r1: {
+            conditions: ['pocket', 'secure', 'nonelec'],
+            known: ['safety pin', 'paper clip', 'zip tie'],
+            example: 'safety pin',
+          },
+        },
+      },
+    },
+    'category-escape': {
+      2: {
+        rounds: { L1: { conditions: ['kitchen'], known: ['apple'], example: 'apple' } },
+        path: ['apple', 'toaster'],
+      },
+    },
   },
   questions: Object.fromEntries(Object.entries(clefFlash.request.questions).map(([id, q]) => [id, q.instructions])),
-  aliases: { 'pocketknife': 'pocket knife' },
+  aliases: { pocketknife: 'pocket knife' },
 }
 
 // Bindings plus their spies, so tests can check what was called.
 function env(ai: AiRunner['run'] = () => Promise.resolve(clefFlash.response.body.result), limited = false) {
   const run = vi.fn<AiRunner['run']>(ai)
   const limit = vi.fn(() => Promise.resolve({ success: !limited }))
-  const bindings: Env = { AI: { run }, JUDGE_LIMIT: { limit }, TURNSTILE_SECRET: 'turnstile-secret', SESSION_KEY, SITE_HOSTNAME: 'quibble.example' }
+  const bindings: Env = {
+    AI: { run },
+    JUDGE_LIMIT: { limit },
+    TURNSTILE_SECRET: 'turnstile-secret',
+    SESSION_KEY,
+    SITE_HOSTNAME: 'quibble.example',
+  }
   return Object.assign(bindings, { run, limit })
 }
 
@@ -31,7 +52,9 @@ async function cookie(exp = Math.floor(Date.now() / 1000) + 3600) {
 
 async function judge(body: unknown, e = env(), headers: Record<string, string> = {}) {
   const request = new Request('https://quibble.example/api/judge', {
-    method: 'POST', body: typeof body === 'string' ? body : JSON.stringify(body), headers: { Cookie: await cookie(), ...headers },
+    method: 'POST',
+    body: typeof body === 'string' ? body : JSON.stringify(body),
+    headers: { Cookie: await cookie(), ...headers },
   })
   const response = await route(request, e, () => library)
   return { status: response.status, body: await response.json<Record<string, unknown>>() }
@@ -39,11 +62,24 @@ async function judge(body: unknown, e = env(), headers: Record<string, string> =
 
 const guess = { game: 'oddly-specific', n: 1, roundId: 'r1', answer: 'A Pocket Knife!', attempt: 3 }
 
-afterEach(() => { vi.useRealTimers() })
+afterEach(() => {
+  vi.useRealTimers()
+})
 
 describe('POST /api/session', () => {
-  const session = (token: unknown) => route(new Request('https://quibble.example/api/session', { method: 'POST', body: JSON.stringify({ turnstileToken: token }) }), env())
-  const siteverify = (reply: object) => vi.stubGlobal('fetch', vi.fn(() => Promise.resolve(Response.json(reply))))
+  const session = (token: unknown) =>
+    route(
+      new Request('https://quibble.example/api/session', {
+        method: 'POST',
+        body: JSON.stringify({ turnstileToken: token }),
+      }),
+      env(),
+    )
+  const siteverify = (reply: object) =>
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(() => Promise.resolve(Response.json(reply))),
+    )
 
   test('sets a signed HttpOnly cookie after a valid Turnstile token', async () => {
     siteverify({ success: true, hostname: 'quibble.example', action: 'session' })
@@ -51,8 +87,13 @@ describe('POST /api/session', () => {
     const setCookie = response.headers.get('Set-Cookie') ?? ''
 
     expect(response.status).toBe(200)
-    expect(setCookie).toMatch(/^quibble_session=[\w-]+\.[\w-]+; Path=\/api; Max-Age=7200; HttpOnly; Secure; SameSite=Strict$/u)
-    const sid = await readSession(new Request('https://x', { headers: { Cookie: setCookie.split(';')[0] ?? '' } }), SESSION_KEY)
+    expect(setCookie).toMatch(
+      /^quibble_session=[\w-]+\.[\w-]+; Path=\/api; Max-Age=7200; HttpOnly; Secure; SameSite=Strict$/u,
+    )
+    const sid = await readSession(
+      new Request('https://x', { headers: { Cookie: setCookie.split(';')[0] ?? '' } }),
+      SESSION_KEY,
+    )
     expect(sid).toMatch(/^[0-9a-f]{32}$/u)
   })
 
@@ -107,7 +148,11 @@ describe('POST /api/judge', () => {
     const { status, body } = await judge(guess, e)
 
     expect(status).toBe(200)
-    expect(body).toMatchObject({ attempt: 3, model: 'clef-flash', conditions: { pocket: { pass: true }, secure: { pass: false }, nonelec: { pass: true } } })
+    expect(body).toMatchObject({
+      attempt: 3,
+      model: 'clef-flash',
+      conditions: { pocket: { pass: true }, secure: { pass: false }, nonelec: { pass: true } },
+    })
     const [model, inputs] = e.run.mock.calls[0] ?? []
     expect(model).toBe('@cf/cloudflare/clef-flash')
     expect(inputs).toMatchObject({ state: { playerAnswer: 'pocket knife' } })
@@ -120,7 +165,10 @@ describe('POST /api/judge', () => {
     const { status, body } = await judge({ ...guess, model: 'gemma-4' }, e)
 
     expect(status).toBe(200)
-    expect(body).toMatchObject({ model: 'gemma-4', conditions: { pocket: { pass: true }, secure: { pass: false }, nonelec: { pass: true } } })
+    expect(body).toMatchObject({
+      model: 'gemma-4',
+      conditions: { pocket: { pass: true }, secure: { pass: false }, nonelec: { pass: true } },
+    })
     expect(e.run).toHaveBeenCalledTimes(3)
   })
 
@@ -175,14 +223,21 @@ describe('POST /api/judge', () => {
   test('returns resting with the next UTC midnight when the daily allowance is used up', async () => {
     vi.useFakeTimers({ toFake: ['Date'] })
     vi.setSystemTime(new Date('2026-10-29T23:59:59.999Z'))
-    const e = env(() => Promise.reject(Object.assign(new Error('3036: You have used up your daily free allocation.'), { name: 'AiError' })))
+    const e = env(() =>
+      Promise.reject(
+        Object.assign(new Error('3036: You have used up your daily free allocation.'), { name: 'AiError' }),
+      ),
+    )
     const { status, body } = await judge(guess, e)
     expect(status).toBe(503)
     expect(body).toMatchObject({ error: 'resting', resetAt: '2026-10-30T00:00:00.000Z' })
   })
 
   test('returns unavailable for an unreadable model reply', async () => {
-    const { status, body } = await judge(guess, env(() => Promise.resolve({ answers: {} })))
+    const { status, body } = await judge(
+      guess,
+      env(() => Promise.resolve({ answers: {} })),
+    )
     expect(status).toBe(502)
     expect(body.error).toBe('unavailable')
   })
@@ -195,7 +250,10 @@ describe('GET /api/reveal', () => {
   }
 
   test('returns the example plus up to two more known answers', async () => {
-    expect(await reveal('oddly-specific/1/r1')).toEqual({ status: 200, body: { example: 'safety pin', also: ['paper clip', 'zip tie'] } })
+    expect(await reveal('oddly-specific/1/r1')).toEqual({
+      status: 200,
+      body: { example: 'safety pin', also: ['paper clip', 'zip tie'] },
+    })
   })
 
   test('includes the confirmed path for Category Escape', async () => {

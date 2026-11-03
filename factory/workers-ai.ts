@@ -33,10 +33,12 @@ export function restRunner(onNeurons: (neurons: number) => void): AiRunner {
       if (options?.signal) init.signal = options.signal
       const response = await fetch(`https://api.cloudflare.com/client/v4/accounts/${accountId}/ai/run/${model}`, init)
       onNeurons(Number(response.headers.get('cf-ai-neurons') ?? 0))
-      const body = await response.json() as { result?: unknown, errors?: { code?: number, message?: string }[] }
+      const body = (await response.json()) as { result?: unknown; errors?: { code?: number; message?: string }[] }
       const error = body.errors?.[0]
       if (!response.ok || error) {
-        throw new Error(error?.code ? `${String(error.code)}: ${error.message ?? ''}` : `HTTP ${String(response.status)}`)
+        throw new Error(
+          error?.code ? `${String(error.code)}: ${error.message ?? ''}` : `HTTP ${String(response.status)}`,
+        )
       }
       return body.result
     },

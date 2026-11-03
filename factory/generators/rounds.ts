@@ -2,7 +2,10 @@
 // deterministic: the same matrix and seed always produce the same rounds.
 import { truth, type Matrix } from '../matrix'
 
-interface ConditionInfo { tag: string, category?: boolean }
+interface ConditionInfo {
+  tag: string
+  category?: boolean
+}
 export type Conditions = Record<string, ConditionInfo>
 
 const MAX_KNOWN = 8
@@ -27,7 +30,8 @@ export function shuffled<T>(items: readonly T[], next: () => number): T[] {
   return copy
 }
 
-const fits = (matrix: Matrix, thing: string, ids: readonly string[]) => ids.every((id) => truth(matrix[thing]?.[id]) === 'yes')
+const fits = (matrix: Matrix, thing: string, ids: readonly string[]) =>
+  ids.every((id) => truth(matrix[thing]?.[id]) === 'yes')
 
 // A known answer needs Gemma 4 to agree on every cell too, so both models confirm it (D-68), with a margin over 0.8 (D-74).
 export const confirmed = (matrix: Matrix, thing: string, ids: readonly string[]) =>
@@ -38,11 +42,18 @@ export function unconfirmedCells(matrix: Matrix, thing: string, ids: readonly st
   return ids.filter((id) => matrix[thing]?.[id]?.gemma === undefined)
 }
 
-interface OddlySpecificRound { conditions: string[], solutions: string[] }
+interface OddlySpecificRound {
+  conditions: string[]
+  solutions: string[]
+}
 
 // Three conditions with different tags, 4–40 solutions, and no redundant condition:
 // each one must rule out something the other two allow.
-export function oddlySpecificRounds(matrix: Matrix, things: readonly string[], conditions: Conditions): OddlySpecificRound[] {
+export function oddlySpecificRounds(
+  matrix: Matrix,
+  things: readonly string[],
+  conditions: Conditions,
+): OddlySpecificRound[] {
   const ids = Object.keys(conditions).filter((id) => !conditions[id]?.category)
   const rounds: OddlySpecificRound[] = []
   for (let a = 0; a < ids.length; a++) {
@@ -67,19 +78,30 @@ export function knownAnswers(matrix: Matrix, solutions: readonly string[], ids: 
   return solutions.filter((thing) => confirmed(matrix, thing, ids)).slice(0, MAX_KNOWN)
 }
 
-export interface CategoryEscapeRun { levels: string[][], path: string[], fieldSizes: number[] }
+export interface CategoryEscapeRun {
+  levels: string[][]
+  path: string[]
+  fieldSizes: number[]
+}
 
 // A category, then five restrictions that each narrow the field and leave at least
 // minFinal things at level 6, with a distinct confirmed-or-candidate path answer per level.
 export function categoryEscapeRun(
-  matrix: Matrix, things: readonly string[], conditions: Conditions, category: string,
-  next: () => number, { minCategory, minFinal }: { minCategory: number, minFinal: number },
+  matrix: Matrix,
+  things: readonly string[],
+  conditions: Conditions,
+  category: string,
+  next: () => number,
+  { minCategory, minFinal }: { minCategory: number; minFinal: number },
 ): CategoryEscapeRun | undefined {
   let field = things.filter((thing) => fits(matrix, thing, [category]))
   if (field.length < minCategory) return undefined
   const inForce = [category]
   const fieldSizes = [field.length]
-  const restrictions = shuffled(Object.keys(conditions).filter((id) => !conditions[id]?.category), next)
+  const restrictions = shuffled(
+    Object.keys(conditions).filter((id) => !conditions[id]?.category),
+    next,
+  )
   for (const id of restrictions) {
     if (inForce.length === 6) break
     const narrowed = field.filter((thing) => fits(matrix, thing, [...inForce, id]))

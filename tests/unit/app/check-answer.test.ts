@@ -10,7 +10,9 @@ const guess = (answer: string, pass: boolean): Guess => ({ answer, pass, failed:
 
 describe('local answer checks shared by the game screens', () => {
   test('normalizes an answer before judging or checking for repeats', () => {
-    expect(checkAnswer(' The  Wooden Spoon! ', 'oddly-specific', startRun(oddlySpecificConfig))).toEqual({ normalized: 'wooden spoon' })
+    expect(checkAnswer(' The  Wooden Spoon! ', 'oddly-specific', startRun(oddlySpecificConfig))).toEqual({
+      normalized: 'wooden spoon',
+    })
   })
 
   test.each([
@@ -31,24 +33,37 @@ describe('local answer checks shared by the game screens', () => {
     const reduce = runReducer(oddlySpecificConfig)
     const pending = reduce(startRun(oddlySpecificConfig), { type: 'judged', guess: rejected })
     for (const run of [pending, reduce(pending, { type: 'moveOn' })]) {
-      expect(checkAnswer('A spoon!', 'oddly-specific', run)).toEqual({ normalized: 'spoon', ui: { kind: 'rejected', guess: rejected } })
+      expect(checkAnswer('A spoon!', 'oddly-specific', run)).toEqual({
+        normalized: 'spoon',
+        ui: { kind: 'rejected', guess: rejected },
+      })
     }
   })
 
   test('an accepted answer cannot be judged twice in a round', () => {
-    const run = runReducer(oddlySpecificConfig)(startRun(oddlySpecificConfig), { type: 'judged', guess: guess('spoon', true) })
+    const run = runReducer(oddlySpecificConfig)(startRun(oddlySpecificConfig), {
+      type: 'judged',
+      guess: guess('spoon', true),
+    })
     expect(checkAnswer('SPOON', 'oddly-specific', run).ui).toEqual({ kind: 'input', notice: 'input.repeat' })
   })
 
   test('Category Escape refuses a cleared answer but allows new answers on the next level', () => {
-    const run = escapeReducer(categoryEscapeConfig)(startEscape(categoryEscapeConfig), { type: 'judged', guess: guess('spoon', true) })
+    const run = escapeReducer(categoryEscapeConfig)(startEscape(categoryEscapeConfig), {
+      type: 'judged',
+      guess: guess('spoon', true),
+    })
     expect(checkAnswer('The spoon', 'category-escape', run).ui).toEqual({ kind: 'reused', level: 0 })
     expect(checkAnswer('fork', 'category-escape', run)).toEqual({ normalized: 'fork' })
   })
 
   test('a rejection from a previous round is allowed in a new round', () => {
     const reduce = runReducer(oddlySpecificConfig)
-    const actions: RunAction[] = [{ type: 'judged', guess: guess('spoon', false) }, { type: 'skip' }, { type: 'nextRound' }]
+    const actions: RunAction[] = [
+      { type: 'judged', guess: guess('spoon', false) },
+      { type: 'skip' },
+      { type: 'nextRound' },
+    ]
     const run = actions.reduce(reduce, startRun(oddlySpecificConfig))
     expect(checkAnswer('spoon', 'oddly-specific', run)).toEqual({ normalized: 'spoon' })
   })

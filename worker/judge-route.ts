@@ -16,9 +16,21 @@ import { readSession } from './session'
 const MAX_BODY_BYTES = 2048
 const RETRY_AFTER_SECONDS = 60
 
-const statusFor: Record<JudgeError['error'], number> = { invalid: 400, unknown: 404, session: 401, busy: 429, resting: 503, unavailable: 502 }
+const statusFor: Record<JudgeError['error'], number> = {
+  invalid: 400,
+  unknown: 404,
+  session: 401,
+  busy: 429,
+  resting: 503,
+  unavailable: 502,
+}
 
-function error(code: JudgeError['error'], attempt: number | undefined, extra: Partial<JudgeError> = {}, status = statusFor[code]): Response {
+function error(
+  code: JudgeError['error'],
+  attempt: number | undefined,
+  extra: Partial<JudgeError> = {},
+  status = statusFor[code],
+): Response {
   const body: JudgeError = attempt === undefined ? { error: code, ...extra } : { attempt, error: code, ...extra }
   return json(body, status)
 }
@@ -50,11 +62,14 @@ export async function handleJudge(request: Request, env: Env, library: Library):
     questions.push({ id, question })
   }
 
-  const verdict = model === 'gemma-4'
-    ? await judgeWithGemma(env.AI, normalized, questions)
-    : await judgeWithClef(env.AI, normalized, questions, { model: 'clef-flash' })
+  const verdict =
+    model === 'gemma-4'
+      ? await judgeWithGemma(env.AI, normalized, questions)
+      : await judgeWithClef(env.AI, normalized, questions, { model: 'clef-flash' })
   if (!verdict.ok) {
-    return verdict.error === 'resting' ? error('resting', attempt, { resetAt: nextUtcMidnight() }) : error('unavailable', attempt)
+    return verdict.error === 'resting'
+      ? error('resting', attempt, { resetAt: nextUtcMidnight() })
+      : error('unavailable', attempt)
   }
 
   const threshold = judgeConfig.passThreshold[model]
@@ -62,7 +77,9 @@ export async function handleJudge(request: Request, env: Env, library: Library):
     attempt,
     model,
     modelMs: verdict.modelMs,
-    conditions: Object.fromEntries(Object.entries(verdict.scores).map(([id, p]) => [id, { pass: passes(p, threshold), p }])),
+    conditions: Object.fromEntries(
+      Object.entries(verdict.scores).map(([id, p]) => [id, { pass: passes(p, threshold), p }]),
+    ),
   }
   return json(judged)
 }

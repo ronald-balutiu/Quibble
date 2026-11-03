@@ -10,17 +10,22 @@ export const en = {
   'meta.title.game': '{game} #{n} · Quibble',
   'meta.title.about': 'About · Quibble',
   'meta.title.notFound': 'Not found · Quibble',
-  'meta.description.library': 'Pick a puzzle: 100 Oddly Specific, 100 Category Escape and 56 Double Agent, easy to hard. Any answer that fits counts, and AI judges decide.',
-  'meta.description.about': 'How Quibble works: two AI judges, a held-out answer-key test, an on-device model in your browser, and what happens to your data.',
-  'meta.description.game': '{game} #{n} on Quibble. {tagline} Any answer that fits counts, and AI judges decide whether it does.',
+  'meta.description.library':
+    'Pick a puzzle: 100 Oddly Specific, 100 Category Escape and 56 Double Agent, easy to hard. Any answer that fits counts, and AI judges decide.',
+  'meta.description.about':
+    'How Quibble works: two AI judges, a held-out answer-key test, an on-device model in your browser, and what happens to your data.',
+  'meta.description.game':
+    '{game} #{n} on Quibble. {tagline} Any answer that fits counts, and AI judges decide whether it does.',
 
   // Home (H1, H2)
   'home.title': 'Make your case.',
   'home.games': 'Games',
-  'mark.label': 'Three overlapping rings in honey, sky and orchid, one for each condition. A white arc circles each ring, with a pulsing white point in the middle.',
+  'mark.label':
+    'Three overlapping rings in honey, sky and orchid, one for each condition. A white arc circles each ring, with a pulsing white point in the middle.',
   // Owner-approved welcome flow (local plan: entry-flow-refresh).
   'welcome.eyebrow': 'Three word games. A little wiggle room.',
-  'welcome.lede': 'Find a word that fits. The AI checks your answer. If you think it got the call wrong, you can count it anyway.',
+  'welcome.lede':
+    'Find a word that fits. The AI checks your answer. If you think it got the call wrong, you can count it anyway.',
   'welcome.choose': 'Choose a puzzle →',
   'welcome.games': 'Three ways to play',
   'welcome.oddly-specific.title': 'One thing. Three rules.',
@@ -30,7 +35,8 @@ export const en = {
   'welcome.oddly-specific.example.3': 'Doesn’t use electricity',
   'example.oddly-specific.answer': 'safety pin',
   'welcome.category-escape.title': 'The rules keep piling up.',
-  'welcome.category-escape.body': 'Stay in the category as a new rule appears at each level. Give a different answer every time.',
+  'welcome.category-escape.body':
+    'Stay in the category as a new rule appears at each level. Give a different answer every time.',
   'example.escape.rule.1': 'In a kitchen',
   'example.escape.answer.1': 'apple',
   'example.escape.rule.2': 'Also not food',
@@ -75,7 +81,8 @@ export const en = {
   'welcome.device.title': 'Add a local judge',
   'welcome.device.body': 'Compare the cloud judge with Qwen3.5-0.8B running in your browser.',
   'welcome.device.download': 'Download · about {mb} MB',
-  'welcome.device.visit': 'Desktop + WebGPU required. Uses memory for this visit only. You’ll download it again next visit.',
+  'welcome.device.visit':
+    'Desktop + WebGPU required. Uses memory for this visit only. You’ll download it again next visit.',
   'welcome.device.ready': 'Qwen3.5-0.8B is ready for this visit.',
   'welcome.device.referee': 'Both judges will check your answers. Choose which one decides in Settings.',
   'welcome.device.background': 'You can choose a puzzle while this runs.',
@@ -102,7 +109,8 @@ export const en = {
   'game.tagline.oddly-specific': 'Find one thing that fits all three.',
   'game.tagline.category-escape': 'Stay in the category as the exits close.',
   'game.tagline.double-agent': 'One word. Two meanings.',
-  'tip.oddly': 'Name one thing that fits all three. Both judges check each condition. You get 3 tries per round. A wrong guess only counts when you move on.',
+  'tip.oddly':
+    'Name one thing that fits all three. Both judges check each condition. You get 3 tries per round. A wrong guess only counts when you move on.',
   'tip.agent': 'One word that means both.',
   'tip.escape': "Each level adds a rule. Answers can't be reused, so save good ones.",
   'tip.dismiss': 'Got it',
@@ -110,8 +118,10 @@ export const en = {
   // How the judges compare (owner-approved comparison refresh).
   'compare.title': 'How the judges compare',
   'compare.intro': 'Two AI judges, measured two ways: against an answer key, and against you.',
-  'compare.way.test': 'How often each judge made the right call on guesses with a known answer, and whether it leans too strict or too lenient.',
-  'compare.way.games': 'Where the judges split on your guesses, and which one you overrule. It grows as you play with both on.',
+  'compare.way.test':
+    'How often each judge made the right call on guesses with a known answer, and whether it leans too strict or too lenient.',
+  'compare.way.games':
+    'Where the judges split on your guesses, and which one you overrule. It grows as you play with both on.',
   'compare.expand': 'See the results',
   'compare.source': 'Comparison source',
   'compare.source.test': 'Answer-key test',
@@ -146,23 +156,29 @@ export const en = {
   'compare.group.you': 'You and the judges',
   'compare.group.speed': 'On this device',
   'compare.better': 'Better',
-  'compare.brier.body': 'Measures how far the judge’s confidence is from the answer key. Lower is better; 0 is perfect. The table multiplies the score by 100.',
+  'compare.brier.body':
+    'Measures how far the judge’s confidence is from the answer key. Lower is better; 0 is perfect. The table multiplies the score by 100.',
   'compare.brier.raw': 'Unscaled scores: {cloud} {cloudScore} · local {deviceScore}.',
   'compare.speed': 'Typical judging time',
   'compare.speed.note': 'Median time · local model warmed up.',
   'compare.cost': 'Cost to play',
   'compare.cost.note': 'Both judges are free to use.',
   'compare.free': '$0',
-  'compare.timingContext': 'Local timing: {browser} · {machine} · WebGPU Q4. Cloud timing comes from the answer-key test.',
+  'compare.timingContext':
+    'Local timing: {browser} · {machine} · WebGPU Q4. Cloud timing comes from the answer-key test.',
   'compare.builds': 'Earlier development builds',
   'compare.change': 'Build {build} vs {previous}: {delta} points',
   'compare.builds.note': 'These are development-set results, separate from the test above.',
   'compare.build': 'Build {n} · {date}',
   'compare.methods': 'About this test',
-  'compare.methods.body': '{n} guesses checked against an answer key on {date}. None were used to tune the judges. This is one test run, not a guarantee about every puzzle.',
-  'compare.methods.guesses': 'Whole-answer accuracy uses {n} guesses. The other {excluded} had an unsure answer-key label and are left out of whole-answer measures.',
-  'compare.methods.rules': 'Rule accuracy uses {n} rules with known labels. Wrong-answer rates use {wrong} wrong answers; right-answer rates use {right} right answers.',
-  'compare.methods.backend': 'Accuracy for the local model was measured on CPU. Its browser timing was measured separately after warm-up using WebGPU Q4. Speed varies by device.',
+  'compare.methods.body':
+    '{n} guesses checked against an answer key on {date}. None were used to tune the judges. This is one test run, not a guarantee about every puzzle.',
+  'compare.methods.guesses':
+    'Whole-answer accuracy uses {n} guesses. The other {excluded} had an unsure answer-key label and are left out of whole-answer measures.',
+  'compare.methods.rules':
+    'Rule accuracy uses {n} rules with known labels. Wrong-answer rates use {wrong} wrong answers; right-answer rates use {right} right answers.',
+  'compare.methods.backend':
+    'Accuracy for the local model was measured on CPU. Its browser timing was measured separately after warm-up using WebGPU Q4. Speed varies by device.',
   'compare.yours': '{n} guesses · saved in this browser',
   'compare.yourQuestion': 'Do they make the same call?',
   'compare.yours.body': 'Agreement in your games, across saved cloud models.',
@@ -182,11 +198,14 @@ export const en = {
   'compare.overruled': 'You overruled',
   'compare.overruled.note': 'Guesses you chose to count anyway.',
   'compare.yourSpeed.note': 'Median on this device · warm guesses only.',
-  'compare.history.note': 'Local judge: WebGPU Q4. History stays in this browser; changing the test model doesn’t change these saved comparisons.',
+  'compare.history.note':
+    'Local judge: WebGPU Q4. History stays in this browser; changing the test model doesn’t change these saved comparisons.',
   'compare.empty': 'No comparisons yet.',
-  'compare.empty.body': 'Once both judges have checked the same guess, you’ll see where they split and which one you overrule.',
+  'compare.empty.body':
+    'Once both judges have checked the same guess, you’ll see where they split and which one you overrule.',
   'compare.empty.how': 'How to start comparing',
-  'compare.empty.setup': 'Turn on the local judge from the Library or Settings, then play a puzzle. The answer-key test is available even if you haven’t played yet.',
+  'compare.empty.setup':
+    'Turn on the local judge from the Library or Settings, then play a puzzle. The answer-key test is available even if you haven’t played yet.',
   'compare.loading': 'Loading test results…',
   'compare.unavailable': "Couldn't load the answer-key results.",
 
@@ -395,7 +414,8 @@ export const en = {
   'net.offline': "You're offline. Reconnect and retry.",
   'cloud.busy': 'The cloud judge needs a moment. Try again in {s} s.',
   'cloud.resting.headline': 'The cloud judge is resting until {time}.',
-  'cloud.resting.body': "Today's free allowance is used up. Your progress is saved, so you can come back after the reset.",
+  'cloud.resting.body':
+    "Today's free allowance is used up. Your progress is saved, so you can come back after the reset.",
   'cloud.resting.deviceOffer': 'Turn on the on-device judge to keep playing now.',
   'cloud.resting.strip': 'The judges',
   'cloud.resting.cloud': '○ Cloud • resting',
@@ -461,7 +481,8 @@ export const en = {
   // On-device judge setup (S3) and download (S4)
   'device.setup.eyebrow': 'Second judge • setup',
   'device.setup.title': 'Add a judge that runs on this device',
-  'device.setup.body': 'It checks each guess alongside the cloud judge and takes over when the cloud judge reaches its usage limit.',
+  'device.setup.body':
+    'It checks each guess alongside the cloud judge and takes over when the cloud judge reaches its usage limit.',
   'device.fact.size': 'Size',
   'device.fact.model': 'Model',
   'device.fact.bestOn': 'Best on',
@@ -498,15 +519,21 @@ export const en = {
   // About (P1)
   'about.title': 'Two judges, one question: does it fit?',
   'about.what': 'What this is',
-  'about.what.body': "Quibble has three word games where any answer that fits counts, even if it isn't the one I had in mind. AI judges check your guesses, and you can overrule them. I built it as a portfolio project. It's free to play, with no ads or accounts. One Cloudflare Worker handles the site, API and AI calls within the free tier.",
+  'about.what.body':
+    "Quibble has three word games where any answer that fits counts, even if it isn't the one I had in mind. AI judges check your guesses, and you can overrule them. I built it as a portfolio project. It's free to play, with no ads or accounts. One Cloudflare Worker handles the site, API and AI calls within the free tier.",
   'about.how': 'How judging works',
-  'about.how.body': 'Clef-flash on Cloudflare Workers AI gives each condition a yes or no. You can switch to Gemma 4 in Settings. If you turn on the on-device judge, Qwen3.5-0.8B checks the same guesses in your browser using WebGPU. Every puzzle was generated ahead of time and checked by two models. The scores you see come straight from the judges.',
-  'about.how.results': 'I tested the final setup once against an answer key of {cases} guesses. None were used to tune the judges. Gemma 4 got {gemma} of whole guesses right, above the 85% target, and accepted {gemmaFa} of wrong answers. The faster default, Clef-flash, got {clef} right, below the target, and accepted {clefFa} of wrong answers. The on-device judge got {device} right.',
-  'about.how.device': 'In {browser} on {machine}, the on-device judge takes {load} seconds to load and about {warm} ms to check a three-condition guess.',
+  'about.how.body':
+    'Clef-flash on Cloudflare Workers AI gives each condition a yes or no. You can switch to Gemma 4 in Settings. If you turn on the on-device judge, Qwen3.5-0.8B checks the same guesses in your browser using WebGPU. Every puzzle was generated ahead of time and checked by two models. The scores you see come straight from the judges.',
+  'about.how.results':
+    'I tested the final setup once against an answer key of {cases} guesses. None were used to tune the judges. Gemma 4 got {gemma} of whole guesses right, above the 85% target, and accepted {gemmaFa} of wrong answers. The faster default, Clef-flash, got {clef} right, below the target, and accepted {clefFa} of wrong answers. The on-device judge got {device} right.',
+  'about.how.device':
+    'In {browser} on {machine}, the on-device judge takes {load} seconds to load and about {warm} ms to check a three-condition guess.',
   'about.privacy': 'Privacy',
-  'about.privacy.body': 'Your answers go to Cloudflare Workers AI to be judged. Progress and judge history stay in this browser; delete them any time in Settings. The site uses a short-lived session cookie and Turnstile to check for bots. There are no tracking cookies. Cloudflare Web Analytics counts visits without cookies. The on-device model downloads from Hugging Face, which sees your IP address. Nothing about you is kept on our server.',
+  'about.privacy.body':
+    'Your answers go to Cloudflare Workers AI to be judged. Progress and judge history stay in this browser; delete them any time in Settings. The site uses a short-lived session cookie and Turnstile to check for bots. There are no tracking cookies. Cloudflare Web Analytics counts visits without cookies. The on-device model downloads from Hugging Face, which sees your IP address. Nothing about you is kept on our server.',
   'about.credits': 'Credits',
-  'about.credits.body': 'Clef-flash and Gemma 4 on Cloudflare Workers AI · Qwen3.5-0.8B (Apache 2.0) through onnx-community and ONNX Runtime Web (MIT) · Open English WordNet (CC BY 4.0) · Geist fonts (SIL OFL). Built by Ronald Balutiu.',
+  'about.credits.body':
+    'Clef-flash and Gemma 4 on Cloudflare Workers AI · Qwen3.5-0.8B (Apache 2.0) through onnx-community and ONNX Runtime Web (MIT) · Open English WordNet (CC BY 4.0) · Geist fonts (SIL OFL). Built by Ronald Balutiu.',
   'about.source': 'Source on GitHub',
   'about.build': 'Library v1 • {puzzles} puzzles • answer-key build {build}',
   'nav.privacy': 'Privacy →',

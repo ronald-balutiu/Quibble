@@ -22,9 +22,9 @@ function logits(type: 'float32' | 'float16', values: Record<number, number>): Te
 describe('device judge adapter', () => {
   test('builds the Qwen chat prompt with the answer only inside the statement', () => {
     expect(buildPrompt('pocket knife', '"{answer}" ordinarily fits inside a clothing pocket.')).toBe(
-      '<|im_start|>user\nIs this statement true? Answer with only yes or no.\n\n'
-      + 'Statement: "pocket knife" ordinarily fits inside a clothing pocket.<|im_end|>\n'
-      + '<|im_start|>assistant\n<think>\n\n</think>\n\n',
+      '<|im_start|>user\nIs this statement true? Answer with only yes or no.\n\n' +
+        'Statement: "pocket knife" ordinarily fits inside a clothing pocket.<|im_end|>\n' +
+        '<|im_start|>assistant\n<think>\n\n</think>\n\n',
     )
   })
 
@@ -36,11 +36,17 @@ describe('device judge adapter', () => {
 
   test('accepts the token limit and rejects prompts over it', () => {
     // A tiny real tokenizer keeps the contract checked without model downloads.
-    const tokenizer = new Tokenizer({
-      model: { type: 'WordLevel', vocab: { '[UNK]': 0, word: 1 }, unk_token: '[UNK]' },
-      pre_tokenizer: { type: 'WhitespaceSplit' },
-      decoder: null, post_processor: null, normalizer: null, added_tokens: [],
-    }, {})
+    const tokenizer = new Tokenizer(
+      {
+        model: { type: 'WordLevel', vocab: { '[UNK]': 0, word: 1 }, unk_token: '[UNK]' },
+        pre_tokenizer: { type: 'WhitespaceSplit' },
+        decoder: null,
+        post_processor: null,
+        normalizer: null,
+        added_tokens: [],
+      },
+      {},
+    )
     const atLimit = new Array<string>(512).fill('word').join(' ')
     expect(encodePrompt(tokenizer, atLimit)).toEqual(new Array<number>(512).fill(1))
     expect(() => encodePrompt(tokenizer, `${atLimit} word`)).toThrow(RangeError)

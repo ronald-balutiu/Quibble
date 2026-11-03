@@ -27,59 +27,108 @@ export function SettingsContents({ onProgressCleared }: { onProgressCleared: () 
   // The on-device option only applies while that judge is on (5.5 L3).
   const deviceOn = status === 'ready'
   const effective = deviceOn ? referee : 'cloud'
-  const choose = (next: 'cloud' | 'device') => { saveReferee(next); setReferee(next) }
+  const choose = (next: 'cloud' | 'device') => {
+    saveReferee(next)
+    setReferee(next)
+  }
   const details = { model: en['device.model'], mb: megabytes(DEVICE_TOTAL_BYTES) }
 
   return (
     <>
-      <div className="drawer__group"><CloudModelChoice /></div>
+      <div className="drawer__group">
+        <CloudModelChoice />
+      </div>
       <section className="drawer__group">
         <fieldset className="drawer__referee" aria-describedby="referee-note">
           <legend>{en['settings.referee']}</legend>
           <div className="drawer__choices">
-          {(['cloud', 'device'] as const).map((option) => (
-            <label key={option} className="drawer__choice">
-              <input
-                type="radio" name="referee" value={option} checked={effective === option}
-                disabled={option === 'device' && !deviceOn} onChange={() => { choose(option) }}
-              />
-              <span>{en[`settings.referee.${option}`]}</span>
-            </label>
-          ))}
+            {(['cloud', 'device'] as const).map((option) => (
+              <label key={option} className="drawer__choice">
+                <input
+                  type="radio"
+                  name="referee"
+                  value={option}
+                  checked={effective === option}
+                  disabled={option === 'device' && !deviceOn}
+                  onChange={() => {
+                    choose(option)
+                  }}
+                />
+                <span>{en[`settings.referee.${option}`]}</span>
+              </label>
+            ))}
           </div>
         </fieldset>
         <p id="referee-note">{en['settings.referee.note']}</p>
       </section>
       <section className="drawer__group" aria-labelledby="drawer-device">
         <h3 id="drawer-device">{en['settings.device']}</h3>
-        {supported
-          ? (
-              <div className="drawer__row">
-                <span>
-                  <span className="drawer__name">{en[`settings.device.${status}`]}</span>
-                  <span>{format(deviceOn ? 'settings.device.onDetails' : 'settings.device.offDetails', details)}</span>
-                </span>
-                {status === 'off' && <button type="button" className="pill pill--quiet" onClick={() => { setSetup(true) }}>{en['settings.device.turnOn']}</button>}
-                {deviceOn && <button type="button" className="pill pill--quiet" onClick={() => { void deviceJudge.remove() }}>{en['settings.device.turnOff']}</button>}
-              </div>
-            )
-          : <p>{en['model.unsupported']}</p>}
+        {supported ? (
+          <div className="drawer__row">
+            <span>
+              <span className="drawer__name">{en[`settings.device.${status}`]}</span>
+              <span>{format(deviceOn ? 'settings.device.onDetails' : 'settings.device.offDetails', details)}</span>
+            </span>
+            {status === 'off' && (
+              <button
+                type="button"
+                className="pill pill--quiet"
+                onClick={() => {
+                  setSetup(true)
+                }}
+              >
+                {en['settings.device.turnOn']}
+              </button>
+            )}
+            {deviceOn && (
+              <button
+                type="button"
+                className="pill pill--quiet"
+                onClick={() => {
+                  void deviceJudge.remove()
+                }}
+              >
+                {en['settings.device.turnOff']}
+              </button>
+            )}
+          </div>
+        ) : (
+          <p>{en['model.unsupported']}</p>
+        )}
       </section>
       <section className="drawer__group drawer__group--last" aria-labelledby="drawer-data">
         <h3 id="drawer-data">{en['settings.data']}</h3>
         <div className="drawer__row">
           <span>
             <span className="drawer__name">{en['settings.data.progress']}</span>
-            <span>{format('settings.data.progressDetails', { ...progress, runs: en[progress.open === 1 ? 'settings.data.run' : 'settings.data.runs'] })}</span>
+            <span>
+              {format('settings.data.progressDetails', {
+                ...progress,
+                runs: en[progress.open === 1 ? 'settings.data.run' : 'settings.data.runs'],
+              })}
+            </span>
           </span>
-          <ConfirmButton label={en['settings.data.clearProgress']} onConfirm={() => { clearGameData(); setProgress(progressSummary()); onProgressCleared() }} />
+          <ConfirmButton
+            label={en['settings.data.clearProgress']}
+            onConfirm={() => {
+              clearGameData()
+              setProgress(progressSummary())
+              onProgressCleared()
+            }}
+          />
         </div>
         <div className="drawer__row">
           <span>
             <span className="drawer__name">{en['settings.data.history']}</span>
             <span>{format('settings.data.historyDetails', { n: history.toLocaleString() })}</span>
           </span>
-          <ConfirmButton label={en['settings.data.clearHistory']} onConfirm={() => { clearComparisons(); setHistory(0) }} />
+          <ConfirmButton
+            label={en['settings.data.clearHistory']}
+            onConfirm={() => {
+              clearComparisons()
+              setHistory(0)
+            }}
+          />
         </div>
         <div className="drawer__row drawer__row--danger">
           <span>
@@ -87,7 +136,8 @@ export function SettingsContents({ onProgressCleared }: { onProgressCleared: () 
             <span>{en['settings.data.everythingDetails']}</span>
           </span>
           <ConfirmButton
-            label={en['settings.data.deleteEverything']} danger
+            label={en['settings.data.deleteEverything']}
+            danger
             onConfirm={() => {
               deleteEverything()
               void deviceJudge.remove()
@@ -101,9 +151,17 @@ export function SettingsContents({ onProgressCleared }: { onProgressCleared: () 
         <p>{en['settings.data.note']}</p>
       </section>
       <div className="drawer__privacy">
-        <Link className="control-link" to="/about#privacy">{en['nav.privacy']}</Link>
+        <Link className="control-link" to="/about#privacy">
+          {en['nav.privacy']}
+        </Link>
       </div>
-      {setup && <DeviceSetup onClose={() => { setSetup(false) }} />}
+      {setup && (
+        <DeviceSetup
+          onClose={() => {
+            setSetup(false)
+          }}
+        />
+      )}
     </>
   )
 }

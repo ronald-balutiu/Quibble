@@ -1,5 +1,14 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest'
-import { loadCloudModel, loadReferee, markTipSeen, refreshCloudModel, saveCloudModel, saveReferee, subscribeCloudModel, tipSeen } from '@/lib/storage/settings'
+import {
+  loadCloudModel,
+  loadReferee,
+  markTipSeen,
+  refreshCloudModel,
+  saveCloudModel,
+  saveReferee,
+  subscribeCloudModel,
+  tipSeen,
+} from '@/lib/storage/settings'
 import { installBlockedStorage, installStorage } from './support/storage'
 
 describe('player settings (3.8)', () => {
@@ -19,12 +28,14 @@ describe('player settings (3.8)', () => {
       saveCloudModel('gemma-4')
       expect(loadCloudModel()).toBe('gemma-4')
       expect(listener).toHaveBeenCalledTimes(1)
-    } finally { off() }
+    } finally {
+      off()
+    }
     saveCloudModel('clef-flash')
     expect(listener).toHaveBeenCalledTimes(1)
   })
 
-  test('each game\'s first-round tip shows once', () => {
+  test("each game's first-round tip shows once", () => {
     expect(tipSeen('oddly-specific')).toBe(false)
     markTipSeen('oddly-specific')
     markTipSeen('double-agent')
@@ -47,7 +58,11 @@ describe('player settings (3.8)', () => {
     expect(loadCloudModel()).toBe('clef-flash')
     expect(loadReferee()).toBe('cloud')
     expect(tipSeen('oddly-specific')).toBe(false)
-    expect(() => { saveCloudModel('gemma-4'); saveReferee('device'); markTipSeen('oddly-specific') }).not.toThrow()
+    expect(() => {
+      saveCloudModel('gemma-4')
+      saveReferee('device')
+      markTipSeen('oddly-specific')
+    }).not.toThrow()
     expect(loadCloudModel()).toBe('gemma-4')
   })
 })

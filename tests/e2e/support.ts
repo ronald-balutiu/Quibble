@@ -1,7 +1,15 @@
 import { expect, type Page } from '@playwright/test'
 import { readFileSync } from 'node:fs'
 import type { GameId } from '../../shared/games'
-import { defaultCloudModel, judgeRequestSchema, revealSchema, type CloudModel, type JudgeRequest, type JudgeSuccess, type Reveal } from '../../shared/schemas/judge'
+import {
+  defaultCloudModel,
+  judgeRequestSchema,
+  revealSchema,
+  type CloudModel,
+  type JudgeRequest,
+  type JudgeSuccess,
+  type Reveal,
+} from '../../shared/schemas/judge'
 import { puzzleSchema, type Puzzle } from '../../shared/schemas/puzzle'
 
 // Shared setup for the browser tests: a mocked API (no model calls, no Turnstile),
@@ -12,7 +20,8 @@ export type { JudgeRequest } from '../../shared/schemas/judge'
 
 export const readPuzzle = (path: string) => puzzleSchema.parse(JSON.parse(readFileSync(path, 'utf8')))
 export const shippedPuzzle = (game: GameId, n = 1) => readPuzzle(`public/puzzles/${game}/${String(n)}.json`)
-export const conditionsOf = (puzzle: Puzzle, roundId: string) => puzzle.rounds.find((round) => round.id === roundId)?.conditions.map(({ id }) => id) ?? []
+export const conditionsOf = (puzzle: Puzzle, roundId: string) =>
+  puzzle.rounds.find((round) => round.id === roundId)?.conditions.map(({ id }) => id) ?? []
 
 // Serves a fixed puzzle file, so a test doesn't depend on the shipped library.
 export async function servePuzzle(page: Page, game: GameId, n: number, path: string) {
@@ -22,7 +31,8 @@ export async function servePuzzle(page: Page, game: GameId, n: number, path: str
 
 // A reply for /api/judge: each condition's verdict, an error status, or no reply
 // at all (for the 10-second timeout).
-export type JudgeReply = { passes: Record<string, boolean>, model?: CloudModel, modelMs?: number } | { status: number, json: unknown } | 'hang'
+export type JudgeReply =
+  { passes: Record<string, boolean>; model?: CloudModel; modelMs?: number } | { status: number; json: unknown } | 'hang'
 
 export async function mockJudge(page: Page, reply: (request: JudgeRequest) => JudgeReply, { delayMs = 0 } = {}) {
   await page.route('**/api/judge', async (route) => {
@@ -36,31 +46,47 @@ export async function mockJudge(page: Page, reply: (request: JudgeRequest) => Ju
     }
     await route.fulfill({
       json: {
-        attempt: request.attempt, model: result.model ?? request.model ?? defaultCloudModel, modelMs: result.modelMs ?? 40,
-        conditions: Object.fromEntries(Object.entries(result.passes).map(([id, pass]) => [id, pass ? { pass: true, p: 0.9 } : { pass: false, p: 0.1 }])),
+        attempt: request.attempt,
+        model: result.model ?? request.model ?? defaultCloudModel,
+        modelMs: result.modelMs ?? 40,
+        conditions: Object.fromEntries(
+          Object.entries(result.passes).map(([id, pass]) => [
+            id,
+            pass ? { pass: true, p: 0.9 } : { pass: false, p: 0.1 },
+          ]),
+        ),
       } satisfies JudgeSuccess,
     })
   })
 }
 
 // The same verdict for every condition of the round.
-export const allConditions = (puzzle: Puzzle, request: JudgeRequest, pass: boolean) =>
-  ({ passes: Object.fromEntries(conditionsOf(puzzle, request.roundId).map((id) => [id, pass])) })
+export const allConditions = (puzzle: Puzzle, request: JudgeRequest, pass: boolean) => ({
+  passes: Object.fromEntries(conditionsOf(puzzle, request.roundId).map((id) => [id, pass])),
+})
 
-export async function mockReveal(page: Page, reply: (roundId: string) => Reveal = () => ({ example: 'sock', also: ['sweater', 'jeans'] })) {
-  await page.route('**/api/reveal/**', (route) => route.fulfill({ json: revealSchema.parse(reply(route.request().url().split('/').at(-1) ?? '')) }))
+export async function mockReveal(
+  page: Page,
+  reply: (roundId: string) => Reveal = () => ({ example: 'sock', also: ['sweater', 'jeans'] }),
+) {
+  await page.route('**/api/reveal/**', (route) =>
+    route.fulfill({ json: revealSchema.parse(reply(route.request().url().split('/').at(-1) ?? '')) }),
+  )
 }
 
 // Seeds localStorage before the page's scripts run. By default only on the first
 // load of the test, so later reloads see what the app saved.
 export async function seedStorage(page: Page, entries: Record<string, string>, { everyLoad = false } = {}) {
-  await page.addInitScript(({ values, once }) => {
-    if (once) {
-      if (sessionStorage.getItem('quibble-test:seeded')) return
-      sessionStorage.setItem('quibble-test:seeded', '1')
-    }
-    for (const [key, value] of Object.entries(values)) localStorage.setItem(key, value)
-  }, { values: entries, once: !everyLoad })
+  await page.addInitScript(
+    ({ values, once }) => {
+      if (once) {
+        if (sessionStorage.getItem('quibble-test:seeded')) return
+        sessionStorage.setItem('quibble-test:seeded', '1')
+      }
+      for (const [key, value] of Object.entries(values)) localStorage.setItem(key, value)
+    },
+    { values: entries, once: !everyLoad },
+  )
 }
 
 export const tipsSeen = { 'quibble:settings:tipsSeen': 'oddly-specific,category-escape,double-agent' }
@@ -94,7 +120,10 @@ export async function tabToButton(page: Page, name: string) {
 // (src/judges/device/protocol.ts). The download pauses at `pauseAt` (a fraction)
 // until cancelled, or for `resumeAfterMs` if given. Answers starting with "good"
 // score 0.9 on every claim, anything else 0.2.
-export async function stubDeviceJudge(page: Page, { pauseAt, resumeAfterMs }: { pauseAt?: number, resumeAfterMs?: number } = {}) {
+export async function stubDeviceJudge(
+  page: Page,
+  { pauseAt, resumeAfterMs }: { pauseAt?: number; resumeAfterMs?: number } = {},
+) {
   await page.addInitScript(() => {
     Object.defineProperty(Navigator.prototype, 'gpu', { get: () => ({ requestAdapter: () => Promise.resolve({}) }) })
   })

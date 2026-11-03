@@ -1,7 +1,8 @@
 import stylelint from 'stylelint'
 import { expect, test } from 'vitest'
 
-const lint = (code: string, codeFilename = 'src/styles/probe.css') => stylelint.lint({ code, codeFilename, configFile: 'stylelint.config.js' })
+const lint = (code: string, codeFilename = 'src/styles/probe.css') =>
+  stylelint.lint({ code, codeFilename, configFile: 'stylelint.config.js' })
 
 test.each([
   'color: #fff',
@@ -27,7 +28,9 @@ test.each([
   const result = await lint(`.example { ${declaration}; }`)
 
   expect(result.errored).toBe(true)
-  expect(result.results[0]?.warnings.some((warning) => warning.rule === 'declaration-property-value-allowed-list')).toBe(true)
+  expect(
+    result.results[0]?.warnings.some((warning) => warning.rule === 'declaration-property-value-allowed-list'),
+  ).toBe(true)
 })
 
 test('token references, structural resets and fluid sizing are allowed', async () => {

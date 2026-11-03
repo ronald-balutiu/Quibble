@@ -28,7 +28,12 @@ const MAX_DECOYS = 2 // of 10: more and the clue is too vague
 const MIN_SENSES = 4 // a loose first filter; Clef-flash judges commonness
 const WORDS_WANTED = 330 // 100 puzzles × 3 rounds, plus 10% for the blocklist and spot-check
 
-const { values } = parseArgs({ options: { 'dry-run': { type: 'boolean', default: false }, steps: { type: 'string', default: 'matrix,recheck,confirm,agents' } } })
+const { values } = parseArgs({
+  options: {
+    'dry-run': { type: 'boolean', default: false },
+    steps: { type: 'string', default: 'matrix,recheck,confirm,agents' },
+  },
+})
 const steps = new Set(values.steps.split(','))
 const things = readJson<string[]>('factory/things.json', [])
 const conditions = readJson<Record<string, { question: string }>>('factory/conditions.json', {})
@@ -36,38 +41,53 @@ const matrix = readJson<Matrix>('factory/matrix.json', {})
 const ids = Object.keys(conditions)
 
 const today = new Date().toISOString().slice(0, 10)
-const spentToday = readJson<LedgerEntry[]>('factory/ledger.json', []).filter((entry) => entry.date.startsWith(today)).reduce((sum, entry) => sum + entry.neurons, 0)
+const spentToday = readJson<LedgerEntry[]>('factory/ledger.json', [])
+  .filter((entry) => entry.date.startsWith(today))
+  .reduce((sum, entry) => sum + entry.neurons, 0)
 const cap = Math.max(0, DAILY_CAP - spentToday)
 
 // --- Matrix steps -----------------------------------------------------------
 
 const cellsFor = {
   matrix: (thing: string) => ids.filter((id) => matrix[thing]?.[id] === undefined),
-  recheck: (thing: string) => ids.filter((id) => { const cell = matrix[thing]?.[id]; return cell !== undefined && isUncertain(cell) }),
-  confirm: (thing: string) => ids.filter((id) => { const cell = matrix[thing]?.[id]; return truth(cell) === 'yes' && cell?.gemma === undefined }),
+  recheck: (thing: string) =>
+    ids.filter((id) => {
+      const cell = matrix[thing]?.[id]
+      return cell !== undefined && isUncertain(cell)
+    }),
+  confirm: (thing: string) =>
+    ids.filter((id) => {
+      const cell = matrix[thing]?.[id]
+      return truth(cell) === 'yes' && cell?.gemma === undefined
+    }),
 }
-const questions = (pending: string[]): JudgeQuestion[] => pending.map((id) => ({ id, question: conditions[id]?.question ?? '' }))
+const questions = (pending: string[]): JudgeQuestion[] =>
+  pending.map((id) => ({ id, question: conditions[id]?.question ?? '' }))
 
 // --- Double Agent -----------------------------------------------------------
 
 interface AgentCheck {
-  word: string, clues: [string, string]
-  first?: { a: number, b: number, common: number, distinct: number }
+  word: string
+  clues: [string, string]
+  first?: { a: number; b: number; common: number; distinct: number }
   decoys?: [number, number] // decoys that fit each clue
   gemma?: [number, number]
   accepted?: boolean
 }
 
 const capitalized = (text: string) => text.charAt(0).toUpperCase() + text.slice(1)
-const decoyQuestion = (word: string, clue: string) => `Can the word "${word}" ordinarily mean: ${clue}? Judge the word's everyday meanings.`
+const decoyQuestion = (word: string, clue: string) =>
+  `Can the word "${word}" ordinarily mean: ${clue}? Judge the word's everyday meanings.`
 
 function agentPool(): Candidate[] {
   const wordnet = loadWordNet('factory/wordnet/json')
   const senseCount = (word: string) => wordnet.senses.get(word)?.length ?? 0
   const pool = [...wordnet.senses.keys()].filter((word) => senseCount(word) >= MIN_SENSES)
   // Words with more senses tend to be more common, so they go first.
-  return shuffled(pool, seeded(20261030)).sort((a, b) => senseCount(b) - senseCount(a))
-    .map((word) => candidate(wordnet, word, DECOYS)).filter((c): c is Candidate => c !== undefined)
+  return shuffled(pool, seeded(20261030))
+    .sort((a, b) => senseCount(b) - senseCount(a))
+    .map((word) => candidate(wordnet, word, DECOYS))
+    .filter((c): c is Candidate => c !== undefined)
 }
 
 const accepted = (checks: AgentCheck[]) => checks.filter((check) => check.accepted).length
@@ -96,9 +116,14 @@ if (values['dry-run']) {
     ['agents: decoys', 'clef-flash', agents.decoys, agents.decoys * RATE.flash],
     ['agents: confirm', 'gemma-4', agents.gemma, agents.gemma * RATE.gemma],
   ] as const
-  for (const [step, model, n, neurons] of rows) console.log(`${step.padEnd(20)} ${model.padEnd(11)} ${String(n).padStart(6)} questions  ~${neurons.toFixed(0)} Neurons`)
+  for (const [step, model, n, neurons] of rows)
+    console.log(
+      `${step.padEnd(20)} ${model.padEnd(11)} ${String(n).padStart(6)} questions  ~${neurons.toFixed(0)} Neurons`,
+    )
   const total = rows.reduce((sum, row) => sum + row[3], 0)
-  console.log(`Total ~${total.toFixed(0)} Neurons. Today (UTC ${today}) ${spentToday.toFixed(0)} are already spent, so this run may spend ${cap.toFixed(0)}.`)
+  console.log(
+    `Total ~${total.toFixed(0)} Neurons. Today (UTC ${today}) ${spentToday.toFixed(0)} are already spent, so this run may spend ${cap.toFixed(0)}.`,
+  )
   process.exit(0)
 }
 
@@ -112,15 +137,16 @@ async function matrixStep(step: keyof typeof cellsFor) {
     if (budget.exhausted) break
     const pending = cellsFor[step](thing)
     if (pending.length === 0) continue
-    const verdict = step === 'matrix'
-      ? await judgeWithClef(budget.ai, thing, questions(pending), { model: 'clef-flash' })
-      : await judgeWithGemma(budget.ai, thing, questions(pending))
+    const verdict =
+      step === 'matrix'
+        ? await judgeWithClef(budget.ai, thing, questions(pending), { model: 'clef-flash' })
+        : await judgeWithGemma(budget.ai, thing, questions(pending))
     if (!verdict.ok) {
       if (verdict.error === 'resting') throw new AllowanceExhausted('The daily Workers AI allowance is used up.')
       console.error(`${step}: could not judge "${thing}"; it will be retried on the next run.`)
       continue
     }
-    const row = matrix[thing] ??= {}
+    const row = (matrix[thing] ??= {})
     for (const [id, p] of Object.entries(verdict.scores)) {
       if (step === 'matrix') row[id] = { flash: p }
       else if (row[id]) row[id].gemma = p
@@ -144,13 +170,28 @@ async function agentsStep() {
     while (next(check) && !budget.exhausted) {
       const stage = next(check)
       if (stage === 'first') {
-        const verdict = await judgeWithClef(budget.ai, check.word, [
-          { id: 'a', question: clueQuestion(a) },
-          { id: 'b', question: clueQuestion(b) },
-          { id: 'common', question: 'Is the word a common everyday English word that most adults know and use? Judge ordinary usage.' },
-          { id: 'distinct', question: `Does the word have these two clearly different meanings, rather than one idea used in two settings? Meaning 1: ${a}. Meaning 2: ${b}.` },
-        ], { model: 'clef-flash' })
-        if (!verdict.ok) { if (verdict.error === 'resting') throw new AllowanceExhausted('The daily Workers AI allowance is used up.'); break }
+        const verdict = await judgeWithClef(
+          budget.ai,
+          check.word,
+          [
+            { id: 'a', question: clueQuestion(a) },
+            { id: 'b', question: clueQuestion(b) },
+            {
+              id: 'common',
+              question:
+                'Is the word a common everyday English word that most adults know and use? Judge ordinary usage.',
+            },
+            {
+              id: 'distinct',
+              question: `Does the word have these two clearly different meanings, rather than one idea used in two settings? Meaning 1: ${a}. Meaning 2: ${b}.`,
+            },
+          ],
+          { model: 'clef-flash' },
+        )
+        if (!verdict.ok) {
+          if (verdict.error === 'resting') throw new AllowanceExhausted('The daily Workers AI allowance is used up.')
+          break
+        }
         const s = verdict.scores
         check.first = { a: s.a ?? 0, b: s.b ?? 0, common: s.common ?? 0, distinct: s.distinct ?? 0 }
         if (Object.values(check.first).some((p) => p < YES)) check.accepted = false
@@ -158,10 +199,16 @@ async function agentsStep() {
         const fitting: number[] = []
         for (const [side, clue] of [a, b].entries()) {
           const words = c.clues[side]?.decoys ?? []
-          const qs = Object.fromEntries(words.map((word, i) => [`d${String(i)}`, { type: 'noul', instructions: decoyQuestion(word, clue) }]))
+          const qs = Object.fromEntries(
+            words.map((word, i) => [`d${String(i)}`, { type: 'noul', instructions: decoyQuestion(word, clue) }]),
+          )
           let response: unknown
           try {
-            response = await budget.ai.run(freeModels['clef-flash'], { model: 'clef-flash', state: { game: 'word game', clue }, questions: qs })
+            response = await budget.ai.run(freeModels['clef-flash'], {
+              model: 'clef-flash',
+              state: { game: 'word game', clue },
+              questions: qs,
+            })
           } catch (error) {
             if (isDailyAllowance(error)) throw new AllowanceExhausted('The daily Workers AI allowance is used up.')
             throw error
@@ -173,8 +220,14 @@ async function agentsStep() {
         check.decoys = [fitting[0] ?? 0, fitting[1] ?? 0]
         if (check.decoys.some((n) => n > MAX_DECOYS)) check.accepted = false
       } else {
-        const verdict = await judgeWithGemma(budget.ai, check.word, [{ id: 'a', question: clueQuestion(a) }, { id: 'b', question: clueQuestion(b) }])
-        if (!verdict.ok) { if (verdict.error === 'resting') throw new AllowanceExhausted('The daily Workers AI allowance is used up.'); break }
+        const verdict = await judgeWithGemma(budget.ai, check.word, [
+          { id: 'a', question: clueQuestion(a) },
+          { id: 'b', question: clueQuestion(b) },
+        ])
+        if (!verdict.ok) {
+          if (verdict.error === 'resting') throw new AllowanceExhausted('The daily Workers AI allowance is used up.')
+          break
+        }
         check.gemma = [verdict.scores.a ?? 0, verdict.scores.b ?? 0]
         check.accepted = check.gemma.every((p) => p >= CONFIRMED)
       }
@@ -184,9 +237,17 @@ async function agentsStep() {
 
   // The word list the library builder reads, clearest first (easy to hard).
   const clarity = (check: AgentCheck) => Math.min(...(check.gemma ?? [0])) * (check.first?.common ?? 0)
-  if (accepted(checks) > 0) writeJson('factory/double-agent.json', checks.filter((check) => check.accepted).sort((x, y) => clarity(y) - clarity(x))
-    .map(({ word, clues }) => ({ word, clues })))
-  console.log(`agents: ${String(accepted(checks))} words accepted of ${String(checks.filter((check) => check.accepted !== undefined).length)} checked.`)
+  if (accepted(checks) > 0)
+    writeJson(
+      'factory/double-agent.json',
+      checks
+        .filter((check) => check.accepted)
+        .sort((x, y) => clarity(y) - clarity(x))
+        .map(({ word, clues }) => ({ word, clues })),
+    )
+  console.log(
+    `agents: ${String(accepted(checks))} words accepted of ${String(checks.filter((check) => check.accepted !== undefined).length)} checked.`,
+  )
 }
 
 try {
@@ -208,4 +269,6 @@ try {
 const cells = Object.values(matrix).flatMap((row) => Object.values(row))
 const counts = { yes: 0, no: 0, unknown: 0 }
 for (const cell of cells) counts[truth(cell)] += 1
-console.log(`${String(cells.length)} cells: ${String(counts.yes)} yes, ${String(counts.no)} no, ${String(counts.unknown)} unknown${budget.exhausted ? ' (stopped at the daily cap)' : ''}.`)
+console.log(
+  `${String(cells.length)} cells: ${String(counts.yes)} yes, ${String(counts.no)} no, ${String(counts.unknown)} unknown${budget.exhausted ? ' (stopped at the daily cap)' : ''}.`,
+)

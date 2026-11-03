@@ -16,22 +16,38 @@ export function GameRules({ game }: { game: GameId }) {
           <GameExample game={game} worked />
           <section className="rules-scoring" aria-label={en['rules.scoring']}>
             <h3>{en['rules.scoring']}</h3>
-            {'levels' in config
-              ? <dl className="rules-scoring__facts">
-                  <div><dt>{en['rules.perLevel']}</dt><dd><strong>{en['rules.onePoint']}</strong></dd></div>
-                  <div><dt>{en['rules.forRun']}</dt><dd><strong>{config.maxWrongGuessesPerRun}</strong><span>{en['rules.wrongGuesses']}</span></dd></div>
+            {'levels' in config ? (
+              <dl className="rules-scoring__facts">
+                <div>
+                  <dt>{en['rules.perLevel']}</dt>
+                  <dd>
+                    <strong>{en['rules.onePoint']}</strong>
+                  </dd>
+                </div>
+                <div>
+                  <dt>{en['rules.forRun']}</dt>
+                  <dd>
+                    <strong>{config.maxWrongGuessesPerRun}</strong>
+                    <span>{en['rules.wrongGuesses']}</span>
+                  </dd>
+                </div>
+              </dl>
+            ) : (
+              <>
+                <dl className="rules-scoring__tries">
+                  {config.pointsByGuess.map((points, i) => (
+                    <div key={points}>
+                      <dt>{tryLabel(i)}</dt>
+                      <dd>
+                        <strong>{points}</strong>
+                        <span>{pointsLabel(points)}</span>
+                      </dd>
+                    </div>
+                  ))}
                 </dl>
-              : <>
-                  <dl className="rules-scoring__tries">
-                    {config.pointsByGuess.map((points, i) => (
-                      <div key={points}>
-                        <dt>{tryLabel(i)}</dt>
-                        <dd><strong>{points}</strong><span>{pointsLabel(points)}</span></dd>
-                      </div>
-                    ))}
-                  </dl>
-                  <p className="rules-scoring__note">{en['welcome.scoring.rounds.body']}</p>
-                </>}
+                <p className="rules-scoring__note">{en['welcome.scoring.rounds.body']}</p>
+              </>
+            )}
           </section>
         </div>
       </div>

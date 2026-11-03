@@ -10,11 +10,11 @@ const JUDGE_TIMEOUT_MS = 10_000
 export type CloudMessage = 'judge.cloud.timeout' | 'judge.cloud.unreachable' | 'net.offline' | 'session.botcheck'
 
 type CloudOutcome =
-  | { kind: 'judged', result: JudgeSuccess }
-  | { kind: 'busy', retryAfter: number }
-  | { kind: 'resting', resetAt: string }
+  | { kind: 'judged'; result: JudgeSuccess }
+  | { kind: 'busy'; retryAfter: number }
+  | { kind: 'resting'; resetAt: string }
   | { kind: 'invalid' }
-  | { kind: 'error', message: CloudMessage }
+  | { kind: 'error'; message: CloudMessage }
 
 // Renews the session with a fresh Turnstile token: 'ok', or why it couldn't.
 export type RenewSession = () => Promise<SessionResult>
@@ -37,12 +37,22 @@ async function readJson(response: Response): Promise<unknown> {
 export async function judgeOnCloud(
   request: JudgeRequest,
   renewSession: RenewSession,
-  { fetch: fetchImpl = fetch, isOnline = () => navigator.onLine, timeoutMs = JUDGE_TIMEOUT_MS, now = () => new Date() }: AttemptDeps = {},
+  {
+    fetch: fetchImpl = fetch,
+    isOnline = () => navigator.onLine,
+    timeoutMs = JUDGE_TIMEOUT_MS,
+    now = () => new Date(),
+  }: AttemptDeps = {},
 ): Promise<CloudOutcome> {
   const signal = AbortSignal.timeout(timeoutMs)
-  const send = () => fetchImpl('/api/judge', {
-    method: 'POST', body: JSON.stringify(request), headers: { 'Content-Type': 'application/json' }, credentials: 'same-origin', signal,
-  })
+  const send = () =>
+    fetchImpl('/api/judge', {
+      method: 'POST',
+      body: JSON.stringify(request),
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'same-origin',
+      signal,
+    })
 
   try {
     let response = await send()
@@ -66,12 +76,16 @@ export async function judgeOnCloud(
     if (response.status === 429 && !failure.success) return { kind: 'resting', resetAt: nextUtcMidnight(now()) }
     if (!failure.success) return { kind: 'error', message: 'judge.cloud.unreachable' }
     switch (failure.data.error) {
-      case 'busy': return { kind: 'busy', retryAfter: failure.data.retryAfter ?? 60 }
-      case 'resting': return { kind: 'resting', resetAt: failure.data.resetAt ?? nextUtcMidnight(now()) }
-      case 'invalid': return { kind: 'invalid' }
+      case 'busy':
+        return { kind: 'busy', retryAfter: failure.data.retryAfter ?? 60 }
+      case 'resting':
+        return { kind: 'resting', resetAt: failure.data.resetAt ?? nextUtcMidnight(now()) }
+      case 'invalid':
+        return { kind: 'invalid' }
       case 'session':
       case 'unknown':
-      case 'unavailable': return { kind: 'error', message: 'judge.cloud.unreachable' }
+      case 'unavailable':
+        return { kind: 'error', message: 'judge.cloud.unreachable' }
     }
   } catch {
     if (signal.aborted) return { kind: 'error', message: 'judge.cloud.timeout' }

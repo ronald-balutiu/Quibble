@@ -26,5 +26,8 @@ export const puzzleSchema = z.strictObject({
 })
 export type Puzzle = z.infer<typeof puzzleSchema>
 
-export const puzzleIndexSchema = z.partialRecord(z.enum(gameIds), z.array(z.strictObject({ n: z.int().min(1), difficulty: z.enum(difficulties) })))
+export const puzzleIndexSchema = z.partialRecord(
+  z.enum(gameIds),
+  z.array(z.strictObject({ n: z.int().min(1), difficulty: z.enum(difficulties) })),
+)
 export type PuzzleIndex = z.infer<typeof puzzleIndexSchema>

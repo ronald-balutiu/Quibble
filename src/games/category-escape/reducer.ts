@@ -2,7 +2,15 @@
 // It keeps the round-based run shape, one round per level, so saved progress
 // stays in the frozen format (D-73): a level's strikes are the wrong guesses made
 // on it, a cleared level scores 1 point, and Give up marks the level 'skipped'.
-import { previousGuess, shareGridOf, startRunOf, updateCurrent, type Guess, type RoundState, type RunState } from '@/games/shared/run'
+import {
+  previousGuess,
+  shareGridOf,
+  startRunOf,
+  updateCurrent,
+  type Guess,
+  type RoundState,
+  type RunState,
+} from '@/games/shared/run'
 
 interface EscapeConfig {
   levels: number
@@ -10,7 +18,7 @@ interface EscapeConfig {
 }
 
 export type EscapeAction =
-  | { type: 'judged', guess: Guess }
+  | { type: 'judged'; guess: Guess }
   | { type: 'moveOn' }
   | { type: 'countAnyway' }
   | { type: 'giveUp' }
@@ -54,7 +62,8 @@ export function escapeReducer(config: EscapeConfig) {
     switch (action.type) {
       case 'judged': {
         const { guess } = action
-        if (level.pending || previousGuess(state, guess.answer) || usedOn(state, guess.answer) !== undefined) return state
+        if (level.pending || previousGuess(state, guess.answer) || usedOn(state, guess.answer) !== undefined)
+          return state
         return guess.pass
           ? clear(state, (l) => ({ ...l, guesses: [...l.guesses, guess] }))
           : update(state, (l) => ({ ...l, guesses: [...l.guesses, guess], pending: true }))
@@ -62,7 +71,11 @@ export function escapeReducer(config: EscapeConfig) {
       case 'moveOn': {
         if (!level.pending) return state
         const over = strikesUsed(state) + 1 >= config.maxWrongGuessesPerRun
-        return update(state, (l) => ({ ...l, pending: false, strikes: l.strikes + 1, status: over ? 'lost' : 'playing' }), over)
+        return update(
+          state,
+          (l) => ({ ...l, pending: false, strikes: l.strikes + 1, status: over ? 'lost' : 'playing' }),
+          over,
+        )
       }
       case 'countAnyway': {
         if (!level.pending) return state
@@ -82,12 +95,14 @@ export function escapeEnd(state: RunState): EscapeEnd {
 
 // Share-grid tiles (plan 1.4): 🟩 cleared first try, 🟨 after a miss, 🟦 overruled,
 // 🟥 where the run ended, ⬛ never reached (E2 mock); with a colour-free text form.
-export function escapeShareGrid(state: RunState): { tiles: string, text: string } {
-  return shareGridOf(state.rounds.map((level, i) => {
-    if (level.status === 'solved') {
-      if (level.overruled) return ['🟦', '✓*'] as const
-      return level.strikes === 0 ? ['🟩', '✓'] as const : ['🟨', String(level.strikes + 1)] as const
-    }
-    return i === state.current ? ['🟥', '✗'] as const : ['⬛', '-'] as const
-  }))
+export function escapeShareGrid(state: RunState): { tiles: string; text: string } {
+  return shareGridOf(
+    state.rounds.map((level, i) => {
+      if (level.status === 'solved') {
+        if (level.overruled) return ['🟦', '✓*'] as const
+        return level.strikes === 0 ? (['🟩', '✓'] as const) : (['🟨', String(level.strikes + 1)] as const)
+      }
+      return i === state.current ? (['🟥', '✗'] as const) : (['⬛', '-'] as const)
+    }),
+  )
 }

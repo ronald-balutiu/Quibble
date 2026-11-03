@@ -16,10 +16,15 @@ export function usePageMeta(title: string, { indexable = true }: { indexable?: b
     // A lazy scene can mount after the shared header's navigation effect.
     if (hash) document.getElementById(hash.slice(1))?.scrollIntoView()
     document.title = title
-    const canonical = headElement('link[rel="canonical"]', () => Object.assign(document.createElement('link'), { rel: 'canonical' }))
+    const canonical = headElement('link[rel="canonical"]', () =>
+      Object.assign(document.createElement('link'), { rel: 'canonical' }),
+    )
     canonical.setAttribute('href', `${SITE_ORIGIN}${pathname}`)
     const robots = document.head.querySelector('meta[name="robots"]')
     if (indexable) robots?.remove()
-    else headElement('meta[name="robots"]', () => Object.assign(document.createElement('meta'), { name: 'robots' })).setAttribute('content', 'noindex')
+    else
+      headElement('meta[name="robots"]', () =>
+        Object.assign(document.createElement('meta'), { name: 'robots' }),
+      ).setAttribute('content', 'noindex')
   }, [title, pathname, hash, indexable])
 }

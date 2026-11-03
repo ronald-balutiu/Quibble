@@ -6,10 +6,13 @@ import type { DeviceClaim, DeviceFailure, FromWorker, ToWorker } from './protoco
 
 const DEVICE_TIMEOUT_MS = 10_000
 
-export type LoadProgress = { kind: 'download', received: number, total: number } | { kind: 'warming' }
-export type LoadResult = { kind: 'ready' } | { kind: 'failed', reason: DeviceFailure } | { kind: 'cancelled' }
+export type LoadProgress = { kind: 'download'; received: number; total: number } | { kind: 'warming' }
+export type LoadResult = { kind: 'ready' } | { kind: 'failed'; reason: DeviceFailure } | { kind: 'cancelled' }
 // `warm` is false for the first guess after a load, which includes WebGPU's start-up work.
-export type ScoreResult = { kind: 'scored', scores: Record<string, number>, ms: number, warm: boolean } | { kind: 'timeout' } | { kind: 'error' }
+export type ScoreResult =
+  | { kind: 'scored'; scores: Record<string, number>; ms: number; warm: boolean }
+  | { kind: 'timeout' }
+  | { kind: 'error' }
 export type DeviceStatus = 'off' | 'loading' | 'ready'
 
 interface WorkerLike {
@@ -33,13 +36,15 @@ export interface DeviceJudge {
 export function createDeviceJudge(spawn: () => WorkerLike, now = () => performance.now()): DeviceJudge {
   let worker: WorkerLike | undefined
   let ready = false
-  let loading: { resolve: (result: LoadResult) => void, onProgress: (progress: LoadProgress) => void } | undefined
+  let loading: { resolve: (result: LoadResult) => void; onProgress: (progress: LoadProgress) => void } | undefined
   let removing: (() => void) | undefined
   const scoring = new Map<number, (result: ScoreResult) => void>()
   let nextId = 0
   let warm = false
   const listeners = new Set<() => void>()
-  const notify = () => { for (const listener of listeners) listener() }
+  const notify = () => {
+    for (const listener of listeners) listener()
+  }
 
   function settleLoad(result: LoadResult) {
     ready = result.kind === 'ready'
@@ -61,19 +66,34 @@ export function createDeviceJudge(spawn: () => WorkerLike, now = () => performan
 
   function receive({ data: message }: MessageEvent<FromWorker>) {
     switch (message.type) {
-      case 'progress': loading?.onProgress({ kind: 'download', received: message.received, total: message.total }); return
-      case 'warming': loading?.onProgress({ kind: 'warming' }); return
-      case 'ready': settleLoad({ kind: 'ready' }); return
-      case 'failed': settleLoad({ kind: 'failed', reason: message.reason }); return
-      case 'cancelled': settleLoad({ kind: 'cancelled' }); return
-      case 'scored': case 'scoreFailed': {
+      case 'progress':
+        loading?.onProgress({ kind: 'download', received: message.received, total: message.total })
+        return
+      case 'warming':
+        loading?.onProgress({ kind: 'warming' })
+        return
+      case 'ready':
+        settleLoad({ kind: 'ready' })
+        return
+      case 'failed':
+        settleLoad({ kind: 'failed', reason: message.reason })
+        return
+      case 'cancelled':
+        settleLoad({ kind: 'cancelled' })
+        return
+      case 'scored':
+      case 'scoreFailed': {
         const resolve = scoring.get(message.id)
         scoring.delete(message.id)
-        resolve?.(message.type === 'scored' ? { kind: 'scored', scores: message.scores, ms: 0, warm } : { kind: 'error' })
+        resolve?.(
+          message.type === 'scored' ? { kind: 'scored', scores: message.scores, ms: 0, warm } : { kind: 'error' },
+        )
         if (message.type === 'scored') warm = true
         return
       }
-      case 'deleted': removing?.(); return
+      case 'deleted':
+        removing?.()
+        return
     }
   }
 
@@ -86,11 +106,17 @@ export function createDeviceJudge(spawn: () => WorkerLike, now = () => performan
   }
 
   return {
-    get ready() { return ready },
-    get status() { return ready ? 'ready' : loading ? 'loading' : 'off' },
+    get ready() {
+      return ready
+    },
+    get status() {
+      return ready ? 'ready' : loading ? 'loading' : 'off'
+    },
     subscribe(listener) {
       listeners.add(listener)
-      return () => { listeners.delete(listener) }
+      return () => {
+        listeners.delete(listener)
+      }
     },
 
     load(onProgress) {
@@ -130,7 +156,10 @@ export function createDeviceJudge(spawn: () => WorkerLike, now = () => performan
       notify()
       if (!worker) return Promise.resolve()
       return new Promise((resolve) => {
-        removing = () => { removing = undefined; resolve() }
+        removing = () => {
+          removing = undefined
+          resolve()
+        }
         worker?.postMessage({ type: 'delete' })
       })
     },
@@ -138,4 +167,6 @@ export function createDeviceJudge(spawn: () => WorkerLike, now = () => performan
 }
 
 // The tab's one on-device judge.
-export const deviceJudge = createDeviceJudge(() => new Worker(new URL('./worker.ts', import.meta.url), { type: 'module' }) as WorkerLike)
+export const deviceJudge = createDeviceJudge(
+  () => new Worker(new URL('./worker.ts', import.meta.url), { type: 'module' }) as WorkerLike,
+)

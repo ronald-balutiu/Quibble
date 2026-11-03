@@ -12,8 +12,23 @@ export function CloudModelChoice() {
     <fieldset className="cloud-models">
       <legend>{en['welcome.cloud.title']}</legend>
       {cloudModels.map((option) => (
-        <label key={option} htmlFor={`${name}-${option}`} aria-label={en[`judgeChoice.${option}`]} className="cloud-model" data-selected={model === option}>
-          <input id={`${name}-${option}`} type="radio" name={name} value={option} checked={model === option} onChange={() => { saveCloudModel(option) }} />
+        <label
+          key={option}
+          htmlFor={`${name}-${option}`}
+          aria-label={en[`judgeChoice.${option}`]}
+          className="cloud-model"
+          data-selected={model === option}
+        >
+          <input
+            id={`${name}-${option}`}
+            type="radio"
+            name={name}
+            value={option}
+            checked={model === option}
+            onChange={() => {
+              saveCloudModel(option)
+            }}
+          />
           <span>
             <strong>{en[`judgeChoice.${option}`]}</strong>
             <span>{en[`welcome.cloud.${option}`]}</span>

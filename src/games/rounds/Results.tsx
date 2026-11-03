@@ -11,15 +11,32 @@ import { bestNote, shareText } from '@/games/shared/results'
 import { totalScore, type RunState } from '@/games/shared/run'
 import { maxScore, shareGrid, type RoundsConfig } from './reducer'
 
-export function Results({ run, puzzle, best, config }: { run: RunState, puzzle: Puzzle, best: number | undefined, config: RoundsConfig }) {
+export function Results({
+  run,
+  puzzle,
+  best,
+  config,
+}: {
+  run: RunState
+  puzzle: Puzzle
+  best: number | undefined
+  config: RoundsConfig
+}) {
   const score = totalScore(run)
   const max = maxScore(config)
   const grid = shareGrid(run)
   const guesses = run.rounds.reduce((total, round) => total + round.guesses.length, 0)
   // This run's guesses that both judges answered (3.8 comparison records).
-  const [judges] = useState(() => puzzleComparisons(loadComparisons(), puzzle.game, puzzle.n, new Set(
-    run.rounds.flatMap((round, i) => round.guesses.map((guess) => `${puzzle.rounds[i]?.id ?? ''}:${guess.answer}`)),
-  )))
+  const [judges] = useState(() =>
+    puzzleComparisons(
+      loadComparisons(),
+      puzzle.game,
+      puzzle.n,
+      new Set(
+        run.rounds.flatMap((round, i) => round.guesses.map((guess) => `${puzzle.rounds[i]?.id ?? ''}:${guess.answer}`)),
+      ),
+    ),
+  )
   const labelOf = (roundId: string, id: string) => {
     const label = puzzle.rounds.find((round) => round.id === roundId)?.conditions.find((c) => c.id === id)?.label ?? id
     return label.charAt(0).toLowerCase() + label.slice(1)
@@ -27,25 +44,51 @@ export function Results({ run, puzzle, best, config }: { run: RunState, puzzle: 
 
   return (
     <section className="results">
-      <ResultSummary score={format('results.score', { score, max })} best={bestNote(score, best)} tiles={grid.tiles} grid={grid.text}>
+      <ResultSummary
+        score={format('results.score', { score, max })}
+        best={bestNote(score, best)}
+        tiles={grid.tiles}
+        grid={grid.text}
+      >
         <ResultActions puzzle={puzzle} share={shareText(puzzle.game, puzzle.n, grid, score, max)} focusPrimary />
       </ResultSummary>
       <RunReview puzzle={puzzle} run={run} />
       <details className="result-details">
         <summary>{en['results.details']}</summary>
         <dl className="facts">
-          <dt>{en['results.guesses']}</dt><dd>{guesses}</dd>
-          <dt>{en['results.overruled']}</dt><dd>{run.rounds.filter((round) => round.overruled).length}</dd>
-          <dt>{en['results.closeCalls']}</dt><dd>{run.rounds.flatMap((round) => round.guesses).filter((guess) => guess.closeCall).length}</dd>
-          {judges.compared > 0 && <><dt>{en['results.judgesAgreed']}</dt><dd>{format('results.agreedValue', { agreed: judges.agreed, compared: judges.compared })}</dd></>}
+          <dt>{en['results.guesses']}</dt>
+          <dd>{guesses}</dd>
+          <dt>{en['results.overruled']}</dt>
+          <dd>{run.rounds.filter((round) => round.overruled).length}</dd>
+          <dt>{en['results.closeCalls']}</dt>
+          <dd>{run.rounds.flatMap((round) => round.guesses).filter((guess) => guess.closeCall).length}</dd>
+          {judges.compared > 0 && (
+            <>
+              <dt>{en['results.judgesAgreed']}</dt>
+              <dd>{format('results.agreedValue', { agreed: judges.agreed, compared: judges.compared })}</dd>
+            </>
+          )}
         </dl>
         {judges.splits.length > 0 && (
           <section className="splits" aria-labelledby="splits-title">
-            <h2 id="splits-title" className="telemetry">{en['results.splitTitle']}</h2>
+            <h2 id="splits-title" className="telemetry">
+              {en['results.splitTitle']}
+            </h2>
             {judges.splits.map(({ record, condition, cloud, device }) => (
               <p key={`${record.round}:${record.answer}:${condition}`}>
-                {format('results.splitLine', { answer: record.answer, condition: labelOf(record.round, condition), cloud: cloud.toFixed(2), device: device.toFixed(2) })}
-                {record.overruled ? en[`results.splitOverruled.${record.referee}`] : Object.values(record.conditions).every((c) => (record.referee === 'cloud' ? c.cloudPass : c.devicePass)) ? '' : en['results.splitMovedOn']}
+                {format('results.splitLine', {
+                  answer: record.answer,
+                  condition: labelOf(record.round, condition),
+                  cloud: cloud.toFixed(2),
+                  device: device.toFixed(2),
+                })}
+                {record.overruled
+                  ? en[`results.splitOverruled.${record.referee}`]
+                  : Object.values(record.conditions).every((c) =>
+                        record.referee === 'cloud' ? c.cloudPass : c.devicePass,
+                      )
+                    ? ''
+                    : en['results.splitMovedOn']}
               </p>
             ))}
           </section>

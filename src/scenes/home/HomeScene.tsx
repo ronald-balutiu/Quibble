@@ -5,6 +5,7 @@ import { GameExample } from '@/components/GameExample/GameExample'
 import { JudgesCompare } from '@/components/JudgesCompare/JudgesCompare'
 import { RingMark } from '@/components/RingMark/RingMark'
 import { en } from '@/copy/en'
+import { libraryPath } from '@/lib/paths'
 import '../scenes.css'
 import { HowScoring } from './HowScoring'
 import './home.css'
@@ -20,10 +21,14 @@ export function HomeScene() {
           <h1>{en['home.title']}</h1>
           <p className="welcome-lede">{en['welcome.lede']}</p>
           <div className="welcome-actions">
-            <Link className="pill control-link" to="/play">{en['welcome.choose']}</Link>
+            <Link className="pill control-link" to={libraryPath()}>
+              {en['welcome.choose']}
+            </Link>
           </div>
         </section>
-        <div className="welcome-mark"><RingMark /></div>
+        <div className="welcome-mark">
+          <RingMark />
+        </div>
       </div>
       <section className="welcome-section" id="games" aria-labelledby="welcome-games">
         <h2 id="welcome-games">{en['welcome.games']}</h2>

@@ -31,7 +31,16 @@ test('Library game tabs preserve the screen position for mouse and keyboard swit
 test('Home’s footer aligns with every page at phone and wide desktop sizes', async ({ page, isMobile }) => {
   for (const width of isMobile ? [320] : [1280, 1600, 1920]) {
     await page.setViewportSize({ width, height: 900 })
-    for (const path of ['/', '/play', '/about', '/play/oddly-specific/1', '/play/category-escape/1', '/play/double-agent/1', '/play/not-a-game/1', '/not-a-page']) {
+    for (const path of [
+      '/',
+      '/play',
+      '/about',
+      '/play/oddly-specific/1',
+      '/play/category-escape/1',
+      '/play/double-agent/1',
+      '/play/not-a-game/1',
+      '/not-a-page',
+    ]) {
       await page.goto(path)
       const footer = page.getByRole('contentinfo')
       await expect(footer).toHaveCount(1)
@@ -118,20 +127,33 @@ test('Privacy closes Settings on navigation, including when already on About', a
 
 test('navigation remains available while a puzzle loads', async ({ page }) => {
   const ready = deferred()
-  await page.route('**/puzzles/category-escape/1.json', async (route) => { await ready.promise; await route.continue() })
+  await page.route('**/puzzles/category-escape/1.json', async (route) => {
+    await ready.promise
+    await route.continue()
+  })
   try {
     await page.goto('/play/category-escape/1', { waitUntil: 'domcontentloaded' })
     await expect(page.getByRole('main')).toHaveAttribute('aria-busy', 'true')
     await expect(page.getByRole('contentinfo')).toContainText('Words. Rules. Room to argue.')
     await page.getByRole('navigation', { name: 'Main', exact: true }).getByRole('link', { name: 'Library' }).click()
-  } finally { ready.resolve() }
+  } finally {
+    ready.resolve()
+  }
   await expect(page).toHaveURL('/play?game=category-escape')
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Category Escape')
 })
 
 test('the header fits a 320px phone with usable targets on every page', async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 800 })
-  for (const path of ['/?home=1', '/play', '/about', '/play/oddly-specific/1', '/play/category-escape/1', '/play/double-agent/1', '/not-a-page']) {
+  for (const path of [
+    '/?home=1',
+    '/play',
+    '/about',
+    '/play/oddly-specific/1',
+    '/play/category-escape/1',
+    '/play/double-agent/1',
+    '/not-a-page',
+  ]) {
     await page.goto(path)
     const header = page.getByRole('banner')
     for (const control of await header.locator('a, button').all()) {

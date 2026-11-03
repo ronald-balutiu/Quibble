@@ -32,7 +32,16 @@ export function useDeviceColumn() {
   }
 
   return {
-    status, supported, run, modelMs, tally, setupOpen, decidedBy, restingUntil, cloudMessage, notScored,
+    status,
+    supported,
+    run,
+    modelMs,
+    tally,
+    setupOpen,
+    decidedBy,
+    restingUntil,
+    cloudMessage,
+    notScored,
     // The capable device's way in when the judge is off: S3.
     canAdd: supported && status === 'off',
     // Starts a guess; the returned callback follows its on-device run. A late result
@@ -42,11 +51,14 @@ export function useDeviceColumn() {
       forget()
       return (next: DeviceRun) => {
         const { agreed, compared } = next.kind === 'scored' ? next : { agreed: undefined, compared: undefined }
-        if (agreed !== undefined && compared !== undefined) setTally((t) => ({ agreed: t.agreed + agreed, compared: t.compared + compared }))
+        if (agreed !== undefined && compared !== undefined)
+          setTally((t) => ({ agreed: t.agreed + agreed, compared: t.compared + compared }))
         if (latest.current === mine) setRun(next)
       }
     },
-    judged: (ms: number) => { setModelMs(ms) },
+    judged: (ms: number) => {
+      setModelMs(ms)
+    },
     settled: (outcome: GuessOutcome) => {
       if ('decidedBy' in outcome) setDecidedBy(outcome.decidedBy)
       setCloudMessage('cloudMessage' in outcome ? outcome.cloudMessage : undefined)
@@ -58,8 +70,12 @@ export function useDeviceColumn() {
       latest.current += 1
       forget()
     },
-    openSetup: () => { setSetupOpen(true) },
-    closeSetup: () => { setSetupOpen(false) },
+    openSetup: () => {
+      setSetupOpen(true)
+    },
+    closeSetup: () => {
+      setSetupOpen(false)
+    },
   }
 }
 export type DeviceColumn = ReturnType<typeof useDeviceColumn>

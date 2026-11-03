@@ -7,7 +7,12 @@ import type { RunState } from '@/games/shared/run'
 // call is wrapped, so the game still plays when storage is blocked or full.
 // Saved data that no longer fits the shape is discarded, never migrated (1.1).
 
-const guess = z.strictObject({ answer: z.string(), pass: z.boolean(), failed: z.array(z.string()), closeCall: z.boolean() })
+const guess = z.strictObject({
+  answer: z.string(),
+  pass: z.boolean(),
+  failed: z.array(z.string()),
+  closeCall: z.boolean(),
+})
 const round = z.strictObject({
   status: z.enum(['playing', 'solved', 'lost', 'skipped']),
   guesses: z.array(guess),
@@ -17,7 +22,11 @@ const round = z.strictObject({
   points: z.int().min(0),
 })
 // Checked against the reducers' run type, so the saved shape can't drift from it.
-const runSchema = z.strictObject({ current: z.int().min(0), rounds: z.array(round), finished: z.boolean() }) satisfies z.ZodType<RunState>
+const runSchema = z.strictObject({
+  current: z.int().min(0),
+  rounds: z.array(round),
+  finished: z.boolean(),
+}) satisfies z.ZodType<RunState>
 const progressSchema = z.strictObject({
   best: z.int().min(0).optional(),
   run: runSchema.optional(),
@@ -102,10 +111,13 @@ export function resetPuzzle(game: GameId, n: number): boolean {
   }
 }
 
-const progressKeys = (store: Storage) => Array.from({ length: store.length }, (_, i) => store.key(i)).filter((k): k is string => k?.startsWith(PREFIX) ?? false)
+const progressKeys = (store: Storage) =>
+  Array.from({ length: store.length }, (_, i) => store.key(i)).filter(
+    (k): k is string => k?.startsWith(PREFIX) ?? false,
+  )
 
 // L3 "Your data": how many puzzles have saved progress, and how many runs are open.
-export function progressSummary(): { puzzles: number, open: number } {
+export function progressSummary(): { puzzles: number; open: number } {
   try {
     const store = globalThis.localStorage
     const saved = progressKeys(store).flatMap((k) => {

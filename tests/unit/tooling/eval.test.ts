@@ -7,15 +7,27 @@ import { buildResults } from '../../../eval/results'
 
 function guess(id: string, expected: ('yes' | 'no' | 'unsure')[]): AnswerKeyCase {
   return {
-    id: `os-01-${id}`, game: 'oddly-specific', group: 'os-01', answer: id, kind: 'clear', reviewed: true,
+    id: `os-01-${id}`,
+    game: 'oddly-specific',
+    group: 'os-01',
+    answer: id,
+    kind: 'clear',
+    reviewed: true,
     conditions: expected.map((label, i) => ({ id: `c${String(i)}`, expected: label })),
   }
 }
-const result = (c: AnswerKeyCase, ps: number[]): [string, CaseResult] =>
-  [c.id, { id: c.id, latencyMs: 10, neurons: 1, scores: Object.fromEntries(ps.map((p, i) => [`c${String(i)}`, p])) }]
+const result = (c: AnswerKeyCase, ps: number[]): [string, CaseResult] => [
+  c.id,
+  { id: c.id, latencyMs: 10, neurons: 1, scores: Object.fromEntries(ps.map((p, i) => [`c${String(i)}`, p])) },
+]
 
 describe('answer-key metrics', () => {
-  const cases = [guess('1', ['yes', 'yes']), guess('2', ['yes', 'no']), guess('3', ['no', 'no']), guess('4', ['yes', 'unsure'])]
+  const cases = [
+    guess('1', ['yes', 'yes']),
+    guess('2', ['yes', 'no']),
+    guess('3', ['no', 'no']),
+    guess('4', ['yes', 'unsure']),
+  ]
   const results = new Map([
     result(cases[0]!, [0.9, 0.8]), // correct pass
     result(cases[1]!, [0.9, 0.7]), // false accept on c1
@@ -62,7 +74,6 @@ describe('answer-key metrics', () => {
   })
 })
 
-
 test('eval/history.json matches its schema', () => {
   if (!existsSync('eval/history.json')) return
   expect(() => evalHistorySchema.parse(JSON.parse(readFileSync('eval/history.json', 'utf8')))).not.toThrow()
@@ -81,6 +92,11 @@ describe('the published answer-key results (public/eval/results.json)', () => {
     const tests = history.filter((run) => run.split === 'test')
     expect(new Set(tests.map((run) => run.caseSetHash)).size).toBe(1)
     expect(new Set(tests.map((run) => run.judge)).size).toBe(tests.length)
-    expect(() => buildResults(history.filter((run) => run.split === 'dev'), devices)).toThrow('Expected one test-set run')
+    expect(() =>
+      buildResults(
+        history.filter((run) => run.split === 'dev'),
+        devices,
+      ),
+    ).toThrow('Expected one test-set run')
   })
 })

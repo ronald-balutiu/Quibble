@@ -6,12 +6,15 @@ import type { FromWorker, ToWorker } from '@/judges/device/protocol'
 import { deviceFiles, deviceFileUrl } from '@/judges/device/verdict'
 
 const file = deviceFiles[0]
-const body = (...chunks: number[][]) => new Response(new ReadableStream({
-  start(controller) {
-    for (const chunk of chunks) controller.enqueue(new Uint8Array(chunk))
-    controller.close()
-  },
-}))
+const body = (...chunks: number[][]) =>
+  new Response(
+    new ReadableStream({
+      start(controller) {
+        for (const chunk of chunks) controller.enqueue(new Uint8Array(chunk))
+        controller.close()
+      },
+    }),
+  )
 
 describe('model download', () => {
   test('fills one buffer and reports every chunk', async () => {
@@ -24,13 +27,26 @@ describe('model download', () => {
   test('a short or oversized body is a network error', async () => {
     const signal = new AbortController().signal
     await expect(readInto(body([1, 2]), 6, () => undefined, signal)).rejects.toEqual(new DownloadError('network'))
-    await expect(readInto(body([1, 2, 3, 4, 5, 6, 7]), 6, () => undefined, signal)).rejects.toEqual(new DownloadError('network'))
+    await expect(readInto(body([1, 2, 3, 4, 5, 6, 7]), 6, () => undefined, signal)).rejects.toEqual(
+      new DownloadError('network'),
+    )
   })
 
   test('cancel stops the download without a network error', async () => {
     const controller = new AbortController()
-    const stream = new ReadableStream({ start(c) { c.enqueue(new Uint8Array([1])) } }) // never closes
-    const reading = readInto(new Response(stream), 6, () => { controller.abort() }, controller.signal)
+    const stream = new ReadableStream({
+      start(c) {
+        c.enqueue(new Uint8Array([1]))
+      },
+    }) // never closes
+    const reading = readInto(
+      new Response(stream),
+      6,
+      () => {
+        controller.abort()
+      },
+      controller.signal,
+    )
     await expect(reading).rejects.toMatchObject({ name: 'AbortError' })
   })
 
@@ -40,12 +56,17 @@ describe('model download', () => {
     const fetch = vi.fn(() => Promise.resolve(body([...contents])))
     const bytes = await loadFile(file, { signal: new AbortController().signal, onBytes: () => undefined, fetch })
     expect(bytes).toEqual(contents)
-    expect(fetch).toHaveBeenCalledWith(deviceFileUrl('tokenizer_config.json'), expect.objectContaining({ cache: 'no-store' }))
+    expect(fetch).toHaveBeenCalledWith(
+      deviceFileUrl('tokenizer_config.json'),
+      expect.objectContaining({ cache: 'no-store' }),
+    )
   })
 
   test('a failed request is a network error', async () => {
     const fetch = () => Promise.resolve(new Response('nope', { status: 503 }))
-    await expect(loadFile(file, { signal: new AbortController().signal, onBytes: () => undefined, fetch })).rejects.toEqual(new DownloadError('network'))
+    await expect(
+      loadFile(file, { signal: new AbortController().signal, onBytes: () => undefined, fetch }),
+    ).rejects.toEqual(new DownloadError('network'))
   })
 })
 
@@ -53,9 +74,13 @@ describe('device gate', () => {
   const desktop = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)'
   test('offers the judge only to desktop browsers with a WebGPU adapter', async () => {
     expect(await deviceSupported({ userAgent: desktop, gpu: { requestAdapter: () => Promise.resolve({}) } })).toBe(true)
-    expect(await deviceSupported({ userAgent: desktop, gpu: { requestAdapter: () => Promise.resolve(null) } })).toBe(false)
+    expect(await deviceSupported({ userAgent: desktop, gpu: { requestAdapter: () => Promise.resolve(null) } })).toBe(
+      false,
+    )
     expect(await deviceSupported({ userAgent: desktop })).toBe(false)
-    expect(await deviceSupported({ userAgent: 'Mozilla/5.0 (iPhone)', gpu: { requestAdapter: () => Promise.resolve({}) } })).toBe(false)
+    expect(
+      await deviceSupported({ userAgent: 'Mozilla/5.0 (iPhone)', gpu: { requestAdapter: () => Promise.resolve({}) } }),
+    ).toBe(false)
   })
 })
 
@@ -65,13 +90,21 @@ class FakeWorker {
   onmessage: ((event: MessageEvent<FromWorker>) => void) | null = null
   onerror: ((event: Event) => void) | null = null
   terminated = false
-  postMessage(message: ToWorker) { this.sent.push(message) }
-  terminate() { this.terminated = true }
-  reply(message: FromWorker) { this.onmessage?.(new MessageEvent('message', { data: message })) }
+  postMessage(message: ToWorker) {
+    this.sent.push(message)
+  }
+  terminate() {
+    this.terminated = true
+  }
+  reply(message: FromWorker) {
+    this.onmessage?.(new MessageEvent('message', { data: message }))
+  }
 }
 
 describe('device judge client', () => {
-  afterEach(() => { vi.useRealTimers() })
+  afterEach(() => {
+    vi.useRealTimers()
+  })
 
   async function readyJudge() {
     const worker = new FakeWorker()
@@ -121,16 +154,24 @@ describe('device judge client', () => {
     vi.useFakeTimers()
     const { worker, judge } = await readyJudge()
     const settled = vi.fn()
-    const scoring = judge.score('pocket knife', []).then((result) => { settled(result); return result })
+    const scoring = judge.score('pocket knife', []).then((result) => {
+      settled(result)
+      return result
+    })
     await vi.advanceTimersByTimeAsync(9_999)
     expect(settled).not.toHaveBeenCalled()
     await vi.advanceTimersByTimeAsync(1)
     expect(await scoring).toEqual({ kind: 'timeout' })
-    expect(() => { worker.reply({ type: 'scored', id: 1, scores: {} }) }).not.toThrow()
+    expect(() => {
+      worker.reply({ type: 'scored', id: 1, scores: {} })
+    }).not.toThrow()
     await Promise.resolve()
     expect(settled).toHaveBeenCalledExactlyOnceWith({ kind: 'timeout' })
     const nextSettled = vi.fn()
-    const next = judge.score('fork', []).then((result) => { nextSettled(result); return result })
+    const next = judge.score('fork', []).then((result) => {
+      nextSettled(result)
+      return result
+    })
     worker.reply({ type: 'scored', id: 1, scores: { stale: 0.9 } })
     await Promise.resolve()
     expect(nextSettled).not.toHaveBeenCalled()

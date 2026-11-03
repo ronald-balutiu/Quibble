@@ -1,7 +1,13 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 import type { PuzzleCondition } from '@shared/schemas/puzzle'
 import type { DeviceJudge, ScoreResult } from '@/judges/device/client'
-import { COMPARISON_LIMITS, loadComparisons, markOverruled, saveComparison, type Comparison } from '@/lib/storage/comparisons'
+import {
+  COMPARISON_LIMITS,
+  loadComparisons,
+  markOverruled,
+  saveComparison,
+  type Comparison,
+} from '@/lib/storage/comparisons'
 import { judgeGuess, toComparison, type DeviceRun, type JudgeTurn } from '@/games/shared/judge-guess'
 import { judgesSplit } from '@/games/shared/verdict'
 import { installBlockedStorage, installStorage } from './support/storage'
@@ -10,28 +16,65 @@ import { deferred } from '../../support/deferred'
 
 const conditions: PuzzleCondition[] = [
   { id: 'pocket', label: 'Fits in a pocket', negation: "doesn't fit in a pocket", claim: '{answer} fits in a pocket' },
-  { id: 'secure', label: 'Can secure something', negation: "can't secure something", claim: '{answer} can secure something' },
+  {
+    id: 'secure',
+    label: 'Can secure something',
+    negation: "can't secure something",
+    claim: '{answer} can secure something',
+  },
 ]
 const turn: JudgeTurn = {
-  game: 'oddly-specific', n: 1, roundId: 'r1', text: 'Carabiner', normalized: 'carabiner', attempt: 1, model: 'clef-flash', conditions, turnstile: null,
+  game: 'oddly-specific',
+  n: 1,
+  roundId: 'r1',
+  text: 'Carabiner',
+  normalized: 'carabiner',
+  attempt: 1,
+  model: 'clef-flash',
+  conditions,
+  turnstile: null,
 }
-const cloud = { attempt: 1, model: 'clef-flash' as const, modelMs: 41, conditions: { pocket: { pass: true, p: 0.97 }, secure: { pass: false, p: 0.3 } } }
+const cloud = {
+  attempt: 1,
+  model: 'clef-flash' as const,
+  modelMs: 41,
+  conditions: { pocket: { pass: true, p: 0.97 }, secure: { pass: false, p: 0.3 } },
+}
 
-
-const record = (at: number, answer = 'carabiner'): Comparison => toComparison({ ...turn, normalized: answer }, cloud, 300, { scores: { pocket: 0.9, secure: 0.8 }, ms: 120, warm: true }, at)
+const record = (at: number, answer = 'carabiner'): Comparison =>
+  toComparison(
+    { ...turn, normalized: answer },
+    cloud,
+    300,
+    { scores: { pocket: 0.9, secure: 0.8 }, ms: 120, warm: true },
+    at,
+  )
 
 describe('comparison records (3.8)', () => {
-  beforeEach(() => { installStorage() })
+  beforeEach(() => {
+    installStorage()
+  })
 
   test('a record holds both scores and verdicts per condition, both latencies and the referee', () => {
     expect(record(5)).toEqual({
-      at: 5, game: 'oddly-specific', n: 1, round: 'r1', answer: 'carabiner',
+      at: 5,
+      game: 'oddly-specific',
+      n: 1,
+      round: 'r1',
+      answer: 'carabiner',
       conditions: {
         pocket: { cloud: 0.97, cloudPass: true, device: 0.9, devicePass: true },
         secure: { cloud: 0.3, cloudPass: false, device: 0.8, devicePass: true },
       },
-      cloudModel: 'clef-flash', cloudMs: 300, cloudModelMs: 41, deviceMs: 120,
-      backend: 'webgpu', precision: 'q4', warm: true, referee: 'cloud', overruled: false,
+      cloudModel: 'clef-flash',
+      cloudMs: 300,
+      cloudModelMs: 41,
+      deviceMs: 120,
+      backend: 'webgpu',
+      precision: 'q4',
+      warm: true,
+      referee: 'cloud',
+      overruled: false,
     })
   })
 
@@ -42,7 +85,10 @@ describe('comparison records (3.8)', () => {
     expect(loadComparisons(COMPARISON_LIMITS.days * day).map(({ at }) => at)).toEqual([1])
     // Records without conditions are small enough that the count limit comes first.
     const small = (at: number) => ({ ...record(at), conditions: {} })
-    globalThis.localStorage.setItem('quibble:comparisons', JSON.stringify(Array.from({ length: COMPARISON_LIMITS.records }, (_, i) => small(i))))
+    globalThis.localStorage.setItem(
+      'quibble:comparisons',
+      JSON.stringify(Array.from({ length: COMPARISON_LIMITS.records }, (_, i) => small(i))),
+    )
     saveComparison(small(COMPARISON_LIMITS.records), COMPARISON_LIMITS.records)
     const kept = loadComparisons(COMPARISON_LIMITS.records)
     expect(kept).toHaveLength(COMPARISON_LIMITS.records)
@@ -50,7 +96,10 @@ describe('comparison records (3.8)', () => {
   })
 
   test('stays under 500 KB by dropping the oldest', () => {
-    globalThis.localStorage.setItem('quibble:comparisons', JSON.stringify(Array.from({ length: 1_900 }, (_, i) => record(i))))
+    globalThis.localStorage.setItem(
+      'quibble:comparisons',
+      JSON.stringify(Array.from({ length: 1_900 }, (_, i) => record(i))),
+    )
     saveComparison(record(1_900), 1_900)
     const raw = globalThis.localStorage.getItem('quibble:comparisons') ?? ''
     expect(raw.length).toBeLessThanOrEqual(COMPARISON_LIMITS.bytes)
@@ -67,7 +116,9 @@ describe('comparison records (3.8)', () => {
 
   test('blocked storage loses the record but never throws', () => {
     installBlockedStorage()
-    expect(() => { saveComparison(record(1)) }).not.toThrow()
+    expect(() => {
+      saveComparison(record(1))
+    }).not.toThrow()
     expect(loadComparisons()).toEqual([])
   })
 })
@@ -75,13 +126,18 @@ describe('comparison records (3.8)', () => {
 describe('both judges on one guess (3.7)', () => {
   beforeEach(() => {
     installStorage()
-    vi.stubGlobal('fetch', vi.fn(() => Promise.resolve(new Response(JSON.stringify(cloud), { status: 200 }))))
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(() => Promise.resolve(new Response(JSON.stringify(cloud), { status: 200 }))),
+    )
   })
 
   function fakeDevice(results: ScoreResult[]): DeviceJudge {
     const score = vi.fn<DeviceJudge['score']>()
     for (const result of results) score.mockResolvedValueOnce(result)
-    score.mockImplementation(() => { throw new Error('Unexpected extra device score') })
+    score.mockImplementation(() => {
+      throw new Error('Unexpected extra device score')
+    })
     return deviceJudgeDouble('ready', { score })
   }
 
@@ -93,9 +149,15 @@ describe('both judges on one guess (3.7)', () => {
     const judging = judgeGuess(turn, {
       device,
       onCloud: (_scores, ms) => events.push(`cloud ${String(ms)}`),
-      onDevice: (run) => events.push(run.kind === 'scored' ? `device ${String(run.agreed)}/${String(run.compared)}` : run.kind),
-    }).then((result) => { done = true; return result })
-    await vi.waitFor(() => { expect(events).toEqual(['scanning', 'cloud 41']) })
+      onDevice: (run) =>
+        events.push(run.kind === 'scored' ? `device ${String(run.agreed)}/${String(run.compared)}` : run.kind),
+    }).then((result) => {
+      done = true
+      return result
+    })
+    await vi.waitFor(() => {
+      expect(events).toEqual(['scanning', 'cloud 41'])
+    })
     expect(done).toBe(false)
     pending.resolve({ kind: 'scored', scores: { pocket: 0.9, secure: 0.8 }, ms: 120, warm: false })
     expect(await judging).toMatchObject({ guess: { pass: false, failed: ['secure'] }, decidedBy: 'cloud' })
@@ -105,15 +167,23 @@ describe('both judges on one guess (3.7)', () => {
 
   test('a device timeout only marks its column, and Retry scores the same answer again', async () => {
     const runs: DeviceRun[] = []
-    const device = fakeDevice([{ kind: 'timeout' }, { kind: 'scored', scores: { pocket: 0.9, secure: 0.1 }, ms: 90, warm: true }])
+    const device = fakeDevice([
+      { kind: 'timeout' },
+      { kind: 'scored', scores: { pocket: 0.9, secure: 0.1 }, ms: 90, warm: true },
+    ])
     const result = await judgeGuess(turn, { onDevice: (run) => runs.push(run), device })
     expect(result).toMatchObject({ guess: { pass: false } })
     expect(runs.at(-1)?.kind).toBe('timeout')
     expect(loadComparisons()).toEqual([])
     const last = runs.at(-1)
     if (last?.kind === 'timeout') last.retry?.()
-    await vi.waitFor(() => { expect(runs.at(-1)).toMatchObject({ kind: 'scored', agreed: 2, compared: 2 }) })
-    expect(device.score).toHaveBeenLastCalledWith('carabiner', [{ id: 'pocket', claim: '{answer} fits in a pocket' }, { id: 'secure', claim: '{answer} can secure something' }])
+    await vi.waitFor(() => {
+      expect(runs.at(-1)).toMatchObject({ kind: 'scored', agreed: 2, compared: 2 })
+    })
+    expect(device.score).toHaveBeenLastCalledWith('carabiner', [
+      { id: 'pocket', claim: '{answer} fits in a pocket' },
+      { id: 'secure', claim: '{answer} can secure something' },
+    ])
   })
 
   test('with the judge off, nothing runs on the device', async () => {
@@ -125,16 +195,24 @@ describe('both judges on one guess (3.7)', () => {
   })
 
   const outOfUsage = (status: number, body: object) => {
-    vi.stubGlobal('fetch', vi.fn(() => Promise.resolve(new Response(JSON.stringify({ attempt: 1, ...body }), { status }))))
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(() => Promise.resolve(new Response(JSON.stringify({ attempt: 1, ...body }), { status }))),
+    )
   }
 
   test('cloud resting, device on: the device decides at its own threshold, with nothing recorded (S1)', async () => {
     outOfUsage(503, { error: 'resting', resetAt: '2026-11-02T00:00:00.000Z' })
     const runs: DeviceRun[] = []
-    const result = await judgeGuess(turn, { onDevice: (run) => runs.push(run), device: fakeDevice([{ kind: 'scored', scores: { pocket: 0.9, secure: 0.65 }, ms: 80, warm: true }]) })
+    const result = await judgeGuess(turn, {
+      onDevice: (run) => runs.push(run),
+      device: fakeDevice([{ kind: 'scored', scores: { pocket: 0.9, secure: 0.65 }, ms: 80, warm: true }]),
+    })
     expect(result).toEqual({
       guess: { answer: 'carabiner', pass: false, failed: ['secure'], closeCall: true },
-      scores: {}, decidedBy: 'device', restingUntil: '2026-11-02T00:00:00.000Z',
+      scores: {},
+      decidedBy: 'device',
+      restingUntil: '2026-11-02T00:00:00.000Z',
     })
     expect(runs.at(-1)).toEqual({ kind: 'scored', scores: { pocket: 0.9, secure: 0.65 }, ms: 80 })
     expect(loadComparisons()).toEqual([])
@@ -142,7 +220,9 @@ describe('both judges on one guess (3.7)', () => {
 
   test('cloud busy, device on: the device decides this guess', async () => {
     outOfUsage(429, { error: 'busy', retryAfter: 30 })
-    const result = await judgeGuess(turn, { device: fakeDevice([{ kind: 'scored', scores: { pocket: 0.9, secure: 0.95 }, ms: 80, warm: true }]) })
+    const result = await judgeGuess(turn, {
+      device: fakeDevice([{ kind: 'scored', scores: { pocket: 0.9, secure: 0.95 }, ms: 80, warm: true }]),
+    })
     expect(result).toMatchObject({ guess: { pass: true }, decidedBy: 'device' })
     expect(result).not.toHaveProperty('restingUntil')
   })
@@ -150,15 +230,24 @@ describe('both judges on one guess (3.7)', () => {
   test('a deciding device that times out leaves the guess unjudged, with Retry for the whole guess (G7)', async () => {
     outOfUsage(503, { error: 'resting', resetAt: '2026-11-02T00:00:00.000Z' })
     const runs: DeviceRun[] = []
-    const result = await judgeGuess(turn, { onDevice: (run) => runs.push(run), device: fakeDevice([{ kind: 'timeout' }]) })
-    expect(result).toEqual({ ui: { kind: 'notJudged', message: 'judge.device.timeout' }, restingUntil: '2026-11-02T00:00:00.000Z' })
+    const result = await judgeGuess(turn, {
+      onDevice: (run) => runs.push(run),
+      device: fakeDevice([{ kind: 'timeout' }]),
+    })
+    expect(result).toEqual({
+      ui: { kind: 'notJudged', message: 'judge.device.timeout' },
+      restingUntil: '2026-11-02T00:00:00.000Z',
+    })
     expect(runs.at(-1)).toEqual({ kind: 'timeout' })
   })
 
   test('cloud resting, device off: not judged, with the reset time for the strip (S2)', async () => {
     outOfUsage(503, { error: 'resting', resetAt: '2026-11-02T00:00:00.000Z' })
     const result = await judgeGuess(turn, { device: deviceJudgeDouble() })
-    expect(result).toEqual({ ui: { kind: 'resting', resetAt: '2026-11-02T00:00:00.000Z' }, restingUntil: '2026-11-02T00:00:00.000Z' })
+    expect(result).toEqual({
+      ui: { kind: 'resting', resetAt: '2026-11-02T00:00:00.000Z' },
+      restingUntil: '2026-11-02T00:00:00.000Z',
+    })
   })
 
   test('the judges split when any condition gets a different verdict', () => {
@@ -170,32 +259,56 @@ describe('both judges on one guess (3.7)', () => {
 
   test('with the device as referee, its verdict scores and the cloud is shown; both are recorded', async () => {
     const runs: DeviceRun[] = []
-    const result = await judgeGuess(turn, { referee: 'device', onDevice: (run) => runs.push(run), device: fakeDevice([{ kind: 'scored', scores: { pocket: 0.9, secure: 0.8 }, ms: 120, warm: true }]) })
+    const result = await judgeGuess(turn, {
+      referee: 'device',
+      onDevice: (run) => runs.push(run),
+      device: fakeDevice([{ kind: 'scored', scores: { pocket: 0.9, secure: 0.8 }, ms: 120, warm: true }]),
+    })
     expect(result).toEqual({
       // 0.8 is within 0.15 of the device's 0.7 threshold.
       guess: { answer: 'carabiner', pass: true, failed: [], closeCall: true },
-      scores: { pocket: 0.97, secure: 0.3 }, decidedBy: 'device',
+      scores: { pocket: 0.97, secure: 0.3 },
+      decidedBy: 'device',
     })
     expect(loadComparisons()[0]?.referee).toBe('device')
     expect(runs.at(-1)).toMatchObject({ agreed: 1, compared: 2 })
   })
 
   test('device referee: a cloud failure only marks the cloud column, and the device decides', async () => {
-    vi.stubGlobal('fetch', vi.fn(() => Promise.resolve(new Response(JSON.stringify({ attempt: 1, error: 'unavailable' }), { status: 502 }))))
-    const result = await judgeGuess(turn, { referee: 'device', device: fakeDevice([{ kind: 'scored', scores: { pocket: 0.9, secure: 0.8 }, ms: 120, warm: true }]) })
-    expect(result).toMatchObject({ guess: { pass: true }, decidedBy: 'device', cloudMessage: 'judge.cloud.unreachable' })
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(() => Promise.resolve(new Response(JSON.stringify({ attempt: 1, error: 'unavailable' }), { status: 502 }))),
+    )
+    const result = await judgeGuess(turn, {
+      referee: 'device',
+      device: fakeDevice([{ kind: 'scored', scores: { pocket: 0.9, secure: 0.8 }, ms: 120, warm: true }]),
+    })
+    expect(result).toMatchObject({
+      guess: { pass: true },
+      decidedBy: 'device',
+      cloudMessage: 'judge.cloud.unreachable',
+    })
   })
 
   test('device referee timing out: not judged, the cloud shown but not scored, and Retry for the whole guess (G7)', async () => {
     const runs: DeviceRun[] = []
-    const result = await judgeGuess(turn, { referee: 'device', onDevice: (run) => runs.push(run), device: fakeDevice([{ kind: 'timeout' }]) })
+    const result = await judgeGuess(turn, {
+      referee: 'device',
+      onDevice: (run) => runs.push(run),
+      device: fakeDevice([{ kind: 'timeout' }]),
+    })
     expect(result).toEqual({ ui: { kind: 'notJudged', message: 'judge.device.timeout' }, notScored: 'cloud' })
     expect(runs.at(-1)).toEqual({ kind: 'timeout' })
   })
 
   test('cloud referee failing while the device answered: the device is shown but not scored', async () => {
-    vi.stubGlobal('fetch', vi.fn(() => Promise.resolve(new Response(JSON.stringify({ attempt: 1, error: 'unavailable' }), { status: 502 }))))
-    const result = await judgeGuess(turn, { device: fakeDevice([{ kind: 'scored', scores: { pocket: 0.9, secure: 0.8 }, ms: 120, warm: true }]) })
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(() => Promise.resolve(new Response(JSON.stringify({ attempt: 1, error: 'unavailable' }), { status: 502 }))),
+    )
+    const result = await judgeGuess(turn, {
+      device: fakeDevice([{ kind: 'scored', scores: { pocket: 0.9, secure: 0.8 }, ms: 120, warm: true }]),
+    })
     expect(result).toEqual({ ui: { kind: 'notJudged', message: 'judge.cloud.unreachable' }, notScored: 'device' })
   })
 })

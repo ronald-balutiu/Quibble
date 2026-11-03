@@ -4,8 +4,17 @@
 import { readFileSync, writeFileSync } from 'node:fs'
 import { chromium } from '@playwright/test'
 
-const font = (path: string) => `data:font/woff2;base64,${readFileSync(`node_modules/@fontsource/${path}`).toString('base64')}`
-const colors = { ground: '#0C0B0A', text: '#F3EEE6', muted: '#9C958C', line: '#22201D', oddly: '#F4C677', escape: '#8CD4FF', agent: '#F7B1DF' }
+const font = (path: string) =>
+  `data:font/woff2;base64,${readFileSync(`node_modules/@fontsource/${path}`).toString('base64')}`
+const colors = {
+  ground: '#0C0B0A',
+  text: '#F3EEE6',
+  muted: '#9C958C',
+  line: '#22201D',
+  oddly: '#F4C677',
+  escape: '#8CD4FF',
+  agent: '#F7B1DF',
+}
 
 // The hero mark's geometry (src/components/RingMark/RingMark.tsx), drawn statically.
 const rings = (width: number) => `
@@ -20,7 +29,10 @@ const mark = `<svg viewBox="-200 -190 400 380" xmlns="http://www.w3.org/2000/svg
   <circle cx="64" cy="44" r="114" fill="none" stroke="${colors.text}" stroke-width="2" stroke-dasharray="48 643" stroke-dashoffset="-470"/>
   <circle cx="0" cy="11" r="5" fill="${colors.text}"/></svg>`
 
-writeFileSync('public/favicon.svg', `<svg viewBox="-190 -180 380 360" xmlns="http://www.w3.org/2000/svg"><rect x="-190" y="-180" width="380" height="360" rx="40" fill="${colors.ground}"/>${rings(22)}<circle cx="0" cy="11" r="26" fill="${colors.text}"/></svg>\n`)
+writeFileSync(
+  'public/favicon.svg',
+  `<svg viewBox="-190 -180 380 360" xmlns="http://www.w3.org/2000/svg"><rect x="-190" y="-180" width="380" height="360" rx="40" fill="${colors.ground}"/>${rings(22)}<circle cx="0" cy="11" r="26" fill="${colors.text}"/></svg>\n`,
+)
 
 const html = `<!doctype html><html><head><style>
   @font-face { font-family: Geist; font-weight: 300; src: url(${font('geist/files/geist-latin-300-normal.woff2')}) }

@@ -22,10 +22,15 @@ async function openResults(page: Page) {
   await expect(page.getByText('0/15', { exact: true })).toBeVisible()
 }
 
-test('result details load examples on demand, support keyboard opening and retry failures', async ({ page, isMobile }) => {
+test('result details load examples on demand, support keyboard opening and retry failures', async ({
+  page,
+  isMobile,
+}) => {
   await openResults(page)
   if (isMobile) await page.setViewportSize({ width: 320, height: 800 })
-  expect(await page.evaluate<number>('document.documentElement.scrollWidth')).toBeLessThanOrEqual(page.viewportSize()!.width)
+  expect(await page.evaluate<number>('document.documentElement.scrollWidth')).toBeLessThanOrEqual(
+    page.viewportSize()!.width,
+  )
   const puzzle = shippedPuzzle('oddly-specific')
   let calls = 0
   await page.route(`**/api/reveal/oddly-specific/1/${puzzle.rounds[0]?.id ?? ''}`, (route) => {
@@ -44,7 +49,9 @@ test('result details load examples on demand, support keyboard opening and retry
   await expect(page.getByRole('table', { name: 'Detailed answer-key results' })).toBeVisible()
   const first = review.locator('.run-review__round').first()
   await expect(first).not.toHaveAttribute('open')
-  const mutedColor = await page.evaluate<string>('getComputedStyle(document.querySelector(".result-summary .telemetry")).color')
+  const mutedColor = await page.evaluate<string>(
+    'getComputedStyle(document.querySelector(".result-summary .telemetry")).color',
+  )
   await expect(first.locator('.run-review__status')).toHaveCSS('color', mutedColor)
   expect(calls).toBe(0)
   await first.locator(':scope > summary').focus()
@@ -72,7 +79,9 @@ test('result details load examples on demand, support keyboard opening and retry
   await expect(second).not.toHaveAttribute('open')
   await expect(first.getByText('fork', { exact: true })).toBeVisible()
   expect(calls).toBe(2)
-  expect(await page.evaluate<number>('document.documentElement.scrollWidth')).toBeLessThanOrEqual(page.viewportSize()!.width)
+  expect(await page.evaluate<number>('document.documentElement.scrollWidth')).toBeLessThanOrEqual(
+    page.viewportSize()!.width,
+  )
   await expectAccessible(page)
 })
 
@@ -107,12 +116,17 @@ test('copying results reports success only after the clipboard accepts them', as
   page.on('pageerror', (error) => errors.push(error.message))
   await page.addInitScript(() => {
     let denied = true
-    Object.defineProperty(navigator, 'clipboard', { value: {
-      writeText: () => {
-        if (denied) { denied = false; return Promise.reject(new Error('clipboard denied')) }
-        return Promise.resolve()
+    Object.defineProperty(navigator, 'clipboard', {
+      value: {
+        writeText: () => {
+          if (denied) {
+            denied = false
+            return Promise.reject(new Error('clipboard denied'))
+          }
+          return Promise.resolve()
+        },
       },
-    } })
+    })
   })
   await openResults(page)
   await page.getByRole('button', { name: 'Copy result' }).click()

@@ -22,7 +22,11 @@ const matrix = readJson<Matrix>('factory/matrix.json', {})
 async function confirmCells(thing: string, ids: readonly string[]) {
   const missing = unconfirmedCells(matrix, thing, ids)
   if (missing.length === 0 || budget.exhausted) return
-  const verdict = await judgeWithGemma(budget.ai, thing, missing.map((id) => ({ id, question: conditions[id]?.question ?? '' })))
+  const verdict = await judgeWithGemma(
+    budget.ai,
+    thing,
+    missing.map((id) => ({ id, question: conditions[id]?.question ?? '' })),
+  )
   if (!verdict.ok) return
   for (const [id, p] of Object.entries(verdict.scores)) {
     const cell = matrix[thing]?.[id]
@@ -37,7 +41,7 @@ const categories = Object.keys(conditions).filter((id) => conditions[id]?.catego
 const minCategory = Math.ceil(things.length * 0.1)
 const next = seeded(20261030)
 const seen = new Set<string>()
-const escape: { levels: string[][], path: string[], known: string[][] }[] = []
+const escape: { levels: string[][]; path: string[]; known: string[][] }[] = []
 for (let attempt = 0; attempt < 400 && escape.length < TARGET && !budget.exhausted; attempt++) {
   const category = categories[attempt % categories.length] ?? ''
   const run = categoryEscapeRun(matrix, things, conditions, category, next, { minCategory, minFinal: 3 })
@@ -59,14 +63,24 @@ for (let attempt = 0; attempt < 400 && escape.length < TARGET && !budget.exhaust
 }
 
 // Double Agent: valid words whose two clues Gemma 4 also confirms, three per puzzle.
-const report = readJson<{ results: { word: string, ok: boolean, clues: { clue: string }[] }[] }>('factory/reports/prototype-double-agent-rewritten.json', { results: [] })
-const agentWords: { word: string, clues: string[] }[] = []
+const report = readJson<{ results: { word: string; ok: boolean; clues: { clue: string }[] }[] }>(
+  'factory/reports/prototype-double-agent-rewritten.json',
+  { results: [] },
+)
+const agentWords: { word: string; clues: string[] }[] = []
 for (const result of report.results.filter((r) => r.ok)) {
   if (budget.exhausted) break
-  const verdict = await judgeWithGemma(budget.ai, result.word, result.clues.map((clue, i) => ({ id: `c${String(i)}`, question: clueQuestion(clue.clue) })))
-  if (verdict.ok && Object.values(verdict.scores).every((p) => p >= CONFIRMED)) agentWords.push({ word: result.word, clues: result.clues.map((clue) => clue.clue) })
+  const verdict = await judgeWithGemma(
+    budget.ai,
+    result.word,
+    result.clues.map((clue, i) => ({ id: `c${String(i)}`, question: clueQuestion(clue.clue) })),
+  )
+  if (verdict.ok && Object.values(verdict.scores).every((p) => p >= CONFIRMED))
+    agentWords.push({ word: result.word, clues: result.clues.map((clue) => clue.clue) })
 }
-const agent = Array.from({ length: Math.min(TARGET, Math.floor(agentWords.length / 3)) }, (_, i) => agentWords.slice(i * 3, i * 3 + 3))
+const agent = Array.from({ length: Math.min(TARGET, Math.floor(agentWords.length / 3)) }, (_, i) =>
+  agentWords.slice(i * 3, i * 3 + 3),
+)
 
 writeJson('factory/matrix.json', matrix)
 budget.record('prototype-puzzles', 'gemma-4')
@@ -74,4 +88,6 @@ writeJson('factory/reports/prototype-puzzles.json', {
   categoryEscape: { minCategory, puzzles: escape },
   doubleAgent: { confirmedWords: agentWords.length, of: report.results.filter((r) => r.ok).length, puzzles: agent },
 })
-console.log(`Category Escape: ${String(escape.length)} prototype runs. Double Agent: ${String(agentWords.length)} words confirmed by both models, ${String(agent.length)} puzzles.`)
+console.log(
+  `Category Escape: ${String(escape.length)} prototype runs. Double Agent: ${String(agentWords.length)} words confirmed by both models, ${String(agent.length)} puzzles.`,
+)

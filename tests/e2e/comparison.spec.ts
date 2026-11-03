@@ -7,7 +7,9 @@ test('Home keeps the comparison introduction visible and its results expandable'
   const compare = page.getByRole('region', { name: 'How the judges compare' })
   await expect(compare.getByRole('heading', { name: 'How the judges compare' })).toBeVisible()
   // Before it opens, the section says what its two halves measure, named as their tabs are.
-  await expect(compare.getByText('Two AI judges, measured two ways: against an answer key, and against you.')).toBeVisible()
+  await expect(
+    compare.getByText('Two AI judges, measured two ways: against an answer key, and against you.'),
+  ).toBeVisible()
   await expect(compare.getByRole('listitem')).toHaveText([
     /^Answer-key test\s*How often each judge made the right call/u,
     /^Your games\s*Where the judges split on your guesses, and which one you overrule/u,
@@ -38,14 +40,21 @@ test('keeps headline accuracy visible and every test measure reachable', async (
   await expect(compare.locator('.compare__summary')).toContainText('81.4%')
   await expect(compare.locator('.compare__summary')).toContainText('96 of 118 answers')
   const table = compare.getByRole('table', { name: 'Detailed answer-key results' })
-  for (const text of ['88.1%', '75.4%', '7.4%', '14.8%', '28.1%', '46.9%', '197 ms', '109 ms', '$0']) await expect(table).toContainText(text)
+  for (const text of ['88.1%', '75.4%', '7.4%', '14.8%', '28.1%', '46.9%', '197 ms', '109 ms', '$0'])
+    await expect(table).toContainText(text)
   await expect(table.getByRole('row', { name: /Confidence error/u })).toContainText('11')
   // Measures are grouped, and each row says in text which judge did better (the bars are decorative).
-  for (const group of ['Where they slip', 'Rule by rule', 'Speed and cost']) await expect(table.getByRole('columnheader', { name: group })).toBeVisible()
+  for (const group of ['Where they slip', 'Rule by rule', 'Speed and cost'])
+    await expect(table.getByRole('columnheader', { name: group })).toBeVisible()
   const lenient = table.getByRole('row', { name: /Too lenient/u }).getByRole('cell')
   await expect(lenient.first()).toHaveText('7.4%Better')
   await expect(lenient.last()).toHaveText('14.8%')
-  await expect(table.getByRole('row', { name: /Typical judging time/u }).getByRole('cell').last()).toHaveText('109 msBetter')
+  await expect(
+    table
+      .getByRole('row', { name: /Typical judging time/u })
+      .getByRole('cell')
+      .last(),
+  ).toHaveText('109 msBetter')
   await expect(table.getByRole('row', { name: /Cost to play/u }).getByRole('cell')).toHaveText(['$0', '$0'])
   await compare.getByRole('button', { name: 'Hide detailed comparison' }).click()
   await expect(table).toBeHidden()
@@ -79,19 +88,75 @@ test('follows the initial judge choice but previews another model without changi
   await expect(compare.getByRole('row', { name: /Confidence error/u })).toContainText('5')
 })
 
-test('personal comparisons use saved data and preserve agreement, strictness, overrides and warm speed', async ({ page }) => {
+test('personal comparisons use saved data and preserve agreement, strictness, overrides and warm speed', async ({
+  page,
+}) => {
   await page.addInitScript(() => {
-    const sample = (pairs: [boolean, boolean][], cloudMs: number, deviceMs: number, warm = true, referee = 'cloud', overruled = false) => ({
-      at: Date.now(), game: 'oddly-specific', n: 1, round: 'r1', answer: 'x',
-      conditions: Object.fromEntries(pairs.map(([cloudPass, devicePass], i) => [`c${String(i)}`, { cloud: 0.5, cloudPass, device: 0.5, devicePass }])),
-      cloudModel: 'clef-flash', cloudMs, cloudModelMs: cloudMs, deviceMs, backend: 'webgpu', precision: 'q4', warm, referee, overruled,
+    const sample = (
+      pairs: [boolean, boolean][],
+      cloudMs: number,
+      deviceMs: number,
+      warm = true,
+      referee = 'cloud',
+      overruled = false,
+    ) => ({
+      at: Date.now(),
+      game: 'oddly-specific',
+      n: 1,
+      round: 'r1',
+      answer: 'x',
+      conditions: Object.fromEntries(
+        pairs.map(([cloudPass, devicePass], i) => [
+          `c${String(i)}`,
+          { cloud: 0.5, cloudPass, device: 0.5, devicePass },
+        ]),
+      ),
+      cloudModel: 'clef-flash',
+      cloudMs,
+      cloudModelMs: cloudMs,
+      deviceMs,
+      backend: 'webgpu',
+      precision: 'q4',
+      warm,
+      referee,
+      overruled,
     })
-    localStorage.setItem('quibble:comparisons', JSON.stringify([
-      sample([[true, true], [true, true]], 30, 100),
-      sample([[false, true], [true, true]], 40, 120, true, 'cloud', true),
-      sample([[true, false], [false, true]], 50, 140, true, 'device', true),
-      sample([[true, true]], 900, 900, false),
-    ]))
+    localStorage.setItem(
+      'quibble:comparisons',
+      JSON.stringify([
+        sample(
+          [
+            [true, true],
+            [true, true],
+          ],
+          30,
+          100,
+        ),
+        sample(
+          [
+            [false, true],
+            [true, true],
+          ],
+          40,
+          120,
+          true,
+          'cloud',
+          true,
+        ),
+        sample(
+          [
+            [true, false],
+            [false, true],
+          ],
+          50,
+          140,
+          true,
+          'device',
+          true,
+        ),
+        sample([[true, true]], 900, 900, false),
+      ]),
+    )
   })
   await page.goto('/?home=1')
   const compare = page.getByRole('region', { name: 'How the judges compare' })
@@ -104,7 +169,10 @@ test('personal comparisons use saved data and preserve agreement, strictness, ov
   const table = compare.getByRole('table', { name: 'Your game comparisons' })
   await expect(table.getByRole('columnheader', { name: 'You and the judges' })).toBeVisible()
   await expect(table.getByRole('row', { name: /You overruled/u }).getByRole('cell')).toHaveText(['1', '1'])
-  await expect(table.getByRole('row', { name: /Typical judging time/u }).getByRole('cell')).toHaveText(['40 msBetter', '120 ms'])
+  await expect(table.getByRole('row', { name: /Typical judging time/u }).getByRole('cell')).toHaveText([
+    '40 msBetter',
+    '120 ms',
+  ])
   await expect(compare).toContainText('Both judges can agree and still be wrong.')
   await expectAccessible(page)
 })
@@ -123,13 +191,18 @@ test('empty personal history and unavailable test results remain usable', async 
 
 test('the comparison fits at 320px and exposes loading while results arrive', async ({ page }) => {
   const ready = deferred()
-  await page.route('**/eval/results.json', async (route) => { await ready.promise; await route.continue() })
+  await page.route('**/eval/results.json', async (route) => {
+    await ready.promise
+    await route.continue()
+  })
   const compare = page.getByRole('region', { name: 'How the judges compare' })
   try {
     await page.goto('/?home=1', { waitUntil: 'domcontentloaded' })
     await compare.getByText('See the results', { exact: true }).click()
     await expect(compare.getByRole('status')).toHaveText('Loading test results…')
-  } finally { ready.resolve() }
+  } finally {
+    ready.resolve()
+  }
   await expect(compare.locator('.compare__summary')).toContainText('81.4%')
   await page.setViewportSize({ width: 320, height: 800 })
   expect(await page.evaluate<number>('document.documentElement.scrollWidth')).toBeLessThanOrEqual(320)

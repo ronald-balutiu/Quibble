@@ -1,5 +1,13 @@
 import { expect, test, type Page } from '@playwright/test'
-import { allConditions, mockJudge, mockReveal, seedStorage, shippedPuzzle, stubDeviceJudge, submitGuess } from './support'
+import {
+  allConditions,
+  mockJudge,
+  mockReveal,
+  seedStorage,
+  shippedPuzzle,
+  stubDeviceJudge,
+  submitGuess,
+} from './support'
 
 // The on-device judge with a stubbed worker (Phase 5), since CI's browser has no
 // WebGPU (support.ts, stubDeviceJudge). The real model runs only locally, in
@@ -12,9 +20,11 @@ const puzzle = shippedPuzzle('oddly-specific')
 async function setUp(page: Page, mode: 'ready' | 'hang', cloud: 'judge' | 'resting' = 'judge') {
   await seedStorage(page, { 'quibble:settings:tipsSeen': 'oddly-specific' }, { everyLoad: true })
   await stubDeviceJudge(page, mode === 'hang' ? { pauseAt: 0.4 } : {})
-  await mockJudge(page, (request) => cloud === 'resting'
-    ? { status: 503, json: { attempt: request.attempt, error: 'resting', resetAt: '2099-01-01T00:00:00.000Z' } }
-    : allConditions(puzzle, request, request.answer.toLowerCase().startsWith('good')))
+  await mockJudge(page, (request) =>
+    cloud === 'resting'
+      ? { status: 503, json: { attempt: request.attempt, error: 'resting', resetAt: '2099-01-01T00:00:00.000Z' } }
+      : allConditions(puzzle, request, request.answer.toLowerCase().startsWith('good')),
+  )
   await mockReveal(page)
 }
 
@@ -42,7 +52,9 @@ test.describe('the on-device judge (stubbed worker)', () => {
     await expect(page.getByText('VERDICT • REJECTED')).toBeVisible()
     await expect(page.getByText(/^○ Device \d+ ms$/u)).toBeVisible()
     await expect(page.locator('.axis__ring')).toHaveCount(3)
-    const records = await page.evaluate(() => JSON.parse(localStorage.getItem('quibble:comparisons') ?? '[]') as { answer: string, referee: string }[])
+    const records = await page.evaluate(
+      () => JSON.parse(localStorage.getItem('quibble:comparisons') ?? '[]') as { answer: string; referee: string }[],
+    )
     expect(records).toMatchObject([{ answer: 'bad idea', referee: 'cloud' }])
   })
 
@@ -97,7 +109,10 @@ test.describe('the on-device judge (stubbed worker)', () => {
     // S2 first: the strip, and the offer on a capable device.
     await expect(page.getByRole('status', { name: 'The judges' })).toContainText('○ Device • off')
     await page.getByRole('button', { name: 'Add the on-device judge' }).click()
-    await page.getByRole('dialog', { name: 'Add a judge that runs on this device' }).getByRole('button', { name: 'Download' }).click()
+    await page
+      .getByRole('dialog', { name: 'Add a judge that runs on this device' })
+      .getByRole('button', { name: 'Download' })
+      .click()
     await expect(page.getByRole('dialog', { name: 'On-device judge' })).toBeHidden()
     await expect(page.getByRole('status', { name: 'The judges' })).toContainText('● Device • active')
 
@@ -113,7 +128,10 @@ test.describe('the on-device judge (stubbed worker)', () => {
     const drawer = page.getByRole('dialog', { name: 'Settings' })
     await expect(drawer.getByRole('radio', { name: 'On-device', exact: true })).toBeDisabled()
     await drawer.getByRole('button', { name: 'Turn on' }).click()
-    await page.getByRole('dialog', { name: 'Add a judge that runs on this device' }).getByRole('button', { name: 'Download' }).click()
+    await page
+      .getByRole('dialog', { name: 'Add a judge that runs on this device' })
+      .getByRole('button', { name: 'Download' })
+      .click()
     await expect(drawer.getByText('On • this visit')).toBeVisible()
     await drawer.getByRole('radio', { name: 'On-device', exact: true }).check()
     expect(await page.evaluate(() => localStorage.getItem('quibble:settings:referee'))).toBe('device')

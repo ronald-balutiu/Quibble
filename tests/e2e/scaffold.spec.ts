@@ -44,7 +44,9 @@ test('planned routes match on direct loads and refreshes, with a usable 404 reco
   const main = page.getByRole('main')
   const heading = await main.getByRole('heading', { level: 1 }).boundingBox()
   const frame = await main.boundingBox()
-  const message = await main.getByText("This page doesn't exist. The puzzles are in the library.", { exact: true }).boundingBox()
+  const message = await main
+    .getByText("This page doesn't exist. The puzzles are in the library.", { exact: true })
+    .boundingBox()
   const library = main.getByRole('link', { name: 'Library', exact: true })
   const action = await library.boundingBox()
   expect(heading!.y - frame!.y).toBeGreaterThan(24)
@@ -53,29 +55,39 @@ test('planned routes match on direct loads and refreshes, with a usable 404 reco
   expect(action!.x).toBe(heading!.x)
   expect(action!.width).toBeLessThan(frame!.width * 0.75)
   expect(action!.height).toBeGreaterThanOrEqual(44)
-  expect(await page.evaluate<number>('document.documentElement.scrollWidth')).toBeLessThanOrEqual(page.viewportSize()!.width)
+  expect(await page.evaluate<number>('document.documentElement.scrollWidth')).toBeLessThanOrEqual(
+    page.viewportSize()!.width,
+  )
   await library.focus()
   await page.keyboard.press('Enter')
   await expect(page).toHaveURL('/play')
   await expect(page.getByRole('heading', { name: 'Game Selector', exact: true })).toBeVisible()
-
 })
 
 // 3.11: every page and the on-device judge's worker script carry the policy, and a
 // game loads under it without violations.
 test('pages and the worker script are served with the content security policy', async ({ page, request }) => {
   const violations: string[] = []
-  page.on('console', (message) => { if (message.text().includes('Content Security Policy')) violations.push(message.text()) })
+  page.on('console', (message) => {
+    if (message.text().includes('Content Security Policy')) violations.push(message.text())
+  })
   const response = await page.goto('/play/oddly-specific/1')
   const policy = response?.headers()['content-security-policy'] ?? ''
   // Turnstile, and Cloudflare Web Analytics' beacon (D-69).
-  expect(policy).toContain("script-src 'self' 'wasm-unsafe-eval' https://challenges.cloudflare.com https://static.cloudflareinsights.com;")
-  expect(policy).toContain('connect-src \'self\' https://huggingface.co https://*.hf.co')
+  expect(policy).toContain(
+    "script-src 'self' 'wasm-unsafe-eval' https://challenges.cloudflare.com https://static.cloudflareinsights.com;",
+  )
+  expect(policy).toContain("connect-src 'self' https://huggingface.co https://*.hf.co")
   expect(policy).toContain("frame-ancestors 'none'")
   // The on-device client may live in a deferred dependency. Inspect the scripts
   // actually loaded for gameplay rather than assuming a single application file.
   await expect(page.getByRole('textbox')).toBeVisible()
-  const bundles = await page.evaluate(() => performance.getEntriesByType('resource').map(({ name }) => name).filter((name) => /\/assets\/.*\.js$/u.test(name)))
+  const bundles = await page.evaluate(() =>
+    performance
+      .getEntriesByType('resource')
+      .map(({ name }) => name)
+      .filter((name) => /\/assets\/.*\.js$/u.test(name)),
+  )
   const scripts = await Promise.all(bundles.map(async (url) => (await request.get(url)).text()))
   const workerPath = /worker-[\w-]+\.js/u.exec(scripts.join('\n'))?.[0]
   expect(workerPath).toBeDefined()
@@ -103,7 +115,10 @@ test('crawlers find every puzzle, and each page names itself', async ({ page, re
 
   await page.goto('/play/category-escape/7')
   await expect(page).toHaveTitle('Category Escape #007 · Quibble')
-  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://quibble.ronaldbalutiu.com/play/category-escape/7')
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+    'href',
+    'https://quibble.ronaldbalutiu.com/play/category-escape/7',
+  )
   await expect(page.locator('meta[name="robots"]')).toHaveCount(0)
 
   await page.goto('/no-such-page')
@@ -126,7 +141,9 @@ test('route pages arrive prerendered, and unknown paths are a 404', async ({ req
     expect(response.status(), path).toBe(200)
     const html = await response.text()
     expect(html, path).toContain(`<title>${title}</title>`)
-    expect(html, path).toContain(`<link rel="canonical" href="https://quibble.ronaldbalutiu.com${path === '/' ? '/' : path}" />`)
+    expect(html, path).toContain(
+      `<link rel="canonical" href="https://quibble.ronaldbalutiu.com${path === '/' ? '/' : path}" />`,
+    )
     expect(html.slice(html.indexOf('<div id="root">')), path).toContain(content)
   }
   const missing = await request.get('/no-such-page')
@@ -144,7 +161,12 @@ test('the 404 code reads as 404, and its ring mark turns unless motion is reduce
   const frame = () => page.locator('.ascii-mark').textContent()
   const still = await frame()
   await page.emulateMedia({ reducedMotion: 'no-preference' })
-  await expect.poll(async () => { await page.clock.runFor(100); return frame() }).not.toBe(still)
+  await expect
+    .poll(async () => {
+      await page.clock.runFor(100)
+      return frame()
+    })
+    .not.toBe(still)
 
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await expect.poll(frame).toBe(still)

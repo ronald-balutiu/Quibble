@@ -66,7 +66,13 @@ export function asciiMarkFrame(seconds: number): string[] {
       const phi = (2 * Math.PI * i) / STEPS.around
       for (let j = 0; j < STEPS.tube; j++) {
         const theta = (2 * Math.PI * j) / STEPS.tube
-        const normal = rotate([Math.cos(theta) * Math.cos(phi), Math.cos(theta) * Math.sin(phi), Math.sin(theta)], ux, uy, cos, sin)
+        const normal = rotate(
+          [Math.cos(theta) * Math.cos(phi), Math.cos(theta) * Math.sin(phi), Math.sin(theta)],
+          ux,
+          uy,
+          cos,
+          sin,
+        )
         const local = rotate([RADIUS * Math.cos(phi), RADIUS * Math.sin(phi), 0], ux, uy, cos, sin)
         const z = local[2] + TUBE * normal[2]
         const scale = CAMERA / (CAMERA + z)
@@ -86,7 +92,8 @@ export function asciiMarkFrame(seconds: number): string[] {
   })
 
   // The point where all three rings meet, unless a ring passes in front of it.
-  const point = Math.floor(((POINT.y - VIEW.y) / VIEW.height) * ROWS) * COLS + Math.floor(((POINT.x - VIEW.x) / VIEW.width) * COLS)
+  const point =
+    Math.floor(((POINT.y - VIEW.y) / VIEW.height) * ROWS) * COLS + Math.floor(((POINT.x - VIEW.x) / VIEW.width) * COLS)
   if ((depth[point] ?? Infinity) > 0) owner[point] = RINGS.length
 
   return LAYERS.map((_, layer) => {

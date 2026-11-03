@@ -16,7 +16,9 @@ describe('readAnswers', () => {
     if (!result.ok) return
     expect(Object.keys(result.scores)).toEqual(questionIds)
     for (const id of questionIds) {
-      expect(result.scores[id]).toBe(fixture.response.body.result.answers[id as keyof typeof fixture.response.body.result.answers].noul)
+      expect(result.scores[id]).toBe(
+        fixture.response.body.result.answers[id as keyof typeof fixture.response.body.result.answers].noul,
+      )
     }
     expect(result.inputTokens).toBe(fixture.response.body.result.usage.input_tokens)
   })

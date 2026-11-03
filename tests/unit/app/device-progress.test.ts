@@ -18,7 +18,17 @@ describe('S4 download readout (5.3)', () => {
 
   test('the tick strip marks passed ticks, the one being filled, and the rest', () => {
     expect(TICKS.map((tick) => tickState(tick, 46))).toEqual([
-      'done', 'done', 'done', 'done', 'current', 'todo', 'todo', 'todo', 'todo', 'todo', 'todo',
+      'done',
+      'done',
+      'done',
+      'done',
+      'current',
+      'todo',
+      'todo',
+      'todo',
+      'todo',
+      'todo',
+      'todo',
     ])
     expect(tickState(90, 100)).toBe('done')
     expect(tickState(100, 100)).toBe('current')

@@ -3,10 +3,13 @@
 export function cachedLoader<T>(load: () => Promise<T | undefined>): () => Promise<T | undefined> {
   let request: Promise<T | undefined> | undefined
   return () => {
-    request ??= Promise.resolve().then(load).catch(() => undefined).then((value) => {
-      if (value === undefined) request = undefined
-      return value
-    })
+    request ??= Promise.resolve()
+      .then(load)
+      .catch(() => undefined)
+      .then((value) => {
+        if (value === undefined) request = undefined
+        return value
+      })
     return request
   }
 }

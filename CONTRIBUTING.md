@@ -17,10 +17,12 @@ configuration, and the Git and pull request workflow.
 | `npm run eval -- --judge <names> --note "<what changed>"` | Score judges on the answer-key development set and append the run to `eval/history.json`. Cloud judges spend Workers AI allowance. |
 | `npm run eval:publish` | Rebuild `public/eval/results.json` (the app's answer-key numbers) from `eval/history.json` and `eval/device-measurements.json`. Calls no models. |
 | `npm run ts -- scripts/social-image.ts` | Re-render the share image (`public/og.png`) and favicon from the ring mark. |
-| `npm run lint` | Run ESLint and Stylelint. |
+| `npm run lint` | Check formatting, then run ESLint and Stylelint. |
 | `npm run lint:js` | Run ESLint only. |
 | `npm run lint:css` | Run Stylelint only. |
-| `npm run lint:fix` | Apply available ESLint and Stylelint fixes, then report what remains. |
+| `npm run format` | Format code and CSS with Prettier. |
+| `npm run format:check` | Report files Prettier would change, without writing. |
+| `npm run lint:fix` | Format, apply available ESLint and Stylelint fixes, then report what remains. |
 | `npm test` | Run the Vitest unit tests. |
 | `npm run test:watch` | Run Vitest in watch mode. |
 | `npm run test:coverage` | Run the unit tests with coverage of the logic modules, failing below the thresholds in `vitest.config.ts`. CI runs this. |
@@ -34,7 +36,7 @@ configuration, and the Git and pull request workflow.
 | `npm run check` | Build, then run unit tests, the puzzle checks, asset checks, and the deployment dry run. |
 | `npm run deploy` | Build and deploy to Cloudflare with your authenticated account. |
 
-`npm run build` treats lint warnings as errors. `npm run check` reuses the build's
+`npm run build` treats lint warnings and unformatted files as errors. `npm run check` reuses the build's
 lint and typecheck rather than running them twice.
 
 ## Testing
@@ -110,7 +112,10 @@ Test configuration worth knowing:
 
 ## Code conventions
 
-- Follow the repository ESLint, Stylelint, and EditorConfig configuration.
+- Follow the repository Prettier, ESLint, Stylelint, and EditorConfig configuration.
+  Prettier owns layout (line breaks, wrapping, quotes); run `npm run format` before
+  committing. It formats JavaScript, TypeScript and CSS only; generated data,
+  fixtures and Markdown are left as written (`.prettierignore`).
 - Use PascalCase for React component filenames, and kebab-case for CSS files and
   game IDs.
 - Use `import type` for type-only imports, and the `@/` and `@shared/` aliases when
@@ -249,6 +254,7 @@ through the same required checks, and merging them deploys.
 | `tsconfig.app.json` | Browser environment: `src/`, `shared/`, and app tests. |
 | `tsconfig.worker.json` | Cloudflare environment: `worker/`, `shared/`, and Worker tests. |
 | `tsconfig.node.json` | Node environment: config files, scripts, factory, eval, and Node tests. |
+| `prettier.config.js`, `.prettierignore` | Code and CSS formatting, and the files it leaves alone. |
 | `eslint.config.js` | Type-aware TypeScript, React, accessibility, copy, storage, and import-boundary rules. |
 | `stylelint.config.js` | Design-token enforcement for CSS. |
 | `vitest.config.ts` | Unit test discovery, isolation, and timeouts. |

@@ -11,17 +11,27 @@ export interface CaseResult {
   neurons?: number
 }
 
-interface Interval { value: number, low: number, high: number, n: number }
+interface Interval {
+  value: number
+  low: number
+  high: number
+  n: number
+}
 
 interface Metrics {
-  conditions: { n: number, accuracy: Interval, falseAccepts: number, falseRejects: number, brier: number }
-  guesses: { n: number, accuracy: Interval, falseAcceptRate: Interval, falseRejectRate: Interval }
-  reliability: { bin: number, n: number, meanP: number | null, observed: number | null }[] // null for an empty bin
-  latencyMs: { median: number, p95: number }
+  conditions: { n: number; accuracy: Interval; falseAccepts: number; falseRejects: number; brier: number }
+  guesses: { n: number; accuracy: Interval; falseAcceptRate: Interval; falseRejectRate: Interval }
+  reliability: { bin: number; n: number; meanP: number | null; observed: number | null }[] // null for an empty bin
+  latencyMs: { median: number; p95: number }
   neuronsPerGuess?: number
 }
 
-interface Row { pairs: { p: number, yes: boolean, pass: boolean }[], wholeKnown: boolean, expectedPass: boolean, predictedPass: boolean }
+interface Row {
+  pairs: { p: number; yes: boolean; pass: boolean }[]
+  wholeKnown: boolean
+  expectedPass: boolean
+  predictedPass: boolean
+}
 
 function rows(cases: readonly AnswerKeyCase[], results: ReadonlyMap<string, CaseResult>, threshold: number): Row[] {
   return cases.map((c) => {
@@ -89,7 +99,11 @@ function bootstrap(all: Row[], statistic: (sample: Row[]) => number, n: number, 
   return { value: statistic(all), low: percentile(values, 0.025), high: percentile(values, 0.975), n }
 }
 
-export function computeMetrics(cases: readonly AnswerKeyCase[], results: ReadonlyMap<string, CaseResult>, threshold: number): Metrics {
+export function computeMetrics(
+  cases: readonly AnswerKeyCase[],
+  results: ReadonlyMap<string, CaseResult>,
+  threshold: number,
+): Metrics {
   const all = rows(cases, results, threshold)
   const pairs = all.flatMap((row) => row.pairs)
   const whole = all.filter((row) => row.wholeKnown)
@@ -112,12 +126,19 @@ export function computeMetrics(cases: readonly AnswerKeyCase[], results: Readonl
       accuracy: bootstrap(all, conditionAccuracy, pairs.length),
       falseAccepts: pairs.filter(({ pass, yes }) => !yes && pass).length,
       falseRejects: pairs.filter(({ pass, yes }) => yes && !pass).length,
-      brier: ratio(pairs.reduce((total, { p, yes }) => total + (p - (yes ? 1 : 0)) ** 2, 0), pairs.length),
+      brier: ratio(
+        pairs.reduce((total, { p, yes }) => total + (p - (yes ? 1 : 0)) ** 2, 0),
+        pairs.length,
+      ),
     },
     guesses: {
       n: whole.length,
       accuracy: bootstrap(all, (s) => guessRates(s).accuracy, whole.length),
-      falseAcceptRate: bootstrap(all, (s) => guessRates(s).falseAcceptRate, whole.filter((r) => !r.expectedPass).length),
+      falseAcceptRate: bootstrap(
+        all,
+        (s) => guessRates(s).falseAcceptRate,
+        whole.filter((r) => !r.expectedPass).length,
+      ),
       falseRejectRate: bootstrap(all, (s) => guessRates(s).falseRejectRate, whole.filter((r) => r.expectedPass).length),
     },
     reliability,
@@ -130,11 +151,17 @@ export function computeMetrics(cases: readonly AnswerKeyCase[], results: Readonl
 }
 
 // Cohen's κ between two judges' pass/fail decisions on every condition (agreement, not correctness).
-interface JudgedRun { results: ReadonlyMap<string, CaseResult>, threshold: number }
+interface JudgedRun {
+  results: ReadonlyMap<string, CaseResult>
+  threshold: number
+}
 
 export function cohensKappa(cases: readonly AnswerKeyCase[], a: JudgedRun, b: JudgedRun): number {
-  const decide = (run: JudgedRun, caseId: string, id: string) => passes(run.results.get(caseId)?.scores[id] ?? Number.NaN, run.threshold)
-  const decisions = cases.flatMap((c) => c.conditions.map(({ id }) => [decide(a, c.id, id), decide(b, c.id, id)] as const))
+  const decide = (run: JudgedRun, caseId: string, id: string) =>
+    passes(run.results.get(caseId)?.scores[id] ?? Number.NaN, run.threshold)
+  const decisions = cases.flatMap((c) =>
+    c.conditions.map(({ id }) => [decide(a, c.id, id), decide(b, c.id, id)] as const),
+  )
   const n = decisions.length
   const observed = decisions.filter(([x, y]) => x === y).length / n
   const pa = decisions.filter(([x]) => x).length / n
@@ -145,7 +172,11 @@ export function cohensKappa(cases: readonly AnswerKeyCase[], a: JudgedRun, b: Ju
 
 // Whole-guess accuracy and false-accept rate at candidate thresholds, for tuning
 // each judge's pass threshold on the development set.
-export function thresholdSweep(cases: readonly AnswerKeyCase[], results: ReadonlyMap<string, CaseResult>, thresholds: readonly number[]) {
+export function thresholdSweep(
+  cases: readonly AnswerKeyCase[],
+  results: ReadonlyMap<string, CaseResult>,
+  thresholds: readonly number[],
+) {
   return thresholds.map((threshold) => {
     const all = rows(cases, results, threshold)
     return { threshold, conditionAccuracy: conditionAccuracy(all), ...guessRates(all) }

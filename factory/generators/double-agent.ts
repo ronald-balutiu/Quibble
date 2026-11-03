@@ -3,11 +3,23 @@
 // drawn from the sister terms of the other sense.
 import { readdirSync, readFileSync } from 'node:fs'
 
-interface Synset { definition: string[], hypernym?: string[], members: string[], partOfSpeech: string }
-interface Sense { id: string, synset: string }
+interface Synset {
+  definition: string[]
+  hypernym?: string[]
+  members: string[]
+  partOfSpeech: string
+}
+interface Sense {
+  id: string
+  synset: string
+}
 type Entries = Record<string, Record<string, { sense?: Sense[] }>>
 
-export interface WordNet { synsets: Map<string, Synset & { domain: string }>, senses: Map<string, string[]>, hyponyms: Map<string, string[]> }
+export interface WordNet {
+  synsets: Map<string, Synset & { domain: string }>
+  senses: Map<string, string[]>
+  hyponyms: Map<string, string[]>
+}
 
 export function loadWordNet(dir: string): WordNet {
   const synsets = new Map<string, Synset & { domain: string }>()
@@ -32,7 +44,10 @@ export function loadWordNet(dir: string): WordNet {
   return { synsets, senses, hyponyms }
 }
 
-export interface Candidate { word: string, clues: { synset: string, domain: string, clue: string, decoys: string[] }[] }
+export interface Candidate {
+  word: string
+  clues: { synset: string; domain: string; clue: string; decoys: string[] }[]
+}
 
 const isWord = (word: string) => /^[a-z]{3,10}$/u.test(word)
 
@@ -55,8 +70,12 @@ export function candidate(wordnet: WordNet, word: string, decoyCount = 20): Cand
   if (!isWord(word)) return undefined
   const usable = (wordnet.senses.get(word) ?? []).slice(0, 4).filter((id) => {
     const synset = wordnet.synsets.get(id)
-    return synset && /^(noun|verb)\./u.test(synset.domain) && synset.domain !== 'noun.Tops'
-      && !new RegExp(`\\b${word}`, 'iu').test(synset.definition[0] ?? '')
+    return (
+      synset &&
+      /^(noun|verb)\./u.test(synset.domain) &&
+      synset.domain !== 'noun.Tops' &&
+      !new RegExp(`\\b${word}`, 'iu').test(synset.definition[0] ?? '')
+    )
   })
   const first = usable[0]
   const second = usable.find((id) => wordnet.synsets.get(id)?.domain !== wordnet.synsets.get(first ?? '')?.domain)

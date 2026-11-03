@@ -14,7 +14,16 @@ function setup(status: DeviceStatus = 'off') {
       return loading.promise
     }),
   })
-  return { judge, download: createBackgroundDownload(judge), report: (value: LoadProgress) => { report(value) }, finish: (value: LoadResult) => { loading.resolve(value) } }
+  return {
+    judge,
+    download: createBackgroundDownload(judge),
+    report: (value: LoadProgress) => {
+      report(value)
+    },
+    finish: (value: LoadResult) => {
+      loading.resolve(value)
+    },
+  }
 }
 
 describe('visit-scoped download', () => {

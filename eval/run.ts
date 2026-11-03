@@ -38,11 +38,12 @@ const reviewed = cases.filter((c) => c.reviewed).length
 if (split === 'test') {
   // The test split is run once, on the final setup, after every label is confirmed.
   if (!values.final) throw new Error('The test split runs once on the final setup; pass --final to confirm.')
-  if (reviewed !== cases.length) throw new Error(`Only ${String(reviewed)} of ${String(cases.length)} test cases are reviewed.`)
+  if (reviewed !== cases.length)
+    throw new Error(`Only ${String(reviewed)} of ${String(cases.length)} test cases are reviewed.`)
 }
 const caseSetHash = createHash('sha256').update(raw).digest('hex')
 
-const runs = new Map<JudgeName, { results: Map<string, CaseResult>, threshold: number, run: Omit<EvalRun, 'kappa'> }>()
+const runs = new Map<JudgeName, { results: Map<string, CaseResult>; threshold: number; run: Omit<EvalRun, 'kappa'> }>()
 const sweep = Array.from({ length: 13 }, (_, i) => Number((0.3 + i * 0.05).toFixed(2)))
 for (const name of judges) {
   const judge = await loadJudge(name)
@@ -52,7 +53,9 @@ for (const name of judges) {
       results.set(c.id, await judge.score(c))
     } catch (error) {
       if (error instanceof AllowanceExhausted) {
-        console.error(`${name}: daily allowance used up after ${String(index)} cases; nothing was saved. Rerun after 00:00 UTC.`)
+        console.error(
+          `${name}: daily allowance used up after ${String(index)} cases; nothing was saved. Rerun after 00:00 UTC.`,
+        )
         process.exit(1)
       }
       throw error
@@ -67,29 +70,51 @@ for (const name of judges) {
     results,
     threshold,
     run: {
-      date: new Date().toISOString(), split, judge: name, model: judge.model, precision: judge.precision, backend: judge.backend,
-      n: cases.length, reviewed, caseSetHash, threshold, note: note ?? 'not saved', metrics,
+      date: new Date().toISOString(),
+      split,
+      judge: name,
+      model: judge.model,
+      precision: judge.precision,
+      backend: judge.backend,
+      n: cases.length,
+      reviewed,
+      caseSetHash,
+      threshold,
+      note: note ?? 'not saved',
+      metrics,
     },
   })
 
   const pct = (value: number) => `${(value * 100).toFixed(1)}%`
   const { conditions, guesses } = metrics
-  console.log([
-    `${name} on ${split} (${String(reviewed)}/${String(cases.length)} reviewed), pass threshold ${String(threshold)}`,
-    `  whole guesses: ${pct(guesses.accuracy.value)} [${pct(guesses.accuracy.low)}–${pct(guesses.accuracy.high)}], n=${String(guesses.n)}`,
-    `  false accepts: ${pct(guesses.falseAcceptRate.value)} of failing guesses; false rejects: ${pct(guesses.falseRejectRate.value)} of passing guesses`,
-    `  conditions: ${pct(conditions.accuracy.value)}, n=${String(conditions.n)}; Brier ${conditions.brier.toFixed(3)}`,
-    `  latency median ${metrics.latencyMs.median.toFixed(0)} ms, p95 ${metrics.latencyMs.p95.toFixed(0)} ms`
-      + (metrics.neuronsPerGuess === undefined ? '' : `; ${metrics.neuronsPerGuess.toFixed(2)} Neurons per guess`),
-  ].join('\n'))
+  console.log(
+    [
+      `${name} on ${split} (${String(reviewed)}/${String(cases.length)} reviewed), pass threshold ${String(threshold)}`,
+      `  whole guesses: ${pct(guesses.accuracy.value)} [${pct(guesses.accuracy.low)}–${pct(guesses.accuracy.high)}], n=${String(guesses.n)}`,
+      `  false accepts: ${pct(guesses.falseAcceptRate.value)} of failing guesses; false rejects: ${pct(guesses.falseRejectRate.value)} of passing guesses`,
+      `  conditions: ${pct(conditions.accuracy.value)}, n=${String(conditions.n)}; Brier ${conditions.brier.toFixed(3)}`,
+      `  latency median ${metrics.latencyMs.median.toFixed(0)} ms, p95 ${metrics.latencyMs.p95.toFixed(0)} ms` +
+        (metrics.neuronsPerGuess === undefined ? '' : `; ${metrics.neuronsPerGuess.toFixed(2)} Neurons per guess`),
+    ].join('\n'),
+  )
   if (split === 'dev') {
-    const wrong = cases.flatMap((c) => c.conditions
-      .filter(({ id, expected }) => expected !== 'unsure' && passes(results.get(c.id)?.scores[id] ?? 0, threshold) !== (expected === 'yes'))
-      .map(({ id, expected }) => `    ${c.id} "${c.answer}" ${id}: expected ${expected}, p=${(results.get(c.id)?.scores[id] ?? 0).toFixed(2)}`))
+    const wrong = cases.flatMap((c) =>
+      c.conditions
+        .filter(
+          ({ id, expected }) =>
+            expected !== 'unsure' && passes(results.get(c.id)?.scores[id] ?? 0, threshold) !== (expected === 'yes'),
+        )
+        .map(
+          ({ id, expected }) =>
+            `    ${c.id} "${c.answer}" ${id}: expected ${expected}, p=${(results.get(c.id)?.scores[id] ?? 0).toFixed(2)}`,
+        ),
+    )
     if (wrong.length > 0) console.log(`  misjudged conditions:\n${wrong.join('\n')}`)
     console.log('  threshold sweep (whole-guess accuracy / false accepts / false rejects):')
     for (const row of thresholdSweep(cases, results, sweep)) {
-      console.log(`    ${row.threshold.toFixed(2)}: ${pct(row.accuracy)} / ${pct(row.falseAcceptRate)} / ${pct(row.falseRejectRate)}`)
+      console.log(
+        `    ${row.threshold.toFixed(2)}: ${pct(row.accuracy)} / ${pct(row.falseAcceptRate)} / ${pct(row.falseRejectRate)}`,
+      )
     }
   }
 }
@@ -98,8 +123,20 @@ if (values['no-save']) process.exit(0)
 
 const history = existsSync(historyPath) ? evalHistorySchema.parse(JSON.parse(readFileSync(historyPath, 'utf8'))) : []
 for (const [name, { run }] of runs) {
-  const kappa = Object.fromEntries([...runs].filter(([other]) => other !== name)
-    .map(([other, { results, threshold: otherThreshold }]) => [other, Number(cohensKappa(cases, { results: runs.get(name)?.results ?? new Map(), threshold: runs.get(name)?.threshold ?? 0.5 }, { results, threshold: otherThreshold }).toFixed(4))]))
+  const kappa = Object.fromEntries(
+    [...runs]
+      .filter(([other]) => other !== name)
+      .map(([other, { results, threshold: otherThreshold }]) => [
+        other,
+        Number(
+          cohensKappa(
+            cases,
+            { results: runs.get(name)?.results ?? new Map(), threshold: runs.get(name)?.threshold ?? 0.5 },
+            { results, threshold: otherThreshold },
+          ).toFixed(4),
+        ),
+      ]),
+  )
   history.push(Object.keys(kappa).length > 0 ? { ...run, kappa } : run)
 }
 writeFileSync(historyPath, `${JSON.stringify(evalHistorySchema.parse(history), null, 2)}\n`)

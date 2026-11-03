@@ -19,7 +19,10 @@ function pages(dir: string): string[] {
 }
 
 // index.html is "/", play.html is "/play", play/oddly-specific/1.html is that puzzle.
-const routeOf = (file: string) => `/${relative(ROOT, file).replace(/\.html$/u, '').replace(/^index$/u, '')}`
+const routeOf = (file: string) =>
+  `/${relative(ROOT, file)
+    .replace(/\.html$/u, '')
+    .replace(/^index$/u, '')}`
 
 const vite = await createServer({
   configFile: false,
@@ -30,7 +33,7 @@ const vite = await createServer({
   resolve: { alias: { '@': join(process.cwd(), 'src'), '@shared': join(process.cwd(), 'shared') } },
 })
 try {
-  const { render } = await vite.ssrLoadModule('/src/prerender.tsx') as { render: (path: string) => Promise<string> }
+  const { render } = (await vite.ssrLoadModule('/src/prerender.tsx')) as { render: (path: string) => Promise<string> }
   const files = pages(ROOT)
   for (const file of files) {
     const html = readFileSync(file, 'utf8')

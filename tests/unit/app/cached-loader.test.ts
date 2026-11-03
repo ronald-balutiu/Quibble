@@ -17,7 +17,8 @@ describe('static resources', () => {
   })
 
   test('evicts failed or missing data so a retry can recover', async () => {
-    const load = vi.fn<() => Promise<string | undefined>>()
+    const load = vi
+      .fn<() => Promise<string | undefined>>()
       .mockRejectedValueOnce(new Error('offline'))
       .mockResolvedValueOnce(undefined)
       .mockResolvedValue('ready')
@@ -28,8 +29,14 @@ describe('static resources', () => {
     expect(load).toHaveBeenCalledTimes(3)
   })
 
-  test.each([new Response('', { status: 503 }), new Response('{broken'), Response.json({ game: 'wrong' })])('rejects unavailable or invalid puzzle data', async (response) => {
-    vi.stubGlobal('fetch', vi.fn(() => Promise.resolve(response)))
-    expect(await loadPuzzle('oddly-specific', 1)).toBeUndefined()
-  })
+  test.each([new Response('', { status: 503 }), new Response('{broken'), Response.json({ game: 'wrong' })])(
+    'rejects unavailable or invalid puzzle data',
+    async (response) => {
+      vi.stubGlobal(
+        'fetch',
+        vi.fn(() => Promise.resolve(response)),
+      )
+      expect(await loadPuzzle('oddly-specific', 1)).toBeUndefined()
+    },
+  )
 })

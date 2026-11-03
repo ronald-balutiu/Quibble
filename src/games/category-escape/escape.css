@@ -79,7 +79,6 @@
   color: var(--text);
 }
 
-
 .level--failed .level__rule {
   color: var(--fail);
 }

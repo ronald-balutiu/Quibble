@@ -7,7 +7,19 @@ import type { DeviceColumn } from '@/games/shared/use-device-column'
 import { judgesSplit, letterFor } from '@/games/shared/verdict'
 import type { RunState } from '@/games/shared/run'
 
-export function RoundEnd({ run, puzzle, alsoFits, column, onNext }: { run: RunState, puzzle: Puzzle, alsoFits: CopyKey, column: DeviceColumn, onNext: () => void }) {
+export function RoundEnd({
+  run,
+  puzzle,
+  alsoFits,
+  column,
+  onNext,
+}: {
+  run: RunState
+  puzzle: Puzzle
+  alsoFits: CopyKey
+  column: DeviceColumn
+  onNext: () => void
+}) {
   const round = run.rounds[run.current]
   const conditions = puzzle.rounds[run.current]?.conditions ?? []
   const roundIndex = run.current
@@ -16,7 +28,9 @@ export function RoundEnd({ run, puzzle, alsoFits, column, onNext }: { run: RunSt
   const roundId = puzzle.rounds[roundIndex]?.id ?? ''
 
   const { reveal, reload: loadReveal } = useReveal(puzzle, roundId)
-  useEffect(() => { next.current?.focus() }, [roundId])
+  useEffect(() => {
+    next.current?.focus()
+  }, [roundId])
 
   if (!round) return null
   const solved = round.status === 'solved'
@@ -28,29 +42,63 @@ export function RoundEnd({ run, puzzle, alsoFits, column, onNext }: { run: RunSt
     <section className="round-end" aria-live="polite">
       {solved ? (
         <>
-          <p className="telemetry round-end__label">{round.overruled ? en['verdict.overruled'] : format('verdict.label.accepted', { points: round.points })}</p>
+          <p className="telemetry round-end__label">
+            {round.overruled ? en['verdict.overruled'] : format('verdict.label.accepted', { points: round.points })}
+          </p>
           <h1 className="round-end__answer">{winning?.answer}</h1>
-          <p>{format('verdict.accepted', { n: round.strikes + 1 }) + (split === undefined ? (column.decidedBy === 'device' ? en['verdict.notCompared'] : '') : en[split ? 'verdict.judgesDisagreed' : 'verdict.judgesAgreed'])}</p>
+          <p>
+            {format('verdict.accepted', { n: round.strikes + 1 }) +
+              (split === undefined
+                ? column.decidedBy === 'device'
+                  ? en['verdict.notCompared']
+                  : ''
+                : en[split ? 'verdict.judgesDisagreed' : 'verdict.judgesAgreed'])}
+          </p>
         </>
       ) : (
         <>
-          <p className="telemetry round-end__label round-end__label--lost">{format('round.lost', { n: run.current + 1 })}</p>
+          <p className="telemetry round-end__label round-end__label--lost">
+            {format('round.lost', { n: run.current + 1 })}
+          </p>
           <p>{en['round.example']}</p>
           <h1 className="round-end__answer">{reveal?.example}</h1>
         </>
       )}
       <h2 className="telemetry">{en[alsoFits]}</h2>
-      {reveal === null
-        ? <p>{en['reveal.failed']} <RetryLink onClick={loadReveal} /></p>
-        : <ul className="also">{(reveal ? (solved ? [reveal.example, ...reveal.also] : reveal.also) : []).filter((w) => w !== winning?.answer).map((word) => <li key={word}>{word}</li>)}</ul>}
+      {reveal === null ? (
+        <p>
+          {en['reveal.failed']} <RetryLink onClick={loadReveal} />
+        </p>
+      ) : (
+        <ul className="also">
+          {(reveal ? (solved ? [reveal.example, ...reveal.also] : reveal.also) : [])
+            .filter((w) => w !== winning?.answer)
+            .map((word) => (
+              <li key={word}>{word}</li>
+            ))}
+        </ul>
+      )}
       {!solved && (
         <>
           <h2 className="telemetry">{en['game.yourGuesses']}</h2>
-          {round.status === 'skipped'
-            ? <p>{en['round.skipped']}</p>
-            : <ul className="also">{round.guesses.map((guess) => (
-                <li key={guess.answer}>{guess.answer} <span className="muted">{format('game.missed', { conditions: guess.failed.map((id) => letterFor(conditions.findIndex((c) => c.id === id))).join(', ') })}</span></li>
-              ))}</ul>}
+          {round.status === 'skipped' ? (
+            <p>{en['round.skipped']}</p>
+          ) : (
+            <ul className="also">
+              {round.guesses.map((guess) => (
+                <li key={guess.answer}>
+                  {guess.answer}{' '}
+                  <span className="muted">
+                    {format('game.missed', {
+                      conditions: guess.failed
+                        .map((id) => letterFor(conditions.findIndex((c) => c.id === id)))
+                        .join(', '),
+                    })}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
         </>
       )}
       <div className="actions">

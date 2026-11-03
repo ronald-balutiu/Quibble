@@ -32,12 +32,20 @@ interface RoundVariant {
 }
 const roundGames: Record<'oddly-specific' | 'double-agent', RoundVariant> = {
   'oddly-specific': {
-    config: oddlySpecificConfig, reduce: runReducer(oddlySpecificConfig),
-    tip: 'tip.oddly', label: 'game.answer', tooLong: 'input.tooLong', alsoFits: 'game.alsoFits',
+    config: oddlySpecificConfig,
+    reduce: runReducer(oddlySpecificConfig),
+    tip: 'tip.oddly',
+    label: 'game.answer',
+    tooLong: 'input.tooLong',
+    alsoFits: 'game.alsoFits',
   },
   'double-agent': {
-    config: doubleAgentConfig, reduce: runReducer(doubleAgentConfig),
-    tip: 'tip.agent', label: 'game.word', tooLong: 'input.tooLong.double-agent', alsoFits: 'game.alsoFits.double-agent',
+    config: doubleAgentConfig,
+    reduce: runReducer(doubleAgentConfig),
+    tip: 'tip.agent',
+    label: 'game.word',
+    tooLong: 'input.tooLong.double-agent',
+    alsoFits: 'game.alsoFits.double-agent',
   },
 }
 export function RoundGame({ puzzle }: { puzzle: Puzzle }) {
@@ -45,8 +53,29 @@ export function RoundGame({ puzzle }: { puzzle: Puzzle }) {
   const { game, n } = puzzle
   const config = variant.config
   const agent = game === 'double-agent'
-  const [run, dispatch] = useReducer(variant.reduce, undefined, () => loadProgress(game, n).run ?? startRun(variant.config))
-  const { ui, answer, scores, model, storageOn, best, turnstile, input, column, busy, judge, type, edit, tryAgain, countAnyway, reset } = useGameSession(puzzle, run, dispatch)
+  const [run, dispatch] = useReducer(
+    variant.reduce,
+    undefined,
+    () => loadProgress(game, n).run ?? startRun(variant.config),
+  )
+  const {
+    ui,
+    answer,
+    scores,
+    model,
+    storageOn,
+    best,
+    turnstile,
+    input,
+    column,
+    busy,
+    judge,
+    type,
+    edit,
+    tryAgain,
+    countAnyway,
+    reset,
+  } = useGameSession(puzzle, run, dispatch)
   // The third miss: no try left, so the round ends from the panel, not by typing.
   const lastTry = ui.kind === 'rejected' && onLastTry(config, run)
   const round = run.rounds[run.current]
@@ -61,7 +90,15 @@ export function RoundGame({ puzzle }: { puzzle: Puzzle }) {
 
   if (!round) return null
   const header = (
-    <GameHeader game={game} n={n} status={run.finished ? format('game.points', { points: score }) : format('game.round', { n: run.current + 1, total: run.rounds.length })}>
+    <GameHeader
+      game={game}
+      n={n}
+      status={
+        run.finished
+          ? format('game.points', { points: score })
+          : format('game.round', { n: run.current + 1, total: run.rounds.length })
+      }
+    >
       <StrikeDots used={round.strikes} max={variant.config.maxWrongGuessesPerRound} />
     </GameHeader>
   )
@@ -69,62 +106,100 @@ export function RoundGame({ puzzle }: { puzzle: Puzzle }) {
   const threshold = thresholdFor(column.decidedBy, model)
   return (
     <GameFrame game={game} header={header} column={column} storageOn={storageOn} turnstile={turnstile}>
-      {run.finished
-        ? <Results run={run} puzzle={puzzle} best={best} config={variant.config} />
-        : roundOver
-          ? <RoundEnd run={run} puzzle={puzzle} alsoFits={variant.alsoFits} column={column} onNext={nextRound} />
-          : (
-              <div className="game-body">
-                <section className="game-main" aria-label={en['game.conditions']}>
-                  {run.current === 0 && <GameTip game={game} copy={variant.tip} />}
-                  {agent
-                    ? (
-                        <>
-                          <Clues conditions={conditions} />
-                          <GuessMap className="guess-map--main" guesses={round.guesses} conditions={conditions} />
-                        </>
-                      )
-                    : (
-                        <ol className="conditions">
-                          {conditions.map((condition, i) => (
-                            <li key={condition.id} className={ui.kind === 'rejected' && ui.guess.failed.includes(condition.id) ? 'conditions__item conditions__item--failed' : 'conditions__item'}>
-                              <span className="conditions__letter">{letterFor(i)}</span>
-                              <span className="conditions__label">{condition.label}</span>
-                            </li>
-                          ))}
-                        </ol>
-                      )}
-                  <AnswerForm
-                    label={en[variant.label]} placeholder={en[`game.placeholder.${game}`]} answer={answer} maxLength={config.input.maxCharacters}
-                    judging={busy} locked={lastTry} input={input} onType={type} onSubmit={() => { void judge() }}
-                  />
-                  <p id="answer-note" className="telemetry">
-                    {ui.kind === 'input' && ui.notice ? en[ui.notice === 'input.tooLong' ? variant.tooLong : ui.notice] : format('game.counter', { count: [...answer].length, max: 'maxLetters' in config.input ? config.input.maxLetters : config.input.maxCharacters })}
-                  </p>
-                  <div aria-live="polite">
-                    {ui.kind === 'rejected' && (
-                      <RejectedPanel
-                        sentence={(agent ? agentSentence(ui.guess, conditions) : rejectedSentence(ui.guess, conditions)) + verdictNote(column)}
-                        disabled={busy}
-                        endLabel={lastTry ? en['game.endRound'] : undefined}
-                        onTryAgain={tryAgain}
-                        onCountAnyway={countAnyway}
-                      />
-                    )}
-                    <NotJudgedPanel ui={ui} onRetry={() => { void judge() }} onEdit={edit} onAddDevice={column.canAdd ? column.openSetup : undefined} />
-                  </div>
-                  <button type="button" className="pill pill--quiet game-skip" onClick={() => { dispatch({ type: 'skip' }) }} disabled={busy}>{en['game.skip']}</button>
-                </section>
-                {agent
-                  ? (
-                      <aside className="game-side">
-                        <GuessMap className="guess-map--side" guesses={round.guesses} conditions={conditions} />
-                        <ScoreAxes conditions={conditions} scores={scores} threshold={threshold} model={model} column={column} />
-                      </aside>
-                    )
-                  : <ScoreAxes conditions={conditions} scores={scores} threshold={threshold} model={model} column={column} />}
-              </div>
+      {run.finished ? (
+        <Results run={run} puzzle={puzzle} best={best} config={variant.config} />
+      ) : roundOver ? (
+        <RoundEnd run={run} puzzle={puzzle} alsoFits={variant.alsoFits} column={column} onNext={nextRound} />
+      ) : (
+        <div className="game-body">
+          <section className="game-main" aria-label={en['game.conditions']}>
+            {run.current === 0 && <GameTip game={game} copy={variant.tip} />}
+            {agent ? (
+              <>
+                <Clues conditions={conditions} />
+                <GuessMap className="guess-map--main" guesses={round.guesses} conditions={conditions} />
+              </>
+            ) : (
+              <ol className="conditions">
+                {conditions.map((condition, i) => (
+                  <li
+                    key={condition.id}
+                    className={
+                      ui.kind === 'rejected' && ui.guess.failed.includes(condition.id)
+                        ? 'conditions__item conditions__item--failed'
+                        : 'conditions__item'
+                    }
+                  >
+                    <span className="conditions__letter">{letterFor(i)}</span>
+                    <span className="conditions__label">{condition.label}</span>
+                  </li>
+                ))}
+              </ol>
             )}
+            <AnswerForm
+              label={en[variant.label]}
+              placeholder={en[`game.placeholder.${game}`]}
+              answer={answer}
+              maxLength={config.input.maxCharacters}
+              judging={busy}
+              locked={lastTry}
+              input={input}
+              onType={type}
+              onSubmit={() => {
+                void judge()
+              }}
+            />
+            <p id="answer-note" className="telemetry">
+              {ui.kind === 'input' && ui.notice
+                ? en[ui.notice === 'input.tooLong' ? variant.tooLong : ui.notice]
+                : format('game.counter', {
+                    count: [...answer].length,
+                    max: 'maxLetters' in config.input ? config.input.maxLetters : config.input.maxCharacters,
+                  })}
+            </p>
+            <div aria-live="polite">
+              {ui.kind === 'rejected' && (
+                <RejectedPanel
+                  sentence={
+                    (agent ? agentSentence(ui.guess, conditions) : rejectedSentence(ui.guess, conditions)) +
+                    verdictNote(column)
+                  }
+                  disabled={busy}
+                  endLabel={lastTry ? en['game.endRound'] : undefined}
+                  onTryAgain={tryAgain}
+                  onCountAnyway={countAnyway}
+                />
+              )}
+              <NotJudgedPanel
+                ui={ui}
+                onRetry={() => {
+                  void judge()
+                }}
+                onEdit={edit}
+                onAddDevice={column.canAdd ? column.openSetup : undefined}
+              />
+            </div>
+            <button
+              type="button"
+              className="pill pill--quiet game-skip"
+              onClick={() => {
+                dispatch({ type: 'skip' })
+              }}
+              disabled={busy}
+            >
+              {en['game.skip']}
+            </button>
+          </section>
+          {agent ? (
+            <aside className="game-side">
+              <GuessMap className="guess-map--side" guesses={round.guesses} conditions={conditions} />
+              <ScoreAxes conditions={conditions} scores={scores} threshold={threshold} model={model} column={column} />
+            </aside>
+          ) : (
+            <ScoreAxes conditions={conditions} scores={scores} threshold={threshold} model={model} column={column} />
+          )}
+        </div>
+      )}
     </GameFrame>
   )
 }

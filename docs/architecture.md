@@ -176,7 +176,8 @@ the device setup sheet). `lib/use-storage-revision.ts` gives a storage signal's
 revision to memoized views. `useClientValue` in `lib/use-hydrated.ts` returns a
 server value while hydrating and the page's own value afterwards.
 `components/ConfirmButton/` is the press-again control for every reset and delete.
-`app/paths.ts` builds route paths for links and for the build plugins.
+`lib/paths.ts` builds every route path for links, navigation and the build plugins,
+so game code can use it too.
 
 `lib/storage/signal.ts` exposes a stable revision to `useSyncExternalStore`, with
 one matching storage-event listener while subscribed. Progress and comparison

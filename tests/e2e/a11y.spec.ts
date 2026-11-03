@@ -1,6 +1,15 @@
 import { expect, test, type Page } from '@playwright/test'
 import { expectAccessible } from './accessibility'
-import { allConditions, mockJudge, mockReveal, seedStorage, shippedPuzzle, stubDeviceJudge, submitGuess, tipsSeen } from './support'
+import {
+  allConditions,
+  mockJudge,
+  mockReveal,
+  seedStorage,
+  shippedPuzzle,
+  stubDeviceJudge,
+  submitGuess,
+  tipsSeen,
+} from './support'
 import { gameConfigs, type GameId } from '../../shared/games'
 import { escapeReducer, startEscape } from '../../src/games/category-escape/reducer'
 import { runReducer, startRun } from '../../src/games/rounds/reducer'
@@ -12,7 +21,8 @@ import type { Guess } from '../../src/games/shared/run'
 async function mockApi(page: Page, reply: 'pass' | 'fail' | 'unavailable' | 'resting' = 'fail') {
   await mockJudge(page, (request) => {
     if (reply === 'unavailable') return { status: 502, json: { attempt: request.attempt, error: 'unavailable' } }
-    if (reply === 'resting') return { status: 503, json: { attempt: request.attempt, error: 'resting', resetAt: '2099-01-01T00:00:00.000Z' } }
+    if (reply === 'resting')
+      return { status: 503, json: { attempt: request.attempt, error: 'resting', resetAt: '2099-01-01T00:00:00.000Z' } }
     return allConditions(shippedPuzzle(request.game), request, reply === 'pass')
   })
   await mockReveal(page)
@@ -20,7 +30,12 @@ async function mockApi(page: Page, reply: 'pass' | 'fail' | 'unavailable' | 'res
 
 // A finished run, so a results screen loads directly.
 function finished(game: GameId) {
-  const guesses: Guess[] = ['apple', 'fork', 'spoon', 'mug', 'plate', 'bowl'].map((answer) => ({ answer, pass: true, failed: [], closeCall: false }))
+  const guesses: Guess[] = ['apple', 'fork', 'spoon', 'mug', 'plate', 'bowl'].map((answer) => ({
+    answer,
+    pass: true,
+    failed: [],
+    closeCall: false,
+  }))
   if (game === 'category-escape') {
     const config = gameConfigs[game]
     const reduce = escapeReducer(config)
@@ -76,7 +91,9 @@ test.describe('axe-core on every screen (0.2)', () => {
     await expectAccessible(page, 'P2')
   })
 
-  test('Oddly Specific: round start, rejected, solved, not judged and results (G1, G3, G4, G7, G6)', async ({ page }) => {
+  test('Oddly Specific: round start, rejected, solved, not judged and results (G1, G3, G4, G7, G6)', async ({
+    page,
+  }) => {
     await seed(page, {})
     await mockApi(page, 'fail')
     await page.goto('/play/oddly-specific/1')
@@ -106,7 +123,11 @@ test.describe('axe-core on every screen (0.2)', () => {
       'quibble:progress:double-agent:1': finished('double-agent'),
     })
     await mockApi(page, 'resting')
-    for (const [game, screen] of [['oddly-specific', 'G6'], ['category-escape', 'E2'], ['double-agent', 'D2']] as const) {
+    for (const [game, screen] of [
+      ['oddly-specific', 'G6'],
+      ['category-escape', 'E2'],
+      ['double-agent', 'D2'],
+    ] as const) {
       await page.goto(`/play/${game}/1`)
       await expect(page.getByRole('button', { name: 'Copy result' })).toBeVisible()
       await expectAccessible(page, screen)

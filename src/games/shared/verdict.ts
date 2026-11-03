@@ -23,25 +23,43 @@ export function judgesSplit(run: DeviceRun | undefined): boolean | undefined {
   return run.agreed < run.compared
 }
 
-export function toGuess(answer: string, result: JudgeSuccess, conditions: readonly PuzzleCondition[], model: CloudModel): Guess {
-  return decide(answer, conditions.map(({ id }) => ({ id, ...result.conditions[id] })), judgeConfig.passThreshold[model])
+export function toGuess(
+  answer: string,
+  result: JudgeSuccess,
+  conditions: readonly PuzzleCondition[],
+  model: CloudModel,
+): Guess {
+  return decide(
+    answer,
+    conditions.map(({ id }) => ({ id, ...result.conditions[id] })),
+    judgeConfig.passThreshold[model],
+  )
 }
 
 // When the cloud is out of usage, the on-device judge decides with its own threshold (3.7, S1).
-export function toDeviceGuess(answer: string, scores: Record<string, number>, conditions: readonly PuzzleCondition[]): Guess {
+export function toDeviceGuess(
+  answer: string,
+  scores: Record<string, number>,
+  conditions: readonly PuzzleCondition[],
+): Guess {
   const threshold = judgeConfig.passThreshold.device
-  return decide(answer, conditions.map(({ id }) => {
-    const p = scores[id] ?? 0
-    return { id, p, pass: passes(p, threshold) }
-  }), threshold)
+  return decide(
+    answer,
+    conditions.map(({ id }) => {
+      const p = scores[id] ?? 0
+      return { id, p, pass: passes(p, threshold) }
+    }),
+    threshold,
+  )
 }
 
-function decide(answer: string, scores: { id: string, p?: number, pass?: boolean }[], threshold: number): Guess {
+function decide(answer: string, scores: { id: string; p?: number; pass?: boolean }[], threshold: number): Guess {
   const failed = scores.filter(({ pass }) => pass === false).map(({ id }) => id)
   // The deciding score: the lowest for a pass, or the failing score nearest the threshold.
-  const deciding = failed.length === 0
-    ? Math.min(...scores.map(({ p }) => p ?? 1))
-    : Math.max(...scores.filter(({ id }) => failed.includes(id)).map(({ p }) => p ?? 0))
+  const deciding =
+    failed.length === 0
+      ? Math.min(...scores.map(({ p }) => p ?? 1))
+      : Math.max(...scores.filter(({ id }) => failed.includes(id)).map(({ p }) => p ?? 0))
   return {
     answer,
     pass: failed.length === 0 && scores.every(({ pass, p }) => pass ?? (p !== undefined && passes(p, threshold))),
@@ -53,21 +71,23 @@ function decide(answer: string, scores: { id: string, p?: number, pass?: boolean
 // `mark` names a condition in the multi-failure sentence: a letter, or a Category Escape level code.
 export function rejectedSentence(guess: Guess, conditions: readonly PuzzleCondition[], mark = letterFor): string {
   const failed = conditions.filter(({ id }) => guess.failed.includes(id))
-  const sentence = failed.length === 1 && failed[0]
-    ? format('verdict.rejected', { negation: failed[0].negation })
-    : format('verdict.rejected.multi', {
-        conditions: failed.map((condition) => mark(conditions.indexOf(condition))).join(' and '),
-      })
+  const sentence =
+    failed.length === 1 && failed[0]
+      ? format('verdict.rejected', { negation: failed[0].negation })
+      : format('verdict.rejected.multi', {
+          conditions: failed.map((condition) => mark(conditions.indexOf(condition))).join(' and '),
+        })
   return guess.closeCall ? sentence + format('verdict.closeCall') : sentence
 }
 
 // What the rejected sentence adds about the judges (5.7): a device verdict without
 // the cloud's isn't compared (S1); otherwise whether they split.
-export function verdictNote(column: { decidedBy?: Referee | undefined, run?: DeviceRun | undefined }): string {
+export function verdictNote(column: { decidedBy?: Referee | undefined; run?: DeviceRun | undefined }): string {
   const split = judgesSplit(column.run)
   if (column.decidedBy === 'device' && split === undefined) return en['verdict.notCompared']
   return split ? en['verdict.judgesDisagree'] : ''
 }
 
 // When the resting cloud judge is back, in the player's own time format (5.7).
-export const restTime = (resetAt: string) => new Date(resetAt).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })
+export const restTime = (resetAt: string) =>
+  new Date(resetAt).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })

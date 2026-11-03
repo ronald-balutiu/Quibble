@@ -12,7 +12,13 @@ import { seeded, shuffled } from './generators/rounds'
 import { budgetedRunner, writeJson } from './matrix'
 import { AllowanceExhausted, freeModels } from './workers-ai'
 
-const { values } = parseArgs({ options: { sample: { type: 'string', default: '40' }, rewrite: { type: 'boolean', default: false }, 'max-neurons': { type: 'string', default: '700' } } })
+const { values } = parseArgs({
+  options: {
+    sample: { type: 'string', default: '40' },
+    rewrite: { type: 'boolean', default: false },
+    'max-neurons': { type: 'string', default: '700' },
+  },
+})
 const MIN_SENSES = 5 // rough stand-in for "common": WordNet has no frequency data
 const YES = 0.8
 const MAX_DECOYS = 3
@@ -27,17 +33,23 @@ const budget = budgetedRunner(Number(values['max-neurons']))
 
 // One plain clue from a dictionary definition, never containing the word itself.
 async function rewrite(word: string, definition: string): Promise<string | undefined> {
-  const result = await budget.ai.run(freeModels['gemma-4'], {
-    messages: [{ role: 'user', content: `Rewrite this dictionary definition of one sense of the word "${word}" as a short, plain clue of at most 10 words, the way a crossword would phrase it. Do not use the word "${word}" or any form of it. Reply with the clue only.\n\nDefinition: ${definition}` }],
+  const result = (await budget.ai.run(freeModels['gemma-4'], {
+    messages: [
+      {
+        role: 'user',
+        content: `Rewrite this dictionary definition of one sense of the word "${word}" as a short, plain clue of at most 10 words, the way a crossword would phrase it. Do not use the word "${word}" or any form of it. Reply with the clue only.\n\nDefinition: ${definition}`,
+      },
+    ],
     chat_template_kwargs: { enable_thinking: false },
     temperature: 0,
     max_completion_tokens: 40,
-  }) as { choices?: { message?: { content?: string } }[] }
+  })) as { choices?: { message?: { content?: string } }[] }
   const clue = result.choices?.[0]?.message?.content?.trim().replace(/^["']|["'.]$/gu, '')
   return clue && !new RegExp(word.slice(0, Math.max(4, word.length - 2)), 'iu').test(clue) ? clue : undefined
 }
 
-const question = (word: string, clue: string) => `Can the word "${word}" ordinarily mean: ${clue}? Judge the word's everyday meanings.`
+const question = (word: string, clue: string) =>
+  `Can the word "${word}" ordinarily mean: ${clue}? Judge the word's everyday meanings.`
 
 const results = []
 try {
@@ -45,12 +57,18 @@ try {
     if (budget.exhausted) break
     const clues = []
     for (const { clue: definition, domain, decoys } of c.clues) {
-      const clue = values.rewrite ? await rewrite(c.word, definition) ?? definition : definition
+      const clue = values.rewrite ? ((await rewrite(c.word, definition)) ?? definition) : definition
       const words = [c.word, ...decoys]
-      const questions = Object.fromEntries(words.map((word, i) => [`w${String(i)}`, { type: 'noul', instructions: question(word, clue) }]))
+      const questions = Object.fromEntries(
+        words.map((word, i) => [`w${String(i)}`, { type: 'noul', instructions: question(word, clue) }]),
+      )
       let response: unknown
       try {
-        response = await budget.ai.run(freeModels['clef-flash'], { model: 'clef-flash', state: { game: 'word game', clue }, questions })
+        response = await budget.ai.run(freeModels['clef-flash'], {
+          model: 'clef-flash',
+          state: { game: 'word game', clue },
+          questions,
+        })
       } catch (error) {
         if (isDailyAllowance(error)) throw new AllowanceExhausted('The daily Workers AI allowance is used up.')
         throw error
@@ -59,24 +77,43 @@ try {
       if (!read.ok) throw new Error(`Unreadable clue check for "${c.word}".`)
       const target = read.scores.w0 ?? 0
       const passingDecoys = decoys.filter((_, i) => (read.scores[`w${String(i + 1)}`] ?? 0) >= YES)
-      clues.push({ domain, definition, clue, target, passingDecoys, decoyCount: decoys.length, ok: target >= YES && passingDecoys.length <= MAX_DECOYS })
+      clues.push({
+        domain,
+        definition,
+        clue,
+        target,
+        passingDecoys,
+        decoyCount: decoys.length,
+        ok: target >= YES && passingDecoys.length <= MAX_DECOYS,
+      })
     }
     results.push({ word: c.word, ok: clues.every((clue) => clue.ok), clues })
   }
 } finally {
-  budget.record(values.rewrite ? 'double-agent-rewrite-and-clues' : 'double-agent-clues', values.rewrite ? 'gemma-4+clef-flash' : 'clef-flash')
+  budget.record(
+    values.rewrite ? 'double-agent-rewrite-and-clues' : 'double-agent-clues',
+    values.rewrite ? 'gemma-4+clef-flash' : 'clef-flash',
+  )
 }
 
 const checked = results.length
 const valid = results.filter((r) => r.ok).length
 const clueFailures = {
   targetFailed: results.flatMap((r) => r.clues).filter((clue) => clue.target < YES).length,
-  tooVague: results.flatMap((r) => r.clues).filter((clue) => clue.target >= YES && clue.passingDecoys.length > MAX_DECOYS).length,
+  tooVague: results
+    .flatMap((r) => r.clues)
+    .filter((clue) => clue.target >= YES && clue.passingDecoys.length > MAX_DECOYS).length,
 }
 const summary = {
   rewritten: values.rewrite,
-  pool: pool.length, minSenses: MIN_SENSES, checked, valid, yield: checked === 0 ? 0 : valid / checked,
-  projectedWords: Math.round(pool.length * (checked === 0 ? 0 : valid / checked)), clueFailures, results,
+  pool: pool.length,
+  minSenses: MIN_SENSES,
+  checked,
+  valid,
+  yield: checked === 0 ? 0 : valid / checked,
+  projectedWords: Math.round(pool.length * (checked === 0 ? 0 : valid / checked)),
+  clueFailures,
+  results,
 }
 writeJson(`factory/reports/prototype-double-agent${values.rewrite ? '-rewritten' : ''}.json`, summary)
 console.log(JSON.stringify({ ...summary, results: undefined }, null, 1))

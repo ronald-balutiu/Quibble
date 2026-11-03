@@ -15,10 +15,26 @@ test.each([
   ['direct storage', 'export const store = localStorage', 'no-restricted-globals'],
   ['window storage', 'export const store = window.localStorage', 'no-restricted-globals'],
   ['global storage', "export const store = globalThis['localStorage']", 'no-restricted-globals'],
-  ['inline styles', "export function Example() { return <div style={{ color: '#fff', padding: 12 }} /> }", 'react/forbid-dom-props'],
-  ['style variables', 'export function Example({ styles }: { styles: import("react").CSSProperties }) { return <div style={styles} /> }', 'react/forbid-dom-props'],
-  ['unapproved custom-property inline styles', 'export function Example({ progress }: { progress: number }) { return <div style={{ "--download-progress": progress } as import("react").CSSProperties} /> }', 'react/forbid-dom-props'],
-  ['component inline styles', 'import { Link } from "react-router"; export function Example() { return <Link to="/" style={{ color: "#fff" }} /> }', 'react/forbid-component-props'],
+  [
+    'inline styles',
+    "export function Example() { return <div style={{ color: '#fff', padding: 12 }} /> }",
+    'react/forbid-dom-props',
+  ],
+  [
+    'style variables',
+    'export function Example({ styles }: { styles: import("react").CSSProperties }) { return <div style={styles} /> }',
+    'react/forbid-dom-props',
+  ],
+  [
+    'unapproved custom-property inline styles',
+    'export function Example({ progress }: { progress: number }) { return <div style={{ "--download-progress": progress } as import("react").CSSProperties} /> }',
+    'react/forbid-dom-props',
+  ],
+  [
+    'component inline styles',
+    'import { Link } from "react-router"; export function Example() { return <Link to="/" style={{ color: "#fff" }} /> }',
+    'react/forbid-component-props',
+  ],
 ])('lint rejects %s', async (_name, source, ruleId) => {
   const [result] = await eslint.lintText(source, { filePath: 'src/app/App.tsx' })
 

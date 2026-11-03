@@ -1,5 +1,14 @@
 import { expect, test, type Page } from '@playwright/test'
-import { conditionsOf, mockJudge, mockReveal, shippedPuzzle, tabToButton, typeGuess, type JudgeReply, type JudgeRequest } from './support'
+import {
+  conditionsOf,
+  mockJudge,
+  mockReveal,
+  shippedPuzzle,
+  tabToButton,
+  typeGuess,
+  type JudgeReply,
+  type JudgeRequest,
+} from './support'
 
 // Plays the shipped Oddly Specific puzzle #1 against a mocked API, so no model
 // calls or Turnstile tokens are needed. Answers starting with "good" pass every
@@ -8,9 +17,19 @@ import { conditionsOf, mockJudge, mockReveal, shippedPuzzle, tabToButton, typeGu
 const puzzle = shippedPuzzle('oddly-specific')
 
 async function mockApi(page: Page, override?: (request: JudgeRequest) => JudgeReply) {
-  await mockJudge(page, (request) => override?.(request) ?? {
-    passes: Object.fromEntries(conditionsOf(puzzle, request.roundId).map((id, i) => [id, request.answer.toLowerCase().startsWith('good') || i > 1])),
-  }, { delayMs: 300 })
+  await mockJudge(
+    page,
+    (request) =>
+      override?.(request) ?? {
+        passes: Object.fromEntries(
+          conditionsOf(puzzle, request.roundId).map((id, i) => [
+            id,
+            request.answer.toLowerCase().startsWith('good') || i > 1,
+          ]),
+        ),
+      },
+    { delayMs: 300 },
+  )
   await mockReveal(page)
 }
 
@@ -78,7 +97,9 @@ test('a whole Oddly Specific puzzle can be played with the keyboard alone', asyn
   await rounds.nth(1).locator('.run-review__history > summary').click()
   await expect(rounds.nth(1).getByRole('row', { name: /bad one/u })).toBeVisible()
   await expect(rounds.nth(1)).toContainText('good two')
-  await expect(rounds.nth(1).getByRole('rowheader', { name: 'bad one · Rejected by the judge', exact: true })).toBeVisible()
+  await expect(
+    rounds.nth(1).getByRole('rowheader', { name: 'bad one · Rejected by the judge', exact: true }),
+  ).toBeVisible()
   await expect(rounds.nth(1).getByRole('rowheader', { name: 'good two · Accepted', exact: true })).toBeVisible()
   await expect(rounds.nth(1)).toContainText('sock')
   await rounds.nth(2).locator(':scope > summary').click()
@@ -91,7 +112,9 @@ test('a whole Oddly Specific puzzle can be played with the keyboard alone', asyn
 
 test.describe('a guess the cloud judge could not decide (G7, S2)', () => {
   test.beforeEach(async ({ page }) => {
-    await page.addInitScript(() => { localStorage.setItem('quibble:settings:tipsSeen', 'oddly-specific') })
+    await page.addInitScript(() => {
+      localStorage.setItem('quibble:settings:tipsSeen', 'oddly-specific')
+    })
   })
 
   test('shows unreachable with Retry and no strike', async ({ page }) => {
@@ -113,7 +136,10 @@ test.describe('a guess the cloud judge could not decide (G7, S2)', () => {
   })
 
   test('shows resting with the reset time when the daily allowance is used up', async ({ page }) => {
-    await mockApi(page, ({ attempt }) => ({ status: 503, json: { attempt, error: 'resting', resetAt: '2026-10-30T00:00:00.000Z' } }))
+    await mockApi(page, ({ attempt }) => ({
+      status: 503,
+      json: { attempt, error: 'resting', resetAt: '2026-10-30T00:00:00.000Z' },
+    }))
     await page.goto('/play/oddly-specific/1')
     await typeGuess(page, 'anything')
     await expect(page.getByText(/^The cloud judge is resting until /u)).toBeVisible()

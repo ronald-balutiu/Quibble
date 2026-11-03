@@ -205,11 +205,14 @@
   justify-content: space-between;
 }
 
+/* The marks below are full-width layers, translated along, so they reach past the
+   track; clipping the row keeps that overflow from scrolling the page sideways. */
 .axis {
   display: flex;
   gap: var(--space-3);
   align-items: center;
   min-height: var(--target-min);
+  overflow-x: clip;
   font-family: var(--font-mono);
   font-size: var(--type-label-large);
   color: var(--muted);

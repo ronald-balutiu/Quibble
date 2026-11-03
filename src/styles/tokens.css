@@ -34,6 +34,7 @@
   --type-score-suffix: 32px;
   --type-answer: 56px;
   --type-condition: 28px;
+  --type-clue: 22px; /* Double Agent's meanings: whole definitions, so smaller than a condition */
   --type-category: 28px;
   --type-panel: 22px;
   --type-review-answer: 32px;
@@ -68,12 +69,14 @@
   --leading-score: 0.9;
   --leading-heading: 1.1;
   --leading-condition: 1.1;
+  --leading-clue: 1.2;
   --leading-body: 1.6;
   --leading-tile: 1; /* a Library tile's rows stay inside its square on narrow desktops */
   --tracking-home: -0.05em;
   --tracking-score: -0.07em;
   --tracking-answer: -0.055em;
   --tracking-condition: -0.03em;
+  --tracking-clue: -0.02em;
   --tracking-panel: -0.03em;
   --tracking-label: 0.08em;
   --tracking-label-tight: 0.06em;
@@ -156,6 +159,7 @@
     --type-score-suffix: 56px;
     --type-answer: 96px;
     --type-condition: 48px;
+    --type-clue: 34px;
     --type-category: 56px;
     --type-panel: 36px;
     --type-panel-large: 48px;

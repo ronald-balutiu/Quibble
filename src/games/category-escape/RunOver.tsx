@@ -3,11 +3,13 @@ import type { Puzzle } from '@shared/schemas/puzzle'
 import { categoryEscapeConfig as config } from '@shared/games/category-escape'
 import { JudgesCompare } from '@/components/JudgesCompare/JudgesCompare'
 import { en, format } from '@/copy/en'
-import type { RunState } from '@/games/rounds/reducer'
-import { ResultSummary } from '@/scenes/game/ResultSummary'
-import { ResultActions } from '@/scenes/game/ResultActions'
-import { RunReview } from '@/scenes/game/RunReview'
-import { useReveal } from '@/scenes/game/use-reveal'
+import type { RunState } from '@/games/shared/run'
+import { ResultSummary } from '@/games/shared/ResultSummary'
+import { ResultActions } from '@/games/shared/ResultActions'
+import { RetryLink } from '@/games/shared/GameFrame'
+import { RunReview } from '@/games/shared/RunReview'
+import { bestNote, shareText } from '@/games/shared/results'
+import { useReveal } from '@/games/shared/use-reveal'
 import { levelCode, ruleText } from './labels'
 import { escapeEnd, escapeShareGrid, levelsCleared } from './reducer'
 
@@ -17,14 +19,12 @@ export function RunOver({ run, puzzle, best, onRestart }: { run: RunState, puzzl
   const score = levelsCleared(run)
   const grid = escapeShareGrid(run)
 
-  const bestLabel = best === undefined ? en['results.firstPlay'] : score > best ? format('results.newBest', { n: best }) : format('results.best', { n: best })
-  const share = `${format('results.share', { game: en[`game.name.${puzzle.game}`], n: puzzle.n, tiles: grid.tiles, score, max: config.levels })}\n${grid.text}`
   const wrong = run.rounds.flatMap((level, i) => level.guesses.filter((guess) => !guess.pass && !(level.overruled && guess === level.guesses.at(-1))).map((guess) => ({ guess, i })))
 
   return (
     <section className="results">
-      <ResultSummary score={<>{score}<span className="escape-over__max">{format('escape.outOf', { max: config.levels })}</span></>} best={bestLabel} end={en[`escape.end.${end}`]} tiles={grid.tiles} grid={grid.text}>
-        <ResultActions puzzle={puzzle} share={share} restart={{ label: en['escape.tryAgain'], onClick: onRestart }} focusPrimary />
+      <ResultSummary score={<>{score}<span className="escape-over__max">{format('escape.outOf', { max: config.levels })}</span></>} best={bestNote(score, best)} end={en[`escape.end.${end}`]} tiles={grid.tiles} grid={grid.text}>
+        <ResultActions puzzle={puzzle} share={shareText(puzzle.game, puzzle.n, grid, score, config.levels)} restart={{ label: en['escape.tryAgain'], onClick: onRestart }} focusPrimary />
       </ResultSummary>
       <RunReview puzzle={puzzle} run={run} />
       <details className="result-details" onToggle={(event) => { if (event.currentTarget.open) setPathOpened(true) }}>
@@ -70,7 +70,7 @@ function EscapePath({ puzzle, run }: { puzzle: Puzzle, run: RunState }) {
           })}
         </tbody>
       </table>
-      {path === null && <p>{en['reveal.failed']} <button type="button" className="link-button" onClick={loadPath}>{en['action.retry']}</button></p>}
+      {path === null && <p>{en['reveal.failed']} <RetryLink onClick={loadPath} /></p>}
     </div>
   )
 }

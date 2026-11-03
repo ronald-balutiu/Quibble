@@ -1,6 +1,6 @@
-import { gameIds, type GameId } from '@shared/games'
+import { isGameId } from '@shared/games'
 import type { Reveal } from '@shared/schemas/judge'
-import { json } from './env'
+import { json } from './http'
 import { findPath, findRound, type Library } from './library'
 
 // GET /api/reveal/:game/:n/:roundId (plan 3.4): the example plus up to two more
@@ -11,8 +11,8 @@ const route = /^\/api\/reveal\/([a-z-]+)\/(\d+)\/([A-Za-z]\d+)$/u
 
 export function handleReveal(pathname: string, library: Library): Response {
   const [, game, n, roundId] = route.exec(pathname) ?? []
-  if (!game || !n || !roundId || !gameIds.includes(game as GameId)) return json({ error: 'unknown' }, 404)
-  const round = findRound(library, game as GameId, Number(n), roundId)
+  if (!isGameId(game) || !n || !roundId) return json({ error: 'unknown' }, 404)
+  const round = findRound(library, game, Number(n), roundId)
   if (!round) return json({ error: 'unknown' }, 404)
 
   const reveal: Reveal = { example: round.example, also: round.known.filter((answer) => answer !== round.example).slice(0, 2) }

@@ -1,21 +1,22 @@
 import { useReducer } from 'react'
-import { judgeConfig } from '@shared/config'
 import { doubleAgentConfig } from '@shared/games/double-agent'
 import { oddlySpecificConfig } from '@shared/games/oddly-specific'
 import type { Puzzle } from '@shared/schemas/puzzle'
-import { DeviceSetup } from '@/components/DeviceSetup/DeviceSetup'
 import { en, format, type CopyKey } from '@/copy/en'
-import { Clues, GuessMap } from '@/games/double-agent/Screen'
+import { Clues } from '@/games/double-agent/Clues'
+import { GuessMap } from '@/games/double-agent/GuessMap'
 import { agentSentence } from '@/games/double-agent/verdict'
 import { loadProgress } from '@/lib/storage/progress'
-import { GameTip } from '@/scenes/game/GameTip'
-import { AnswerForm } from '@/scenes/game/AnswerForm'
-import { GameHeader, StrikeDots } from '@/scenes/game/GameHeader'
-import { CloudStrip, ScoreAxes } from '@/scenes/game/JudgesPanel'
-import { NotJudgedPanel, RejectedPanel } from '@/scenes/game/VerdictPanels'
-import { useGameSession } from '@/scenes/game/use-game-session'
-import { letterFor, rejectedSentence, verdictNote } from '@/scenes/game/verdict'
-import { onLastTry, runReducer, startRun, totalScore } from './reducer'
+import { GameTip } from '@/games/shared/GameTip'
+import { AnswerForm } from '@/games/shared/AnswerForm'
+import { GameHeader, StrikeDots } from '@/games/shared/GameHeader'
+import { GameFrame } from '@/games/shared/GameFrame'
+import { ScoreAxes } from '@/games/shared/JudgesPanel'
+import { NotJudgedPanel, RejectedPanel } from '@/games/shared/VerdictPanels'
+import { useGameSession } from '@/games/shared/use-game-session'
+import { letterFor, rejectedSentence, thresholdFor, verdictNote } from '@/games/shared/verdict'
+import { totalScore } from '@/games/shared/run'
+import { onLastTry, runReducer, startRun } from './reducer'
 import { RoundEnd } from './RoundEnd'
 import { Results } from './Results'
 
@@ -65,15 +66,9 @@ export function RoundGame({ puzzle }: { puzzle: Puzzle }) {
     </GameHeader>
   )
 
-  // When the device decided (S1), its own threshold is the one on the axes.
-  const threshold = column.decidedBy === 'device' ? judgeConfig.passThreshold.device : judgeConfig.passThreshold[model]
+  const threshold = thresholdFor(column.decidedBy, model)
   return (
-    <main data-scene="game" className="app-frame game-frame" data-game={game}>
-      {header}
-      {column.setupOpen && <DeviceSetup onClose={column.closeSetup} />}
-      <CloudStrip column={column} />
-      {!storageOn && <p className="strip" role="status">{en['storage.off']}</p>}
-      <div ref={turnstile} className="turnstile" />
+    <GameFrame game={game} header={header} column={column} storageOn={storageOn} turnstile={turnstile}>
       {run.finished
         ? <Results run={run} puzzle={puzzle} best={best} config={variant.config} />
         : roundOver
@@ -130,6 +125,6 @@ export function RoundGame({ puzzle }: { puzzle: Puzzle }) {
                   : <ScoreAxes conditions={conditions} scores={scores} threshold={threshold} model={model} column={column} />}
               </div>
             )}
-    </main>
+    </GameFrame>
   )
 }

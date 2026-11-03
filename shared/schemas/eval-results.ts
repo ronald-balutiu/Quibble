@@ -1,10 +1,10 @@
+import { intervalSchema } from './eval-history'
 import { z } from './zod'
 
 // public/eval/results.json (plan 3.10): the answer-key numbers the app shows in
 // "How the judges compare" and on /about, built by eval/publish.ts from
 // eval/history.json and eval/device-measurements.json. Rates are 0–1.
 
-const interval = z.strictObject({ value: z.number(), low: z.number(), high: z.number(), n: z.int().min(0) })
 export const resultsJudges = ['clef-flash', 'gemma-4', 'device'] as const
 export type ResultsJudge = (typeof resultsJudges)[number]
 
@@ -12,10 +12,10 @@ const judgeResult = z.strictObject({
   model: z.string(),
   backend: z.string(),
   threshold: z.number(),
-  perCondition: interval,
-  wholeGuess: interval,
-  falseAcceptRate: interval,
-  falseRejectRate: interval,
+  perCondition: intervalSchema,
+  wholeGuess: intervalSchema,
+  falseAcceptRate: intervalSchema,
+  falseRejectRate: intervalSchema,
   brier: z.number(),
   medianMs: z.number(),
   neuronsPerGuess: z.number().optional(),

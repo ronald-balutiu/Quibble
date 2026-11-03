@@ -1,7 +1,6 @@
 import { afterEach, describe, expect, test, vi } from 'vitest'
 import type { Env } from '../../../worker/env'
 import type { AiRunner } from '../../../worker/judge'
-import { nextUtcMidnight } from '../../../worker/judge-route'
 import type { Library } from '../../../worker/library'
 import { route } from '../../../worker/index'
 import { readSession, signSession } from '../../../worker/session'
@@ -206,8 +205,4 @@ describe('GET /api/reveal', () => {
   test.each(['oddly-specific/1/r9', 'nope/1/r1', 'oddly-specific/x/r1'])('404s for %s', async (path) => {
     expect((await reveal(path)).status).toBe(404)
   })
-})
-
-test('nextUtcMidnight is the start of the next UTC day', () => {
-  expect(nextUtcMidnight(new Date('2026-10-29T23:59:00Z'))).toBe('2026-10-30T00:00:00.000Z')
 })

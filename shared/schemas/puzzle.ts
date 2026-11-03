@@ -6,6 +6,9 @@ import { gameIds } from '../games'
 
 export const difficulties = ['easy', 'medium', 'hard'] as const
 
+// r1, r2… for rounds; L1, L2… for Category Escape's levels.
+export const roundIdSchema = z.string().regex(/^(?:r|L)\d+$/u)
+
 const puzzleConditionSchema = z.strictObject({
   id: z.string().min(1),
   label: z.string().min(1),
@@ -19,7 +22,7 @@ export const puzzleSchema = z.strictObject({
   game: z.enum(gameIds),
   n: z.int().min(1),
   difficulty: z.enum(difficulties),
-  rounds: z.array(z.strictObject({ id: z.string().regex(/^(?:r|L)\d+$/u), conditions: z.array(puzzleConditionSchema).min(1) })).min(1),
+  rounds: z.array(z.strictObject({ id: roundIdSchema, conditions: z.array(puzzleConditionSchema).min(1) })).min(1),
 })
 export type Puzzle = z.infer<typeof puzzleSchema>
 

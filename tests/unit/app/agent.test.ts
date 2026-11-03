@@ -1,7 +1,8 @@
 import { describe, expect, test } from 'vitest'
 import { doubleAgentConfig } from '@shared/games/double-agent'
 import { agentSentence } from '@/games/double-agent/verdict'
-import { maxScore, runReducer, startRun, totalScore, type Guess, type RunAction } from '@/games/rounds/reducer'
+import { maxScore, runReducer, startRun, type RunAction } from '@/games/rounds/reducer'
+import { totalScore, type Guess } from '@/games/shared/run'
 
 const clues = [
   { id: 'clue:1-r1-a', label: 'An accusation in court', negation: "doesn't mean that", claim: '{answer} means an accusation in court' },

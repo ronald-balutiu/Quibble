@@ -1,7 +1,8 @@
 import { useId, useState } from 'react'
 import type { Puzzle, PuzzleCondition } from '@shared/schemas/puzzle'
 import { en, format } from '@/copy/en'
-import type { RoundState, RunState } from '@/games/rounds/reducer'
+import { RetryLink } from './GameFrame'
+import type { RoundState, RunState } from './run'
 import { useReveal } from './use-reveal'
 import { letterFor } from './verdict'
 import './run-review.css'
@@ -51,7 +52,7 @@ function ReviewBody({ puzzle, round, index }: { puzzle: Puzzle, round: RoundStat
   const revealStatus = reveal === undefined
     ? <p role="status">{en['review.loading']}</p>
     : reveal === null
-      ? <p role="status">{en['reveal.failed']} <button type="button" className="link-button" onClick={reload}>{en['action.retry']}</button></p>
+      ? <p role="status">{en['reveal.failed']} <RetryLink onClick={reload} /></p>
       : null
   const historyLabel = round.guesses.length === 0 ? en['game.yourGuesses'] : round.guesses.length === 1 ? en['review.history.one'] : format('review.history.many', { n: round.guesses.length })
   return (

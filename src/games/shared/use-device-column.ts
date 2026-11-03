@@ -1,7 +1,8 @@
 import { useRef, useState } from 'react'
 import { useDeviceStatus, useDeviceSupported } from '@/judges/device/use-device'
 import type { CloudMessage } from '@/judges/attempt'
-import type { DeviceRun, GuessOutcome, Referee } from './judge-guess'
+import type { Referee } from '@/lib/storage/settings'
+import type { DeviceRun, GuessOutcome } from './judge-guess'
 
 // The judges panel's on-device column for a game screen (5.5 G1–G3, S1, S2): the
 // judge's status, the latest guess's run and which judge decided it, whether the
@@ -21,6 +22,14 @@ export function useDeviceColumn() {
   // The S1 / S2 strip stays until a guess gets the cloud's answer again.
   const [restingUntil, setRestingUntil] = useState<string | undefined>()
   const latest = useRef(0)
+  // A new guess, or none: forget the last one's run and verdict.
+  const forget = () => {
+    setRun(undefined)
+    setModelMs(undefined)
+    setDecidedBy(undefined)
+    setCloudMessage(undefined)
+    setNotScored(undefined)
+  }
 
   return {
     status, supported, run, modelMs, tally, setupOpen, decidedBy, restingUntil, cloudMessage, notScored,
@@ -30,11 +39,7 @@ export function useDeviceColumn() {
     // from an earlier guess still counts towards the tally but isn't drawn.
     follow: () => {
       const mine = ++latest.current
-      setRun(undefined)
-      setModelMs(undefined)
-      setDecidedBy(undefined)
-      setCloudMessage(undefined)
-      setNotScored(undefined)
+      forget()
       return (next: DeviceRun) => {
         const { agreed, compared } = next.kind === 'scored' ? next : { agreed: undefined, compared: undefined }
         if (agreed !== undefined && compared !== undefined) setTally((t) => ({ agreed: t.agreed + agreed, compared: t.compared + compared }))
@@ -51,11 +56,7 @@ export function useDeviceColumn() {
     },
     clear: () => {
       latest.current += 1
-      setRun(undefined)
-      setModelMs(undefined)
-      setDecidedBy(undefined)
-      setCloudMessage(undefined)
-      setNotScored(undefined)
+      forget()
     },
     openSetup: () => { setSetupOpen(true) },
     closeSetup: () => { setSetupOpen(false) },

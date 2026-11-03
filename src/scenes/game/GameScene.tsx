@@ -4,10 +4,10 @@ import { gameIds, type GameId } from '@shared/games'
 import type { Puzzle } from '@shared/schemas/puzzle'
 import { usePageMeta } from '@/app/use-page-meta'
 import { en, format, puzzleNumber } from '@/copy/en'
-import { EscapeGame } from '@/games/category-escape/Screen'
-import { RoundGame } from '@/games/rounds/Game'
+import { EscapeGame } from '@/games/category-escape/EscapeGame'
+import { RoundGame } from '@/games/rounds/RoundGame'
 import { loadPuzzle } from '@/lib/puzzles'
-import './game.css'
+import '@/games/shared/game.css'
 
 export function GameScene() {
   const params = useParams()

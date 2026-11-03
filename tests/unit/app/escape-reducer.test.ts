@@ -4,7 +4,7 @@ import {
   escapeEnd, escapeReducer, escapeShareGrid, levelsCleared, onLastTry, startEscape, strikesUsed, usedOn, type EscapeAction,
 } from '@/games/category-escape/reducer'
 
-import { previousGuess } from '@/games/rounds/reducer'
+import { previousGuess } from '@/games/shared/run'
 
 const reduce = escapeReducer(categoryEscapeConfig)
 const play = (...actions: EscapeAction[]) => actions.reduce(reduce, startEscape(categoryEscapeConfig))

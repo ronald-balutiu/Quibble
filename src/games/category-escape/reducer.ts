@@ -2,7 +2,7 @@
 // It keeps the round-based run shape, one round per level, so saved progress
 // stays in the frozen format (D-73): a level's strikes are the wrong guesses made
 // on it, a cleared level scores 1 point, and Give up marks the level 'skipped'.
-import { freshRound, previousGuess, type Guess, type RoundState, type RunState } from '@/games/rounds/reducer'
+import { previousGuess, shareGridOf, startRunOf, updateCurrent, type Guess, type RoundState, type RunState } from '@/games/shared/run'
 
 interface EscapeConfig {
   levels: number
@@ -18,9 +18,7 @@ export type EscapeAction =
 
 type EscapeEnd = 'escaped' | 'over' | 'gaveUp'
 
-export function startEscape(config: EscapeConfig): RunState {
-  return { current: 0, rounds: Array.from({ length: config.levels }, freshRound), finished: false }
-}
+export const startEscape = (config: EscapeConfig): RunState => startRunOf(config.levels)
 
 export const strikesUsed = (state: RunState) => state.rounds.reduce((total, level) => total + level.strikes, 0)
 
@@ -35,12 +33,9 @@ export function usedOn(state: RunState, answer: string): number | undefined {
   return index === -1 ? undefined : index
 }
 
+// Changes the current level; `end` finishes the run.
 function update(state: RunState, change: (level: RoundState) => RoundState, end = false): RunState {
-  const level = state.rounds[state.current]
-  if (!level) return state
-  const rounds = [...state.rounds]
-  rounds[state.current] = change(level)
-  return { ...state, rounds, finished: end }
+  return { ...updateCurrent(state, change), finished: end }
 }
 
 // Clearing a level moves straight on to the next one; clearing the last escapes.
@@ -88,12 +83,11 @@ export function escapeEnd(state: RunState): EscapeEnd {
 // Share-grid tiles (plan 1.4): 🟩 cleared first try, 🟨 after a miss, 🟦 overruled,
 // 🟥 where the run ended, ⬛ never reached (E2 mock); with a colour-free text form.
 export function escapeShareGrid(state: RunState): { tiles: string, text: string } {
-  const marks = state.rounds.map((level, i) => {
+  return shareGridOf(state.rounds.map((level, i) => {
     if (level.status === 'solved') {
-      if (level.overruled) return ['🟦', '✓*']
-      return level.strikes === 0 ? ['🟩', '✓'] : ['🟨', String(level.strikes + 1)]
+      if (level.overruled) return ['🟦', '✓*'] as const
+      return level.strikes === 0 ? ['🟩', '✓'] as const : ['🟨', String(level.strikes + 1)] as const
     }
-    return i === state.current ? ['🟥', '✗'] : ['⬛', '-']
-  })
-  return { tiles: marks.map(([tile]) => tile).join(''), text: marks.map(([, text]) => text).join(' ') }
+    return i === state.current ? ['🟥', '✗'] as const : ['⬛', '-'] as const
+  }))
 }

@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState, type Dispatch } from 'react'
 import type { CloudModel } from '@shared/schemas/judge'
 import type { Puzzle } from '@shared/schemas/puzzle'
-import { totalScore, type RunAction, type RunState } from '@/games/rounds/reducer'
+import type { RunAction } from '@/games/rounds/reducer'
 import { markOverruled } from '@/lib/storage/comparisons'
 import { isStorageAvailable, loadProgress, saveRun } from '@/lib/storage/progress'
 import { loadReferee } from '@/lib/storage/settings'
 import { useCloudModel } from '@/lib/use-cloud-model'
 import { checkAnswer } from './check-answer'
 import { judgeGuess, type Ui } from './judge-guess'
+import { totalScore, type RunState } from './run'
 import { useDeviceColumn } from './use-device-column'
 
 type GuessAction = Extract<RunAction, { type: 'judged' | 'moveOn' | 'countAnyway' }>

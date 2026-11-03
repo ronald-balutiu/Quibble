@@ -1,7 +1,9 @@
 import { judgeErrorSchema, judgeSuccessSchema, type JudgeRequest, type JudgeSuccess } from '@shared/schemas/judge'
+import { nextUtcMidnight } from '@shared/time'
+import type { SessionResult } from '@/lib/api'
 
 // One cloud-judged guess (plan 3.7, 3.12), with a hard 10-second limit so nothing
-// arrives after the guess is over. Phase 2 has only the cloud judge.
+// arrives after the guess is over.
 
 const JUDGE_TIMEOUT_MS = 10_000
 
@@ -15,7 +17,7 @@ type CloudOutcome =
   | { kind: 'error', message: CloudMessage }
 
 // Renews the session with a fresh Turnstile token: 'ok', or why it couldn't.
-export type RenewSession = () => Promise<'ok' | 'botcheck' | 'error'>
+export type RenewSession = () => Promise<SessionResult>
 
 interface AttemptDeps {
   fetch?: typeof fetch
@@ -23,8 +25,6 @@ interface AttemptDeps {
   timeoutMs?: number
   now?: () => Date
 }
-
-const nextUtcMidnight = (now: Date) => new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + 1)).toISOString()
 
 async function readJson(response: Response): Promise<unknown> {
   try {
@@ -69,7 +69,7 @@ export async function judgeOnCloud(
       case 'busy': return { kind: 'busy', retryAfter: failure.data.retryAfter ?? 60 }
       case 'resting': return { kind: 'resting', resetAt: failure.data.resetAt ?? nextUtcMidnight(now()) }
       case 'invalid': return { kind: 'invalid' }
-      case 'session': return { kind: 'error', message: 'judge.cloud.unreachable' }
+      case 'session':
       case 'unknown':
       case 'unavailable': return { kind: 'error', message: 'judge.cloud.unreachable' }
     }

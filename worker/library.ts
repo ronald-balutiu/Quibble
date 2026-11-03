@@ -1,5 +1,6 @@
 import { z } from '@shared/schemas/zod'
 import { gameIds, type GameId } from '@shared/games'
+import { roundIdSchema } from '@shared/schemas/puzzle'
 
 // The server-only library bundled into the Worker (plan 3.2): per puzzle, each
 // round's conditions, known answers and example, plus Category Escape's path.
@@ -13,7 +14,7 @@ const round = z.strictObject({
 export type LibraryRound = z.infer<typeof round>
 
 const puzzle = z.strictObject({
-  rounds: z.record(z.string().regex(/^(?:r|L)\d+$/u), round),
+  rounds: z.record(roundIdSchema, round),
   path: z.array(z.string().min(1)).optional(),
 })
 

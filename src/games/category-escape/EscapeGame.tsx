@@ -1,17 +1,16 @@
 import { useReducer } from 'react'
-import { judgeConfig } from '@shared/config'
 import { categoryEscapeConfig } from '@shared/games/category-escape'
 import type { Puzzle } from '@shared/schemas/puzzle'
-import { DeviceSetup } from '@/components/DeviceSetup/DeviceSetup'
 import { en, format } from '@/copy/en'
 import { loadProgress } from '@/lib/storage/progress'
 import { GameTip } from '@/games/shared/GameTip'
 import { AnswerForm } from '@/games/shared/AnswerForm'
 import { GameHeader, StrikeDots } from '@/games/shared/GameHeader'
-import { CloudStrip, JudgesStatus, ScoreAxes } from '@/games/shared/JudgesPanel'
+import { GameFrame } from '@/games/shared/GameFrame'
+import { JudgesStatus, ScoreAxes } from '@/games/shared/JudgesPanel'
 import { NotJudgedPanel, RejectedPanel } from '@/games/shared/VerdictPanels'
 import { useGameSession } from '@/games/shared/use-game-session'
-import { rejectedSentence, verdictNote } from '@/games/shared/verdict'
+import { rejectedSentence, thresholdFor, verdictNote } from '@/games/shared/verdict'
 import { levelCode, ruleOf, ruleText } from './labels'
 import { escapeReducer, levelsCleared, onLastTry, startEscape, strikesUsed } from './reducer'
 import { RunOver } from './RunOver'
@@ -43,14 +42,14 @@ export function EscapeGame({ puzzle }: { puzzle: Puzzle }) {
         : format('game.counter', { count: [...answer].length, max: config.input.maxCharacters })
 
   return (
-    <main data-scene="game" className="app-frame game-frame" data-game={game}>
-      <GameHeader game={game} n={n} status={run.finished ? en['escape.runOver'] : format('escape.cleared', { n: cleared })} statusClass={run.finished ? undefined : 'game-header__status--wide'}>
-        <StrikeDots used={strikesUsed(run)} max={config.maxWrongGuessesPerRun} />
-      </GameHeader>
-      {column.setupOpen && <DeviceSetup onClose={column.closeSetup} />}
-      <CloudStrip column={column} />
-      {!storageOn && <p className="strip" role="status">{en['storage.off']}</p>}
-      <div ref={turnstile} className="turnstile" />
+    <GameFrame
+      game={game} column={column} storageOn={storageOn} turnstile={turnstile}
+      header={(
+        <GameHeader game={game} n={n} status={run.finished ? en['escape.runOver'] : format('escape.cleared', { n: cleared })} statusClass={run.finished ? undefined : 'game-header__status--wide'}>
+          <StrikeDots used={strikesUsed(run)} max={config.maxWrongGuessesPerRun} />
+        </GameHeader>
+      )}
+    >
       {run.finished
         ? <RunOver run={run} puzzle={puzzle} best={best} onRestart={restart} />
         : (
@@ -109,7 +108,7 @@ export function EscapeGame({ puzzle }: { puzzle: Puzzle }) {
                   ? (
                       <ScoreAxes
                         conditions={puzzle.rounds[last.level]?.conditions ?? []} scores={scores} model={model}
-                        threshold={column.decidedBy === 'device' ? judgeConfig.passThreshold.device : judgeConfig.passThreshold[model]}
+                        threshold={thresholdFor(column.decidedBy, model)}
                         column={column} mark={levelCode} title={format('escape.lastVerdict', { answer: last.answer, level: levelCode(last.level) })}
                       />
                     )
@@ -117,6 +116,6 @@ export function EscapeGame({ puzzle }: { puzzle: Puzzle }) {
               </aside>
             </div>
           )}
-    </main>
+    </GameFrame>
   )
 }

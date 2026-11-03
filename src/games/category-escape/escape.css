@@ -155,14 +155,6 @@
   color: var(--fail);
 }
 
-.telemetry.escape-over__end {
-  color: var(--accent);
-}
-
-.results.escape-over {
-  padding: 0;
-}
-
 .escape-over__max {
   font-size: var(--type-score-suffix);
   letter-spacing: var(--tracking-answer);

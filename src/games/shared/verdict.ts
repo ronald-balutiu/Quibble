@@ -2,6 +2,7 @@ import { isCloseCall, judgeConfig, passes } from '@shared/config'
 import type { CloudModel, JudgeSuccess } from '@shared/schemas/judge'
 import type { PuzzleCondition } from '@shared/schemas/puzzle'
 import { en, format } from '@/copy/en'
+import type { Referee } from '@/lib/storage/settings'
 import type { DeviceRun } from './judge-guess'
 import type { Guess } from './run'
 
@@ -10,6 +11,10 @@ import type { Guess } from './run'
 export const letterFor = (index: number) => String.fromCharCode(65 + index)
 
 export const devicePasses = (p: number) => passes(p, judgeConfig.passThreshold.device)
+
+// The threshold on the score axes: the device's own when it decided the guess (S1).
+export const thresholdFor = (decidedBy: Referee | undefined, model: CloudModel) =>
+  decidedBy === 'device' ? judgeConfig.passThreshold.device : judgeConfig.passThreshold[model]
 
 // Whether the two judges split on a judged guess, once both answered (5.7);
 // undefined while the device hasn't, or when the guess wasn't compared.
@@ -58,7 +63,7 @@ export function rejectedSentence(guess: Guess, conditions: readonly PuzzleCondit
 
 // What the rejected sentence adds about the judges (5.7): a device verdict without
 // the cloud's isn't compared (S1); otherwise whether they split.
-export function verdictNote(column: { decidedBy?: 'cloud' | 'device' | undefined, run?: DeviceRun | undefined }): string {
+export function verdictNote(column: { decidedBy?: Referee | undefined, run?: DeviceRun | undefined }): string {
   const split = judgesSplit(column.run)
   if (column.decidedBy === 'device' && split === undefined) return en['verdict.notCompared']
   return split ? en['verdict.judgesDisagree'] : ''

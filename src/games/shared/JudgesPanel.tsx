@@ -2,11 +2,15 @@ import { useEffect, useState, type CSSProperties, type ReactNode } from 'react'
 import type { CloudModel } from '@shared/schemas/judge'
 import type { PuzzleCondition } from '@shared/schemas/puzzle'
 import { en, format } from '@/copy/en'
+import { RetryLink } from './GameFrame'
 import type { DeviceColumn } from './use-device-column'
 import { devicePasses, letterFor, restTime } from './verdict'
 
 // The judges panel (5.5 G1–G3, S1): each judge's status, one score axis per
 // condition, and the strip shown while the cloud rests.
+
+// "Cloud · Clef-flash" before the cloud judge has answered.
+const cloudStatus = (model: CloudModel) => format('game.cloudStatus', { model: en[`judgeChoice.${model}`] })
 
 // Seconds since the on-device run started, while its column scans (5.5 G2).
 function Elapsed({ since }: { since: number }) {
@@ -30,7 +34,7 @@ export function JudgesStatus({ model, column }: { model: CloudModel, column: Dev
     : column.cloudMessage !== undefined
       ? en['judges.cloud.noAnswer']
       : modelMs === undefined
-      ? format('game.cloudStatus', { model: en[`judgeChoice.${model}`] })
+      ? cloudStatus(model)
       : format(scanning ? 'judges.cloud.decided' : 'judges.cloud', { ms: modelMs })
   let device: ReactNode = null
   if (run?.kind === 'scanning') device = <Elapsed since={run.started} />
@@ -60,7 +64,7 @@ export function ScoreAxes({ conditions, scores, threshold, model, column, mark =
     <section className="axes" aria-label={en['game.verdicts']}>
       {title !== undefined && <p className="telemetry">{title}</p>}
       <p className="telemetry axes__head">
-        {column ? <JudgesStatus model={model} column={column} /> : <span>{format('game.cloudStatus', { model: en[`judgeChoice.${model}`] })}</span>}
+        {column ? <JudgesStatus model={model} column={column} /> : <span>{cloudStatus(model)}</span>}
         <span>{en['game.pYes']}</span>
       </p>
       {conditions.map((condition, i) => {
@@ -86,7 +90,7 @@ export function ScoreAxes({ conditions, scores, threshold, model, column, mark =
         )
       })}
       {(run?.kind === 'timeout' || run?.kind === 'error') && run.retry
-        ? <p className="telemetry axes__note">{en['judge.device.timeout']} <button type="button" className="link-button" onClick={run.retry}>{en['action.retry']}</button></p>
+        ? <p className="telemetry axes__note">{en['judge.device.timeout']} <RetryLink onClick={run.retry} /></p>
         : null}
       {column?.cloudMessage !== undefined && <p className="telemetry axes__note">{en[column.cloudMessage]}</p>}
       {column?.notScored !== undefined && <p className="telemetry axes__note">{en[`judges.notScored.${column.notScored}`]}</p>}

@@ -16,9 +16,11 @@ const round = z.strictObject({
   overruled: z.boolean(),
   points: z.int().min(0),
 })
+// Checked against the reducers' run type, so the saved shape can't drift from it.
+const runSchema = z.strictObject({ current: z.int().min(0), rounds: z.array(round), finished: z.boolean() }) satisfies z.ZodType<RunState>
 const progressSchema = z.strictObject({
   best: z.int().min(0).optional(),
-  run: z.strictObject({ current: z.int().min(0), rounds: z.array(round), finished: z.boolean() }).optional(),
+  run: runSchema.optional(),
 })
 export type Progress = z.infer<typeof progressSchema>
 

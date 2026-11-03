@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import type { Puzzle } from '@shared/schemas/puzzle'
 import { en, format, type CopyKey } from '@/copy/en'
+import { RetryLink } from '@/games/shared/GameFrame'
 import { useReveal } from '@/games/shared/use-reveal'
 import type { DeviceColumn } from '@/games/shared/use-device-column'
 import { judgesSplit, letterFor } from '@/games/shared/verdict'
@@ -40,7 +41,7 @@ export function RoundEnd({ run, puzzle, alsoFits, column, onNext }: { run: RunSt
       )}
       <h2 className="telemetry">{en[alsoFits]}</h2>
       {reveal === null
-        ? <p>{en['reveal.failed']} <button type="button" className="link-button" onClick={loadReveal}>{en['action.retry']}</button></p>
+        ? <p>{en['reveal.failed']} <RetryLink onClick={loadReveal} /></p>
         : <ul className="also">{(reveal ? (solved ? [reveal.example, ...reveal.also] : reveal.also) : []).filter((w) => w !== winning?.answer).map((word) => <li key={word}>{word}</li>)}</ul>}
       {!solved && (
         <>

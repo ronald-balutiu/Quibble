@@ -7,6 +7,7 @@ import { puzzleComparisons } from '@/lib/your-games'
 import { ResultSummary } from '@/games/shared/ResultSummary'
 import { ResultActions } from '@/games/shared/ResultActions'
 import { RunReview } from '@/games/shared/RunReview'
+import { bestNote, shareText } from '@/games/shared/results'
 import { totalScore, type RunState } from '@/games/shared/run'
 import { maxScore, shareGrid, type RoundsConfig } from './reducer'
 
@@ -14,8 +15,6 @@ export function Results({ run, puzzle, best, config }: { run: RunState, puzzle: 
   const score = totalScore(run)
   const max = maxScore(config)
   const grid = shareGrid(run)
-  const bestLabel = best === undefined ? en['results.firstPlay'] : score > best ? format('results.newBest', { n: best }) : format('results.best', { n: best })
-  const share = `${format('results.share', { game: en[`game.name.${puzzle.game}`], n: puzzle.n, tiles: grid.tiles, score, max })}\n${grid.text}`
   const guesses = run.rounds.reduce((total, round) => total + round.guesses.length, 0)
   // This run's guesses that both judges answered (3.8 comparison records).
   const [judges] = useState(() => puzzleComparisons(loadComparisons(), puzzle.game, puzzle.n, new Set(
@@ -28,8 +27,8 @@ export function Results({ run, puzzle, best, config }: { run: RunState, puzzle: 
 
   return (
     <section className="results">
-      <ResultSummary score={format('results.score', { score, max })} best={bestLabel} tiles={grid.tiles} grid={grid.text}>
-        <ResultActions puzzle={puzzle} share={share} focusPrimary />
+      <ResultSummary score={format('results.score', { score, max })} best={bestNote(score, best)} tiles={grid.tiles} grid={grid.text}>
+        <ResultActions puzzle={puzzle} share={shareText(puzzle.game, puzzle.n, grid, score, max)} focusPrimary />
       </ResultSummary>
       <RunReview puzzle={puzzle} run={run} />
       <details className="result-details">

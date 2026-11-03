@@ -4,6 +4,7 @@ import type { PuzzleCondition } from '@shared/schemas/puzzle'
 import { judgeOnCloud, type CloudMessage } from '@/judges/attempt'
 import { deviceJudge, type DeviceJudge, type ScoreResult } from '@/judges/device/client'
 import { saveComparison, type Comparison } from '@/lib/storage/comparisons'
+import type { Referee } from '@/lib/storage/settings'
 import { renewSession } from '@/lib/turnstile'
 import type { Guess } from './run'
 import { devicePasses, toDeviceGuess, toGuess } from './verdict'
@@ -58,8 +59,6 @@ export function toComparison(
     backend: 'webgpu', precision: 'q4', warm: device.warm, referee, overruled: false,
   }
 }
-
-export type Referee = 'cloud' | 'device'
 
 interface JudgeWatchers {
   // Read at the start of each guess, so a settings change applies from the next one (3.7).

@@ -2,7 +2,7 @@ import { useId, useState } from 'react'
 import type { EvalResults } from '@shared/schemas/eval-results'
 import type { CloudModel } from '@shared/schemas/judge'
 import { en, format } from '@/copy/en'
-import { ComparisonTable } from './ComparisonTable'
+import { ComparisonTable, JudgeBar, JudgeMarker, type ComparisonGroup } from './ComparisonTable'
 import { dateLabel, milliseconds, percent } from './format'
 
 type JudgeResult = NonNullable<EvalResults['test']['judges']['device']>
@@ -12,13 +12,23 @@ export function AnswerKey({ results, cloud, device, model }: { results: EvalResu
   const id = useId()
   const cloudName = en[`judgeChoice.${model}`]
   const machine = results.devices[0]
-  const rows = [
-    { label: en['compare.perCondition'], note: en['compare.perCondition.note'], cloud: percent(cloud.perCondition.value), device: percent(device.perCondition.value) },
-    { label: en['compare.falseAccepts'], note: en['compare.falseAccepts.note'], cloud: percent(cloud.falseAcceptRate.value), device: percent(device.falseAcceptRate.value) },
-    { label: en['compare.falseRejects'], note: en['compare.falseRejects.note'], cloud: percent(cloud.falseRejectRate.value), device: percent(device.falseRejectRate.value) },
-    { label: en['compare.brier'], note: en['compare.brierScale'], cloud: String(Math.round(cloud.brier * 100)), device: String(Math.round(device.brier * 100)) },
-    { label: en['compare.speed'], note: en['compare.speed.note'], cloud: milliseconds(cloud.medianMs), device: milliseconds(machine?.warmGuessMedianMs) },
-    { label: en['compare.cost'], note: en['compare.cost.note'], cloud: en['compare.free'], device: en['compare.free'] },
+  const rate = (measure: (judge: JudgeResult) => number) => ({ cloud: percent(measure(cloud)), device: percent(measure(device)), bars: { cloud: measure(cloud), device: measure(device), max: 1 } })
+  const deviceMs = machine?.warmGuessMedianMs
+  const groups: ComparisonGroup[] = [
+    { title: en['compare.group.mistakes'], rows: [
+      { label: en['compare.falseAccepts'], note: en['compare.falseAccepts.note'], ...rate((judge) => judge.falseAcceptRate.value), better: 'lower' },
+      { label: en['compare.falseRejects'], note: en['compare.falseRejects.note'], ...rate((judge) => judge.falseRejectRate.value), better: 'lower' },
+    ] },
+    { title: en['compare.group.accuracy'], rows: [
+      { label: en['compare.perCondition'], note: en['compare.perCondition.note'], ...rate((judge) => judge.perCondition.value), better: 'higher' },
+      // A judge that always says 50% scores 25, so that's the end of the bar.
+      { label: en['compare.brier'], note: en['compare.brierScale'], cloud: String(Math.round(cloud.brier * 100)), device: String(Math.round(device.brier * 100)), bars: { cloud: cloud.brier, device: device.brier, max: 0.25 }, better: 'lower' },
+    ] },
+    { title: en['compare.group.practical'], rows: [
+      { label: en['compare.speed'], note: en['compare.speed.note'], cloud: milliseconds(cloud.medianMs), device: milliseconds(deviceMs), better: 'lower',
+        ...(cloud.medianMs !== undefined && deviceMs !== undefined && { bars: { cloud: cloud.medianMs, device: deviceMs, max: Math.max(cloud.medianMs, deviceMs) } }) },
+      { label: en['compare.cost'], note: en['compare.cost.note'], cloud: en['compare.free'], device: en['compare.free'] },
+    ] },
   ]
 
   return (
@@ -26,10 +36,14 @@ export function AnswerKey({ results, cloud, device, model }: { results: EvalResu
       <h3 className="compare__question">{en['compare.question']}</h3>
       <p className="compare__muted">{en['compare.wholeGuess']}</p>
       <dl className="compare__summary">
-        {([{ name: en['compare.cloud'], model: cloudName, result: cloud }, { name: en['compare.local'], model: en['device.model'], result: device }]).map((judge) => (
+        {([{ judge: 'cloud', name: en['compare.cloud'], model: cloudName, result: cloud }, { judge: 'device', name: en['compare.local'], model: en['device.model'], result: device }] as const).map((judge) => (
           <div key={judge.name}>
-            <dt>{judge.name}<strong>{judge.model}</strong></dt>
-            <dd>{percent(judge.result.wholeGuess.value)}<small>{format('compare.correctCount', { n: Math.round(judge.result.wholeGuess.value * judge.result.wholeGuess.n), total: judge.result.wholeGuess.n })}</small></dd>
+            <dt><span><JudgeMarker judge={judge.judge} />{judge.name}</span><strong>{judge.model}</strong></dt>
+            <dd>
+              {percent(judge.result.wholeGuess.value)}
+              <JudgeBar judge={judge.judge} value={judge.result.wholeGuess.value} />
+              <small>{format('compare.correctCount', { n: Math.round(judge.result.wholeGuess.value * judge.result.wholeGuess.n), total: judge.result.wholeGuess.n })}</small>
+            </dd>
           </div>
         ))}
       </dl>
@@ -41,7 +55,7 @@ export function AnswerKey({ results, cloud, device, model }: { results: EvalResu
         {en[full ? 'compare.close' : 'compare.open']}
       </button>
       <div id={id} className="compare__details" hidden={!full}>
-        <ComparisonTable label={en['compare.table']} cloudName={cloudName} rows={rows} />
+        <ComparisonTable label={en['compare.table']} cloudName={cloudName} groups={groups} />
         {machine && <p className="compare__footnote">{format('compare.timingContext', { browser: machine.browser, machine: machine.machine })}</p>}
         <DevelopmentBuilds results={results} model={model} />
         <details className="compare-disclosure">

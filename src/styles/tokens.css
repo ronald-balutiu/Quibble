@@ -53,6 +53,7 @@
   --welcome-mark-phone: 150px;
   --welcome-mark-wide: 350px;
   --welcome-lede-max: 385px;
+  --judge-bar-height: 12px; /* the comparison's paired bars (5.5 H3) */
   --score-tile-size: 22px; /* Home's example guesses in How scoring works */
   --rules-column-min: 260px;
   --compare-max: 736px;

@@ -9,6 +9,7 @@ import { useHydrated } from '@/lib/use-hydrated'
 import { useResource } from '@/lib/use-resource'
 import type { DeviceRun } from '@/scenes/game/judge-guess'
 import { useDeviceColumn } from '@/scenes/game/use-device-column'
+import { deferred } from '../../support/deferred'
 
 afterEach(() => { cleanup() })
 
@@ -21,8 +22,11 @@ describe('useHydrated', () => {
 })
 
 describe('useResource', () => {
-  test('loads, and Retry tries again after a failure', async () => {
-    const load = vi.fn<() => Promise<string | undefined>>().mockResolvedValueOnce(undefined).mockResolvedValueOnce('puzzles')
+  test.each(['missing', 'rejected'] as const)('loads, and Retry tries again after a %s result', async (failure) => {
+    const load = vi.fn<() => Promise<string | undefined>>()
+    if (failure === 'missing') load.mockResolvedValueOnce(undefined)
+    else load.mockRejectedValueOnce(new Error('offline'))
+    load.mockResolvedValueOnce('puzzles')
     const { result } = renderHook(() => useResource(load))
     expect(result.current.data).toBeUndefined()
     await waitFor(() => { expect(result.current.data).toBeNull() })
@@ -30,14 +34,18 @@ describe('useResource', () => {
     await waitFor(() => { expect(result.current.data).toBe('puzzles') })
   })
 
-  test('a reply for an earlier loader never shows for the current one', async () => {
-    let finishOld: (value: string) => void = () => undefined
-    const old = () => new Promise<string>((resolve) => { finishOld = resolve })
+  test.each(['resolved', 'rejected'] as const)('a %s reply for an earlier loader never shows for the current one', async (outcome) => {
+    const pending = deferred<string>()
+    const old = () => pending.promise
     const current = () => Promise.resolve('current')
     const { result, rerender } = renderHook(({ load }) => useResource(load), { initialProps: { load: old } })
     rerender({ load: current })
     await waitFor(() => { expect(result.current.data).toBe('current') })
-    await act(async () => { finishOld('old'); await Promise.resolve() })
+    await act(async () => {
+      if (outcome === 'resolved') pending.resolve('old')
+      else pending.reject(new Error('old loader failed'))
+      await pending.promise.catch(() => undefined)
+    })
     expect(result.current.data).toBe('current')
   })
 })

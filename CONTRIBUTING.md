@@ -69,7 +69,9 @@ Playwright test that reaches each new screen or state. The on-device judge's tes
 no WebGPU. The real model runs only in `tests/device/` through `npm run test:device`:
 run it when the model, the worker or the scoring adapter changes, with
 `DEVICE_NAME="…"` to name the machine, and commit the updated measurements and
-`tests/fixtures/verdict/browser-webgpu.json`. Install Chromium once:
+`tests/fixtures/verdict/browser-webgpu.json`. The harness stops sampling on failure
+and publishes those artifacts only after parity and all measurements succeed.
+Install Chromium once:
 
 ```sh
 npx playwright install chromium

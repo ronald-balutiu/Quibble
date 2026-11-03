@@ -1,18 +1,20 @@
 import { describe, expect, test, vi } from 'vitest'
 import { createBackgroundDownload } from '@/judges/device/background-download'
-import type { LoadProgress, LoadResult } from '@/judges/device/client'
+import type { DeviceStatus, LoadProgress, LoadResult } from '@/judges/device/client'
 import { deviceJudgeDouble } from './support/device-judge'
+import { deferred } from '../../support/deferred'
 
-function setup() {
-  let report: (value: LoadProgress) => void = () => {}
-  let finish: (value: LoadResult) => void = () => {}
-  const judge = deviceJudgeDouble('off', {
+function setup(status: DeviceStatus = 'off') {
+  let report!: (value: LoadProgress) => void
+  let loading!: ReturnType<typeof deferred<LoadResult>>
+  const judge = deviceJudgeDouble(status, {
     load: vi.fn((onProgress: (value: LoadProgress) => void) => {
       report = onProgress
-      return new Promise<LoadResult>((resolve) => { finish = resolve })
+      loading = deferred<LoadResult>()
+      return loading.promise
     }),
   })
-  return { judge, download: createBackgroundDownload(judge), report: (value: LoadProgress) => { report(value) }, finish: (value: LoadResult) => { finish(value) } }
+  return { judge, download: createBackgroundDownload(judge), report: (value: LoadProgress) => { report(value) }, finish: (value: LoadResult) => { loading.resolve(value) } }
 }
 
 describe('visit-scoped download', () => {
@@ -60,8 +62,7 @@ describe('visit-scoped download', () => {
   })
 
   test('does not interrupt a load started by the existing game sheet', async () => {
-    const { judge, download } = setup()
-    Object.defineProperty(judge, 'status', { value: 'loading' })
+    const { judge, download } = setup('loading')
     await download.start()
     expect(judge.load).not.toHaveBeenCalled()
   })

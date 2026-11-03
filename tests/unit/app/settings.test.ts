@@ -15,10 +15,11 @@ describe('player settings (3.8)', () => {
     expect(loadCloudModel()).toBe('clef-flash')
     const listener = vi.fn()
     const off = subscribeCloudModel(listener)
-    saveCloudModel('gemma-4')
-    expect(loadCloudModel()).toBe('gemma-4')
-    expect(listener).toHaveBeenCalledTimes(1)
-    off()
+    try {
+      saveCloudModel('gemma-4')
+      expect(loadCloudModel()).toBe('gemma-4')
+      expect(listener).toHaveBeenCalledTimes(1)
+    } finally { off() }
     saveCloudModel('clef-flash')
     expect(listener).toHaveBeenCalledTimes(1)
   })

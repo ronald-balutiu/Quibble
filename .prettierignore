@@ -1,0 +1,14 @@
+# Generated output and local tooling (also ignored by Git)
+dist/
+coverage/
+playwright-report/
+test-results/
+.wrangler/
+.lighthouseci/
+plan/
+
+# Generated or recorded data, kept byte-for-byte
+public/
+worker/library/
+tests/fixtures/
+**/.venv/

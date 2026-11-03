@@ -1,7 +1,9 @@
 import { judgeConfig, passes } from '@shared/config'
 import { isValidAnswer, normalizeAnswer } from '@shared/normalize'
 import { defaultCloudModel, judgeRequestSchema, type JudgeError, type JudgeSuccess } from '@shared/schemas/judge'
-import { json, type Env } from './env'
+import { nextUtcMidnight } from '@shared/time'
+import type { Env } from './env'
+import { json, parseJson } from './http'
 import { judgeWithClef, judgeWithGemma, type JudgeQuestion } from './judge'
 import { findRound, type Library } from './library'
 import { readBody } from './read-body'
@@ -21,11 +23,6 @@ function error(code: JudgeError['error'], attempt: number | undefined, extra: Pa
   return json(body, status)
 }
 
-// The daily allowance resets at the next 00:00 UTC.
-export function nextUtcMidnight(now = new Date()): string {
-  return new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + 1)).toISOString()
-}
-
 export async function handleJudge(request: Request, env: Env, library: Library): Promise<Response> {
   const bodyText = await readBody(request, MAX_BODY_BYTES)
   if (!bodyText.ok) return error('invalid', undefined, {}, bodyText.status)
@@ -33,15 +30,9 @@ export async function handleJudge(request: Request, env: Env, library: Library):
   const sid = await readSession(request, env.SESSION_KEY)
   if (!sid) return error('session', undefined)
 
-  let body: unknown
-  try {
-    body = JSON.parse(bodyText.text)
-  } catch {
-    return error('invalid', undefined)
-  }
-  const parsed = judgeRequestSchema.safeParse(body)
-  if (!parsed.success) return error('invalid', undefined)
-  const { game, n, roundId, answer, attempt, model = defaultCloudModel } = parsed.data
+  const body = parseJson(bodyText.text, judgeRequestSchema)
+  if (!body) return error('invalid', undefined)
+  const { game, n, roundId, answer, attempt, model = defaultCloudModel } = body
 
   const round = findRound(library, game, n, roundId)
   if (!round) return error('unknown', attempt)

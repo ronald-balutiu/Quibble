@@ -1,6 +1,7 @@
 import { z } from '@shared/schemas/zod'
+import type { Env } from './env'
+import { json, parseJson } from './http'
 import { readBody } from './read-body'
-import { json, type Env } from './env'
 
 // POST /api/session (plan 3.4, 3.11): verifies a Turnstile token, then sets an
 // HttpOnly cookie holding an HMAC-signed {sid, exp}. The cookie is a session
@@ -8,6 +9,7 @@ import { json, type Env } from './env'
 
 const COOKIE = 'quibble_session'
 const LIFETIME_SECONDS = 2 * 60 * 60
+const MAX_BODY_BYTES = 4096
 const SITEVERIFY = 'https://challenges.cloudflare.com/turnstile/v0/siteverify'
 
 const sessionRequestSchema = z.strictObject({ turnstileToken: z.string().min(1).max(2048) })
@@ -71,20 +73,14 @@ export async function readSession(request: Request, secret: string, now = Date.n
 }
 
 export async function handleSession(request: Request, env: Env): Promise<Response> {
-  const bodyText = await readBody(request, 4096)
+  const bodyText = await readBody(request, MAX_BODY_BYTES)
   if (!bodyText.ok) return json({ error: 'invalid' }, bodyText.status)
-  let body: unknown
-  try {
-    body = JSON.parse(bodyText.text)
-  } catch {
-    return json({ error: 'invalid' }, 400)
-  }
-  const parsed = sessionRequestSchema.safeParse(body)
-  if (!parsed.success) return json({ error: 'invalid' }, 400)
+  const body = parseJson(bodyText.text, sessionRequestSchema)
+  if (!body) return json({ error: 'invalid' }, 400)
 
   const form = new FormData()
   form.append('secret', env.TURNSTILE_SECRET)
-  form.append('response', parsed.data.turnstileToken)
+  form.append('response', body.turnstileToken)
   const ip = request.headers.get('CF-Connecting-IP')
   if (ip) form.append('remoteip', ip)
 

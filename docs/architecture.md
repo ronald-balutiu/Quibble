@@ -44,11 +44,13 @@ shared/
   games/<game>.ts      Each game's rules and input limits
   schemas/             Zod schemas and types; zod.ts configures Zod for every import
   site.ts              The site's public origin, for canonical URLs and the sitemap
+  time.ts              When the daily Workers AI allowance resets
 worker/
   index.ts             Worker entry and route table
   session.ts, judge-route.ts, reveal.ts   API routes
+  http.ts              JSON responses and schema-checked request bodies
   read-body.ts         Byte-limited streaming request reader
-  judge.ts             Cloud model calls; read-answers.ts reads their replies
+  judge.ts             Cloud model calls with one shared retry; read-answers.ts reads their replies
   library/             Server-only source data, bundled into the Worker
 public/
   puzzles/             Generated, player-facing puzzle files

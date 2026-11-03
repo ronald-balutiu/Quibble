@@ -52,7 +52,14 @@ Do not put Worker tests in the shared or tooling folders; they would be checked
 against Node types. Pure Worker logic can run in Vitest's Node environment. Tests
 that need real Cloudflare bindings require the Workers runtime integration.
 
-Browser tests live in `tests/e2e/` and run against a production preview. Shared setup (the mocked API, fixture puzzles, storage seeding, guesses and the stubbed on-device judge) lives in `tests/e2e/support.ts`; unit tests share a fake `localStorage` from `tests/unit/app/support/storage.ts`, and hook tests opt into a DOM with `// @vitest-environment happy-dom`. Add a
+Browser tests live in `tests/e2e/` and run against a production preview. Shared
+setup (the mocked API, fixture puzzles, storage seeding, guesses and the stubbed
+on-device judge) lives in `tests/e2e/support.ts`. Puzzle fixtures and intercepted
+judge requests use the shared schemas; standard successful replies are typed
+against those contracts. Invalid-response tests keep explicit routes so failures
+are intentional. Unit tests share a fake `localStorage` from
+`tests/unit/app/support/storage.ts`, and hook tests opt into a DOM with
+`// @vitest-environment happy-dom`. Add a
 Playwright test that reaches each new screen or state. The on-device judge's tests
 (`tests/e2e/device.spec.ts`) swap the built worker for a stub, since CI's browser has
 no WebGPU. The real model runs only in `tests/device/` through `npm run test:device`:

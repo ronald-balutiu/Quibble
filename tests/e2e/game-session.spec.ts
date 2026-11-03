@@ -1,9 +1,7 @@
 import { expect, test, type Page } from '@playwright/test'
-import { seedStorage } from './support'
-import { readFileSync } from 'node:fs'
+import { allConditions, mockJudge, mockReveal, seedStorage, shippedPuzzle } from './support'
 import { gameIds } from '../../shared/games'
 import { oddlySpecificConfig } from '../../shared/games/oddly-specific'
-import { puzzleSchema } from '../../shared/schemas/puzzle'
 import { runReducer, startRun } from '../../src/games/rounds/reducer'
 import AxeBuilder from '@axe-core/playwright'
 
@@ -17,7 +15,7 @@ async function openResults(page: Page) {
     if (i < oddlySpecificConfig.rounds - 1) run = reduce(run, { type: 'nextRound' })
   }
   await seedStorage(page, { 'quibble:progress:oddly-specific:1': JSON.stringify({ run }) }, { everyLoad: true })
-  await page.route('**/api/reveal/**', (route) => route.fulfill({ json: { example: 'spoon', also: [] } }))
+  await mockReveal(page, () => ({ example: 'spoon', also: [] }))
   await page.goto('/play/oddly-specific/1')
   await page.getByRole('button', { name: 'See results' }).click()
   await expect(page.getByText('0/15', { exact: true })).toBeVisible()
@@ -27,7 +25,7 @@ test('result details load examples on demand, support keyboard opening and retry
   await openResults(page)
   if (isMobile) await page.setViewportSize({ width: 320, height: 800 })
   expect(await page.evaluate<number>('document.documentElement.scrollWidth')).toBeLessThanOrEqual(page.viewportSize()!.width)
-  const puzzle = puzzleSchema.parse(JSON.parse(readFileSync('public/puzzles/oddly-specific/1.json', 'utf8')))
+  const puzzle = shippedPuzzle('oddly-specific')
   let calls = 0
   await page.route(`**/api/reveal/oddly-specific/1/${puzzle.rounds[0]?.id ?? ''}`, (route) => {
     calls += 1
@@ -79,12 +77,12 @@ test('result details load examples on demand, support keyboard opening and retry
 
 for (const missing of [false, true]) {
   test(`next puzzle has its own loading and ${missing ? 'not-found' : 'game'} state`, async ({ page }) => {
-    const body = readFileSync('public/puzzles/oddly-specific/2.json', 'utf8')
+    const puzzle = shippedPuzzle('oddly-specific', 2)
     let release = () => undefined as void
     const ready = new Promise<void>((resolve) => { release = resolve })
     await page.route('**/puzzles/oddly-specific/2.json', async (route) => {
       await ready
-      await route.fulfill(missing ? { status: 404, body: '' } : { contentType: 'application/json', body })
+      await route.fulfill(missing ? { status: 404, body: '' } : { json: puzzle })
     })
     await openResults(page)
     await page.getByRole('link', { name: /^Next puzzle #002/u }).click()
@@ -126,16 +124,13 @@ test('copying results reports success only after the clipboard accepts them', as
 
 for (const game of gameIds) {
   test(`${game} restores a pending rejection and allows overruling it after reload`, async ({ page }) => {
-    const puzzle = puzzleSchema.parse(JSON.parse(readFileSync(`public/puzzles/${game}/1.json`, 'utf8')))
+    const puzzle = shippedPuzzle(game)
     let calls = 0
-    await page.route('**/api/judge', (route) => {
+    await mockJudge(page, (request) => {
       calls += 1
-      return route.fulfill({ json: {
-        attempt: calls, model: 'clef-flash', modelMs: 1,
-        conditions: Object.fromEntries((puzzle.rounds[0]?.conditions ?? []).map(({ id }) => [id, { pass: false, p: 0.1 }])),
-      } })
+      return { ...allConditions(puzzle, request, false), modelMs: 1 }
     })
-    await page.route('**/api/reveal/**', (route) => route.fulfill({ json: { example: 'spoon', also: [] } }))
+    await mockReveal(page, () => ({ example: 'spoon', also: [] }))
     await page.goto(`/play/${game}/1`)
     await page.getByRole('textbox').fill('spoon')
     await page.getByRole('button', { name: 'JUDGE', exact: true }).click()

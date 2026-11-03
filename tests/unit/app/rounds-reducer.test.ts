@@ -35,19 +35,26 @@ describe('Oddly Specific rounds', () => {
   })
 
   test('a new guess is ignored until the pending rejection is moved on', () => {
-    expect(round(play(fail('a'), pass('b')))?.status).toBe('playing')
+    const pending = play(fail('a'))
+    expect(reduce(pending, pass('b'))).toBe(pending)
+    expect(round(pending)).toMatchObject({ status: 'playing', pending: true, guesses: [{ answer: 'a' }] })
   })
 
-  test('the third strike loses the round, but "Count it anyway" is still available before it', () => {
-    const third = play(fail('a'), { type: 'moveOn' }, fail('b'), { type: 'moveOn' }, fail('c'))
-    expect(round(reduce(third, { type: 'moveOn' }))).toMatchObject({ status: 'lost', strikes: 3, points: 0 })
-    expect(round(reduce(third, { type: 'countAnyway' }))).toMatchObject({ status: 'solved', overruled: true, points: 1 })
+  // Third-strike scoring and overruling are covered above; ended rounds also
+  // need to resist late guesses and actions before moving to the next round.
+  test.each([
+    ['solved', play(pass('a'))],
+    ['lost', play(fail('a'), { type: 'moveOn' }, fail('b'), { type: 'moveOn' }, fail('c'), { type: 'moveOn' })],
+    ['skipped', play({ type: 'skip' })],
+  ] as const)('a %s round ignores further guesses and scoring actions', (_status, state) => {
+    const actions: RunAction[] = [pass('late'), { type: 'moveOn' }, { type: 'countAnyway' }, { type: 'skip' }]
+    for (const action of actions) expect(reduce(state, action)).toBe(state)
   })
 
   test('a repeated answer is free and is not judged again', () => {
     const state = play(fail('a'), { type: 'moveOn' })
     expect(previousGuess(state, 'a')?.pass).toBe(false)
-    expect(round(reduce(state, fail('a')))).toEqual(round(state))
+    expect(reduce(state, fail('a'))).toBe(state)
   })
 
   test('skip ends the round with no points', () => {
@@ -65,13 +72,13 @@ describe('Oddly Specific rounds', () => {
 
   test('builds the share grid with a colour-free text form', () => {
     const guess = (answer: string, ok: boolean): Guess => ({ answer, pass: ok, failed: [], closeCall: false })
-    const state = [
+    const state = play(
       { type: 'judged', guess: guess('a', true) }, { type: 'nextRound' },
       { type: 'judged', guess: guess('b', false) }, { type: 'moveOn' }, { type: 'judged', guess: guess('c', true) }, { type: 'nextRound' },
       { type: 'judged', guess: guess('d', false) }, { type: 'countAnyway' }, { type: 'nextRound' },
       { type: 'skip' }, { type: 'nextRound' },
       { type: 'judged', guess: guess('e', true) },
-    ].reduce((s, a) => reduce(s, a as RunAction), startRun(oddlySpecificConfig))
+    )
     expect(shareGrid(state)).toEqual({ tiles: '🟩🟨🟦🟥🟩', text: '✓ 2 ✓* ✗ ✓' })
     expect(totalScore(state)).toBe(3 + 2 + 3 + 0 + 3)
   })

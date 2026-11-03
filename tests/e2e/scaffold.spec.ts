@@ -135,17 +135,19 @@ test('route pages arrive prerendered, and unknown paths are a 404', async ({ req
 })
 
 test('the 404 code reads as 404, and its ring mark turns unless motion is reduced', async ({ page }) => {
+  await page.clock.install()
   await page.goto('/not-a-route')
   const code = page.getByRole('main').getByText('404', { exact: true })
   await expect(code).toBeAttached()
   await expect(page.locator('.ascii-mark')).toHaveAttribute('aria-hidden', 'true')
   const frame = () => page.locator('.ascii-mark').textContent()
   const still = await frame()
-  await expect.poll(frame).not.toBe(still)
+  await expect.poll(async () => { await page.clock.runFor(100); return frame() }).not.toBe(still)
 
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await expect.poll(frame).toBe(still)
   await page.reload()
-  await page.waitForTimeout(500)
+  await expect(page.locator('.ascii-mark')).toBeVisible()
+  await page.clock.runFor(500)
   expect(await frame()).toBe(still)
 })

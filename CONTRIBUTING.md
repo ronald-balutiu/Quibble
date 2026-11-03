@@ -57,7 +57,9 @@ setup (the mocked API, fixture puzzles, storage seeding, guesses and the stubbed
 on-device judge) lives in `tests/e2e/support.ts`. Puzzle fixtures and intercepted
 judge requests use the shared schemas; standard successful replies are typed
 against those contracts. Invalid-response tests keep explicit routes so failures
-are intentional. Unit tests share a fake `localStorage` from
+are intentional. Accessibility checks reuse `tests/e2e/accessibility.ts` for the
+shared serious/critical threshold and screen-specific failure details.
+Unit tests share a fake `localStorage` from
 `tests/unit/app/support/storage.ts`, and hook tests opt into a DOM with
 `// @vitest-environment happy-dom`. Add a
 Playwright test that reaches each new screen or state. The on-device judge's tests

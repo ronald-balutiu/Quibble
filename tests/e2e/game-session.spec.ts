@@ -3,7 +3,7 @@ import { allConditions, mockJudge, mockReveal, seedStorage, shippedPuzzle } from
 import { gameIds } from '../../shared/games'
 import { oddlySpecificConfig } from '../../shared/games/oddly-specific'
 import { runReducer, startRun } from '../../src/games/rounds/reducer'
-import AxeBuilder from '@axe-core/playwright'
+import { expectAccessible } from './accessibility'
 
 // Start at the final round's reveal to exercise the real results-to-puzzle
 // navigation, without calling either model.
@@ -72,7 +72,7 @@ test('result details load examples on demand, support keyboard opening and retry
   await expect(first.getByText('fork', { exact: true })).toBeVisible()
   expect(calls).toBe(2)
   expect(await page.evaluate<number>('document.documentElement.scrollWidth')).toBeLessThanOrEqual(page.viewportSize()!.width)
-  expect((await new AxeBuilder({ page }).analyze()).violations.filter((v) => v.impact === 'serious' || v.impact === 'critical')).toEqual([])
+  await expectAccessible(page)
 })
 
 for (const missing of [false, true]) {

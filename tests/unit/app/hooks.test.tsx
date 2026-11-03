@@ -22,8 +22,8 @@ describe('useHydrated', () => {
 
 describe('useResource', () => {
   test('loads, and Retry tries again after a failure', async () => {
-    const load = vi.fn().mockResolvedValueOnce(undefined).mockResolvedValueOnce('puzzles')
-    const { result } = renderHook(() => useResource(load as () => Promise<string | undefined>))
+    const load = vi.fn<() => Promise<string | undefined>>().mockResolvedValueOnce(undefined).mockResolvedValueOnce('puzzles')
+    const { result } = renderHook(() => useResource(load))
     expect(result.current.data).toBeUndefined()
     await waitFor(() => { expect(result.current.data).toBeNull() })
     act(() => { result.current.retry() })

@@ -20,13 +20,13 @@ describe('display formats', () => {
 
 describe('Category Escape labels (E1)', () => {
   const condition = (id: string, label: string) => ({ id, label, negation: `isn't ${label}`, claim: `{answer} is ${label}` })
-  const puzzle = {
+  const puzzle: Puzzle = {
     game: 'category-escape', n: 1, difficulty: 'easy',
     rounds: [
       { id: 'L1', conditions: [condition('fruit', 'A fruit')] },
       { id: 'L2', conditions: [condition('fruit', 'A fruit'), condition('red', 'Red')] },
     ],
-  } as unknown as Puzzle
+  }
 
   test('levels are numbered L-01 onwards, and each adds its last condition as a rule', () => {
     expect([0, 1, 9].map(levelCode)).toEqual(['L-01', 'L-02', 'L-10'])

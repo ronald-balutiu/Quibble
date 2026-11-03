@@ -1,21 +1,17 @@
 import { describe, expect, test, vi } from 'vitest'
 import { createBackgroundDownload } from '@/judges/device/background-download'
-import type { DeviceJudge, LoadProgress, LoadResult } from '@/judges/device/client'
+import type { LoadProgress, LoadResult } from '@/judges/device/client'
+import { deviceJudgeDouble } from './support/device-judge'
 
 function setup() {
   let report: (value: LoadProgress) => void = () => {}
   let finish: (value: LoadResult) => void = () => {}
-  const judge: DeviceJudge = {
-    ready: false, status: 'off',
-    subscribe: () => () => {},
+  const judge = deviceJudgeDouble('off', {
     load: vi.fn((onProgress: (value: LoadProgress) => void) => {
       report = onProgress
       return new Promise<LoadResult>((resolve) => { finish = resolve })
     }),
-    cancel: vi.fn(),
-    score: vi.fn(),
-    remove: vi.fn(() => Promise.resolve()),
-  }
+  })
   return { judge, download: createBackgroundDownload(judge), report: (value: LoadProgress) => { report(value) }, finish: (value: LoadResult) => { finish(value) } }
 }
 

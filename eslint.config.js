@@ -18,6 +18,11 @@ const reactImports = {
   message: 'Keep shared contracts and game reducers independent of React.',
 }
 
+const sceneImports = {
+  group: ['@/scenes/*', '@/app/*'],
+  message: 'Games are used by scenes and the app, never the reverse; shared game UI lives in src/games/shared/.',
+}
+
 const copyAttribute = 'JSXAttribute[name.name=/^(aria-label|aria-description|alt|title|placeholder|label|children)$/]'
 const styleAttribute = 'JSXAttribute[name.name="style"]'
 
@@ -140,12 +145,19 @@ export default defineConfig(
     },
   },
   {
-    files: ['src/games/**/reducer.ts'],
+    files: ['src/games/**/*.{ts,tsx}'],
+    rules: {
+      'no-restricted-imports': ['error', { patterns: [privateImports, sceneImports] }],
+    },
+  },
+  {
+    files: ['src/games/**/reducer.ts', 'src/games/shared/run.ts'],
     rules: {
       'no-restricted-imports': ['error', {
         patterns: [
           privateImports,
           reactImports,
+          sceneImports,
           { group: ['node:*'], message: 'Game reducers must stay independent of Node APIs.' },
         ],
       }],

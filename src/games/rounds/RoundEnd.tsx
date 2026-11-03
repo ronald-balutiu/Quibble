@@ -1,10 +1,10 @@
 import { useEffect, useRef } from 'react'
 import type { Puzzle } from '@shared/schemas/puzzle'
 import { en, format, type CopyKey } from '@/copy/en'
-import { useReveal } from '@/scenes/game/use-reveal'
-import type { DeviceColumn } from '@/scenes/game/use-device-column'
-import { judgesSplit, letterFor } from '@/scenes/game/verdict'
-import type { RunState } from './reducer'
+import { useReveal } from '@/games/shared/use-reveal'
+import type { DeviceColumn } from '@/games/shared/use-device-column'
+import { judgesSplit, letterFor } from '@/games/shared/verdict'
+import type { RunState } from '@/games/shared/run'
 
 export function RoundEnd({ run, puzzle, alsoFits, column, onNext }: { run: RunState, puzzle: Puzzle, alsoFits: CopyKey, column: DeviceColumn, onNext: () => void }) {
   const round = run.rounds[run.current]

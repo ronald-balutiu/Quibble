@@ -4,10 +4,11 @@ import { JudgesCompare } from '@/components/JudgesCompare/JudgesCompare'
 import { en, format } from '@/copy/en'
 import { loadComparisons } from '@/lib/storage/comparisons'
 import { puzzleComparisons } from '@/lib/your-games'
-import { ResultSummary } from '@/scenes/game/ResultSummary'
-import { ResultActions } from '@/scenes/game/ResultActions'
-import { RunReview } from '@/scenes/game/RunReview'
-import { maxScore, shareGrid, totalScore, type RoundsConfig, type RunState } from './reducer'
+import { ResultSummary } from '@/games/shared/ResultSummary'
+import { ResultActions } from '@/games/shared/ResultActions'
+import { RunReview } from '@/games/shared/RunReview'
+import { totalScore, type RunState } from '@/games/shared/run'
+import { maxScore, shareGrid, type RoundsConfig } from './reducer'
 
 export function Results({ run, puzzle, best, config }: { run: RunState, puzzle: Puzzle, best: number | undefined, config: RoundsConfig }) {
   const score = totalScore(run)

@@ -2,8 +2,8 @@ import { isCloseCall, judgeConfig, passes } from '@shared/config'
 import type { CloudModel, JudgeSuccess } from '@shared/schemas/judge'
 import type { PuzzleCondition } from '@shared/schemas/puzzle'
 import { en, format } from '@/copy/en'
-import type { Guess } from '@/games/rounds/reducer'
 import type { DeviceRun } from './judge-guess'
+import type { Guess } from './run'
 
 // Turns a judge reply into a reducer guess and the verdict sentence (plan 5.7).
 

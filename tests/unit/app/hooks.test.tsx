@@ -7,8 +7,8 @@ import { afterEach, describe, expect, test, vi } from 'vitest'
 import { usePageMeta } from '@/app/use-page-meta'
 import { useHydrated } from '@/lib/use-hydrated'
 import { useResource } from '@/lib/use-resource'
-import type { DeviceRun } from '@/scenes/game/judge-guess'
-import { useDeviceColumn } from '@/scenes/game/use-device-column'
+import type { DeviceRun } from '@/games/shared/judge-guess'
+import { useDeviceColumn } from '@/games/shared/use-device-column'
 import { deferred } from '../../support/deferred'
 
 afterEach(() => { cleanup() })

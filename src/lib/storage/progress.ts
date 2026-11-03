@@ -1,7 +1,7 @@
 import { z } from '@shared/schemas/zod'
 import { storageSignal } from './signal'
 import type { GameId } from '@shared/games'
-import type { RunState } from '@/games/rounds/reducer'
+import type { RunState } from '@/games/shared/run'
 
 // Progress per puzzle (plan 3.8): the best score and one in-progress run. Every
 // call is wrapped, so the game still plays when storage is blocked or full.

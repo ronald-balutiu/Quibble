@@ -1,7 +1,7 @@
 import { useId, useState } from 'react'
 import type { Puzzle, PuzzleCondition } from '@shared/schemas/puzzle'
 import { en, format } from '@/copy/en'
-import type { RoundState, RunState } from '@/games/rounds/reducer'
+import type { RoundState, RunState } from './run'
 import { useReveal } from './use-reveal'
 import { letterFor } from './verdict'
 import './run-review.css'

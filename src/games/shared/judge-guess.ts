@@ -1,11 +1,11 @@
 import type { GameId } from '@shared/games'
 import type { CloudModel, JudgeSuccess } from '@shared/schemas/judge'
 import type { PuzzleCondition } from '@shared/schemas/puzzle'
-import type { Guess } from '@/games/rounds/reducer'
 import { judgeOnCloud, type CloudMessage } from '@/judges/attempt'
 import { deviceJudge, type DeviceJudge, type ScoreResult } from '@/judges/device/client'
 import { saveComparison, type Comparison } from '@/lib/storage/comparisons'
 import { renewSession } from '@/lib/turnstile'
+import type { Guess } from './run'
 import { devicePasses, toDeviceGuess, toGuess } from './verdict'
 
 // One guess, shared by every game screen, and the game screen's UI state. The

@@ -1,35 +1,11 @@
 // Round-based play (plan 1.3, 1.4, 5.5 G1–G6), shared by Oddly Specific and Double
 // Agent. Pure: no React, no I/O. The game config supplies the numbers.
+import { previousGuess, shareGridOf, startRunOf, updateCurrent, type Guess, type RoundState, type RunState } from '@/games/shared/run'
 
 export interface RoundsConfig {
   rounds: number
   maxWrongGuessesPerRound: number
   pointsByGuess: readonly number[]
-}
-
-export interface Guess {
-  answer: string // normalized
-  pass: boolean
-  failed: string[] // condition IDs that failed
-  closeCall: boolean
-}
-
-type RoundStatus = 'playing' | 'solved' | 'lost' | 'skipped'
-
-export interface RoundState {
-  status: RoundStatus
-  guesses: Guess[]
-  strikes: number
-  // A rejection waiting for the player to move on; only then does it cost a strike.
-  pending: boolean
-  overruled: boolean
-  points: number
-}
-
-export interface RunState {
-  current: number
-  rounds: RoundState[]
-  finished: boolean
 }
 
 export type RunAction =
@@ -39,24 +15,7 @@ export type RunAction =
   | { type: 'skip' }
   | { type: 'nextRound' }
 
-export const freshRound = (): RoundState => ({ status: 'playing', guesses: [], strikes: 0, pending: false, overruled: false, points: 0 })
-
-export function startRun(config: RoundsConfig): RunState {
-  return { current: 0, rounds: Array.from({ length: config.rounds }, freshRound), finished: false }
-}
-
-// An answer already judged in this round shows its earlier verdict again, free.
-export function previousGuess(state: RunState, answer: string): Guess | undefined {
-  return state.rounds[state.current]?.guesses.find((guess) => guess.answer === answer)
-}
-
-function update(state: RunState, change: (round: RoundState) => RoundState): RunState {
-  const round = state.rounds[state.current]
-  if (!round) return state
-  const rounds = [...state.rounds]
-  rounds[state.current] = change(round)
-  return { ...state, rounds }
-}
+export const startRun = (config: RoundsConfig): RunState => startRunOf(config.rounds)
 
 // The guess number a pass would score as: one more than the strikes taken so far.
 const pointsFor = (config: RoundsConfig, round: RoundState) => config.pointsByGuess[round.strikes] ?? 0
@@ -69,7 +28,7 @@ export function runReducer(config: RoundsConfig) {
     switch (action.type) {
       case 'judged': {
         if (round.status !== 'playing' || round.pending || previousGuess(state, action.guess.answer)) return state
-        return update(state, (r) => {
+        return updateCurrent(state, (r) => {
           const guesses = [...r.guesses, action.guess]
           return action.guess.pass
             ? { ...r, guesses, status: 'solved', points: pointsFor(config, r) }
@@ -78,18 +37,18 @@ export function runReducer(config: RoundsConfig) {
       }
       case 'moveOn': {
         if (!round.pending) return state
-        return update(state, (r) => {
+        return updateCurrent(state, (r) => {
           const strikes = r.strikes + 1
           return { ...r, pending: false, strikes, status: strikes >= config.maxWrongGuessesPerRound ? 'lost' : 'playing' }
         })
       }
       case 'countAnyway': {
         if (!round.pending) return state
-        return update(state, (r) => ({ ...r, pending: false, overruled: true, status: 'solved', points: pointsFor(config, r) }))
+        return updateCurrent(state, (r) => ({ ...r, pending: false, overruled: true, status: 'solved', points: pointsFor(config, r) }))
       }
       case 'skip': {
         if (round.status !== 'playing') return state
-        return update(state, (r) => ({ ...r, pending: false, status: 'skipped', points: 0 }))
+        return updateCurrent(state, (r) => ({ ...r, pending: false, status: 'skipped', points: 0 }))
       }
       case 'nextRound': {
         if (round.status === 'playing') return state
@@ -107,16 +66,14 @@ export function onLastTry(config: RoundsConfig, state: RunState): boolean {
   return round?.pending === true && round.strikes + 1 >= config.maxWrongGuessesPerRound
 }
 
-export const totalScore = (state: RunState) => state.rounds.reduce((total, round) => total + round.points, 0)
 export const maxScore = (config: RoundsConfig) => config.rounds * (config.pointsByGuess[0] ?? 0)
 
 // Share-grid tiles (plan 1.4): 🟩 first guess, 🟨 a later guess, 🟦 overruled,
 // 🟥 lost or skipped; with a text form that doesn't rely on colour.
 export function shareGrid(state: RunState): { tiles: string, text: string } {
-  const marks = state.rounds.map((round) => {
-    if (round.status !== 'solved') return ['🟥', '✗']
-    if (round.overruled) return ['🟦', '✓*']
-    return round.strikes === 0 ? ['🟩', '✓'] : ['🟨', String(round.strikes + 1)]
-  })
-  return { tiles: marks.map(([tile]) => tile).join(''), text: marks.map(([, text]) => text).join(' ') }
+  return shareGridOf(state.rounds.map((round) => {
+    if (round.status !== 'solved') return ['🟥', '✗'] as const
+    if (round.overruled) return ['🟦', '✓*'] as const
+    return round.strikes === 0 ? ['🟩', '✓'] as const : ['🟨', String(round.strikes + 1)] as const
+  }))
 }

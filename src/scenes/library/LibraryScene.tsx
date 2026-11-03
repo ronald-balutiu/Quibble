@@ -172,14 +172,7 @@ export function LibraryScene() {
                       else setOpen(n)
                     }}
                   >
-                    <span className="tile__top">
-                      <span className="tile__n">{n}</span>
-                      {(status === 'solved' || status === 'perfect') && (
-                        <span className="tile__check" aria-hidden="true">
-                          {en['library.completedMark']}
-                        </span>
-                      )}
-                    </span>
+                    <span className="tile__n">{n}</span>
                     {progress ? (
                       <>
                         <progress
@@ -196,7 +189,14 @@ export function LibraryScene() {
                         </span>
                       </>
                     ) : (
-                      <span className="tile__score">{status === 'perfect' ? en['library.perfectMark'] : best}</span>
+                      <span className="tile__bottom">
+                        {(status === 'solved' || status === 'perfect') && (
+                          <span className="tile__check" aria-hidden="true">
+                            {en['library.completedMark']}
+                          </span>
+                        )}
+                        <span className="tile__score">{status === 'perfect' ? en['library.perfectMark'] : best}</span>
+                      </span>
                     )}
                     <span className="visually-hidden">
                       {format('library.tile', {

@@ -295,7 +295,8 @@
 
 .tiles {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  /* minmax(0, …): a tile's content never widens its column. */
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   margin: 0;
   padding: 0;
   border-top: var(--border-width) solid var(--line);
@@ -320,6 +321,7 @@
   /* Body size, not a label size: 100 tiles are most of the page's text on a phone,
      and text under 12px fails Lighthouse's legibility check. */
   font-size: var(--type-body);
+  line-height: var(--leading-tile);
   cursor: pointer;
 }
 
@@ -329,8 +331,17 @@
   color: var(--text);
 }
 
+/* The number has the top row to itself, so a completed tile is no wider than the
+   rest; its check and score share the bottom row. */
+.tile__bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-1);
+  width: 100%;
+}
+
 .tile__score {
-  align-self: flex-end;
+  margin-left: auto;
 }
 
 /* A perfect score's star takes the game's colour. */
@@ -338,16 +349,8 @@
   color: var(--accent);
 }
 
-.tile__top {
-  display: flex;
-  justify-content: space-between;
-  gap: var(--space-1);
-  width: 100%;
-}
-
 /* The number sits in its own box, so it reads apart from the score below it. The
-   text box is trimmed to the digits, so equal padding centres them both ways; the
-   box keeps its own height rather than stretching to the check beside it. */
+   text box is trimmed to the digits, so equal padding centres them both ways. */
 .tile__n {
   display: block;
   align-self: flex-start;
@@ -410,12 +413,20 @@
   opacity: 0.8;
 }
 
+/* From 1024px the grid is 10 across beside the games, so tiles are as narrow as 44px
+   until the frame reaches its full width; a tighter inset keeps the boxed number inside. */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .tile {
+    padding: var(--space-1);
+  }
+}
+
 @media (min-width: 1024px) {
   .library-mobile-hint {
     display: none;
   }
   .tiles {
-    grid-template-columns: repeat(10, 1fr);
+    grid-template-columns: repeat(10, minmax(0, 1fr));
   }
 
   .scene > .library-layout {

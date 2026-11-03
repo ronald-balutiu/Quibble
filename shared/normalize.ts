@@ -1,4 +1,4 @@
-import { gameConfigs, type GameId } from './games'
+import { gameConfigs, type GameId } from './games/index.ts'
 
 // Conservative on purpose: it never changes what an answer means. No stemming or
 // singularization ("glasses" stays different from "glass").

@@ -120,6 +120,11 @@ Test configuration worth knowing:
   game IDs.
 - Use `import type` for type-only imports, and the `@/` and `@shared/` aliases when
   importing across folders.
+- In `shared/`, `scripts/` and root config files, relative imports name the file,
+  extension included (`'./zod.ts'`, `'../games/index.ts'`). Vite loads its config,
+  and through `scripts/vite-plugins.ts` part of `shared/`, and is moving to Node's
+  native loader, which resolves nothing else. Lint enforces this, and a tooling test
+  loads the config natively.
 - Respect the [runtime boundaries](docs/architecture.md#runtime-boundaries-and-shared-contracts);
   lint enforces which folders may import which.
 

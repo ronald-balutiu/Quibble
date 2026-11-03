@@ -1,5 +1,5 @@
-import { z } from './zod'
-import { gameIds } from '../games'
+import { z } from './zod.ts'
+import { gameIds } from '../games/index.ts'
 
 // Answer-key cases (plan 3.10): whole guesses with a hand-checked verdict per
 // condition. Thing conditions refer to factory/conditions.json; Double Agent

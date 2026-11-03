@@ -1,5 +1,5 @@
-import { z } from './zod'
-import { gameIds } from '../games'
+import { z } from './zod.ts'
+import { gameIds } from '../games/index.ts'
 
 // Player-facing puzzle files, served statically (plan 3.2):
 // public/puzzles/index.json and public/puzzles/<game>/<n>.json.

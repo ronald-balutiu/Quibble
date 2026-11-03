@@ -1,6 +1,6 @@
-import { categoryEscapeConfig } from './category-escape'
-import { doubleAgentConfig } from './double-agent'
-import { oddlySpecificConfig } from './oddly-specific'
+import { categoryEscapeConfig } from './category-escape.ts'
+import { doubleAgentConfig } from './double-agent.ts'
+import { oddlySpecificConfig } from './oddly-specific.ts'
 
 export const gameConfigs = {
   [oddlySpecificConfig.id]: oddlySpecificConfig,

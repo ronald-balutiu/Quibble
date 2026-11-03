@@ -1,5 +1,5 @@
-import { z } from './zod'
-import { gameIds } from '../games'
+import { z } from './zod.ts'
+import { gameIds } from '../games/index.ts'
 
 // API contracts shared by the browser and the Worker (plan 3.4).
 

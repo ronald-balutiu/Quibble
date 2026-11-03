@@ -5,6 +5,7 @@ import { COMPARISON_LIMITS, loadComparisons, markOverruled, saveComparison, type
 import { judgeGuess, toComparison, type DeviceRun, type JudgeTurn } from '@/scenes/game/judge-guess'
 import { judgesSplit } from '@/scenes/game/verdict'
 import { installBlockedStorage, installStorage } from './support/storage'
+import { deviceJudgeDouble } from './support/device-judge'
 
 const conditions: PuzzleCondition[] = [
   { id: 'pocket', label: 'Fits in a pocket', negation: "doesn't fit in a pocket", claim: '{answer} fits in a pocket' },
@@ -77,13 +78,16 @@ describe('both judges on one guess (3.7)', () => {
   })
 
   function fakeDevice(results: ScoreResult[]): DeviceJudge {
-    return { ready: true, score: vi.fn(() => Promise.resolve(results.shift() ?? { kind: 'error' })) } as unknown as DeviceJudge
+    const score = vi.fn<DeviceJudge['score']>()
+    for (const result of results) score.mockResolvedValueOnce(result)
+    score.mockImplementation(() => { throw new Error('Unexpected extra device score') })
+    return deviceJudgeDouble('ready', { score })
   }
 
   test('the cloud scores land first, but the guess resolves only once the device is back', async () => {
     const events: string[] = []
     let finish: (result: ScoreResult) => void = () => undefined
-    const device = { ready: true, score: vi.fn(() => new Promise<ScoreResult>((resolve) => { finish = resolve })) } as unknown as DeviceJudge
+    const device = deviceJudgeDouble('ready', { score: vi.fn(() => new Promise<ScoreResult>((resolve) => { finish = resolve })) })
     let done = false
     const judging = judgeGuess(turn, {
       device,
@@ -113,7 +117,7 @@ describe('both judges on one guess (3.7)', () => {
 
   test('with the judge off, nothing runs on the device', async () => {
     const runs: DeviceRun[] = []
-    const off = { ready: false, score: vi.fn() } as unknown as DeviceJudge
+    const off = deviceJudgeDouble()
     await judgeGuess(turn, { onDevice: (run) => runs.push(run), device: off })
     expect(off.score).not.toHaveBeenCalled()
     expect(runs).toEqual([])
@@ -152,7 +156,7 @@ describe('both judges on one guess (3.7)', () => {
 
   test('cloud resting, device off: not judged, with the reset time for the strip (S2)', async () => {
     outOfUsage(503, { error: 'resting', resetAt: '2026-11-02T00:00:00.000Z' })
-    const result = await judgeGuess(turn, { device: { ready: false } as unknown as DeviceJudge })
+    const result = await judgeGuess(turn, { device: deviceJudgeDouble() })
     expect(result).toEqual({ ui: { kind: 'resting', resetAt: '2026-11-02T00:00:00.000Z' }, restingUntil: '2026-11-02T00:00:00.000Z' })
   })
 

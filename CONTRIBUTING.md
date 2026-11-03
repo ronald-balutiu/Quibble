@@ -74,6 +74,10 @@ npx playwright test tests/e2e/example.spec.ts --project=desktop
 Test configuration worth knowing:
 
 - Vitest restores mocks, stubbed globals, and environment variables between tests.
+- Reuse the complete device-judge double in `tests/unit/app/support/device-judge.ts`;
+  supply the load or score implementation a test needs. Unexpected calls fail.
+- Restore fake timers in `afterEach`, so a failed assertion cannot leak the clock
+  into the next test.
 - Unit tests time out after five seconds; use fake timers for longer waits.
 - `test.only` fails in CI.
 - Playwright keeps screenshots and traces only for failed tests.

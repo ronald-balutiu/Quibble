@@ -15,22 +15,9 @@ export const en = {
   'meta.description.game': '{game} #{n} on Quibble. {tagline} Any answer that fits counts, and AI judges decide whether it does.',
 
   // Home (H1, H2)
-  'home.eyebrow': 'Three word games / two AI judges',
   'home.title': 'Make your case.',
-  'home.lede': "Any answer that fits counts. Two AI judges decide whether it does. Overrule them when they're wrong.",
-  'home.lede.desktop': "Any answer that fits counts. A judge in the cloud and one on your own device decide whether it does. Overrule them when they're wrong.",
-  'home.play': 'Play',
-  'home.continue': 'Continue #{n} · {game}',
-  'home.continueLine': 'Round {round} of {total} • {points} pts so far',
-  'home.continueLine.level': 'Level {round} of {total}',
-  'home.next': 'Next: {game} #{n}',
-  'home.solved': '{solved} / {total}',
-  'home.footer': 'No accounts • progress stays in this browser',
-  'home.status.ok': 'Status: online',
-  'home.status.down': "Status: the cloud judge isn't reachable",
   'home.games': 'Games',
   'mark.label': 'Three overlapping rings in honey, sky and orchid, one for each condition. A white arc circles each ring, with a pulsing white point in the middle.',
-  'home.puzzles': '{count} puzzles',
   // Owner-approved welcome flow (local plan: entry-flow-refresh).
   'welcome.eyebrow': 'Three word games. A little wiggle room.',
   'welcome.lede': 'Find a word that fits. The AI checks your answer. If you think it got the call wrong, you can count it anyway.',
@@ -233,12 +220,10 @@ export const en = {
   'library.status.perfect': 'perfect',
   'library.continue': 'Continue #{n} · round {round}',
   'library.continue.level': 'Continue #{n} · level {round}',
-  'library.random': 'Random unplayed puzzle',
   'library.empty': 'No puzzles yet.',
   'sheet.play': 'Play',
   'sheet.resume': 'Resume round {round}',
   'sheet.resume.level': 'Resume level {round}',
-  'sheet.replay': 'Replay from the start',
   'sheet.reset': 'Reset this puzzle',
   'sheet.close': 'Close',
   'difficulty.easy': 'easy',
@@ -303,7 +288,6 @@ export const en = {
   'verdict.notCompared': ' Not counted in the comparison.',
   'verdict.agent.oneSide': '{word} fits {fits}, not {misses}.',
   'verdict.overruled': 'COUNTED • YOU OVERRULED',
-  'verdict.judgedBy': 'Judged by {model}.',
   'round.lost': 'ROUND {n} • NO POINTS',
   'round.example': 'The example was',
   'round.skipped': 'Skipped',
@@ -358,8 +342,6 @@ export const en = {
   'review.mark.missed': '×',
   'results.score': '{score}/{max}',
   'review.title': 'Your game',
-  'review.hint.rounds': 'Open a round to see your guesses and example answers.',
-  'review.hint.levels': 'Open a level to see its rules, your guesses and example answers.',
   'review.round': 'Round {n}',
   'review.level': 'Level {n}',
   'review.status.solved': 'Solved',
@@ -437,7 +419,6 @@ export const en = {
   'action.reload': 'Reload',
   'action.retry': 'Retry',
   'action.editAnswer': 'Edit answer',
-  'action.dismiss': 'Dismiss',
   'confirm.again': 'Press again to delete',
   'confirm.done': 'Deleted',
   'model.download.failed': 'Download stopped: {reason}. Nothing was saved.',
@@ -511,19 +492,11 @@ export const en = {
   'device.install.warming': 'Warming up the judge',
 
   // Cloud judge choice (D-66, D-67)
-  'judgeChoice.title': 'Cloud judge',
   'judgeChoice.clef-flash': 'Clef-flash',
-  'judgeChoice.clef-flash.note': 'Faster, less accurate.',
   'judgeChoice.gemma-4': 'Gemma 4',
-  'judgeChoice.gemma-4.note': 'Slower, more accurate.',
 
   // About (P1)
   'about.title': 'Two judges, one question: does it fit?',
-// "First try", "Second try", "Third try" for a guess index, and "point" or "points".
-const tryKeys = ['rules.firstTry', 'rules.secondTry', 'rules.thirdTry'] as const
-export const tryLabel = (index: number) => en[tryKeys[Math.min(index, tryKeys.length - 1)] ?? 'rules.thirdTry']
-export const pointsLabel = (count: number) => en[count === 1 ? 'rules.point' : 'rules.points']
-
   'about.what': 'What this is',
   'about.what.body': "Quibble has three word games where any answer that fits counts, even if it isn't the one I had in mind. AI judges check your guesses, and you can overrule them. I built it as a portfolio project. It's free to play, with no ads or accounts. One Cloudflare Worker handles the site, API and AI calls within the free tier.",
   'about.how': 'How judging works',
@@ -545,6 +518,11 @@ export const pointsLabel = (count: number) => en[count === 1 ? 'rules.point' : '
 } as const
 
 export type CopyKey = keyof typeof en
+
+// "First try", "Second try", "Third try" for a guess index, and "point" or "points".
+const tryKeys = ['rules.firstTry', 'rules.secondTry', 'rules.thirdTry'] as const
+export const tryLabel = (index: number) => en[tryKeys[Math.min(index, tryKeys.length - 1)] ?? 'rules.thirdTry']
+export const pointsLabel = (count: number) => en[count === 1 ? 'rules.point' : 'rules.points']
 
 // Puzzle numbers always show three digits: #001 to #100 (5.5).
 export const puzzleNumber = (n: number) => String(n).padStart(3, '0')

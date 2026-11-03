@@ -24,13 +24,13 @@ describe('the ASCII ring mark', () => {
     }
   })
 
-  test('the still frame is the mark: three facing rings around the centre point', () => {
+  test('the still frame is the mark: three facing rings around a clear centre', () => {
     const still = asciiMarkFrame(0)
     expect(still).toEqual(asciiMarkFrame(0))
-    expect(still.slice(0, 3).every((ring) => ring.trim().length > 0)).toBe(true)
-    // The point sits where the rings meet, at the mark's centre (0, 11 in the SVG's viewBox).
-    expect(still[3]?.replaceAll(/\s/gu, '')).toBe('@')
-    expect(at(still, 3, Math.floor((201 / 380) * ROWS), COLS / 2)).toBe('@')
+    expect(still.every((ring) => ring.trim().length > 0)).toBe(true)
+    // Where the rings meet, at the mark's centre (0, 11 in the SVG's viewBox), nothing is drawn.
+    const centre = Math.floor((201 / 380) * ROWS)
+    expect(LAYERS.every((_, layer) => at(still, layer, centre, COLS / 2) === undefined)).toBe(true)
     // Facing the viewer, the top ring's hole is clear and its edge drawn.
     expect(at(still, 0, Math.floor((138 / 380) * ROWS), COLS / 2)).toBeUndefined()
     expect(at(still, 0, 1, COLS / 2)).toBeDefined()
@@ -57,18 +57,20 @@ describe('the ASCII ring mark', () => {
       textBaseline: 'alphabetic',
     }
     const frame = asciiMarkFrame(0)
-    paintFrame(context, frame, ['honey', 'sky', 'orchid', 'white'], 'Geist Mono')
+    paintFrame(context, frame, ['honey', 'sky', 'orchid'], 'Geist Mono')
     expect(context.font).toBe('10px Geist Mono')
     expect(calls).toHaveLength(frame.join('').replaceAll(/\s/gu, '').length)
-    // The point, in the last layer's colour, sits in its cell's centre.
-    const row = frame[3]?.split('\n').findIndex((line) => line.includes('@')) ?? -1
-    const col = frame[3]?.split('\n')[row]?.indexOf('@') ?? -1
-    expect(calls.find(({ char }) => char === '@')).toEqual({
-      char: '@',
+    // The last ring's first character, in that layer's colour, sits in its cell's centre.
+    const lines = frame[2]?.split('\n') ?? []
+    const row = lines.findIndex((line) => line.trim().length > 0)
+    const col = lines[row]?.search(/\S/u) ?? -1
+    const char = lines[row]?.[col]
+    expect(calls.find((call) => call.color === 'orchid')).toEqual({
+      char,
       x: col * 6 + 3,
       y: row * 10 + 5,
-      color: 'white',
+      color: 'orchid',
     })
-    expect(new Set(calls.map(({ color }) => color))).toEqual(new Set(['honey', 'sky', 'orchid', 'white']))
+    expect(new Set(calls.map(({ color }) => color))).toEqual(new Set(['honey', 'sky', 'orchid']))
   })
 })

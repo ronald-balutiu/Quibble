@@ -17,12 +17,12 @@ const RINGS = [
   { cx: -64, cy: 44, period: 34, direction: -1 },
   { cx: 64, cy: 44, period: 42, direction: 1 },
 ] as const
-// The layers, back to front in the stack: one per ring, then the centre point.
-export const LAYERS = ['oddly', 'escape', 'agent', 'point'] as const
+// The layers, back to front in the stack: one per ring. The centre, where they meet,
+// is left clear.
+export const LAYERS = ['oddly', 'escape', 'agent'] as const
 
 // Darkest to brightest by ink. Mostly letters, since it's a word game.
 const RAMP = '.:icoaxsezgdbqpkhmwMW'
-const POINT_CHAR = '@'
 // Weak perspective: the camera sits this far in front of the mark.
 const CAMERA = 900
 // Towards the viewer, from the upper left.
@@ -91,18 +91,13 @@ export function asciiMarkFrame(seconds: number): string[] {
     }
   })
 
-  // The point where all three rings meet, unless a ring passes in front of it.
-  const point =
-    Math.floor(((POINT.y - VIEW.y) / VIEW.height) * ROWS) * COLS + Math.floor(((POINT.x - VIEW.x) / VIEW.width) * COLS)
-  if ((depth[point] ?? Infinity) > 0) owner[point] = RINGS.length
-
   return LAYERS.map((_, layer) => {
     let text = ''
     for (let row = 0; row < ROWS; row++) {
       if (row > 0) text += '\n'
       for (let col = 0; col < COLS; col++) {
         const cell = row * COLS + col
-        text += owner[cell] !== layer ? ' ' : layer === RINGS.length ? POINT_CHAR : (RAMP[shade[cell] ?? 0] ?? ' ')
+        text += owner[cell] === layer ? (RAMP[shade[cell] ?? 0] ?? ' ') : ' '
       }
     }
     return text

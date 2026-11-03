@@ -14,10 +14,10 @@
 .clue__label {
   margin: var(--space-1) 0 0;
   color: var(--text);
-  font-size: var(--type-condition);
+  font-size: var(--type-clue);
   font-weight: var(--weight-light);
-  line-height: var(--leading-condition);
-  letter-spacing: var(--tracking-condition);
+  line-height: var(--leading-clue);
+  letter-spacing: var(--tracking-clue);
 }
 
 /* The two-circle diagram: phone shows it under the clues, desktop in the side panel. */

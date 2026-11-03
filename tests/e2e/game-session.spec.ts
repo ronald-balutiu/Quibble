@@ -1,6 +1,6 @@
 import { expect, test, type Page } from '@playwright/test'
 import { deferred } from '../support/deferred'
-import { allConditions, mockJudge, mockReveal, seedStorage, shippedPuzzle } from './support'
+import { allConditions, mockJudge, mockReveal, seedStorage, shippedPuzzle, submitGuess, tipsSeen } from './support'
 import { gameIds } from '../../shared/games'
 import { oddlySpecificConfig } from '../../shared/games/oddly-specific'
 import { runReducer, startRun } from '../../src/games/rounds/reducer'
@@ -155,5 +155,30 @@ for (const game of gameIds) {
     await page.getByRole('button', { name: 'Count it anyway' }).click()
     await expect(page.getByText('COUNTED • YOU OVERRULED')).toBeVisible()
     expect(calls).toBe(1)
+  })
+}
+
+// The judges' score axes draw their marks as layers that reach past the track, so a
+// round screen could scroll sideways. No game may, before or after a verdict, at the
+// project's own size or, on phones, at 320px.
+for (const game of gameIds) {
+  test(`${game} never scrolls sideways, before or after a verdict`, async ({ page, isMobile }) => {
+    const puzzle = shippedPuzzle(game)
+    await seedStorage(page, tipsSeen)
+    await mockJudge(page, (request) => allConditions(puzzle, request, false))
+    await page.goto(`/play/${game}/1`)
+    const fitsWidth = async () => {
+      expect(await page.evaluate<number>('document.documentElement.scrollWidth')).toBeLessThanOrEqual(
+        page.viewportSize()!.width,
+      )
+    }
+    for (const width of isMobile ? [undefined, 320] : [undefined]) {
+      if (width) await page.setViewportSize({ width, height: 800 })
+      await expect(page.getByRole('textbox')).toBeEnabled()
+      await fitsWidth()
+    }
+    await submitGuess(page, 'spoon')
+    await expect(page.locator('.axis__dot').first()).toBeAttached()
+    await fitsWidth()
   })
 }

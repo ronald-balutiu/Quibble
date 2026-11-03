@@ -21,7 +21,6 @@ const INKS: Record<(typeof LAYERS)[number], string> = {
   oddly: '--game-oddly',
   escape: '--game-escape',
   agent: '--game-agent',
-  point: '--text',
 }
 
 export function AsciiMark({ label }: { label?: string }) {

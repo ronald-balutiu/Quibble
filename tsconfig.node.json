@@ -13,6 +13,7 @@
     "tests/e2e/**/*.ts",
     "tests/device/**/*.ts",
     "tests/fixtures/node/**/*.ts",
+    "tests/support/**/*.ts",
     "tests/unit/shared/**/*.ts",
     "tests/unit/tooling/**/*.ts",
     "shared"

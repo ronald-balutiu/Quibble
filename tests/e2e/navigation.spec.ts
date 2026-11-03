@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test'
+import { deferred } from '../support/deferred'
 
 test('Library game tabs preserve the screen position for mouse and keyboard switches', async ({ page, isMobile }) => {
   if (isMobile) await page.setViewportSize({ width: 320, height: 900 })
@@ -116,14 +117,14 @@ test('Privacy closes Settings on navigation, including when already on About', a
 })
 
 test('navigation remains available while a puzzle loads', async ({ page }) => {
-  let release = () => {}
-  const ready = new Promise<void>((resolve) => { release = resolve })
-  await page.route('**/puzzles/category-escape/1.json', async (route) => { await ready; await route.continue() })
-  await page.goto('/play/category-escape/1', { waitUntil: 'domcontentloaded' })
-  await expect(page.getByRole('main')).toHaveAttribute('aria-busy', 'true')
-  await expect(page.getByRole('contentinfo')).toContainText('Words. Rules. Room to argue.')
-  await page.getByRole('navigation', { name: 'Main', exact: true }).getByRole('link', { name: 'Library' }).click()
-  release()
+  const ready = deferred()
+  await page.route('**/puzzles/category-escape/1.json', async (route) => { await ready.promise; await route.continue() })
+  try {
+    await page.goto('/play/category-escape/1', { waitUntil: 'domcontentloaded' })
+    await expect(page.getByRole('main')).toHaveAttribute('aria-busy', 'true')
+    await expect(page.getByRole('contentinfo')).toContainText('Words. Rules. Room to argue.')
+    await page.getByRole('navigation', { name: 'Main', exact: true }).getByRole('link', { name: 'Library' }).click()
+  } finally { ready.resolve() }
   await expect(page).toHaveURL('/play?game=category-escape')
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Category Escape')
 })

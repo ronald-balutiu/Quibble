@@ -52,6 +52,10 @@ Do not put Worker tests in the shared or tooling folders; they would be checked
 against Node types. Pure Worker logic can run in Vitest's Node environment. Tests
 that need real Cloudflare bindings require the Workers runtime integration.
 
+Pure utilities shared by unit and browser tests live in `tests/support/`. Keep
+platform-specific imports out of that folder. Use its `deferred()` helper to
+control pending operations, and release held browser requests in `finally`.
+
 Browser tests live in `tests/e2e/` and run against a production preview. Shared
 setup (the mocked API, fixture puzzles, storage seeding, guesses and the stubbed
 on-device judge) lives in `tests/e2e/support.ts`. Puzzle fixtures and intercepted

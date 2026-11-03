@@ -1,5 +1,5 @@
 import type { Env } from './env'
-import { json } from './env'
+import { json } from './http'
 import { handleJudge } from './judge-route'
 import type { Library } from './library'
 import { handleReveal } from './reveal'

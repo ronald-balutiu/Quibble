@@ -8,5 +8,10 @@ export const gameConfigs = {
   [doubleAgentConfig.id]: doubleAgentConfig,
 } as const
 
-export type GameId = keyof typeof gameConfigs
-export const gameIds = Object.keys(gameConfigs) as GameId[]
+export const gameIds = [oddlySpecificConfig.id, categoryEscapeConfig.id, doubleAgentConfig.id] as const
+export type GameId = (typeof gameIds)[number]
+
+// Narrows a route segment or stored value to a known game.
+export function isGameId(value: unknown): value is GameId {
+  return typeof value === 'string' && Object.hasOwn(gameConfigs, value)
+}

@@ -14,12 +14,12 @@ committed and shipped with the app or the Worker.
 
 Code is split by where it runs:
 
-| Folder | Runtime | Purpose |
-| --- | --- | --- |
-| `src/` | Browser | The React app. |
-| `worker/` | Cloudflare Workers | The API and server-only data. |
+| Folder                          | Runtime             | Purpose                                                |
+| ------------------------------- | ------------------- | ------------------------------------------------------ |
+| `src/`                          | Browser             | The React app.                                         |
+| `worker/`                       | Cloudflare Workers  | The API and server-only data.                          |
 | `factory/`, `eval/`, `scripts/` | Node, at build time | Puzzle generation, judge evaluation, and build checks. |
-| `shared/` | All of the above | Platform-independent rules, schemas, and types. |
+| `shared/`                       | All of the above    | Platform-independent rules, schemas, and types.        |
 
 Each runtime has its own TypeScript environment, so browser, Worker, and Node APIs
 cannot be mixed by accident.
@@ -94,8 +94,10 @@ the first-round tip, result navigation/copy feedback, best-score and share text,
 and retryable reveals.
 `lib/use-puzzle-index.ts` owns the puzzle-index loading lifecycle across scenes.
 
-`scenes/home/HomeScene.tsx` is the welcome page: a hero action, game examples,
-scoring and an expandable judge comparison. `HowScoring.tsx` shows scoring as
+`scenes/home/HomeScene.tsx` is the welcome page: a hero action beside the ring mark
+in characters (`components/AsciiMark/`, labelled as an image), game examples,
+scoring and an expandable judge comparison. The drawn `components/RingMark/` stays
+for the device judge's download progress; the favicon and share image keep the rings. `HowScoring.tsx` shows scoring as
 example rounds built from the game configs: decorative ✓/✗ tiles beside text rows
 that say the same. Judge setup stays in the Library and Settings. `/` always opens Home, including for players with saved progress.
 Home and the Quibble brand link to `/`; the Library is reached through its link or
@@ -191,14 +193,14 @@ keys and record formats remain unchanged.
 
 Measurements from the 2026-11-01 review, against baseline `13eb2c8`:
 
-| Measure | Before | After |
-| --- | ---: | ---: |
-| Initial Home JavaScript, including static dependencies | 465,082 bytes | 296,095 bytes |
-| Same JavaScript compressed with Node 26.12.1 gzip, level 6 | 139,275 bytes | 94,219 bytes |
-| Initial CSS, Vite build output | 49.84 kB | 30.22 kB |
-| Progress reads when Library first loads its 256 entries | 356 | 256 |
-| Additional progress reads for filter/tab/sheet renders without a write | 356 per selected 100-puzzle render, plus sheet read | 0 |
-| Evaluation requests before opening Home's comparison | 1 | 0 |
+| Measure                                                                |                                              Before |         After |
+| ---------------------------------------------------------------------- | --------------------------------------------------: | ------------: |
+| Initial Home JavaScript, including static dependencies                 |                                       465,082 bytes | 296,095 bytes |
+| Same JavaScript compressed with Node 26.12.1 gzip, level 6             |                                       139,275 bytes |  94,219 bytes |
+| Initial CSS, Vite build output                                         |                                            49.84 kB |      30.22 kB |
+| Progress reads when Library first loads its 256 entries                |                                                 356 |           256 |
+| Additional progress reads for filter/tab/sheet renders without a write | 356 per selected 100-puzzle render, plus sheet read |             0 |
+| Evaluation requests before opening Home's comparison                   |                                                   1 |             0 |
 
 JavaScript totals include both the entry and its statically imported shared chunk,
 not just the smaller entry file. Gzip uses the same compressor for the deployed
@@ -286,8 +288,11 @@ Unknown paths get `404.html`, the same shell with nothing prerendered and a 404
 status; the app renders whatever the path is. The not-found screen groups its status,
 message and content-width Library action in one padded section, reusing shared
 text and action styles. Its 404 code puts `components/AsciiMark/` between the two
-4s: the ring mark drawn in characters from a pure frame function (`frame.ts`),
-rewritten in place a few times a second and still under reduced motion.
+4s, decorative there: the ring mark drawn in characters from a pure frame function
+(`frame.ts`), painted onto a canvas (`paint.ts`) a few times a second and still under
+reduced motion. It's a canvas rather than text because its thousands of
+few-pixel characters would be most of the page's text and fail Lighthouse's
+legible-font audit; on Home it carries `mark.label` as an image.
 
 For search engines, `public/robots.txt` points to `/sitemap.xml`, also built from the
 puzzle index (Home, the Library, About and every puzzle). Scenes keep their title and
@@ -311,12 +316,12 @@ judge route.
 
 The Worker's routes, with request and reply schemas in `shared/schemas/judge.ts`:
 
-| Route | File | Purpose |
-| --- | --- | --- |
-| `GET /api/health` | `worker/index.ts` | Returns `{"status":"ok"}`; used by the browser tests. |
-| `POST /api/session` | `worker/session.ts` | Verifies a Turnstile token and sets an HMAC-signed, HttpOnly session cookie. |
-| `POST /api/judge` | `worker/judge-route.ts` | Checks the session and input, applies the per-session rate limit, then asks the player's cloud model (Clef-flash or Gemma 4, via `worker/judge.ts`). |
-| `GET /api/reveal/:game/:n/:roundId` | `worker/reveal.ts` | The round's example and up to two more known answers. |
+| Route                               | File                    | Purpose                                                                                                                                              |
+| ----------------------------------- | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `GET /api/health`                   | `worker/index.ts`       | Returns `{"status":"ok"}`; used by the browser tests.                                                                                                |
+| `POST /api/session`                 | `worker/session.ts`     | Verifies a Turnstile token and sets an HMAC-signed, HttpOnly session cookie.                                                                         |
+| `POST /api/judge`                   | `worker/judge-route.ts` | Checks the session and input, applies the per-session rate limit, then asks the player's cloud model (Clef-flash or Gemma 4, via `worker/judge.ts`). |
+| `GET /api/reveal/:game/:n/:roundId` | `worker/reveal.ts`      | The round's example and up to two more known answers.                                                                                                |
 
 `worker/read-body.ts` counts raw bytes while streaming untrusted bodies, including
 requests without Content-Length. Judge input is limited to 2,048 bytes; session

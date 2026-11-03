@@ -50,8 +50,9 @@
   --type-welcome: 44px;
   --type-welcome-section: 24px;
   --type-welcome-card: 19px;
-  --welcome-mark-phone: 150px;
-  --welcome-mark-wide: 350px;
+  /* Home's ring mark in characters, about the width the drawn mark had (150px, 350px). */
+  --welcome-ascii-width: 144px;
+  --welcome-ascii-width-wide: 346px;
   --welcome-lede-max: 385px;
   --judge-bar-height: 12px; /* the comparison's paired bars (5.5 H3) */
   --score-tile-size: 22px; /* Home's example guesses in How scoring works */
@@ -66,7 +67,6 @@
   --leading-home: 0.92;
   --leading-score: 0.9;
   --leading-heading: 1.1;
-  --leading-ascii: 1; /* character art rows touch, so the drawing keeps its shape */
   --leading-condition: 1.1;
   --leading-body: 1.6;
   --tracking-home: -0.05em;
@@ -134,9 +134,10 @@
   --mark-max-wide: 420px;
   /* The 404's code: two large 4s around the ring mark in characters, about their height. */
   --type-not-found-code: 112px;
-  --ascii-mark-cell: 4px;
+  --ascii-mark-width: 115px; /* the 404's ring mark, as tall as its 4s */
   --guess-map-phone-height: 180px; /* Double Agent's two-circle diagram above the field (D1 phone) */
   --tile-open-inset: -6px; /* the open puzzle's dashed outline sits inside its tile */
+  --tile-number-width: 4ch; /* every tile's number box fits 100, so the boxes line up */
 }
 @media (min-width: 1024px) {
   :root {
@@ -148,7 +149,7 @@
     --judge-marker-size: 12px;
     --type-home: clamp(56px, 8vw, 112px);
     --type-not-found-code: 240px;
-    --ascii-mark-cell: 7px;
+    --ascii-mark-width: 202px;
     --type-score: 168px;
     --type-score-suffix: 56px;
     --type-answer: 96px;

@@ -1,5 +1,4 @@
 import type { CSSProperties } from 'react'
-import { en } from '@/copy/en'
 import { useClientValue } from '@/lib/use-hydrated'
 import './RingMark.css'
 
@@ -32,7 +31,7 @@ const fixedOrbits = () => FIXED_ORBITS
 
 // The progress variant (S4) draws each ring over a third of the download, from
 // `progress` (0–1), over dotted outlines. The centre point lights up at 100%.
-export function RingMark({ progress, label = en['mark.label'] }: { progress?: number; label?: string }) {
+export function RingMark({ progress, label }: { progress?: number; label: string }) {
   const orbits = useClientValue(pageOrbits, fixedOrbits)
   const drawing = progress !== undefined
   const complete = !drawing || progress >= 1

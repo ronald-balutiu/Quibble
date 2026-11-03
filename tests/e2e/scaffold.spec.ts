@@ -1,6 +1,7 @@
 import { puzzleIndexSchema } from '../../shared/schemas/puzzle'
 import { expect, test } from '@playwright/test'
 import { readFileSync } from 'node:fs'
+import { expectMarkDrawn } from './support'
 
 test('the React entry point and local Worker load together', async ({ page, request }) => {
   const errors: string[] = []
@@ -157,8 +158,11 @@ test('the 404 code reads as 404, and its ring mark turns unless motion is reduce
   await page.goto('/not-a-route')
   const code = page.getByRole('main').getByText('404', { exact: true })
   await expect(code).toBeAttached()
-  await expect(page.locator('.ascii-mark')).toHaveAttribute('aria-hidden', 'true')
-  const frame = () => page.locator('.ascii-mark').textContent()
+  const mark = page.locator('.ascii-mark')
+  await expect(mark).toHaveAttribute('aria-hidden', 'true')
+  // It's a canvas, so frames are compared as pixels.
+  const frame = () => mark.screenshot()
+  await expectMarkDrawn(mark)
   const still = await frame()
   await page.emulateMedia({ reducedMotion: 'no-preference' })
   await expect
@@ -166,12 +170,12 @@ test('the 404 code reads as 404, and its ring mark turns unless motion is reduce
       await page.clock.runFor(100)
       return frame()
     })
-    .not.toBe(still)
+    .not.toEqual(still)
 
   await page.emulateMedia({ reducedMotion: 'reduce' })
-  await expect.poll(frame).toBe(still)
+  await expect.poll(frame).toEqual(still)
   await page.reload()
-  await expect(page.locator('.ascii-mark')).toBeVisible()
+  await expectMarkDrawn(mark)
   await page.clock.runFor(500)
-  expect(await frame()).toBe(still)
+  expect(await frame()).toEqual(still)
 })

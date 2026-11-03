@@ -173,7 +173,7 @@ export function LibraryScene() {
                     }}
                   >
                     <span className="tile__top">
-                      <span className="tile__n">{puzzleNumber(n)}</span>
+                      <span className="tile__n">{n}</span>
                       {(status === 'solved' || status === 'perfect') && (
                         <span className="tile__check" aria-hidden="true">
                           {en['library.completedMark']}

@@ -1,5 +1,6 @@
 import { describe, expect, test } from 'vitest'
 import { asciiMarkFrame, COLS, LAYERS, ROWS } from '@/components/AsciiMark/frame'
+import { paintFrame, type PaintContext } from '@/components/AsciiMark/paint'
 
 // Each layer's character at a cell, or undefined where it's blank.
 const at = (frame: string[], layer: number, row: number, col: number) => {
@@ -40,5 +41,34 @@ describe('the ASCII ring mark', () => {
     const changed = (a: string[], b: string[]) => [...cells(a)].filter((char, i) => char !== cells(b)[i]).length
     expect(asciiMarkFrame(5)).not.toEqual(asciiMarkFrame(0))
     expect(changed(asciiMarkFrame(5), asciiMarkFrame(5 + 1 / 15))).toBeLessThan(LAYERS.length * COLS * ROWS * 0.05)
+  })
+
+  test('a frame paints each character centred in its cell, in its layer’s colour', () => {
+    const calls: { char: string; x: number; y: number; color: string }[] = []
+    const context: PaintContext = {
+      canvas: { width: COLS * 6, height: ROWS * 10 } as HTMLCanvasElement,
+      clearRect: () => undefined,
+      fillText(char: string, x: number, y: number) {
+        calls.push({ char, x, y, color: typeof this.fillStyle === 'string' ? this.fillStyle : '' })
+      },
+      font: '',
+      fillStyle: '',
+      textAlign: 'start',
+      textBaseline: 'alphabetic',
+    }
+    const frame = asciiMarkFrame(0)
+    paintFrame(context, frame, ['honey', 'sky', 'orchid', 'white'], 'Geist Mono')
+    expect(context.font).toBe('10px Geist Mono')
+    expect(calls).toHaveLength(frame.join('').replaceAll(/\s/gu, '').length)
+    // The point, in the last layer's colour, sits in its cell's centre.
+    const row = frame[3]?.split('\n').findIndex((line) => line.includes('@')) ?? -1
+    const col = frame[3]?.split('\n')[row]?.indexOf('@') ?? -1
+    expect(calls.find(({ char }) => char === '@')).toEqual({
+      char: '@',
+      x: col * 6 + 3,
+      y: row * 10 + 5,
+      color: 'white',
+    })
+    expect(new Set(calls.map(({ color }) => color))).toEqual(new Set(['honey', 'sky', 'orchid', 'white']))
   })
 })

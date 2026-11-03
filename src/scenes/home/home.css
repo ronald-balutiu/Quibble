@@ -26,11 +26,13 @@
 }
 
 .welcome-mark {
+  display: flex;
+  justify-content: center;
   grid-row: 1;
 }
 
-.welcome-mark .ring-mark {
-  max-width: var(--welcome-mark-phone);
+.welcome-mark .ascii-mark {
+  width: var(--welcome-ascii-width);
 }
 
 .welcome-actions {
@@ -178,8 +180,8 @@
     grid-row: auto;
   }
 
-  .welcome-mark .ring-mark {
-    max-width: var(--welcome-mark-wide);
+  .welcome-mark .ascii-mark {
+    width: var(--welcome-ascii-width-wide);
   }
 
   /* Shared rows grow together when copy wraps or the player enlarges text. */

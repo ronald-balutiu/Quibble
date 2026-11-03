@@ -101,7 +101,7 @@ describe('device judge client', () => {
     const worker = new FakeWorker()
     const judge = createDeviceJudge(() => worker)
     const seen: string[] = []
-    judge.subscribe(() => seen.push(judge.status))
+    const unsubscribe = judge.subscribe(() => seen.push(judge.status))
     expect(judge.status).toBe('off')
     const loading = judge.load(() => undefined)
     worker.reply({ type: 'ready' })
@@ -109,6 +109,11 @@ describe('device judge client', () => {
     const removing = judge.remove()
     worker.reply({ type: 'deleted' })
     await removing
+    expect(seen).toEqual(['loading', 'ready', 'off'])
+    unsubscribe()
+    const again = judge.load(() => undefined)
+    worker.reply({ type: 'ready' })
+    await again
     expect(seen).toEqual(['loading', 'ready', 'off'])
   })
 
@@ -124,6 +129,13 @@ describe('device judge client', () => {
     expect(() => { worker.reply({ type: 'scored', id: 1, scores: {} }) }).not.toThrow()
     await Promise.resolve()
     expect(settled).toHaveBeenCalledExactlyOnceWith({ kind: 'timeout' })
+    const nextSettled = vi.fn()
+    const next = judge.score('fork', []).then((result) => { nextSettled(result); return result })
+    worker.reply({ type: 'scored', id: 1, scores: { stale: 0.9 } })
+    await Promise.resolve()
+    expect(nextSettled).not.toHaveBeenCalled()
+    worker.reply({ type: 'scored', id: 2, scores: { current: 0.8 } })
+    expect(await next).toMatchObject({ kind: 'scored', scores: { current: 0.8 } })
   })
 
   test('a crashed worker ends the load with model.start.failed', async () => {

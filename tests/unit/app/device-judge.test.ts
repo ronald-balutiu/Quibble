@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest'
 import { Tensor } from 'onnxruntime-common'
-import type { Tokenizer } from '@huggingface/tokenizers'
+import { Tokenizer } from '@huggingface/tokenizers'
 import { buildPrompt, encodePrompt, pTrueFromLogits } from '@/judges/device/verdict'
 
 const YES = 9405
@@ -34,8 +34,15 @@ describe('device judge adapter', () => {
     expect(pTrueFromLogits(logits(type, { [YES]: 2, [NO]: 0 }))).toBeCloseTo(expected, 6)
   })
 
-  test('rejects prompts over the token limit', () => {
-    const tokenizer = { encode: () => ({ ids: new Array<number>(513).fill(1) }) } as unknown as Tokenizer
-    expect(() => encodePrompt(tokenizer, 'long')).toThrow(RangeError)
+  test('accepts the token limit and rejects prompts over it', () => {
+    // A tiny real tokenizer keeps the contract checked without model downloads.
+    const tokenizer = new Tokenizer({
+      model: { type: 'WordLevel', vocab: { '[UNK]': 0, word: 1 }, unk_token: '[UNK]' },
+      pre_tokenizer: { type: 'WhitespaceSplit' },
+      decoder: null, post_processor: null, normalizer: null, added_tokens: [],
+    }, {})
+    const atLimit = new Array<string>(512).fill('word').join(' ')
+    expect(encodePrompt(tokenizer, atLimit)).toEqual(new Array<number>(512).fill(1))
+    expect(() => encodePrompt(tokenizer, `${atLimit} word`)).toThrow(RangeError)
   })
 })

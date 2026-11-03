@@ -6,6 +6,7 @@ import { judgeGuess, toComparison, type DeviceRun, type JudgeTurn } from '@/scen
 import { judgesSplit } from '@/scenes/game/verdict'
 import { installBlockedStorage, installStorage } from './support/storage'
 import { deviceJudgeDouble } from './support/device-judge'
+import { deferred } from '../../support/deferred'
 
 const conditions: PuzzleCondition[] = [
   { id: 'pocket', label: 'Fits in a pocket', negation: "doesn't fit in a pocket", claim: '{answer} fits in a pocket' },
@@ -86,8 +87,8 @@ describe('both judges on one guess (3.7)', () => {
 
   test('the cloud scores land first, but the guess resolves only once the device is back', async () => {
     const events: string[] = []
-    let finish: (result: ScoreResult) => void = () => undefined
-    const device = deviceJudgeDouble('ready', { score: vi.fn(() => new Promise<ScoreResult>((resolve) => { finish = resolve })) })
+    const pending = deferred<ScoreResult>()
+    const device = deviceJudgeDouble('ready', { score: vi.fn(() => pending.promise) })
     let done = false
     const judging = judgeGuess(turn, {
       device,
@@ -96,7 +97,7 @@ describe('both judges on one guess (3.7)', () => {
     }).then((result) => { done = true; return result })
     await vi.waitFor(() => { expect(events).toEqual(['scanning', 'cloud 41']) })
     expect(done).toBe(false)
-    finish({ kind: 'scored', scores: { pocket: 0.9, secure: 0.8 }, ms: 120, warm: false })
+    pending.resolve({ kind: 'scored', scores: { pocket: 0.9, secure: 0.8 }, ms: 120, warm: false })
     expect(await judging).toMatchObject({ guess: { pass: false, failed: ['secure'] }, decidedBy: 'cloud' })
     expect(events).toEqual(['scanning', 'cloud 41', 'device 1/2'])
     expect(loadComparisons()).toHaveLength(1)

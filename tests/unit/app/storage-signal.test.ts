@@ -5,7 +5,7 @@ import { comparisonChanges } from '@/lib/storage/comparisons'
 import { deleteEverything } from '@/lib/storage/everything'
 import { startRun } from '@/games/rounds/reducer'
 import { oddlySpecificConfig } from '@shared/games/oddly-specific'
-import { installStorage } from './support/storage'
+import { installStorage, MemoryStorage } from './support/storage'
 
 test('uses one cross-tab listener while subscribed, filters storage areas and keys, then cleans up', () => {
   let dispatch!: (event: Partial<StorageEvent>) => void
@@ -13,7 +13,7 @@ test('uses one cross-tab listener while subscribed, filters storage areas and ke
   const remove = vi.fn()
   vi.stubGlobal('addEventListener', add)
   vi.stubGlobal('removeEventListener', remove)
-  const store = {} as Storage
+  const store = new MemoryStorage()
   vi.stubGlobal('localStorage', store)
   const signal = storageSignal((key) => key.startsWith('progress:'))
   const one = vi.fn()
@@ -21,7 +21,7 @@ test('uses one cross-tab listener while subscribed, filters storage areas and ke
   const offOne = signal.subscribe(one)
   const offTwo = signal.subscribe(two)
   expect(add).toHaveBeenCalledTimes(1)
-  dispatch({ key: 'progress:1', storageArea: {} as Storage })
+  dispatch({ key: 'progress:1', storageArea: new MemoryStorage() })
   dispatch({ key: 'other', storageArea: store })
   expect(signal.snapshot()).toBe(0)
   dispatch({ key: 'progress:1', storageArea: store })

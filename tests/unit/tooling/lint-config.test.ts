@@ -56,6 +56,29 @@ test.each([
   expect(result?.messages.some((message) => message.ruleId === 'no-restricted-imports')).toBe(true)
 })
 
+test.each([
+  ['shared/schemas/puzzle.ts', "import { z } from './zod'"],
+  ['shared/schemas/puzzle.ts', "import { gameIds } from '../games'"],
+  ['scripts/vite-plugins.ts', "import { en } from '../src/copy/en'"],
+])('%s must name the file it imports: %s', async (filePath, source) => {
+  const [result] = await eslint.lintText(source, { filePath })
+
+  expect(result?.messages.some((message) => message.ruleId === 'no-restricted-imports')).toBe(true)
+})
+
+test('explicit relative imports are allowed in shared code', async () => {
+  const [result] = await eslint.lintText(
+    "export { z } from './zod.ts'\nexport { gameIds } from '../games/index.ts'\n",
+    {
+      filePath: 'shared/schemas/puzzle.ts',
+    },
+  )
+
+  expect(
+    result?.messages.filter((message) => message.fatal === true || message.ruleId === 'no-restricted-imports'),
+  ).toEqual([])
+})
+
 test('copy references and structural JSX props are allowed', async () => {
   const [result] = await eslint.lintText(
     "import { en } from '@/copy/en'; export function Example() { return <p className=\"label\" title={en['home.title']}>{en['home.title']}</p> }",

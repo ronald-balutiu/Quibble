@@ -13,6 +13,14 @@ const privateImports = {
   message: 'Keep server-only data, build-time tools, and planning files out of browser/shared code.',
 }
 
+// Vite loads its config, and through scripts/vite-plugins.ts part of shared/, and is
+// moving to Node's native loader, which resolves only the exact file. Relative
+// imports there name it: './zod.ts', '../games/index.ts'.
+const explicitRelativeImports = {
+  regex: '^\\.{1,2}/(?!.*\\.(?:ts|tsx|js|mjs|json)$)',
+  message: "Name the file, extension included ('./zod.ts', '../games/index.ts'): Node's native loader needs it.",
+}
+
 const reactImports = {
   group: ['react', 'react/*', 'react-dom', 'react-dom/*'],
   message: 'Keep shared contracts and game reducers independent of React.',
@@ -132,6 +140,12 @@ export default defineConfig(
     },
   },
   {
+    files: ['*.config.ts', 'scripts/**/*.ts'],
+    rules: {
+      'no-restricted-imports': ['error', { patterns: [explicitRelativeImports] }],
+    },
+  },
+  {
     files: ['*.config.ts', 'scripts/**/*.ts', 'factory/**/*.ts', 'eval/**/*.ts', 'tests/**/*.ts'],
     languageOptions: { globals: globals.node },
   },
@@ -164,6 +178,7 @@ export default defineConfig(
           patterns: [
             privateImports,
             reactImports,
+            explicitRelativeImports,
             {
               group: ['@/*', '**/src/**', 'node:*'],
               message: 'Shared code must stay independent of the app and platform adapters.',

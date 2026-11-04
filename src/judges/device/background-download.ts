@@ -31,15 +31,17 @@ export function createBackgroundDownload(judge: DeviceJudge) {
       active = true
       cancelled = false
       set({ kind: 'download', received: 0, total: 0 })
+      // cancel() can run while load() is pending, so read the flag afresh after it.
+      const wasCancelled = () => cancelled
       try {
         const result = await judge.load((progress) => {
-          if (!cancelled) set(progress)
+          if (!wasCancelled()) set(progress)
         })
         // GPU session startup can finish after Cancel. Free that late model too.
-        if (cancelled && result.kind === 'ready') await judge.remove()
-        set(result.kind === 'failed' && !cancelled ? { kind: 'failed', reason: result.reason } : { kind: 'idle' })
+        if (wasCancelled() && result.kind === 'ready') await judge.remove()
+        set(result.kind === 'failed' && !wasCancelled() ? { kind: 'failed', reason: result.reason } : { kind: 'idle' })
       } catch {
-        set(cancelled ? { kind: 'idle' } : { kind: 'failed', reason: 'start' })
+        set(wasCancelled() ? { kind: 'idle' } : { kind: 'failed', reason: 'start' })
       } finally {
         active = false
       }

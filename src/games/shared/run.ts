@@ -27,7 +27,7 @@ export interface RunState {
   finished: boolean
 }
 
-export const freshRound = (): RoundState => ({
+const freshRound = (): RoundState => ({
   status: 'playing',
   guesses: [],
   strikes: 0,

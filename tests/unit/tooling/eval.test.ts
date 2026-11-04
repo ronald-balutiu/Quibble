@@ -28,12 +28,13 @@ describe('answer-key metrics', () => {
     guess('3', ['no', 'no']),
     guess('4', ['yes', 'unsure']),
   ]
-  const results = new Map([
-    result(cases[0]!, [0.9, 0.8]), // correct pass
-    result(cases[1]!, [0.9, 0.7]), // false accept on c1
-    result(cases[2]!, [0.1, 0.2]), // correct fail
-    result(cases[3]!, [0.6, 0.1]), // unsure condition is ignored
-  ])
+  const scores = [
+    [0.9, 0.8], // correct pass
+    [0.9, 0.7], // false accept on c1
+    [0.1, 0.2], // correct fail
+    [0.6, 0.1], // unsure condition is ignored
+  ]
+  const results = new Map(cases.map((c, i) => result(c, scores[i] ?? [])))
   const metrics = computeMetrics(cases, results, 0.5)
 
   test('counts conditions without unsure labels', () => {

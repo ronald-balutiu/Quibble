@@ -1,5 +1,14 @@
 import { expect, test, type Page } from '@playwright/test'
-import { conditionsOf, mockJudge, mockReveal, readPuzzle, servePuzzle, tabToButton, typeGuess } from './support'
+import {
+  tabToButton,
+  conditionsOf,
+  typeGuess,
+  mockJudge,
+  mockReveal,
+  readPuzzle,
+  servePuzzle,
+  viewportWidth,
+} from './support'
 
 // Plays a fixture Category Escape puzzle against a mocked API, so the test doesn't
 // depend on the shipped library. Answers starting with "good" pass every rule;
@@ -94,7 +103,7 @@ test('a whole Category Escape run can be played with the keyboard alone', async 
     const row = levels.nth(index)
     // Status text uses the same semantic color as its solved/missed indicator.
     const indicatorColor = await page.evaluate<string>(
-      `getComputedStyle(document.querySelectorAll('.run-review__mark')[${index}]).color`,
+      `getComputedStyle(document.querySelectorAll('.run-review__mark')[${String(index)}]).color`,
     )
     await expect(row.locator('.run-review__status')).toHaveCSS('color', indicatorColor)
   }
@@ -132,9 +141,7 @@ test('a whole Category Escape run can be played with the keyboard alone', async 
   await levels.nth(5).locator('.run-review__history > summary').click()
   const finalGuess = levels.nth(5).getByRole('row', { name: /good six/u })
   await expect(finalGuess.getByRole('img', { name: 'Judge accepted this rule', exact: true })).toHaveCount(6)
-  expect(await page.evaluate<number>('document.documentElement.scrollWidth')).toBeLessThanOrEqual(
-    page.viewportSize()!.width,
-  )
+  expect(await page.evaluate<number>('document.documentElement.scrollWidth')).toBeLessThanOrEqual(viewportWidth(page))
 
   // Give up ends a run at the levels cleared.
   await tabToButton(page, 'Play again')

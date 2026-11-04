@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { seedStorage } from './support'
+import { boxOf, seedStorage } from './support'
 
 test('first visit explains the games, then opens an unplayed tile directly', async ({ page }) => {
   await page.goto('/')
@@ -104,9 +104,9 @@ test('welcome cards align on desktop and stay within a narrow phone', async ({ p
   if (!isMobile) {
     const cards = await Promise.all(
       (await page.locator('.welcome-game').all()).map(async (el) => {
-        const heading = await el.locator('h3').boundingBox()
-        const example = await el.locator('.game-example').boundingBox()
-        return { heading: heading?.y, example: example?.y, bottom: example && example.y + example.height }
+        const heading = await boxOf(el.locator('h3'))
+        const example = await boxOf(el.locator('.game-example'))
+        return { heading: heading.y, example: example.y, bottom: example.y + example.height }
       }),
     )
     expect(new Set(cards.map((c) => c.heading)).size).toBe(1)

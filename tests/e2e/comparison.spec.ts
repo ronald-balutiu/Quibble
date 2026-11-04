@@ -1,5 +1,6 @@
 import { expectAccessible } from './accessibility'
 import { expect, test } from '@playwright/test'
+import { boxOf } from './support'
 import { deferred } from '../support/deferred'
 
 test('Home keeps the comparison introduction visible and its results expandable', async ({ page }) => {
@@ -33,9 +34,9 @@ test('keeps headline accuracy visible and every test measure reachable', async (
   await page.goto('/?home=1')
   const compare = page.getByRole('region', { name: 'How the judges compare' })
   await compare.getByText('See the results', { exact: true }).click()
-  const comparisonHeading = await compare.getByRole('heading', { name: 'How the judges compare' }).boundingBox()
-  const gamesHeading = await page.getByRole('heading', { name: 'Three ways to play' }).boundingBox()
-  expect(comparisonHeading!.x).toBe(gamesHeading!.x)
+  const comparisonHeading = await boxOf(compare.getByRole('heading', { name: 'How the judges compare' }))
+  const gamesHeading = await boxOf(page.getByRole('heading', { name: 'Three ways to play' }))
+  expect(comparisonHeading.x).toBe(gamesHeading.x)
   await expect(compare).toContainText('whether it leans too strict or too lenient')
   await expect(compare.locator('.compare__summary')).toContainText('81.4%')
   await expect(compare.locator('.compare__summary')).toContainText('96 of 118 answers')

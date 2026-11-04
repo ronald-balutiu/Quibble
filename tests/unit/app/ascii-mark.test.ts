@@ -38,7 +38,10 @@ describe('the ASCII ring mark', () => {
 
   test('the rings turn slowly: one frame to the next changes only a few cells', () => {
     const cells = (frame: string[]) => frame.map((layer) => layer.replaceAll('\n', '')).join('')
-    const changed = (a: string[], b: string[]) => [...cells(a)].filter((char, i) => char !== cells(b)[i]).length
+    const changed = (a: string[], b: string[]) => {
+      const [before, after] = [cells(a), cells(b)]
+      return Array.from({ length: before.length }, (_, i) => before[i] !== after[i]).filter(Boolean).length
+    }
     expect(asciiMarkFrame(5)).not.toEqual(asciiMarkFrame(0))
     expect(changed(asciiMarkFrame(5), asciiMarkFrame(5 + 1 / 15))).toBeLessThan(LAYERS.length * COLS * ROWS * 0.05)
   })

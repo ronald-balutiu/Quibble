@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { mockJudge, seedStorage } from './support'
+import { boxOf, mockJudge, seedStorage } from './support'
 
 // L3 on a device that can't run the on-device judge (5.5): CI's headless browser has
 // no WebGPU adapter, so it never sees an offer.
@@ -36,11 +36,11 @@ test('the referee heading has the same top spacing as the other Settings groups'
   const drawer = page.getByRole('dialog', { name: 'Settings', exact: true })
   const legend = drawer.getByRole('group', { name: 'Referee • who decides', exact: true }).locator('legend')
   await legend.scrollIntoViewIfNeeded()
-  const cloudGroup = await drawer.locator('.drawer__group').first().boundingBox()
-  const heading = await legend.boundingBox()
-  expect(heading!.y - cloudGroup!.y - cloudGroup!.height).toBeGreaterThanOrEqual(24)
-  const choices = await drawer.locator('.drawer__choices').boundingBox()
-  expect(choices!.y - heading!.y - heading!.height).toBeGreaterThanOrEqual(12)
+  const cloudGroup = await boxOf(drawer.locator('.drawer__group').first())
+  const heading = await boxOf(legend)
+  expect(heading.y - cloudGroup.y - cloudGroup.height).toBeGreaterThanOrEqual(24)
+  const choices = await boxOf(drawer.locator('.drawer__choices'))
+  expect(choices.y - heading.y - heading.height).toBeGreaterThanOrEqual(12)
 })
 
 test('Settings keeps its close button available and puts Privacy at the bottom', async ({ page }) => {
@@ -53,28 +53,26 @@ test('Settings keeps its close button available and puts Privacy at the bottom',
   await expect(drawer.getByText('No accounts • no tracking', { exact: true })).toHaveCount(0)
   const close = drawer.getByRole('button', { name: 'Close', exact: true })
   const header = drawer.locator('.drawer__header')
-  const before = await header.boundingBox()
-  const closeBox = await close.boundingBox()
-  expect(closeBox!.width).toBeGreaterThanOrEqual(44)
-  expect(closeBox!.height).toBeGreaterThanOrEqual(44)
+  const before = await boxOf(header)
+  const closeBox = await boxOf(close)
+  expect(closeBox.width).toBeGreaterThanOrEqual(44)
+  expect(closeBox.height).toBeGreaterThanOrEqual(44)
   const cloud = drawer.getByRole('radio', { name: 'Cloud', exact: true })
   await cloud.scrollIntoViewIfNeeded()
   await expect(cloud).toBeInViewport()
   const clear = drawer.getByRole('button', { name: 'Clear game data', exact: true })
   await clear.scrollIntoViewIfNeeded()
-  const rowText = await drawer
-    .locator('.drawer__row')
-    .filter({ hasText: 'Game progress' })
-    .locator(':scope > span')
-    .boundingBox()
-  const clearBox = await clear.boundingBox()
-  expect(clearBox!.y).toBeGreaterThanOrEqual(rowText!.y + rowText!.height)
+  const rowText = await boxOf(
+    drawer.locator('.drawer__row').filter({ hasText: 'Game progress' }).locator(':scope > span'),
+  )
+  const clearBox = await boxOf(clear)
+  expect(clearBox.y).toBeGreaterThanOrEqual(rowText.y + rowText.height)
   await drawer.getByRole('button', { name: 'Delete…', exact: true }).scrollIntoViewIfNeeded()
   await expect(close).toBeInViewport()
   const privacy = drawer.getByRole('link', { name: 'Privacy →', exact: true })
   await privacy.scrollIntoViewIfNeeded()
   await expect(privacy).toBeInViewport()
-  expect((await header.boundingBox())!.y).toBe(before!.y)
+  expect((await boxOf(header)).y).toBe(before.y)
   expect(await page.evaluate<number>('document.documentElement.scrollWidth')).toBeLessThanOrEqual(320)
   expect(
     await page.evaluate<boolean>(

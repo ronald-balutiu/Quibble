@@ -1,5 +1,6 @@
 import { useReducer } from 'react'
 import { categoryEscapeConfig } from '@shared/games/category-escape'
+import { characterCount } from '@shared/normalize'
 import type { Puzzle } from '@shared/schemas/puzzle'
 import { en, format } from '@/copy/en'
 import { loadProgress } from '@/lib/storage/progress'
@@ -60,7 +61,7 @@ export function EscapeGame({ puzzle }: { puzzle: Puzzle }) {
           ? last.overruled
             ? en['verdict.overruled']
             : format('escape.accepted', { level: levelCode(last.level) })
-          : format('game.counter', { count: [...answer].length, max: config.input.maxCharacters })
+          : format('game.counter', { count: characterCount(answer), max: config.input.maxCharacters })
 
   return (
     <GameFrame

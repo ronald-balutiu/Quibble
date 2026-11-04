@@ -14,10 +14,14 @@ export function normalizeAnswer(answer: string, game: GameId, aliases: AliasMap 
   return aliases.get(text) ?? text
 }
 
+// Characters as the answer counter and the length rule count them: code points, so
+// an accented letter counts once.
+export const characterCount = (text: string) => Array.from(text).length
+
 // Local rules on a normalized answer. Breaking them never costs a strike.
 export function isValidAnswer(normalized: string, game: GameId): boolean {
   const { input } = gameConfigs[game]
-  const length = [...normalized].length
+  const length = characterCount(normalized)
   if (length < 1 || length > input.maxCharacters) return false
   if (input.kind === 'noun-phrase') return true
   // A single word: letters, with hyphens or apostrophes only between letters.

@@ -15,7 +15,7 @@ describe('Library progress', () => {
     const run = startRun(gameConfigs['oddly-specific'])
     expect(statusOf('oddly-specific', { run })).toEqual({ status: 'unplayed' })
     expect(statusOf('oddly-specific', { best: 15, run })).toEqual({ status: 'perfect', best: 15 })
-    run.rounds[0]!.status = 'skipped'
+    run.rounds = run.rounds.map((round, i) => (i === 0 ? { ...round, status: 'skipped' } : round))
     run.current = 1
     expect(statusOf('oddly-specific', { best: 15, run })).toEqual({
       status: 'open',

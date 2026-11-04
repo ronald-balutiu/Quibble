@@ -1,8 +1,7 @@
 import { readFileSync } from 'node:fs'
 import { fileURLToPath, URL } from 'node:url'
 import { gzipSync } from 'node:zlib'
-import type { OutputAsset, OutputChunk } from 'rolldown'
-import type { Plugin } from 'vite'
+import type { Plugin, Rolldown } from 'vite'
 import { gameIds } from '../shared/games/index.ts'
 import { puzzleIndexSchema } from '../shared/schemas/puzzle.ts'
 import { SITE_ORIGIN } from '../shared/site.ts'
@@ -79,7 +78,7 @@ export function sitemap(): Plugin {
 // them the browser learns of each only after the app script has run. Unknown paths
 // get 404.html (wrangler.jsonc), the same shell with nothing prerendered, so the app
 // renders whatever the path is and search engines see a 404.
-type Chunk = OutputChunk & { viteMetadata?: { importedCss: Set<string> } }
+type Chunk = Rolldown.OutputChunk & { viteMetadata?: { importedCss: Set<string> } }
 interface RoutePage {
   path: string
   scene?: string
@@ -130,7 +129,7 @@ export function routePages(): Plugin {
     enforce: 'post',
     applyToEnvironment: (environment) => environment.name === 'client',
     generateBundle(_options, bundle) {
-      const html = bundle['index.html'] as OutputAsset | undefined
+      const html = bundle['index.html'] as Rolldown.OutputAsset | undefined
       if (!html) return
       const chunks = Object.values(bundle).filter((file): file is Chunk => file.type === 'chunk')
       const closure = (chunk: Chunk, seen = new Set<string>()): Set<string> => {

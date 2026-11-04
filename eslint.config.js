@@ -53,7 +53,7 @@ export default defineConfig(
   },
   {
     files: ['**/*.{ts,tsx}'],
-    extends: [js.configs.recommended, tseslint.configs.recommendedTypeChecked],
+    extends: [js.configs.recommended, tseslint.configs.strictTypeChecked, tseslint.configs.stylisticTypeChecked],
     languageOptions: {
       // Use the same referenced TypeScript projects as the editor/typecheck.
       parserOptions: { projectService: true, tsconfigRootDir: import.meta.dirname },
@@ -64,6 +64,11 @@ export default defineConfig(
       '@typescript-eslint/consistent-type-imports': ['error', { prefer: 'type-imports' }],
       '@typescript-eslint/no-import-type-side-effects': 'error',
       '@typescript-eslint/switch-exhaustiveness-check': 'error',
+      // Reading a stream to its end is a `while (true)` loop with a return inside.
+      '@typescript-eslint/no-unnecessary-condition': [
+        'error',
+        { allowConstantLoopConditions: 'only-allowed-literals' },
+      ],
     },
   },
   {

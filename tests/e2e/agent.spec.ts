@@ -17,7 +17,11 @@ async function mockApi(page: Page) {
     const intended = word === words[roundId]
     return { passes: { [a]: intended, [b]: intended || word === 'battery' } }
   })
-  await mockReveal(page, (roundId) => ({ example: words[roundId]!, also: [] }))
+  await mockReveal(page, (roundId) => {
+    const example = words[roundId]
+    if (!example) throw new Error(`No intended word for ${roundId}`)
+    return { example, also: [] }
+  })
 }
 
 test('a whole Double Agent puzzle can be played with the keyboard alone', async ({ page }) => {

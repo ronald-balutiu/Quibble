@@ -76,10 +76,9 @@ export function AnswerKey({
           cloud: milliseconds(cloud.medianMs),
           device: milliseconds(deviceMs),
           better: 'lower',
-          ...(cloud.medianMs !== undefined &&
-            deviceMs !== undefined && {
-              bars: { cloud: cloud.medianMs, device: deviceMs, max: Math.max(cloud.medianMs, deviceMs) },
-            }),
+          ...(deviceMs !== undefined && {
+            bars: { cloud: cloud.medianMs, device: deviceMs, max: Math.max(cloud.medianMs, deviceMs) },
+          }),
         },
         {
           label: en['compare.cost'],

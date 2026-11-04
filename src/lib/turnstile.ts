@@ -56,7 +56,6 @@ function loadScript(): Promise<TurnstileApi | undefined> {
 
 function token(container: HTMLElement): Promise<string | undefined> {
   const sitekey = import.meta.env.DEV ? TEST_SITE_KEY : PRODUCTION_SITE_KEY
-  if (!sitekey) return Promise.resolve(undefined)
   return loadScript().then(
     (turnstile) =>
       new Promise((resolve) => {

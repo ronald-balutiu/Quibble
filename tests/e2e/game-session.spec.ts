@@ -1,6 +1,16 @@
 import { expect, test, type Page } from '@playwright/test'
 import { deferred } from '../support/deferred'
-import { allConditions, mockJudge, mockReveal, seedStorage, shippedPuzzle, submitGuess, tipsSeen } from './support'
+import {
+  allConditions,
+  boxOf,
+  tipsSeen,
+  mockJudge,
+  mockReveal,
+  seedStorage,
+  shippedPuzzle,
+  submitGuess,
+  viewportWidth,
+} from './support'
 import { gameIds } from '../../shared/games'
 import { oddlySpecificConfig } from '../../shared/games/oddly-specific'
 import { runReducer, startRun } from '../../src/games/rounds/reducer'
@@ -28,9 +38,7 @@ test('result details load examples on demand, support keyboard opening and retry
 }) => {
   await openResults(page)
   if (isMobile) await page.setViewportSize({ width: 320, height: 800 })
-  expect(await page.evaluate<number>('document.documentElement.scrollWidth')).toBeLessThanOrEqual(
-    page.viewportSize()!.width,
-  )
+  expect(await page.evaluate<number>('document.documentElement.scrollWidth')).toBeLessThanOrEqual(viewportWidth(page))
   const puzzle = shippedPuzzle('oddly-specific')
   let calls = 0
   await page.route(`**/api/reveal/oddly-specific/1/${puzzle.rounds[0]?.id ?? ''}`, (route) => {
@@ -39,10 +47,10 @@ test('result details load examples on demand, support keyboard opening and retry
   })
   await expect(page.locator('.result-details')).not.toHaveAttribute('open')
   await expect(page.getByRole('table', { name: 'Detailed answer-key results' })).toHaveCount(0)
-  const primary = await page.getByRole('link', { name: /^Next puzzle/u }).boundingBox()
+  const primary = await boxOf(page.getByRole('link', { name: /^Next puzzle/u }))
   const review = page.getByRole('region', { name: 'Your game' })
-  const reviewBox = await review.boundingBox()
-  expect(primary!.y).toBeLessThan(reviewBox!.y)
+  const reviewBox = await boxOf(review)
+  expect(primary.y).toBeLessThan(reviewBox.y)
   await page.getByText('Run details', { exact: true }).click()
   await expect(page.getByText('Guesses', { exact: true })).toBeVisible()
   await page.getByText('Compare the judges', { exact: true }).click()
@@ -79,9 +87,7 @@ test('result details load examples on demand, support keyboard opening and retry
   await expect(second).not.toHaveAttribute('open')
   await expect(first.getByText('fork', { exact: true })).toBeVisible()
   expect(calls).toBe(2)
-  expect(await page.evaluate<number>('document.documentElement.scrollWidth')).toBeLessThanOrEqual(
-    page.viewportSize()!.width,
-  )
+  expect(await page.evaluate<number>('document.documentElement.scrollWidth')).toBeLessThanOrEqual(viewportWidth(page))
   await expectAccessible(page)
 })
 
@@ -169,7 +175,7 @@ for (const game of gameIds) {
     await page.goto(`/play/${game}/1`)
     const fitsWidth = async () => {
       expect(await page.evaluate<number>('document.documentElement.scrollWidth')).toBeLessThanOrEqual(
-        page.viewportSize()!.width,
+        viewportWidth(page),
       )
     }
     for (const width of isMobile ? [undefined, 320] : [undefined]) {

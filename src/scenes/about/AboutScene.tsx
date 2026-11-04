@@ -101,7 +101,7 @@ export function AboutScene() {
   const { data: results } = useEvalResults()
   const judges = results?.test.judges
   const device = results?.devices[0]
-  const [first = 0, second = 0, third = 0] = oddlySpecificConfig.pointsByGuess
+  const [first, second, third] = oddlySpecificConfig.pointsByGuess
 
   return (
     <main className="app-frame scene about" data-scene="about">

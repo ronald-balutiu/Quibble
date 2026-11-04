@@ -88,7 +88,7 @@ export function LibraryScene() {
         </div>
         <section className="library" data-game={game}>
           <h1 className="library__title">{en[`game.name.${game}`]}</h1>
-          {(continuing || starter) && (
+          {(continuing ?? starter) && (
             <div className="library-start">
               <p>
                 {en[continuing ? 'library.continue.note' : hasCompleted ? 'library.next.note' : 'library.start.note']}

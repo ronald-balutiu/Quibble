@@ -1,6 +1,7 @@
 import { useReducer } from 'react'
 import { doubleAgentConfig } from '@shared/games/double-agent'
 import { oddlySpecificConfig } from '@shared/games/oddly-specific'
+import { characterCount } from '@shared/normalize'
 import type { Puzzle } from '@shared/schemas/puzzle'
 import { en, format, type CopyKey } from '@/copy/en'
 import { Clues } from '@/games/double-agent/Clues'
@@ -153,7 +154,7 @@ export function RoundGame({ puzzle }: { puzzle: Puzzle }) {
               {ui.kind === 'input' && ui.notice
                 ? en[ui.notice === 'input.tooLong' ? variant.tooLong : ui.notice]
                 : format('game.counter', {
-                    count: [...answer].length,
+                    count: characterCount(answer),
                     max: 'maxLetters' in config.input ? config.input.maxLetters : config.input.maxCharacters,
                   })}
             </p>

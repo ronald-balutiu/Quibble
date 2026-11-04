@@ -1,15 +1,16 @@
 import { expect, test } from '@playwright/test'
+import { boxOf } from './support'
 import { deferred } from '../support/deferred'
 
 test('Library game tabs preserve the screen position for mouse and keyboard switches', async ({ page, isMobile }) => {
   if (isMobile) await page.setViewportSize({ width: 320, height: 900 })
   await page.goto('/play')
   await expect(page.locator('.tile')).toHaveCount(100)
-  await page.evaluate<void>('window.scrollTo(0, 120)')
+  await page.evaluate('window.scrollTo(0, 120)')
   const tabs = page.getByRole('navigation', { name: 'Games', exact: true })
   for (const [i, game] of ['category-escape', 'double-agent', 'oddly-specific'].entries()) {
     const tab = tabs.locator(`[data-game="${game}"]`)
-    const before = await tab.boundingBox()
+    const before = await boxOf(tab)
     const scroll = await page.evaluate<number>('window.scrollY')
     expect(scroll).toBe(120)
     if (i === 1) {
@@ -19,7 +20,7 @@ test('Library game tabs preserve the screen position for mouse and keyboard swit
     await expect(tab).toHaveAttribute('aria-current', 'page')
     await expect(page).toHaveURL(`/play?game=${game}`)
     await expect.poll(() => page.evaluate<number>('window.scrollY')).toBe(scroll)
-    expect((await tab.boundingBox())!.y).toBe(before!.y)
+    expect((await boxOf(tab)).y).toBe(before.y)
   }
   // Selecting the current tab again must not reset the scroll or add history.
   const history = await page.evaluate<number>('window.history.length')
@@ -48,14 +49,14 @@ test('Home’s footer aligns with every page at phone and wide desktop sizes', a
       await expect(footer).toContainText('© 2026 Ronald Balutiu. All rights reserved.')
       await expect(page.getByRole('main')).not.toHaveAttribute('aria-busy', 'true')
       await expect(page.getByRole('main').locator('footer')).toHaveCount(0)
-      const main = await page.getByRole('main').boundingBox()
-      const header = await page.getByRole('banner').boundingBox()
-      const box = await footer.boundingBox()
-      expect(box!.y).toBeCloseTo(main!.y + main!.height, 0)
-      expect(box!.x).toBe(main!.x)
-      expect(box!.x).toBe(header!.x)
-      expect(box!.width).toBe(main!.width)
-      expect(box!.x + box!.width).toBeLessThanOrEqual(width)
+      const main = await boxOf(page.getByRole('main'))
+      const header = await boxOf(page.getByRole('banner'))
+      const box = await boxOf(footer)
+      expect(box.y).toBeCloseTo(main.y + main.height, 0)
+      expect(box.x).toBe(main.x)
+      expect(box.x).toBe(header.x)
+      expect(box.width).toBe(main.width)
+      expect(box.x + box.width).toBeLessThanOrEqual(width)
       expect(await page.evaluate<number>('document.documentElement.scrollWidth')).toBeLessThanOrEqual(width)
     }
   }
@@ -80,11 +81,11 @@ test('every page has the same navigation outside its content frame', async ({ pa
     await expect(page.getByRole('main').locator('.site-header')).toHaveCount(0)
     await expect(page.getByRole('main')).toBeVisible()
     await expect(page.getByRole('main')).not.toHaveAttribute('aria-busy', 'true')
-    const headerBox = await header.boundingBox()
-    const mainBox = await page.getByRole('main').boundingBox()
+    const headerBox = await boxOf(header)
+    const mainBox = await boxOf(page.getByRole('main'))
     expect(headerBox).not.toBeNull()
     expect(mainBox).not.toBeNull()
-    expect(headerBox!.y + headerBox!.height).toBeLessThan(mainBox!.y)
+    expect(headerBox.y + headerBox.height).toBeLessThan(mainBox.y)
     if (active) {
       await expect(nav.locator('[aria-current="page"]')).toHaveText(active)
     }
@@ -158,11 +159,11 @@ test('the header fits a 320px phone with usable targets on every page', async ({
     const header = page.getByRole('banner')
     for (const control of await header.locator('a, button').all()) {
       await expect(control).toBeVisible()
-      const box = await control.boundingBox()
-      expect(box!.width).toBeGreaterThanOrEqual(44)
-      expect(box!.height).toBeGreaterThanOrEqual(44)
-      expect(box!.x).toBeGreaterThanOrEqual(0)
-      expect(box!.x + box!.width).toBeLessThanOrEqual(320)
+      const box = await boxOf(control)
+      expect(box.width).toBeGreaterThanOrEqual(44)
+      expect(box.height).toBeGreaterThanOrEqual(44)
+      expect(box.x).toBeGreaterThanOrEqual(0)
+      expect(box.x + box.width).toBeLessThanOrEqual(320)
     }
     expect(await page.evaluate<number>('document.documentElement.scrollWidth')).toBeLessThanOrEqual(320)
   }

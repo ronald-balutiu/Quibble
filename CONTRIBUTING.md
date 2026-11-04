@@ -260,7 +260,7 @@ through the same required checks, and merging them deploys.
 | `tsconfig.worker.json` | Cloudflare environment: `worker/`, `shared/`, and Worker tests. |
 | `tsconfig.node.json` | Node environment: config files, scripts, factory, eval, and Node tests. |
 | `prettier.config.js`, `.prettierignore` | Code and CSS formatting, and the files it leaves alone. |
-| `eslint.config.js` | Type-aware TypeScript, React, accessibility, copy, storage, and import-boundary rules. |
+| `eslint.config.js` | typescript-eslint's strict and stylistic type-checked presets, plus React, accessibility, copy, storage, and import-boundary rules. |
 | `stylelint.config.js` | Design-token enforcement for CSS. |
 | `vitest.config.ts` | Unit test discovery, isolation, and timeouts. |
 | `playwright.config.ts` | Browser test viewports, preview server, and failure artifacts. |

@@ -242,8 +242,12 @@ Within those boundaries:
 
 The TypeScript configuration is strict, including exact optional properties,
 explicit overrides, and per-file compilation checks. ESLint uses the same projects
-for type-aware rules such as unhandled promises, unsafe use of unvalidated values,
-and exhaustive switches.
+with typescript-eslint's strict and stylistic type-checked presets: unhandled
+promises, unsafe use of unvalidated values, exhaustive switches, conditions that can
+never change, and no non-null assertions. Tests read layout through `boxOf` and
+`viewportWidth` (`tests/e2e/support.ts`), which fail by name instead. Where
+TypeScript keeps a narrowed value across an `await` that another handler can change
+(a Cancel flag, say), the code reads it afresh, or says why in a disable comment.
 
 `@/` resolves to `src/` and `@shared/` to `shared/` in TypeScript, Vite, Vitest,
 and `tsx`.

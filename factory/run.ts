@@ -167,6 +167,7 @@ async function agentsStep() {
       byWord.set(c.word, check)
     }
     const [a, b] = check.clues
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- a getter: requests below spend the allowance
     while (next(check) && !budget.exhausted) {
       const stage = next(check)
       if (stage === 'first') {

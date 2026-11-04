@@ -91,7 +91,9 @@ function bootstrap(all: Row[], statistic: (sample: Row[]) => number, n: number, 
   const next = random(20261029)
   const values: number[] = []
   for (let r = 0; r < resamples; r++) {
-    const sample = Array.from({ length: all.length }, () => all[Math.floor(next() * all.length)] as Row)
+    const sample = Array.from({ length: all.length }, () => all[Math.floor(next() * all.length)]).filter(
+      (row): row is Row => row !== undefined,
+    )
     const value = statistic(sample)
     if (!Number.isNaN(value)) values.push(value)
   }

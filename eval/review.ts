@@ -68,21 +68,31 @@ createServer((req, res): void => {
   const send = (status: number, body: string, type = 'text/plain'): void => {
     res.writeHead(status, { 'Content-Type': type }).end(body)
   }
-  if (req.method === 'GET' && req.url === '/') return send(200, page, 'text/html')
+  if (req.method === 'GET' && req.url === '/') {
+    send(200, page, 'text/html')
+    return
+  }
   if (req.method === 'GET' && req.url === '/cases') {
-    return send(200, JSON.stringify({ dev: load('dev'), test: load('test'), conditions }), 'application/json')
+    send(200, JSON.stringify({ dev: load('dev'), test: load('test'), conditions }), 'application/json')
+    return
   }
   const split = /^\/cases\/(dev|test)$/u.exec(req.url ?? '')?.[1] as Split | undefined
-  if (req.method !== 'POST' || !split) return send(404, 'Not found')
+  if (req.method !== 'POST' || !split) {
+    send(404, 'Not found')
+    return
+  }
   let body = ''
   req.on('data', (chunk: Buffer) => {
     body += chunk.toString()
   })
   req.on('end', (): void => {
     const parsed = answerKeySchema.safeParse(JSON.parse(body))
-    if (!parsed.success) return send(400, parsed.error.message)
+    if (!parsed.success) {
+      send(400, parsed.error.message)
+      return
+    }
     writeFileSync(splits[split], `${JSON.stringify(parsed.data, null, 2)}\n`)
-    return send(204, '')
+    send(204, '')
   })
 }).listen(port, '127.0.0.1', () => {
   console.log(`Review answer-key labels at http://127.0.0.1:${String(port)}`)

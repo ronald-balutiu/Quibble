@@ -19,9 +19,11 @@ export function paintFrame(context: PaintContext, frame: string[], colors: strin
   frame.forEach((layer, i) => {
     context.fillStyle = colors[i] ?? ''
     layer.split('\n').forEach((line, row) => {
-      ;[...line].forEach((char, col) => {
+      // The frame is ASCII, so each UTF-16 unit is one cell.
+      for (let col = 0; col < line.length; col++) {
+        const char = line.charAt(col)
         if (char !== ' ') context.fillText(char, (col + 0.5) * cell.width, (row + 0.5) * cell.height)
-      })
+      }
     })
   })
 }

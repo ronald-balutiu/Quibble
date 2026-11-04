@@ -31,7 +31,7 @@ export default defineConfig({
       include: ['src/**/*.ts', 'shared/**/*.ts', 'worker/**/*.ts', 'eval/results.ts'],
       exclude: ['src/judges/device/worker.ts', 'src/lib/turnstile.ts', 'src/prerender.tsx', '**/*.d.ts'],
       reporter: ['text-summary'],
-      thresholds: { lines: 85, statements: 82, functions: 84, branches: 75 },
+      thresholds: { lines: 89, statements: 87, functions: 88, branches: 81 },
     },
   },
 })

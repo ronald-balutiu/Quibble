@@ -181,3 +181,17 @@ export async function expectMarkDrawn(mark: Locator) {
     })
   await expect.poll(drawn).toBe(true)
 }
+
+// Layout checks: a locator's box and the viewport's width, failing by name rather
+// than through a null when the element or viewport isn't there.
+export async function boxOf(locator: Locator) {
+  const box = await locator.boundingBox()
+  if (!box) throw new Error(`${String(locator)} has no box; it isn't visible.`)
+  return box
+}
+
+export function viewportWidth(page: Page) {
+  const size = page.viewportSize()
+  if (!size) throw new Error('The page has no fixed viewport.')
+  return size.width
+}

@@ -21,7 +21,9 @@ const fixtures = 'tests/fixtures/verdict'
 const readJson = (path: string): unknown => JSON.parse(readFileSync(path, 'utf8'))
 
 const cases = readJson(`${fixtures}/cases.json`) as ParityCase[]
-const reference = readJson(`${fixtures}/python-reference.json`) as RuntimeResults & { model: typeof deviceModel }
+const reference = readJson(`${fixtures}/python-reference.json`) as RuntimeResults & {
+  model: { revision: string; file: string }
+}
 if (reference.model.revision !== deviceModel.revision || reference.model.file !== deviceModel.file) {
   throw new Error('python-reference.json was generated from a different model; rerun eval/verdict/reference.py.')
 }

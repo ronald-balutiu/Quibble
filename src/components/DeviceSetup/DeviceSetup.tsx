@@ -80,8 +80,10 @@ export function DeviceSetup({ onClose, judge = deviceJudge }: { onClose: (on: bo
     cancelAnimationFrame(frame)
     loading.current = false
     // Cancel while the session starts can't stop it, so a late "ready" is undone.
-    const ready = result.kind === 'ready' && !cancelled.current
-    if (result.kind === 'ready' && cancelled.current) void judge.remove()
+    // Cancel runs while load() is pending, so the flag is read afresh here.
+    const wasCancelled = cancelled.current as boolean
+    const ready = result.kind === 'ready' && !wasCancelled
+    if (result.kind === 'ready' && wasCancelled) void judge.remove()
     if (!live.current) return
     if (ready) onClose(true)
     else if (result.kind === 'failed') setStep({ kind: 'failed', reason: result.reason })

@@ -10,7 +10,7 @@ export function deviceJudgeDouble(
   return {
     ready: status === 'ready',
     status,
-    subscribe: vi.fn(() => () => {}),
+    subscribe: vi.fn(() => () => undefined),
     load: vi.fn(() => {
       throw new Error('Unexpected device load')
     }),

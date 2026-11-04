@@ -5,10 +5,13 @@ import './game-example.css'
 export function GameExample({ game, worked = false }: { game: GameId; worked?: boolean }) {
   const steps =
     game === 'category-escape'
-      ? ([1, 2, 3] as const).map((n) => ({
-          label: en[`example.escape.rule.${n}`],
-          answer: en[`example.escape.answer.${n}`],
-        }))
+      ? (
+          [
+            ['example.escape.rule.1', 'example.escape.answer.1'],
+            ['example.escape.rule.2', 'example.escape.answer.2'],
+            ['example.escape.rule.3', 'example.escape.answer.3'],
+          ] as const
+        ).map(([label, answer]) => ({ label: en[label], answer: en[answer] }))
       : [
           { label: en[`welcome.${game}.example.1`] },
           { label: en[`welcome.${game}.example.2`] },

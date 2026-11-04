@@ -4,7 +4,9 @@ import type { z } from '@shared/schemas/zod'
 // says otherwise.
 
 export function json(body: unknown, status = 200, headers: HeadersInit = {}): Response {
-  return Response.json(body, { status, headers: { 'Cache-Control': 'no-store', ...headers } })
+  const merged = new Headers(headers)
+  if (!merged.has('Cache-Control')) merged.set('Cache-Control', 'no-store')
+  return Response.json(body, { status, headers: merged })
 }
 
 // A request body that is valid JSON and matches the schema, or undefined.

@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { seedStorage, shippedPuzzle } from './support'
+import { boxOf, seedStorage, shippedPuzzle, viewportWidth } from './support'
 import { expectAccessible } from './accessibility'
 
 // Library fixtures distinguish active, completed and perfect progress; Category
@@ -37,16 +37,16 @@ test('each game has keyboard-accessible rules and a quick example above the filt
       await expect(scoring.locator('dd strong')).toHaveText(['3', '2', '1'])
       await expect(scoring).toContainText('Three wrong guesses end the round.')
     }
-    const board = await example.boundingBox()
-    const score = await scoring.boundingBox()
-    const width = page.viewportSize()?.width ?? 0
-    if (width >= 1024) expect(score!.x).toBeGreaterThanOrEqual(board!.x + board!.width)
-    else expect(score!.y).toBeGreaterThanOrEqual(board!.y + board!.height)
-    const prompt = await page.locator('.library-start').boundingBox()
-    const disclosure = await rules.boundingBox()
-    const filters = await page.getByRole('group', { name: 'Show', exact: true }).boundingBox()
-    expect(disclosure!.y).toBeGreaterThanOrEqual(prompt!.y + prompt!.height)
-    expect(filters!.y).toBeGreaterThanOrEqual(disclosure!.y + disclosure!.height)
+    const board = await boxOf(example)
+    const score = await boxOf(scoring)
+    const width = viewportWidth(page)
+    if (width >= 1024) expect(score.x).toBeGreaterThanOrEqual(board.x + board.width)
+    else expect(score.y).toBeGreaterThanOrEqual(board.y + board.height)
+    const prompt = await boxOf(page.locator('.library-start'))
+    const disclosure = await boxOf(rules)
+    const filters = await boxOf(page.getByRole('group', { name: 'Show', exact: true }))
+    expect(disclosure.y).toBeGreaterThanOrEqual(prompt.y + prompt.height)
+    expect(filters.y).toBeGreaterThanOrEqual(disclosure.y + disclosure.height)
     expect(await page.evaluate<number>('document.documentElement.scrollWidth')).toBeLessThanOrEqual(width)
   }
   await expect(page.getByRole('heading', { name: 'Game Selector', exact: true })).toBeVisible()
@@ -59,15 +59,15 @@ test('judge cards sit above the selector on mobile, with a mobile-only tap hint'
   if (isMobile) {
     await page.setViewportSize({ width: 320, height: 800 })
     await expect(hint).toBeVisible()
-    const cards = await page.locator('.library-setup').boundingBox()
-    const selector = await page.getByRole('heading', { name: 'Game Selector', exact: true }).boundingBox()
-    expect(cards!.y + cards!.height).toBeLessThan(selector!.y)
+    const cards = await boxOf(page.locator('.library-setup'))
+    const selector = await boxOf(page.getByRole('heading', { name: 'Game Selector', exact: true }))
+    expect(cards.y + cards.height).toBeLessThan(selector.y)
     expect(await page.evaluate<number>('document.documentElement.scrollWidth')).toBe(320)
   } else {
     await expect(hint).toBeHidden()
-    const cards = await page.locator('.library-setup').boundingBox()
-    const grid = await page.locator('.library').boundingBox()
-    expect(cards!.x + cards!.width).toBeLessThanOrEqual(grid!.x)
+    const cards = await boxOf(page.locator('.library-setup'))
+    const grid = await boxOf(page.locator('.library'))
+    expect(cards.x + cards.width).toBeLessThanOrEqual(grid.x)
   }
 })
 
@@ -104,15 +104,15 @@ test('only active tiles show progress; completed and perfect tiles have a green 
   // as wide as 100's, down to the narrowest desktop grid (1024px).
   for (const width of [undefined, 1024]) {
     if (width) await page.setViewportSize({ width, height: 800 })
-    const [done, unplayed] = await Promise.all([tiles.nth(1).boundingBox(), tiles.nth(3).boundingBox()])
-    expect(done!.width).toBeCloseTo(unplayed!.width, 1)
-    expect(done!.height).toBeCloseTo(done!.width, 0)
+    const [done, unplayed] = await Promise.all([boxOf(tiles.nth(1)), boxOf(tiles.nth(3))])
+    expect(done.width).toBeCloseTo(unplayed.width, 1)
+    expect(done.height).toBeCloseTo(done.width, 0)
     const [first, hundredth] = await Promise.all([
-      tiles.nth(0).locator('.tile__n').boundingBox(),
-      tiles.nth(99).locator('.tile__n').boundingBox(),
+      boxOf(tiles.nth(0).locator('.tile__n')),
+      boxOf(tiles.nth(99).locator('.tile__n')),
     ])
-    expect(first!.width).toBeCloseTo(hundredth!.width, 1)
-    expect(await page.evaluate<number>('document.documentElement.scrollWidth')).toBe(page.viewportSize()!.width)
+    expect(first.width).toBeCloseTo(hundredth.width, 1)
+    expect(await page.evaluate<number>('document.documentElement.scrollWidth')).toBe(viewportWidth(page))
   }
   await tiles.nth(0).click()
   await expect(page.getByRole('button', { name: 'Resume round 2', exact: true })).toBeVisible()

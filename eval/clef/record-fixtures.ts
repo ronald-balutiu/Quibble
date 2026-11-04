@@ -8,6 +8,8 @@ loadEnvFile('.env')
 const accountId = process.env.WORKERS_AI_ACCOUNT_ID
 const token = process.env.WORKERS_AI_API_TOKEN
 if (!accountId || !token) throw new Error('Set WORKERS_AI_ACCOUNT_ID and WORKERS_AI_API_TOKEN in .env.')
+const api = `https://api.cloudflare.com/client/v4/accounts/${accountId}/ai/run`
+const authorization = `Bearer ${token}`
 
 const fixtures = 'tests/fixtures/clef'
 const playerAnswer = 'pocket knife'
@@ -24,9 +26,9 @@ const keptHeaders = /^(content-type|cf-ai-|x-ai-|server-timing)/i
 
 async function run(model: string, body: unknown) {
   const started = performance.now()
-  const response = await fetch(`https://api.cloudflare.com/client/v4/accounts/${accountId}/ai/run/${model}`, {
+  const response = await fetch(`${api}/${model}`, {
     method: 'POST',
-    headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+    headers: { Authorization: authorization, 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
   })
   return {

@@ -1,4 +1,5 @@
 import { cloudModels, defaultCloudModel, type CloudModel } from '@shared/schemas/judge'
+import { onStorageEvent } from './signal'
 
 // Small player settings (plan 3.8). Wrapped like all storage: defaults apply when
 // storage is blocked.
@@ -26,11 +27,10 @@ export function subscribeCloudModel(listener: () => void): () => void {
       listener()
     }
   }
-  // Optional, as in signal.ts: there's no window outside a browser.
-  globalThis.addEventListener?.('storage', changed)
+  const stopListening = onStorageEvent(changed)
   return () => {
     cloudListeners.delete(listener)
-    globalThis.removeEventListener?.('storage', changed)
+    stopListening()
   }
 }
 
@@ -40,7 +40,7 @@ export function loadCloudModel(): CloudModel {
     const value = globalThis.localStorage.getItem(CLOUD_MODEL)
     return cloudModels.find((model) => model === value) ?? defaultCloudModel
   } catch {
-    return memoryCloudModel ?? defaultCloudModel
+    return defaultCloudModel
   }
 }
 

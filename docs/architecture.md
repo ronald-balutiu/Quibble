@@ -102,7 +102,10 @@ for the device judge's download progress; the favicon and share image keep the r
 example rounds built from the game configs: decorative ✓/✗ tiles beside text rows
 that say the same. Judge setup stays in the Library and Settings. `/` always opens Home, including for players with saved progress.
 Home and the Quibble brand link to `/`; the Library is reached through its link or
-“Choose a puzzle.” The Library keeps its numbered
+“Choose a puzzle.” `LibraryScene` composes the game rows (`GameRows`), the start
+prompt (`LibraryStart`), the tiles (`PuzzleTile`) and the puzzle sheet
+(`PuzzleSheet`); its counts, filters and shuffle pick are pure functions in
+`library-model.ts`. The Library keeps its numbered
 grid, starts unplayed tiles directly, and retains replay/reset controls for saved
 puzzles. Its first-puzzle prompt changes after any game has a completed puzzle
 (with a saved best score, including zero); unfinished games keep the resume prompt.
@@ -270,7 +273,9 @@ centering when the viewport exceeds the content width.
 `scenes/about/` is the case study: seven numbered sections (the games with real
 example answers, a round played step by step, an example judge tally, the
 answer-key test, where the puzzles come from, privacy and credits), each pairing a
-few sentences with a card grid, steps, a small table or bars. Results come from
+few sentences with a card grid, steps, a small table or bars. The longer sections
+have their own components (`HowToPlay`, `YouVsJudges`, `JudgeTest`,
+`PuzzleMaking`), numbered and headed by `AboutSection`. Results come from
 `public/eval/results.json`; the facts it doesn't carry (the sealed test's mix of
 guesses, the practice set's size, a slice of the factory's truth table, the
 spot-check and the example answers) live in `about-facts.ts`, and a tooling test

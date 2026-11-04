@@ -2,14 +2,18 @@ import { readFileSync } from 'node:fs'
 import { fileURLToPath, URL } from 'node:url'
 import { gzipSync } from 'node:zlib'
 import type { Plugin, Rolldown } from 'vite'
-import { gameIds } from '../shared/games/index.ts'
+import { gameIds, type GameId } from '../shared/games/index.ts'
+import { evalResultsSchema } from '../shared/schemas/eval-results.ts'
 import { puzzleIndexSchema } from '../shared/schemas/puzzle.ts'
 import { SITE_ORIGIN } from '../shared/site.ts'
 import { libraryPath, puzzlePath } from '../src/lib/paths.ts'
 import { en, format, puzzleNumber } from '../src/copy/en.ts'
+import { llmsTxt } from './llms-txt.ts'
+import { aboutStructuredData, homeStructuredData, jsonLdTag } from './structured-data.ts'
 
-// Build plugins for vite.config.ts: the on-device judge's runtime, the sitemap, and
-// one HTML page per route. Each runs in the client build only unless noted.
+// Build plugins for vite.config.ts: the on-device judge's runtime, the sitemap,
+// llms.txt, and one HTML page per route. Each runs in the client build only unless
+// noted.
 
 const fromRoot = (path: string) => fileURLToPath(new URL(`../${path}`, import.meta.url))
 
@@ -53,6 +57,22 @@ export function dropRawOrtRuntime(): Plugin {
   }
 }
 
+// For AI tools (llmstxt.org): what the site is, from the puzzle index and the
+// published answer-key results.
+export function llms(): Plugin {
+  return {
+    name: 'quibble:llms-txt',
+    applyToEnvironment: (environment) => environment.name === 'client',
+    generateBundle() {
+      const counts = Object.fromEntries(
+        gameIds.map((game) => [game, puzzles().filter((puzzle) => puzzle.game === game).length]),
+      ) as Record<GameId, number>
+      const results = evalResultsSchema.parse(JSON.parse(readFileSync(fromRoot('public/eval/results.json'), 'utf8')))
+      this.emitFile({ type: 'asset', fileName: 'llms.txt', source: llmsTxt(counts, results) })
+    },
+  }
+}
+
 // For search engines (robots.txt points here): Home, the Library and every puzzle,
 // listed from the built puzzle index.
 export function sitemap(): Plugin {
@@ -85,6 +105,7 @@ interface RoutePage {
   data?: string
   title: string
   description: string
+  structuredData?: unknown
 }
 
 const escapeHtml = (text: string) =>
@@ -109,6 +130,7 @@ function routePageList(): RoutePage[] {
       scene: 'src/scenes/about/AboutScene.tsx',
       title: en['meta.title.about'],
       description: en['meta.description.about'],
+      structuredData: aboutStructuredData(),
     },
     ...puzzles().map(({ game, n, path }) => {
       const values = { game: en[`game.name.${game}`], n: puzzleNumber(n), tagline: en[`game.tagline.${game}`] }
@@ -150,7 +172,10 @@ export function routePages(): Plugin {
         .map((name) => link(`rel="preload" href="/${name}" as="font" type="font/woff2" crossorigin`))
         .join('')
       const base = String(html.source).replace(/ *<\/head>/u, `${fonts}  </head>`)
-      html.source = base.replace(/ *<\/head>/u, `${link(`rel="canonical" href="${SITE_ORIGIN}/"`)}  </head>`)
+      html.source = base.replace(
+        / *<\/head>/u,
+        `${link(`rel="canonical" href="${SITE_ORIGIN}/"`)}${jsonLdTag(homeStructuredData())}  </head>`,
+      )
       this.emitFile({ type: 'asset', fileName: '404.html', source: base })
 
       for (const page of routePageList()) {
@@ -163,6 +188,7 @@ export function routePages(): Plugin {
           ...css.map((name) => link(`rel="stylesheet" crossorigin href="/${name}"`)),
           ...files.map((name) => link(`rel="modulepreload" crossorigin href="/${name}"`)),
           page.data ? link(`rel="preload" href="${page.data}" as="fetch" crossorigin`) : '',
+          page.structuredData ? jsonLdTag(page.structuredData) : '',
         ].join('')
         const source = base
           .replace(/<title>[^<]*<\/title>/u, `<title>${escapeHtml(page.title)}</title>`)

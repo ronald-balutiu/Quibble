@@ -1,24 +1,33 @@
 import { useMemo, useState } from 'react'
-import { Link, useNavigate, useSearchParams } from 'react-router'
-import { gameIds, type GameId } from '@shared/games'
+import { useNavigate, useSearchParams } from 'react-router'
+import { gameIds } from '@shared/games'
 import { usePageMeta } from '@/app/use-page-meta'
-import { ConfirmButton } from '@/components/ConfirmButton/ConfirmButton'
 import { DeviceJudgeCard } from '@/components/JudgeSetup/DeviceJudgeCard'
 import { CloudModelChoice } from '@/components/JudgeSetup/CloudModelChoice'
-import { en, format, puzzleNumber } from '@/copy/en'
+import { en, format } from '@/copy/en'
 import { usePuzzleIndex } from '@/lib/use-puzzle-index'
-import { progressChanges, resetPuzzle } from '@/lib/storage/progress'
+import { progressChanges } from '@/lib/storage/progress'
 import { puzzlePath } from '@/lib/paths'
 import { useHydrated } from '@/lib/use-hydrated'
-import { useModalDialog } from '@/lib/use-modal-dialog'
 import { useStorageRevision } from '@/lib/use-storage-revision'
-import { libraryEntries, maxFor, progressText, type statusOf } from './library-model'
+import {
+  filters,
+  gameCounts,
+  libraryEntries,
+  matchesFilter,
+  pickAtRandom,
+  summarize,
+  type Filter,
+} from './library-model'
+import { GameRows } from './GameRows'
 import { GameRules } from './GameRules'
+import { LibraryStart } from './LibraryStart'
+import { PuzzleSheet } from './PuzzleSheet'
+import { PuzzleTile } from './PuzzleTile'
 import '../scenes.css'
 
-const FILTERS = ['all', 'easy', 'hard', 'unplayed'] as const
-type Filter = (typeof FILTERS)[number]
-
+// L1: the games, the judges, and one game's puzzles. Unplayed tiles start directly;
+// played ones open the puzzle sheet (L2).
 export function LibraryScene() {
   usePageMeta(en['meta.title.library'])
   const [params, setParams] = useSearchParams()
@@ -35,19 +44,13 @@ export function LibraryScene() {
 
   const puzzles = index?.[game] ?? []
   const statuses = entries?.[game] ?? []
-  const solved = statuses.filter(({ status }) => status === 'solved' || status === 'perfect').length
-  const continuing = statuses.find(({ status }) => status === 'open')
-  const unplayed = statuses.filter(({ status }) => status === 'unplayed')
-  const shown = statuses.filter(
-    (entry) => filter === 'all' || (filter === 'unplayed' ? entry.status === 'unplayed' : entry.difficulty === filter),
-  )
-  const starter = unplayed[0]
-  const summaries = gameIds.map((id) => ({
-    id,
-    count: index?.[id]?.length ?? 0,
-    done: (entries?.[id] ?? []).filter(({ best }) => best !== undefined).length,
-  }))
-  const hasCompleted = summaries.some(({ done }) => done > 0)
+  const { solved, open: openRuns, perfect, continuing, unplayed } = summarize(statuses)
+  const counts = gameCounts(index ?? undefined, entries)
+  const hasCompleted = gameIds.some((id) => counts[id].played > 0)
+  function shuffle() {
+    const pick = pickAtRandom(unplayed)
+    if (pick) void navigate(puzzlePath(game, pick.n))
+  }
 
   return (
     <main className="app-frame scene" data-scene="library">
@@ -57,29 +60,13 @@ export function LibraryScene() {
       </div>
       {/* Phone: game rows and judge choice above the selector. Desktop: sidebar beside it. */}
       <div className="library-layout">
-        <nav className="game-rows" aria-label={en['home.games']}>
-          {summaries.map(({ id, count, done }) => (
-            <button
-              key={id}
-              type="button"
-              className="game-row"
-              data-game={id}
-              aria-current={id === game ? 'page' : undefined}
-              onClick={() => {
-                if (id !== game) setParams({ game: id })
-              }}
-            >
-              <span className="telemetry">{en[`game.code.${id}`]}</span>
-              <span className="game-row__name">{en[`game.name.${id}`]}</span>
-              <span className="muted game-row__tagline">{en[`game.tagline.${id}`]}</span>
-              <span className="telemetry">
-                {count === 0
-                  ? en['library.new']
-                  : format('library.progress', { solved: puzzleNumber(done), total: puzzleNumber(count) })}
-              </span>
-            </button>
-          ))}
-        </nav>
+        <GameRows
+          game={game}
+          counts={counts}
+          onSelect={(id) => {
+            setParams({ game: id })
+          }}
+        />
         <div className="library-setup">
           <section className="judge-card cloud-judge" aria-label={en['welcome.cloud.title']}>
             <CloudModelChoice />
@@ -88,36 +75,13 @@ export function LibraryScene() {
         </div>
         <section className="library" data-game={game}>
           <h1 className="library__title">{en[`game.name.${game}`]}</h1>
-          {(continuing ?? starter) && (
-            <div className="library-start">
-              <p>
-                {en[continuing ? 'library.continue.note' : hasCompleted ? 'library.next.note' : 'library.start.note']}
-              </p>
-              {continuing ? (
-                <Link className="pill control-link" to={puzzlePath(game, continuing.n)}>
-                  {progressText(game, 'library.continue', {
-                    n: puzzleNumber(continuing.n),
-                    round: continuing.round ?? 1,
-                  })}
-                </Link>
-              ) : (
-                starter && (
-                  <Link className="pill control-link" to={puzzlePath(game, starter.n)}>
-                    {format('library.start', {
-                      n: puzzleNumber(starter.n),
-                      difficulty: en[`difficulty.${starter.difficulty}`],
-                    })}
-                  </Link>
-                )
-              )}
-            </div>
-          )}
+          <LibraryStart game={game} continuing={continuing} starter={unplayed[0]} hasCompleted={hasCompleted} />
           <GameRules game={game} key={game} />
           <section className="library-puzzles" aria-labelledby="library-grid-title">
             <h2 id="library-grid-title">{en['library.gridTitle']}</h2>
             <p className="library-mobile-hint">{en['library.mobileHint']}</p>
             <div className="filters" role="group" aria-label={en['library.filters']}>
-              {FILTERS.map((option) => (
+              {filters.map((option) => (
                 <button
                   key={option}
                   type="button"
@@ -131,25 +95,12 @@ export function LibraryScene() {
                 </button>
               ))}
               {unplayed.length > 0 && (
-                <button
-                  type="button"
-                  className="setup-link library-shuffle"
-                  onClick={() => {
-                    const pick = unplayed[Math.floor(Math.random() * unplayed.length)]
-                    if (pick) void navigate(puzzlePath(game, pick.n))
-                  }}
-                >
+                <button type="button" className="setup-link library-shuffle" onClick={shuffle}>
                   {en['library.shuffle']}
                 </button>
               )}
             </div>
-            <p className="telemetry">
-              {format('library.counts', {
-                solved,
-                open: statuses.filter(({ status }) => status === 'open').length,
-                perfect: statuses.filter(({ status }) => status === 'perfect').length,
-              })}
-            </p>
+            <p className="telemetry">{format('library.counts', { solved, open: openRuns, perfect })}</p>
             {index === undefined && <p role="status">{en['library.loading']}</p>}
             {index === null && (
               <div>
@@ -161,52 +112,20 @@ export function LibraryScene() {
             )}
             {index && puzzles.length === 0 && <p>{en['library.empty']}</p>}
             <ol className="tiles">
-              {shown.map(({ n, difficulty, status, best, progress }) => (
-                <li key={n}>
-                  {/* The name starts with the visible number, so speech input can say it (WCAG 2.5.3). */}
-                  <button
-                    type="button"
-                    className={`tile tile--${status}`}
-                    onClick={() => {
-                      if (status === 'unplayed') void navigate(puzzlePath(game, n))
-                      else setOpen(n)
-                    }}
-                  >
-                    <span className="tile__n">{n}</span>
-                    {progress ? (
-                      <>
-                        <progress
-                          className="tile__progress"
-                          value={progress.done}
-                          max={progress.total}
-                          aria-hidden="true"
-                        />
-                        <span className="visually-hidden">
-                          {format(
-                            game === 'category-escape' ? 'library.levelProgress' : 'library.roundProgress',
-                            progress,
-                          )}
-                        </span>
-                      </>
-                    ) : (
-                      <span className="tile__bottom">
-                        {(status === 'solved' || status === 'perfect') && (
-                          <span className="tile__check" aria-hidden="true">
-                            {en['library.completedMark']}
-                          </span>
-                        )}
-                        <span className="tile__score">{status === 'perfect' ? en['library.perfectMark'] : best}</span>
-                      </span>
-                    )}
-                    <span className="visually-hidden">
-                      {format('library.tile', {
-                        difficulty: en[`difficulty.${difficulty}`],
-                        status: format(`library.status.${status}`, { best: best ?? 0, max: maxFor(game) }),
-                      })}
-                    </span>
-                  </button>
-                </li>
-              ))}
+              {statuses
+                .filter((entry) => matchesFilter(entry, filter))
+                .map((entry) => (
+                  <li key={entry.n}>
+                    <PuzzleTile
+                      game={game}
+                      entry={entry}
+                      onSelect={() => {
+                        if (entry.status === 'unplayed') void navigate(puzzlePath(game, entry.n))
+                        else setOpen(entry.n)
+                      }}
+                    />
+                  </li>
+                ))}
             </ol>
           </section>
         </section>
@@ -222,51 +141,5 @@ export function LibraryScene() {
         />
       )}
     </main>
-  )
-}
-
-// L2: play, resume, replay or reset one puzzle. Reset asks once more in place (D-28).
-function PuzzleSheet({
-  game,
-  n,
-  saved,
-  onClose,
-}: {
-  game: GameId
-  n: number
-  saved: ReturnType<typeof statusOf> | undefined
-  onClose: () => void
-}) {
-  const { status = 'unplayed', round } = saved ?? {}
-  const dialog = useModalDialog()
-  const navigate = useNavigate()
-
-  return (
-    <dialog ref={dialog} className="sheet" onClose={onClose} aria-labelledby="sheet-title">
-      <h2 id="sheet-title">{format('game.header', { code: en[`game.code.${game}`], n: puzzleNumber(n) })}</h2>
-      <div className="actions">
-        <button
-          type="button"
-          className="pill"
-          onClick={() => {
-            void navigate(puzzlePath(game, n))
-          }}
-        >
-          {status === 'open' ? progressText(game, 'sheet.resume', { round: round ?? 1 }) : en['sheet.play']}
-        </button>
-        {status !== 'unplayed' && (
-          <ConfirmButton
-            label={en['sheet.reset']}
-            onConfirm={() => {
-              resetPuzzle(game, n)
-              onClose()
-            }}
-          />
-        )}
-        <button type="button" className="pill pill--quiet" onClick={onClose}>
-          {en['sheet.close']}
-        </button>
-      </div>
-    </dialog>
   )
 }

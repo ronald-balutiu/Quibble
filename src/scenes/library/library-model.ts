@@ -36,6 +36,9 @@ export function statusOf(
   return { status: best === maxFor(game) ? 'perfect' : 'solved', best }
 }
 
+export type PuzzleStatus = ReturnType<typeof statusOf>
+export type LibraryEntry = NonNullable<PuzzleIndex[GameId]>[number] & PuzzleStatus
+
 // One read per puzzle per storage revision, shared by tiles and game summaries.
 export function libraryEntries(index: PuzzleIndex, load = loadProgress) {
   return Object.fromEntries(
@@ -43,5 +46,40 @@ export function libraryEntries(index: PuzzleIndex, load = loadProgress) {
       game,
       (index[game] ?? []).map((entry) => ({ ...entry, ...statusOf(game, load(game, entry.n)) })),
     ]),
-  ) as Record<GameId, (NonNullable<PuzzleIndex[GameId]>[number] & ReturnType<typeof statusOf>)[]>
+  ) as Record<GameId, LibraryEntry[]>
 }
+
+// What the Library says about one game: its counts, the run to continue, and the
+// unplayed puzzles that Start and Shuffle pick from.
+export function summarize(entries: readonly LibraryEntry[]) {
+  const count = (status: Status) => entries.filter((entry) => entry.status === status).length
+  return {
+    solved: count('solved') + count('perfect'),
+    open: count('open'),
+    perfect: count('perfect'),
+    // A best score of zero still counts as played (5.5 L1).
+    played: entries.filter(({ best }) => best !== undefined).length,
+    continuing: entries.find(({ status }) => status === 'open'),
+    unplayed: entries.filter(({ status }) => status === 'unplayed'),
+  }
+}
+
+// Every game's puzzle count and how many have been played, for the game rows.
+export function gameCounts(index: PuzzleIndex | undefined, entries: Record<GameId, LibraryEntry[]> | undefined) {
+  return Object.fromEntries(
+    gameIds.map((game) => [
+      game,
+      { total: index?.[game]?.length ?? 0, played: summarize(entries?.[game] ?? []).played },
+    ]),
+  ) as Record<GameId, { total: number; played: number }>
+}
+
+export const filters = ['all', 'easy', 'hard', 'unplayed'] as const
+export type Filter = (typeof filters)[number]
+
+export const matchesFilter = (entry: LibraryEntry, filter: Filter) =>
+  filter === 'all' || (filter === 'unplayed' ? entry.status === 'unplayed' : entry.difficulty === filter)
+
+// Shuffle unplayed: one entry at random, or undefined when there are none.
+export const pickAtRandom = <T>(list: readonly T[], random: () => number = Math.random): T | undefined =>
+  list[Math.floor(random() * list.length)]

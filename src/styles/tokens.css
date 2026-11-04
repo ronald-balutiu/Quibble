@@ -56,7 +56,13 @@
   --welcome-ascii-width-wide: 346px;
   --welcome-lede-max: 385px;
   --judge-bar-height: 12px; /* the comparison's paired bars (5.5 H3) */
+  --judge-bar-target-dash: 2 2; /* a target across a bar, such as About's 85% */
   --score-tile-size: 22px; /* Home's example guesses in How scoring works */
+  /* About's grids: cards wrap to fewer columns below these widths. */
+  --about-card-min: 200px;
+  --about-step-min: 220px;
+  --about-privacy-min: 260px;
+  --about-bar-label: 104px; /* judge names beside the answer-key bars */
   --rules-column-min: 260px;
   --compare-max: 736px;
   --review-max: 736px;

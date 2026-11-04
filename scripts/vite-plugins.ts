@@ -107,7 +107,7 @@ function routePageList(): RoutePage[] {
     },
     {
       path: '/about',
-      scene: 'src/scenes/AboutScene.tsx',
+      scene: 'src/scenes/about/AboutScene.tsx',
       title: en['meta.title.about'],
       description: en['meta.description.about'],
     },

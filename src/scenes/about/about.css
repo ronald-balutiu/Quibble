@@ -1,0 +1,360 @@
+/* P1: the case study. Text keeps a readable measure; cards, steps and tables can run
+   wider and wrap to fewer columns on narrow screens. */
+
+.about__intro {
+  padding: var(--space-10) var(--content-pad) var(--space-8);
+}
+
+.about__title {
+  max-width: var(--sheet-width);
+  margin: var(--space-0);
+  font-size: var(--type-panel-large);
+  font-weight: var(--weight-regular);
+}
+
+.about__lede {
+  margin: var(--space-3) var(--space-0) var(--space-0);
+  font-size: var(--type-verdict);
+}
+
+.about__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-8) var(--content-pad);
+  border-top: var(--border-width) solid var(--line);
+}
+
+.about__section h2 {
+  margin: var(--space-0);
+  font-weight: var(--weight-regular);
+}
+
+.about__section h2:not(.telemetry) {
+  font-size: var(--type-compare-heading);
+}
+
+.about__section > p,
+.about__section > .telemetry {
+  max-width: var(--sheet-width);
+  margin: var(--space-0);
+}
+
+.about__section > p:not(.telemetry) {
+  font-size: var(--type-body-large);
+}
+
+.about__section .about__note {
+  color: var(--muted);
+}
+
+.about__section a {
+  color: var(--text);
+}
+
+/* A bordered panel for an example, a step or a list. */
+.about-card {
+  margin: var(--space-0);
+  padding: var(--space-4);
+  border: var(--border-width) solid var(--line);
+  background: var(--surface-2);
+  font-size: var(--type-body);
+}
+
+.about-card h3 {
+  margin: var(--space-0) var(--space-0) var(--space-2);
+  font-size: var(--type-body-large);
+  font-weight: var(--weight-medium);
+}
+
+.about-card p {
+  margin: var(--space-0);
+  color: var(--muted);
+}
+
+/* 01: one card per game, topped with its colour (a line, never a fill). */
+.about-games,
+.about-play,
+.about-steps,
+.about-kinds,
+.about-verdict,
+.about-privacy ul {
+  margin: var(--space-0);
+  padding: var(--space-0);
+  list-style: none;
+}
+
+.about-games,
+.about-play,
+.about-stats,
+.about-privacy {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--about-card-min), 1fr));
+  gap: var(--space-3);
+}
+
+.about-games__game {
+  border-top: var(--accent-line-width) solid var(--accent);
+}
+
+.about-games__example {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin: var(--space-3) var(--space-0) var(--space-0);
+  color: var(--muted);
+}
+
+.about-games__example div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.about-games__example dd {
+  margin: var(--space-0);
+  color: var(--text);
+}
+
+/* 02: a round as four numbered cards. */
+.about-play {
+  grid-template-columns: repeat(auto-fit, minmax(var(--about-step-min), 1fr));
+  counter-reset: about-step;
+}
+
+@media (min-width: 768px) {
+  .about-play {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.about-play > li {
+  display: flex;
+  flex-direction: column;
+  counter-increment: about-step;
+}
+
+.about-play > li h3::before {
+  content: counter(about-step);
+  margin-right: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--type-label-large);
+  font-weight: var(--weight-regular);
+  color: var(--muted);
+}
+
+.about-rules {
+  margin: var(--space-0);
+  padding-left: var(--space-5);
+  list-style-type: upper-alpha;
+}
+
+.about-rules li {
+  padding: var(--space-1) var(--space-0);
+}
+
+.about-rules li::marker {
+  font-family: var(--font-mono);
+  color: var(--game-oddly);
+}
+
+.about-guess {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-2);
+  border: var(--border-width) solid var(--line-strong);
+}
+
+.about-card .about-guess {
+  color: var(--text);
+}
+
+.about-guess span {
+  padding: var(--space-2) var(--space-3);
+}
+
+.about-guess .telemetry {
+  border-left: var(--border-width) solid var(--line-strong);
+}
+
+.about-verdict {
+  display: flex;
+  gap: var(--space-4);
+  margin-bottom: var(--space-2);
+  font-family: var(--font-mono);
+}
+
+.about-verdict li {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.about-verdict--pass span:first-child {
+  color: var(--success);
+}
+
+.about-verdict--fail span:first-child {
+  color: var(--fail);
+}
+
+/* Shows the button the step names; it isn't one, so it doesn't look pressable. */
+.about-play__pill {
+  align-self: flex-start;
+  margin-top: var(--space-3);
+  cursor: default;
+}
+
+/* 03 and 05: small tables, fixed columns so long headers wrap rather than overflow. */
+.about-table table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.about-table caption {
+  padding-bottom: var(--space-2);
+  text-align: left;
+}
+
+.about-table th,
+.about-table td {
+  padding: var(--space-2) var(--space-1);
+  border-bottom: var(--border-width) solid var(--line-soft);
+  font-weight: var(--weight-regular);
+  text-align: left;
+  vertical-align: top;
+}
+
+.about-table thead th {
+  font-family: var(--font-mono);
+  font-size: var(--type-label-large);
+  color: var(--muted);
+}
+
+.about-table tbody tr:last-child > * {
+  border-bottom: none;
+}
+
+.about-yes {
+  color: var(--success);
+}
+
+.about-no {
+  color: var(--fail);
+}
+
+.about-table__fits th {
+  font-weight: var(--weight-medium);
+}
+
+/* 04: the kinds of guesses, the two sets, the bars and the strict callout. */
+.about-kinds {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.about-kinds li {
+  padding: var(--space-1) var(--space-3);
+  border: var(--border-width) solid var(--line-strong);
+  border-radius: var(--radius-pill);
+  font-size: var(--type-body);
+}
+
+.about-kinds__count {
+  margin-left: var(--space-1);
+  font-family: var(--font-mono);
+  color: var(--muted);
+}
+
+.about-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--about-step-min), 1fr));
+  gap: var(--space-4);
+}
+
+.about-steps li {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding-top: var(--space-3);
+  border-top: var(--accent-line-width) solid var(--line-strong);
+  font-size: var(--type-body);
+  color: var(--muted);
+}
+
+.about-steps strong {
+  font-size: var(--type-body-large);
+  font-weight: var(--weight-medium);
+  color: var(--text);
+}
+
+.about__section > .about-bars__caption {
+  margin-top: var(--space-4);
+}
+
+.about-bars {
+  display: grid;
+  gap: var(--space-3);
+  max-width: var(--compare-max);
+  margin: var(--space-0);
+}
+
+.about-bars div {
+  display: grid;
+  grid-template-columns: var(--about-bar-label) minmax(0, 1fr);
+  gap: var(--space-3);
+  align-items: center;
+  font-size: var(--type-body);
+}
+
+.about-bars dd {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-3);
+  align-items: center;
+  margin: var(--space-0);
+  font-family: var(--font-mono);
+}
+
+.about-bars .judge-bar {
+  margin-top: var(--space-0);
+}
+
+.about__section > .about-callout {
+  padding: var(--space-2) var(--space-0) var(--space-2) var(--space-4);
+  border-left: var(--accent-line-width) solid var(--fail);
+  color: var(--muted);
+}
+
+.about-callout strong {
+  font-weight: var(--weight-medium);
+  color: var(--text);
+}
+
+.about-stats strong {
+  display: block;
+  margin-bottom: var(--space-1);
+  font-size: var(--type-compare-value);
+  font-weight: var(--weight-light);
+  color: var(--text);
+}
+
+/* 06: what leaves the browser beside what stays. */
+.about-privacy {
+  grid-template-columns: repeat(auto-fit, minmax(var(--about-privacy-min), 1fr));
+}
+
+.about-privacy li {
+  padding: var(--space-2) var(--space-0);
+  border-bottom: var(--border-width) solid var(--line-soft);
+}
+
+.about-privacy li:last-child {
+  border-bottom: none;
+}
+
+.about-privacy .about__note {
+  margin-top: var(--space-2);
+}

@@ -121,7 +121,7 @@ test('Privacy closes Settings on navigation, including when already on About', a
     await page.getByRole('dialog', { name: 'Settings' }).getByRole('link', { name: 'Privacy →' }).click()
     await expect(page).toHaveURL('/about#privacy')
     await expect(page.getByRole('dialog')).toHaveCount(0)
-    await expect(page.getByRole('heading', { name: 'Privacy', exact: true })).toBeInViewport()
+    await expect(page.getByRole('heading', { name: 'What leaves your browser', exact: true })).toBeInViewport()
   }
 })
 

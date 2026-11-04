@@ -2,7 +2,7 @@ import { fileURLToPath, URL } from 'node:url'
 import { cloudflare } from '@cloudflare/vite-plugin'
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
-import { dropRawOrtRuntime, ortRuntime, routePages, sitemap } from './scripts/vite-plugins.ts'
+import { dropRawOrtRuntime, llms, ortRuntime, routePages, sitemap } from './scripts/vite-plugins.ts'
 
 export default defineConfig({
   // Browser tests mock every model call, so their preview server runs without remote
@@ -15,6 +15,7 @@ export default defineConfig({
     }),
     ortRuntime(),
     sitemap(),
+    llms(),
     routePages(),
   ],
   resolve: {

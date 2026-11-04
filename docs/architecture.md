@@ -328,7 +328,13 @@ legible-font audit; on Home it carries `mark.label` as an image.
 For search engines, `public/robots.txt` points to `/sitemap.xml`, also built from the
 puzzle index (Home, the Library, About and every puzzle). Scenes keep their title and
 canonical URL current during client navigation through `src/app/use-page-meta.ts`,
-and the not-found scene asks not to be indexed.
+and the not-found scene asks not to be indexed. Home and About carry schema.org
+JSON-LD (`scripts/structured-data.ts`): the site, the game with its three games, its
+author, and the About page, sharing ids. `/llms.txt` (`scripts/llms-txt.ts`) is a
+short Markdown guide for AI tools, built from the copy, the puzzle index and
+`public/eval/results.json`. The sitemap has no `lastmod`: no page has a reliable
+change date, and search engines ignore dates that aren't accurate. The share image's
+URL carries `?v=n`, bumped when `scripts/social-image.ts` redraws it.
 
 `public/_headers` sets the content security policy on every page and static asset,
 including the on-device judge's worker script, which takes its policy from its own

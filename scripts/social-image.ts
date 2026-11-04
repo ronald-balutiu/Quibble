@@ -1,8 +1,12 @@
 // Renders the share image (public/og.png, 1200 × 630) and the favicon
-// (public/favicon.svg) from the ring mark (5.1, 5.3: one mark everywhere).
+// (public/favicon.svg) from the ring mark (5.1, 5.3: one mark everywhere). The share
+// image shows the mark as Home does, in characters at its still frame, beside Home's
+// headline; the favicon keeps the drawn rings, which read at 16px.
 // Usage: npm run ts -- scripts/social-image.ts
 import { readFileSync, writeFileSync } from 'node:fs'
 import { chromium } from '@playwright/test'
+import { asciiMarkFrame, LAYERS } from '../src/components/AsciiMark/frame.ts'
+import { en } from '../src/copy/en.ts'
 
 const font = (path: string) =>
   `data:font/woff2;base64,${readFileSync(`node_modules/@fontsource/${path}`).toString('base64')}`
@@ -21,13 +25,11 @@ const rings = (width: number) => `
   <circle cx="0" cy="-52" r="110" fill="none" stroke="${colors.oddly}" stroke-width="${String(width)}"/>
   <circle cx="-64" cy="44" r="110" fill="none" stroke="${colors.escape}" stroke-width="${String(width)}"/>
   <circle cx="64" cy="44" r="110" fill="none" stroke="${colors.agent}" stroke-width="${String(width)}"/>`
-const mark = `<svg viewBox="-200 -190 400 380" xmlns="http://www.w3.org/2000/svg">
-  <line x1="-195" y1="11" x2="195" y2="11" stroke="${colors.line}"/><line x1="0" y1="-185" x2="0" y2="185" stroke="${colors.line}"/>
-  ${rings(1.5)}
-  <circle cx="0" cy="-52" r="114" fill="none" stroke="${colors.text}" stroke-width="2" stroke-dasharray="48 643"/>
-  <circle cx="-64" cy="44" r="114" fill="none" stroke="${colors.text}" stroke-width="2" stroke-dasharray="48 643" stroke-dashoffset="-240"/>
-  <circle cx="64" cy="44" r="114" fill="none" stroke="${colors.text}" stroke-width="2" stroke-dasharray="48 643" stroke-dashoffset="-470"/>
-  <circle cx="0" cy="11" r="5" fill="${colors.text}"/></svg>`
+// The still frame, one stacked <pre> per ring in its game's colour.
+const ink: Record<(typeof LAYERS)[number], string> = { oddly: colors.oddly, escape: colors.escape, agent: colors.agent }
+const mark = `<div class="mark">${asciiMarkFrame(0)
+  .map((layer, i) => `<pre style="color: ${ink[LAYERS[i] ?? 'oddly']}">${layer}</pre>`)
+  .join('')}</div>`
 
 writeFileSync(
   'public/favicon.svg',
@@ -41,9 +43,10 @@ const html = `<!doctype html><html><head><style>
   .text { flex: 1; padding-left: 80px; }
   .eyebrow { font-family: 'Geist Mono'; font-size: 20px; letter-spacing: 0.12em; text-transform: uppercase; color: ${colors.muted}; }
   h1 { margin: 24px 0; font-size: 112px; font-weight: 300; line-height: 0.92; letter-spacing: -0.05em; }
-  p { margin: 0; font-size: 28px; color: ${colors.muted}; max-width: 560px; line-height: 1.35; }
-  svg { width: 520px; height: 494px; margin-right: 60px; }
-</style></head><body><div class="text"><div class="eyebrow">Quibble · three word games</div><h1>Make your case.</h1><p>Any answer that fits counts. Two AI judges decide.</p></div>${mark}</body></html>`
+  p { margin: 0; font-size: 28px; color: ${colors.muted}; max-width: 560px; line-height: 1.35; text-wrap: balance; }
+  .mark { display: grid; margin-right: 72px; font-family: 'Geist Mono'; font-size: 17px; line-height: 1; }
+  .mark pre { grid-area: 1 / 1; margin: 0; font: inherit; white-space: pre; }
+</style></head><body><div class="text"><div class="eyebrow">${en['app.name']} · three word games</div><h1>${en['home.title']}</h1><p>${en['about.lede']}</p></div>${mark}</body></html>`
 
 const browser = await chromium.launch()
 const page = await browser.newPage({ viewport: { width: 1200, height: 630 } })

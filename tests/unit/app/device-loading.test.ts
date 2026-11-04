@@ -68,6 +68,43 @@ describe('model download', () => {
       loadFile(file, { signal: new AbortController().signal, onBytes: () => undefined, fetch }),
     ).rejects.toEqual(new DownloadError('network'))
   })
+
+  test('a request that never connects is a network error, unless it was cancelled', async () => {
+    const offline = () => Promise.reject(new TypeError('Failed to fetch'))
+    const options = { signal: new AbortController().signal, onBytes: () => undefined, fetch: offline }
+    await expect(loadFile(file, options)).rejects.toEqual(new DownloadError('network'))
+    const controller = new AbortController()
+    const reason = new Error('Turned off')
+    controller.abort(reason)
+    await expect(loadFile(file, { ...options, signal: controller.signal })).rejects.toBe(reason)
+  })
+
+  test('a body that is missing or breaks off is a network error', async () => {
+    const signal = new AbortController().signal
+    await expect(readInto(new Response(null), 6, () => undefined, signal)).rejects.toEqual(new DownloadError('network'))
+    const broken = new ReadableStream({
+      pull(c) {
+        c.error(new TypeError('connection reset'))
+      },
+    })
+    await expect(readInto(new Response(broken), 6, () => undefined, signal)).rejects.toEqual(
+      new DownloadError('network'),
+    )
+  })
+
+  test('a file too large to hold in memory is a storage error', async () => {
+    await expect(
+      readInto(body([1]), Number.MAX_SAFE_INTEGER, () => undefined, new AbortController().signal),
+    ).rejects.toEqual(new DownloadError('storage'))
+  })
+
+  test('a cancel while a chunk is pending ends with the cancel, not a network error', async () => {
+    const controller = new AbortController()
+    const stalled = new ReadableStream({ pull: () => new Promise<void>(() => undefined) })
+    const reading = readInto(new Response(stalled), 6, () => undefined, controller.signal)
+    controller.abort('left the page')
+    await expect(reading).rejects.toMatchObject({ name: 'AbortError' })
+  })
 })
 
 describe('device gate', () => {

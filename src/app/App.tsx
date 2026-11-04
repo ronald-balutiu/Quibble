@@ -8,7 +8,7 @@ import { NotFoundScene } from '@/scenes/NotFoundScene'
 
 const GameScene = lazyNamed(() => import('@/scenes/game/GameScene'), 'GameScene')
 const LibraryScene = lazyNamed(() => import('@/scenes/library/LibraryScene'), 'LibraryScene')
-const AboutScene = lazyNamed(() => import('@/scenes/AboutScene'), 'AboutScene')
+const AboutScene = lazyNamed(() => import('@/scenes/about/AboutScene'), 'AboutScene')
 
 // The planned routes only (D-37).
 export function App() {

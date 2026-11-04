@@ -2,7 +2,8 @@ import { useId, useState } from 'react'
 import type { EvalResults } from '@shared/schemas/eval-results'
 import type { CloudModel } from '@shared/schemas/judge'
 import { en, format } from '@/copy/en'
-import { ComparisonTable, JudgeBar, JudgeMarker, type ComparisonGroup } from './ComparisonTable'
+import { JudgeBar, JudgeMarker } from '@/components/JudgeBar/JudgeBar'
+import { ComparisonTable, type ComparisonGroup } from './ComparisonTable'
 import { dateLabel, milliseconds, percent } from './format'
 
 type JudgeResult = NonNullable<EvalResults['test']['judges']['device']>

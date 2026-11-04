@@ -3,7 +3,8 @@ import { en, format } from '@/copy/en'
 import { comparisonChanges, loadComparisons } from '@/lib/storage/comparisons'
 import { useStorageRevision } from '@/lib/use-storage-revision'
 import { yourGames } from '@/lib/your-games'
-import { ComparisonTable, JudgeBar, type ComparisonGroup } from './ComparisonTable'
+import { JudgeBar } from '@/components/JudgeBar/JudgeBar'
+import { ComparisonTable, type ComparisonGroup } from './ComparisonTable'
 import { milliseconds, percent } from './format'
 
 export function YourGames() {

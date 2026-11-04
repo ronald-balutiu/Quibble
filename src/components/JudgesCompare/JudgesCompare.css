@@ -168,48 +168,6 @@
   align-items: center;
 }
 
-.judge-marker {
-  flex: none;
-  width: var(--judge-marker-size);
-  height: var(--judge-marker-size);
-}
-
-.judge-marker circle,
-.judge-bar__marker {
-  stroke: var(--text);
-}
-
-.judge-marker--cloud circle,
-.judge-bar--cloud .judge-bar__marker {
-  fill: var(--text);
-}
-
-.judge-marker--device circle,
-.judge-bar--device .judge-bar__marker {
-  fill: var(--ground);
-}
-
-/* Drawn past its box, so a marker at 0 or 100% isn't cut in half. */
-.judge-bar {
-  display: block;
-  width: 100%;
-  height: var(--judge-bar-height);
-  margin-top: var(--space-2);
-  overflow: visible;
-}
-
-.judge-bar__track {
-  stroke: var(--line-strong);
-}
-
-.judge-bar__value {
-  stroke: var(--text);
-}
-
-.judge-bar--device .judge-bar__value {
-  stroke: var(--muted);
-}
-
 .compare__summary strong {
   display: block;
   margin-top: var(--space-1);

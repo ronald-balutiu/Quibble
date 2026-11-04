@@ -142,9 +142,10 @@ buttons separate published answer-key accuracy from agreement in saved games.
 The answer-key view keeps whole-answer accuracy and sample counts visible above
 an expandable table, with development history and test methods below. Both views'
 tables (`ComparisonTable.tsx`) group their measures and draw each value as a bar
-ending in the judge's marker, a dot for the cloud and a ring for the local judge.
-The bars are decorative SVG; the cell text, including which judge did better,
-carries the numbers. On Home,
+ending in the judge's marker, a dot for the cloud and a ring for the local judge
+(`components/JudgeBar/`, shared with About, where a bar can also carry a dashed
+target). The bars are decorative SVG; the cell text, including which judge did
+better, carries the numbers. On Home,
 the introduction stays visible, naming both halves the way their source buttons do
 (measured against an answer key, and against you), while a native disclosure holds
 the results, closed by default; results screens also keep the comparison collapsed behind “Compare the judges,” with the introduction omitted. Its model
@@ -260,8 +261,16 @@ Game headers contain puzzle progress and strikes rather than site navigation.
 `components/SiteFooter/` follows the routes and shares Home’s tagline/copyright
 layout across every page, including game results and error/loading states. Its
 layout and typography are self-contained so shared text utilities cannot override
-centering when the viewport exceeds the content width. About’s
-build information stays in its Credits section.
+centering when the viewport exceeds the content width.
+
+`scenes/about/` is the case study: seven numbered sections (the games with real
+example answers, a round played step by step, an example judge tally, the
+answer-key test, where the puzzles come from, privacy and credits), each pairing a
+few sentences with a card grid, steps, a small table or bars. Results come from
+`public/eval/results.json`; the facts it doesn't carry (the sealed test's mix of
+guesses, the practice set's size, a slice of the factory's truth table, the
+spot-check and the example answers) live in `about-facts.ts`, and a tooling test
+checks each against `eval/`, `factory/` and `worker/library/`.
 Navigation opens the top of a page or its linked section (such as Privacy).
 Library query changes switch game tabs in place, preserving the current scroll
 position. Clicking the selected game does not create another history entry or

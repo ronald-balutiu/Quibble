@@ -35,7 +35,7 @@ describe('local answer checks shared by the game screens', () => {
     for (const run of [pending, reduce(pending, { type: 'moveOn' })]) {
       expect(checkAnswer('A spoon!', 'oddly-specific', run)).toEqual({
         normalized: 'spoon',
-        ui: { kind: 'rejected', guess: rejected },
+        ui: { kind: run.rounds[0]?.pending ? 'rejected' : 'repeated', guess: rejected },
       })
     }
   })

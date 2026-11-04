@@ -175,3 +175,18 @@ test('personal comparison totals refresh when Settings clears history', async ({
   await drawer.getByRole('button', { name: 'Close', exact: true }).click()
   await expect(compare.getByRole('heading', { name: 'No comparisons yet.' })).toBeVisible()
 })
+
+test('a temporary puzzle failure offers retry and keeps the valid route indexable', async ({ page }) => {
+  let calls = 0
+  await page.route('**/puzzles/oddly-specific/1.json', (route) => {
+    calls += 1
+    return calls === 1 ? route.fulfill({ status: 503 }) : route.continue()
+  })
+  await page.goto('/play/oddly-specific/1')
+  await expect(page.getByRole('status')).toContainText("Couldn't load this part of the page.")
+  await expect(page.getByText("This puzzle doesn't exist.")).toHaveCount(0)
+  await expect(page.locator('meta[name="robots"]')).toHaveCount(0)
+  await page.getByRole('button', { name: 'Retry', exact: true }).click()
+  await expect(page.getByRole('textbox')).toBeEnabled()
+  expect(calls).toBe(2)
+})

@@ -8,6 +8,7 @@ import {
   matchesFilter,
   maxFor,
   pickAtRandom,
+  progressText,
   statusOf,
   summarize,
   type LibraryEntry,
@@ -90,4 +91,14 @@ describe('Library progress', () => {
     expect(pickAtRandom(['a', 'b', 'c'], () => 0.99)).toBe('c')
     expect(pickAtRandom<string>([], () => 0.5)).toBeUndefined()
   })
+})
+
+test('resume copy names rounds or levels, and active progress without a previous best stays open', () => {
+  expect(progressText('oddly-specific', 'sheet.resume', { round: 2 })).toContain('round')
+  expect(progressText('category-escape', 'sheet.resume', { round: 2 })).toContain('level')
+  const run = startRun(gameConfigs['oddly-specific'])
+  if (!run.rounds[0]) throw new Error('Expected the first round')
+  run.rounds[0].status = 'skipped'
+  expect(statusOf('oddly-specific', { run })).toMatchObject({ status: 'open' })
+  expect(statusOf('oddly-specific', { run })).not.toHaveProperty('best')
 })

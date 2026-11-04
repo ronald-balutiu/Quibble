@@ -17,9 +17,16 @@ export const loadPuzzleIndex = cachedLoader<PuzzleIndex>(() =>
   load('/puzzles/index.json', (value) => puzzleIndexSchema.safeParse(value).data),
 )
 
-export function loadPuzzle(game: GameId, n: number): Promise<Puzzle | undefined> {
-  return load(`/puzzles/${game}/${String(n)}.json`, (value) => {
-    const puzzle = puzzleSchema.safeParse(value).data
-    return puzzle?.game === game && puzzle.n === n ? puzzle : undefined
-  })
+export type PuzzleLoad = { kind: 'loaded'; puzzle: Puzzle } | { kind: 'missing' | 'error' }
+
+export async function loadPuzzle(game: GameId, n: number): Promise<PuzzleLoad> {
+  try {
+    const response = await fetch(`/puzzles/${game}/${String(n)}.json`)
+    if (response.status === 404) return { kind: 'missing' }
+    if (!response.ok) return { kind: 'error' }
+    const puzzle = puzzleSchema.safeParse(await response.json()).data
+    return puzzle?.game === game && puzzle.n === n ? { kind: 'loaded', puzzle } : { kind: 'error' }
+  } catch {
+    return { kind: 'error' }
+  }
 }

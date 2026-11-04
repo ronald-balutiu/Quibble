@@ -58,3 +58,16 @@ describe('bounded body reader', () => {
     expect(request.body?.locked).toBe(false)
   })
 })
+
+test.each([true, false])(
+  'cancellation failure still returns 413 and unlocks the stream (declared: %s)',
+  async (declared) => {
+    const request = streamed(
+      [bytes('oversized')],
+      declared ? { 'Content-Length': '100' } : undefined,
+      vi.fn(() => Promise.reject(new Error('already closed'))),
+    )
+    expect(await readBody(request, 1)).toEqual({ ok: false, status: 413 })
+    expect(request.body?.locked).toBe(false)
+  },
+)

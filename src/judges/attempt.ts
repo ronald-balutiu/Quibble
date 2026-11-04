@@ -1,4 +1,5 @@
 import { judgeErrorSchema, judgeSuccessSchema, type JudgeRequest, type JudgeSuccess } from '@shared/schemas/judge'
+import { abortable } from '@shared/abort'
 import { nextUtcMidnight } from '@shared/time'
 import type { SessionResult } from '@/lib/api'
 
@@ -17,7 +18,7 @@ type CloudOutcome =
   | { kind: 'error'; message: CloudMessage }
 
 // Renews the session with a fresh Turnstile token: 'ok', or why it couldn't.
-export type RenewSession = () => Promise<SessionResult>
+export type RenewSession = (signal: AbortSignal) => Promise<SessionResult>
 
 interface AttemptDeps {
   fetch?: typeof fetch
@@ -55,15 +56,17 @@ export async function judgeOnCloud(
     })
 
   try {
-    let response = await send()
+    let response = await abortable(send(), signal)
     if (response.status === 401) {
-      const renewed = await renewSession()
+      const renewed = await abortable(renewSession(signal), signal)
+      signal.throwIfAborted()
       if (renewed === 'botcheck') return { kind: 'error', message: 'session.botcheck' }
       if (renewed === 'error') return { kind: 'error', message: 'judge.cloud.unreachable' }
-      response = await send()
+      response = await abortable(send(), signal)
     }
 
-    const body = await readJson(response)
+    const body = await abortable(readJson(response), signal)
+    signal.throwIfAborted()
     if (response.ok) {
       const success = judgeSuccessSchema.safeParse(body)
       return success.success && success.data.attempt === request.attempt

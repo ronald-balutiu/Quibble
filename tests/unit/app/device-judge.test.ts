@@ -26,7 +26,8 @@ function logits(type: 'float32' | 'float16', values: Record<number, number>): Te
   // 0x4000 is 2.0 and 0 is 0.0 in IEEE half precision.
   const data = new Uint16Array(size)
   for (const [token, value] of Object.entries(values)) data[Number(token)] = value === 2 ? 0x4000 : 0
-  return new Tensor('float16', data, [1, 1, size])
+  // Some runtimes return raw half-precision bits rather than native Float16Array.
+  return { type: 'float16', data } as unknown as Tensor
 }
 
 // A tiny real tokenizer keeps the contract checked without model downloads.
@@ -88,7 +89,7 @@ describe('device judge adapter', () => {
       const data = new Uint16Array(10_000)
       data[YES] = yes
       data[NO] = no
-      return new Tensor('float16', data, [1, 1, 10_000])
+      return { type: 'float16', data } as unknown as Tensor
     }
     expect(pTrueFromLogits(half(0xc000, 0))).toBeCloseTo((Math.exp(-2) + 1) / (Math.exp(-2) + 3), 6)
     expect(pTrueFromLogits(half(0x0001, 0x0001))).toBeCloseTo(0.5, 6)

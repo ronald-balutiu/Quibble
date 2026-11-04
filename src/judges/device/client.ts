@@ -36,8 +36,14 @@ export interface DeviceJudge {
 export function createDeviceJudge(spawn: () => WorkerLike, now = () => performance.now()): DeviceJudge {
   let worker: WorkerLike | undefined
   let ready = false
-  let loading: { resolve: (result: LoadResult) => void; onProgress: (progress: LoadProgress) => void } | undefined
-  let removing: (() => void) | undefined
+  let loading:
+    | {
+        promise: Promise<LoadResult>
+        resolve: (result: LoadResult) => void
+        listeners: Set<(progress: LoadProgress) => void>
+      }
+    | undefined
+  let removing: { promise: Promise<void>; finish: () => void } | undefined
   const scoring = new Map<number, (result: ScoreResult) => void>()
   let nextId = 0
   let warm = false
@@ -61,16 +67,25 @@ export function createDeviceJudge(spawn: () => WorkerLike, now = () => performan
     settleLoad({ kind: 'failed', reason: 'start' })
     for (const resolve of scoring.values()) resolve({ kind: 'error' })
     scoring.clear()
-    removing?.()
+    removing?.finish()
   }
 
   function receive({ data: message }: MessageEvent<FromWorker>) {
+    if (message.type === 'deleted') {
+      removing?.finish()
+      return
+    }
+    if (removing) return
     switch (message.type) {
       case 'progress':
-        loading?.onProgress({ kind: 'download', received: message.received, total: message.total })
+        loading?.listeners.forEach((follow) => {
+          follow({ kind: 'download', received: message.received, total: message.total })
+        })
         return
       case 'warming':
-        loading?.onProgress({ kind: 'warming' })
+        loading?.listeners.forEach((follow) => {
+          follow({ kind: 'warming' })
+        })
         return
       case 'ready':
         settleLoad({ kind: 'ready' })
@@ -88,24 +103,26 @@ export function createDeviceJudge(spawn: () => WorkerLike, now = () => performan
         resolve?.(
           message.type === 'scored' ? { kind: 'scored', scores: message.scores, ms: 0, warm } : { kind: 'error' },
         )
-        if (message.type === 'scored') warm = true
+        if (resolve && message.type === 'scored') warm = true
         return
       }
-      case 'deleted':
-        removing?.()
-        return
     }
   }
 
   function connect(): WorkerLike {
     if (worker) return worker
-    worker = spawn()
-    worker.onmessage = receive
-    worker.onerror = crash
-    return worker
+    const connected = spawn()
+    worker = connected
+    connected.onmessage = (event) => {
+      if (worker === connected) receive(event)
+    }
+    connected.onerror = () => {
+      if (worker === connected) crash()
+    }
+    return connected
   }
 
-  return {
+  const judge: DeviceJudge = {
     get ready() {
       return ready
     },
@@ -120,13 +137,24 @@ export function createDeviceJudge(spawn: () => WorkerLike, now = () => performan
     },
 
     load(onProgress) {
+      if (removing) return removing.promise.then(() => judge.load(onProgress))
       if (ready) return Promise.resolve({ kind: 'ready' })
-      loading?.resolve({ kind: 'cancelled' })
-      return new Promise((resolve) => {
-        loading = { resolve, onProgress }
-        connect().postMessage({ type: 'load' })
-        notify()
+      if (loading) {
+        loading.listeners.add(onProgress)
+        return loading.promise
+      }
+      let resolve!: (result: LoadResult) => void
+      const promise = new Promise<LoadResult>((done) => {
+        resolve = done
       })
+      loading = { promise, resolve, listeners: new Set([onProgress]) }
+      try {
+        connect().postMessage({ type: 'load' })
+      } catch {
+        crash()
+      }
+      notify()
+      return promise
     },
 
     cancel() {
@@ -146,24 +174,43 @@ export function createDeviceJudge(spawn: () => WorkerLike, now = () => performan
           clearTimeout(timer)
           resolve(result.kind === 'scored' ? { ...result, ms: Math.round(now() - started) } : result)
         })
-        worker?.postMessage({ type: 'score', id, answer, claims })
+        try {
+          worker?.postMessage({ type: 'score', id, answer, claims })
+        } catch {
+          crash()
+        }
       })
     },
 
     // Turning the judge off: stops any download and frees the model's memory.
     remove() {
-      ready = false
-      notify()
+      if (removing) return removing.promise
       if (!worker) return Promise.resolve()
-      return new Promise((resolve) => {
-        removing = () => {
-          removing = undefined
-          resolve()
-        }
-        worker?.postMessage({ type: 'delete' })
+      let resolve!: () => void
+      const promise = new Promise<void>((done) => {
+        resolve = done
       })
+      const finish = () => {
+        clearTimeout(timer)
+        worker?.terminate()
+        worker = undefined
+        removing = undefined
+        resolve()
+      }
+      const timer = setTimeout(finish, DEVICE_TIMEOUT_MS)
+      removing = { promise, finish }
+      settleLoad({ kind: 'cancelled' })
+      for (const resolve of scoring.values()) resolve({ kind: 'error' })
+      scoring.clear()
+      try {
+        worker.postMessage({ type: 'delete' })
+      } catch {
+        finish()
+      }
+      return promise
     },
   }
+  return judge
 }
 
 // The tab's one on-device judge.

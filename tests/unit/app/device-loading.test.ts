@@ -235,4 +235,198 @@ describe('device judge client', () => {
     expect(worker.sent.slice(1)).toEqual([{ type: 'cancel' }, { type: 'delete' }])
     expect(judge.ready).toBe(false)
   })
+
+  test('concurrent loads share one request and both receive progress', async () => {
+    const worker = new FakeWorker()
+    const judge = createDeviceJudge(() => worker)
+    const first = vi.fn()
+    const second = vi.fn()
+    const a = judge.load(first)
+    const b = judge.load(second)
+    expect(a).toBe(b)
+    expect(worker.sent).toEqual([{ type: 'load' }])
+    worker.reply({ type: 'progress', received: 3, total: 10 })
+    expect(first).toHaveBeenCalledExactlyOnceWith({ kind: 'download', received: 3, total: 10 })
+    expect(second).toHaveBeenCalledExactlyOnceWith({ kind: 'download', received: 3, total: 10 })
+    worker.reply({ type: 'ready' })
+    await expect(a).resolves.toEqual({ kind: 'ready' })
+    await expect(judge.load(first)).resolves.toEqual({ kind: 'ready' })
+    expect(worker.sent).toHaveLength(1)
+  })
+
+  test('reload waits for deletion, uses a new worker and ignores stale ready messages', async () => {
+    const old = new FakeWorker()
+    const current = new FakeWorker()
+    const spawn = vi.fn().mockReturnValueOnce(old).mockReturnValueOnce(current)
+    const judge = createDeviceJudge(spawn)
+    const initial = judge.load(() => undefined)
+    old.reply({ type: 'ready' })
+    await initial
+    const removing = judge.remove()
+    expect(judge.remove()).toBe(removing)
+    const reload = judge.load(() => undefined)
+    old.reply({ type: 'ready' })
+    expect(judge.ready).toBe(false)
+    expect(spawn).toHaveBeenCalledTimes(1)
+    old.reply({ type: 'deleted' })
+    await removing
+    await Promise.resolve()
+    expect(old.terminated).toBe(true)
+    expect(current.sent).toEqual([{ type: 'load' }])
+    old.reply({ type: 'ready' })
+    expect(judge.ready).toBe(false)
+    current.reply({ type: 'ready' })
+    await expect(reload).resolves.toEqual({ kind: 'ready' })
+  })
+
+  test('removing during a download cancels its promise and ignores late progress', async () => {
+    const worker = new FakeWorker()
+    const judge = createDeviceJudge(() => worker)
+    const progress = vi.fn()
+    const loading = judge.load(progress)
+    const removing = judge.remove()
+    await expect(loading).resolves.toEqual({ kind: 'cancelled' })
+    worker.reply({ type: 'warming' })
+    expect(progress).not.toHaveBeenCalled()
+    worker.reply({ type: 'deleted' })
+    await removing
+    expect(judge.status).toBe('off')
+  })
+
+  test('turning off settles pending scoring and a stalled deletion eventually terminates', async () => {
+    vi.useFakeTimers()
+    const { worker, judge } = await readyJudge()
+    const scoring = judge.score('fork', [])
+    const removing = judge.remove()
+    await expect(scoring).resolves.toEqual({ kind: 'error' })
+    await vi.advanceTimersByTimeAsync(10_000)
+    await removing
+    expect(worker.terminated).toBe(true)
+    expect(judge.status).toBe('off')
+    await judge.remove()
+  })
+
+  test('a crash settles scoring and permits a fresh load', async () => {
+    const { worker, judge } = await readyJudge()
+    const scoring = judge.score('fork', [])
+    worker.onerror?.(new Event('error'))
+    await expect(scoring).resolves.toEqual({ kind: 'error' })
+    expect(judge.status).toBe('off')
+    await expect(judge.score('fork', [])).resolves.toEqual({ kind: 'error' })
+  })
+
+  test('a worker that cannot start reports a load failure', async () => {
+    const judge = createDeviceJudge(() => {
+      throw new Error('blocked worker')
+    })
+    await expect(judge.load(() => undefined)).resolves.toEqual({ kind: 'failed', reason: 'start' })
+    expect(judge.status).toBe('off')
+  })
+
+  test.each(['failed', 'cancelled'] as const)('settles a %s load and allows a retry', async (type) => {
+    const worker = new FakeWorker()
+    const judge = createDeviceJudge(() => worker)
+    const first = judge.load(() => undefined)
+    worker.reply(type === 'failed' ? { type, reason: 'network' } : { type })
+    await expect(first).resolves.toMatchObject({ kind: type })
+    expect(judge.status).toBe('off')
+    const retry = judge.load(() => undefined)
+    worker.reply({ type: 'ready' })
+    await expect(retry).resolves.toEqual({ kind: 'ready' })
+  })
+
+  test('a scoring failure is reported without making the judge unavailable', async () => {
+    const { worker, judge } = await readyJudge()
+    const result = judge.score('fork', [])
+    worker.reply({ type: 'scoreFailed', id: 1 })
+    await expect(result).resolves.toEqual({ kind: 'error' })
+    expect(judge.ready).toBe(true)
+  })
+})
+
+test('device probing safely handles GPU initialization failure', async () => {
+  expect(
+    await deviceSupported({
+      userAgent: 'Desktop',
+      gpu: { requestAdapter: () => Promise.reject(new Error('GPU lost')) },
+    }),
+  ).toBe(false)
+})
+
+test('a failed scoring dispatch settles the guess and resets the crashed worker', async () => {
+  const worker = new FakeWorker()
+  const judge = createDeviceJudge(() => worker)
+  const loading = judge.load(() => undefined)
+  worker.reply({ type: 'ready' })
+  await loading
+  vi.spyOn(worker, 'postMessage').mockImplementation(() => {
+    throw new Error('worker lost')
+  })
+  await expect(judge.score('spoon', [])).resolves.toEqual({ kind: 'error' })
+  expect(judge.status).toBe('off')
+  expect(worker.terminated).toBe(true)
+})
+
+test('a failed deletion dispatch still terminates the worker and resolves removal', async () => {
+  const worker = new FakeWorker()
+  const judge = createDeviceJudge(() => worker)
+  const loading = judge.load(() => undefined)
+  worker.reply({ type: 'ready' })
+  await loading
+  vi.spyOn(worker, 'postMessage').mockImplementation(() => {
+    throw new Error('worker lost')
+  })
+  await judge.remove()
+  expect(worker.terminated).toBe(true)
+  expect(judge.status).toBe('off')
+})
+
+test('the tab client starts a module worker lazily and terminates it when turned off', async () => {
+  vi.resetModules()
+  const instances: FakeWorker[] = []
+  const options: WorkerOptions[] = []
+  vi.stubGlobal(
+    'Worker',
+    class extends FakeWorker {
+      constructor(_url: URL, init: WorkerOptions) {
+        super()
+        instances.push(this)
+        options.push(init)
+      }
+    },
+  )
+  const { deviceJudge } = await import('@/judges/device/client')
+  expect(instances).toHaveLength(0)
+  const loading = deviceJudge.load(() => undefined)
+  const worker = instances[0]
+  if (!worker) throw new Error('No worker was started')
+  expect(options).toEqual([{ type: 'module' }])
+  worker.reply({ type: 'ready' })
+  await expect(loading).resolves.toEqual({ kind: 'ready' })
+  const removing = deviceJudge.remove()
+  worker.reply({ type: 'deleted' })
+  await removing
+  expect(worker.terminated).toBe(true)
+})
+
+test('download cancellation retains its abort outcome when stream cleanup fails', async () => {
+  const controller = new AbortController()
+  const cancel = vi.fn(() => Promise.reject(new Error('connection already lost')))
+  const stream = new ReadableStream<Uint8Array>({
+    start(c) {
+      c.enqueue(new Uint8Array([1]))
+    },
+    cancel,
+  })
+  await expect(
+    readInto(
+      new Response(stream),
+      2,
+      () => {
+        controller.abort()
+      },
+      controller.signal,
+    ),
+  ).rejects.toMatchObject({ name: 'AbortError' })
+  expect(cancel).toHaveBeenCalledTimes(1)
 })

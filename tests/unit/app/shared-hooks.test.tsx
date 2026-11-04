@@ -1,10 +1,13 @@
 // @vitest-environment happy-dom
 import { act, cleanup, render, renderHook, screen } from '@testing-library/react'
 import { Suspense } from 'react'
-import { renderToString } from 'react-dom/server'
+import { renderToString, renderToStaticMarkup } from 'react-dom/server'
 import { afterEach, expect, test, vi } from 'vitest'
 import { lazyNamed } from '@/lib/lazy-named'
+import { progressChanges } from '@/lib/storage/progress'
+import { comparisonChanges } from '@/lib/storage/comparisons'
 import { storageSignal } from '@/lib/storage/signal'
+import { useCloudModel } from '@/lib/use-cloud-model'
 import { useClientValue } from '@/lib/use-hydrated'
 import { useModalDialog } from '@/lib/use-modal-dialog'
 import { useStorageRevision } from '@/lib/use-storage-revision'
@@ -56,4 +59,34 @@ test('useClientValue shows the server value in prerendered HTML and the client v
 
   expect(renderToString(<Probe />)).toBe('server')
   expect(render(<Probe />).container.textContent).toBe('client')
+})
+
+test('prerendered snapshots do not read browser settings or storage revisions', () => {
+  function Probe() {
+    return (
+      <>
+        {useCloudModel()}:{useStorageRevision(storageSignal(() => true))}
+      </>
+    )
+  }
+  expect(renderToStaticMarkup(<Probe />)).toBe('clef-flash:0')
+})
+
+test('other-tab progress and comparison writes invalidate only their own mounted views', () => {
+  const { result } = renderHook(() => ({
+    progress: useStorageRevision(progressChanges),
+    comparisons: useStorageRevision(comparisonChanges),
+  }))
+  const before = result.current
+  const changed = (key: string) => {
+    act(() => {
+      window.dispatchEvent(new StorageEvent('storage', { key, storageArea: localStorage }))
+    })
+  }
+  changed('unrelated')
+  expect(result.current).toEqual(before)
+  changed('quibble:progress:oddly-specific:1')
+  expect(result.current).toEqual({ progress: before.progress + 1, comparisons: before.comparisons })
+  changed('quibble:comparisons')
+  expect(result.current).toEqual({ progress: before.progress + 1, comparisons: before.comparisons + 1 })
 })

@@ -1,16 +1,13 @@
+import { abortable } from '@shared/abort'
 import { startSession, type SessionResult } from './api'
 
-// Invisible Turnstile (plan 3.4, 3.11): a token for action "session", exchanged
-// for the session cookie. Renewal runs the widget again silently.
-
-// Cloudflare's published test site key, which always passes, for local development.
+// Invisible Turnstile: one widget per renewal, owned by the complete guess's deadline.
 const TEST_SITE_KEY = '1x00000000000000000000AA'
-// The production widget's site key (public by design) for quibble.ronaldbalutiu.com.
 const PRODUCTION_SITE_KEY = '0x4AAAAAAFrzEYhfs8G-zzWN'
 const SCRIPT = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
 
 interface TurnstileApi {
-  render(
+  render: (
     container: HTMLElement,
     options: {
       sitekey: string
@@ -20,9 +17,9 @@ interface TurnstileApi {
       callback: (token: string) => void
       'error-callback': () => void
     },
-  ): string
-  execute(widget: string): void
-  reset(widget: string): void
+  ) => string
+  execute: (widget: string) => void
+  remove: (widget: string) => void
 }
 
 declare global {
@@ -33,56 +30,68 @@ declare global {
 
 let script: Promise<TurnstileApi | undefined> | undefined
 
-function loadScript(): Promise<TurnstileApi | undefined> {
+function loadScript(signal: AbortSignal): Promise<TurnstileApi | undefined> {
+  if (window.turnstile) return Promise.resolve(window.turnstile)
   script ??= new Promise((resolve) => {
-    if (window.turnstile) {
-      resolve(window.turnstile)
-      return
-    }
     const element = document.createElement('script')
+    const finish = () => {
+      signal.removeEventListener('abort', failed)
+      element.onload = null
+      element.onerror = null
+      if (!window.turnstile) {
+        element.remove()
+        script = undefined
+      }
+      resolve(window.turnstile)
+    }
+    const failed = () => {
+      element.remove()
+      script = undefined
+      finish()
+    }
     element.src = SCRIPT
     element.async = true
-    element.onload = () => {
-      resolve(window.turnstile)
-    }
-    element.onerror = () => {
-      script = undefined
-      resolve(undefined)
-    }
+    element.onload = finish
+    element.onerror = failed
+    signal.addEventListener('abort', failed, { once: true })
     document.head.append(element)
   })
-  return script
+  return abortable(script, signal)
 }
 
-function token(container: HTMLElement): Promise<string | undefined> {
-  const sitekey = import.meta.env.DEV ? TEST_SITE_KEY : PRODUCTION_SITE_KEY
-  return loadScript().then(
-    (turnstile) =>
-      new Promise((resolve) => {
-        if (!turnstile) {
-          resolve(undefined)
-          return
-        }
-        container.replaceChildren()
-        const widget = turnstile.render(container, {
-          sitekey,
+async function token(container: HTMLElement, signal: AbortSignal): Promise<string | undefined> {
+  signal.throwIfAborted()
+  const turnstile = await loadScript(signal)
+  signal.throwIfAborted()
+  if (!turnstile) return undefined
+  let widget: string | undefined
+  try {
+    return await abortable(
+      new Promise<string | undefined>((resolve) => {
+        widget = turnstile.render(container, {
+          sitekey: import.meta.env.DEV ? TEST_SITE_KEY : PRODUCTION_SITE_KEY,
           action: 'session',
           execution: 'execute',
           appearance: 'interaction-only',
-          callback: (value) => {
-            resolve(value)
-          },
+          callback: resolve,
           'error-callback': () => {
             resolve(undefined)
           },
         })
         turnstile.execute(widget)
       }),
-  )
+      signal,
+    )
+  } finally {
+    if (widget !== undefined) turnstile.remove(widget)
+  }
 }
 
-// Gets a fresh token from the widget in the container and starts a session.
-export async function renewSession(container: HTMLElement): Promise<SessionResult> {
-  const value = await token(container)
-  return value ? startSession(value) : 'botcheck'
+export async function renewSession(
+  container: HTMLElement,
+  signal: AbortSignal = AbortSignal.timeout(10_000),
+): Promise<SessionResult> {
+  const value = await token(container, signal)
+  signal.throwIfAborted()
+  return value ? startSession(value, fetch, signal) : 'botcheck'
 }

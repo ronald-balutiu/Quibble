@@ -36,7 +36,7 @@ describe('static resources', () => {
         'fetch',
         vi.fn(() => Promise.resolve(response)),
       )
-      expect(await loadPuzzle('oddly-specific', 1)).toBeUndefined()
+      expect(await loadPuzzle('oddly-specific', 1)).toEqual({ kind: 'error' })
     },
   )
 })

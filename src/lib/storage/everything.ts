@@ -1,6 +1,6 @@
 import { progressChanges } from './progress'
 import { comparisonChanges } from './comparisons'
-import { refreshCloudModel } from './settings'
+import { refreshCloudModel, refreshReferee } from './settings'
 
 // "Delete everything" in L3 "Your data" (1.8): progress, judge history and settings,
 // every key this app writes, which all start with "quibble:".
@@ -15,6 +15,7 @@ export function deleteEverything(): void {
     // Storage is off: there is nothing saved to delete.
   }
   refreshCloudModel()
+  refreshReferee()
   progressChanges.notify()
   comparisonChanges.notify()
 }

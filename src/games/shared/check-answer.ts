@@ -18,7 +18,9 @@ export function checkAnswer(text: string, game: GameId, run: RunState): { normal
   if (earlier)
     return {
       normalized,
-      ui: earlier.pass ? { kind: 'input', notice: 'input.repeat' } : { kind: 'rejected', guess: earlier },
+      ui: earlier.pass
+        ? { kind: 'input', notice: 'input.repeat' }
+        : { kind: run.rounds[run.current]?.pending ? 'rejected' : 'repeated', guess: earlier },
     }
   return { normalized }
 }

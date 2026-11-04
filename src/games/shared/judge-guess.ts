@@ -17,6 +17,7 @@ export type Ui =
   | { kind: 'input'; notice?: 'input.empty' | 'input.tooLong' | 'input.repeat' }
   | { kind: 'judging' }
   | { kind: 'rejected'; guess: Guess }
+  | { kind: 'repeated'; guess: Guess }
   | { kind: 'notJudged'; message: CloudMessage | 'cloud.busy' | 'judge.device.timeout'; retryAfter?: number }
   | { kind: 'resting'; resetAt: string }
   | { kind: 'reused'; level: number }
@@ -131,7 +132,7 @@ export async function judgeGuess(
   if (deviceRun) onDevice({ kind: 'scanning', started })
   const outcome = await judgeOnCloud(
     { game: turn.game, n: turn.n, roundId: turn.roundId, answer: turn.text, attempt: turn.attempt, model: turn.model },
-    () => (turnstile ? renewSession(turnstile) : Promise.resolve('error')),
+    (signal) => (turnstile ? renewSession(turnstile, signal) : Promise.resolve('error')),
   )
   const cloudMs = performance.now() - started
   const cloudOut = outcome.kind === 'busy' || outcome.kind === 'resting'

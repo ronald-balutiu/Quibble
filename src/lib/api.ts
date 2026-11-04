@@ -5,13 +5,18 @@ import { revealSchema, type Reveal } from '@shared/schemas/judge'
 export type SessionResult = 'ok' | 'botcheck' | 'error'
 
 // Exchanges a Turnstile token for the session cookie.
-export async function startSession(turnstileToken: string, fetchImpl: typeof fetch = fetch): Promise<SessionResult> {
+export async function startSession(
+  turnstileToken: string,
+  fetchImpl: typeof fetch = fetch,
+  signal: AbortSignal = AbortSignal.timeout(10_000),
+): Promise<SessionResult> {
   try {
     const response = await fetchImpl('/api/session', {
       method: 'POST',
       body: JSON.stringify({ turnstileToken }),
       headers: { 'Content-Type': 'application/json' },
       credentials: 'same-origin',
+      signal,
     })
     if (response.ok) return 'ok'
     return response.status === 401 ? 'botcheck' : 'error'

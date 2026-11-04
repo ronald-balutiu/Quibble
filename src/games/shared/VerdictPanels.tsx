@@ -21,7 +21,7 @@ export function RejectedPanel({
   disabled?: boolean
   endLabel?: string | undefined
   onTryAgain: () => void
-  onCountAnyway: () => void
+  onCountAnyway?: (() => void) | undefined
 }) {
   const primary = useRef<HTMLButtonElement>(null)
   const ending = endLabel !== undefined
@@ -36,9 +36,11 @@ export function RejectedPanel({
         <button ref={primary} type="button" className="pill" onClick={onTryAgain} disabled={disabled}>
           {endLabel ?? en['game.tryAgain']}
         </button>
-        <button type="button" className="pill pill--quiet" onClick={onCountAnyway} disabled={disabled}>
-          {en['game.countAnyway']}
-        </button>
+        {onCountAnyway && (
+          <button type="button" className="pill pill--quiet" onClick={onCountAnyway} disabled={disabled}>
+            {en['game.countAnyway']}
+          </button>
+        )}
       </div>
     </div>
   )

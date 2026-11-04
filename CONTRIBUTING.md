@@ -65,6 +65,14 @@ judge requests use the shared schemas; standard successful replies are typed
 against those contracts. Invalid-response tests keep explicit routes so failures
 are intentional. Accessibility checks reuse `tests/e2e/accessibility.ts` for the
 shared serious/critical threshold and screen-specific failure details.
+Coverage measures the logic modules (`.ts` in `src/`, `shared/`, `worker/`, plus
+`eval/results.ts`). It includes the Turnstile lifecycle using an inert script and
+fake widget in a DOM environment, and game-session hooks using the real reducers
+with a controlled judge. React screens remain covered by Playwright; the real
+on-device worker remains covered by the hardware suite. Do not exclude additional
+code to improve the numbers or replace behavior assertions with implementation
+snapshots. Use coverage gaps to identify missing failure paths and state transitions.
+
 Unit tests share a fake `localStorage` from
 `tests/unit/app/support/storage.ts`, and hook tests opt into a DOM with
 `// @vitest-environment happy-dom`. Add a

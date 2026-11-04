@@ -59,8 +59,13 @@ export function useGameSession(puzzle: Puzzle, run: RunState, dispatch: Dispatch
     if (busy) return
     const checked = checkAnswer(answer, game, run)
     if (checked.ui) {
-      if (checked.ui.kind === 'rejected' || (checked.ui.kind === 'input' && checked.ui.notice === 'input.repeat'))
+      if (
+        checked.ui.kind === 'rejected' ||
+        checked.ui.kind === 'repeated' ||
+        (checked.ui.kind === 'input' && checked.ui.notice === 'input.repeat')
+      )
         column.clear()
+      if (checked.ui.kind === 'repeated') setScores({})
       setUi(checked.ui)
       return
     }
@@ -109,7 +114,8 @@ export function useGameSession(puzzle: Puzzle, run: RunState, dispatch: Dispatch
     if (ui.kind === 'rejected') {
       dispatch({ type: 'moveOn' })
       setUi({ kind: 'input' })
-    } else if ((ui.kind === 'input' && ui.notice) || ui.kind === 'reused') setUi({ kind: 'input' })
+    } else if ((ui.kind === 'input' && ui.notice) || ui.kind === 'reused' || ui.kind === 'repeated')
+      setUi({ kind: 'input' })
     setAnswer(value)
   }
 
@@ -125,7 +131,7 @@ export function useGameSession(puzzle: Puzzle, run: RunState, dispatch: Dispatch
   }
 
   function countAnyway() {
-    if (ui.kind !== 'rejected' || busy) return
+    if (ui.kind !== 'rejected' || busy || !run.rounds[run.current]?.pending) return
     markOverruled(game, n, puzzle.rounds[run.current]?.id ?? '', ui.guess.answer)
     setLast({ answer: ui.guess.answer, level: run.current, pass: true, overruled: true })
     dispatch({ type: 'countAnyway' })

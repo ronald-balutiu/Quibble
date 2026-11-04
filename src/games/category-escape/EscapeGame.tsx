@@ -3,6 +3,7 @@ import { categoryEscapeConfig } from '@shared/games/category-escape'
 import { characterCount } from '@shared/normalize'
 import type { Puzzle } from '@shared/schemas/puzzle'
 import { en, format } from '@/copy/en'
+import { usableRun } from '@/games/shared/restore-run'
 import { loadProgress } from '@/lib/storage/progress'
 import { GameTip } from '@/games/shared/GameTip'
 import { AnswerForm } from '@/games/shared/AnswerForm'
@@ -22,7 +23,11 @@ const reduce = escapeReducer(config)
 
 export function EscapeGame({ puzzle }: { puzzle: Puzzle }) {
   const { game, n } = puzzle
-  const [run, dispatch] = useReducer(reduce, undefined, () => loadProgress(game, n).run ?? startEscape(config))
+  const [run, dispatch] = useReducer(
+    reduce,
+    undefined,
+    () => usableRun(puzzle, loadProgress(game, n).run) ?? startEscape(config),
+  )
   const {
     ui,
     answer,
@@ -55,13 +60,15 @@ export function EscapeGame({ puzzle }: { puzzle: Puzzle }) {
   const note =
     ui.kind === 'reused'
       ? format('escape.reusedUnder', { level: levelCode(ui.level) })
-      : ui.kind === 'input' && ui.notice
-        ? en[ui.notice]
-        : last?.pass && ui.kind === 'input' && !answer
-          ? last.overruled
-            ? en['verdict.overruled']
-            : format('escape.accepted', { level: levelCode(last.level) })
-          : format('game.counter', { count: characterCount(answer), max: config.input.maxCharacters })
+      : ui.kind === 'repeated'
+        ? en['input.repeat']
+        : ui.kind === 'input' && ui.notice
+          ? en[ui.notice]
+          : last?.pass && ui.kind === 'input' && !answer
+            ? last.overruled
+              ? en['verdict.overruled']
+              : format('escape.accepted', { level: levelCode(last.level) })
+            : format('game.counter', { count: characterCount(answer), max: config.input.maxCharacters })
 
   return (
     <GameFrame
@@ -97,7 +104,9 @@ export function EscapeGame({ puzzle }: { puzzle: Puzzle }) {
                 .map(({ round, i }) => {
                   const state = i < run.current ? 'done' : i === run.current ? 'now' : 'locked'
                   const failed =
-                    state === 'now' && ui.kind === 'rejected' && ui.guess.failed.includes(ruleOf(puzzle, i)?.id ?? '')
+                    state === 'now' &&
+                    (ui.kind === 'rejected' || ui.kind === 'repeated') &&
+                    ui.guess.failed.includes(ruleOf(puzzle, i)?.id ?? '')
                   return (
                     <li
                       key={round.id}
@@ -141,13 +150,13 @@ export function EscapeGame({ puzzle }: { puzzle: Puzzle }) {
               {note}
             </p>
             <div aria-live="polite">
-              {ui.kind === 'rejected' && (
+              {(ui.kind === 'rejected' || ui.kind === 'repeated') && (
                 <RejectedPanel
                   sentence={rejectedSentence(ui.guess, conditions, levelCode) + verdictNote(column)}
                   disabled={busy}
                   endLabel={lastTry ? en['escape.endRun'] : undefined}
                   onTryAgain={tryAgain}
-                  onCountAnyway={countAnyway}
+                  onCountAnyway={ui.kind === 'rejected' ? countAnyway : undefined}
                 />
               )}
               <NotJudgedPanel

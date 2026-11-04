@@ -88,6 +88,12 @@ loading state for each route; it is the only game code under `scenes/`. Scenes
 import games, never the reverse, and lint enforces it. Game screens use
 `games/shared/use-game-session.ts` for local answer checks, judge coordination,
 form state, focus and progress saving; reducers own scoring and progression.
+Only the current pending rejection can be overruled. Repeating a rejection after
+moving on redisplays its verdict without an overrule action or another strike.
+`games/shared/restore-run.ts` checks a saved run against the loaded puzzle before
+resuming it (round count, position, progression, verdicts and points). An unusable
+run starts fresh while its valid best score remains; storage keys and schemas stay
+unchanged.
 `GameFrame` draws every screen's header, setup sheet, cloud and storage strips and
 Turnstile widget. `GameTip`, `ResultActions`, `results.ts` and `use-reveal` share
 the first-round tip, result navigation (next puzzle, an optional restart, and the
@@ -178,6 +184,9 @@ puzzle-index and evaluation data for the page visit. Failures are evicted.
 `lib/use-resource.ts` owns loading/error/retry state and ignores late replies after
 unmount or a new attempt. Library and the comparison provide explicit data retries;
 failed code downloads use Reload because the module loader retains their rejection.
+Individual puzzle loads distinguish a genuine 404 from a failed or invalid download.
+Temporary failures offer Retry and keep the valid route indexable; only missing
+puzzles and invalid routes use the not-found state.
 
 Small shared pieces keep that behavior in one place. `lib/lazy-named.ts` lazy-loads
 a module's named export: the route scenes, Settings' contents and the comparison.
@@ -345,6 +354,14 @@ The Worker's routes, with request and reply schemas in `shared/schemas/judge.ts`
 | `POST /api/judge`                   | `worker/judge-route.ts` | Checks the session and input, applies the per-session rate limit, then asks the player's cloud model (Clef-flash or Gemma 4, via `worker/judge.ts`). |
 | `GET /api/reveal/:game/:n/:roundId` | `worker/reveal.ts`      | The round's example and up to two more known answers.                                                                                                |
 
+The browser's ten-second judging deadline covers the judge request, Turnstile
+script/widget, session exchange and response parsing. `shared/abort.ts` bounds
+waits for operations that do not implement cancellation; the same signal also
+reaches fetch. Completed or cancelled widgets are removed, and late tokens cannot
+start sessions. Server-side Turnstile verification has a four-second deadline.
+Small judge settings retain a page-local choice when storage writes fail; Delete
+everything also clears those fallback choices.
+
 `worker/read-body.ts` counts raw bytes while streaming untrusted bodies, including
 requests without Content-Length. Judge input is limited to 2,048 bytes; session
 input to 4,096 bytes. Oversized streams are cancelled and return 413 before a model
@@ -392,6 +409,10 @@ them.
 - onnxruntime-web's WebGPU runtime is larger than the 25 MiB static asset limit.
   `vite.config.ts` ships it gzipped as `/ort/runtime.wasm.gz`, and the worker unpacks
   it.
+- The device client shares concurrent loads and serializes removal before a new
+  load. Removal cancels pending callers and ignores other worker replies, then
+  terminates the old worker after deletion (or a ten-second shutdown deadline).
+  The next load creates a fresh worker; stale messages cannot mark it ready.
 - The device gate, `gate.ts`, offers the judge only to desktop browsers with a WebGPU
   adapter.
 - `src/components/DeviceSetup/` is the setup sheet: the offer (S3), then the

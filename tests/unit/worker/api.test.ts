@@ -1,4 +1,5 @@
 import { afterEach, describe, expect, test, vi } from 'vitest'
+import { deferred } from '../../support/deferred'
 import type { Env } from '../../../worker/env'
 import type { AiRunner } from '../../../worker/judge'
 import type { Library } from '../../../worker/library'
@@ -263,4 +264,114 @@ describe('GET /api/reveal', () => {
   test.each(['oddly-specific/1/r9', 'nope/1/r1', 'oddly-specific/x/r1'])('404s for %s', async (path) => {
     expect((await reveal(path)).status).toBe(404)
   })
+})
+
+test.each(['network', 'invalid response'] as const)('session verification fails closed on %s', async (failure) => {
+  vi.stubGlobal(
+    'fetch',
+    vi.fn(() =>
+      failure === 'network'
+        ? Promise.reject(new Error('offline'))
+        : Promise.resolve(Response.json({ unexpected: true })),
+    ),
+  )
+  const response = await route(
+    new Request('https://quibble.example/api/session', {
+      method: 'POST',
+      body: JSON.stringify({ turnstileToken: 'token' }),
+      headers: { 'CF-Connecting-IP': '192.0.2.1' },
+    }),
+    env(),
+  )
+  expect(response.status).toBe(502)
+  expect(response.headers.get('Set-Cookie')).toBeNull()
+  expect(await response.json()).toEqual({ error: 'unavailable' })
+  const call = vi.mocked(fetch).mock.calls[0]?.[1]
+  expect(call?.signal).toBeInstanceOf(AbortSignal)
+  expect((call?.body as FormData).get('remoteip')).toBe('192.0.2.1')
+})
+
+test('session verification is bounded by its upstream deadline', async () => {
+  const controller = new AbortController()
+  const timeout = vi.spyOn(AbortSignal, 'timeout').mockReturnValue(controller.signal)
+  const called = deferred()
+  vi.stubGlobal(
+    'fetch',
+    vi.fn(
+      (_url: RequestInfo | URL, init?: RequestInit) =>
+        new Promise<Response>((_resolve, reject) => {
+          init?.signal?.addEventListener(
+            'abort',
+            () => {
+              reject(new DOMException('deadline', 'TimeoutError'))
+            },
+            { once: true },
+          )
+          called.resolve()
+        }),
+    ),
+  )
+  const pending = route(
+    new Request('https://quibble.example/api/session', {
+      method: 'POST',
+      body: JSON.stringify({ turnstileToken: 'token' }),
+    }),
+    env(),
+  )
+  await called.promise
+  controller.abort()
+  const response = await pending
+  expect(timeout).toHaveBeenCalledExactlyOnceWith(4000)
+  expect(response.status).toBe(502)
+  expect(response.headers.get('Set-Cookie')).toBeNull()
+})
+
+test.each(['', 'quibble_session=%%.%%', 'quibble_session=abc', 'unrelated=abc'])(
+  'malformed cookies are rejected: %s',
+  async (value) => {
+    expect(await readSession(new Request('https://x', { headers: { Cookie: value } }), SESSION_KEY)).toBeUndefined()
+  },
+)
+
+test('a correctly signed cookie still needs the session payload shape', async () => {
+  const signed = await signSession(SESSION_KEY, 'invalid-session-id', Math.floor(Date.now() / 1000) + 60)
+  expect(
+    await readSession(new Request('https://x', { headers: { Cookie: `quibble_session=${signed}` } }), SESSION_KEY),
+  ).toBeUndefined()
+})
+
+test('an incomplete server library fails closed without calling the model', async () => {
+  const e = env()
+  const response = await route(
+    new Request('https://x/api/judge', {
+      method: 'POST',
+      body: JSON.stringify(guess),
+      headers: { Cookie: await cookie() },
+    }),
+    e,
+    () => ({ ...library, questions: {} }),
+  )
+  expect(response.status).toBe(502)
+  expect(e.run).not.toHaveBeenCalled()
+})
+
+test('a valid HMAC cannot turn malformed JSON into a session', async () => {
+  const payload = new TextEncoder().encode('not json')
+  const key = await crypto.subtle.importKey(
+    'raw',
+    new TextEncoder().encode(SESSION_KEY),
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign'],
+  )
+  const signature = new Uint8Array(await crypto.subtle.sign('HMAC', key, payload))
+  const encoded = (bytes: Uint8Array) =>
+    btoa(String.fromCharCode(...bytes))
+      .replaceAll('+', '-')
+      .replaceAll('/', '_')
+      .replace(/=+$/u, '')
+  const request = new Request('https://x', {
+    headers: { Cookie: `quibble_session=${encoded(payload)}.${encoded(signature)}` },
+  })
+  expect(await readSession(request, SESSION_KEY)).toBeUndefined()
 })

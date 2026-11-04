@@ -1,5 +1,6 @@
 import { describe, expect, test, vi } from 'vitest'
 import { judgeOnCloud, type RenewSession } from '@/judges/attempt'
+import { deferred } from '../../support/deferred'
 import type { JudgeRequest } from '@shared/schemas/judge'
 
 const request: JudgeRequest = { game: 'oddly-specific', n: 1, roundId: 'r1', answer: 'pocket knife', attempt: 4 }
@@ -98,4 +99,53 @@ describe('judgeOnCloud', () => {
     expect(await run(down, { online: false })).toEqual({ kind: 'error', message: 'net.offline' })
     expect(await run(down, { online: true })).toEqual({ kind: 'error', message: 'judge.cloud.unreachable' })
   })
+})
+
+test('a stalled renewal obeys the same deadline and cannot send a late guess', async () => {
+  const controller = new AbortController()
+  vi.spyOn(AbortSignal, 'timeout').mockReturnValue(controller.signal)
+  const renewal = deferred<'ok'>()
+  const renew = vi.fn(() => renewal.promise)
+  const fetchImpl = vi.fn(() => reply(401, { error: 'session' }))
+  const pending = judgeOnCloud(request, renew, { fetch: fetchImpl })
+  await vi.waitFor(() => {
+    expect(renew).toHaveBeenCalledWith(controller.signal)
+  })
+  controller.abort(new DOMException('deadline', 'TimeoutError'))
+  await expect(pending).resolves.toEqual({ kind: 'error', message: 'judge.cloud.timeout' })
+  renewal.resolve('ok')
+  await renewal.promise
+  expect(fetchImpl).toHaveBeenCalledTimes(1)
+})
+
+test('a network failure uses the browser online state by default', async () => {
+  vi.stubGlobal('navigator', { onLine: false })
+  expect(await judgeOnCloud(request, ok, { fetch: () => Promise.reject(new Error('network')) })).toEqual({
+    kind: 'error',
+    message: 'net.offline',
+  })
+})
+
+test('platform throttling uses the current date when no clock is supplied', async () => {
+  const before = Date.now()
+  const result = await judgeOnCloud(request, ok, { fetch: () => reply(429) })
+  expect(result.kind).toBe('resting')
+  if (result.kind !== 'resting') throw new Error('Expected a reset time')
+  expect(Date.parse(result.resetAt)).toBeGreaterThan(before)
+  expect(Date.parse(result.resetAt) - before).toBeLessThanOrEqual(24 * 60 * 60 * 1000)
+})
+
+test.each(['session', 'unknown', 'busy', 'resting'] as const)('maps a minimal %s failure', async (error) => {
+  const status = error === 'session' ? 401 : 503
+  const result = await judgeOnCloud(request, ok, {
+    fetch: () => reply(status, { error }),
+    now: () => new Date('2026-10-29T12:00:00Z'),
+  })
+  expect(result).toEqual(
+    error === 'busy'
+      ? { kind: 'busy', retryAfter: 60 }
+      : error === 'resting'
+        ? { kind: 'resting', resetAt: '2026-10-30T00:00:00.000Z' }
+        : { kind: 'error', message: 'judge.cloud.unreachable' },
+  )
 })

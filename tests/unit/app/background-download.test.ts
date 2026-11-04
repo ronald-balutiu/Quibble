@@ -76,3 +76,23 @@ describe('visit-scoped download', () => {
     expect(judge.load).not.toHaveBeenCalled()
   })
 })
+
+test.each([false, true])(
+  'an unexpected load rejection %s cancellation restores a usable download state',
+  async (cancelled) => {
+    const loading = deferred<LoadResult>()
+    const judge = deviceJudgeDouble('off', { load: vi.fn(() => loading.promise) })
+    const download = createBackgroundDownload(judge)
+    expect(download.getServerSnapshot()).toEqual({ kind: 'idle' })
+    download.cancel()
+    const listener = vi.fn()
+    const unsubscribe = download.subscribe(listener)
+    const pending = download.start()
+    if (cancelled) download.cancel()
+    loading.reject(new Error('worker startup'))
+    await pending
+    expect(download.getSnapshot()).toEqual(cancelled ? { kind: 'idle' } : { kind: 'failed', reason: 'start' })
+    expect(listener).toHaveBeenCalled()
+    unsubscribe()
+  },
+)

@@ -96,7 +96,7 @@ export async function handleSession(request: Request, env: Env): Promise<Respons
 
   let verdict: z.infer<typeof siteverifySchema>
   try {
-    const response = await fetch(SITEVERIFY, { method: 'POST', body: form })
+    const response = await fetch(SITEVERIFY, { method: 'POST', body: form, signal: AbortSignal.timeout(4000) })
     verdict = siteverifySchema.parse(await response.json())
   } catch {
     return json({ error: 'unavailable' }, 502)

@@ -139,4 +139,35 @@ test.describe('the on-device judge (stubbed worker)', () => {
     await expect(drawer.getByText('Off', { exact: true })).toBeVisible()
     await expect(drawer.getByRole('radio', { name: 'Cloud', exact: true })).toBeChecked()
   })
+
+  test('a referee choice survives a failed storage write and controls the next guess', async ({ page }) => {
+    await setUp(page, 'ready')
+    // Cloud accepts this answer; the device rejects it, so the deciding verdict is observable.
+    await page.goto('/play/oddly-specific/1')
+    await turnOn(page)
+    await expect(page.getByText('○ Device • ready')).toBeVisible()
+    await page.evaluate(() => {
+      const proto = Object.getPrototypeOf(localStorage) as typeof localStorage
+      // eslint-disable-next-line @typescript-eslint/unbound-method -- forwarded with the Storage receiver below.
+      const original = proto.setItem
+      proto.setItem = function (key: string, value: string) {
+        if (key === 'quibble:settings:referee') throw new Error('Storage write blocked')
+        original.call(this, key, value)
+      }
+    })
+    await page.getByRole('button', { name: 'Settings', exact: true }).click()
+    const drawer = page.getByRole('dialog', { name: 'Settings', exact: true })
+    await drawer.getByRole('radio', { name: 'On-device', exact: true }).check()
+    await drawer.getByRole('button', { name: 'Close', exact: true }).click()
+    // Replace the usual mock so the judges disagree on a word the device rejects.
+    await mockJudge(page, (request) => allConditions(puzzle, request, true))
+    await submitGuess(page, 'spoon')
+    await expect(page.getByText('VERDICT • REJECTED')).toBeVisible()
+    const records = await page.evaluate(
+      () => JSON.parse(localStorage.getItem('quibble:comparisons') ?? '[]') as { referee: string }[],
+    )
+    expect(records).toMatchObject([{ referee: 'device' }])
+    await page.getByRole('button', { name: 'Settings', exact: true }).click()
+    await expect(drawer.getByRole('radio', { name: 'On-device', exact: true })).toBeChecked()
+  })
 })

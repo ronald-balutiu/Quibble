@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, test } from 'vitest'
+import { beforeEach, describe, expect, test, vi } from 'vitest'
 import { oddlySpecificConfig } from '@shared/games/oddly-specific'
 import { runReducer, startRun } from '@/games/rounds/reducer'
 import { hasProgressActivity, isStorageAvailable, loadProgress, resetPuzzle, saveRun } from '@/lib/storage/progress'
@@ -82,4 +82,16 @@ describe('progress storage', () => {
     expect(saveRun('oddly-specific', 3, startRun(oddlySpecificConfig), 0)).toBe(false)
     expect(resetPuzzle('oddly-specific', 3)).toBe(false)
   })
+})
+
+test('missing storage and a throwing accessor both disable progress without disrupting play', () => {
+  vi.stubGlobal('localStorage', undefined)
+  expect(isStorageAvailable()).toBe(false)
+  expect(saveRun('oddly-specific', 1, startRun(oddlySpecificConfig), 0)).toBe(false)
+  installStorage()
+  vi.spyOn(globalThis, 'localStorage', 'get').mockImplementation(() => {
+    throw new Error('blocked')
+  })
+  expect(loadProgress('oddly-specific', 1)).toEqual({})
+  expect(isStorageAvailable()).toBe(false)
 })

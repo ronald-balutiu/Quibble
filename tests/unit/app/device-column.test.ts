@@ -312,3 +312,34 @@ describe('both judges on one guess (3.7)', () => {
     expect(result).toEqual({ ui: { kind: 'notJudged', message: 'judge.cloud.unreachable' }, notScored: 'device' })
   })
 })
+
+test.each([
+  [400, { error: 'invalid' }, { kind: 'input', notice: 'input.tooLong' }],
+  [429, { error: 'busy', retryAfter: 30 }, { kind: 'notJudged', message: 'cloud.busy', retryAfter: 30 }],
+] as const)('cloud-only HTTP %s is represented without scoring', async (status, body, ui) => {
+  vi.stubGlobal(
+    'fetch',
+    vi.fn(() => Promise.resolve(Response.json(body, { status }))),
+  )
+  expect(await judgeGuess(turn, { device: deviceJudgeDouble() })).toEqual({ ui })
+})
+
+test('an expired cloud session with no Turnstile container fails without extra requests', async () => {
+  const fetch = vi.fn(() => Promise.resolve(Response.json({ error: 'session' }, { status: 401 })))
+  vi.stubGlobal('fetch', fetch)
+  expect(await judgeGuess(turn, { device: deviceJudgeDouble() })).toEqual({
+    ui: { kind: 'notJudged', message: 'judge.cloud.unreachable' },
+  })
+  expect(fetch).toHaveBeenCalledTimes(1)
+})
+
+test('corrupt comparison roots are ignored and an absent overrule never changes unrelated records', () => {
+  const data = installStorage({ 'quibble:comparisons': JSON.stringify({ broken: true }) })
+  expect(loadComparisons()).toEqual([])
+  const before = record(Date.now())
+  saveComparison(before)
+  markOverruled('double-agent', 99, 'r1', 'other')
+  expect(loadComparisons()).toEqual([before])
+  data.set('quibble:comparisons', 'not json')
+  expect(loadComparisons()).toEqual([])
+})

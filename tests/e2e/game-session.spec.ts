@@ -188,3 +188,89 @@ for (const game of gameIds) {
     await fitsWidth()
   })
 }
+
+for (const game of gameIds) {
+  test(`${game} redisplays an old rejection without offering an overrule or spending another try`, async ({ page }) => {
+    const puzzle = shippedPuzzle(game)
+    let calls = 0
+    await seedStorage(page, tipsSeen)
+    await mockJudge(page, (request) => {
+      calls += 1
+      return allConditions(puzzle, request, false)
+    })
+    await page.goto(`/play/${game}/1`)
+    await submitGuess(page, 'spoon')
+    await expect(page.getByRole('button', { name: 'Count it anyway' })).toBeVisible()
+    await page.getByRole('button', { name: 'Try again', exact: true }).click()
+    await submitGuess(page, 'spoon')
+    await expect(page.getByText('VERDICT • REJECTED')).toBeVisible()
+    await expect(page.getByRole('button', { name: 'Count it anyway' })).toHaveCount(0)
+    await expect(page.getByRole('img', { name: '1 of 3 wrong guesses used' })).toBeVisible()
+    await page.getByRole('button', { name: 'Try again', exact: true }).click()
+    await expect(page.getByRole('textbox')).toBeEnabled()
+    await expect(page.getByRole('img', { name: '1 of 3 wrong guesses used' })).toBeVisible()
+    expect(calls).toBe(1)
+    const saved = await page.evaluate(
+      (key) => JSON.parse(localStorage.getItem(key) ?? '{}') as { run: { rounds: { overruled: boolean }[] } },
+      `quibble:progress:${game}:1`,
+    )
+    expect(saved.run.rounds.some((round) => round.overruled)).toBe(false)
+  })
+
+  test(`${game} recovers an unusable saved run and preserves its best score`, async ({ page }) => {
+    await seedStorage(page, {
+      ...tipsSeen,
+      [`quibble:progress:${game}:1`]: JSON.stringify({ best: 1, run: { current: 99, rounds: [], finished: false } }),
+    })
+    await page.goto(`/play/${game}/1`)
+    await expect(page.getByRole('textbox')).toBeEnabled()
+    const saved = await page.evaluate(
+      (key) =>
+        JSON.parse(localStorage.getItem(key) ?? '{}') as { best: number; run: { current: number; rounds: unknown[] } },
+      `quibble:progress:${game}:1`,
+    )
+    expect(saved.best).toBe(1)
+    expect(saved.run.current).toBe(0)
+    expect(saved.run.rounds).toHaveLength(shippedPuzzle(game).rounds.length)
+  })
+}
+
+for (const stalled of ['widget', 'session request'] as const) {
+  test(`a stalled ${stalled} during renewal times out and unlocks the game`, async ({ page }) => {
+    const release = deferred()
+    let judgeCalls = 0
+    await mockJudge(page, () => {
+      judgeCalls += 1
+      return { status: 401, json: { error: 'session' } }
+    })
+    await page.route('https://challenges.cloudflare.com/turnstile/v0/api.js*', (route) =>
+      route.fulfill({
+        contentType: 'text/javascript',
+        body: `
+      globalThis.__removedWidgets = 0;
+      window.turnstile = {
+        render: (_container, options) => { window.__callbacks = options; return 'test-widget' },
+        execute: () => { ${stalled === 'session request' ? "window.__callbacks.callback('test-token')" : ''} },
+        remove: () => { globalThis.__removedWidgets += 1 }
+      };
+    `,
+      }),
+    )
+    await page.route('**/api/session', async (route) => {
+      await release.promise
+      await route.fulfill({ status: 502, json: { error: 'unavailable' } })
+    })
+    try {
+      await page.goto('/play/oddly-specific/1')
+      await submitGuess(page, 'spoon')
+      await expect(page.getByRole('textbox')).toBeDisabled()
+      await expect(page.getByText('NOT JUDGED • NO STRIKE')).toBeVisible({ timeout: 15_000 })
+      await expect(page.getByRole('textbox')).toBeEnabled()
+      await expect(page.getByRole('img', { name: '0 of 3 wrong guesses used' })).toBeVisible()
+      expect(await page.evaluate<number>('globalThis.__removedWidgets')).toBe(1)
+      expect(judgeCalls).toBe(1)
+    } finally {
+      release.resolve()
+    }
+  })
+}

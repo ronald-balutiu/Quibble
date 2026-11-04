@@ -7,6 +7,7 @@ import { en, format, type CopyKey } from '@/copy/en'
 import { Clues } from '@/games/double-agent/Clues'
 import { GuessMap } from '@/games/double-agent/GuessMap'
 import { agentSentence } from '@/games/double-agent/verdict'
+import { usableRun } from '@/games/shared/restore-run'
 import { loadProgress } from '@/lib/storage/progress'
 import { GameTip } from '@/games/shared/GameTip'
 import { AnswerForm } from '@/games/shared/AnswerForm'
@@ -57,7 +58,7 @@ export function RoundGame({ puzzle }: { puzzle: Puzzle }) {
   const [run, dispatch] = useReducer(
     variant.reduce,
     undefined,
-    () => loadProgress(game, n).run ?? startRun(variant.config),
+    () => usableRun(puzzle, loadProgress(game, n).run) ?? startRun(variant.config),
   )
   const {
     ui,
@@ -126,7 +127,7 @@ export function RoundGame({ puzzle }: { puzzle: Puzzle }) {
                   <li
                     key={condition.id}
                     className={
-                      ui.kind === 'rejected' && ui.guess.failed.includes(condition.id)
+                      (ui.kind === 'rejected' || ui.kind === 'repeated') && ui.guess.failed.includes(condition.id)
                         ? 'conditions__item conditions__item--failed'
                         : 'conditions__item'
                     }
@@ -151,15 +152,17 @@ export function RoundGame({ puzzle }: { puzzle: Puzzle }) {
               }}
             />
             <p id="answer-note" className="telemetry">
-              {ui.kind === 'input' && ui.notice
-                ? en[ui.notice === 'input.tooLong' ? variant.tooLong : ui.notice]
-                : format('game.counter', {
-                    count: characterCount(answer),
-                    max: 'maxLetters' in config.input ? config.input.maxLetters : config.input.maxCharacters,
-                  })}
+              {ui.kind === 'repeated'
+                ? en['input.repeat']
+                : ui.kind === 'input' && ui.notice
+                  ? en[ui.notice === 'input.tooLong' ? variant.tooLong : ui.notice]
+                  : format('game.counter', {
+                      count: characterCount(answer),
+                      max: 'maxLetters' in config.input ? config.input.maxLetters : config.input.maxCharacters,
+                    })}
             </p>
             <div aria-live="polite">
-              {ui.kind === 'rejected' && (
+              {(ui.kind === 'rejected' || ui.kind === 'repeated') && (
                 <RejectedPanel
                   sentence={
                     (agent ? agentSentence(ui.guess, conditions) : rejectedSentence(ui.guess, conditions)) +
@@ -168,7 +171,7 @@ export function RoundGame({ puzzle }: { puzzle: Puzzle }) {
                   disabled={busy}
                   endLabel={lastTry ? en['game.endRound'] : undefined}
                   onTryAgain={tryAgain}
-                  onCountAnyway={countAnyway}
+                  onCountAnyway={ui.kind === 'rejected' ? countAnyway : undefined}
                 />
               )}
               <NotJudgedPanel

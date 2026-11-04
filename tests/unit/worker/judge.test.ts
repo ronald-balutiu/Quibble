@@ -1,5 +1,5 @@
 import { describe, expect, test, vi } from 'vitest'
-import { judgeWithClef, type AiRunner } from '../../../worker/judge'
+import { judgeWithClef, judgeWithGemma, type AiRunner } from '../../../worker/judge'
 import fixture from '../../fixtures/clef/clef-flash-success.json'
 
 const questions = Object.entries(fixture.request.questions).map(([id, { instructions }]) => ({
@@ -72,4 +72,23 @@ describe('judgeWithClef', () => {
     expect(await judgeWithClef(ai, 'x', questions, { sleep: noSleep })).toEqual({ ok: false, error: 'unavailable' })
     expect(ai.run).toHaveBeenCalledTimes(1)
   })
+})
+
+test('Gemma fails closed when one parallel condition response is unreadable', async () => {
+  const ai = runner({}, {})
+  expect(await judgeWithGemma(ai, 'knife', questions.slice(0, 2))).toEqual({ ok: false, error: 'unavailable' })
+  expect(ai.run).toHaveBeenCalledTimes(2)
+})
+
+test('an uncoded non-Error rejection gets one bounded retry', async () => {
+  vi.useFakeTimers()
+  try {
+    const ai = { run: vi.fn<AiRunner['run']>().mockRejectedValueOnce('network').mockResolvedValueOnce(recorded) }
+    const pending = judgeWithClef(ai, 'knife', questions)
+    await vi.advanceTimersByTimeAsync(300)
+    expect(await pending).toMatchObject({ ok: true })
+    expect(ai.run).toHaveBeenCalledTimes(2)
+  } finally {
+    vi.useRealTimers()
+  }
 })

@@ -5,6 +5,7 @@ import type { ReactNode } from 'react'
 import { MemoryRouter } from 'react-router'
 import { afterEach, describe, expect, test, vi } from 'vitest'
 import { usePageMeta } from '@/app/use-page-meta'
+import { useDeviceStatus } from '@/judges/device/use-device'
 import { useHydrated } from '@/lib/use-hydrated'
 import { useResource } from '@/lib/use-resource'
 import type { DeviceRun } from '@/games/shared/judge-guess'
@@ -155,4 +156,65 @@ describe('usePageMeta', () => {
     rerender({ indexable: true })
     expect(document.head.querySelector('meta[name="robots"]')).toBeNull()
   })
+})
+
+test('device setup opens and closes, and prerendering always reports the judge off', () => {
+  const { result } = renderHook(() => useDeviceColumn())
+  act(() => {
+    result.current.openSetup()
+  })
+  expect(result.current.setupOpen).toBe(true)
+  act(() => {
+    result.current.closeSetup()
+  })
+  expect(result.current.setupOpen).toBe(false)
+  function Status() {
+    return <>{useDeviceStatus()}</>
+  }
+  expect(renderToString(<Status />)).toBe('off')
+})
+
+test('page metadata scrolls to an existing linked section after mounting', () => {
+  const element = document.createElement('section')
+  element.id = 'privacy'
+  document.body.append(element)
+  const scroll = vi.spyOn(element, 'scrollIntoView').mockImplementation(() => undefined)
+  const wrapper = ({ children }: { children: ReactNode }) => (
+    <MemoryRouter initialEntries={['/about#privacy']}>{children}</MemoryRouter>
+  )
+  renderHook(
+    () => {
+      usePageMeta('About')
+    },
+    { wrapper },
+  )
+  expect(scroll).toHaveBeenCalledTimes(1)
+  element.remove()
+})
+
+test('device column keeps scanning and failure states separate from compared verdicts', () => {
+  const { result } = renderHook(() => useDeviceColumn())
+  let follow: (run: DeviceRun) => void = () => undefined
+  act(() => {
+    follow = result.current.follow()
+    follow({ kind: 'scanning', started: 0 })
+  })
+  expect(result.current.run?.kind).toBe('scanning')
+  act(() => {
+    follow({ kind: 'scored', scores: {}, ms: 10 })
+  })
+  expect(result.current.tally).toEqual({ agreed: 0, compared: 0 })
+  act(() => {
+    result.current.settled({ ui: { kind: 'notJudged', message: 'net.offline' }, notScored: 'device' })
+  })
+  expect(result.current.notScored).toBe('device')
+  act(() => {
+    result.current.settled({
+      guess: { answer: 'x', pass: true, failed: [], closeCall: false },
+      scores: {},
+      decidedBy: 'device',
+      cloudMessage: 'net.offline',
+    })
+  })
+  expect(result.current.cloudMessage).toBe('net.offline')
 })

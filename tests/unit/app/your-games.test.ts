@@ -85,3 +85,12 @@ describe('one puzzle on its results screen (G6)', () => {
     expect(result.splits).toEqual([{ record: records[1], condition: 'c0', cloud: 0.5, device: 0.5 }])
   })
 })
+
+test('even-sized warm speed samples use the midpoint rather than either observation', () => {
+  expect(
+    yourGames([
+      record([[true, true]], { cloudModelMs: 10, deviceMs: 30 }),
+      record([[true, true]], { cloudModelMs: 30, deviceMs: 70 }),
+    ]),
+  ).toMatchObject({ cloudMedianMs: 20, deviceMedianMs: 50 })
+})

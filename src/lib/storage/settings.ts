@@ -13,6 +13,11 @@ const TIPS = 'quibble:settings:tipsSeen'
 const REFEREE = 'quibble:settings:referee'
 const cloudListeners = new Set<() => void>()
 let memoryCloudModel: CloudModel | undefined
+let memoryReferee: Referee | undefined
+
+export function refreshReferee(): void {
+  memoryReferee = undefined
+}
 
 export function refreshCloudModel(): void {
   memoryCloudModel = undefined
@@ -77,6 +82,7 @@ export function markTipSeen(game: string): void {
 // Which judge decides (L3): the cloud unless the player picked the on-device judge.
 // It only applies while that judge is on.
 export function loadReferee(): Referee {
+  if (memoryReferee) return memoryReferee
   try {
     return globalThis.localStorage.getItem(REFEREE) === 'device' ? 'device' : 'cloud'
   } catch {
@@ -87,7 +93,9 @@ export function loadReferee(): Referee {
 export function saveReferee(referee: Referee): void {
   try {
     globalThis.localStorage.setItem(REFEREE, referee)
+    memoryReferee = undefined
   } catch {
+    memoryReferee = referee
     // Storage is off; the choice lasts for this page only.
   }
 }

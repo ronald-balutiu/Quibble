@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest'
-import { readAnswers, type ClefModel } from '../../../worker/read-answers'
+import { readAnswers, readGemma, type ClefModel } from '../../../worker/read-answers'
 import clefFlash from '../../fixtures/clef/clef-flash-success.json'
 import clef from '../../fixtures/clef/clef-success.json'
 import malformed from '../../fixtures/clef/malformed.json'
@@ -26,4 +26,25 @@ describe('readAnswers', () => {
   test.each(malformed.cases.map((c) => [c.name, c] as const))('rejects a malformed response: %s', (_name, c) => {
     expect(readAnswers(c.response, c.model as ClefModel, c.questionIds)).toEqual({ ok: false })
   })
+})
+
+test('usage is optional for an otherwise complete Clef response', () => {
+  const fixture = clefFlash.response.body.result
+  const result = readAnswers(
+    { model: fixture.model, answers: fixture.answers },
+    'clef-flash',
+    Object.keys(fixture.answers),
+  )
+  expect(result).toEqual({
+    ok: true,
+    scores: Object.fromEntries(Object.entries(fixture.answers).map(([id, answer]) => [id, answer.noul])),
+  })
+})
+
+test.each([
+  {},
+  { choices: [] },
+  { choices: [{ logprobs: { content: [{ top_logprobs: [{ token: 'maybe', logprob: -1 }] }] } }] },
+])('Gemma rejects responses without yes/no probability mass', (response) => {
+  expect(readGemma(response)).toBeUndefined()
 })

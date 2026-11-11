@@ -91,7 +91,7 @@
     "onnxruntime-common": "1.31.1",
     "onnxruntime-node": "1.31.1",
     "prettier": "^3.9.10",
-    "stylelint": "^17.16.0",
+    "stylelint": "^18.0.0",
     "tsx": "^4.23.15",
     "typescript": "npm:@typescript/typescript6@6.0.2",
     "typescript-eslint": "^8.72.1",
